@@ -1,0 +1,15 @@
+const {chromium}=require('playwright');const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({headless:true,...(process.env.LAB_CHROME?{executablePath:process.env.LAB_CHROME,args:['--no-sandbox','--disable-dev-shm-usage','--single-process','--no-zygote','--disable-gpu','--disable-software-rasterizer']}: {})});const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(process.env.LAB_URL||'http://127.0.0.1:8765/v14.html');await page.waitForFunction(()=>typeof causalLast!=='undefined'&&causalLast?.chosen?.length===20);await page.waitForTimeout(1200);
+console.log('state:',await page.locator('#causal-state').innerText());console.log('intel:',await page.locator('#auto-intel-status').innerText());
+assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);assert.equal(await page.locator('#causal-top .causal-k').count(),3);
+assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'mobile horizontal overflow');
+await page.locator('#causal-run').click();assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);
+await page.locator('#causal-stories details').first().locator('summary').click();await page.locator('#causal-stories details').first().locator('summary').click();
+await page.locator('#causal-lab').screenshot({path:process.env.LAB_SCREENSHOT||'/tmp/mobile-brain.png'});
+const exported=page.waitForEvent('download');await page.locator('#causal-export').click();console.log('export:',(await exported).suggestedFilename());
+const available=await page.evaluate(()=>({bundled:QUICK_BUNDLED.map(r=>({date:r.date,venue:r.venue,race_no:r.race_no})),ids:[...document.querySelectorAll('[id]')].map(x=>x.id)}));
+console.log('quick:',JSON.stringify(available.bundled));
+await page.evaluate(()=>{data=structuredClone(QUICK_BUNDLED[1]);render();});
+assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);assert.match(await page.locator('#causal-state').innerText(),/2026-11-01/);
+assert.equal(errors.length,0,errors.join('\n'));
+console.log('PASS mobile rendering, regenerate, race switch, export, no JS errors');await browser.close();})();

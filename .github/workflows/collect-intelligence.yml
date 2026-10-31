@@ -1,0 +1,40 @@
+name: Collect public article intelligence
+on:
+  schedule:
+    - cron: '20 21,3,9 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/collect_intel.py', '.github/workflows/collect-intelligence.yml']
+permissions:
+  contents: write
+concurrency:
+  group: article-intelligence
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Collect article bodies
+        id: collect
+        continue-on-error: true
+        run: python scripts/collect_intel.py --max-articles 36
+      - name: Save evidence and collection status
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/intelligence.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update public article evidence and collection status'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Report failed collection
+        if: steps.collect.outcome == 'failure'
+        run: exit 1

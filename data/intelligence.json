@@ -1,0 +1,124 @@
+{
+  "schema": "tk-keirin-intelligence/v1.4",
+  "generated_at": "2026-10-31T22:51:04.036409+00:00",
+  "roster_dates": [
+    "2026-11-01"
+  ],
+  "roster_size": 591,
+  "evidence": [
+    {
+      "id": "5913a8385144d76af2cb",
+      "rider": "町田太我",
+      "trait": "resist",
+      "value": 0.9,
+      "confidence": 0.6,
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/2241",
+      "title": "【防府競輪・ＧⅢ周防国府杯争奪戦】桑原大志「僕の仕事の一つなのかな、と」",
+      "excerpt": "レースは町田太我が堂々の突っ張り先行",
+      "condition": "単一局面の観察。恒常的な性格と断定しない",
+      "published_at": "2026-10-30T06:41:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "extractor": "explicit-subject-rules-v1.4"
+    }
+  ],
+  "articles": [
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1659",
+      "published_at": "2026-10-09T12:10:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1663",
+      "published_at": "2026-10-31T10:35:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1661",
+      "published_at": "2026-10-31T10:35:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1044",
+      "published_at": "2026-10-27T08:00:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/2241",
+      "published_at": "2026-10-30T06:41:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 1
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/2240",
+      "published_at": "2026-10-31T10:35:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/2239",
+      "published_at": "2026-10-26T09:16:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/2238",
+      "published_at": "2026-08-01T13:00:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1938",
+      "published_at": "2026-10-31T10:35:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/411",
+      "published_at": "2026-10-31T10:35:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/882",
+      "published_at": "2026-10-02T13:50:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/2183",
+      "published_at": "2026-10-31T10:35:00+00:00",
+      "collected_at": "2026-10-31T22:51:04.036409+00:00",
+      "body_verified": true,
+      "evidence_count": 0
+    }
+  ],
+  "status": {
+    "attempted": 12,
+    "body_articles": 12,
+    "evidence": 1,
+    "errors": [
+      {
+        "stage": "roster",
+        "date": "2026-11-02",
+        "error": "HTTP Error 404: Not Found"
+      }
+    ]
+  },
+  "notice": "公開記事本文の明示的な選手主語のみ自動抽出。未校正・誤読の可能性あり。取得日時と公開日時より前の予想へは適用しない。"
+}
