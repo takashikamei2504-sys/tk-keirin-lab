@@ -1,0 +1,1328 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TK KEIRIN LAB | 人物記憶・展開推理 v0.7</title>
+<style>
+:root{color-scheme:dark;--bg:#0c121b;--panel:#161f2b;--muted:#9aaabd;--line:#344153;--white:#eff5fa;--gold:#f1c977;--green:#92dbc2;--blue:#a6c9f7}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;line-height:1.55}
+.wrap{max-width:1120px;padding:24px 20px 70px;margin:auto}.eyebrow{color:var(--gold);font-size:12px;letter-spacing:2px;font-weight:700}
+h1{margin:4px 0 10px;font-size:clamp(24px,4vw,38px);letter-spacing:.025em}.sub{color:var(--muted);margin:0 0 24px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.panel{border:1px solid #27354a;background:var(--panel);border-radius:16px;padding:20px;margin-bottom:16px}.panel h2{font-size:17px;margin:0 0 12px}.details{color:var(--muted);font-size:13px}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12px;color:var(--muted)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.lineup{display:grid;gap:8px}.rail{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.railname{width:90px;color:var(--muted);font-size:13px}.chip{min-width:33px;height:36px;border-radius:8px;background:#28384d;display:inline-flex;align-items:center;justify-content:center;font-weight:800}.chip.main{background:#655026;color:#ffe9b7}.dash{color:#6a7d93}.hero{color:var(--gold);font-weight:700;font-size:17px}.report{white-space:pre-wrap;font-size:14px;line-height:1.85;color:#d9e5ef}.ticket-table{width:100%;border-collapse:collapse;font-size:13px}.ticket-table th{text-align:left;color:var(--muted);font-size:12px;font-weight:500}.ticket-table th,.ticket-table td{border-bottom:1px solid #293548;padding:9px 5px}.ticket-table td:nth-child(2){font-weight:750;font-size:16px;white-space:nowrap;font-variant-numeric:tabular-nums}.ticket-table td:last-child{text-align:right}.small{font-size:12px;color:var(--muted)}.scorebar{height:7px;border-radius:10px;background:#2d4054;overflow:hidden;width:100px}.scorebar i{height:100%;display:block;background:var(--gold)}.btn{background:var(--gold);color:#19202a;border:0;border-radius:9px;padding:10px 15px;font-weight:750;cursor:pointer}.btn.secondary{background:#2a3b50;color:var(--white)}.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0 18px}.controls input{width:68px;padding:8px;background:#0e1824;color:var(--white);border:1px solid #526277;border-radius:7px;font-size:15px}label{font-size:13px;color:var(--muted)}summary{cursor:pointer;color:var(--blue);font-size:13px;padding:8px 0}textarea{width:100%;min-height:300px;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0d1723;border:1px solid #3b4d63;border-radius:10px;padding:12px;color:var(--white)}.warning{border-left:3px solid var(--gold);padding:12px 14px;background:#262b2a;color:#f1dcae;font-size:13px}.stat{font-size:22px;color:var(--gold);font-weight:800}.footer{color:var(--muted);font-size:12px;line-height:1.8;margin-top:25px}a{color:var(--blue)}.error{color:#ff9a9a;font-size:13px;white-space:pre-wrap}.player{display:grid;grid-template-columns:36px minmax(80px,1fr) 80px 80px;gap:8px;padding:7px 0;border-bottom:1px solid #2b3849;font-size:12px}.player .num{font-weight:800;color:var(--gold)}.player .val{text-align:right;font-variant-numeric:tabular-nums}@media(max-width:750px){.grid{grid-template-columns:1fr}.wrap{padding:18px 13px 50px}.panel{padding:15px}.player{grid-template-columns:30px 1fr 65px 65px}.railname{width:70px}}
+
+.audit-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.audit-grid .audit-stat{border:1px solid #354458;border-radius:10px;padding:10px;background:#192636}
+.audit-stat strong{display:block;font-size:21px;color:var(--gold)}
+.logrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:14px 0;border-bottom:1px solid #344153}
+.logrow:last-child{border:0}
+.logrow .itemname{font-weight:750}
+.logrow input{color:#fff;border:1px solid #526277;background:#0e1824;padding:7px;border-radius:7px;max-width:116px;width:100%;font-size:14px}
+.logrow .outcome{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.logrow .outcome label{font-size:11px}
+.logrow .result{font-size:12px;line-height:1.8;color:var(--muted)}
+.logrow .status{font-size:11px;color:#9bddc1}
+.logrow .status.replay{color:var(--gold)}
+.audit-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+@media(max-width:750px){.audit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.logrow{grid-template-columns:1fr}.logrow .outcome input{max-width:120px}}
+
+/* v0.3: iPhone-friendly data intake */
+.entry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.entry-field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.entry-field input,.entry-field select,.entry-field textarea,.entry-select{min-width:0;width:100%;background:#0d1723;color:var(--white);border:1px solid #496079;border-radius:9px;padding:10px;font-size:16px;font-family:inherit}
+.entry-field input[type=number]{font-variant-numeric:tabular-nums}
+.entry-wide{grid-column:1/-1}.entry-section{margin-top:15px}.entry-section h3{font-size:14px;margin:0 0 6px}
+#entry-riders{min-height:225px;line-height:1.7;font-size:13px;white-space:pre;overflow-x:auto}
+#entry-lineup{font-family:ui-monospace,SFMono-Regular,monospace}
+.entry-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.entry-preview{border:1px solid #415973;border-radius:11px;padding:12px;background:#111d2a;margin-top:12px}
+.entry-preview table{border-collapse:collapse;width:100%;font-size:12px}.entry-preview th,.entry-preview td{padding:7px 3px;border-bottom:1px solid #2d3e52;text-align:left}
+.entry-preview th{color:var(--muted)}.entry-preview strong{color:var(--green)}
+.entry-help{color:var(--muted);font-size:12px;margin-top:5px;line-height:1.8}
+.entry-msg{white-space:pre-wrap;font-size:13px;margin-top:10px;color:var(--gold)}
+.entry-msg.bad{color:#ffabab}.entry-msg.good{color:var(--green)}
+.entry-source{font-size:12px;color:var(--muted);margin-top:8px}
+.mini{font-size:12px;padding:9px 11px}.file-tap{display:inline-block;cursor:pointer}
+.entry-photo{max-width:100%;max-height:420px;border-radius:9px;margin-top:10px;object-fit:contain}
+#pdf-extracted{min-height:140px}
+button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:420px){.entry-grid{grid-template-columns:1fr 1fr}.entry-field{font-size:12px}.entry-preview{overflow-x:auto}.entry-preview table{min-width:350px}}
+
+
+/* Forecast v0.4 */
+.grid>div,.panel{min-width:0}
+.grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+@media(max-width:750px){.grid{grid-template-columns:minmax(0,1fr)}}
+.forecast-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.forecast-options select{font-size:14px!important}
+.forecast-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}
+.forecast-stat{border:1px solid #354458;border-radius:9px;padding:9px;background:#111e2b}
+.forecast-stat strong{display:block;color:var(--gold);font-size:19px;font-variant-numeric:tabular-nums}
+.forecast-scenarios{display:grid;gap:7px;margin:12px 0;font-size:12px}
+.forecast-scenarios .one{display:grid;grid-template-columns:103px 1fr 45px;gap:9px;align-items:center}
+.forecast-track{height:8px;background:#2c4058;border-radius:8px;overflow:hidden}
+.forecast-track i{display:block;background:var(--gold);height:100%;border-radius:8px}
+.forecast-textarea{min-height:104px;font-size:14px}
+.forecast-ticket-scroll{overflow-x:auto}
+.forecast-ticket-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:12px;min-width:370px}
+.forecast-ticket-table th,.forecast-ticket-table td{border-bottom:1px solid #324359;padding:10px 4px;text-align:right;white-space:nowrap}
+.forecast-ticket-table th:first-child,.forecast-ticket-table td:first-child{text-align:left}
+.forecast-ticket-table td.combo{font-weight:760;font-size:15px;color:#f1f4fa;text-align:left}
+.forecast-ticket-table td.pct{font-weight:750;color:var(--gold)}
+.forecast-hero{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0}
+.forecast-hero .note{background:#1c3041;border-radius:9px;padding:10px 12px;font-size:13px}
+.forecast-hero .note strong{display:block;color:var(--gold);font-size:19px}
+@media(max-width:460px){.forecast-options{grid-template-columns:1fr}.forecast-stat strong{font-size:17px}}
+
+/* v0.5: comparison and research diagnostics */
+.lab-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0 16px}
+.lab-kpis .lab-stat{background:#122232;border:1px solid #34465a;border-radius:10px;padding:12px;min-width:0}
+.lab-kpis .lab-stat strong{color:var(--gold);font-size:19px;display:block;font-variant-numeric:tabular-nums}
+.lab-scroll{overflow-x:auto}
+.lab-table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.lab-table th,.lab-table td{border-bottom:1px solid #304257;padding:10px 5px;text-align:right;white-space:nowrap}
+.lab-table th:first-child,.lab-table td:first-child{text-align:left;font-weight:700}
+.lab-table .up{color:#92dbc2}.lab-table .down{color:#feb9a6}
+.lab-details{margin-top:12px;border-top:1px solid #304257;padding-top:9px}
+.lab-details input{background:#0e1824;border:1px solid #526277;border-radius:8px;color:#fff;padding:11px;width:128px;font-size:16px}
+.lab-details .entry-preview{margin-top:12px}
+.lab-compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:8px 0}
+.lab-compare-grid .lab-cell{padding:9px;border:1px solid #324558;border-radius:8px}
+.lab-cell strong{display:block;color:var(--gold)}
+@media(max-width:420px){.lab-table{font-size:12px}.lab-kpis .lab-stat strong{font-size:17px}}
+
+/* v0.6 narrative brain */
+.brain-story{margin:10px 0;border:1px solid #304459;background:#142232;border-radius:12px;padding:12px}
+.brain-story summary{display:flex;flex-wrap:wrap;gap:7px;align-items:center;cursor:pointer;font-size:14px}
+.brain-story ol{margin:12px 0 4px;padding-left:26px;line-height:1.9;color:#d9e5f1}
+.brain-story li{padding-left:4px;margin:3px 0}
+.brain-pill{border:1px solid #4c5b6d;border-radius:6px;padding:3px 6px;font-size:11px;color:#eed090}
+.brain-n{color:#efc878;font-weight:700}
+.brain-muted{font-size:12px;color:#aebcce;line-height:1.8;margin-top:7px}
+.brain-table{width:100%;border-collapse:collapse;font-size:12px;min-width:330px}
+.brain-table td,.brain-table th{border-bottom:1px solid #304459;padding:10px 6px;text-align:left}
+.brain-table td strong{color:#f5d38d;font-size:16px}
+.brain-trait{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) 24px;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #304459;font-size:12px}
+.brain-trait input{accent-color:#efc878;min-width:50px;width:100%}
+.brain-doc{background:#121e2d;padding:12px;border-radius:9px;border-left:3px solid #e9bd70;line-height:1.8;font-size:12px}
+.brain-preview{overflow-x:auto}
+.brain-cta{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.brain-cta .btn{font-size:13px}
+/* v0.7 Rider Intelligence */
+.intel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.intel-card{background:#111e2d;border:1px solid #35485f;padding:12px;border-radius:10px;min-width:0}
+.intel-card strong{display:block;font-size:20px;color:#f1c977;font-variant-numeric:tabular-nums}
+.intel-card span{font-size:12px;color:#9aaabd}
+.intel-card .mini{color:#e6eff7;font-size:12px;line-height:1.8}
+.intel-box{border:1px solid #34475b;border-radius:11px;padding:12px;margin:10px 0;background:#111a27;min-width:0}
+.intel-box h3{margin:0 0 8px;font-size:15px}
+.intel-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.intel-fields label{min-width:0;display:block;color:#a5b5c7;font-size:12px}
+.intel-fields input,.intel-fields select,.intel-fields textarea,.intel-full{display:block;width:100%;color:#f2f7fc;background:#0b1522;border:1px solid #486078;border-radius:8px;padding:9px;min-height:39px;margin:5px 0 8px;font-size:15px;font-family:inherit}
+.intel-fields textarea{min-height:83px;font-size:13px}
+.intel-fields .span{grid-column:1/-1}
+.intel-record{border-bottom:1px solid #304157;padding:10px 2px;line-height:1.65;font-size:12px;overflow-wrap:anywhere}
+.intel-record strong{color:#f0d18c;font-size:13px}
+.intel-record a{word-break:break-all}
+.intel-pills{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}
+.intel-tag{display:inline-block;padding:2px 7px;border:1px solid #526075;border-radius:7px;font-size:11px;color:#ccd5e2}
+.intel-tag.approved{color:#9addbd;border-color:#4a9476}
+.intel-tag.pending{color:#f0d18c}
+.intel-acts{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0}
+.intel-acts .btn{font-size:12px}
+.intel-muted{font-size:12px;color:#abbccf;line-height:1.75}
+#intel-batch{min-height:130px;font-size:13px}
+#intel-status{white-space:pre-wrap;line-height:1.8;color:#e5c786;font-size:12px;margin:8px 0}
+#intel-suggestions{max-height:370px;overflow:auto}
+@media(max-width:480px){.intel-fields{grid-template-columns:1fr 1fr}.intel-fields .mobile{grid-column:1/-1}}
+</style>
+</head>
+<body><div class="wrap">
+<div class="eyebrow">RACE INTAKE / OFFLINE-FIRST</div>
+<h1>TK KEIRIN LAB <span style="font-size:13px;color:var(--muted);font-weight:500">v0.7</span></h1>
+<p class="sub">選手の個性 × 局面別の展開分岐 × 独立した買い目仮説</p>
+<div class="warning">これは<strong>予想ロジックの研究用試作版</strong>です。学習済みAI・確率較正済み予測ではありません。モデル内の数値は未検証の仮推定で、実際の的中確率や儲かる根拠ではありません。初期表示の2026/10/31防府12Rは過去レースのサンプルです。資料は原本と照合してください。</div>
+<br />
+
+
+<section class="panel" id="intel-panel">
+ <div class="eyebrow">RIDER INTELLIGENCE / EVIDENCE LEDGER</div>
+ <h2>選手キャラクター記憶 <span class="pill">v0.7</span></h2>
+ <p class="details">記事・前検コメント・レース映像メモ・連係相性を「候補 → 人手確認 → 予想反映」で蓄積。未確認候補は予想に使わず、**未来の結果を過去のレースへ逆流させません**。</p>
+ <div class="intel-grid" id="intel-stats"></div>
+ <div class="intel-box">
+  <h3>出走選手の調査状況</h3>
+  <div id="intel-roster" class="intel-muted"></div>
+  <div class="intel-acts"><button class="btn" id="intel-seed" type="button">公開記事の調査候補を一括登録</button><button class="btn secondary" id="intel-search" type="button">選択選手のニュースを検索</button><button class="btn secondary" id="intel-download" type="button">研究台帳をJSON保存</button><label class="btn secondary" for="intel-upload" style="cursor:pointer">台帳JSONを取り込む</label><input id="intel-upload" type="file" accept=".json,application/json" hidden></div>
+  <div class="intel-muted">保存はこのブラウザ内。公開リポジトリに個人メモが自動送信されることはありません。JSONバックアップを定期的に保存してください。</div>
+ </div>
+ <div class="intel-box">
+  <h3>根拠を１件記録する</h3>
+  <div class="intel-fields">
+    <label>選手名<select id="intel-rider"></select></label>
+    <label>仮説の特性<select id="intel-trait"></select></label>
+    <label>観察日（日付を確認）<input id="intel-date" type="date"></label>
+    <label>評価 0〜5<input id="intel-score" type="number" min="0" max="5" step="0.5" value="4"></label>
+    <label>情報の性格<select id="intel-kind"><option value="race">過去レースの観察</option><option value="pre">発走前コメント</option><option value="interview">インタビュー</option><option value="video">映像を自分で観察</option><option value="hypothesis">推論・仮説</option></select></label>
+    <label>評価の根拠<select id="intel-strength"><option value="1">弱い（単発・伝聞）</option><option value="2" selected>普通（直接観察）</option><option value="3">強い（複数事例確認）</option></select></label>
+    <label class="span mobile">出典URL（任意。URLがなくても記録可）<input type="url" id="intel-url" placeholder="https://..."></label>
+    <label class="span mobile">自分の言葉で要約（転載ではなく独自要約）<textarea id="intel-note" rows="2" maxlength="800" placeholder="例：前回の強い踏み出しでは番手が一旦遅れた。脚質ではなく瞬間加速の仮説。"></textarea></label>
+  </div>
+  <div class="intel-acts"><button class="btn" type="button" id="intel-add">候補として記録</button></div>
+  <p class="intel-muted">「確認済み」にした観察のみモデルへ反映。仮説の評価を事実と取り違えないよう、元資料・対象日を確認してから採用してください。</p>
+ </div>
+ <div class="intel-box">
+  <h3>文章から候補を拾う（簡易ローカル解析）</h3>
+  <p class="intel-muted">記事・コメントの必要部分を手元で読み、その要約を貼ると、選手名と「カマシ」「千切れ」「大外」などの表現から候補を提案。自動で確定採用はしません。否定表現などを誤認するため、原文確認が必要です。</p>
+  <textarea id="intel-batch" placeholder="例：太田海也は一度引いてからカマシを選んだ。取鳥雄吾は踏み出しで離れた。清水裕友は自力に切り替え大外を伸びた。"></textarea>
+  <div class="intel-acts"><button class="btn secondary" type="button" id="intel-analyze">候補を抽出する</button><button class="btn secondary" type="button" id="intel-batch-add">抽出候補を台帳へ追加</button></div>
+  <div id="intel-suggestions" class="intel-muted"></div>
+ </div>
+ <div class="intel-box">
+  <h3>選手間の相性・連係の記憶</h3>
+  <div class="intel-fields">
+    <label>前を走る選手<select id="intel-pair-a"></select></label>
+    <label>追走する選手<select id="intel-pair-b"></select></label>
+    <label>追走適性の観察（0〜5）<input id="intel-pair-score" type="number" min="0" max="5" step="0.5" value="3"></label>
+    <label>観察日<input id="intel-pair-date" type="date"></label>
+    <label class="span mobile">連係の根拠・出典URL<input id="intel-pair-url" type="url" placeholder="https://..."></label>
+    <label class="span mobile">自分の考察<input id="intel-pair-note" type="text" maxlength="500" placeholder="例：前走では初速に離れたが、追い上げて連結"></label>
+  </div>
+  <div class="intel-acts"><button class="btn secondary" type="button" id="intel-pair-add">連係観察を候補登録</button></div>
+  <p class="intel-muted">確認済みの追走相性を、シナリオの「連結維持／番手が離れる」分岐の相対強度に反映します。事前情報のない組み合わせには加点しません。</p>
+ </div>
+ <div class="intel-box">
+  <h3>証拠台帳（選択選手に絞り込み）</h3>
+  <div class="intel-fields"><label>表示対象<select id="intel-filter"></select></label><label>状態<select id="intel-status-filter"><option value="all">すべて</option><option value="candidate">未確認候補</option><option value="approved">確認済み</option><option value="rejected">不採用</option></select></label></div>
+  <div id="intel-records"></div>
+ </div>
+ <p id="intel-status" role="status"></p>
+</section>
+
+<section class="panel" id="brain-panel">
+<h2>展開推理エンジン <span class="pill">v0.6・新しい頭脳</span></h2>
+<p class="details">「前受け → 突っ張る／引く／カマす → 追走・千切れ → 番手はまり → 捲り・差し・大外強襲」を<strong>選手の個性仮説から分岐</strong>させます。未来の結果は入力しません。</p>
+<div class="brain-doc"><strong>推理の前提：</strong>選手の習性は取材コメント・出走表をもとにした暫定推測です。実際の選手の心理を断定するものではありません。<br>独立した展開仮説を生成しますが、AI言語モデルによるウェブ自動調査、動画解析、実データ学習は未実装です。</div>
+<div class="entry-grid" style="margin-top:12px">
+<label class="entry-field">３連単の買い目点数<input id="brain-points" type="number" min="1" max="100" value="20"></label>
+<label class="entry-field">意外な展開を優先する枠<input id="brain-rare" type="number" min="0" max="20" value="4"></label>
+<label class="entry-field entry-wide">重点的に考える「もしも」の分岐<select id="brain-focus"><option value="auto">AI自由推理（複数の別筋を考慮）</option><option value="recovery">３番手が千切れた後に自力で来る</option><option value="seat">番手が千切れ、別の選手がはまる</option><option value="outer">別ラインが大外から飛んでくる</option><option value="solo">単騎が位置を取って突き抜ける</option></select></label>
+</div>
+<div class="brain-cta"><button class="btn" type="button" id="brain-recalc">展開を独自に推理する</button><button class="btn secondary" type="button" id="brain-copy">買い目をコピー</button><button class="btn secondary" type="button" id="brain-export">仮説・買い目をJSON保存</button><button class="btn secondary" type="button" id="brain-save">v0.6の予想を記録する</button></div>
+<p id="brain-state" class="details"></p><p id="brain-front" class="details"></p>
+<h3>展開仮説の分岐</h3><div id="brain-paths"></div>
+<h3>推理に基づく３連単</h3><p id="brain-count" class="details"></p><div class="brain-preview" id="brain-tickets"></div>
+<details class="lab-details"><summary>選手の個性を確認・調整する（予想頭脳の設定）</summary>
+<p class="brain-muted">各数値は0〜5の仮説的な性向です。本人が公言した確定事実ではありません。名前ごとにこのiPhone内に記録され、次回レースでも使います。</p>
+<label class="entry-field">選手を選択<select id="brain-person"></select></label>
+<p id="brain-person-confidence" class="details"></p><div id="brain-traits"></div>
+<label class="entry-field">人物仮説のメモ<textarea id="brain-person-note" maxlength="600" rows="3"></textarea></label>
+<p id="brain-person-evidence" class="brain-muted"></p><div id="brain-person-source" class="brain-muted"></div>
+<button class="btn secondary" id="brain-person-save" type="button">この選手の個性仮説を保存・再推理</button>
+<div class="brain-cta"><button class="btn secondary" id="brain-profile-export" type="button">人物調査パックを書き出す</button><label class="btn secondary" for="brain-profile-import" style="cursor:pointer">人物調査パックを読み込む</label><input id="brain-profile-import" type="file" accept=".json,application/json" style="display:none"></div><p class="brain-muted" id="brain-import-message">後日調べた選手の調査ファイルを取り込めます。</p>
+</details>
+</section>
+
+<section class="panel" id="intake">
+<h2>出走表の取り込み <span class="pill">v0.3</span></h2>
+<p class="details">開催・出走選手・並びを入力して、<strong>検査 → 内容確認 → 予想に反映</strong>の順で進めます。外部サイトからの自動取得は行いません。</p>
+<div class="entry-grid">
+ <label class="entry-field">開催日 <input type="date" id="entry-date" required></label>
+ <label class="entry-field">競輪場 <input type="text" id="entry-venue" placeholder="例：防府" maxlength="50" required></label>
+ <label class="entry-field">レース番号 <select id="entry-race" class="entry-select"></select></label>
+ <label class="entry-field">発走時刻（JST） <input type="time" id="entry-start" required></label>
+ <label class="entry-field">車数 <select id="entry-size"><option value="7">７車</option><option value="9">９車</option></select></label>
+ <label class="entry-field">グレード <select id="entry-grade"><option value="FII">FII</option><option value="FI">FI</option><option value="GIII">GIII</option><option value="GII">GII</option><option value="GI">GI</option><option value="GP">GP</option></select></label>
+ <label class="entry-field entry-wide">レース種別 <input type="text" id="entry-class" placeholder="例：A級チャレンジ予選" maxlength="60"></label>
+ <label class="entry-field entry-wide">出典（入力元の名前） <input type="text" id="entry-source" placeholder="例：競輪場公式PDF（自分で転記）" maxlength="130"></label>
+ <label class="entry-field entry-wide">参考URL（任意） <input type="url" id="entry-source-url" placeholder="https://..." maxlength="500"></label>
+</div>
+<div class="entry-section">
+ <h3>① 選手データ（１選手１行）</h3>
+ <p class="entry-help">順番：<strong>車番,選手名,競走得点,脚質,S,B,1着,2着,3着,着外</strong><br>区切りはカンマかタブ。７車なら７行、９車なら９行。欠けた数値を勝手に０で補いません。</p>
+ <textarea id="entry-riders" spellcheck="false" placeholder="1,選手名,108.50,逃,0,4,3,2,1,10"></textarea>
+ <div class="entry-buttons">
+   <label class="btn secondary mini file-tap" for="entry-textfile">CSV / TSV / JSONを選ぶ</label><input id="entry-textfile" type="file" accept=".csv,.tsv,.txt,.json,text/csv,text/plain,application/json" style="display:none">
+   <button type="button" class="btn secondary mini" id="entry-template">空の入力ひな型</button>
+   <button type="button" class="btn secondary mini" id="entry-demo">防府サンプルをセット</button>
+ </div>
+</div>
+<div class="entry-section">
+ <h3>② 想定ライン・並び</h3>
+ <label class="entry-field">先頭−番手−3番手／別ラインは「 / 」区切り
+ <input id="entry-lineup" type="text" placeholder="例：2-8-7 / 1-4 / 5-6 / 3 / 9"></label>
+ <p class="entry-help">並びは事実として確定するものではなく、参照した時点の想定です。単騎も必ず入力してください。全車番を１回ずつ使う必要があります。</p>
+</div>
+<div class="entry-section">
+ <details>
+   <summary>PDF・写真を参照して入力する（補助機能）</summary>
+   <p class="entry-help">文字情報を含むPDFは、ブラウザ内で文字を抽出して下に表示できます。<strong>選手情報への自動変換は行いません。</strong>スキャンPDFや写真はOCR非対応のため、表示を見て転記してください。PDFの読み込みには外部配信のPDF.jsライブラリを読み込みますが、PDF本体を当サイトのサーバーへアップロードしません。</p>
+   <label class="entry-field">PDFを開く <input id="entry-pdf" type="file" accept="application/pdf,.pdf"></label>
+   <label class="entry-field" style="margin-top:10px">参考写真を表示 <input id="entry-photo-file" type="file" accept="image/*"></label>
+   <img id="entry-photo" class="entry-photo" hidden alt="選択した参考写真">
+   <p id="pdf-status" class="entry-msg" role="status"></p>
+   <textarea id="pdf-extracted" placeholder="PDFから抽出したテキストがここに表示されます。必要な数値を上の選手入力欄へ転記してください。" readonly></textarea>
+ </details>
+</div>
+<div class="entry-buttons">
+ <button type="button" class="btn" id="entry-check">③ 内容を検査・確認</button>
+ <button type="button" class="btn secondary" id="entry-apply" disabled>④ 確認して予想に反映</button>
+</div>
+<div id="entry-message" class="entry-msg" role="status"></div>
+<div id="entry-preview" class="entry-preview" hidden></div>
+<div class="entry-section">
+ <h3>入力した出走表を保管する</h3>
+ <p class="entry-help">この端末のブラウザ内に保存します。iPhoneの別アプリや端末とは同期されません。重要なデータはJSONでも保存してください。</p>
+ <div class="entry-buttons">
+  <button type="button" class="btn secondary mini" id="entry-store">今の出走表を端末に保存</button>
+  <button type="button" class="btn secondary mini" id="entry-export">出走表JSONを書き出す</button>
+ </div>
+ <div class="entry-grid" style="margin-top:12px">
+  <label class="entry-field entry-wide">保存した出走表 <select id="entry-library" class="entry-select"></select></label>
+ </div>
+ <div class="entry-buttons"><button type="button" class="btn secondary mini" id="entry-load">保存データを読み込む</button><button type="button" class="btn secondary mini" id="entry-remove">選択した保存データを削除</button></div>
+</div>
+</section>
+
+<section class="panel" id="predictor-overview">
+<h2>予想エンジン <span class="pill">v0.5 / 試験運用</span></h2>
+<p class="details">全３連単のモデル内推定分布を作り、勝ち筋ごとの見解と買い目20点を表示します。<strong>過去実績による学習・確率較正は未実施</strong>のため、数値は的中頻度の保証ではありません。</p>
+<div id="forecast-headline" class="forecast-hero" aria-live="polite"></div>
+<div class="row"><a href="#forecast-tickets" class="btn" style="text-decoration:none">買い目20点を見る</a><a href="#intake" class="btn secondary" style="text-decoration:none">別レースを入力</a></div>
+</section>
+<section class="panel" id="scenario-lab">
+<h2>展開モデルの比較・検証 <span class="pill">v0.5 新機能</span></h2>
+<p class="details">標準（４展開統合）と番手差し重視を<strong>同じレースのデータ</strong>で比較します。各モードは手動設定の仮説であり、展開の発生確率ではありません。</p>
+<div class="lab-kpis" id="lab-kpis" aria-live="polite"></div>
+<div class="lab-scroll"><table class="lab-table"><thead><tr><th>３連単</th><th>統合</th><th>番手差し</th><th>差分</th></tr></thead><tbody id="lab-table"></tbody></table></div>
+<p class="small" id="lab-info"></p>
+<details class="lab-details"><summary>確定着順と照合（過去レース再現テスト）</summary>
+<p class="details">確定した３連単を入力すると、４設定それぞれのモデル内順位と上位20点内かを確認できます。<strong>過去レースの後付け評価で、実戦成績には加算しません。</strong>未来の着順は予想生成に使用しません。</p>
+<div class="entry-buttons"><label class="entry-field">確定３連単<input id="lab-result" type="text" inputmode="text" placeholder="例：2-8-7" maxlength="8"></label><button class="btn secondary" id="lab-check">４設定で照合</button><button class="btn secondary" id="lab-clear">結果を消す</button></div>
+<div class="entry-preview" id="lab-result-output" hidden></div>
+</details>
+<details class="lab-details"><summary>発走前保存済みレースの４設定比較（研究用）</summary>
+<p class="details">従来の「予想保存・結果検証」で発走前に保存し、確定着順も登録したレースのみが対象です。ただし<strong>保存していなかった３設定は記録済み入力を使って後から計算する反実仮想比較</strong>であり、独立した事前予想の的中成績ではありません。設定別成績の研究用参考です。</p>
+<button class="btn secondary mini" id="lab-archive">保存済み記録を集計</button>
+<div class="entry-preview" id="lab-archive-output" hidden></div>
+</details>
+</section>
+<section id="header" class="panel"></section>
+<div class="grid">
+  <div>
+    <section class="panel"><h2>ライン構成</h2><div id="lines" class="lineup"></div></section>
+    <section class="panel"><h2>予想見解（入力データから自動生成）</h2><div id="report" class="report"></div></section>
+  </div>
+  <div>
+    <section class="panel"><h2>出走選手データ</h2><div id="players"></div><p class="small">競走得点・B本数・1着率。率は出走表の直近4か月成績。</p></section>
+    <section class="panel" id="forecast-tickets"><h2>３連単・全通り予測 <span class="pill">v0.4</span></h2>
+<div class="forecast-options">
+<label class="entry-field">展開重視タイプ<select id="forecast-profile"><option value="balanced">標準（4展開を統合）</option><option value="front">先行ライン重視</option><option value="sashi">番手差し重視</option><option value="upset">別線・混戦重視</option></select></label>
+<label class="entry-field">買い目の並び順<select id="forecast-sort"><option value="prob">モデル内推定値の高い順</option><option value="ev">参考EV順（入力済オッズのみ）</option></select></label>
+</div>
+<div class="controls"><label for="count">３連単 点数</label><input id="count" type="number" min="1" max="100" value="20" /><button class="btn" id="generate">再計算</button><button class="btn secondary" id="copy">買い目をコピー</button></div>
+<div id="forecast-summary" class="forecast-stats"></div><div id="forecast-scenarios" class="forecast-scenarios"></div>
+<details><summary>オッズを入力して参考EVを比較する（任意）</summary>
+<p class="small">１行ずつ <code>2-8-7,35.4</code> のように入力。35.4は100円に対して3,540円の払戻を意味する倍率です。入力しない買い目のEVは算出しません。<strong>推定値は未校正のため、EVが1超でも有利な車券とは判定できません。</strong></p>
+<textarea id="forecast-odds" class="forecast-textarea" placeholder="2-8-7,35.4&#10;8-2-7,58.1"></textarea>
+<div class="entry-buttons"><button class="btn secondary mini" id="forecast-odds-apply">オッズを反映</button><button class="btn secondary mini" id="forecast-odds-clear">オッズを消去</button></div><p id="forecast-odds-message" class="entry-msg" role="status"></p>
+</details>
+<div id="forecast-message" class="details"></div><div id="tickets"></div>
+<div class="entry-buttons"><button class="btn secondary mini" id="forecast-export">全通りの予測値をJSON保存</button></div>
+<p class="small">全通りの値を合計すると100%になりますが、これはモデルの計算上の正規化であり、実際の的中率に校正されたものではありません。買い目は１点100円の机上試算用です。</p>
+</section>
+  </div>
+</div>
+<section class="panel"><details><summary>出走表を編集する（別レースでも使用可）</summary><p class="small">出走表の事実情報をJSONで入力。並びは先頭→番手→3番手の順にします。データは外部送信されません。</p><label for="race-file">レースJSONを読み込む</label> <input id="race-file" type="file" accept=".json,application/json" /><textarea id="raw"></textarea><div class="controls"><button class="btn" id="apply">編集データを反映</button><button class="btn secondary" id="reset">サンプルに戻す</button></div><p id="error" class="error"></p></details></section>
+
+<section class="panel" id="audit">
+<h2>予想保存・結果検証（v0.2から継続）</h2>
+<div class="warning">発走前に買い目を保存した記録のみ、実戦検証に集計します。過去レースを後から入力した予想は「再現テスト」として扱い、実戦成績には含めません。保存時刻は端末時計に基づくため独立した第三者証明ではありません。</div>
+<div class="audit-actions">
+<button class="btn" id="save-prediction">現在の予想を保存</button>
+<button class="btn secondary" id="export-log">記録をJSONで書き出す</button>
+<label class="btn secondary" for="import-log" style="cursor:pointer;color:var(--white)">記録JSONを読み込む</label><input id="import-log" type="file" accept=".json,application/json" style="display:none" />
+</div>
+<div id="audit-info" class="details" role="status"></div>
+<div class="audit-grid" id="audit-summary"></div>
+<div id="audit-history"></div>
+</section>
+<p class="footer">データ参照：<a href="https://keirin.tokyo-sports.co.jp/list/race/20261030_31588" target="_blank" rel="noopener noreferrer">東スポ競輪 2026/10/31 防府12R</a>、<a href="https://keirin.kdreams.jp/yenjoy/keirin-kaisai/race-card/odds/6320261031/63202610310100/12/3rentan/" target="_blank" rel="noopener noreferrer">楽天Kドリームス 出走表</a>。データの利用許諾に適合する取得方法は本格開発時に確認が必要です。<br />本試作はデータを手入力・同梱する方式です。リアルタイム取得、AI学習、実オッズの自動取得、自動投票は未実装です。予想と結果の照合は100円均等購入を仮定した机上検証です。</p>
+</div><script>
+'use strict';
+const DEMO={"date":"2026-10-31","venue":"防府","race_no":12,"grade":"GIII","class":"S級初日特選","start":"16:25","lineup":[[2,8,7],[1,4],[5,6],[3],[9]],"riders":[{"no":1,"name":"郡司浩平","score":116.60,"style":"両","s":8,"b":9,"wins":6,"seconds":6,"thirds":1,"outs":8},{"no":2,"name":"太田海也","score":123.50,"style":"逃","s":3,"b":2,"wins":2,"seconds":1,"thirds":0,"outs":1},{"no":3,"name":"南修二","score":114.71,"style":"追","s":0,"b":0,"wins":2,"seconds":3,"thirds":4,"outs":12},{"no":4,"name":"渡部幸訓","score":114.42,"style":"追","s":2,"b":1,"wins":2,"seconds":7,"thirds":6,"outs":7},{"no":5,"name":"松本貴治","score":118.64,"style":"両","s":4,"b":2,"wins":9,"seconds":3,"thirds":0,"outs":6},{"no":6,"name":"佐々木豪","score":113.91,"style":"逃","s":1,"b":1,"wins":6,"seconds":5,"thirds":1,"outs":13},{"no":7,"name":"清水裕友","score":116.06,"style":"両","s":2,"b":0,"wins":4,"seconds":2,"thirds":1,"outs":8},{"no":8,"name":"取鳥雄吾","score":113.91,"style":"逃","s":14,"b":6,"wins":9,"seconds":1,"thirds":2,"outs":11},{"no":9,"name":"山口拳矢","score":115.37,"style":"両","s":11,"b":2,"wins":10,"seconds":4,"thirds":2,"outs":11}]};
+let data=structuredClone(DEMO); let currentTickets=[];
+const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
+function validate(r){if(!r||!Array.isArray(r.riders)||!Array.isArray(r.lineup)||![7,9].includes(r.riders.length))throw Error('ridersは7人または9人必要です。');if(!/^\d{4}-\d{2}-\d{2}$/.test(r.date)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(r.start)||!Number.isInteger(r.race_no)||r.race_no<1||r.race_no>12||typeof r.venue!=='string'||!r.venue.trim()||r.venue.length>50)throw Error('開催日・発走時刻・レース番号・競輪場が不正です。');const nums=r.riders.map(x=>x.no);if(new Set(nums).size!==nums.length||nums.some(n=>!Number.isInteger(n)||n<1||n>9))throw Error('車番に重複または不正な値があります。');const flattened=r.lineup.flat();if(flattened.length!==nums.length||new Set(flattened).size!==nums.length||flattened.some(x=>!nums.includes(x)))throw Error('lineupは全出走選手を重複なく含む必要があります。');for(const x of r.riders){for(const key of ['score','b','s','wins','seconds','thirds','outs'])if(!Number.isFinite(x[key])||x[key]<0)throw Error(`${x.no}番車の${key}が不正です。`);if(!String(x.name||'').trim())throw Error('選手名が必要です。');}return true;}
+function info(r){let n=r.wins+r.seconds+r.thirds+r.outs;return {n,win:n?r.wins/n:0,show:n?(r.wins+r.seconds+r.thirds)/n:0};}
+function lineIdx(n){return data.lineup.findIndex(l=>l.includes(n));}
+function linePos(n){return data.lineup[lineIdx(n)].indexOf(n);}
+function strength(r){const z=(r.score-110)/14;const p=info(r);const w=(r.wins+4)/(p.n+20);const sh=(r.wins+r.seconds+r.thirds+9)/(p.n+20);return 1.10*z+0.7*w+0.4*sh;}
+function ticketScore(a,b,c){const rr=new Map(data.riders.map(r=>[r.no,r]));let x=0.47*strength(rr.get(a))+0.32*strength(rr.get(b))+0.21*strength(rr.get(c));const al=lineIdx(a),bl=lineIdx(b),cl=lineIdx(c);if(al===bl)x+=0.17;if(bl===cl)x+=0.10;if(al===cl)x+=0.07;if(al===bl&&bl===cl){x+=0.17; const pa=linePos(a),pb=linePos(b),pc=linePos(c); // 正順のライン決着と番手抜け出しを優遇する暫定規則
+if(pa===0&&pb===1&&pc===2)x+=0.28;
+else if(pa===1&&pb===2&&pc===0)x+=0.27;
+else if(pa===1&&pb===0&&pc===2)x+=0.17;
+else if(pa===0&&pb===2&&pc===1)x+=0.06;
+} if(al===bl && linePos(a)===1 && linePos(b)===0)x+=0.045;
+// バンク特性・Ｂ本数の確率推定ではなく、先頭と番手の接続を加点する暫定規則。
+const leadCandidates=data.lineup.filter(l=>l.length>1).map(l=>l[0]); if(leadCandidates.includes(a)&&data.lineup[al].length>1)x+=0.035;return x;}
+function ranking(n){let combos=[];for(const a of data.riders)for(const b of data.riders)for(const c of data.riders){if(a.no===b.no||a.no===c.no||b.no===c.no)continue;combos.push({trio:[a.no,b.no,c.no],score:ticketScore(a.no,b.no,c.no)});}combos.sort((a,b)=>b.score-a.score||a.trio.join('').localeCompare(b.trio.join('')));
+let chosen=[],heads={};const cap=Math.max(3,Math.ceil(n*0.4));for(const t of combos){if((heads[t.trio[0]]||0)>=cap)continue;chosen.push(t);heads[t.trio[0]]=(heads[t.trio[0]]||0)+1;if(chosen.length===n)break;}return chosen;}
+function format(){const count=Math.max(1,Math.min(100,Number($('count').value)||20));$('count').value=count;currentTickets=ranking(count);const max=currentTickets[0]?.score||1,min=currentTickets.at(-1)?.score||0;let out='<table class="ticket-table"><thead><tr><th>#</th><th>３連単</th><th>相対順位表示</th></tr></thead><tbody>';currentTickets.forEach((t,i)=>{let width=Math.max(10,Math.round(100*(t.score-min+0.12)/(max-min+0.12)));out+=`<tr><td>${i+1}</td><td>${t.trio.join(' - ')}</td><td><div class="scorebar"><i style="width:${width}%"></i></div></td></tr>`;});$('tickets').innerHTML=out+'</tbody></table><p class="small">棒の長さは今回の候補内での相対順位表示。確率やオッズは表しません。</p>';}
+function render(){validate(data);$('header').innerHTML=`<div class="eyebrow">${esc(data.date)} / ${esc(data.venue)} / ${esc(data.race_no)}R</div><h2 style="font-size:21px;margin:4px 0">${esc(data.venue)} ${esc(data.race_no)}R　${esc(data.class)}</h2><div class="row"><span class="pill">${esc(data.grade)}</span><span class="pill">${data.riders.length}車立て</span><span class="pill">発走 ${esc(data.start)}</span><span class="pill">${esc(data.source?.mode==='manual'?'手入力・未検証':'サンプル分析')}</span></div>`;
+let players=new Map(data.riders.map(r=>[r.no,r]));$('lines').innerHTML=data.lineup.map((line,i)=>`<div class="rail"><span class="railname">${line.length===1?'単騎':i===0?'ライン '+(i+1):'ライン '+(i+1)}</span>${line.map((n,j)=>`${j?'<span class="dash">—</span>':''}<span class="chip ${i===0?'main':''}" title="${esc(players.get(n).name)}">${n}</span>`).join('')}<span class="small">${line.map(n=>esc(players.get(n).name)).join(' / ')}</span></div>`).join('');
+$('players').innerHTML=`<div class="player" style="color:var(--muted)"><span>車番</span><span>選手名</span><span class="val">得点</span><span class="val">B / 勝率</span></div>`+[...data.riders].sort((a,b)=>a.no-b.no).map(r=>`<div class="player"><span class="num">${r.no}</span><span>${esc(r.name)} <span class="small">${esc(r.style)}</span></span><span class="val">${r.score.toFixed(2)}</span><span class="val">${r.b} / ${(info(r).win*100).toFixed(1)}%</span></div>`).join('');
+const strong=[...data.riders].sort((a,b)=>strength(b)-strength(a));const important=data.lineup.filter(l=>l.length>=2).sort((a,b)=>strength(players.get(b[0]))-strength(players.get(a[0])))[0];const lead=players.get(important[0]),second=important.length>1?players.get(important[1]):null,third=important.length>2?players.get(important[2]):null;const peakB=[...data.riders].sort((a,b)=>b.b-a.b).slice(0,2);let text=`【分析対象】${data.venue} ${data.race_no}R ${data.class}\n`+`【暫定個人評価】${strong.slice(0,4).map((r,i)=>['◎','○','▲','△'][i]+r.no+' '+r.name).join(' / ')}\n\n`+`【ライン】${data.lineup.map(l=>l.join('-')).join(' / ')}\n\n`+`【展開を考える手掛かり】\n`+`競走得点と直近成績を平滑化した暫定スコアでは${strong[0].no}番${strong[0].name}が上位。得点${strong[0].score.toFixed(2)}、直近${info(strong[0]).n}走の1着率${(info(strong[0]).win*100).toFixed(1)}%。\n`+`B本数が多いのは${peakB.map(r=>r.no+'番'+r.name+'（'+r.b+'本）').join('、')}。ただしB本数は主導権獲得確率ではありません。\n`+`${lead.no}番${lead.name}が前を回る${important.join('-')}の連係では、${second?second.no+'番'+second.name+'の番手からの抜け出し':'先頭'}${third?'、'+third.no+'番'+third.name+'の3番手残り':''}が検討対象になります。先行争いの強度や別線の巻き返しは過去レース単位の学習なしには評価できません。\n\n`+`【買い目】下欄に3連単を相対順位で出力。これは買い目候補の生成テストであり、的中確率・期待値・回収率の保証はありません。`;
+$('report').textContent=text; format();}
+/* PREDICTOR ENGINE V0.4 BEGIN
+  All 7P3/9P3 orders. Scenario-weighted softmax. Heuristic coefficients, NOT trained or calibrated.
+  No use of final results, odds, or post-race data to estimate event probabilities.
+*/
+const FORECAST_V='scenario-0.4.0';
+const FORECAST_LABELS=['先行ライン残り','番手から差し','別線の仕掛け','混戦・単騎'];
+const FORECAST_MODES={
+ balanced:[.33,.27,.22,.18], front:[.60,.19,.12,.09],
+ sashi:[.17,.57,.14,.12], upset:[.14,.14,.35,.37]
+};
+let forecastCache=null;
+let forecastOdds=new Map();
+let forecastOddsKey='';
+const forecastKey=r=>[r.date,r.venue,r.race_no,r.riders.length].join('|');
+const tripKey=t=>t.join('-');
+const fmtPercent=p=>(100*p).toFixed(2)+'%';
+const fmtOdd=x=>Number.isFinite(x)?x.toFixed(1)+'倍':'―';
+function forecastModel(r, mode='balanced'){
+ validate(r);
+ const weights=FORECAST_MODES[mode];if(!weights)throw Error('展開タイプが不正です');
+ const n=r.riders.length;
+ const byNo=new Map(r.riders.map(x=>[x.no,x]));
+ const meanScore=r.riders.reduce((t,x)=>t+x.score,0)/n;
+ const maxB=Math.max(1,...r.riders.map(x=>x.b));
+ const ability=new Map();
+ for(const x of r.riders){
+   const cnt=x.wins+x.seconds+x.thirds+x.outs;
+   const win=(x.wins+2.5)/(cnt+15);
+   const podium=(x.wins+x.seconds+x.thirds+6)/(cnt+15);
+   const z=.105*(x.score-meanScore)+1.25*(win-.18)+.65*(podium-.4);
+   ability.set(x.no,Math.max(-2.2,Math.min(2.2,z)));
+ }
+ const idx=new Map(),pos=new Map(),front=new Map();
+ r.lineup.forEach((line,i)=>line.forEach((v,j)=>{idx.set(v,i);pos.set(v,j);front.set(v,line[0])}));
+ const all=[];
+ for(const x of r.riders)for(const y of r.riders)for(const z of r.riders){
+   const a=x.no,b=y.no,c=z.no;
+   if(a===b||a===c||b===c)continue;
+   const ab=idx.get(a)===idx.get(b),bc=idx.get(b)===idx.get(c),ac=idx.get(a)===idx.get(c);
+   const aFront=pos.get(a)===0 && r.lineup[idx.get(a)].length>1;
+   const aSecond=pos.get(a)===1;
+   const aLone=r.lineup[idx.get(a)].length===1;
+   const base=1.18*ability.get(a)+.73*ability.get(b)+.44*ability.get(c);
+   const link= .16*(ab?1:0)+.09*(bc?1:0)+.07*(ac?1:0);
+   const initiative=.22*(byNo.get(a).b/maxB)+.08*(byNo.get(a).style==='逃'?1:0);
+   const forward=base+link+
+     (aFront?.36+initiative:-.17)+
+     (ab&&pos.get(b)===1?1.24:0)+
+     (ac&&pos.get(c)===2?.66:0)+
+     (bc&&pos.get(b)===1&&pos.get(c)===2?.25:0);
+   const sashi=base+link+
+     (aSecond?.79:-.16)+
+     (ab&&pos.get(b)===0?1.23:0)+
+     (ac&&pos.get(c)===0?.35:0)+
+     (ac&&pos.get(c)===2?.58:0)+
+     (bc&&pos.get(b)===2&&pos.get(c)===0?.34:0);
+   const makuri=base+.09*(ab?1:0)+
+     (pos.get(a)===0?.58+initiative:-.24)+
+     (!ab?.40:0)+(!ac?.12:0)+
+     (aLone?-.05:0)+
+     (byNo.get(a).style==='両'?.17:0);
+   const distinct=new Set([idx.get(a),idx.get(b),idx.get(c)]).size;
+   const chaos= .63*base-.13*(ab?1:0)+.24*(distinct===3?1:0)+
+     (aLone?.41:0)+(.08*(byNo.get(a).style==='両'?1:0));
+   all.push({trio:[a,b,c], key:`${a}-${b}-${c}`,logits:[forward,sashi,makuri,chaos]});
+ }
+ const components=[0,1,2,3].map(k=>{
+   const m=Math.max(...all.map(t=>t.logits[k]));
+   const vals=all.map(t=>Math.exp(t.logits[k]-m));
+   const total=vals.reduce((x,y)=>x+y,0);
+   return vals.map(v=>v/total);
+ });
+ for(let i=0;i<all.length;i++){
+   const parts=components.map((dist,k)=>dist[i]*weights[k]);
+   all[i].parts=parts;
+   all[i].p=parts.reduce((a,b)=>a+b,0);
+   all[i].score=all[i].p;
+   delete all[i].logits;
+ }
+ all.sort((a,b)=>b.p-a.p||a.key.localeCompare(b.key));
+ const win=new Map(r.riders.map(x=>[x.no,0]));
+ for(const t of all)win.set(t.trio[0],win.get(t.trio[0])+t.p);
+ const byWinner=[...win].map(([no,p])=>({no,p})).sort((a,b)=>b.p-a.p);
+ return {tickets:all,winner:byWinner,scenario:weights,mode,size:all.length,version:FORECAST_V};
+}
+function forecastExplain(ticket, r){
+ const [a,b,c]=ticket.trio;
+ const line=r.lineup.find(x=>x.includes(a));
+ const lpos=line.indexOf(a);
+ const same2=line.includes(b),same3=line.includes(c);
+ if(lpos===0&&same2&&same3&&line.length>=3) return '先行ラインの上位独占';
+ if(lpos===1&&same2&&line[0]===b) return '番手差しから先頭残り';
+ if(lpos===1&&same3&&line[0]===c) return '番手差し・先頭３着残り';
+ if(lpos===0&&same2) return '同ライン連係';
+ if(line.length===1) return '単騎の突き抜け';
+ if(lpos===0&&!same2) return '別線の追走・巻き返し';
+ return '混戦の組み合わせ';
+}
+function forecastOddsParse(text,r){
+ const out=new Map(),allowed=new Set(r.riders.map(x=>x.no));
+ const lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ for(let i=0;i<lines.length;i++){
+   const parts=lines[i].match(/^([1-9])\s*[-－ー]\s*([1-9])\s*[-－ー]\s*([1-9])\s*[,，\s]\s*([0-9]+(?:\.[0-9]+)?)\s*$/);
+   if(!parts)throw Error(`${i+1}行目：2-8-7,35.4 の形式で入力してください`);
+   const trio=parts.slice(1,4).map(Number),value=Number(parts[4]);
+   if(new Set(trio).size!==3||trio.some(v=>!allowed.has(v)))throw Error(`${i+1}行目：車番が不正です`);
+   if(!Number.isFinite(value)||value<1||value>1e6)throw Error(`${i+1}行目：倍率は1以上100万以下にしてください`);
+   const key=tripKey(trio);if(out.has(key))throw Error(`${i+1}行目：買い目が重複しています`);
+   out.set(key,value);
+ }
+ return out;
+}
+const previousRender=render;
+ranking=function(n){
+ const all=forecastCache?.tickets||[];
+ const byEV=$('forecast-sort').value==='ev';
+ let rows=all;
+ if(byEV)rows=all.filter(x=>forecastOdds.has(x.key)).slice().sort((a,b)=>b.p*forecastOdds.get(b.key)-a.p*forecastOdds.get(a.key)||b.p-a.p);
+ return rows.slice(0,n);
+};
+format=function(){
+ const n=Math.max(1,Math.min(100,Number($('count').value)||20));$('count').value=n;
+ const newKey=forecastKey(data);
+ if(forecastOddsKey&&forecastOddsKey!==newKey){forecastOdds.clear();$('forecast-odds').value='';$('forecast-odds-message').textContent='レースが変わったため旧レースのオッズを消去しました。';$('forecast-sort').value='prob';}
+ forecastOddsKey=newKey;
+ const mode=$('forecast-profile').value;
+ forecastCache=forecastModel(data,mode);
+ currentTickets=ranking(n);
+ const coverage=currentTickets.reduce((s,t)=>s+t.p,0);
+ const oddsOnly=$('forecast-sort').value==='ev';
+ const heads=forecastCache.winner.slice(0,3);
+ $('forecast-headline').innerHTML=heads.map((x,i)=>`<div class="note">${i===0?'◎':'1着候補'} ${x.no}番<strong>${fmtPercent(x.p)}</strong></div>`).join('')+
+ `<div class="note">３連単全<strong>${forecastCache.size}通り</strong></div>`;
+ $('forecast-summary').innerHTML=[['上位'+currentTickets.length+'点の合計',fmtPercent(coverage)],['最大モデル内値',fmtPercent(forecastCache.tickets[0].p)],['1着最多候補',heads[0].no+'番 '+fmtPercent(heads[0].p)],['机上購入額',currentTickets.length*100+'円']].map(([label,val])=>`<div class="forecast-stat"><span class="small">${label}</span><strong>${val}</strong></div>`).join('');
+ $('forecast-scenarios').innerHTML=forecastCache.scenario.map((w,k)=>`<div class="one"><span>${FORECAST_LABELS[k]}</span><div class="forecast-track"><i style="width:${w*100}%"></i></div><strong>${Math.round(w*100)}%</strong></div>`).join('');
+ const withOdds=forecastOdds.size;
+ let table='<div class="forecast-ticket-scroll"><table class="forecast-ticket-table"><thead><tr><th>#</th><th>３連単</th><th>モデル内値</th><th>参考オッズ</th><th>参考EV</th></tr></thead><tbody>';
+ currentTickets.forEach((t,i)=>{
+   const o=forecastOdds.get(t.key),ev=Number.isFinite(o)?t.p*o:null;
+   table+=`<tr><td>${i+1}</td><td class="combo">${t.key}</td><td class="pct">${fmtPercent(t.p)}</td><td>${fmtOdd(o)}</td><td>${ev===null?'―':ev.toFixed(2)}</td></tr>`;
+   table+=`<tr><td colspan="5" style="text-align:left;font-size:11px;color:var(--muted);padding-top:0">${forecastExplain(t,data)}／最大寄与シナリオ：${FORECAST_LABELS[t.parts.indexOf(Math.max(...t.parts))]}</td></tr>`;
+ });
+ $('tickets').innerHTML=table+'</tbody></table></div>';
+ $('forecast-message').textContent=oddsOnly?
+   `オッズ登録済み${withOdds}点のうち${currentTickets.length}点を参考EV順で表示。未入力の${forecastCache.size-withOdds}点は比較に含みません。※未校正の仮確率から算出した参考指標です。`:
+   `全${forecastCache.size}点からモデル内値順に${currentTickets.length}点を選定。登録オッズ${withOdds}点。上位点への偏りは制限せず、単純に大きい順です。`;
+};
+render=function(){
+ previousRender();
+ if(!forecastCache)return;
+ const top=forecastCache.tickets.slice(0,4);
+ const people=new Map(data.riders.map(x=>[x.no,x]));
+ const topWinners=forecastCache.winner.slice(0,4);
+ const peakB=[...data.riders].sort((x,y)=>y.b-x.b).slice(0,3);
+ $('report').textContent=
+ `【予測対象】${data.date} ${data.venue}${data.race_no}R ${data.class}／${data.riders.length}車\n`+
+ `【モデル】${FORECAST_V}、展開タイプ：${$('forecast-profile').selectedOptions[0].text}\n`+
+ `【並び】${data.lineup.map(x=>x.join('-')).join(' / ')}\n\n`+
+ `【１着候補・モデル内推定値】\n${topWinners.map((x,i)=>`${['◎','○','▲','△'][i]} ${x.no}番 ${people.get(x.no).name} ${fmtPercent(x.p)}`).join('\n')}\n\n`+
+ `【先行争いの着眼点】\nB本数上位は${peakB.map(x=>`${x.no}番${x.name}（B${x.b}）`).join('、')}。ただしB本数は主導権を取る確率ではありません。想定ラインの先頭と番手の連係を重く扱い、先行残り・番手差し・別線の仕掛け・混戦を別々に計算しています。\n\n`+
+ `【３連単上位４点】\n${top.map((x,i)=>`${i+1}. ${x.key}（${fmtPercent(x.p)}、${forecastExplain(x,data)}）`).join('\n')}\n\n`+
+ `【注意】上記は競走得点・最近の成績・ライン・B本数から作った仮説モデル。過去結果に対する学習・時系列検証・確率較正をしていないため、この数字を実際の的中確率と見なしてはいけません。発走前の情報に限定し、予想保存後に結果を照合して改良します。`;
+};
+$('forecast-profile').addEventListener('change',render);
+$('forecast-sort').addEventListener('change',format);
+$('forecast-odds-apply').addEventListener('click',()=>{
+ try{forecastOdds=forecastOddsParse($('forecast-odds').value,data);$('forecast-odds-message').textContent=`${forecastOdds.size}点のオッズを反映しました（手入力値・未検証）。`;format();}
+ catch(e){$('forecast-odds-message').textContent='入力エラー：'+e.message;}
+});
+$('forecast-odds-clear').addEventListener('click',()=>{forecastOdds.clear();$('forecast-odds').value='';$('forecast-sort').value='prob';$('forecast-odds-message').textContent='オッズを消去しました。';format();});
+$('forecast-export').addEventListener('click',()=>{
+ if(!forecastCache)return;
+ const exportData={schema:'tk-keirin-lab-distribution/v0.4',saved_at:new Date().toISOString(),model:FORECAST_V,calibrated:false,mode:forecastCache.mode,race:data,scenario_labels:FORECAST_LABELS,scenario_weights:forecastCache.scenario,
+  note:'All probabilities are an uncalibrated, heuristic model distribution, not observed frequencies.',
+  tickets:forecastCache.tickets.map(t=>({trio:t.trio,p:Number(t.p.toFixed(9)),scenario_contributions:t.parts.map(x=>Number(x.toFixed(9))),odds:forecastOdds.get(t.key)||null}))};
+ const blob=new Blob([JSON.stringify(exportData,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download=`TK_KEIRIN_${data.date}_${data.race_no}R_forecast_v04.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),4000);
+});
+/* PREDICTOR ENGINE V0.4 END */
+
+$('generate').addEventListener('click',format);
+$('copy').addEventListener('click',async()=>{const s=`${data.date} ${data.venue}${data.race_no}R 3連単 ${currentTickets.length}点\n`+currentTickets.map((t,i)=>`${i+1}. ${t.trio.join('-')}`).join('\n');try{await navigator.clipboard.writeText(s);$('copy').textContent='コピーしました';setTimeout(()=>$('copy').textContent='買い目をコピー',1500);}catch(e){window.prompt('以下をコピーしてください',s);}});
+$('apply').addEventListener('click',()=>{try{const candidate=JSON.parse($('raw').value);validate(candidate);data=candidate;$('error').textContent='';render();}catch(e){$('error').textContent='入力エラー: '+e.message;}});
+$('reset').addEventListener('click',()=>{data=structuredClone(DEMO);$('raw').value=JSON.stringify(data,null,2);$('error').textContent='';render();});
+$('raw').value=JSON.stringify(DEMO,null,2);render();
+
+// Audit v0.2: browser-only, manually imported records, no bets placed.
+const AUDIT_KEY='tk_keirin_lab_audit_v02';
+const AUDIT_VER='scenario-v0.4-uncalibrated';
+function storeGet(){try{let x=JSON.parse(localStorage.getItem(AUDIT_KEY)||'[]');return Array.isArray(x)?x:[]}catch{return []}}
+function storePut(rows){localStorage.setItem(AUDIT_KEY,JSON.stringify(rows));}
+function notify(message){$('audit-info').textContent=message;}
+function isRealPreRace(d,at){
+  // ISO deadline uses explicit JST, unlike locale dependent Date parsing.
+  const start=Date.parse(`${d.date}T${d.start}:00+09:00`);
+  return Number.isFinite(start) && Date.parse(at)<start;
+}
+function safeName(d){return `${d.date}_${d.venue}_${d.race_no}R`.replace(/[^a-zA-Z0-9_-]/g,'_')}
+function predictionRecord(){
+  const saved_at=new Date().toISOString();
+  const s=JSON.parse(JSON.stringify(data));
+  const signature=`${s.date}|${s.venue}|${s.race_no}|${s.lineup.map(x=>x.join('-')).join('/')}`;
+  return {id:`${Date.now()}_${Math.random().toString(36).slice(2,8)}`,saved_at,signature,model:AUDIT_VER,race:s,
+      tickets:currentTickets.map(t=>t.trio),forecast_mode:$('forecast-profile').value,forecast_version:FORECAST_V,forecast_values:currentTickets.map(t=>Number(t.p.toFixed(9))),forecast_coverage:Number(currentTickets.reduce((a,t)=>a+t.p,0).toFixed(9)),forecast_unvalidated:true,pre_race:isRealPreRace(s,saved_at),result:null,unit_yen:100};
+}
+function savePrediction(){
+  try{const record=predictionRecord();const rows=storeGet();rows.unshift(record);storePut(rows);notify(`${record.race.venue}${record.race.race_no}R：予想${record.tickets.length}点を保存。${record.pre_race?'発走前記録':'発走後の再現テスト（実戦集計対象外）'}`);renderAudit();}
+  catch(e){notify('保存に失敗しました。端末の空き容量・ブラウザの設定をご確認ください：'+e.message)}
+}
+function parseResult(s){
+  let x=String(s).trim().replace(/\s+/g,'').replace(/[－ー―]/g,'-');
+  const a=x.split('-').map(Number);return a.length===3&&a.every(n=>Number.isInteger(n))&&new Set(a).size===3?a:null;
+}
+function validateAuditRecord(r){
+  if(!r||typeof r.id!=='string'||!/^[A-Za-z0-9_-]+$/.test(r.id)||typeof r.saved_at!=='string'||!Number.isFinite(Date.parse(r.saved_at))||!Array.isArray(r.tickets)||!r.tickets.length||r.tickets.length>504||!r.race||r.unit_yen!==100)throw Error('記録形式が違います');
+  validate(r.race);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(r.race.date)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(r.race.start)||!Number.isInteger(r.race.race_no)||r.race.race_no<1||r.race.race_no>12||typeof r.race.venue!=='string'||r.race.venue.length>50)throw Error('レース情報が不正です');
+  const allowed=new Set(r.race.riders.map(x=>x.no));
+  const allValid=r.tickets.every(t=>Array.isArray(t)&&t.length===3&&new Set(t).size===3&&t.every(x=>allowed.has(x)));
+  if(!allValid)throw Error('買い目が不正です');
+  if(r.result){if(!Array.isArray(r.result.combo)||!parseResult(r.result.combo.join('-'))||!r.result.combo.every(x=>allowed.has(x))||!Number.isSafeInteger(r.result.payout_100)||r.result.payout_100<0)throw Error('結果が不正です')}
+  return true;
+}
+function saveOutcome(id){
+  const row=storeGet().find(r=>r.id===id);if(!row)return;
+  const combo=parseResult(document.getElementById('combo-'+id).value);
+  const rawPayout=document.getElementById('payout-'+id).value.trim();
+  const payout=rawPayout===''?NaN:Number(rawPayout);
+  const valid=new Set(row.race.riders.map(x=>x.no));
+  if(!combo||!combo.every(n=>valid.has(n))){notify('結果を 2-8-7 の形式で入力してください。');return;}
+  if(!Number.isFinite(payout)||payout<0||!Number.isSafeInteger(payout)){notify('払戻は3連単の100円あたり払戻金を整数で入力してください。');return;}
+  let rows=storeGet();const target=rows.find(x=>x.id===id);
+  target.result={combo,payout_100:payout,registered_at:new Date().toISOString()};
+  try{storePut(rows);notify(`${row.race.venue}${row.race.race_no}Rの確定結果を登録しました。`);renderAudit();}catch(e){notify('結果保存に失敗：'+e.message)}
+}
+function renderAudit(){
+  const rows=storeGet().filter(r=>{try{return validateAuditRecord(r)}catch{return false}});
+  const evaluated=rows.filter(r=>isRealPreRace(r.race,r.saved_at) && r.result);
+  let stakes=evaluated.reduce((a,r)=>a+r.tickets.length*r.unit_yen,0);
+  let hits=evaluated.reduce((a,r)=>a+(r.tickets.some(t=>t.join('-')===r.result.combo.join('-'))?1:0),0);
+  let payout=evaluated.reduce((a,r)=>a+(r.tickets.some(t=>t.join('-')===r.result.combo.join('-'))?r.result.payout_100*(r.unit_yen/100):0),0);
+  const fmt=new Intl.NumberFormat('ja-JP');
+  $('audit-summary').innerHTML=[['発走前・結果登録済',fmt.format(evaluated.length)+'R'],['的中',fmt.format(hits)+'R'],['的中率',evaluated.length?(100*hits/evaluated.length).toFixed(1)+'%':'―'],['仮想回収率',stakes?(100*payout/stakes).toFixed(1)+'%':'―']].map(p=>`<div class="audit-stat"><span class="small">${p[0]}</span><strong>${p[1]}</strong></div>`).join('');
+  $('audit-history').innerHTML=rows.length?rows.slice(0,60).map(r=>{
+    const hit=r.result?r.tickets.some(t=>t.join('-')===r.result.combo.join('-')):false;
+    const name=`${esc(r.race.date)} ${esc(r.race.venue)}${r.race.race_no}R`;
+    const status=isRealPreRace(r.race,r.saved_at)?'<span class="status">発走前保存</span>':'<span class="status replay">再現テスト・集計対象外</span>';
+    const done=r.result?`<div class="result">結果 ${r.result.combo.join('-')} ／ 払戻 ${fmt.format(r.result.payout_100)}円（100円当たり） ／ ${hit?'的中':'不的中'} ／ 仮想損益 ${hit?'+'+fmt.format(r.result.payout_100-r.tickets.length*r.unit_yen):'-'+fmt.format(r.tickets.length*r.unit_yen)}円</div>`:'';
+    return `<div class="logrow"><div><div class="itemname">${name}</div><div class="small">${r.model?esc(r.model):'model不明'}／${r.tickets.length}点×${r.unit_yen}円 ／ ${esc(r.saved_at.replace('T',' ').slice(0,16))} UTC ${status}</div><details><summary>保存した買い目を見る</summary><div class="small">${r.tickets.map(t=>t.join('-')).join(' / ')}</div></details>${done}</div><div>${r.result?'<span class="pill">結果登録済</span>':`<div class="outcome"><label for="combo-${r.id}">3連単確定順</label><input id="combo-${r.id}" placeholder="2-8-7" /><label for="payout-${r.id}">払戻(円)</label><input id="payout-${r.id}" type="number" min="0" step="1" placeholder="12340" /><button class="btn secondary" data-save-id="${r.id}">登録</button></div>`}</div></div>`;
+  }).join(''):'<p class="small" style="margin-top:16px">保存した予想はまだありません。最初に「現在の予想を保存」を押して、記録機能を確認してください。</p>';
+  $('audit-history').querySelectorAll('[data-save-id]').forEach(b=>b.addEventListener('click',()=>saveOutcome(b.dataset.saveId)));
+}
+function exportRecords(){
+  const rows=storeGet();const file={schema:'tk-keirin-lab-audit/v0.2',exported_at:new Date().toISOString(),records:rows};
+  const blob=new Blob([JSON.stringify(file,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`TK_KEIRIN_AUDIT_${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);
+  notify(`${rows.length}件をエクスポートしました。バックアップとして保管してください。`);
+}
+$('save-prediction').addEventListener('click',savePrediction);
+$('export-log').addEventListener('click',exportRecords);
+$('import-log').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{const val=JSON.parse(await f.text());if(val.schema!=='tk-keirin-lab-audit/v0.2'||!Array.isArray(val.records))throw Error('対応外のデータ形式です');
+    val.records.forEach(r=>{validateAuditRecord(r);r.pre_race=isRealPreRace(r.race,r.saved_at)});
+    const rows=storeGet();const known=new Set(rows.map(r=>r.id));const additional=val.records.filter(r=>!known.has(r.id));
+    const all=[...additional,...rows].sort((a,b)=>b.saved_at.localeCompare(a.saved_at));storePut(all);
+    notify(`新規${additional.length}件を取り込みました。IDが重複する既存記録は上書きしていません。`);renderAudit();
+  }catch(error){notify('読み込みエラー：'+error.message);}finally{e.target.value='';}
+});
+$('race-file').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{const v=JSON.parse(await f.text());validate(v);data=v;$('raw').value=JSON.stringify(v,null,2);$('error').textContent='';render();notify(`${v.venue}${v.race_no}Rの出走表を読み込みました。`);}catch(error){$('error').textContent='出走表読み込みエラー：'+error.message;}finally{e.target.value='';}
+});
+renderAudit();
+
+
+/* v0.3 local intake: parsed data are only adopted after explicit preview + confirmation. */
+const INPUT_LIBRARY_KEY='tk_keirin_lab_races_v03';
+const entryState={checked:null,signature:'',photoURL:null};
+for(let n=1;n<=12;n++)$('entry-race').insertAdjacentHTML('beforeend',`<option value="${n}">${n}R</option>`);
+function entryMsg(s,bad=false){$('entry-message').textContent=s;$('entry-message').className='entry-msg '+(bad?'bad':'good');}
+function fullDigit(x){return String(x).normalize('NFKC').trim();}
+function csvFields(s){
+  const v=[];let cur='',quote=false;
+  for(let i=0;i<s.length;i++){
+    const c=s[i];
+    if(c==='"'){if(quote&&s[i+1]==='"'){cur+='"';i++;}else quote=!quote;}
+    else if(c===','&&!quote){v.push(cur.trim());cur='';}
+    else cur+=c;
+  }
+  if(quote)throw Error('CSV引用符が閉じていません');
+  v.push(cur.trim());return v;
+}
+function entryRows(s){
+ const rows=s.replace(/^\uFEFF/,'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ return rows.map((row,i)=>{
+  const cols=(row.includes('\t')?row.split('\t'):csvFields(row)).map(fullDigit);
+  if(cols.length!==10)throw Error(`${i+1}行目：10列必要ですが${cols.length}列です（車番,選手名,得点,脚質,S,B,1着,2着,3着,着外）`);
+  const n=Number(cols[0]);if(!/^[1-9]$/.test(cols[0]))throw Error(`${i+1}行目：車番は1〜9で入力してください`);
+  const nums=[cols[2],...cols.slice(4)].map(Number);
+  if(nums.some((v,j)=>!Number.isFinite(v)||cols[[2,4,5,6,7,8,9][j]]===''))throw Error(`${i+1}行目：得点・S・B・着数はすべて数値で入力してください`);
+  if(!['逃','両','追'].includes(cols[3]))throw Error(`${i+1}行目：脚質は逃・両・追のいずれかで入力してください`);
+  if(!cols[1]||cols[1].includes('（選手名）')||cols[1].includes('選手名を入力'))throw Error(`${i+1}行目：実際の選手名を入力してください`);
+  if(nums[0]<50||nums[0]>150)throw Error(`${i+1}行目：競走得点が通常範囲外です。原資料を確認してください`);
+  if(nums.slice(1).some(v=>!Number.isSafeInteger(v)||v<0||v>200))throw Error(`${i+1}行目：S・B・着数は0以上の整数にしてください`);
+  return {no:n,name:cols[1],score:nums[0],style:cols[3],s:nums[1],b:nums[2],wins:nums[3],seconds:nums[4],thirds:nums[5],outs:nums[6]};
+ });
+}
+function parseLineup(s){
+ const parts=fullDigit(s).replace(/[－ー―−–—]/g,'-').split(/[\/／|｜;；]+/).map(x=>x.trim()).filter(Boolean);
+ if(!parts.length)throw Error('並びを入力してください');
+ return parts.map((x,i)=>{const t=x.split(/[-\s]+/).filter(Boolean);
+  if(t.some(y=>!/^[1-9]$/.test(y)))throw Error(`並び ${i+1}組目に車番以外が含まれます`);
+  return t.map(Number);
+ });
+}
+function makeEntryRace(){
+ const size=Number($('entry-size').value),date=$('entry-date').value,venue=$('entry-venue').value.trim(),raceNo=Number($('entry-race').value);
+ const riders=entryRows($('entry-riders').value);
+ if(riders.length!==size)throw Error(`${size}車立てですが選手は${riders.length}人です`);
+ const sourceLabel=$('entry-source').value.trim();if(!sourceLabel)throw Error('入力元の出典を入力してください');
+ const url=$('entry-source-url').value.trim();if(url&&!/^https:\/\/[\w.-]+(?:\:[0-9]+)?(?:\/|$|\?|#)/i.test(url))throw Error('参考URLはhttps://で始まるURLを指定してください');
+ const race={date,venue,race_no:raceNo,grade:$('entry-grade').value,class:$('entry-class').value.trim()||'種別未入力',start:$('entry-start').value,lineup:parseLineup($('entry-lineup').value),riders,source:{mode:'manual',label:sourceLabel,url,imported_at:new Date().toISOString(),verified:false}};
+ validate(race);
+ const expected=Array.from({length:size},(_,i)=>i+1);
+ if(JSON.stringify([...riders.map(x=>x.no)].sort((a,b)=>a-b))!==JSON.stringify(expected))throw Error(`${size}車では車番を1〜${size}まで揃えてください`);
+ return race;
+}
+function formatEntryRace(d){
+ $('entry-date').value=d.date;$('entry-venue').value=d.venue;$('entry-race').value=d.race_no;$('entry-start').value=d.start;
+ $('entry-size').value=d.riders.length;$('entry-grade').value=d.grade||'FII';$('entry-class').value=d.class||'';
+ $('entry-source').value=d.source?.label||'手元の資料（要照合）';$('entry-source-url').value=d.source?.url||'';
+ $('entry-lineup').value=d.lineup.map(l=>l.join('-')).join(' / ');
+ $('entry-riders').value=[...d.riders].sort((a,b)=>a.no-b.no).map(r=>[r.no,r.name,r.score.toFixed(2),r.style,r.s,r.b,r.wins,r.seconds,r.thirds,r.outs].join(',')).join('\n');
+ invalidateEntry();
+}
+function entryFingerprint(){return JSON.stringify(['entry-date','entry-venue','entry-race','entry-start','entry-size','entry-grade','entry-class','entry-source','entry-source-url','entry-lineup','entry-riders'].map(id=>$(id).value));}
+function invalidateEntry(){entryState.checked=null;entryState.signature='';$('entry-apply').disabled=true;$('entry-preview').hidden=true;entryMsg('内容を編集したら「③ 内容を検査・確認」を押してください。');}
+function showEntryPreview(r){
+ let html=`<div><strong>${esc(r.date)} ${esc(r.venue)}${r.race_no}R / ${r.riders.length}車</strong></div>`+
+  `<div class="entry-source">${esc(r.class)}・発走 ${esc(r.start)} ／ 出典：${esc(r.source.label)}<br>想定並び：${r.lineup.map(x=>x.join('-')).join(' / ')}</div>`+
+  '<table><thead><tr><th>車</th><th>選手名</th><th>得点</th><th>脚質</th><th>S/B</th></tr></thead><tbody>';
+ html+=[...r.riders].sort((a,b)=>a.no-b.no).map(x=>`<tr><td>${x.no}</td><td>${esc(x.name)}</td><td>${x.score.toFixed(2)}</td><td>${esc(x.style)}</td><td>${x.s}/${x.b}</td></tr>`).join('');
+ html+='</tbody></table><p class="entry-help">選手・競走得点・並びを原資料と照合してください。予測確率ではなく暫定ルール評価です。</p>';
+ $('entry-preview').innerHTML=html;$('entry-preview').hidden=false;
+}
+$('entry-check').addEventListener('click',()=>{
+ try{const race=makeEntryRace();entryState.checked=race;entryState.signature=entryFingerprint();showEntryPreview(race);$('entry-apply').disabled=false;entryMsg('検査を通過しました。表示を原資料と照合後、「④ 確認して予想に反映」を押してください。');}
+ catch(e){entryState.checked=null;entryState.signature='';$('entry-apply').disabled=true;$('entry-preview').hidden=true;entryMsg('入力エラー：'+e.message,true);}
+});
+$('entry-apply').addEventListener('click',()=>{
+ if(!entryState.checked||entryFingerprint()!==entryState.signature){invalidateEntry();entryMsg('入力が変更されています。再度検査してください。',true);return;}
+ try{validate(entryState.checked);data=structuredClone(entryState.checked);$('raw').value=JSON.stringify(data,null,2);render();entryMsg(`${data.venue}${data.race_no}Rの予想に切り替えました。参照情報が正しいか、買い目を検討する前に確認してください。`);$('header').scrollIntoView({behavior:'smooth',block:'start'});}
+ catch(e){entryMsg(e.message,true);}
+});
+for(const id of ['entry-date','entry-venue','entry-race','entry-start','entry-size','entry-grade','entry-class','entry-source','entry-source-url','entry-lineup','entry-riders']){
+ $(id).addEventListener('input',invalidateEntry);$(id).addEventListener('change',invalidateEntry);
+}
+$('entry-demo').addEventListener('click',()=>{formatEntryRace(DEMO);$('entry-source').value='同梱サンプル（実戦の入力資料ではありません）';invalidateEntry();entryMsg('防府12Rサンプルを入力欄にセットしました。');});
+$('entry-template').addEventListener('click',()=>{
+ const n=Number($('entry-size').value);
+ $('entry-riders').value=Array.from({length:n},(_,i)=>`${i+1},（選手名）,（得点）,追,0,0,0,0,0,0`).join('\n');
+ $('entry-lineup').value='';$('entry-venue').value='';$('entry-race').value='1';$('entry-grade').value='FII';$('entry-source').value='';$('entry-source-url').value='';$('entry-class').value='';
+ $('entry-date').value=new Date(Date.now()+9*3600000).toISOString().slice(0,10);$('entry-start').value='12:00';
+ invalidateEntry();entryMsg('未入力のひな型を用意しました。車番ごとに選手名・得点・成績・並びを正しい情報に変更してください。');
+});
+function raceLibrary(){try{const o=JSON.parse(localStorage.getItem(INPUT_LIBRARY_KEY)||'{}');return o&&typeof o==='object'&&!Array.isArray(o)?o:{}}catch{return {}}}
+function raceKey(r){return `${r.date}|${r.venue}|${r.race_no}`;}
+function refreshRaceLibrary(){
+ const lib=raceLibrary(),keys=Object.keys(lib).sort().reverse();$('entry-library').replaceChildren();
+ if(!keys.length){$('entry-library').add(new Option('保存した出走表はありません',''));return;}
+ for(const key of keys){const d=lib[key];if(!d?.race)continue;$('entry-library').add(new Option(`${d.race.date} ${d.race.venue}${d.race.race_no}R（${d.race.riders.length}車）`,key));}
+}
+$('entry-store').addEventListener('click',()=>{
+ try{
+ const r=makeEntryRace(),lib=raceLibrary(),key=raceKey(r);
+ if(lib[key]&&!confirm('同じ開催日・競輪場・Rの保存データがあります。上書きしますか？'))return;
+ lib[key]={race:r,stored_at:new Date().toISOString()};localStorage.setItem(INPUT_LIBRARY_KEY,JSON.stringify(lib));refreshRaceLibrary();$('entry-library').value=key;
+ entryMsg(`${r.venue}${r.race_no}Rをブラウザに保存しました。予想記録とは別の保存領域です。`);
+ }catch(e){entryMsg('保存できません：'+e.message,true)}
+});
+$('entry-load').addEventListener('click',()=>{
+ const d=raceLibrary()[$('entry-library').value];if(!d?.race){entryMsg('保存データを選択してください',true);return;}
+ try{validate(d.race);formatEntryRace(d.race);entryMsg(`${d.race.venue}${d.race.race_no}Rを入力欄へ戻しました。検査と確認の後に予想へ反映してください。`);}catch(e){entryMsg(e.message,true)}
+});
+$('entry-remove').addEventListener('click',()=>{
+ const key=$('entry-library').value,lib=raceLibrary();if(!key||!lib[key])return;
+ if(!confirm('この出走表の保存データを削除しますか？（予想記録には影響しません）'))return;
+ delete lib[key];localStorage.setItem(INPUT_LIBRARY_KEY,JSON.stringify(lib));refreshRaceLibrary();entryMsg('選択した出走表を削除しました。');
+});
+function downloadEntry(json,filename){const b=new Blob([JSON.stringify(json,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(b),a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+$('entry-export').addEventListener('click',()=>{
+ try{const r=makeEntryRace();downloadEntry(r,`KEIRIN_${r.date}_${r.race_no}R.json`);entryMsg('出走表JSONを書き出しました。iPhoneの「ファイル」アプリに保管してください。');}catch(e){entryMsg(e.message,true)}
+});
+$('entry-textfile').addEventListener('change',async ev=>{
+ const f=ev.target.files?.[0];if(!f)return;
+ try{
+ if(f.size>1_000_000)throw Error('ファイルが大きすぎます。1MB以下にしてください');
+ const s=await f.text();
+ if(f.name.toLowerCase().endsWith('.json')){const r=JSON.parse(s);validate(r);formatEntryRace(r);entryMsg('JSONを読み込みました。出典情報を確認・入力してから検査してください。');}
+ else{$('entry-riders').value=s.replace(/^\uFEFF/,'').trim();invalidateEntry();entryMsg('CSV/TSVを選手入力欄に取り込みました。開催情報・並びを入力し、検査してください。');}
+ }catch(e){entryMsg('ファイル読込エラー：'+e.message,true)}finally{ev.target.value='';}
+});
+$('entry-photo-file').addEventListener('change',e=>{
+ const f=e.target.files?.[0];if(!f)return;
+ if(!f.type.startsWith('image/')){$('pdf-status').textContent='画像ファイルを選択してください';return;}
+ if(entryState.photoURL)URL.revokeObjectURL(entryState.photoURL);
+ entryState.photoURL=URL.createObjectURL(f);$('entry-photo').src=entryState.photoURL;$('entry-photo').hidden=false;
+ $('pdf-status').textContent='参考写真を表示しました。文字の自動読み取りは行いません。';
+});
+$('entry-pdf').addEventListener('change',async e=>{
+ const f=e.target.files?.[0];if(!f)return;
+ $('pdf-status').textContent='PDFから文字を読み取っています（OCRではありません）';
+ try{
+ if(f.size>15_000_000)throw Error('PDFは15MB以下を選択してください');
+ const pdfjs=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');
+ pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+ const pdf=await pdfjs.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;
+ if(pdf.numPages>60)throw Error('60ページ以内のPDFを選択してください');
+ let extracted=[],chars=0;
+ for(let n=1;n<=pdf.numPages;n++){
+  const page=await pdf.getPage(n),c=await page.getTextContent();
+  // Group text by pdf position; source order is not guaranteed to be column order.
+  const parts=c.items.filter(x=>typeof x.str==='string').map(x=>({s:x.str,y:Math.round(x.transform?.[5]??0)}));
+  let lines=[],lastY=null;
+  for(const p of parts){if(lastY===null||Math.abs(lastY-p.y)>3){lines.push(p.s);lastY=p.y;}else lines[lines.length-1]+=' '+p.s;}
+  const pageText=`[PDF ${n}/${pdf.numPages}ページ]\n`+lines.join('\n');extracted.push(pageText);chars+=pageText.length;
+  if(chars>100_000)throw Error('抽出文字が多すぎます。ページ数の少ないPDFを使ってください');
+ }
+ $('pdf-extracted').value=extracted.join('\n\n');
+ $('pdf-status').textContent=chars>100?'文字抽出に成功しました。PDFの段組みで順序が崩れる場合があります。選手欄に必要な情報を手入力・転記してください。':'文字がほとんどありません。画像化されたPDFはOCR非対応です。';
+ }catch(err){$('pdf-status').textContent='PDFの文字抽出ができません：'+err.message+'。CSV・JSONの読込や手入力で進めてください。';}
+ finally{e.target.value='';}
+});
+formatEntryRace(DEMO);$('entry-source').value='同梱サンプル（入力例）';refreshRaceLibrary();entryMsg('初期表示は防府12Rの入力例です。新しいレースを入力する場合は「空の入力ひな型」を押してください。');
+
+
+/* v0.5 Comparison Diagnostics – independent of wager selection and result audit. */
+const LAB_NAMES={balanced:'標準・統合',front:'先行ライン',sashi:'番手差し',upset:'別線・混戦'};
+const LAB_MODES=['balanced','front','sashi','upset'];
+const LAB_KEY='tk-keirin-lab-0.5';
+function labPair(r){return {base:forecastModel(r,'balanced'),sashi:forecastModel(r,'sashi')};}
+function labTop(model,n=20){return model.tickets.slice(0,n);}
+function labOverlap(a,b,n=20){const known=new Set(labTop(a,n).map(x=>x.key));return labTop(b,n).filter(t=>known.has(t.key)).length;}
+function labPct(p){return (p*100).toFixed(2)+'%';}
+function labPP(x){return (x>=0?'+':'')+(x*100).toFixed(2)+'pt';}
+function labCurrent(){
+ const {base,sashi}=labPair(data);
+ const top1=base.tickets[0],top2=sashi.tickets[0];
+ const cover1=labTop(base).reduce((a,t)=>a+t.p,0),cover2=labTop(sashi).reduce((a,t)=>a+t.p,0);
+ $('lab-kpis').innerHTML=[
+  ['統合の首位',`${top1.key} / ${labPct(top1.p)}`],['番手差しの首位',`${top2.key} / ${labPct(top2.p)}`],
+  ['統合の上位20点合計',labPct(cover1)],['番手差しの上位20点合計',labPct(cover2)]
+ ].map(x=>`<div class="lab-stat"><span class="small">${x[0]}</span><strong>${x[1]}</strong></div>`).join('');
+ const joint=[];const seen=new Set();
+ for(const item of [...base.tickets.slice(0,5),...sashi.tickets.slice(0,5)]){if(!seen.has(item.key)){joint.push(item.key);seen.add(item.key);}}
+ const p0=new Map(base.tickets.map(x=>[x.key,x.p]));
+ const p1=new Map(sashi.tickets.map(x=>[x.key,x.p]));
+ $('lab-table').innerHTML=joint.map(key=>{
+  const a=p0.get(key),b=p1.get(key),d=b-a;
+  return `<tr><td>${key}</td><td>${labPct(a)}</td><td>${labPct(b)}</td><td class="${d>=0?'up':'down'}">${labPP(d)}</td></tr>`;
+ }).join('');
+ $('lab-info').textContent=`上位20点の重複：${labOverlap(base,sashi)}点。比較表はそれぞれの上位5点の和集合（${joint.length}点）です。モデル内値の増減であり、的中確率の増減ではありません。`;
+ $('lab-result-output').hidden=true;$('lab-result').value='';
+ $('lab-archive-output').hidden=true;
+}
+function labValidateCombo(value,r){
+ const combo=parseResult(value);const valid=new Set(r.riders.map(x=>x.no));
+ if(!combo||!combo.every(n=>valid.has(n)))throw Error(`確定着順は対象${r.riders.length}車から重複なしで 2-8-7 の形式で入力してください。`);
+ return combo.join('-');
+}
+function labResult(model,key){
+ const i=model.tickets.findIndex(x=>x.key===key);
+ if(i<0)throw Error('買い目がモデル内に見つかりません');
+ return {rank:i+1,p:model.tickets[i].p,hit20:i<20,hit1:i===0,winningNo:model.winner[0].no};
+}
+function labCheck(){
+ try{
+  const key=labValidateCombo($('lab-result').value,data);
+  const rows=LAB_MODES.map(mode=>({name:LAB_NAMES[mode],result:labResult(forecastModel(data,mode),key)}));
+  const html=`<strong>確定着順：${key}（後付け比較）</strong><div class="lab-compare-grid">`+
+    rows.map(x=>`<div class="lab-cell"><span class="small">${x.name}</span><strong>${x.result.rank}位 / ${labPct(x.result.p)}</strong><span class="small">${x.result.hit20?'上位20点に含む':'上位20点の圏外'}／１着候補 ${x.result.winningNo}番</span></div>`).join('')+
+    '</div><p class="small">これは確定着順を入力後に照合した再現テストです。的中実績には追加されません。</p>';
+  $('lab-result-output').innerHTML=html;$('lab-result-output').hidden=false;
+ }catch(e){$('lab-result-output').textContent='入力エラー：'+e.message;$('lab-result-output').hidden=false;}
+}
+function labArchive(){
+ const eligible=storeGet().filter(x=>{
+  try{return x.result && isRealPreRace(x.race,x.saved_at) && x.forecast_version===FORECAST_V && validateAuditRecord(x)}catch{return false}
+ });
+ const unique=new Map();
+ for(const r of eligible){const k=`${r.race.date}|${r.race.venue}|${r.race.race_no}`;
+   if(!unique.has(k)||unique.get(k).saved_at>r.saved_at)unique.set(k,r);}
+ const records=[...unique.values()];
+ if(!records.length){$('lab-archive-output').textContent='発走前保存と結果登録の両方が揃うv0.4以降の記録はまだありません。研究集計は0件です。';$('lab-archive-output').hidden=false;return;}
+ const summaries=LAB_MODES.map(mode=>({mode,n:0,hit20:0,hit1:0,first:0,logloss:0,meanP:0}));
+ let failures=0;
+ for(const r of records){
+  try{
+   const key=labValidateCombo(r.result.combo.join('-'),r.race);
+   for(const row of summaries){const model=forecastModel(r.race,row.mode);const res=labResult(model,key);
+     row.n++;row.hit20+=Number(res.hit20);row.hit1+=Number(res.hit1);row.first+=Number(res.winningNo===r.result.combo[0]);row.logloss+=-Math.log(Math.max(res.p,1e-12));row.meanP+=res.p;
+   }
+  }catch(e){failures++;}
+ }
+ const content=`<strong>発走前記録を持つ${records.length}レース（解析成功 ${summaries[0].n}件）</strong>`+
+ '<div class="lab-scroll"><table class="lab-table"><thead><tr><th>研究設定</th><th>上位20点</th><th>１着候補</th><th>平均対数損失</th></tr></thead><tbody>'+
+ summaries.map(x=>`<tr><td>${LAB_NAMES[x.mode]}</td><td>${x.n?`${x.hit20}/${x.n}`:'—'}</td><td>${x.n?`${x.first}/${x.n}`:'—'}</td><td>${x.n?(x.logloss/x.n).toFixed(3):'—'}</td></tr>`).join('')+
+ '</tbody></table></div>'+
+ `<p class="small">重複する開催日・競輪場・Rは最初に保存した１記録のみ集計。照合不能 ${failures}件。既存モデルの入力データで４設定を後から再計算した研究比較であり、追加設定について事前予想が成立したと証明するものではありません。対数損失は小さいほど良好ですが、少数例では優劣を判断できません。</p>`;
+ $('lab-archive-output').innerHTML=content;$('lab-archive-output').hidden=false;
+}
+$('lab-check').addEventListener('click',labCheck);
+$('lab-clear').addEventListener('click',()=>{$('lab-result').value='';$('lab-result-output').hidden=true;});
+$('lab-archive').addEventListener('click',labArchive);
+const labOldRender=render;
+render=function(){labOldRender();labCurrent();};
+labCurrent();
+/* v0.5 end */
+/* TK KEIRIN LAB v0.6 — Counterfactual Race Brain.
+   These are transparent scenario plausibility rules, NOT learned probabilities.
+   Rider profiles below encode PRE-RACE observations or provisional hypotheses;
+   post-race information is deliberately excluded. */
+const BRAIN_VERSION='narrative-v0.6.0';
+const BRAIN_TRAITS={front:'前受けへの意欲',resist:'突っ張り',withdraw:'引いて立て直す',kamashi:'カマシ・ダッシュ',makuri:'捲り',track:'追走・踏み出し対応',seat:'番手への収まり',recover:'千切れた後の自力',finish:'直線の差し脚',outer:'大外強襲'};
+const BRAIN_SOURCES=[
+ {url:'https://keirinsponichi.jp/chumoku_race/%E9%98%B2%E5%BA%9C%EF%BD%87%E2%85%B2%E5%88%9D%E6%97%A512%EF%BD%92%E3%80%80%EF%BD%93%E7%B4%9A%E7%89%B9%E9%81%B8%E3%80%80%E5%8F%96%E9%B3%A5%E3%80%80%E5%A5%BD%E7%9B%AE%E6%A8%99%E5%BE%97%E3%81%A6/',name:'KEIRINスポニチ 10/31事前コメント'},
+ {url:'https://keirin.tokyo-sports.co.jp/list/race/20261030_31588',name:'東スポ競輪 10/31出走表・事前コメント'},
+ {url:'https://keirin.netkeiba.com/news/news_detail.html?id=49357',name:'netkeirin 10/30 事前連係分析'},
+ {url:'https://keirin.jp/pc/dfw/portal/guest/report/GIII/37itou/2025/report_2.html',name:'KEIRIN.JP 2025年レースレポート'}
+];
+const BRAIN_SEED={
+ '太田海也': {front:2,resist:3,withdraw:4,kamashi:5,makuri:4,track:3,seat:2,recover:4,finish:3,outer:3,confidence:'中',note:'事前の連係検証記事では『引いて捲る』判断が多いとの記述。強い踏み出しも仮置き。突っ張り判断は不確実。',source:2},
+ '郡司浩平': {front:4,resist:4,withdraw:4,kamashi:3,makuri:4,track:4,seat:4,recover:4,finish:4,outer:4,confidence:'中',note:'自力継続・位置取りと自在性を仮置き。主導権にも捲りにも分岐を残す。',source:0},
+ '南修二': {front:1,resist:1,withdraw:3,kamashi:1,makuri:1,track:4,seat:4,recover:2,finish:4,outer:3,confidence:'低',note:'単騎コメントに基づき、位置取りと直線勝負は仮説。調子への懸念も事前コメントにある。',source:0},
+ '渡部幸訓': {front:1,resist:1,withdraw:3,kamashi:1,makuri:1,track:4,seat:3,recover:2,finish:4,outer:2,confidence:'低',note:'郡司追走の事前コメント。体調面は未知のため踏み出し対応力は暫定。',source:0},
+ '松本貴治': {front:3,resist:3,withdraw:3,kamashi:4,makuri:4,track:3,seat:3,recover:4,finish:4,outer:4,confidence:'中',note:'自分から前を志願した事前コメントを重視。先行／捲りの両面を想定。',source:0},
+ '佐々木豪': {front:2,resist:2,withdraw:3,kamashi:3,makuri:3,track:4,seat:4,recover:4,finish:4,outer:3,confidence:'低',note:'松本に任せると事前表明。番手からの差しや再自力は仮置き。',source:0},
+ '清水裕友': {front:2,resist:2,withdraw:3,kamashi:3,makuri:5,track:4,seat:4,recover:4,finish:5,outer:4,confidence:'中',note:'地元への思いと岡山勢追走の事前コメント、2025年の位置取りや捲り追い込みの記録を参考。独力での巻き返しは可能性仮説。',source:3},
+ '取鳥雄吾': {front:3,resist:3,withdraw:2,kamashi:4,makuri:3,track:3,seat:3,recover:4,finish:4,outer:3,confidence:'中',note:'太田番手を事前表明。本来の自力型が速い先行車に付く場合の追走リスクと差しを両立して仮置き。',source:0},
+ '山口拳矢': {front:2,resist:2,withdraw:4,kamashi:3,makuri:5,track:4,seat:4,recover:5,finish:5,outer:5,confidence:'中',note:'単騎自力・上位決着への意欲が事前コメント。大外強襲は仮説。',source:0}
+};
+const BRAIN_STORE='tk-keirin-character-hypotheses-v06';
+const brainClamp=(x,min,max)=>Math.max(min,Math.min(max,x));
+const brainTrait=(p,k)=>(Number.isFinite(Number(p?.[k]))?brainClamp(Number(p[k]),0,5):2.5);
+function brainDefault(x){let b=x.b||0,s=x.s||0,own=x.style!=='追';return {
+ front:brainClamp(1.6+.08*s+.09*b,0,5),resist:own?3:1,withdraw:3,kamashi:own?brainClamp(2.3+.1*b,0,5):1,makuri:own?3.3:1.1,
+ track:3,seat:3,recover:own?3.2:2.3,finish:brainClamp(2.4+.075*(x.score-100),0,5),outer:own?3:2,confidence:'低',note:'脚質・B/S・競走得点による暫定仮説。取材・映像で個性の確認が必要。',source:null};}
+function brainGetLibrary(){try{const a=JSON.parse(localStorage.getItem(BRAIN_STORE)||'{}');return a&&typeof a==='object'?a:{}}catch{return {}}}
+function brainProfiles(r){const saved=brainGetLibrary();return new Map(r.riders.map(x=>[x.no,{...brainDefault(x),...(BRAIN_SEED[x.name]||{}),...(saved[x.name]||{}),no:x.no,name:x.name}]))}
+function brainScoreAbility(x,p){const runs=x.wins+x.seconds+x.thirds+x.outs;return brainClamp(.25+.024*(x.score-100)+.3*(x.wins+1)/(runs+5)+.1*brainTrait(p,'finish'),.35,2)}
+function brainHash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function brainPickThird(r,leader,first,second,profiles,preferred){
+ const valid=r.riders.filter(x=>![first,second].includes(x.no));
+ const score=x=>{const p=profiles.get(x.no);return brainScoreAbility(x,p)+.13*brainTrait(p,'finish')+.09*brainTrait(p,'outer')+(preferred===x.no?.30:0)+(r.lineup.find(l=>l.includes(first))?.includes(x.no)?.22:0)};
+ return valid.sort((a,b)=>score(b)-score(a)||a.no-b.no).map(x=>x.no);
+}
+function brainBuild(r){
+ validate(r);const profiles=brainProfiles(r), byNo=new Map(r.riders.map(x=>[x.no,x]));
+ const leaders=r.lineup.map(l=>l[0]);
+ const start=leaders.slice().sort((a,b)=>{
+  let ra=byNo.get(a),rb=byNo.get(b),pa=profiles.get(a),pb=profiles.get(b);
+  let sa=brainTrait(pa,'front')+.25*ra.s+.20*ra.b,sb=brainTrait(pb,'front')+.25*rb.s+.20*rb.b;return sb-sa||a-b});
+ const front=start[0],fe=profiles.get(front);
+ const narratives=[];
+ // Each node is a staged counterfactual: early position -> bell -> final home -> final back -> straight.
+ for(const leader of leaders){
+  const line=r.lineup.find(l=>l[0]===leader),lead=byNo.get(leader),p=profiles.get(leader),follower=line[1]||null,third=line[2]||null;
+  const leadAbility=brainScoreAbility(lead,p);
+  const q={hold:(brainTrait(p,'resist')+brainTrait(p,'front'))/10,
+           kick:(brainTrait(p,'kamashi')+brainTrait(p,'withdraw'))/10,
+           late:(brainTrait(p,'makuri')+brainTrait(p,'withdraw'))/10};
+  for(const tactic of ['hold','kick','late']){
+   const baseTactic=q[tactic]+.17;
+   if(tactic==='hold'&&line.length===1)continue;
+   for(const gap of ['intact','second','third']){
+    if(gap!=='intact'&&line.length===1)continue;
+    if(gap==='third'&&!third)continue;
+    const fp=follower?profiles.get(follower):null,tp=third?profiles.get(third):null;
+    const acceleration=brainTrait(p,'kamashi'),
+       followerStress=follower?brainClamp(.15+.14*(acceleration-brainTrait(fp,'track')),.08,.8):0;
+    const thirdStress=third?brainClamp(.10+.15*(acceleration-brainTrait(tp,'track')),.05,.8):0;
+    const gapWeight=gap==='intact'?brainClamp(1-.65*followerStress-.55*thirdStress,.2,.92):
+      gap==='second'?followerStress*.55:thirdStress*.75;
+    const alternatives=[];
+    const remaining=r.riders.filter(x=>![leader,follower,third].includes(x.no)).map(x=>x.no);
+    const opponent=remaining.sort((a,b)=>{
+      const pa=profiles.get(a),pb=profiles.get(b),xa=byNo.get(a),xb=byNo.get(b);
+      return (brainTrait(pb,'makuri')+brainTrait(pb,'outer')+brainScoreAbility(xb,pb))-(brainTrait(pa,'makuri')+brainTrait(pa,'outer')+brainScoreAbility(xa,pa));
+    })[0];
+    const seatCandidate=remaining.slice().sort((a,b)=>{const pa=profiles.get(a),pb=profiles.get(b);return brainTrait(pb,'seat')-brainTrait(pa,'seat')}).find(x=>x!==opponent)||opponent;
+    if(!follower&&gap==='intact'){
+      const c=brainPickThird(r,leader,leader,opponent,profiles)[0];
+      alternatives.push({mode:'solo',a:leader,b:opponent,c,mult:.30+.16*brainTrait(p,'makuri')+.09*brainTrait(p,'outer'),
+        finish:`単騎の${leader}番が中団から外を伸びて${opponent}番に先着する`,label:'単騎の突き抜け'});
+    }
+    if(follower&&gap!=='second'){
+      alternatives.push({mode:'lead',a:leader,b:follower,c:third||brainPickThird(r,leader,leader,follower,profiles)[0],mult:1.03+leadAbility*.18,
+        finish:`${leader}番が踏み直して押し切り、${follower}番が追走を守る`,label:'先頭押し切り'});
+      alternatives.push({mode:'sashi',a:follower,b:leader,c:third||brainPickThird(r,leader,follower,leader,profiles)[0],mult:.56+.15*brainTrait(fp,'finish'),
+        finish:`${follower}番が最終直線で${leader}番を差し切る`,label:'番手差し'});
+    }
+    if(third&&gap==='third'){
+      const c=brainPickThird(r,leader,third,leader,profiles)[0];
+      alternatives.push({mode:'recovery',a:third,b:leader,c,mult:.22+.12*brainTrait(tp,'recover')+.08*brainTrait(tp,'outer'),
+        finish:`一度離れた${third}番が自力へ切り替え、大外から${leader}番を捲り追い込む`,label:'千切れから再自力'});
+    }
+    if(follower&&gap==='second'){
+      alternatives.push({mode:'seat',a:leader,b:seatCandidate,c:brainPickThird(r,leader,leader,seatCandidate,profiles)[0],mult:.28+.13*brainTrait(profiles.get(seatCandidate),'seat'),
+        finish:`${follower}番が離れ、${seatCandidate}番が空いた番手付近に収まり直線勝負`,label:'番手はまり'});
+    }
+    if(opponent){
+      const c=brainPickThird(r,leader,opponent,leader,profiles)[0];
+      alternatives.push({mode:'outer',a:opponent,b:leader,c,mult:.20+.07*brainTrait(profiles.get(opponent),'outer')+.04*brainTrait(profiles.get(opponent),'makuri'),
+        finish:`${opponent}番が外から伸びて${leader}番を捉える`,label:'大外一気'});
+    }
+    for(const alt of alternatives){
+      const a=alt.a,b=alt.b;
+      const cList=[alt.c,...brainPickThird(r,leader,a,b,profiles)].filter((x,i,arr)=>arr.indexOf(x)===i).slice(0,4);
+      for(const [variant,c] of cList.entries()){
+      if(new Set([a,b,c]).size!==3)continue;
+      const frontEarly=front===leader?`${leader}番が前受け`:`${front}番が前受け。${leader}番は後方から動く`;
+      const move=tactic==='hold'?`${leader}番が突っ張って主導権を守る`:tactic==='kick'?`${leader}番がいったん引いてから打鐘付近でカマす`:`${leader}番が中団を狙い、遅めに捲り返す`;
+      const chaser=gap==='intact'?(follower?`${follower}番が踏み出しに対応し${third?`${third}番も連結を維持`:'連係を維持'}`:'単騎で切り込む'):gap==='second'?`${follower}番が踏み出しで離れる。${seatCandidate}番の番手はまりを警戒`:`${follower}番は追走するが${third}番が遅れ、自力へ切り替える余地`;
+      const weight=baseTactic*gapWeight*alt.mult*(.5+leadAbility*.25)* (leader===front?1.12:.88) *
+         (tactic==='kick'?.75+.12*brainTrait(p,'kamashi'):1)*(alt.mode==='outer'?.60+.11*brainTrait(profiles.get(a),'outer'):1)*(variant===0?1:Math.pow(.66,variant));
+      const rare=['recovery','seat','outer','solo'].includes(alt.mode);
+      const events=[`周回：${frontEarly}`,`打鐘：${move}`,`最終ホーム：${chaser}`,`最終バック：${alt.mode==='solo'?'単騎で中団からコースを探る':alt.finish.includes('大外')?'外の動きを警戒':gap==='intact'?'ラインの連結を保って直線へ':'隊列が崩れ、番手や中団の位置が入れ替わる'}`,`直線：${alt.finish}`];
+      narratives.push({id:`${leader}:${tactic}:${gap}:${alt.mode}:${c}`,key:`${a}-${b}-${c}`,trio:[a,b,c],leader,tactic,gap,mode:alt.mode,title:alt.label,events,
+         reasons:[`${lead.name}の${tactic==='hold'?'前受け・突っ張り':tactic==='kick'?'カマシ':'捲り'}を仮定`,gap==='intact'?'ラインが追走できる場合':gap==='third'?'3番手の追走が切れる場合':'番手の追走が切れる場合',`着順候補 ${a}-${b}-${c}`],score:weight,rare});
+      }
+    }
+   }
+  }
+ }
+ const total=narratives.reduce((a,b)=>a+b.score,0)||1;
+ narratives.sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id));
+ const ticketsMap=new Map();
+ for(const x of narratives){let t=ticketsMap.get(x.key);if(!t){t={key:x.key,trio:x.trio,score:0,paths:[],rare:false};ticketsMap.set(x.key,t)}t.score+=x.score;t.rare ||= x.rare;t.paths.push(x);}
+ const tickets=[...ticketsMap.values()].sort((a,b)=>b.score-a.score||a.key.localeCompare(b.key));
+ const earlyWeight=(brainTrait(fe,'front')+byNo.get(front).s*.3).toFixed(1);
+ return {version:BRAIN_VERSION,narratives,tickets,profiles,firstFront:front,firstFrontReason:`${front}番のS・前受け志向を仮置き（指数${earlyWeight}、確率ではない）`,total};
+}
+function brainSelect(model,n,upsetQuota,focus='auto'){const best=model.tickets,heads=[],used=new Set();if(upsetQuota){
+ // A portion of tickets intentionally comes from alternative causal chains; no betting ROI claim.
+ const rare=best.filter(t=>focus==='auto'?t.paths.filter(x=>x.rare).reduce((s,x)=>s+x.score,0)/t.score>=.55:t.paths.some(x=>x.mode===focus)).sort((a,b)=>b.score-a.score).slice(0,Math.min(upsetQuota,n));
+ for(const t of rare){heads.push(t);used.add(t.key)}
+}
+ for(const t of best){if(heads.length>=n)break;if(used.has(t.key))continue;heads.push(t);used.add(t.key)}
+ return heads.sort((a,b)=>b.score-a.score||a.key.localeCompare(b.key));}
+let brainModel=null,brainChosen=[];
+function brainShow(){
+ try{
+  brainModel=brainBuild(data);
+  const n=brainClamp(Number($('brain-points').value)||20,1,100);
+  const reserve=brainClamp(Number($('brain-rare').value)||4,0,Math.min(n,20));
+  const focus=$('brain-focus').value;brainChosen=brainSelect(brainModel,n,reserve,focus);
+  const rider=new Map(data.riders.map(r=>[r.no,r]));
+  $('brain-state').textContent=`${data.venue}${data.race_no}R／${brainModel.narratives.length}本の因果シナリオ・買い目候補${brainModel.tickets.length}通り・意外枠${reserve}点（すべて仮説）`;
+  $('brain-front').textContent='前受け起点：'+brainModel.firstFrontReason;
+  const sorted=focus==='auto'?brainModel.narratives:[...brainModel.narratives.filter(x=>x.mode===focus),...brainModel.narratives.filter(x=>x.mode!==focus)];const select=[],signatures=new Set();
+  for(const x of sorted){const k=x.mode+':'+x.leader;if(signatures.has(k))continue;select.push(x);signatures.add(k);if(select.length>=4)break}
+  for(const rare of ['recovery','seat','outer','solo']){let s=sorted.find(x=>x.mode===rare && !select.includes(x));if(s)select.push(s)}
+  $('brain-paths').innerHTML=select.map((x,i)=>`<details class="brain-story" ${i===0?'open':''}><summary><span class="brain-n">${i+1}</span><strong>${esc(x.title)}：${esc(x.key)}</strong><span class="brain-pill">${x.rare?'意外な筋':'基本の筋'}</span></summary><ol>${x.events.map(v=>`<li>${esc(v)}</li>`).join('')}</ol><p class="brain-muted">根拠：${esc(x.reasons.join('／'))}<br>仮説の相対重み ${(100*x.score/brainModel.total).toFixed(2)}（的中確率ではありません）</p></details>`).join('');
+  const max=brainChosen[0]?.score||1;
+  $('brain-tickets').innerHTML='<table class="brain-table"><thead><tr><th>順位</th><th>３連単</th><th>物語</th><th>相対強度</th></tr></thead><tbody>'+brainChosen.map((t,i)=>{
+   const best=t.paths.slice().sort((a,b)=>b.score-a.score)[0];
+   return `<tr><td>${i+1}</td><td><strong>${t.key}</strong></td><td>${esc(best.title)}${t.rare?' ✦':''}</td><td>${Math.round(100*t.score/max)}</td></tr>`
+  }).join('')+'</tbody></table><p class="brain-muted">相対強度は最上位を100とする仮説指標で、的中確率ではありません。★は意外な筋も含む買い目。</p>';
+  const filled=brainChosen.length;
+  $('brain-count').textContent=`３連単 ${filled}点 × 100円 = ${filled*100}円（机上試算）`;
+  brainPersonList();
+ }catch(e){$('brain-state').textContent='推理エラー：'+e.message}
+}
+function brainPersonList(){
+ const current=$('brain-person').value,profiles=brainModel?.profiles||brainProfiles(data);
+ $('brain-person').innerHTML=data.riders.map(x=>`<option value="${x.no}">${x.no} ${esc(x.name)}</option>`).join('');
+ if(data.riders.some(x=>String(x.no)===current))$('brain-person').value=current;
+ brainPersonEdit();
+}
+function brainPersonEdit(){
+ const no=Number($('brain-person').value),r=data.riders.find(x=>x.no===no);if(!r)return;
+ const p=brainProfiles(data).get(no);$('brain-person-confidence').textContent='根拠の強さ：'+p.confidence;
+ $('brain-traits').innerHTML=Object.entries(BRAIN_TRAITS).map(([k,name])=>`<label class="brain-trait"><span>${esc(name)}</span><input type="range" min="0" max="5" step="1" data-brain-trait="${k}" value="${brainTrait(p,k)}"><strong data-brain-value="${k}">${brainTrait(p,k)}</strong></label>`).join('');
+ $('brain-person-note').value=p.note||'';
+ $('brain-person-evidence').textContent=p.source_url?'別途調査パックの出典URLあり（評価は要確認）':p.source===null?'原資料が未登録：入力から作った暫定仮説':`${BRAIN_SOURCES[p.source]?.name||'出典未確認'}（この数値はモデル側の暫定解釈）`;
+ $('brain-person-source').innerHTML=p.source_url&&/^https:\/\//.test(p.source_url)?`<a href="${esc(p.source_url)}" rel="noopener noreferrer" target="_blank">取込資料を見る</a>`:p.source!==null&&BRAIN_SOURCES[p.source]?`<a href="${BRAIN_SOURCES[p.source].url}" rel="noopener noreferrer" target="_blank">事前資料を見る</a>`:'';
+ $('brain-traits').querySelectorAll('input').forEach(e=>e.addEventListener('input',()=>{document.querySelector(`[data-brain-value="${e.dataset.brainTrait}"]`).textContent=e.value}));
+}
+function brainPersonSave(){
+ const rider=data.riders.find(x=>x.no===Number($('brain-person').value));if(!rider)return;
+ const p=brainProfiles(data).get(rider.no), library=brainGetLibrary();
+ for(const e of $('brain-traits').querySelectorAll('input'))p[e.dataset.brainTrait]=Number(e.value);
+ p.note=$('brain-person-note').value.slice(0,600);p.confidence='手動調整（未検証）';p.source=null;
+ const entry={...p};delete entry.name;delete entry.no;library[rider.name]=entry;localStorage.setItem(BRAIN_STORE,JSON.stringify(library));
+ brainShow();$('brain-person-confidence').textContent='仮説をこの端末に保存しました（レースを再計算済み）';
+}
+function brainExport(){
+ if(!brainModel)return;const raw={schema:'tk-keirin-lab-narrative/v0.6',created_at:new Date().toISOString(),version:BRAIN_VERSION,
+  race:data,profiles:[...brainModel.profiles.values()],scenarios:brainModel.narratives.map(x=>({id:x.id,trio:x.trio,mode:x.mode,events:x.events,weight:x.score})),tickets:brainChosen.map(x=>({trio:x.trio,key:x.key,weight:x.score,stories:x.paths.map(p=>p.id)})),
+  caveat:'Heuristic counterfactual narrative with uncalibrated weights, not measured hit probabilities. Results and payouts not used to build scenarios.'};
+ const blob=new Blob([JSON.stringify(raw,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`TK_NARRATIVE_${data.date}_${data.venue}${data.race_no}R.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function brainCopy(){const text=`${data.date} ${data.venue}${data.race_no}R 展開推理 ${BRAIN_VERSION}\n`+brainChosen.map((x,i)=>`${i+1}. ${x.key} ${x.paths[0]?.title||''}`).join('\n');
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).catch(()=>window.prompt('買い目をコピー',text))}else window.prompt('買い目をコピー',text);
+}
+$('brain-recalc').addEventListener('click',brainShow);
+$('brain-points').addEventListener('change',brainShow);
+$('brain-rare').addEventListener('change',brainShow);
+$('brain-focus').addEventListener('change',brainShow);
+$('brain-person').addEventListener('change',brainPersonEdit);
+$('brain-person-save').addEventListener('click',brainPersonSave);
+$('brain-export').addEventListener('click',brainExport);
+$('brain-copy').addEventListener('click',brainCopy);
+const brainPreviousRender=render;
+render=function(){brainPreviousRender();brainShow()};
+brainShow();
+
+// Share researched rider dossiers as a JSON bundle. Imported evidence still requires human review.
+function brainProfilePackExport(){
+ const library=brainGetLibrary(),profiles=brainProfiles(data);
+ const records=[...profiles.values()].map(p=>({name:p.name,traits:Object.fromEntries(Object.keys(BRAIN_TRAITS).map(k=>[k,brainTrait(p,k)])),confidence:p.confidence,note:p.note,source_url:p.source_url||(p.source===null?null:BRAIN_SOURCES[p.source]?.url||null)}));
+ const b=new Blob([JSON.stringify({schema:'tk-keirin-rider-research/v0.6',exported_at:new Date().toISOString(),riders:records},null,2)],{type:'application/json'}),url=URL.createObjectURL(b),a=document.createElement('a');a.href=url;a.download='TK_RIDER_RESEARCH.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$('brain-profile-export').addEventListener('click',brainProfilePackExport);
+$('brain-profile-import').addEventListener('change',async event=>{
+ try{
+  const f=event.target.files?.[0];if(!f)return;if(f.size>150000)throw Error('資料は150KB以内にしてください');
+  const doc=JSON.parse(await f.text());if(doc.schema!=='tk-keirin-rider-research/v0.6'||!Array.isArray(doc.riders)||doc.riders.length>100)throw Error('人物データ形式が違います');
+  const library=brainGetLibrary();let count=0;
+  for(const row of doc.riders){
+   if(typeof row.name!=='string'||!row.name.trim()||row.name.length>60||!row.traits||typeof row.traits!=='object')throw Error('選手名・個性が不正です');
+   const p={};for(const k of Object.keys(BRAIN_TRAITS)){const v=Number(row.traits[k]);if(!Number.isFinite(v)||v<0||v>5)throw Error(`${row.name}の${k}が不正です`);p[k]=v;}
+   p.note=String(row.note||'').slice(0,600);p.confidence='取込情報・要確認';p.source=null;p.source_url=typeof row.source_url==='string'&&/^https:\/\//.test(row.source_url)&&row.source_url.length<500?row.source_url:null;
+   library[row.name.trim()]=p;count++;
+  }
+  localStorage.setItem(BRAIN_STORE,JSON.stringify(library));brainShow();$('brain-import-message').textContent=`${count}名の資料を取り込みました。出典・人物像を原資料と照合してください。`;
+ }catch(error){$('brain-import-message').textContent='取込エラー：'+error.message}finally{event.target.value=''}
+});
+
+// Preserve v0.2-v0.5 audit schema while saving the NEW narrative 3連単 selection.
+const brainOriginalPredictionRecord=predictionRecord;
+predictionRecord=function(){
+ const record=brainOriginalPredictionRecord();
+ record.model=BRAIN_VERSION;record.forecast_version=BRAIN_VERSION;record.forecast_mode='counterfactual-story';
+ record.tickets=brainChosen.map(t=>t.trio);record.forecast_values=[];record.forecast_coverage=null;
+ record.narrative={model:BRAIN_VERSION,scenarios:brainModel?.narratives.length||0,
+   selected:brainChosen.map(t=>({trio:t.trio,relative_weight:t.score,scenario_ids:t.paths.map(x=>x.id)})),
+   notice:'heuristic causal hypotheses, not calibrated probabilities; recorded before race if timestamp permits'};
+ return record;
+};
+$('brain-save').addEventListener('click',()=>savePrediction());
+
+/* v0.7: Evidence-ledger based rider characteristics and pairwise race reasoning.
+ * No network scraping; candidate notes are not automatically treated as facts.
+ */
+const INTEL_VERSION='evidence-v0.7.0', INTEL_STORE='tk-keirin-evidence-ledger-v07';
+const INTEL_SCHEMA='tk-keirin-evidence/v0.7';
+const intel$=id=>document.getElementById(id);
+const intelDateISO=s=>typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&!Number.isNaN(Date.parse(s))?s:null;
+const intelSafeUrl=s=>{try{const u=new URL(s);return u.protocol==='https:'&&u.href.length<=500?u.href:'';}catch{return ''}};
+const intelRid=s=>String(s||'').normalize('NFKC').replace(/\s+/g,'').trim();
+function intelRead(){try{const x=JSON.parse(localStorage.getItem(INTEL_STORE)||'[]');return Array.isArray(x)?x:[]}catch{return []}}
+function intelWrite(rows){localStorage.setItem(INTEL_STORE,JSON.stringify(rows));}
+function intelHash(x){return 'e'+brainHash(JSON.stringify(x)).toString(36)}
+function intelValidate(x){
+ if(!x||typeof x!=='object')throw Error('根拠の形式が違います');
+ const rider=intelRid(x.rider),date=intelDateISO(x.date);
+ if(!rider||rider.length>55||!date)throw Error('選手名・観察日が不正です');
+ if(x.type!=='trait'&&x.type!=='pair')throw Error('根拠の種類が不正です');
+ const trait=x.type==='pair'?'track':String(x.trait||'');
+ if(!Object.hasOwn(BRAIN_TRAITS,trait))throw Error('特性項目が不正です');
+ const val=Number(x.value),strength=Number(x.strength);
+ if(!Number.isFinite(val)||val<0||val>5||![1,2,3].includes(strength))throw Error('特性の評価が不正です');
+ const status=['candidate','approved','rejected'].includes(x.status)?x.status:'candidate';
+ const partner=x.type==='pair'?intelRid(x.partner):'';
+ if(x.type==='pair'&&(!partner||partner===rider||partner.length>55))throw Error('連係相手が不正です');
+ const note=String(x.note||'').slice(0,800),url=intelSafeUrl(x.url||'');
+ const kind=['race','pre','interview','video','hypothesis'].includes(x.kind)?x.kind:'hypothesis';
+ const payload={type:x.type,rider,partner,trait,date,value:val,strength,kind,note,url};
+ return {...payload,id:intelHash(payload),status,recorded_at:typeof x.recorded_at==='string'?x.recorded_at:new Date().toISOString()};
+}
+function intelMerge(newRows, trust=false){
+ const library=new Map(intelRead().map(x=>[x.id,x]));let newCount=0;
+ for(const y of newRows){const x=intelValidate(y);if(!trust)x.status='candidate';
+   if(!library.has(x.id)){library.set(x.id,x);newCount++;}}
+ if(library.size>30000)throw Error('台帳は最大3万件です');
+ intelWrite([...library.values()]);return newCount;
+}
+function intelAgeMultiplier(date,asOf){const years=Math.max(0,(Date.parse(asOf)-Date.parse(date))/(365.25*86400000));return Math.max(.25,Math.exp(-years/3));}
+function intelApplicable(r, row){return row.status==='approved'&&row.date<r.date;}// Date-only: conservative exclusion of race-day evidence.
+function intelKey(x){return intelRid(x.name)}
+const intelOriginalProfiles=brainProfiles;
+brainProfiles=function(r){
+ const profiles=intelOriginalProfiles(r), rows=intelRead();
+ for(const rider of r.riders){
+  const p=profiles.get(rider.no), evidence=rows.filter(x=>x.type==='trait'&&x.rider===intelKey(rider)&&intelApplicable(r,x));
+  let adjusted=[];
+  for(const k of Object.keys(BRAIN_TRAITS)){
+   const related=evidence.filter(x=>x.trait===k);if(!related.length)continue;
+   const denom=related.reduce((s,x)=>s+x.strength*intelAgeMultiplier(x.date,r.date),0);
+   const mean=related.reduce((s,x)=>s+x.value*x.strength*intelAgeMultiplier(x.date,r.date),0)/denom;
+   // Shrink evidence estimates toward previous hypotheses, with a 70% cap.
+   const alpha=Math.min(.70,denom/(denom+4.5));
+   const was=brainTrait(p,k), now=brainClamp(was*(1-alpha)+mean*alpha,0,5);
+   p[k]=now;adjusted.push({trait:k,was,now,count:related.length});
+  }
+  p.evidence_ids=evidence.map(x=>x.id);p.evidence_changes=adjusted;
+  if(evidence.length)p.confidence=`根拠${evidence.length}件（仮説＋観察を統合）`;
+ }
+ return profiles;
+};
+const intelOriginalBuild=brainBuild;
+brainBuild=function(r){
+ const model=intelOriginalBuild(r), pairRows=intelRead().filter(x=>x.type==='pair'&&intelApplicable(r,x)), byNo=new Map(r.riders.map(x=>[x.no,intelKey(x)]));
+ const match=new Map();
+ for(const row of pairRows){for(const line of r.lineup){for(let i=1;i<line.length;i++){
+   if(byNo.get(line[i-1])===row.rider&&byNo.get(line[i])===row.partner){
+     const key=line[i-1]+'>'+line[i];if(!match.has(key))match.set(key,[]);match.get(key).push(row);
+   }
+ }}}
+ if(!match.size)return model;
+ const effects=[];
+ for(const [key,records] of match){const denom=records.reduce((a,x)=>a+x.strength*intelAgeMultiplier(x.date,r.date),0);
+  const mean=records.reduce((a,x)=>a+x.value*x.strength*intelAgeMultiplier(x.date,r.date),0)/denom;
+  const coef=Math.max(-.26,Math.min(.26,(mean-2.5)*Math.min(.11,denom/(denom+5)*.11)));
+  effects.push({key,coef,n:records.length});
+ }
+ for(const story of model.narratives){
+  let adj=1;
+  for(const {key,coef} of effects){const [leader,follower]=key.split('>').map(Number);
+   if(story.leader!==leader)continue;
+   const line=r.lineup.find(a=>a[0]===leader)||[];if(line[1]!==follower)continue;
+   adj*=story.gap==='second'?1-coef:1+coef;
+  }
+  story.score*=Math.max(.3,adj);
+ }
+ const tickets=new Map();for(const story of model.narratives){let t=tickets.get(story.key);if(!t){t={key:story.key,trio:story.trio,score:0,paths:[],rare:false};tickets.set(story.key,t)}t.score+=story.score;t.paths.push(story);t.rare ||=story.rare;}
+ model.total=model.narratives.reduce((sum,x)=>sum+x.score,0)||1;
+ model.narratives.sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id));
+ model.tickets=[...tickets.values()].sort((a,b)=>b.score-a.score||a.key.localeCompare(b.key));
+ model.pair_effects=effects;return model;
+};
+// Historical research leads: independent short summaries written for this application.
+// They are NOT verified traits and import only as candidates, never as approved facts.
+const INTEL_CURATED_LEADS=[
+ ['太田海也','withdraw',4.5,'2025-07-19','2025年玉野GIIで後方から組み立てる意図を説明。引く判断の手掛かり。','https://keirin.netkeiba.com/news/news_detail.html?id=36186'],
+ ['太田海也','kamashi',4.5,'2025-07-19','同レースでは後方から早めに仕掛けて主導権を奪ったという観察。','https://keirin.netkeiba.com/news/news_detail.html?id=36186'],
+ ['太田海也','resist',4,'2025-07-21','先行の選択肢として突っ張り・引いてカマシ・位置をこじ開ける方法が論じられる。','https://www.nikkansports.com/public_race/keirin/yamakou/news/202507210000282.html'],
+ ['郡司浩平','resist',4.5,'2025-09-13','2025年福井GIIで前受けから突っ張り、先行ラインで上位独占した事例。','https://keirin.netkeiba.com/news/news_detail.html?id=38036'],
+ ['郡司浩平','makuri',4.5,'2025-09-23','2025年青森GIIIで３番手からタイミングを計って捲りに出た例。','https://keirin.netkeiba.com/news/news_detail.html?id=38332'],
+ ['郡司浩平','seat',4,'2024-03-01','選手インタビューで中団確保や引きと並走を含む瞬間判断について回顧。日付は記事の年月のみで暫定。','https://sp.oddspark.com/keirin/blog/interview/2024/03/post-308.html'],
+ ['山口拳矢','makuri',4.5,'2025-12-30','単騎で関東勢後位を確保し捲りで決勝を制した事例。','https://keirin.tokyo-sports.co.jp/articles/-/1660'],
+ ['山口拳矢','seat',4.5,'2025-12-30','単騎で他ラインの後位を利用し、仕掛けを追った位置取りが報じられた。','https://keirin.tokyo-sports.co.jp/articles/-/1660'],
+ ['山口拳矢','front',4,'2026-10-25','熊本GIIIでは初手の前受けから位置を作り、最終３角で内を突いたという事例。','https://round.gslb.daily.co.jp/horse/2026/10/25/0020966581.shtml'],
+ ['山口拳矢','seat',4,'2026-10-25','単騎で地元ラインの後位３番手を確保し、車間とコースを判断した観察。','https://round.gslb.daily.co.jp/horse/2026/10/25/0020966581.shtml'],
+ ['清水裕友','withdraw',4,'2025-11-23','前受けから下げ、ロングスパートを選んだ事例。攻めを重視する旨のコメントもある。','https://keirin.netkeiba.com/news/news_detail.html?id=40174'],
+ ['清水裕友','kamashi',4,'2025-11-23','前受けから一度下がって長い距離を踏み上げた展開。カマシ型かは追加観察が必要。','https://keirin.netkeiba.com/news/news_detail.html?id=40174'],
+ ['松本貴治','seat',4.0,'2026-08-15','2026年オールスターで番手を走る機会が増えたと語る。','https://keirin.netkeiba.com/news/news_detail.html?id=47678'],
+ ['松本貴治','finish',4,'2026-08-15','番手で後続の速度を見てゴール前に踏み直す判断を本人が説明。','https://keirin.netkeiba.com/news/news_detail.html?id=47678'],
+ ['取鳥雄吾','track',3,'2026-10-31','2026年防府初日特選で太田海也の後ろを回る予定。連係の実際の追走能力は未確認。','https://news.livedoor.com/article/detail/32696840/'],
+ ['佐々木豪','seat',3,'2026-10-31','防府初日特選では松本貴治に任せると発走前に表明。差し能力の証拠ではない。','https://news.livedoor.com/article/detail/32696840/'],
+ ['南修二','seat',3,'2026-10-31','防府初日特選で単騎を選択。ライン追走適性はこの資料からは不明。','https://news.livedoor.com/article/detail/32696840/'],
+ ['渡部幸訓','track',3,'2026-10-31','防府初日特選では郡司浩平の後ろへ。腰の状態に関するコメントがあり、追走能力評価は保留。','https://news.livedoor.com/article/detail/32696840/'],
+];
+function intelImportSeeds(){
+ const rows=INTEL_CURATED_LEADS.map(([rider,trait,value,date,note,url])=>({type:'trait',rider,trait,date,value,note,url,strength:1,kind:'hypothesis',status:'candidate'}));
+ const n=intelMerge(rows);intelRecalc();intelStatus(`公開記事から独自要約した調査候補${n}件を追加（計${rows.length}件準備）。すべて未確認で、予想へは自動反映しません。出典を開いて個別に確認してください。`);
+}
+function intelStatus(t){intel$('intel-status').textContent=t;}
+function intelFillSelectors(){
+ const riders=data.riders, keep=new Map(['intel-rider','intel-pair-a','intel-pair-b','intel-filter'].map(k=>[k,intel$(k)?.value]));
+ for(const id of ['intel-rider','intel-pair-a','intel-pair-b','intel-filter']){
+  const sel=intel$(id);sel.innerHTML=(id==='intel-filter'?'<option value="all">全選手</option>':'')+riders.map(r=>`<option value="${esc(r.name)}">${r.no} ${esc(r.name)}</option>`).join('');
+  if([...sel.options].some(x=>x.value===keep.get(id)))sel.value=keep.get(id);
+ }
+ intel$('intel-trait').innerHTML=Object.entries(BRAIN_TRAITS).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join('');
+ if(riders.length>1&&intel$('intel-pair-b').value===intel$('intel-pair-a').value)intel$('intel-pair-b').selectedIndex=1;
+}
+function intelUI(){
+ intelFillSelectors();const entries=intelRead(), asOf=data.date;
+ const valid=entries.filter(x=>intelApplicable(data,x));
+ const countRiders=new Set(entries.map(x=>x.rider)).size;
+ const stats=[['台帳総件数',entries.length],['確認済みの根拠',entries.filter(x=>x.status==='approved').length],['現在のレースで利用可',valid.length],['登録済み選手',countRiders]];
+ intel$('intel-stats').innerHTML=stats.map(([k,v])=>`<div class="intel-card"><span>${esc(k)}</span><strong>${v.toLocaleString('ja-JP')}</strong></div>`).join('');
+ const profiles=brainProfiles(data);
+ intel$('intel-roster').innerHTML=data.riders.map(r=>{
+  const all=entries.filter(x=>x.rider===intelKey(r)), effective=valid.filter(x=>x.rider===intelKey(r)),p=profiles.get(r.no);
+  const changes=p.evidence_changes||[];
+  return `<div class="intel-record"><strong>${r.no} ${esc(r.name)}</strong><span class="intel-tag">記録 ${all.length}件</span><span class="intel-tag approved">反映 ${effective.length}件</span><div>${changes.length?changes.map(x=>`${esc(BRAIN_TRAITS[x.trait])} ${x.was.toFixed(1)}→${x.now.toFixed(1)}`).join(' / '):'個別証拠の反映なし（従来の暫定仮説で予想）'}</div></div>`;
+ }).join('');
+ intelRenderRows();
+}
+function intelRenderRows(){
+ const rider=intel$('intel-filter').value,status=intel$('intel-status-filter').value;
+ const rows=intelRead().filter(x=>(rider==='all'||x.rider===rider)&&(status==='all'||x.status===status)).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,250);
+ intel$('intel-records').innerHTML=rows.length?rows.map(x=>{
+ const state=x.status==='approved'?'確認済み':x.status==='rejected'?'不採用':'未確認';
+ const traitLabel=x.type==='pair'?`追走相性・${esc(x.partner)}（前が${esc(x.rider)}）`:esc(BRAIN_TRAITS[x.trait]);
+ const link=x.url?` <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">出典を開く</a>`:'';
+ return `<div class="intel-record"><strong>${esc(x.rider)}</strong> <span class="intel-tag ${x.status==='approved'?'approved':'pending'}">${state}</span> <span class="intel-tag">${esc(x.date)}</span><div>${traitLabel}：${x.value.toFixed(1)}/5・根拠${x.strength} ／ ${esc(x.kind)}</div><div>${esc(x.note||'（メモなし）')}${link}</div><div class="intel-acts">${x.status!=='approved'?`<button class="btn secondary" data-intel-action="approved" data-intel-id="${x.id}">資料確認済みとして採用</button>`:''}${x.status!=='rejected'?`<button class="btn secondary" data-intel-action="rejected" data-intel-id="${x.id}">不採用</button>`:''}<button class="btn secondary" data-intel-action="remove" data-intel-id="${x.id}">削除</button></div></div>`;
+ }).join(''):'<p class="intel-muted">該当する観察記録はありません。</p>';
+}
+function intelRecalc(){brainShow();intelUI();}
+function intelAttach(){
+ for(const k of ['intel-rider','intel-filter','intel-status-filter'])intel$(k).addEventListener('change',()=>{if(k==='intel-rider')intel$('intel-filter').value=intel$('intel-rider').value;intelRenderRows()});
+ intel$('intel-date').value=new Date().toLocaleDateString('sv-SE');intel$('intel-pair-date').value=intel$('intel-date').value;
+ intel$('intel-add').addEventListener('click',()=>{
+  try{const r=intelValidate({type:'trait',rider:intel$('intel-rider').value,trait:intel$('intel-trait').value,date:intel$('intel-date').value,value:intel$('intel-score').value,strength:intel$('intel-strength').value,kind:intel$('intel-kind').value,url:intel$('intel-url').value,note:intel$('intel-note').value,status:'candidate'});
+   const n=intelMerge([r]);intelStatus(n?'未確認候補を1件保存しました。記事・映像を確認してから採用してください。':'同一内容がすでに登録されています。');intelRecalc();
+  }catch(e){intelStatus('登録エラー：'+e.message)}
+ });
+ intel$('intel-pair-add').addEventListener('click',()=>{
+  try{const r=intelValidate({type:'pair',rider:intel$('intel-pair-a').value,partner:intel$('intel-pair-b').value,date:intel$('intel-pair-date').value,value:intel$('intel-pair-score').value,strength:2,kind:'race',url:intel$('intel-pair-url').value,note:intel$('intel-pair-note').value,status:'candidate'});
+   const n=intelMerge([r]);intelStatus(n?'連係候補を登録しました。確認後に分岐へ反映できます。':'同一内容が登録済みです。');intelRecalc();
+  }catch(e){intelStatus('連係登録エラー：'+e.message)}
+ });
+ intel$('intel-records').addEventListener('click',e=>{const b=e.target.closest('[data-intel-action]');if(!b)return;
+  const rows=intelRead(),target=rows.find(x=>x.id===b.dataset.intelId);if(!target)return;
+  if(b.dataset.intelAction==='remove'){if(!confirm('この記録を削除しますか？'))return;intelWrite(rows.filter(x=>x.id!==target.id));}
+  else {if(b.dataset.intelAction==='approved'&&!confirm('元資料と観察日を確認しましたか？ 採用すると該当日より後のレースの推理に反映されます。'))return;
+   target.status=b.dataset.intelAction;intelWrite(rows);}
+  intelRecalc();intelStatus('台帳を更新しました。');
+ });
+ intel$('intel-seed').addEventListener('click',intelImportSeeds);
+ intel$('intel-search').addEventListener('click',()=>{const name=intel$('intel-rider').value;const url='https://www.google.com/search?q='+encodeURIComponent('"'+name+'" 競輪 前検 レース後 コメント かまし 追走');window.open(url,'_blank','noopener,noreferrer')});
+ intel$('intel-download').addEventListener('click',()=>{const rows=intelRead();downloadEntry({schema:INTEL_SCHEMA,kind:'backup',exported_at:new Date().toISOString(),records:rows},'TK_KEIRIN_RIDER_EVIDENCE_'+new Date().toISOString().slice(0,10)+'.json');intelStatus(rows.length+'件の研究台帳を書き出しました。');});
+ intel$('intel-upload').addEventListener('change',async e=>{try{const f=e.target.files?.[0];if(!f)return;if(f.size>2_000_000)throw Error('2MB以内のJSONを選択してください');const doc=JSON.parse(await f.text());if(doc.schema!==INTEL_SCHEMA||!Array.isArray(doc.records)||doc.records.length>5000)throw Error('研究台帳の形式が違います');
+ const n=intelMerge(doc.records,doc.kind==='backup');intelStatus(n+'件を追加。重複はスキップしました。外部の調査パックは未確認候補として取り込まれます。');intelRecalc();}catch(err){intelStatus('取込エラー：'+err.message)}finally{e.target.value=''}});
+ const PATTERNS=[['front',/前受け|前を取る|前を取り/,'4.5'],['resist',/突っ張|突張/,'4.5'],['withdraw',/引いて|一度引|後方に下げ/,'4.5'],['kamashi',/カマシ|かまし|叩いて先行/,'4.5'],['makuri',/捲り|まくり/,'4.5'],['track',/追走でき|付いて行け|離れず/,'4.5'],['track',/千切れ|ちぎれ|離れた|追走できず/,'1'],['seat',/番手にはま|番手に収ま/,'4.5'],['recover',/自力に切り替え|自力に転じ/,'4.5'],['finish',/差し切|抜き去っ|差し脚/,'4.5'],['outer',/大外|外を伸び|外から突っ込/,'4.5']];
+ let suggestions=[];
+ intel$('intel-analyze').addEventListener('click',()=>{
+ const raw=intel$('intel-batch').value.slice(0,50000),pieces=raw.split(/[。！？\n]/).map(x=>x.trim()).filter(Boolean);
+ const names=data.riders.map(x=>x.name);suggestions=[];
+ for(const sentence of pieces){const contained=names.filter(n=>sentence.includes(n));if(contained.length!==1)continue;
+  for(const [key,regex,value] of PATTERNS){if(!regex.test(sentence))continue;
+    const negated=/ない|なかった|できなかった|しなかった|禁止|否定|もし|仮に/.test(sentence);
+    suggestions.push({type:'trait',rider:contained[0],trait:key,date:intel$('intel-date').value,value:Number(value),strength:1,kind:'hypothesis',note:`${negated?'否定・仮定表現あり、要精査：':''}${sentence.slice(0,160)}`,url:intel$('intel-url').value,status:'candidate'});
+  }
+ }
+ if(suggestions.length>200)suggestions=suggestions.slice(0,200);
+ intel$('intel-suggestions').textContent=suggestions.length?`${suggestions.length}件の候補（未確認）：\n`+suggestions.map(x=>`${x.rider}／${BRAIN_TRAITS[x.trait]} ${x.value}/5：${x.note}`).join('\n'):'候補は見つかりませんでした。出走選手名が１名だけ出現する文章で試してください。';
+ });
+ intel$('intel-batch-add').addEventListener('click',()=>{try{if(!suggestions.length)throw Error('先に候補を抽出してください');const n=intelMerge(suggestions);intelRecalc();intelStatus(n+'件の未確認候補を保存しました。原資料を確認するまで予想には使いません。');}catch(e){intelStatus('登録エラー：'+e.message)}});
+}
+const intelOldRender=render;render=function(){intelOldRender();intelUI();};
+// Preserve an auditable snapshot of exactly which evidence was eligible when the prediction was saved.
+const intelOldPredictionRecord=predictionRecord;
+predictionRecord=function(){const out=intelOldPredictionRecord(),e=intelRead().filter(x=>intelApplicable(data,x)&&data.riders.some(r=>x.rider===intelKey(r)));
+ out.intelligence={version:INTEL_VERSION,as_of:data.date,approved_ids:e.map(x=>x.id),total_approved:e.length,notice:'Date-only as-of strict cutoff (observation date < race date). Profiles are hypotheses, not verified psychological facts.'};return out;};
+intelAttach();intelUI();brainShow();
+
+</script></body></html>
