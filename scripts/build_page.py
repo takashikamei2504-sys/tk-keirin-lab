@@ -8,6 +8,7 @@ ui=s.index('function causalRun(){',start)
 s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};\nfunction causalBuild(r){validate(r);return RaceBrain.build(r,autoIntelPack);}\n"+s[ui:]
 s=s.replace('<script>','<script src="js/race-brain.js"></script><script>',1)
 s=s.replace('v1.3','v1.4')
+s=s.replace('font-weight:500">v1.2</span></h1>', 'font-weight:500">v1.4</span></h1>')
 s=s.replace('CAUSAL RACE BRAIN / v1.4','INDEPENDENT RACE BRAIN / v1.4')
 s=s.replace('出走表・ライン・競走得点と、保存済みの人物仮説から推理します。現状の個性は未検証の推定を含みます。記事本文の自動読解と学習済み確率モデルはまだ接続していません。未提供のB/S・直近着数は、取得した実績として扱いません。','公開記事本文の自動抽出と脚質・得点から独立推理。従来の印・買い目・手入力の人物仮説は使いません。記事不足時は暫定値で生成し、未校正の仮説スコアとして表示します。')
 s=s.replace(' <div id="causal-state"', ' <div class="quick-smallrow"><a class="btn secondary" href="v12.html">従来のv1.2を開く</a><a class="btn secondary" href="v13.html">元のv1.3</a></div>\n <div id="auto-intel-status" class="causal-meta" role="status">記事データを自動取得中…</div>\n <details class="causal-story"><summary>選手別の記事根拠・情報不足を確認</summary><div id="auto-intel-evidence"></div></details>\n <div id="causal-state"',1)
