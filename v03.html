@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TK KEIRIN LAB | 出走表入力 v0.3</title>
+<style>
+:root{color-scheme:dark;--bg:#0c121b;--panel:#161f2b;--muted:#9aaabd;--line:#344153;--white:#eff5fa;--gold:#f1c977;--green:#92dbc2;--blue:#a6c9f7}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;line-height:1.55}
+.wrap{max-width:1120px;padding:24px 20px 70px;margin:auto}.eyebrow{color:var(--gold);font-size:12px;letter-spacing:2px;font-weight:700}
+h1{margin:4px 0 10px;font-size:clamp(24px,4vw,38px);letter-spacing:.025em}.sub{color:var(--muted);margin:0 0 24px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.panel{border:1px solid #27354a;background:var(--panel);border-radius:16px;padding:20px;margin-bottom:16px}.panel h2{font-size:17px;margin:0 0 12px}.details{color:var(--muted);font-size:13px}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12px;color:var(--muted)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.lineup{display:grid;gap:8px}.rail{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.railname{width:90px;color:var(--muted);font-size:13px}.chip{min-width:33px;height:36px;border-radius:8px;background:#28384d;display:inline-flex;align-items:center;justify-content:center;font-weight:800}.chip.main{background:#655026;color:#ffe9b7}.dash{color:#6a7d93}.hero{color:var(--gold);font-weight:700;font-size:17px}.report{white-space:pre-wrap;font-size:14px;line-height:1.85;color:#d9e5ef}.ticket-table{width:100%;border-collapse:collapse;font-size:13px}.ticket-table th{text-align:left;color:var(--muted);font-size:12px;font-weight:500}.ticket-table th,.ticket-table td{border-bottom:1px solid #293548;padding:9px 5px}.ticket-table td:nth-child(2){font-weight:750;font-size:16px;white-space:nowrap;font-variant-numeric:tabular-nums}.ticket-table td:last-child{text-align:right}.small{font-size:12px;color:var(--muted)}.scorebar{height:7px;border-radius:10px;background:#2d4054;overflow:hidden;width:100px}.scorebar i{height:100%;display:block;background:var(--gold)}.btn{background:var(--gold);color:#19202a;border:0;border-radius:9px;padding:10px 15px;font-weight:750;cursor:pointer}.btn.secondary{background:#2a3b50;color:var(--white)}.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0 18px}.controls input{width:68px;padding:8px;background:#0e1824;color:var(--white);border:1px solid #526277;border-radius:7px;font-size:15px}label{font-size:13px;color:var(--muted)}summary{cursor:pointer;color:var(--blue);font-size:13px;padding:8px 0}textarea{width:100%;min-height:300px;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0d1723;border:1px solid #3b4d63;border-radius:10px;padding:12px;color:var(--white)}.warning{border-left:3px solid var(--gold);padding:12px 14px;background:#262b2a;color:#f1dcae;font-size:13px}.stat{font-size:22px;color:var(--gold);font-weight:800}.footer{color:var(--muted);font-size:12px;line-height:1.8;margin-top:25px}a{color:var(--blue)}.error{color:#ff9a9a;font-size:13px;white-space:pre-wrap}.player{display:grid;grid-template-columns:36px minmax(80px,1fr) 80px 80px;gap:8px;padding:7px 0;border-bottom:1px solid #2b3849;font-size:12px}.player .num{font-weight:800;color:var(--gold)}.player .val{text-align:right;font-variant-numeric:tabular-nums}@media(max-width:750px){.grid{grid-template-columns:1fr}.wrap{padding:18px 13px 50px}.panel{padding:15px}.player{grid-template-columns:30px 1fr 65px 65px}.railname{width:70px}}
+
+.audit-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.audit-grid .audit-stat{border:1px solid #354458;border-radius:10px;padding:10px;background:#192636}
+.audit-stat strong{display:block;font-size:21px;color:var(--gold)}
+.logrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:14px 0;border-bottom:1px solid #344153}
+.logrow:last-child{border:0}
+.logrow .itemname{font-weight:750}
+.logrow input{color:#fff;border:1px solid #526277;background:#0e1824;padding:7px;border-radius:7px;max-width:116px;width:100%;font-size:14px}
+.logrow .outcome{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.logrow .outcome label{font-size:11px}
+.logrow .result{font-size:12px;line-height:1.8;color:var(--muted)}
+.logrow .status{font-size:11px;color:#9bddc1}
+.logrow .status.replay{color:var(--gold)}
+.audit-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+@media(max-width:750px){.audit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.logrow{grid-template-columns:1fr}.logrow .outcome input{max-width:120px}}
+
+/* v0.3: iPhone-friendly data intake */
+.entry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.entry-field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.entry-field input,.entry-field select,.entry-field textarea,.entry-select{min-width:0;width:100%;background:#0d1723;color:var(--white);border:1px solid #496079;border-radius:9px;padding:10px;font-size:16px;font-family:inherit}
+.entry-field input[type=number]{font-variant-numeric:tabular-nums}
+.entry-wide{grid-column:1/-1}.entry-section{margin-top:15px}.entry-section h3{font-size:14px;margin:0 0 6px}
+#entry-riders{min-height:225px;line-height:1.7;font-size:13px;white-space:pre;overflow-x:auto}
+#entry-lineup{font-family:ui-monospace,SFMono-Regular,monospace}
+.entry-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.entry-preview{border:1px solid #415973;border-radius:11px;padding:12px;background:#111d2a;margin-top:12px}
+.entry-preview table{border-collapse:collapse;width:100%;font-size:12px}.entry-preview th,.entry-preview td{padding:7px 3px;border-bottom:1px solid #2d3e52;text-align:left}
+.entry-preview th{color:var(--muted)}.entry-preview strong{color:var(--green)}
+.entry-help{color:var(--muted);font-size:12px;margin-top:5px;line-height:1.8}
+.entry-msg{white-space:pre-wrap;font-size:13px;margin-top:10px;color:var(--gold)}
+.entry-msg.bad{color:#ffabab}.entry-msg.good{color:var(--green)}
+.entry-source{font-size:12px;color:var(--muted);margin-top:8px}
+.mini{font-size:12px;padding:9px 11px}.file-tap{display:inline-block;cursor:pointer}
+.entry-photo{max-width:100%;max-height:420px;border-radius:9px;margin-top:10px;object-fit:contain}
+#pdf-extracted{min-height:140px}
+button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:420px){.entry-grid{grid-template-columns:1fr 1fr}.entry-field{font-size:12px}.entry-preview{overflow-x:auto}.entry-preview table{min-width:350px}}
+
+</style>
+</head>
+<body><div class="wrap">
+<div class="eyebrow">RACE INTAKE / OFFLINE-FIRST</div>
+<h1>TK KEIRIN LAB <span style="font-size:13px;color:var(--muted);font-weight:500">v0.3</span></h1>
+<p class="sub">実レース入力 × 並びの確認 × 暫定評価 → 展開見解・３連単候補</p>
+<div class="warning">これは<strong>動作確認用の試作版</strong>です。学習済みAI・確率較正済み予測ではありません。表示する数値は相対的な参考スコアで、的中確率でも期待値でもありません。初期表示の2026/10/31防府12Rはサンプルです。未確認の資料を入力した場合は必ず原資料と突き合わせてください。</div>
+<br />
+
+<section class="panel" id="intake">
+<h2>出走表の取り込み <span class="pill">v0.3</span></h2>
+<p class="details">開催・出走選手・並びを入力して、<strong>検査 → 内容確認 → 予想に反映</strong>の順で進めます。外部サイトからの自動取得は行いません。</p>
+<div class="entry-grid">
+ <label class="entry-field">開催日 <input type="date" id="entry-date" required></label>
+ <label class="entry-field">競輪場 <input type="text" id="entry-venue" placeholder="例：防府" maxlength="50" required></label>
+ <label class="entry-field">レース番号 <select id="entry-race" class="entry-select"></select></label>
+ <label class="entry-field">発走時刻（JST） <input type="time" id="entry-start" required></label>
+ <label class="entry-field">車数 <select id="entry-size"><option value="7">７車</option><option value="9">９車</option></select></label>
+ <label class="entry-field">グレード <select id="entry-grade"><option value="FII">FII</option><option value="FI">FI</option><option value="GIII">GIII</option><option value="GII">GII</option><option value="GI">GI</option><option value="GP">GP</option></select></label>
+ <label class="entry-field entry-wide">レース種別 <input type="text" id="entry-class" placeholder="例：A級チャレンジ予選" maxlength="60"></label>
+ <label class="entry-field entry-wide">出典（入力元の名前） <input type="text" id="entry-source" placeholder="例：競輪場公式PDF（自分で転記）" maxlength="130"></label>
+ <label class="entry-field entry-wide">参考URL（任意） <input type="url" id="entry-source-url" placeholder="https://..." maxlength="500"></label>
+</div>
+<div class="entry-section">
+ <h3>① 選手データ（１選手１行）</h3>
+ <p class="entry-help">順番：<strong>車番,選手名,競走得点,脚質,S,B,1着,2着,3着,着外</strong><br>区切りはカンマかタブ。７車なら７行、９車なら９行。欠けた数値を勝手に０で補いません。</p>
+ <textarea id="entry-riders" spellcheck="false" placeholder="1,選手名,108.50,逃,0,4,3,2,1,10"></textarea>
+ <div class="entry-buttons">
+   <label class="btn secondary mini file-tap" for="entry-textfile">CSV / TSV / JSONを選ぶ</label><input id="entry-textfile" type="file" accept=".csv,.tsv,.txt,.json,text/csv,text/plain,application/json" style="display:none">
+   <button type="button" class="btn secondary mini" id="entry-template">空の入力ひな型</button>
+   <button type="button" class="btn secondary mini" id="entry-demo">防府サンプルをセット</button>
+ </div>
+</div>
+<div class="entry-section">
+ <h3>② 想定ライン・並び</h3>
+ <label class="entry-field">先頭−番手−3番手／別ラインは「 / 」区切り
+ <input id="entry-lineup" type="text" placeholder="例：2-8-7 / 1-4 / 5-6 / 3 / 9"></label>
+ <p class="entry-help">並びは事実として確定するものではなく、参照した時点の想定です。単騎も必ず入力してください。全車番を１回ずつ使う必要があります。</p>
+</div>
+<div class="entry-section">
+ <details>
+   <summary>PDF・写真を参照して入力する（補助機能）</summary>
+   <p class="entry-help">文字情報を含むPDFは、ブラウザ内で文字を抽出して下に表示できます。<strong>選手情報への自動変換は行いません。</strong>スキャンPDFや写真はOCR非対応のため、表示を見て転記してください。PDFの読み込みには外部配信のPDF.jsライブラリを読み込みますが、PDF本体を当サイトのサーバーへアップロードしません。</p>
+   <label class="entry-field">PDFを開く <input id="entry-pdf" type="file" accept="application/pdf,.pdf"></label>
+   <label class="entry-field" style="margin-top:10px">参考写真を表示 <input id="entry-photo-file" type="file" accept="image/*"></label>
+   <img id="entry-photo" class="entry-photo" hidden alt="選択した参考写真">
+   <p id="pdf-status" class="entry-msg" role="status"></p>
+   <textarea id="pdf-extracted" placeholder="PDFから抽出したテキストがここに表示されます。必要な数値を上の選手入力欄へ転記してください。" readonly></textarea>
+ </details>
+</div>
+<div class="entry-buttons">
+ <button type="button" class="btn" id="entry-check">③ 内容を検査・確認</button>
+ <button type="button" class="btn secondary" id="entry-apply" disabled>④ 確認して予想に反映</button>
+</div>
+<div id="entry-message" class="entry-msg" role="status"></div>
+<div id="entry-preview" class="entry-preview" hidden></div>
+<div class="entry-section">
+ <h3>入力した出走表を保管する</h3>
+ <p class="entry-help">この端末のブラウザ内に保存します。iPhoneの別アプリや端末とは同期されません。重要なデータはJSONでも保存してください。</p>
+ <div class="entry-buttons">
+  <button type="button" class="btn secondary mini" id="entry-store">今の出走表を端末に保存</button>
+  <button type="button" class="btn secondary mini" id="entry-export">出走表JSONを書き出す</button>
+ </div>
+ <div class="entry-grid" style="margin-top:12px">
+  <label class="entry-field entry-wide">保存した出走表 <select id="entry-library" class="entry-select"></select></label>
+ </div>
+ <div class="entry-buttons"><button type="button" class="btn secondary mini" id="entry-load">保存データを読み込む</button><button type="button" class="btn secondary mini" id="entry-remove">選択した保存データを削除</button></div>
+</div>
+</section>
+
+<section id="header" class="panel"></section>
+<div class="grid">
+  <div>
+    <section class="panel"><h2>ライン構成</h2><div id="lines" class="lineup"></div></section>
+    <section class="panel"><h2>予想見解（入力データから自動生成）</h2><div id="report" class="report"></div></section>
+  </div>
+  <div>
+    <section class="panel"><h2>出走選手データ</h2><div id="players"></div><p class="small">競走得点・B本数・1着率。率は出走表の直近4か月成績。</p></section>
+    <section class="panel"><h2>買い目の生成</h2><div class="controls"><label for="count">３連単 点数</label><input id="count" type="number" min="1" max="100" value="20" /><button class="btn" id="generate">再計算</button><button class="btn secondary" id="copy">買い目をコピー</button></div><div class="row"><div class="pill">同ライン連係を加点</div><div class="pill">上位１着車の偏りを抑制</div></div><p class="details">オッズ未入力につき、配当帯・期待値による選別は未実装です。３連単20点の机上購入（各100円）を仮定できます。</p><div id="tickets"></div></section>
+  </div>
+</div>
+<section class="panel"><details><summary>出走表を編集する（別レースでも使用可）</summary><p class="small">出走表の事実情報をJSONで入力。並びは先頭→番手→3番手の順にします。データは外部送信されません。</p><label for="race-file">レースJSONを読み込む</label> <input id="race-file" type="file" accept=".json,application/json" /><textarea id="raw"></textarea><div class="controls"><button class="btn" id="apply">編集データを反映</button><button class="btn secondary" id="reset">サンプルに戻す</button></div><p id="error" class="error"></p></details></section>
+
+<section class="panel" id="audit">
+<h2>予想保存・結果検証（v0.2から継続）</h2>
+<div class="warning">発走前に買い目を保存した記録のみ、実戦検証に集計します。過去レースを後から入力した予想は「再現テスト」として扱い、実戦成績には含めません。保存時刻は端末時計に基づくため独立した第三者証明ではありません。</div>
+<div class="audit-actions">
+<button class="btn" id="save-prediction">現在の予想を保存</button>
+<button class="btn secondary" id="export-log">記録をJSONで書き出す</button>
+<label class="btn secondary" for="import-log" style="cursor:pointer;color:var(--white)">記録JSONを読み込む</label><input id="import-log" type="file" accept=".json,application/json" style="display:none" />
+</div>
+<div id="audit-info" class="details" role="status"></div>
+<div class="audit-grid" id="audit-summary"></div>
+<div id="audit-history"></div>
+</section>
+<p class="footer">データ参照：<a href="https://keirin.tokyo-sports.co.jp/list/race/20261030_31588" target="_blank" rel="noopener noreferrer">東スポ競輪 2026/10/31 防府12R</a>、<a href="https://keirin.kdreams.jp/yenjoy/keirin-kaisai/race-card/odds/6320261031/63202610310100/12/3rentan/" target="_blank" rel="noopener noreferrer">楽天Kドリームス 出走表</a>。データの利用許諾に適合する取得方法は本格開発時に確認が必要です。<br />本試作はデータを手入力・同梱する方式です。リアルタイム取得、AI学習、オッズ取り込み、自動投票は未実装です。予想と結果の照合は100円均等購入を仮定した机上検証です。</p>
+</div><script>
+'use strict';
+const DEMO={"date":"2026-10-31","venue":"防府","race_no":12,"grade":"GIII","class":"S級初日特選","start":"16:25","lineup":[[2,8,7],[1,4],[5,6],[3],[9]],"riders":[{"no":1,"name":"郡司浩平","score":116.60,"style":"両","s":8,"b":9,"wins":6,"seconds":6,"thirds":1,"outs":8},{"no":2,"name":"太田海也","score":123.50,"style":"逃","s":3,"b":2,"wins":2,"seconds":1,"thirds":0,"outs":1},{"no":3,"name":"南修二","score":114.71,"style":"追","s":0,"b":0,"wins":2,"seconds":3,"thirds":4,"outs":12},{"no":4,"name":"渡部幸訓","score":114.42,"style":"追","s":2,"b":1,"wins":2,"seconds":7,"thirds":6,"outs":7},{"no":5,"name":"松本貴治","score":118.64,"style":"両","s":4,"b":2,"wins":9,"seconds":3,"thirds":0,"outs":6},{"no":6,"name":"佐々木豪","score":113.91,"style":"逃","s":1,"b":1,"wins":6,"seconds":5,"thirds":1,"outs":13},{"no":7,"name":"清水裕友","score":116.06,"style":"両","s":2,"b":0,"wins":4,"seconds":2,"thirds":1,"outs":8},{"no":8,"name":"取鳥雄吾","score":113.91,"style":"逃","s":14,"b":6,"wins":9,"seconds":1,"thirds":2,"outs":11},{"no":9,"name":"山口拳矢","score":115.37,"style":"両","s":11,"b":2,"wins":10,"seconds":4,"thirds":2,"outs":11}]};
+let data=structuredClone(DEMO); let currentTickets=[];
+const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
+function validate(r){if(!r||!Array.isArray(r.riders)||!Array.isArray(r.lineup)||![7,9].includes(r.riders.length))throw Error('ridersは7人または9人必要です。');if(!/^\d{4}-\d{2}-\d{2}$/.test(r.date)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(r.start)||!Number.isInteger(r.race_no)||r.race_no<1||r.race_no>12||typeof r.venue!=='string'||!r.venue.trim()||r.venue.length>50)throw Error('開催日・発走時刻・レース番号・競輪場が不正です。');const nums=r.riders.map(x=>x.no);if(new Set(nums).size!==nums.length||nums.some(n=>!Number.isInteger(n)||n<1||n>9))throw Error('車番に重複または不正な値があります。');const flattened=r.lineup.flat();if(flattened.length!==nums.length||new Set(flattened).size!==nums.length||flattened.some(x=>!nums.includes(x)))throw Error('lineupは全出走選手を重複なく含む必要があります。');for(const x of r.riders){for(const key of ['score','b','s','wins','seconds','thirds','outs'])if(!Number.isFinite(x[key])||x[key]<0)throw Error(`${x.no}番車の${key}が不正です。`);if(!String(x.name||'').trim())throw Error('選手名が必要です。');}return true;}
+function info(r){let n=r.wins+r.seconds+r.thirds+r.outs;return {n,win:n?r.wins/n:0,show:n?(r.wins+r.seconds+r.thirds)/n:0};}
+function lineIdx(n){return data.lineup.findIndex(l=>l.includes(n));}
+function linePos(n){return data.lineup[lineIdx(n)].indexOf(n);}
+function strength(r){const z=(r.score-110)/14;const p=info(r);const w=(r.wins+4)/(p.n+20);const sh=(r.wins+r.seconds+r.thirds+9)/(p.n+20);return 1.10*z+0.7*w+0.4*sh;}
+function ticketScore(a,b,c){const rr=new Map(data.riders.map(r=>[r.no,r]));let x=0.47*strength(rr.get(a))+0.32*strength(rr.get(b))+0.21*strength(rr.get(c));const al=lineIdx(a),bl=lineIdx(b),cl=lineIdx(c);if(al===bl)x+=0.17;if(bl===cl)x+=0.10;if(al===cl)x+=0.07;if(al===bl&&bl===cl){x+=0.17; const pa=linePos(a),pb=linePos(b),pc=linePos(c); // 正順のライン決着と番手抜け出しを優遇する暫定規則
+if(pa===0&&pb===1&&pc===2)x+=0.28;
+else if(pa===1&&pb===2&&pc===0)x+=0.27;
+else if(pa===1&&pb===0&&pc===2)x+=0.17;
+else if(pa===0&&pb===2&&pc===1)x+=0.06;
+} if(al===bl && linePos(a)===1 && linePos(b)===0)x+=0.045;
+// バンク特性・Ｂ本数の確率推定ではなく、先頭と番手の接続を加点する暫定規則。
+const leadCandidates=data.lineup.filter(l=>l.length>1).map(l=>l[0]); if(leadCandidates.includes(a)&&data.lineup[al].length>1)x+=0.035;return x;}
+function ranking(n){let combos=[];for(const a of data.riders)for(const b of data.riders)for(const c of data.riders){if(a.no===b.no||a.no===c.no||b.no===c.no)continue;combos.push({trio:[a.no,b.no,c.no],score:ticketScore(a.no,b.no,c.no)});}combos.sort((a,b)=>b.score-a.score||a.trio.join('').localeCompare(b.trio.join('')));
+let chosen=[],heads={};const cap=Math.max(3,Math.ceil(n*0.4));for(const t of combos){if((heads[t.trio[0]]||0)>=cap)continue;chosen.push(t);heads[t.trio[0]]=(heads[t.trio[0]]||0)+1;if(chosen.length===n)break;}return chosen;}
+function format(){const count=Math.max(1,Math.min(100,Number($('count').value)||20));$('count').value=count;currentTickets=ranking(count);const max=currentTickets[0]?.score||1,min=currentTickets.at(-1)?.score||0;let out='<table class="ticket-table"><thead><tr><th>#</th><th>３連単</th><th>相対順位表示</th></tr></thead><tbody>';currentTickets.forEach((t,i)=>{let width=Math.max(10,Math.round(100*(t.score-min+0.12)/(max-min+0.12)));out+=`<tr><td>${i+1}</td><td>${t.trio.join(' - ')}</td><td><div class="scorebar"><i style="width:${width}%"></i></div></td></tr>`;});$('tickets').innerHTML=out+'</tbody></table><p class="small">棒の長さは今回の候補内での相対順位表示。確率やオッズは表しません。</p>';}
+function render(){validate(data);$('header').innerHTML=`<div class="eyebrow">${esc(data.date)} / ${esc(data.venue)} / ${esc(data.race_no)}R</div><h2 style="font-size:21px;margin:4px 0">${esc(data.venue)} ${esc(data.race_no)}R　${esc(data.class)}</h2><div class="row"><span class="pill">${esc(data.grade)}</span><span class="pill">${data.riders.length}車立て</span><span class="pill">発走 ${esc(data.start)}</span><span class="pill">${esc(data.source?.mode==='manual'?'手入力・未検証':'サンプル分析')}</span></div>`;
+let players=new Map(data.riders.map(r=>[r.no,r]));$('lines').innerHTML=data.lineup.map((line,i)=>`<div class="rail"><span class="railname">${line.length===1?'単騎':i===0?'ライン '+(i+1):'ライン '+(i+1)}</span>${line.map((n,j)=>`${j?'<span class="dash">—</span>':''}<span class="chip ${i===0?'main':''}" title="${esc(players.get(n).name)}">${n}</span>`).join('')}<span class="small">${line.map(n=>esc(players.get(n).name)).join(' / ')}</span></div>`).join('');
+$('players').innerHTML=`<div class="player" style="color:var(--muted)"><span>車番</span><span>選手名</span><span class="val">得点</span><span class="val">B / 勝率</span></div>`+[...data.riders].sort((a,b)=>a.no-b.no).map(r=>`<div class="player"><span class="num">${r.no}</span><span>${esc(r.name)} <span class="small">${esc(r.style)}</span></span><span class="val">${r.score.toFixed(2)}</span><span class="val">${r.b} / ${(info(r).win*100).toFixed(1)}%</span></div>`).join('');
+const strong=[...data.riders].sort((a,b)=>strength(b)-strength(a));const important=data.lineup.filter(l=>l.length>=2).sort((a,b)=>strength(players.get(b[0]))-strength(players.get(a[0])))[0];const lead=players.get(important[0]),second=important.length>1?players.get(important[1]):null,third=important.length>2?players.get(important[2]):null;const peakB=[...data.riders].sort((a,b)=>b.b-a.b).slice(0,2);let text=`【分析対象】${data.venue} ${data.race_no}R ${data.class}\n`+`【暫定個人評価】${strong.slice(0,4).map((r,i)=>['◎','○','▲','△'][i]+r.no+' '+r.name).join(' / ')}\n\n`+`【ライン】${data.lineup.map(l=>l.join('-')).join(' / ')}\n\n`+`【展開を考える手掛かり】\n`+`競走得点と直近成績を平滑化した暫定スコアでは${strong[0].no}番${strong[0].name}が上位。得点${strong[0].score.toFixed(2)}、直近${info(strong[0]).n}走の1着率${(info(strong[0]).win*100).toFixed(1)}%。\n`+`B本数が多いのは${peakB.map(r=>r.no+'番'+r.name+'（'+r.b+'本）').join('、')}。ただしB本数は主導権獲得確率ではありません。\n`+`${lead.no}番${lead.name}が前を回る${important.join('-')}の連係では、${second?second.no+'番'+second.name+'の番手からの抜け出し':'先頭'}${third?'、'+third.no+'番'+third.name+'の3番手残り':''}が検討対象になります。先行争いの強度や別線の巻き返しは過去レース単位の学習なしには評価できません。\n\n`+`【買い目】下欄に3連単を相対順位で出力。これは買い目候補の生成テストであり、的中確率・期待値・回収率の保証はありません。`;
+$('report').textContent=text; format();}
+$('generate').addEventListener('click',format);
+$('copy').addEventListener('click',async()=>{const s=`${data.date} ${data.venue}${data.race_no}R 3連単 ${currentTickets.length}点\n`+currentTickets.map((t,i)=>`${i+1}. ${t.trio.join('-')}`).join('\n');try{await navigator.clipboard.writeText(s);$('copy').textContent='コピーしました';setTimeout(()=>$('copy').textContent='買い目をコピー',1500);}catch(e){window.prompt('以下をコピーしてください',s);}});
+$('apply').addEventListener('click',()=>{try{const candidate=JSON.parse($('raw').value);validate(candidate);data=candidate;$('error').textContent='';render();}catch(e){$('error').textContent='入力エラー: '+e.message;}});
+$('reset').addEventListener('click',()=>{data=structuredClone(DEMO);$('raw').value=JSON.stringify(data,null,2);$('error').textContent='';render();});
+$('raw').value=JSON.stringify(DEMO,null,2);render();
+
+// Audit v0.2: browser-only, manually imported records, no bets placed.
+const AUDIT_KEY='tk_keirin_lab_audit_v02';
+const AUDIT_VER='rules-v0.3-intake';
+function storeGet(){try{let x=JSON.parse(localStorage.getItem(AUDIT_KEY)||'[]');return Array.isArray(x)?x:[]}catch{return []}}
+function storePut(rows){localStorage.setItem(AUDIT_KEY,JSON.stringify(rows));}
+function notify(message){$('audit-info').textContent=message;}
+function isRealPreRace(d,at){
+  // ISO deadline uses explicit JST, unlike locale dependent Date parsing.
+  const start=Date.parse(`${d.date}T${d.start}:00+09:00`);
+  return Number.isFinite(start) && Date.parse(at)<start;
+}
+function safeName(d){return `${d.date}_${d.venue}_${d.race_no}R`.replace(/[^a-zA-Z0-9_-]/g,'_')}
+function predictionRecord(){
+  const saved_at=new Date().toISOString();
+  const s=JSON.parse(JSON.stringify(data));
+  const signature=`${s.date}|${s.venue}|${s.race_no}|${s.lineup.map(x=>x.join('-')).join('/')}`;
+  return {id:`${Date.now()}_${Math.random().toString(36).slice(2,8)}`,saved_at,signature,model:AUDIT_VER,race:s,
+      tickets:currentTickets.map(t=>t.trio),pre_race:isRealPreRace(s,saved_at),result:null,unit_yen:100};
+}
+function savePrediction(){
+  try{const record=predictionRecord();const rows=storeGet();rows.unshift(record);storePut(rows);notify(`${record.race.venue}${record.race.race_no}R：予想${record.tickets.length}点を保存。${record.pre_race?'発走前記録':'発走後の再現テスト（実戦集計対象外）'}`);renderAudit();}
+  catch(e){notify('保存に失敗しました。端末の空き容量・ブラウザの設定をご確認ください：'+e.message)}
+}
+function parseResult(s){
+  let x=String(s).trim().replace(/\s+/g,'').replace(/[－ー―]/g,'-');
+  const a=x.split('-').map(Number);return a.length===3&&a.every(n=>Number.isInteger(n))&&new Set(a).size===3?a:null;
+}
+function validateAuditRecord(r){
+  if(!r||typeof r.id!=='string'||!/^[A-Za-z0-9_-]+$/.test(r.id)||typeof r.saved_at!=='string'||!Number.isFinite(Date.parse(r.saved_at))||!Array.isArray(r.tickets)||!r.tickets.length||r.tickets.length>504||!r.race||r.unit_yen!==100)throw Error('記録形式が違います');
+  validate(r.race);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(r.race.date)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(r.race.start)||!Number.isInteger(r.race.race_no)||r.race.race_no<1||r.race.race_no>12||typeof r.race.venue!=='string'||r.race.venue.length>50)throw Error('レース情報が不正です');
+  const allowed=new Set(r.race.riders.map(x=>x.no));
+  const allValid=r.tickets.every(t=>Array.isArray(t)&&t.length===3&&new Set(t).size===3&&t.every(x=>allowed.has(x)));
+  if(!allValid)throw Error('買い目が不正です');
+  if(r.result){if(!Array.isArray(r.result.combo)||!parseResult(r.result.combo.join('-'))||!r.result.combo.every(x=>allowed.has(x))||!Number.isSafeInteger(r.result.payout_100)||r.result.payout_100<0)throw Error('結果が不正です')}
+  return true;
+}
+function saveOutcome(id){
+  const row=storeGet().find(r=>r.id===id);if(!row)return;
+  const combo=parseResult(document.getElementById('combo-'+id).value);
+  const rawPayout=document.getElementById('payout-'+id).value.trim();
+  const payout=rawPayout===''?NaN:Number(rawPayout);
+  const valid=new Set(row.race.riders.map(x=>x.no));
+  if(!combo||!combo.every(n=>valid.has(n))){notify('結果を 2-8-7 の形式で入力してください。');return;}
+  if(!Number.isFinite(payout)||payout<0||!Number.isSafeInteger(payout)){notify('払戻は3連単の100円あたり払戻金を整数で入力してください。');return;}
+  let rows=storeGet();const target=rows.find(x=>x.id===id);
+  target.result={combo,payout_100:payout,registered_at:new Date().toISOString()};
+  try{storePut(rows);notify(`${row.race.venue}${row.race.race_no}Rの確定結果を登録しました。`);renderAudit();}catch(e){notify('結果保存に失敗：'+e.message)}
+}
+function renderAudit(){
+  const rows=storeGet().filter(r=>{try{return validateAuditRecord(r)}catch{return false}});
+  const evaluated=rows.filter(r=>isRealPreRace(r.race,r.saved_at) && r.result);
+  let stakes=evaluated.reduce((a,r)=>a+r.tickets.length*r.unit_yen,0);
+  let hits=evaluated.reduce((a,r)=>a+(r.tickets.some(t=>t.join('-')===r.result.combo.join('-'))?1:0),0);
+  let payout=evaluated.reduce((a,r)=>a+(r.tickets.some(t=>t.join('-')===r.result.combo.join('-'))?r.result.payout_100*(r.unit_yen/100):0),0);
+  const fmt=new Intl.NumberFormat('ja-JP');
+  $('audit-summary').innerHTML=[['発走前・結果登録済',fmt.format(evaluated.length)+'R'],['的中',fmt.format(hits)+'R'],['的中率',evaluated.length?(100*hits/evaluated.length).toFixed(1)+'%':'―'],['仮想回収率',stakes?(100*payout/stakes).toFixed(1)+'%':'―']].map(p=>`<div class="audit-stat"><span class="small">${p[0]}</span><strong>${p[1]}</strong></div>`).join('');
+  $('audit-history').innerHTML=rows.length?rows.slice(0,60).map(r=>{
+    const hit=r.result?r.tickets.some(t=>t.join('-')===r.result.combo.join('-')):false;
+    const name=`${esc(r.race.date)} ${esc(r.race.venue)}${r.race.race_no}R`;
+    const status=isRealPreRace(r.race,r.saved_at)?'<span class="status">発走前保存</span>':'<span class="status replay">再現テスト・集計対象外</span>';
+    const done=r.result?`<div class="result">結果 ${r.result.combo.join('-')} ／ 払戻 ${fmt.format(r.result.payout_100)}円（100円当たり） ／ ${hit?'的中':'不的中'} ／ 仮想損益 ${hit?'+'+fmt.format(r.result.payout_100-r.tickets.length*r.unit_yen):'-'+fmt.format(r.tickets.length*r.unit_yen)}円</div>`:'';
+    return `<div class="logrow"><div><div class="itemname">${name}</div><div class="small">${r.model?esc(r.model):'model不明'}／${r.tickets.length}点×${r.unit_yen}円 ／ ${esc(r.saved_at.replace('T',' ').slice(0,16))} UTC ${status}</div><details><summary>保存した買い目を見る</summary><div class="small">${r.tickets.map(t=>t.join('-')).join(' / ')}</div></details>${done}</div><div>${r.result?'<span class="pill">結果登録済</span>':`<div class="outcome"><label for="combo-${r.id}">3連単確定順</label><input id="combo-${r.id}" placeholder="2-8-7" /><label for="payout-${r.id}">払戻(円)</label><input id="payout-${r.id}" type="number" min="0" step="1" placeholder="12340" /><button class="btn secondary" data-save-id="${r.id}">登録</button></div>`}</div></div>`;
+  }).join(''):'<p class="small" style="margin-top:16px">保存した予想はまだありません。最初に「現在の予想を保存」を押して、記録機能を確認してください。</p>';
+  $('audit-history').querySelectorAll('[data-save-id]').forEach(b=>b.addEventListener('click',()=>saveOutcome(b.dataset.saveId)));
+}
+function exportRecords(){
+  const rows=storeGet();const file={schema:'tk-keirin-lab-audit/v0.2',exported_at:new Date().toISOString(),records:rows};
+  const blob=new Blob([JSON.stringify(file,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`TK_KEIRIN_AUDIT_${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);
+  notify(`${rows.length}件をエクスポートしました。バックアップとして保管してください。`);
+}
+$('save-prediction').addEventListener('click',savePrediction);
+$('export-log').addEventListener('click',exportRecords);
+$('import-log').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{const val=JSON.parse(await f.text());if(val.schema!=='tk-keirin-lab-audit/v0.2'||!Array.isArray(val.records))throw Error('対応外のデータ形式です');
+    val.records.forEach(r=>{validateAuditRecord(r);r.pre_race=isRealPreRace(r.race,r.saved_at)});
+    const rows=storeGet();const known=new Set(rows.map(r=>r.id));const additional=val.records.filter(r=>!known.has(r.id));
+    const all=[...additional,...rows].sort((a,b)=>b.saved_at.localeCompare(a.saved_at));storePut(all);
+    notify(`新規${additional.length}件を取り込みました。IDが重複する既存記録は上書きしていません。`);renderAudit();
+  }catch(error){notify('読み込みエラー：'+error.message);}finally{e.target.value='';}
+});
+$('race-file').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{const v=JSON.parse(await f.text());validate(v);data=v;$('raw').value=JSON.stringify(v,null,2);$('error').textContent='';render();notify(`${v.venue}${v.race_no}Rの出走表を読み込みました。`);}catch(error){$('error').textContent='出走表読み込みエラー：'+error.message;}finally{e.target.value='';}
+});
+renderAudit();
+
+
+/* v0.3 local intake: parsed data are only adopted after explicit preview + confirmation. */
+const INPUT_LIBRARY_KEY='tk_keirin_lab_races_v03';
+const entryState={checked:null,signature:'',photoURL:null};
+for(let n=1;n<=12;n++)$('entry-race').insertAdjacentHTML('beforeend',`<option value="${n}">${n}R</option>`);
+function entryMsg(s,bad=false){$('entry-message').textContent=s;$('entry-message').className='entry-msg '+(bad?'bad':'good');}
+function fullDigit(x){return String(x).normalize('NFKC').trim();}
+function csvFields(s){
+  const v=[];let cur='',quote=false;
+  for(let i=0;i<s.length;i++){
+    const c=s[i];
+    if(c==='"'){if(quote&&s[i+1]==='"'){cur+='"';i++;}else quote=!quote;}
+    else if(c===','&&!quote){v.push(cur.trim());cur='';}
+    else cur+=c;
+  }
+  if(quote)throw Error('CSV引用符が閉じていません');
+  v.push(cur.trim());return v;
+}
+function entryRows(s){
+ const rows=s.replace(/^\uFEFF/,'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ return rows.map((row,i)=>{
+  const cols=(row.includes('\t')?row.split('\t'):csvFields(row)).map(fullDigit);
+  if(cols.length!==10)throw Error(`${i+1}行目：10列必要ですが${cols.length}列です（車番,選手名,得点,脚質,S,B,1着,2着,3着,着外）`);
+  const n=Number(cols[0]);if(!/^[1-9]$/.test(cols[0]))throw Error(`${i+1}行目：車番は1〜9で入力してください`);
+  const nums=[cols[2],...cols.slice(4)].map(Number);
+  if(nums.some((v,j)=>!Number.isFinite(v)||cols[[2,4,5,6,7,8,9][j]]===''))throw Error(`${i+1}行目：得点・S・B・着数はすべて数値で入力してください`);
+  if(!['逃','両','追'].includes(cols[3]))throw Error(`${i+1}行目：脚質は逃・両・追のいずれかで入力してください`);
+  if(!cols[1]||cols[1].includes('（選手名）')||cols[1].includes('選手名を入力'))throw Error(`${i+1}行目：実際の選手名を入力してください`);
+  if(nums[0]<50||nums[0]>150)throw Error(`${i+1}行目：競走得点が通常範囲外です。原資料を確認してください`);
+  if(nums.slice(1).some(v=>!Number.isSafeInteger(v)||v<0||v>200))throw Error(`${i+1}行目：S・B・着数は0以上の整数にしてください`);
+  return {no:n,name:cols[1],score:nums[0],style:cols[3],s:nums[1],b:nums[2],wins:nums[3],seconds:nums[4],thirds:nums[5],outs:nums[6]};
+ });
+}
+function parseLineup(s){
+ const parts=fullDigit(s).replace(/[－ー―−–—]/g,'-').split(/[\/／|｜;；]+/).map(x=>x.trim()).filter(Boolean);
+ if(!parts.length)throw Error('並びを入力してください');
+ return parts.map((x,i)=>{const t=x.split(/[-\s]+/).filter(Boolean);
+  if(t.some(y=>!/^[1-9]$/.test(y)))throw Error(`並び ${i+1}組目に車番以外が含まれます`);
+  return t.map(Number);
+ });
+}
+function makeEntryRace(){
+ const size=Number($('entry-size').value),date=$('entry-date').value,venue=$('entry-venue').value.trim(),raceNo=Number($('entry-race').value);
+ const riders=entryRows($('entry-riders').value);
+ if(riders.length!==size)throw Error(`${size}車立てですが選手は${riders.length}人です`);
+ const sourceLabel=$('entry-source').value.trim();if(!sourceLabel)throw Error('入力元の出典を入力してください');
+ const url=$('entry-source-url').value.trim();if(url&&!/^https:\/\/[\w.-]+(?:\:[0-9]+)?(?:\/|$|\?|#)/i.test(url))throw Error('参考URLはhttps://で始まるURLを指定してください');
+ const race={date,venue,race_no:raceNo,grade:$('entry-grade').value,class:$('entry-class').value.trim()||'種別未入力',start:$('entry-start').value,lineup:parseLineup($('entry-lineup').value),riders,source:{mode:'manual',label:sourceLabel,url,imported_at:new Date().toISOString(),verified:false}};
+ validate(race);
+ const expected=Array.from({length:size},(_,i)=>i+1);
+ if(JSON.stringify([...riders.map(x=>x.no)].sort((a,b)=>a-b))!==JSON.stringify(expected))throw Error(`${size}車では車番を1〜${size}まで揃えてください`);
+ return race;
+}
+function formatEntryRace(d){
+ $('entry-date').value=d.date;$('entry-venue').value=d.venue;$('entry-race').value=d.race_no;$('entry-start').value=d.start;
+ $('entry-size').value=d.riders.length;$('entry-grade').value=d.grade||'FII';$('entry-class').value=d.class||'';
+ $('entry-source').value=d.source?.label||'手元の資料（要照合）';$('entry-source-url').value=d.source?.url||'';
+ $('entry-lineup').value=d.lineup.map(l=>l.join('-')).join(' / ');
+ $('entry-riders').value=[...d.riders].sort((a,b)=>a.no-b.no).map(r=>[r.no,r.name,r.score.toFixed(2),r.style,r.s,r.b,r.wins,r.seconds,r.thirds,r.outs].join(',')).join('\n');
+ invalidateEntry();
+}
+function entryFingerprint(){return JSON.stringify(['entry-date','entry-venue','entry-race','entry-start','entry-size','entry-grade','entry-class','entry-source','entry-source-url','entry-lineup','entry-riders'].map(id=>$(id).value));}
+function invalidateEntry(){entryState.checked=null;entryState.signature='';$('entry-apply').disabled=true;$('entry-preview').hidden=true;entryMsg('内容を編集したら「③ 内容を検査・確認」を押してください。');}
+function showEntryPreview(r){
+ let html=`<div><strong>${esc(r.date)} ${esc(r.venue)}${r.race_no}R / ${r.riders.length}車</strong></div>`+
+  `<div class="entry-source">${esc(r.class)}・発走 ${esc(r.start)} ／ 出典：${esc(r.source.label)}<br>想定並び：${r.lineup.map(x=>x.join('-')).join(' / ')}</div>`+
+  '<table><thead><tr><th>車</th><th>選手名</th><th>得点</th><th>脚質</th><th>S/B</th></tr></thead><tbody>';
+ html+=[...r.riders].sort((a,b)=>a.no-b.no).map(x=>`<tr><td>${x.no}</td><td>${esc(x.name)}</td><td>${x.score.toFixed(2)}</td><td>${esc(x.style)}</td><td>${x.s}/${x.b}</td></tr>`).join('');
+ html+='</tbody></table><p class="entry-help">選手・競走得点・並びを原資料と照合してください。予測確率ではなく暫定ルール評価です。</p>';
+ $('entry-preview').innerHTML=html;$('entry-preview').hidden=false;
+}
+$('entry-check').addEventListener('click',()=>{
+ try{const race=makeEntryRace();entryState.checked=race;entryState.signature=entryFingerprint();showEntryPreview(race);$('entry-apply').disabled=false;entryMsg('検査を通過しました。表示を原資料と照合後、「④ 確認して予想に反映」を押してください。');}
+ catch(e){entryState.checked=null;entryState.signature='';$('entry-apply').disabled=true;$('entry-preview').hidden=true;entryMsg('入力エラー：'+e.message,true);}
+});
+$('entry-apply').addEventListener('click',()=>{
+ if(!entryState.checked||entryFingerprint()!==entryState.signature){invalidateEntry();entryMsg('入力が変更されています。再度検査してください。',true);return;}
+ try{validate(entryState.checked);data=structuredClone(entryState.checked);$('raw').value=JSON.stringify(data,null,2);render();entryMsg(`${data.venue}${data.race_no}Rの予想に切り替えました。参照情報が正しいか、買い目を検討する前に確認してください。`);$('header').scrollIntoView({behavior:'smooth',block:'start'});}
+ catch(e){entryMsg(e.message,true);}
+});
+for(const id of ['entry-date','entry-venue','entry-race','entry-start','entry-size','entry-grade','entry-class','entry-source','entry-source-url','entry-lineup','entry-riders']){
+ $(id).addEventListener('input',invalidateEntry);$(id).addEventListener('change',invalidateEntry);
+}
+$('entry-demo').addEventListener('click',()=>{formatEntryRace(DEMO);$('entry-source').value='同梱サンプル（実戦の入力資料ではありません）';invalidateEntry();entryMsg('防府12Rサンプルを入力欄にセットしました。');});
+$('entry-template').addEventListener('click',()=>{
+ const n=Number($('entry-size').value);
+ $('entry-riders').value=Array.from({length:n},(_,i)=>`${i+1},（選手名）,（得点）,追,0,0,0,0,0,0`).join('\n');
+ $('entry-lineup').value='';$('entry-venue').value='';$('entry-race').value='1';$('entry-grade').value='FII';$('entry-source').value='';$('entry-source-url').value='';$('entry-class').value='';
+ $('entry-date').value=new Date(Date.now()+9*3600000).toISOString().slice(0,10);$('entry-start').value='12:00';
+ invalidateEntry();entryMsg('未入力のひな型を用意しました。車番ごとに選手名・得点・成績・並びを正しい情報に変更してください。');
+});
+function raceLibrary(){try{const o=JSON.parse(localStorage.getItem(INPUT_LIBRARY_KEY)||'{}');return o&&typeof o==='object'&&!Array.isArray(o)?o:{}}catch{return {}}}
+function raceKey(r){return `${r.date}|${r.venue}|${r.race_no}`;}
+function refreshRaceLibrary(){
+ const lib=raceLibrary(),keys=Object.keys(lib).sort().reverse();$('entry-library').replaceChildren();
+ if(!keys.length){$('entry-library').add(new Option('保存した出走表はありません',''));return;}
+ for(const key of keys){const d=lib[key];if(!d?.race)continue;$('entry-library').add(new Option(`${d.race.date} ${d.race.venue}${d.race.race_no}R（${d.race.riders.length}車）`,key));}
+}
+$('entry-store').addEventListener('click',()=>{
+ try{
+ const r=makeEntryRace(),lib=raceLibrary(),key=raceKey(r);
+ if(lib[key]&&!confirm('同じ開催日・競輪場・Rの保存データがあります。上書きしますか？'))return;
+ lib[key]={race:r,stored_at:new Date().toISOString()};localStorage.setItem(INPUT_LIBRARY_KEY,JSON.stringify(lib));refreshRaceLibrary();$('entry-library').value=key;
+ entryMsg(`${r.venue}${r.race_no}Rをブラウザに保存しました。予想記録とは別の保存領域です。`);
+ }catch(e){entryMsg('保存できません：'+e.message,true)}
+});
+$('entry-load').addEventListener('click',()=>{
+ const d=raceLibrary()[$('entry-library').value];if(!d?.race){entryMsg('保存データを選択してください',true);return;}
+ try{validate(d.race);formatEntryRace(d.race);entryMsg(`${d.race.venue}${d.race.race_no}Rを入力欄へ戻しました。検査と確認の後に予想へ反映してください。`);}catch(e){entryMsg(e.message,true)}
+});
+$('entry-remove').addEventListener('click',()=>{
+ const key=$('entry-library').value,lib=raceLibrary();if(!key||!lib[key])return;
+ if(!confirm('この出走表の保存データを削除しますか？（予想記録には影響しません）'))return;
+ delete lib[key];localStorage.setItem(INPUT_LIBRARY_KEY,JSON.stringify(lib));refreshRaceLibrary();entryMsg('選択した出走表を削除しました。');
+});
+function downloadEntry(json,filename){const b=new Blob([JSON.stringify(json,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(b),a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+$('entry-export').addEventListener('click',()=>{
+ try{const r=makeEntryRace();downloadEntry(r,`KEIRIN_${r.date}_${r.race_no}R.json`);entryMsg('出走表JSONを書き出しました。iPhoneの「ファイル」アプリに保管してください。');}catch(e){entryMsg(e.message,true)}
+});
+$('entry-textfile').addEventListener('change',async ev=>{
+ const f=ev.target.files?.[0];if(!f)return;
+ try{
+ if(f.size>1_000_000)throw Error('ファイルが大きすぎます。1MB以下にしてください');
+ const s=await f.text();
+ if(f.name.toLowerCase().endsWith('.json')){const r=JSON.parse(s);validate(r);formatEntryRace(r);entryMsg('JSONを読み込みました。出典情報を確認・入力してから検査してください。');}
+ else{$('entry-riders').value=s.replace(/^\uFEFF/,'').trim();invalidateEntry();entryMsg('CSV/TSVを選手入力欄に取り込みました。開催情報・並びを入力し、検査してください。');}
+ }catch(e){entryMsg('ファイル読込エラー：'+e.message,true)}finally{ev.target.value='';}
+});
+$('entry-photo-file').addEventListener('change',e=>{
+ const f=e.target.files?.[0];if(!f)return;
+ if(!f.type.startsWith('image/')){$('pdf-status').textContent='画像ファイルを選択してください';return;}
+ if(entryState.photoURL)URL.revokeObjectURL(entryState.photoURL);
+ entryState.photoURL=URL.createObjectURL(f);$('entry-photo').src=entryState.photoURL;$('entry-photo').hidden=false;
+ $('pdf-status').textContent='参考写真を表示しました。文字の自動読み取りは行いません。';
+});
+$('entry-pdf').addEventListener('change',async e=>{
+ const f=e.target.files?.[0];if(!f)return;
+ $('pdf-status').textContent='PDFから文字を読み取っています（OCRではありません）';
+ try{
+ if(f.size>15_000_000)throw Error('PDFは15MB以下を選択してください');
+ const pdfjs=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');
+ pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+ const pdf=await pdfjs.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;
+ if(pdf.numPages>60)throw Error('60ページ以内のPDFを選択してください');
+ let extracted=[],chars=0;
+ for(let n=1;n<=pdf.numPages;n++){
+  const page=await pdf.getPage(n),c=await page.getTextContent();
+  // Group text by pdf position; source order is not guaranteed to be column order.
+  const parts=c.items.filter(x=>typeof x.str==='string').map(x=>({s:x.str,y:Math.round(x.transform?.[5]??0)}));
+  let lines=[],lastY=null;
+  for(const p of parts){if(lastY===null||Math.abs(lastY-p.y)>3){lines.push(p.s);lastY=p.y;}else lines[lines.length-1]+=' '+p.s;}
+  const pageText=`[PDF ${n}/${pdf.numPages}ページ]\n`+lines.join('\n');extracted.push(pageText);chars+=pageText.length;
+  if(chars>100_000)throw Error('抽出文字が多すぎます。ページ数の少ないPDFを使ってください');
+ }
+ $('pdf-extracted').value=extracted.join('\n\n');
+ $('pdf-status').textContent=chars>100?'文字抽出に成功しました。PDFの段組みで順序が崩れる場合があります。選手欄に必要な情報を手入力・転記してください。':'文字がほとんどありません。画像化されたPDFはOCR非対応です。';
+ }catch(err){$('pdf-status').textContent='PDFの文字抽出ができません：'+err.message+'。CSV・JSONの読込や手入力で進めてください。';}
+ finally{e.target.value='';}
+});
+formatEntryRace(DEMO);$('entry-source').value='同梱サンプル（入力例）';refreshRaceLibrary();entryMsg('初期表示は防府12Rの入力例です。新しいレースを入力する場合は「空の入力ひな型」を押してください。');
+
+</script></body></html>
