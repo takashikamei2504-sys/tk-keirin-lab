@@ -6,6 +6,42 @@ from collect_intel import Fetcher, Page, ROOT
 from intel_sources import DOM, clean, norm
 INDEX='https://keirin.tokyo-sports.co.jp/list/race'
 UTC=dt.timezone.utc
+PARSER_VERSION='race-card-story-v1.2'
+
+def comment_entry(q,card):
+    """Resolve only the final, current-race statement against these exact entrants."""
+    statement=next(iter([s.strip() for s in re.split('[。！？]',q['text']) if s.strip()][-1:]),'')
+    note={'rider':q['rider'],'excerpt':q['text'][:38],'declaration':statement[:48],'declaration_complete':len(statement)<=48,'body_verified':True,'published_at':card['collected_at'],'collected_at':card['collected_at'],'publication_basis':'collection_upper_bound','url':card['source_url'],'attribution':q['attribution'],'kind':'race_intention','race_id':f'{card["date"]}:{card["venue"]}:{card["race_no"]}'}
+    text=norm(statement)
+    if re.search(r'昨日|前回|だった|しない|ではない|かもしれ|よければ|できれば|相談',text):return note
+    if re.search(r'(?:にジカ|直付け|競ります|競りで|競りたい|番手勝負)',text):note['lineup_intention']='compete'
+    if re.fullmatch(r'(?:単騎|一人)(?:で|です|でやる|でやります|で走る)?',text):note['lineup_intention']='solo'
+    elif re.match(r'^(?:決めず|位置を決めず)',text):note['lineup_intention']='unfixed'
+    targets=[]
+    for rider in card['riders']:
+        if rider['name']==q['rider']:continue
+        labels=[rider['name']]+([rider['family']] if rider.get('family') and sum(r.get('family')==rider['family'] for r in card['riders'])==1 else [])
+        for label in labels:
+            found=re.search(re.escape(label)+r'(?:君|さん)?(?P<position>の(?:後ろ|番手))?(?P<tail>(?:へ|に)(?:任せ(?:ます|る)?|付(?:け|き)(?:る|ます)?|マーク)?|をマーク|にジカ|に直付け)?(?:です|で|します|する|で行く|でいく)?$',text)
+            if found and (found['position'] or found['tail']):targets.append((rider['no'],'immediate' if found['position'] else 'ahead'))
+    if len({n for n,_ in targets})==1:note.update(follow_no=targets[0][0],follow_position=targets[0][1])
+    return note
+
+def enqueue_related(queue,seen,card):
+    links=[u for u in card.get('related_urls',[]) if u not in seen and u not in queue]
+    today=dt.datetime.now(UTC).astimezone(dt.timezone(dt.timedelta(hours=9))).date().isoformat()
+    return links+queue if card['date']>=today and any(r['rank'].startswith('S') for r in card['riders']) else queue+links
+
+def discover_races(html):
+    found={}
+    for a in DOM(html).root.all('a'):
+        url=urllib.parse.urljoin(INDEX,a.attrs.get('href',''));parsed=urllib.parse.urlsplit(url)
+        if parsed.hostname!='keirin.tokyo-sports.co.jp' or not re.fullmatch(r'/list/race/\d{8}_\d+',parsed.path):continue
+        label=norm(a.text()).replace('Ｆ','F').replace('Ｇ','G');pending='発走' in label
+        s_class=any(g in label for g in ['GⅠ','GⅡ','GⅢ','G1','G2','G3','FⅠ']) or bool(re.search(r'FI(?!I)|F1(?![12])',label))
+        priority=(not pending,not s_class)
+        if url not in found or priority<found[url]:found[url]=priority
+    return sorted(found,key=lambda u:found[u])
 
 def relationships(quotes,names,url,date,collected):
     result=[]
@@ -53,15 +89,14 @@ def parse_card(html,url,collected):
         name=next((norm(n.text()) for n in block.all('div') if n.has('race-comment__name')),'')
         body=next((clean(n.text()) for n in block.all('div') if n.has('race-comment__txt')),'')
         if name in by_name and body:quotes.append({'rider':name,'text':body,'attribution':'同一出走表の選手名見出しとコメント欄を照合'})
-    return {'date':date,'venue':venue,'race_no':rn,'start':start[1],'riders':riders,'quotes':quotes,'source_url':url,'collected_at':collected,'period':'直近4ヶ月','source_published_at':None,'parser_version':'race-card-story-v1.1','publication_basis':'取得時刻を利用可能時刻の上限として使用','related_urls':list(dict.fromkeys(urllib.parse.urljoin(url,u) for u in page.links if urllib.parse.urlsplit(urllib.parse.urljoin(url,u)).hostname=='keirin.tokyo-sports.co.jp' and re.fullmatch(r'/list/race/\d{8}_\d+',urllib.parse.urlsplit(u).path)))}
+    return {'date':date,'venue':venue,'race_no':rn,'start':start[1],'riders':riders,'quotes':quotes,'source_url':url,'collected_at':collected,'period':'直近4ヶ月','source_published_at':None,'parser_version':PARSER_VERSION,'publication_basis':'取得時刻を利用可能時刻の上限として使用','related_urls':list(dict.fromkeys(urllib.parse.urljoin(url,u) for u in page.links if urllib.parse.urlsplit(urllib.parse.urljoin(url,u)).hostname=='keirin.tokyo-sports.co.jp' and re.fullmatch(r'/list/race/\d{8}_\d+',urllib.parse.urlsplit(u).path)))}
 
 def collect(max_races=24,budget=90):
     now=dt.datetime.now(UTC);output=ROOT/'data/race_material.json';old=json.loads(output.read_text()) if output.exists() else {};cards=old.get('cards',[]);errors=[];started=time.monotonic();fetch=Fetcher()
     manifest=json.loads((ROOT/'data/s_riders.json').read_text());names=[r['name'] for r in manifest.get('riders',[])];registry={norm(r['name']):r for r in manifest.get('riders',[]) if sum(norm(x['name'])==norm(r['name']) for x in manifest.get('riders',[]))==1}
     intel_path=ROOT/'data/intelligence.json';intel=json.loads(intel_path.read_text());links=[];attempted=0
     try:
-        page=Page();page.feed(fetch.get(INDEX))
-        links=list(dict.fromkeys(urllib.parse.urljoin(INDEX,u) for u in page.links if urllib.parse.urlsplit(urllib.parse.urljoin(INDEX,u)).hostname=='keirin.tokyo-sports.co.jp' and re.fullmatch(r'/list/race/\d{8}_\d+',urllib.parse.urlsplit(u).path)))
+        links=discover_races(fetch.get(INDEX))
     except Exception as e:errors.append({'url':INDEX,'error':str(e)[:160]})
     relations={r['id']:r for r in intel.get('relationships',[])}
     queue=list(links);seen=set()
@@ -70,7 +105,10 @@ def collect(max_races=24,budget=90):
         if url in seen:continue
         seen.add(url)
         if attempted>=max_races or time.monotonic()-started>budget:break
-        if any(c.get('parser_version')=='race-card-story-v1.1' and c['source_url']==url and (now-dt.datetime.fromisoformat(c.get('last_checked_at',c['collected_at']))).total_seconds()<4*3600 for c in cards):continue
+        cached=next((c for c in reversed(cards) if c.get('parser_version')==PARSER_VERSION and c['source_url']==url and (now-dt.datetime.fromisoformat(c.get('last_checked_at',c['collected_at']))).total_seconds()<4*3600),None)
+        if cached:
+            queue=enqueue_related(queue,seen,cached)
+            continue
         attempted+=1
         try:
             card=parse_card(fetch.get(url),url,dt.datetime.now(UTC).isoformat())
@@ -79,8 +117,7 @@ def collect(max_races=24,budget=90):
                 if ref and pref(ref.get('prefecture',''))==pref(rider['prefecture']) and ref.get('class_rank')==rider['rank']:
                     rider.update(rider_id=ref['rider_id'],verified_identity=True,identity_basis='公式全S級名簿のフルネーム・登録地・級班を照合')
             quotes=card.pop('quotes')
-            neighbors=[u for u in card['related_urls'] if u not in seen and u not in queue]
-            queue=(neighbors+queue) if any(r['rank'].startswith('S') for r in card['riders']) else (queue+neighbors)
+            queue=enqueue_related(queue,seen,card)
             # A surname is resolved only when it is unique among these exact entrants.
             relation_quotes=[]
             for q in quotes:
@@ -89,15 +126,9 @@ def collect(max_races=24,budget=90):
                     family=rider.get('family')
                     if family and sum(r.get('family')==family for r in card['riders'])==1:resolved=re.sub(re.escape(family)+r'(君|さん)',rider['name']+r'\1',resolved)
                 relation_quotes.append({**q,'text':resolved,'original_text':q['text'],'attribution':q['attribution']+('／同一出走者の一意な姓を解決' if resolved!=q['text'] else '')})
-            card['comments']=[{'rider':q['rider'],'excerpt':q['text'][:38],'declaration':next(iter([s.strip() for s in re.split('[。！？]',q['text']) if s.strip()][-1:]),'')[:24],'body_verified':True,'published_at':card['collected_at'],'collected_at':card['collected_at'],'publication_basis':'collection_upper_bound','url':url,'attribution':q['attribution'],'kind':'race_intention','race_id':f'{card["date"]}:{card["venue"]}:{card["race_no"]}'} for q in quotes]
-            for note in card['comments']:
-                targets=[]
-                for rider in card['riders']:
-                    labels=[rider['name']]+([rider['family']] if rider.get('family') and sum(r.get('family')==rider['family'] for r in card['riders'])==1 else [])
-                    if any(re.search(re.escape(label)+r'(?:君|さん)?(?:へ|に任せ|をマーク)[。！]?$',norm(note['declaration'])) for label in labels):targets.append(rider['no'])
-                if len(set(targets))==1:note['follow_no']=targets[0]
+            card['comments']=[comment_entry(q,card) for q in quotes]
             for e in relationships(relation_quotes,sorted(set(names)|{r['name'] for r in card['riders']}),url,card['collected_at'],card['collected_at']):relations.setdefault(e['id'],e)
-            digest=hashlib.sha256(json.dumps({'card':{k:v for k,v in card.items() if k not in ('collected_at','comments')},'comments':[(c['rider'],c['excerpt']) for c in card['comments']]},sort_keys=True,ensure_ascii=False).encode()).hexdigest()[:20]
+            digest=hashlib.sha256(json.dumps({'card':{k:v for k,v in card.items() if k not in ('collected_at','comments')},'comments':[{k:v for k,v in c.items() if k not in ('published_at','collected_at')} for c in card['comments']]},sort_keys=True,ensure_ascii=False).encode()).hexdigest()[:20]
             card['id']=digest;existing=next((c for c in cards if c['id']==digest),None)
             if existing:existing['last_checked_at']=card['collected_at']
             else:cards.append(card)

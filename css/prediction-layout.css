@@ -5,3 +5,4 @@
 
 /* Six-stage main story; context and research stay below. */
 .story-stage{padding:10px 0;border-bottom:1px solid #ffffff12}.story-stage h4{margin:0 0 6px;color:#9dd6f5;font-size:14px}.story-stage p{margin:5px 0;line-height:1.9}.story-order{font-size:11px;color:#91a3b8;overflow-wrap:anywhere}.story-lead{font-weight:700;color:#e8f6ff}.main-story h3{font-size:19px}.bet-group-title{grid-column:1/-1;margin:14px 0 4px}.alternative-story h3{font-size:15px}.main-story .decision-reasons{margin-top:16px}
+.stage-reasoning{margin:12px 0 4px;color:var(--muted,#aebfcb);font-size:.85rem;overflow-wrap:anywhere}.stage-reasoning summary{cursor:pointer}.stage-reasoning ul{padding-left:1.3em;line-height:1.7}.stage-reasoning li{margin:8px 0}.decision-comparison{border-top:1px solid #ffffff12;margin-top:10px;padding-top:8px}

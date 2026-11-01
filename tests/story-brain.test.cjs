@@ -33,7 +33,7 @@ const card={date:r.date,venue:r.venue,race_no:r.race_no,period:'直近4ヶ月',s
 const pack={schema:'tk-keirin-race-material/v1',cards:[card]},attached=Material.attach(r,pack,Date.parse('2026-10-31T01:00:00Z'));
 assert.equal(attached.race_material.covered,7);assert.equal(attached.riders[0].s,0);assert.equal(attached.riders[1].s,19);assert.equal(attached.riders[1].meta.s_measured,true);
 assert.equal(Material.attach(r,{...pack,cards:[{...card,collected_at:'2099-01-01T00:00:00Z'}]}).race_material.covered,0);
-const conflict=Material.attach(r,{...pack,cards:[{...card,comments:[{rider:r.riders[1].name,follow_no:4}]}]},Date.parse('2026-10-31T01:00:00Z'));
+const conflict=Material.attach(r,{...pack,cards:[{...card,comments:[{rider:r.riders[1].name,follow_no:4,body_verified:true,url:card.source_url,race_id:`${r.date}:${r.venue}:${r.race_no}`,published_at:card.collected_at,collected_at:card.collected_at}]}]},Date.parse('2026-10-31T01:00:00Z'));
 assert.throws(()=>Brain.build(conflict),/並び/);
 const blocked=structuredClone(r);blocked.conditions={routes:Object.fromEntries(r.riders.map(x=>[x.no,{attack:'blocked',home:'blocked',late:'blocked',inside:'blocked',seat:'blocked'}]))};
 const b=check(blocked);assert.ok(b.narratives.every(s=>!s.attacker&&!s.homeRider&&!s.cornerRider&&!s.innerRider));

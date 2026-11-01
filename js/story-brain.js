@@ -4,7 +4,8 @@ const Legacy=typeof module!=='undefined'?require('./race-brain.js'):root.RaceBra
 const Memory=typeof module!=='undefined'?require('./brain-memory.js'):root.BrainMemory;
 const Context=typeof module!=='undefined'?require('./rider-context.js'):root.RiderContext;
 const Weights=typeof module!=='undefined'?require('./branch-weights.js'):root.BranchWeights;
-const VERSION='story-first-v3.0.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
+const Reasons=typeof module!=='undefined'?require('./decision-reasons.js'):root.DecisionReasons;
+const VERSION='story-first-v3.1.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
 function validate(r){const ids=r?.riders?.map(x=>x.no)||[],flat=r?.lineup?.flat()||[];
@@ -17,6 +18,7 @@ function build(r,pack={},options={}){
  const who=n=>`${n}番${by.get(n).name}`,own=n=>by.get(n).style!=='追',ability=n=>clip(.55+(by.get(n).score-100)*.024,.2,1.3);
  const trait=(n,k,s)=>Memory.trait(priors.get(n)[k]??.5,memories,n,k,{phase:STAGES[s.stage||0],role:lineOf.get(n)[0]===n?'leader':'follower'});
  const motivation=n=>context.lines.find(l=>l.leader===n)?.motivation||0;
+ const reasons=Reasons.build(r,memories,context);
  let unresolved=0,serial=0;const considered=new Set();
  const choose=(key,weight,extra={})=>({key,weight:Math.max(.001,weight),feasibility:'allowed',...extra});
  const initial={mass:1,order:r.lineup.flat(),energy:Object.fromEntries(ids.map(n=>[n,0])),connected:Object.fromEntries(ids.map(n=>[n,true])),scenes:[],decisions:[],moves:[],stage:0};
@@ -25,10 +27,16 @@ function build(r,pack={},options={}){
   const group=s.order.filter(n=>moving.includes(n)),rest=s.order.filter(n=>!moving.includes(n)),at=Math.max(0,Math.min(target,rest.length)),desired=[...rest.slice(0,at),...group,...rest.slice(at)];
   for(let i=0;i<desired.length;i++){let j=s.order.indexOf(desired[i]);while(j>i){[s.order[j-1],s.order[j]]=[s.order[j],s.order[j-1]];j--;s.moves.push({stage:s.stage,order:[...s.order],reason:why,feasibility:'unknown'});}}
  }
- function addScene(s,index,text,shape='一本棒',actors=[]){s.stage=index;s.scenes.push({stage:index+1,phase:STAGES[index],action:text,order:[...s.order],energy:{...s.energy},shape,actors,assumption:'位置・車間・速度は未計測の展開仮説'});}
+ function addScene(s,index,text,shape='一本棒',actors=[]){
+  const reasoning=index===5?reasons.finish(s,actors):reasons.scene(s.decisions.filter(d=>d.stage===index));
+  // A short factual reason stays in the story; the full choice comparison stays folded away.
+  const fact=reasoning.facts.find(f=>f.kind==='race_intention'||f.kind==='observed_action')||reasoning.facts.find(f=>f.source);
+  const basis=fact&&!text.includes(fact.label)?fact.label+'。':'';
+  s.stage=index;s.scenes.push({stage:index+1,phase:STAGES[index],action:basis+text,order:[...s.order],energy:{...s.energy},shape,actors,reasoning,assumption:'位置・車間・速度は未計測の展開仮説'});
+ }
  function branch(states,key,candidates,apply){const all=[];
-  for(const s of states){const choices=candidates(s);if(['defense','inside'].includes(key))for(const c of choices.filter(c=>c.feasibility!=='blocked'))considered.add(c.key.split(':')[0]);const allocation=Weights.allocate(s.mass,choices),lookup=new Map(choices.map(c=>[c.key,c]));unresolved+=allocation.unresolvedMass;
-   for(const b of allocation.branches){const c=lookup.get(b.key),next=state(s);next.mass=b.mass;next.decisions.push({stage:s.stage,key,choice:c.key,actor:c.actor||null,basis:c.basis||'位置・脚質・近況を使う暫定判断'});apply(next,c);all.push(next);}}
+  for(const s of states){const choices=candidates(s).map(c=>{const reasoning=reasons.evaluate(key,c,{...s,phase:STAGES[s.stage||0]});return {...c,weight:c.weight*reasoning.multiplier,reasoning};});if(['defense','inside'].includes(key))for(const c of choices.filter(c=>c.feasibility!=='blocked'))considered.add(c.key.split(':')[0]);const allocation=Weights.allocate(s.mass,choices),lookup=new Map(choices.map(c=>[c.key,c]));unresolved+=allocation.unresolvedMass;
+   for(const b of allocation.branches){const c=lookup.get(b.key),next=state(s);next.mass=b.mass;next.decisions.push({stage:s.stage,key,choice:c.key,actor:c.actor||null,basis:c.reasoning.basis,reasoning:c.reasoning,alternatives:choices.filter(o=>o.key!==c.key).sort((a,b)=>b.weight-a.weight||a.key.localeCompare(b.key)).slice(0,3).map(o=>({label:o.reasoning.label,choice:o.key,actor:o.actor||null,feasibility:o.feasibility,basis:o.reasoning.basis}))});apply(next,c);all.push(next);}}
   all.sort((a,b)=>b.mass-a.mass||JSON.stringify(a.decisions).localeCompare(JSON.stringify(b.decisions)));
   // Preserve a representative of each new decision before filling the beam by weight.
   const keep=[],seen=new Set();for(const s of all){const id=[s.front,s.attacker,s.stand,s.homeRider,s.gap,s.defense,s.innerRider,s.decisions.at(-1).choice].join('|');if(!seen.has(id)&&keep.length<width){seen.add(id);keep.push(s);}}
@@ -58,7 +66,7 @@ function build(r,pack={},options={}){
   const actor=s.attacker?by.get(s.attacker):null,form=actor?.recent_form?.stats;
   const raceReason=actor?`${form?`${form.total}走でB${form.b}回という近況を踏まえ、`:''}${lineOf.get(actor.no).length>1?'後続を連れ出して好位置を確保したい':'単騎なので踏み合いを長引かせず位置を確保したい'}と読む。`:'';
   const reason=context.lines.find(l=>l.leader===(s.attacker||s.front));
-  addScene(s,1,s.attacker?`${who(s.attacker)}が${s.tactic==='kamashi'?'カマシで一気に叩く':'赤板から上昇して抑えに行く'}。${raceReason}${reason.facts.length?reason.facts.join('。')+'。'+reason.inference:''}${who(s.front)}は${s.stand==='resist'?'突っ張って主導権を守ろうとする':'いったん出させ、引いて脚を残す'}。ここでは${who(s.leader)}が前に立つ筋を選ぶ。`:`赤板では他線が様子を見て、${who(s.front)}がペースを作る。後方勢はホーム以降の仕掛けを待つ。`,s.stand==='resist'?'踏み合い':'一本棒',[s.front,s.attacker].filter(Boolean));
+  addScene(s,1,s.attacker?`${who(s.attacker)}が${s.tactic==='kamashi'?'カマシで一気に叩く':'赤板から上昇して抑えに行く'}。${raceReason}${reason.facts.length?reason.facts.join('。')+'。'+reason.inference:''}${who(s.front)}は${s.stand==='resist'?'突っ張って主導権を守ろうとする':'いったん出させ、引いて脚を残す'}。ここでは${who(s.leader)}が前に立つ筋を選ぶ。`:`この筋では赤板で他線の早い仕掛けを置かず、${who(s.front)}がペースを作る。後方勢はホーム以降の仕掛けを待つ。`,s.stand==='resist'?'踏み合い':'一本棒',[s.front,s.attacker].filter(Boolean));
  });
  states.forEach(s=>s.stage=2);
  states=branch(states,'home-attack',s=>[choose('settle',.8),...leaders.filter(n=>n!==s.leader&&own(n)&&s.energy[n]<.4&&s.order.indexOf(n)<=6).map(n=>choose(String(n),.12+(trait(n,'makuri',s)+trait(n,'long_makuri',s))*.1+s.energy[s.leader]*.2,{actor:n,feasibility:available(n,'home')}))],(s,c)=>{
@@ -107,7 +115,7 @@ function build(r,pack={},options={}){
   return options;
  },(s,c)=>{
   s.innerRider=c.key==='none'?null:Number(c.key.split(':')[1]);s.innerMode=c.key.split(':')[0];
-  const attempt=s.cornerRider?`${who(s.cornerRider)}が${s.cornerOrigin==='recover'?'離れた位置から踏み直して':s.cornerOrigin==='outer'?'大外を回して':'3コーナーから捲って'}迫る。`:`${leaders.filter(n=>n!==s.leader&&own(n)).slice(0,1).map(who).join('')||'後続'}は前の加速で仕掛け所が定まらず、動きが遅れる。前団の直線勝負になる。`;
+  const attempt=s.cornerRider?`${who(s.cornerRider)}が${s.cornerOrigin==='recover'?'離れた位置から踏み直して':s.cornerOrigin==='outer'?'大外を回して':'3コーナーから捲って'}迫る。`:'ここでは後続の新たな捲りを置かず、前団の直線勝負へ進む。後続が待つ理由まで確認できたわけではない。';
   const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める筋':'仕掛けを止め切れない筋'}で、そのぶん内に空きができる。`:s.defense==='vertical'?`${who(s.defender)}は横に振るより縦を踏む。${s.cornerRider?'外の仕掛けへの抵抗は薄くなるが、自分の伸びを優先する':'前の消耗を見て早めに踏み込む'}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手が空いているため、組織的なブロックは期待しない。';
   const inner=s.innerRider?`${who(s.innerRider)}は${s.innerMode==='split'?'3番手から中割り':'後続からインを突く'}を狙う。開いたコースを使えることが成立条件。`:'内のコースを使う選手がすぐに出ない筋。';
   addScene(s,4,attempt+defense+inner,s.openInside?'外の攻防・内に空き':s.cornerRider?'外からの仕掛け':'直線待ち',[s.cornerRider,s.defender,s.innerRider].filter(Boolean));
@@ -146,7 +154,7 @@ function build(r,pack={},options={}){
  const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:'一本の本線ストーリーから導く6点'})),used=new Set(selected.map(t=>t.key));
  function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
   const last=s.scenes[5],closing=`この別筋では${who(t.trio[0])}の${MODES[t.mode]}を取り、${who(t.trio[1])}を2着、${who(t.trio[2])}を3着に選ぶ。`+t.trio.slice(1).map(n=>`${who(n)}は最終コーナーの${s.scenes[4].order.indexOf(n)+1}番手から直線を伸ばす筋。`).join('');
-  const scenes=[...s.scenes.slice(0,5),{...last,action:closing,order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio}];
+  const scenes=[...s.scenes.slice(0,5),{...last,action:closing,reasoning:reasons.finish({order:s.scenes[4].order,energy:s.scenes[4].energy},t.trio),order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio}];
   const alternative={...s,first:t.trio[0],mode:t.mode,scenes,snapshots:scenes,states:scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),explanation:scenes.map(x=>x.action).join('\n'),divergence:category,trigger,upset:t.trio[0]!==main.first};
   alternatives.push(alternative);signatures.add(s.signature);categories.add(category);
   selected.push({...t,group:'alternative',supporting_path:alternative,paths:[alternative],selection_reason:`${category}が変わる別筋：${trigger}`});used.add(t.key);return true;}

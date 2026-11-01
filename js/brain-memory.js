@@ -16,7 +16,7 @@ function build(r,pack={}){
   const rider=byName.get(key(row.rider));
   if(!rider||!before(row,cutoff)||(row.rider_id&&String(row.rider_id).padStart(6,'0')!==String(rider.meta?.rider_id||rider.id||rider.rider_id).padStart(6,'0')))continue;
   if(kind==='habitual_observation'&&(!traits.has(row.trait)||!Number.isFinite(row.value)||row.value<0||row.value>1||!Number.isFinite(row.confidence)||row.confidence<=0))continue;
-  const id=[rider.no,row.url,row.trait||row.excerpt].join('|');if(seen.has(id))continue;seen.add(id);
+  const id=(kind==='interview_comment'?[rider.no,row.url,row.kind||kind,row.race_id||'',row.declaration||'',row.excerpt]:[rider.no,row.url,row.trait]).join('|');if(seen.has(id))continue;seen.add(id);
   // Older generic comments stay readable but cannot affect numeric traits.
   let type=kind;
   if(kind==='interview_comment'&&row.kind==='race_intention'&&row.race_id===raceKey(r))type='race_intention';

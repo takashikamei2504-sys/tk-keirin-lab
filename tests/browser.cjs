@@ -7,14 +7,16 @@ await page.route('**/race_material.json*',route=>route.fulfill({json:{schema:'tk
 await page.route('**/intelligence.json*',route=>route.fulfill({json:{schema:'tk-keirin-intelligence/v1.4',evidence:[],observations:[],relationships:[],generated_at:'2026-10-30T00:00:00Z'},headers:{'access-control-allow-origin':'*'}}));
 await page.goto(process.env.LAB_URL||'http://127.0.0.1:8765/v14.html');
 await page.waitForFunction(()=>typeof causalLast!=='undefined'&&causalLast?.form?.status?.covered===1&&raceMaterialPack?.schema&&autoIntelPack?.generated_at);
-assert.equal(await page.evaluate(()=>causalLast.version),'story-first-v3.0.0');
+assert.equal(await page.evaluate(()=>causalLast.version),'story-first-v3.1.0');
 assert.equal(await page.locator('#scenario-1 > .story-stage').count(),6);
+assert.equal(await page.locator('#scenario-1 .stage-reasoning').count(),6);
 assert.equal(await page.evaluate(()=>causalLast.chosen.filter(t=>t.group==='main').every(t=>t.supporting_path.id===causalLast.story.main.id)),true);
 const displayed=await page.locator('#causal-tickets .causal-ticket').evaluateAll(rows=>rows.flatMap(r=>JSON.parse(r.dataset.ticketKeys)).sort());
 assert.equal(displayed.length,10);assert.deepEqual(displayed,await page.evaluate(()=>causalLast.chosen.map(t=>t.key).sort()));
 assert.match(await page.locator('#ticket-display-count').innerText(),/本線6点.*別筋4点.*合計10点/);
 assert.equal(await page.locator('#evaluation-details').getAttribute('open'),null);assert.equal(await page.locator('#race-data-details').getAttribute('open'),null);
 assert.equal(await page.locator('#research-archive').getAttribute('open'),null);
+await page.locator('#scenario-1 .story-stage[data-stage="2"] .stage-reasoning > summary').click();assert.match(await page.locator('#scenario-1 .story-stage[data-stage="2"] .stage-reasoning').innerText(),/別の選択/);
 await page.locator('#race-data-details > summary').click();await page.locator('#recent-form-riders details').first().locator('summary').click();
 assert.match(await page.locator('#recent-form-riders').innerText(),/26走/);assert.match(await page.locator('#recent-form-riders').innerText(),/失格/);await page.locator('#race-data-details > summary').click();
 await page.locator('.ticket-reason summary').first().click();await page.locator('[data-scenario="1"]').first().click();
@@ -23,7 +25,7 @@ await page.locator('.alternative-story .scenario-path > summary').first().click(
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'mobile horizontal overflow');
 await page.locator('#causal-run').click();assert.equal(await page.locator('#scenario-1 > .story-stage').count(),6);
 await page.locator('#collection-details > summary').click();const exporting=page.waitForEvent('download');await page.locator('#causal-export').click();const download=await exporting;const json=JSON.parse(require('fs').readFileSync(await download.path(),'utf8'));
-assert.equal(json.version,'story-first-v3.0.0');assert.equal(json.selection_policy.total,10);assert.equal(json.story.main.scenes.length,6);assert.equal(json.chosen.length,10);
+assert.equal(json.version,'story-first-v3.1.0');assert.equal(json.selection_policy.total,10);assert.equal(json.story.main.scenes.length,6);assert.equal(json.chosen.length,10);
 await page.evaluate(()=>{data=structuredClone(QUICK_BUNDLED[1]);render();});
 assert.equal(await page.evaluate(()=>causalLast.chosen.length),10);assert.match(await page.locator('#recent-form-status').textContent(),/0\/9/);
 assert.equal(errors.length,0,errors.join('\n'));await browser.close();console.log('PASS story-first mobile main6 + alternative4, six stages, exact ticket links, recent form, race switch and JSON export');

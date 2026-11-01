@@ -44,7 +44,7 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
     const savedAt=liveClock?new Date().toISOString():now;
     if(!(Date.parse(savedAt)<start))continue;
     const prediction=Audit.snapshot(race,out,savedAt,{origin:process.env.GITHUB_ACTIONS==='true'?'github_actions':'development_automation',evidence,baseline:{version:Legacy.VERSION,chosen:base.chosen.slice(0,out.chosen.length).map(t=>t.key)}});
-    prediction.code_hashes=Object.fromEntries(['story-brain.js','rider-context.js','race-material.js','race-brain.js','brain-memory.js','branch-weights.js','recent-form.js','race-feed.js'].map(file=>['js/'+file,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'js',file))).digest('hex')]));
+    prediction.code_hashes=Object.fromEntries(['story-brain.js','decision-reasons.js','rider-context.js','race-material.js','race-brain.js','brain-memory.js','branch-weights.js','recent-form.js','race-feed.js'].map(file=>['js/'+file,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'js',file))).digest('hex')]));
     prediction.input_sha256=crypto.createHash('sha256').update(JSON.stringify({race:prediction.input,evidence})).digest('hex');
     if(!prediction.pre_race)throw Error('Prediction was not pre-race');
     history.predictions.push(prediction);saved.add(id+'|'+Brain.VERSION);generated++;
