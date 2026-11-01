@@ -1,5 +1,6 @@
 'use strict';
 require('../tests/next-brain-prep.test.cjs');
+require('../tests/sequential-brain.test.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
@@ -9,4 +10,4 @@ for (const [file, expected] of Object.entries(baseline.sha256)) {
   if (actual !== expected) throw new Error(`Baseline changed: ${file}. Review the comparison baseline explicitly.`);
 }
 console.log(`Baseline preserved: ${baseline.engineVersion}`);
-console.log('Ready to implement stage 1. Decision engine, transitions, simulation and UI adapter are NOT implemented.');
+console.log('Sequential engine, contextual memory, mass accounting and the published UI adapter passed. Original baseline preserved.');
