@@ -1,10 +1,10 @@
 {
   "schema": "tk-keirin-intelligence/v1.4",
-  "generated_at": "2026-11-01T16:13:21.347610+00:00",
+  "generated_at": "2026-11-01T21:48:06.811498+00:00",
   "roster_dates": [
     "2026-11-02"
   ],
-  "roster_size": 678,
+  "roster_size": 1005,
   "evidence": [
     {
       "id": "5913a8385144d76af2cb",
@@ -456,6 +456,20 @@
       "url": "https://keirin.tokyo-sports.co.jp/list/race/20261031_30624",
       "published_at": "2026-11-01T15:55:27.175067+00:00",
       "collected_at": "2026-11-01T15:55:27.175067+00:00",
+      "body_verified": true,
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合／同一出走者の一意な姓を解決",
+      "publication_basis": "article_date_or_collection_upper_bound",
+      "scope": "historical_statement"
+    },
+    {
+      "id": "f4debb93bab3cdf7b39a",
+      "rider": "重倉高史",
+      "peer": "松崎貴久",
+      "kind": "assistance_received",
+      "excerpt": "スタートは取れたらラッキーぐらいの気持ちでした。あとは松崎さんが仕事してくれるしおんぶにだっこで踏みました。２センターでいっぱいでしたが何とか最後まで踏めました",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34616",
+      "published_at": "2026-11-01T21:48:51.143881+00:00",
+      "collected_at": "2026-11-01T21:48:51.143881+00:00",
       "body_verified": true,
       "attribution": "同一出走表の選手名見出しとコメント欄を照合／同一出走者の一意な姓を解決",
       "publication_basis": "article_date_or_collection_upper_bound",
@@ -1093,6 +1107,18 @@
       "comment_count": 0,
       "roster_hash": "0c8d957124235380",
       "parser_version": "public-sources-v1.6-story"
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1790",
+      "source": "tospo",
+      "published_at": "2026-11-01T11:56:00+00:00",
+      "collected_at": "2026-11-01T21:47:41.950960+00:00",
+      "last_checked_at": "2026-11-01T21:47:41.950960+00:00",
+      "body_verified": true,
+      "evidence_count": 0,
+      "comment_count": 0,
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.6-story"
     }
   ],
   "pending_urls": [
@@ -1137,8 +1163,8 @@
     "https://keirin.netkeiba.com/news/news_detail.html?id=47678"
   ],
   "status": {
-    "attempted": 60,
-    "body_articles": 55,
+    "attempted": 40,
+    "body_articles": 56,
     "evidence": 3,
     "comments": 28,
     "sources": {
@@ -1146,12 +1172,12 @@
         "name": "東スポ競輪",
         "index_url": "https://keirin.tokyo-sports.co.jp/",
         "index_ok": true,
-        "discovered": 13,
-        "attempted": 13,
-        "body_succeeded": 13,
+        "discovered": 14,
+        "attempted": 1,
+        "body_succeeded": 1,
         "comments_added": 0,
         "errors": 0,
-        "stored_articles": 27,
+        "stored_articles": 28,
         "stored_comments": 0,
         "stored_evidence": 3
       },
@@ -1160,8 +1186,8 @@
         "index_url": "https://keirinsponichi.jp/",
         "index_ok": true,
         "discovered": 8,
-        "attempted": 8,
-        "body_succeeded": 5,
+        "attempted": 3,
+        "body_succeeded": 0,
         "comments_added": 0,
         "errors": 3,
         "stored_articles": 10,
@@ -1173,10 +1199,10 @@
         "index_url": "https://keirin.netkeiba.com/news/news_list.html",
         "index_ok": true,
         "discovered": 26,
-        "attempted": 25,
+        "attempted": 26,
         "body_succeeded": 0,
         "comments_added": 0,
-        "errors": 25,
+        "errors": 26,
         "stored_articles": 0,
         "stored_comments": 0,
         "stored_evidence": 0
@@ -1199,8 +1225,8 @@
         "index_url": "https://keirin.kdreams.jp/",
         "index_ok": true,
         "discovered": 1,
-        "attempted": 1,
-        "body_succeeded": 1,
+        "attempted": 0,
+        "body_succeeded": 0,
         "comments_added": 0,
         "errors": 0,
         "stored_articles": 1,
@@ -1212,8 +1238,8 @@
         "index_url": "https://keirin-marche.jp/column/",
         "index_ok": true,
         "discovered": 3,
-        "attempted": 3,
-        "body_succeeded": 3,
+        "attempted": 0,
+        "body_succeeded": 0,
         "comments_added": 0,
         "errors": 0,
         "stored_articles": 3,
@@ -1402,6 +1428,10 @@
       },
       {
         "url": "https://keirin.netkeiba.com/news/news_detail.html?id=40174",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=47678",
         "error": "publication date unknown; not used"
       }
     ]
