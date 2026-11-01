@@ -13,7 +13,8 @@ function recentFormRender(out){
 }
 async function recentFormLoad(){
  const status=document.getElementById('recent-form-status');
- const urls=['https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/main/data/recent_form.json','data/recent_form.json'];
+ const revision=Math.floor(Date.now()/60000);
+ const urls=['https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/main/data/recent_form.json','data/recent_form.json'].map(url=>url+'?v='+revision);
  let error;
  for(const url of urls){
   const c=new AbortController(),timer=setTimeout(()=>c.abort(),8000);

@@ -6,7 +6,7 @@ s=(root/'v13.html').read_text()
 start=s.index('/* TK KEIRIN LAB v1.3 - explicit causal-state event branching.')
 ui=s.index('function causalRun(){',start)
 s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};\nfunction causalBuild(r){validate(r);const enriched=RecentForm.attach(r,recentFormPack);const out=RaceBrain.build(enriched,autoIntelPack);out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}\n"+s[ui:]
-s=s.replace('<script>','<script src="js/race-brain.js"></script><script src="js/recent-form.js"></script><script src="js/recent-form-ui.js"></script><script>',1)
+s=s.replace('<script>','<script src="js/race-brain.js?v=recent-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=recent-2"></script><script>',1)
 s=s.replace('v1.3','v1.4')
 s=s.replace('font-weight:500">v1.2</span></h1>', 'font-weight:500">v1.4</span></h1>')
 s=s.replace('CAUSAL RACE BRAIN / v1.4','INDEPENDENT RACE BRAIN / v1.4')
