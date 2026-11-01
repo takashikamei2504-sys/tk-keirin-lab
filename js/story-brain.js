@@ -199,7 +199,7 @@ function build(r,pack={},options={}){
   const id='story-'+(++serial),signature=signatureOf(s);
   return {id,signature,score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
    scenes:last.scenes,snapshots:last.scenes,states:last.scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),decisions:s.decisions,movementTrace:s.moves,explanation:last.scenes.map(x=>x.action).join('\n'),
-   title:`${who(s.leader)}の主導権から${MODES[top.mode]}`,outcomes,defender:s.defender,homeResult:s.homeResult,homeRider:s.homeRider,backRider:s.backRider,backResult:s.backResult,defense:s.defense,cornerRider:s.cornerRider,innerRider:s.innerRider,audit:deliberation.audit(s)};
+   title:`${who(s.leader)}の主導権から${MODES[top.mode]}`,outcomes,defender:s.defender,homeResult:s.homeResult,homeRider:s.homeRider,backRider:s.backRider,backResult:s.backResult,defense:s.defense,blockResult:s.blockResult,cornerRider:s.cornerRider,innerRider:s.innerRider,audit:deliberation.audit(s)};
  }).sort((a,b)=>b.score-a.score||a.signature.localeCompare(b.signature));
  // The main scenario is selected BEFORE looking at any finish-ticket ranking.
  const main=scenarios.find(s=>s.signature===signatureOf(mainState)),alternatives=[],signatures=new Set([main.signature]),categories=new Set();
@@ -209,7 +209,8 @@ function build(r,pack={},options={}){
  const difference=s=>s.front!==main.front?['S取り・初手',`${who(s.starter)}がSを取ると初手の位置関係が変わる`]:s.attacker!==main.attacker||s.stand!==main.stand||s.tactic!==main.tactic?['赤板の攻防',`${s.attacker?who(s.attacker)+'の仕掛け':'赤板の待機'}と、前受け側の${s.stand==='resist'?'突っ張り':'対応'}が変わる`]:s.homeRider!==main.homeRider||s.homeResult!==main.homeResult||s.gap!==main.gap?['ホームの仕掛け・追走','ホームのロング捲り、または追走の成否が変わる']:s.backRider!==main.backRider||s.backResult!==main.backResult?['バックの反撃','最終バックでの仕掛け直しと、その反撃への抵抗が変わる']:s.defense!==main.defense||s.innerRider!==main.innerRider?['3～4角の判断','横の仕事・縦踏み・内のコース選択が変わる']:['終盤の別筋','外からの仕掛けや番手の収まり方が変わる'];
  const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:'一本の本線ストーリーから導く6点'})),used=new Set(selected.map(t=>t.key));
  function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
-  const last=s.scenes[5],closing=`この別筋では${who(t.trio[0])}の${MODES[t.mode]}を取り、${who(t.trio[1])}を2着、${who(t.trio[2])}を3着に選ぶ。`+t.trio.slice(1).map(n=>`${who(n)}は最終コーナーの${s.scenes[4].order.indexOf(n)+1}番手から直線を伸ばす筋。`).join('');
+  const last=s.scenes[5],finishState={order:s.scenes[4].order,defender:s.defender,defense:s.defense,survivingAttack:s.cornerRider&&s.blockResult!=='stopped'?s.cornerRider:null,innerRider:s.innerRider,outside:[]};
+  const closing=`この別筋では${who(t.trio[0])}の${MODES[t.mode]}を取り、${who(t.trio[1])}を2着、${who(t.trio[2])}を3着に選ぶ。`+Reality.finishExplanation(finishState,t.trio,who);
   const scenes=[...s.scenes.slice(0,5),{...last,action:closing,reasoning:reasons.finish({order:s.scenes[4].order,energy:s.scenes[4].energy},t.trio),order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio}];
   const alternative={...s,first:t.trio[0],mode:t.mode,scenes,snapshots:scenes,states:scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),explanation:scenes.map(x=>x.action).join('\n'),divergence:category,trigger,upset:t.trio[0]!==main.first};
   alternatives.push(alternative);signatures.add(s.signature);categories.add(category);
