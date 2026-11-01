@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/collect_intel.py', '.github/workflows/collect-intelligence.yml']
+    paths: ['scripts/collect_intel.py', 'scripts/intel_sources.py', '.github/workflows/collect-intelligence.yml']
 permissions:
   contents: write
 concurrency:
@@ -24,7 +24,7 @@ jobs:
       - name: Collect article bodies
         id: collect
         continue-on-error: true
-        run: python scripts/collect_intel.py --max-articles 36
+        run: python -u scripts/collect_intel.py --max-articles 60 --max-discovery 8 --budget-seconds 480
       - name: Save evidence and collection status
         run: |
           git config user.name 'github-actions[bot]'
