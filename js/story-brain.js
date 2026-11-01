@@ -34,12 +34,12 @@ function build(r,pack={},options={}){
  function addScene(s,index,text,shape='一本棒',actors=[]){
   const reasoning=index===5?reasons.finish(s,actors):reasons.scene(s.decisions.filter(d=>d.stage===index));
   const scrutiny=s.decisions.filter(d=>d.stage===index&&d.deliberation).map(d=>d.deliberation);reasoning.scrutiny=scrutiny;
-  // A short factual reason stays in the story; the full choice comparison stays folded away.
-  const fact=reasoning.facts.find(f=>f.kind==='race_intention'||f.kind==='observed_action')||reasoning.facts.find(f=>f.source);
-  const duplicate=fact&&(fact.kind==='S'||text.includes(fact.label.match(/\d+走でB\d+回/)?.[0]||fact.label));
-  const basis=fact&&!duplicate&&!text.includes(fact.label)?fact.label+'。':'';
-  const decision=scrutiny.find(d=>d.phase_key),why=decision?decision.actor?`${who(decision.actor)}の仕掛けを採る理由は、${decision.selected_reason}。`:decision.selected_reason+'。':'';
-  s.stage=index;s.scenes.push({stage:index+1,phase:STAGES[index],action:basis+text+why,order:[...s.order],energy:{...s.energy},shape,actors,reasoning,assumption:'位置・車間・速度は未計測の展開仮説'});
+  // Race prose states the selected action directly. Source limits, competing
+  // decisions and unmeasured inputs live in the existing expandable reasoning.
+  const fact=reasoning.facts.find(f=>(f.kind==='race_intention'||f.kind==='observed_action')&&
+    !/未確認|未取得|出典未確認|発言末尾未収録/.test(f.label));
+  const basis=fact&&!text.includes(fact.label)?fact.label+'。':'';
+  s.stage=index;s.scenes.push({stage:index+1,phase:STAGES[index],action:basis+text,order:[...s.order],energy:{...s.energy},shape,actors,reasoning,assumption:'位置・車間・速度は未計測の展開仮説'});
  }
  function branch(states,key,candidates,apply){const all=[];
   for(const s of states){const choices=candidates(s).map(c=>{const reasoning=reasons.evaluate(key,c,{...s,phase:STAGES[s.stage||0]});return {...c,weight:c.weight*reasoning.multiplier,reasoning};});
@@ -64,7 +64,7 @@ function build(r,pack={},options={}){
   s.starter=Number(c.key);s.front=lineOf.get(s.starter)[0];s.leader=s.front;
   const others=r.lineup.filter(l=>l[0]!==s.front).sort((a,b)=>trait(b[0],'front',s)-trait(a[0],'front',s)||a[0]-b[0]);s.order=[...lineOf.get(s.front),...others.flat()];
   const measured=Number.isFinite(by.get(s.starter).s)&&!by.get(s.starter).meta?.absent_fields?.includes('s');
-  addScene(s,0,`${context.lineup_status}は${r.lineup.map(l=>l.join('-')).join('／')}。${who(s.starter)}がSを取り${s.starter===s.front?'前受けを選ぶ':`${who(s.front)}を前へ迎え入れる`}と読む。初手は${s.order.join('→')}。${measured?by.get(s.starter).s_source?`公開出走表の直近4ヶ月S${by.get(s.starter).s}回を判断材料にする`:`入力S${by.get(s.starter).s}回を参考にする（出典の確かさは資料欄で確認）`:'Sの実測は未取得なので、前受け傾向とラインの役割からの暫定判断'}。`,'一本棒',[s.starter,s.front]);
+  addScene(s,0,`並びは${r.lineup.map(l=>l.join('-')).join('／')}。${who(s.starter)}がSを取り、${s.starter===s.front?'そのまま前受け':`${who(s.front)}を迎え入れて前受け`}。${measured&&by.get(s.starter).s_source?`直近4か月でS${by.get(s.starter).s}回の実績がある。`:''}初手は${s.order.join('→')}。`,'一本棒',[s.starter,s.front]);
  });
  // Different S-getters arriving at the same formation are one tactical state, not extra vote counts.
  const formations=new Map();for(const s of states){if(formations.has(s.front))formations.get(s.front).mass+=s.mass;else formations.set(s.front,s);}states=[...formations.values()];states.forEach(s=>s.stage=1);
@@ -82,7 +82,8 @@ function build(r,pack={},options={}){
   const actor=s.attacker?by.get(s.attacker):null,form=actor?.recent_form?.stats;
   const raceReason=actor?`${form?`${form.total}走でB${form.b}回という近況を踏まえ、`:''}${lineOf.get(actor.no).length>1?'後続を連れ出して好位置を確保したい':'単騎なので踏み合いを長引かせず位置を確保したい'}と読む。`:'';
   const reason=context.lines.find(l=>l.leader===(s.attacker||s.front));
-  addScene(s,1,s.attacker?`${who(s.attacker)}が${s.tactic==='kamashi'?'カマシを狙って踏み上げる':'赤板から上昇して抑えに行く'}。${raceReason}${reason.facts.length?reason.facts.join('。')+'。'+reason.inference:''}${who(s.front)}は${s.stand==='resist'?'突っ張って対抗する':'いったん出させ、引いて脚を残す'}。${s.outcome==='attacker-takes'?`${who(s.attacker)}が主導権を奪う`:`${who(s.front)}が抵抗して主導権を守る`}と読む。`:`この筋では赤板で他線の早い仕掛けを置かず、${who(s.front)}がペースを作る。後方勢はホーム以降の仕掛けを待つ。`,s.stand==='resist'?'踏み合い':'一本棒',[s.front,s.attacker].filter(Boolean));
+  const relationship=reason?.facts.length?reason.facts.join('。')+'。':'';
+  addScene(s,1,s.attacker?`${who(s.attacker)}が${s.tactic==='kamashi'?'カマシを狙って踏み上げる':'赤板から上昇して抑えに行く'}。${raceReason}${relationship}${who(s.front)}は${s.stand==='resist'?'突っ張って対抗する':'いったん出させ、引いて脚を残す'}。${s.outcome==='attacker-takes'?`${who(s.attacker)}が主導権を奪う`:`${who(s.front)}が抵抗して主導権を守る`}。`:`この筋では赤板で他線の早い仕掛けを置かず、${who(s.front)}がペースを作る。後方勢はホーム以降の仕掛けを待つ。`,s.stand==='resist'?'踏み合い':'一本棒',[s.front,s.attacker].filter(Boolean));
  });
  states.forEach(s=>s.stage=2);
  states=branch(states,'home-attack',s=>[choose('settle',.8),...attackers(s,'home',6)],(s,c)=>{
@@ -131,7 +132,7 @@ function build(r,pack={},options={}){
   if(c.key!=='unchanged'){s.gap=c.key;const f=controlLine(s.leader)[1];if(c.key==='breaks'){const dropped=controlLine(s.leader).slice(1);dropped.forEach(n=>{s.connected[n]=false;s.energy[n]+=.18;});const at=s.order.indexOf(f);move(s,dropped,Math.min(at+2,ids.length-dropped.length),'バックの再加速で番手以降が遅れる仮説');}}
   s.defender=s.seat||s.gap==='holds'&&controlLine(s.leader)[1]||null;
   const shape=s.outside.length?'併走・混戦':s.gap==='breaks'&&!s.seat?'隊列に切れ目':'一本棒';
-  const counter=s.backRider?`${who(s.backRider)}が${s.homeRider===s.backRider?'ホームからの仕掛けを継続し':'バックから反撃し'}、${s.backResult==='takes'?'主導権を取り直す':'外で先頭に迫る'}。`:'バックでも仕掛けを待つ判断を、別線ごとに見直した。';
+  const counter=s.backRider?`${who(s.backRider)}が${s.homeRider===s.backRider?'ホームからの仕掛けを継続し':'バックから反撃し'}、${s.backResult==='takes'?'主導権を取り直す':'外で先頭に迫る'}。`:'別線は動かず、先行ラインがペースを握る。';
   addScene(s,3,counter+`${who(s.leader)}がバックを先頭で通過する。${s.outside.length?s.outside.map(who).join('・')+'が外に残り、前団は一本棒ではない':s.gap==='breaks'?'番手が離れ、隊列に切れ目ができる':s.defender?`${who(s.defender)}が追走し、前団は一本棒`:'先頭は単騎で、後ろは別線'}。${s.seat?`${who(s.seat)}が空いた番手へ入る。`:''}`,shape,[s.leader,s.defender,s.backRider].filter(Boolean));
  });
  states.forEach(s=>s.stage=4);
@@ -157,9 +158,9 @@ function build(r,pack={},options={}){
   return options;
  },(s,c)=>{
   s.innerRider=c.key==='none'?null:Number(c.key.split(':')[1]);s.innerMode=c.key.split(':')[0];
-  const attempt=s.cornerRider?`${who(s.cornerRider)}が${s.cornerOrigin==='recover'?'離れた位置から踏み直して':s.cornerOrigin==='outer'?'大外を回して':'3コーナーから捲って'}迫る。`:'別線の仕掛け直しより追走・直線勝負を重く評価し、前団の直線勝負と読む。';
-  const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める':'仕掛けを止め切れない'}。そのぶん内に空きができる。`:s.defense==='vertical'?`${who(s.defender)}は横に振るより縦を踏む。${s.cornerRider?'外の仕掛けへの抵抗は薄くなるが、自分の伸びを優先する':'前の消耗を見て早めに踏み込む'}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手が空いているため、組織的なブロックは期待しない。';
-  const inner=s.innerRider?`${who(s.innerRider)}は${s.innerMode==='split'?'3番手から中割り':'後続からインを突く'}を狙う。開いたコースを使えることが成立条件。`:'後続は内へ切り込まず、外の動きと直線の進路を追う。';
+  const attempt=s.cornerRider?`${who(s.cornerRider)}が${s.cornerOrigin==='recover'?'離れた位置から踏み直して':s.cornerOrigin==='outer'?'大外を回して':'3コーナーから捲って'}迫る。`:'別線は仕掛けず、前団が直線勝負に入る。';
+  const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める':'仕掛けを止め切れない'}。そのぶん内に空きができる。`:s.defense==='vertical'?`${who(s.defender)}は横に振るより縦を踏む。${s.cornerRider?'外の仕掛けへの抵抗は薄くなるが、自分の伸びを優先する':'前の消耗を見て早めに踏み込む'}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手は空いたまま、先行選手が外の動きに対応する。';
+  const inner=s.innerRider?`${who(s.innerRider)}は${s.innerMode==='split'?'3番手から中割り':'後続からインを突く'}を狙う。開いたコースを使えることが成立条件。`:'後続は内を突かず、直線で踏み込む。';
   addScene(s,4,attempt+defense+inner,s.openInside?'外の攻防・内に空き':s.cornerRider?'外からの仕掛け':'直線待ち',[s.cornerRider,s.defender,s.innerRider].filter(Boolean));
  });
  function finishes(s){
@@ -192,9 +193,9 @@ function build(r,pack={},options={}){
  const mainState=accepted[0].s;
  const selectionReview={method:'counterplay-before-tickets',accepted:accepted.length,examined:states.length,reconsidered,rejected_objections:[...new Set([...objections.values()].map(x=>x.phase))].flatMap(phase=>[...objections.values()].filter(x=>x.phase===phase).slice(0,2)),audit:accepted[0].audit,scope:'ホーム・バック・3〜4角の仕掛け/待機と番手の応答を比較。車間・速度は未計測、係数は未校正'};
  const scenarios=states.map(s=>{const outcomes=finishes(s),top=outcomes[0],last=state(s);
-  const conclusion=`この流れなら${who(top.trio[0])}の${MODES[top.mode]}を本線に取る。${who(top.trio[1])}と${who(top.trio[2])}が相手の中心。${s.defense==='block'?'横の仕事で使った脚と、内にできたコースが最後の着順を分ける':s.survivingAttack?'外からの勢いと先行側の残り脚の比較になる':s.defender?'先行で使った脚と番手で残した脚の差が決め手になる':'先行の残り脚と別線の追込みの比較になる'}。`;
+  const conclusion=`直線は${who(top.trio[0])}が${MODES[top.mode]}で勝ち切る。${who(top.trio[1])}が２着、${who(top.trio[2])}が３着。${s.defense==='block'?'番手の横の仕事で生まれた内の空きが勝負を分ける':s.survivingAttack?'外からの勢いと先行の残り脚がぶつかる':s.defender?'先行が使った脚と番手の余力が最後の差になる':'先行の残り脚と別線の追込みで決まる'}。`;
   const otherHeads=[...new Set(outcomes.slice(0,6).map(t=>t.trio[0]))].filter(n=>n!==top.trio[0]);
-  const closing=conclusion+(otherHeads.length?`${otherHeads.map(who).join('・')}が先着する入れ替わりも、ここまで同じ流れから押さえる。`:'')+Reality.finishExplanation(s,top.trio,who);
+  const closing=conclusion+Reality.finishExplanation(s,top.trio,who);
   addScene(last,5,closing,'ゴール前',top.trio);last.scenes[5].order=[...top.trio,...s.order.filter(n=>!top.trio.includes(n))];
   const id='story-'+(++serial),signature=signatureOf(s);
   return {id,signature,score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
@@ -204,13 +205,13 @@ function build(r,pack={},options={}){
  // The main scenario is selected BEFORE looking at any finish-ticket ranking.
  const main=scenarios.find(s=>s.signature===signatureOf(mainState)),alternatives=[],signatures=new Set([main.signature]),categories=new Set();
  const turningPoints=[main.homeRider?`${who(main.homeRider)}がホームで仕掛け`:'ホームでは前団が隊列を保ち',main.backRider?`${who(main.backRider)}がバックで${main.backRider===main.homeRider?'踏み続け':'反撃し'}`:'バックでは前団が主導権を守り',main.cornerRider?`${who(main.cornerRider)}の最後の仕掛け${main.defender?'に番手が'+(main.defense==='block'?'ブロックで応じる':main.defense==='vertical'?'縦へ踏む':'直線勝負を選ぶ'):'が迫る'}`:'3〜4角から直線勝負へ進む'];
- main.reading=`私は、${turningPoints.join('、')}展開と読む。最後は${who(main.first)}の${MODES[main.mode]}を本線にする。`;
+ main.reading=`私はこう読む。${turningPoints.join('、')}。最後は${who(main.first)}が${MODES[main.mode]}で勝つ。`;
  main.rationale='なぜなら、'+main.audit.reviews.filter(d=>d.phase_key).map(d=>`${d.phase}は${d.selected_reason}`).join('。')+'。';
  const difference=s=>s.front!==main.front?['S取り・初手',`${who(s.starter)}がSを取ると初手の位置関係が変わる`]:s.attacker!==main.attacker||s.stand!==main.stand||s.tactic!==main.tactic?['赤板の攻防',`${s.attacker?who(s.attacker)+'の仕掛け':'赤板の待機'}と、前受け側の${s.stand==='resist'?'突っ張り':'対応'}が変わる`]:s.homeRider!==main.homeRider||s.homeResult!==main.homeResult||s.gap!==main.gap?['ホームの仕掛け・追走','ホームのロング捲り、または追走の成否が変わる']:s.backRider!==main.backRider||s.backResult!==main.backResult?['バックの反撃','最終バックでの仕掛け直しと、その反撃への抵抗が変わる']:s.defense!==main.defense||s.innerRider!==main.innerRider?['3～4角の判断','横の仕事・縦踏み・内のコース選択が変わる']:['終盤の別筋','外からの仕掛けや番手の収まり方が変わる'];
  const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:'一本の本線ストーリーから導く6点'})),used=new Set(selected.map(t=>t.key));
  function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
   const last=s.scenes[5],finishState={order:s.scenes[4].order,defender:s.defender,defense:s.defense,survivingAttack:s.cornerRider&&s.blockResult!=='stopped'?s.cornerRider:null,innerRider:s.innerRider,outside:[]};
-  const closing=`この別筋では${who(t.trio[0])}の${MODES[t.mode]}を取り、${who(t.trio[1])}を2着、${who(t.trio[2])}を3着に選ぶ。`+Reality.finishExplanation(finishState,t.trio,who);
+  const closing=`この別展開では${who(t.trio[0])}が${MODES[t.mode]}で勝ち切る。${who(t.trio[1])}が２着、${who(t.trio[2])}が３着。`+Reality.finishExplanation(finishState,t.trio,who);
   const scenes=[...s.scenes.slice(0,5),{...last,action:closing,reasoning:reasons.finish({order:s.scenes[4].order,energy:s.scenes[4].energy},t.trio),order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio}];
   const alternative={...s,first:t.trio[0],mode:t.mode,scenes,snapshots:scenes,states:scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),explanation:scenes.map(x=>x.action).join('\n'),divergence:category,trigger,upset:t.trio[0]!==main.first};
   alternatives.push(alternative);signatures.add(s.signature);categories.add(category);

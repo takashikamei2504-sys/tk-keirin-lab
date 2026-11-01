@@ -7,7 +7,8 @@ function check(r){
  assert.ok(Math.abs(out.diagnostics.terminalMass+out.diagnostics.unresolvedMass-1)<1e-9);
  assert.ok(Math.abs(out.tickets.reduce((sum,t)=>sum+t.score,0)-out.diagnostics.terminalMass)<1e-9);
  for(const s of [out.story.main,...out.story.alternatives]){
-  assert.ok(Brain.MODES[s.mode]);assert.ok(!s.explanation.includes('undefined'));assert.equal(s.scenes.length,6);assert.deepEqual(s.scenes.map(x=>x.phase),Brain.STAGES);
+  assert.ok(Brain.MODES[s.mode]);assert.ok(!s.explanation.includes('undefined'));assert.equal(s.scenes.length,6);
+  for(const scene of s.scenes)assert.doesNotMatch(scene.action,/推測|未確認|未取得|暫定|出典未確認|未計測の仮説|保証できない/,`race prose should not contain research caveats in ${scene.phase}`);assert.deepEqual(s.scenes.map(x=>x.phase),Brain.STAGES);
   for(const scene of s.scenes)assert.deepEqual([...scene.order].sort((a,b)=>a-b),r.riders.map(x=>x.no).sort((a,b)=>a-b));
   assert.equal(s.scenes[3].order[0],s.leader);
   if(s.innerRider)assert.equal(s.defense,'block','an inside gap must be created by an actual preceding block');
