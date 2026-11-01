@@ -6,6 +6,7 @@ const Context=typeof module!=='undefined'?require('./rider-context.js'):root.Rid
 const Weights=typeof module!=='undefined'?require('./branch-weights.js'):root.BranchWeights;
 const Reasons=typeof module!=='undefined'?require('./decision-reasons.js'):root.DecisionReasons;
 const Deliberation=typeof module!=='undefined'?require('./tactical-deliberation.js'):root.TacticalDeliberation;
+const Reality=typeof module!=='undefined'?require('./race-reality.js'):root.RaceReality;
 const VERSION='story-first-v4.0.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
@@ -54,7 +55,10 @@ function build(r,pack={},options={}){
   const retained=new Set(keep);unresolved+=all.filter(s=>!retained.has(s)).reduce((a,s)=>a+s.mass,0);return keep;
  }
  const available=(no,stage)=>r.conditions?.routes?.[no]?.[stage]==='blocked'?'blocked':'unknown';
- const attackers=(s,phase,maxPosition)=>ids.filter(n=>n!==s.leader&&n!==s.defender&&lineOf.get(n)!==controlLine(s.leader)&&own(n)&&(leaders.includes(n)||s.connected[n]===false)&&s.order.indexOf(n)>0&&s.order.indexOf(n)<=maxPosition&&s.energy[n]<.85).map(n=>choose(String(n),.12+trait(n,'makuri',s)*.2,{actor:n,feasibility:available(n,phase)}));
+ const attackers=(s,phase,maxPosition)=>ids.filter(n=>n!==s.leader&&n!==s.defender&&(lineOf.get(n)[0]!==lineOf.get(s.leader)[0]||s.connected[n]===false)&&own(n)&&(leaders.includes(n)||s.connected[n]===false)&&s.order.indexOf(n)>0&&s.order.indexOf(n)<=maxPosition&&s.energy[n]<.85).map(n=>{
+   const opportunity=Reality.attackOpportunity(s,n,phase);
+   return choose(String(n),.12+trait(n,'makuri',s)*.2,{actor:n,feasibility:opportunity.allowed?available(n,phase):'blocked',feasibilityReason:opportunity.reason});
+ });
  const attackResult=(s,n)=>clip(.5+(ability(n)-ability(s.leader))*.65+(s.energy[s.leader]-s.energy[n])*.6,.15,.85);
  let states=branch([initial],'S',s=>ids.map(n=>choose(String(n),.1+trait(n,'front',s),{actor:n})),(s,c)=>{
   s.starter=Number(c.key);s.front=lineOf.get(s.starter)[0];s.leader=s.front;
@@ -84,7 +88,10 @@ function build(r,pack={},options={}){
  states=branch(states,'home-attack',s=>[choose('settle',.8),...attackers(s,'home',6)],(s,c)=>{
   s.homeRider=c.key==='settle'?null:Number(c.key);s.stage=2;
  });
- states=branch(states,'home-result',s=>!s.homeRider?[choose('settled',1)]:[choose('takes',attackResult(s,s.homeRider)),choose('parallel',1-attackResult(s,s.homeRider))],(s,c)=>{
+ states=branch(states,'home-result',s=>{if(!s.homeRider)return [choose('settled',1)];
+  const gate=Reality.takeoverOpportunity(s,s.homeRider,'home'),p=attackResult(s,s.homeRider);
+  return [choose('takes',p,{feasibility:gate.allowed?'unknown':'blocked',feasibilityReason:gate.reason}),choose('parallel',1-p)];
+ },(s,c)=>{
   s.homeResult=c.key;const before=s.leader;
   if(s.homeRider){s.energy[s.homeRider]+=.25;s.energy[before]+=.09;if(c.key==='takes'){s.leader=s.homeRider;move(s,controlLine(s.leader).filter(n=>n===s.leader||s.connected[n]!==false),0,'ホームのロング捲りで隊列を入れ替える仮説');}else s.outside.push(s.homeRider);}
  });
@@ -106,8 +113,11 @@ function build(r,pack={},options={}){
   s.defender=s.seat||s.gap==='holds'&&controlLine(s.leader)[1]||null;s.stage=3;
  });
  // The back is a new decision point, not a photograph of the home formation.
- states=branch(states,'back-attack',s=>[choose('wait',.7),...attackers(s,'back',6)],(s,c)=>{s.backRider=c.actor||null;s.backLeaderBefore=s.leader;s.stage=3;});
- states=branch(states,'back-result',s=>!s.backRider?[choose('unchanged',1)]:[choose('takes',attackResult(s,s.backRider)),choose('parallel',1-attackResult(s,s.backRider))],(s,c)=>{
+ states=branch(states,'back-attack',s=>[choose('wait',.7),...attackers(s,'back',6)],(s,c)=>{s.backRider=c.actor||null;s.backLeaderBefore=s.leader;s.backLeadPositionBefore=s.backRider?s.order.indexOf(s.backRider)+1:null;s.backWasContinuing=!!(s.backRider&&s.outside.includes(s.backRider));s.stage=3;});
+ states=branch(states,'back-result',s=>{if(!s.backRider)return [choose('unchanged',1)];
+  const gate=Reality.takeoverOpportunity(s,s.backRider,'back'),p=attackResult(s,s.backRider);
+  return [choose('takes',p,{feasibility:gate.allowed?'unknown':'blocked',feasibilityReason:gate.reason}),choose('parallel',1-p)];
+ },(s,c)=>{
   s.backResult=c.key;
   if(s.backRider){s.energy[s.backRider]+=.20;s.energy[s.leader]+=.10;
    if(c.key==='takes'){s.leader=s.backRider;s.seat=null;s.defender=null;s.gap=controlLine(s.leader)[1]?'unchecked':'solo';move(s,controlLine(s.leader).filter(n=>n===s.leader||s.connected[n]!==false),0,'バックからの反撃で主導権を取り直す仮説');s.outside=s.outside.filter(n=>n!==s.leader);}
@@ -126,14 +136,17 @@ function build(r,pack={},options={}){
  });
  states.forEach(s=>s.stage=4);
  states=branch(states,'corner-attack',s=>[choose('wait',.7),...attackers(s,'late',5)],(s,c)=>{
-  s.cornerRider=c.actor||null;s.cornerOrigin=s.cornerRider&&s.connected[s.cornerRider]===false?'recover':s.cornerRider&&s.order.indexOf(s.cornerRider)>=4?'outer':'makuri';s.stage=4;
+  s.cornerRider=c.actor||null;s.cornerOrderBefore=[...s.order];s.cornerOrigin=s.cornerRider&&s.connected[s.cornerRider]===false?'recover':s.cornerRider&&s.order.indexOf(s.cornerRider)>=4?'outer':'makuri';s.stage=4;
  });
  states=branch(states,'defense',s=>s.defender?[
   choose('vertical',.1+trait(s.defender,'vertical',s)*.2+trait(s.defender,'finish',s)*.2),choose('follow',.65),...(s.cornerRider?[choose('block',.25+trait(s.defender,'block',s)*.45)]:[])
  ]:[choose('none',1)],(s,c)=>{s.defense=c.key;s.openInside=c.key==='block';});
  states=branch(states,'block-result',s=>s.defense==='block'?[choose('stopped',clip(.45+trait(s.defender,'block',s)*.2+(ability(s.defender)-ability(s.cornerRider))*.3+(s.energy[s.cornerRider]-s.energy[s.defender])*.15)),choose('survives',1-clip(.45+trait(s.defender,'block',s)*.2+(ability(s.defender)-ability(s.cornerRider))*.3+(s.energy[s.cornerRider]-s.energy[s.defender])*.15))]:[choose('free',1)],(s,c)=>{
   s.blockResult=c.key;s.survivingAttack=c.key==='stopped'?null:s.cornerRider;
-  if(s.cornerRider){s.energy[s.cornerRider]=Math.min(.95,s.energy[s.cornerRider]+.15);const at=Math.max(1,s.order.indexOf(s.cornerRider)-1);move(s,[s.cornerRider],at,'コーナーで外を進む仮説');}
+  if(s.cornerRider){s.energy[s.cornerRider]=Math.min(.95,s.energy[s.cornerRider]+.15);
+    // Successful block means the attack is stopped; it must not advance a place.
+    if(c.key!=='stopped'){const at=Math.max(1,s.order.indexOf(s.cornerRider)-1);move(s,[s.cornerRider],at,'止め切れない外の仕掛けが一車分前進する仮説');}
+   }
   if(s.defense==='block')s.energy[s.defender]+=.1;
  });
  states=branch(states,'inside',s=>{
@@ -153,16 +166,22 @@ function build(r,pack={},options={}){
   const third=controlLine(s.leader)[2],heads=[s.leader,s.defender,s.survivingAttack,s.innerRider,third&&s.gap==='holds'&&s.order.indexOf(third)<=3?third:null].filter(Boolean);
   const unique=[...new Set(heads)];
   const rank=n=>ability(n)*.5+trait(n,'finish',{...s,stage:5})*.3-s.energy[n]*.38-s.order.indexOf(n)*.07+(n===s.innerRider?.13:0)+(n===s.survivingAttack?.12:0)+(n===s.defender&&s.defense==='vertical'?.15:0);
-  const distribute=arr=>Weights.allocate(1,arr.map(n=>choose(String(n),Math.exp(rank(n)*3)))).branches;
+  const distribute=(arr,place)=>Weights.allocate(1,arr.filter(n=>Reality.finishingAccess(s,n,place).allowed).map(n=>choose(String(n),Math.exp(rank(n)*3)))).branches;
   const all=[];
-  for(const first of distribute(unique))for(const second of distribute(ids.filter(n=>n!==Number(first.key))))for(const third of distribute(ids.filter(n=>n!==Number(first.key)&&n!==Number(second.key)))){
+  for(const first of distribute(unique,1))for(const second of distribute(ids.filter(n=>n!==Number(first.key)),2))for(const third of distribute(ids.filter(n=>n!==Number(first.key)&&n!==Number(second.key)),3))){
    const trio=[first,second,third].map(v=>Number(v.key)),winner=trio[0];
    const mode=winner===s.innerRider?s.innerMode:winner===s.survivingAttack?s.cornerOrigin:winner===s.defender?s.defense==='vertical'?'vertical':'sashi':winner===s.leader?'lead':'thirdsprint';
    all.push({key:trio.join('-'),trio,score:first.mass*second.mass*third.mass,mode});
   }
   return all.sort((a,b)=>b.score-a.score||a.key.localeCompare(b.key));
  }
- const diagnostics={considered_corner_actions:[...considered],initialMass:1,terminalStates:states.length,terminalMass:states.reduce((a,s)=>a+s.mass,0),unresolvedMass:unresolved,width,kinematics:'隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測',reconsidered_choices:reconsidered};
+ // Unexplainable transitions are not valid story candidates; preserve their
+ // mass as unresolved instead of quietly renormalizing the remaining stories.
+ const acceptedReality=states.filter(x=>Reality.audit(x,ids).passed);
+ const excludedReality=states.length-acceptedReality.length;
+ unresolved+=states.filter(x=>!Reality.audit(x,ids).passed).reduce((a,x)=>a+x.mass,0);
+ states=acceptedReality;
+ const diagnostics={realityVersion:Reality.VERSION,realityExcluded:excludedReality,considered_corner_actions:[...considered],initialMass:1,terminalStates:states.length,terminalMass:states.reduce((a,s)=>a+s.mass,0),unresolvedMass:unresolved,width,kinematics:'隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測',reconsidered_choices:reconsidered};
  if(Math.abs(diagnostics.terminalMass+unresolved-1)>1e-9)throw Error('展開分岐の重みが保存されていません');
  const signatureOf=s=>[s.front,s.attacker,s.tactic,s.stand,s.outcome,s.homeRider,s.homeResult,s.backRider,s.backResult,s.gap,s.seat,s.cornerRider,s.defense,s.blockResult,s.innerRider].join('|');
  // Decide the main complete tactical path before generating any finishing ticket.
@@ -175,7 +194,7 @@ function build(r,pack={},options={}){
  const scenarios=states.map(s=>{const outcomes=finishes(s),top=outcomes[0],last=state(s);
   const conclusion=`この流れなら${who(top.trio[0])}の${MODES[top.mode]}を本線に取る。${who(top.trio[1])}と${who(top.trio[2])}が相手の中心。${s.defense==='block'?'横の仕事で使った脚と、内にできたコースが最後の着順を分ける':s.survivingAttack?'外からの勢いと先行側の残り脚の比較になる':s.defender?'先行で使った脚と番手で残した脚の差が決め手になる':'先行の残り脚と別線の追込みの比較になる'}。`;
   const otherHeads=[...new Set(outcomes.slice(0,6).map(t=>t.trio[0]))].filter(n=>n!==top.trio[0]);
-  const closing=conclusion+(otherHeads.length?`${otherHeads.map(who).join('・')}が先着する入れ替わりも、ここまで同じ流れから押さえる。`:'')+top.trio.slice(1).filter(n=>s.order.indexOf(n)>1).map(n=>`${who(n)}は${s.order.indexOf(n)+1}番手から温存した脚で直線を伸ばす。`).join('');
+  const closing=conclusion+(otherHeads.length?`${otherHeads.map(who).join('・')}が先着する入れ替わりも、ここまで同じ流れから押さえる。`:'')+Reality.finishExplanation(s,top.trio,who);
   addScene(last,5,closing,'ゴール前',top.trio);last.scenes[5].order=[...top.trio,...s.order.filter(n=>!top.trio.includes(n))];
   const id='story-'+(++serial),signature=signatureOf(s);
   return {id,signature,score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
