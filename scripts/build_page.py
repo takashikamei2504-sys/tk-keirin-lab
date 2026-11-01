@@ -5,11 +5,11 @@ root=Path(__file__).resolve().parents[1]
 s=(root/'v13.html').read_text()
 start=s.index('/* TK KEIRIN LAB v1.3 - explicit causal-state event branching.')
 ui=s.index('function causalRun(){',start)
-s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};\nfunction causalBuild(r){validate(r);const enriched=RecentForm.attach(r,recentFormPack);const out=RaceBrain.build(enriched,autoIntelPack);out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}\n"+s[ui:]
+s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};let raceMaterialPack={};\nfunction causalBuild(r){validate(r);const enriched=RaceMaterial.attach(RecentForm.attach(r,recentFormPack),raceMaterialPack);const out=RaceBrain.build(enriched,{...autoIntelPack,observations:[...(autoIntelPack.observations||[]),...(enriched.race_material?.comments||[])]});out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,s:x.s,s_source:x.s_source,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}\n"+s[ui:]
 s=s.replace('<script>','<script src="js/race-brain.js?v=decisions-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script>',1)
 # Hash every runtime dependency so Pages never mixes old and new engine files.
 import hashlib
-new_scripts=''.join('<script src="'+file+'?v='+hashlib.sha256((root/file).read_bytes()).hexdigest()[:12]+'"></script>' for file in ['js/branch-weights.js','js/brain-memory.js','js/race-brain-v2.js','js/race-feed.js','js/results-audit.js'])
+new_scripts=''.join('<script src="'+file+'?v='+hashlib.sha256((root/file).read_bytes()).hexdigest()[:12]+'"></script>' for file in ['js/branch-weights.js','js/brain-memory.js','js/race-material.js','js/rider-context.js','js/story-brain.js','js/race-feed.js','js/results-audit.js'])
 s=s.replace('<script src="js/recent-form.js',new_scripts+'<script src="js/recent-form.js',1)
 s=s.replace('v1.3','v1.4')
 s=s.replace('font-weight:500">v1.2</span></h1>', 'font-weight:500">v1.4</span></h1>')
@@ -73,7 +73,20 @@ s=s.replace('${out.narratives.length}展開分岐、', '${out.diagnostics?.termi
 a=s.index('function quickExternalToRace(source,day){');b=s.index('function quickShowCoverage',a)
 s=s[:a]+"function quickExternalToRace(source,day){const race=RaceFeed.convert(source,day);validate(race);return race;}\n"+s[b:]
 s=s.replace('PredictionView.render(out,data);','PredictionView.render(out,data);')
+loader="""
+async function raceMaterialLoad(){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
+ try{let response;try{response=await fetch('https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/main/data/race_material.json',{cache:'no-store',signal:controller.signal});}catch(_){}
+ if(!response?.ok)response=await fetch('data/race_material.json',{cache:'no-store',signal:controller.signal});
+ if(!response.ok)throw Error('資料未取得');const pack=await response.json();if(pack.schema!=='tk-keirin-race-material/v1'||!Array.isArray(pack.cards)||pack.cards.length>10000)throw Error('資料形式不正');raceMaterialPack=pack;causalRun();
+ }catch(_){/* Missing S stays missing; no fabricated fallback. */}finally{clearTimeout(timer);}
+}
+"""
+s=s.replace('autoIntelLoad();recentFormLoad();',loader+'\nautoIntelLoad();recentFormLoad();raceMaterialLoad();')
+s=s.replace('profiles:causalLast.profiles,hypotheses:', 'profiles:causalLast.profiles,selection_policy:causalLast.selection_policy,story:causalLast.story,context:causalLast.context,hypotheses:')
 from layout_page import tidy
 s=tidy(s)
+s=s.replace('js/recent-form-ui.js?v=all-s-1','js/recent-form-ui.js?v='+hashlib.sha256((root/'js/recent-form-ui.js').read_bytes()).hexdigest()[:12])
+s=s.replace('買い目候補から20点選定','買い目候補から${out.chosen.length}点選定')
 (root/'v14.html').write_text(s)
 # index.html is the independent app entrance; rebuilding predictions preserves it.

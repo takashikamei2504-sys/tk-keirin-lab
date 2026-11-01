@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/collect_intel.py', 'scripts/intel_sources.py', '.github/workflows/collect-intelligence.yml']
+    paths: ['scripts/collect_intel.py', 'scripts/intel_sources.py', 'scripts/collect_race_material.py', '.github/workflows/collect-intelligence.yml']
 permissions:
   contents: write
 concurrency:
@@ -25,11 +25,13 @@ jobs:
         id: collect
         continue-on-error: true
         run: python -u scripts/collect_intel.py --max-articles 60 --max-discovery 8 --budget-seconds 480
+      - name: Collect measured S and race comments
+        run: python -u scripts/collect_race_material.py --max-races 24 --budget-seconds 90
       - name: Save evidence and collection status
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/intelligence.json
+          git add data/intelligence.json data/race_material.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update public article evidence and collection status'
             git pull --rebase origin main

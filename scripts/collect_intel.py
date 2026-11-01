@@ -13,8 +13,12 @@ UTC = dt.timezone.utc
 AGENT = 'TKKeirinLab/1.4 (public article research; bounded requests)'
 HOSTS = {urllib.parse.urlsplit(u).hostname for _,_,u in SOURCES}|{'keirin.jp','www.keirin.jp'}
 INDEXES = [u for _,_,u in SOURCES]
-PARSER_VERSION='public-sources-v1.5.2'
+PARSER_VERSION='public-sources-v1.6-story'
 RULES = {
+ 'block': [(r'ブロック|けん制|牽制', .85)],
+ 'vertical': [(r'縦に踏|タテに踏', .85)],
+ 'inside': [(r'中割り|中を割|インを突|内を突', .85)],
+ 'long_makuri': [(r'ホームから.{0,12}(?:捲|まく)|ロング(?:捲|まく)', .85)],
  'front': [(r'前受け|前を取|正攻法', .85)],
  'resist': [(r'突っ張|ツッパリ', .9)],
  'withdraw': [(r'引いて|一旦引|いったん引|下げて|引き切', .85)],
@@ -166,6 +170,10 @@ def roster(now,errors):
 
 # Completed active-voice actions only. A spoken plan or opponent action is not a rider trait.
 SPOKEN_ACTIONS={
+ 'block':r'ブロックした|けん制した|牽制した',
+ 'vertical':r'縦に踏んだ|タテに踏んだ',
+ 'inside':r'中を割った|インを突いた|内を突いた',
+ 'long_makuri':r'ホームから捲った|ホームからまくった',
  'front':r'前を取った|前受けした|前を取りました',
  'resist':r'突っ張った|突っ張りました',
  'withdraw':r'引いた|引きました|下げた|下げました',
@@ -231,6 +239,7 @@ def main():
  cache=previous.get('articles',[])
  known={canonical(a['url']) for a in cache if a.get('body_verified') and a.get('parser_version')==PARSER_VERSION and (now-(iso(a.get('last_checked_at')) or iso(a['collected_at']))).days<30}
  evidence={e['id']:e for e in previous.get('evidence',[]) if e.get('extractor')!='public-sources-v1.5' and iso(e.get('published_at')) and (now-iso(e['published_at'])).days<1095}
+ relations={e['id']:e for e in previous.get('relationships',[]) if iso(e.get('published_at')) and (now-iso(e['published_at'])).days<1095}
  notes={n['id']:n for n in previous.get('observations',[]) if iso(n.get('published_at')) and (now-iso(n['published_at'])).days<1095}
  articles={canonical(a['url']):a for a in cache};attempted=0
  queue=list(fair_urls(links))
@@ -249,6 +258,8 @@ def main():
    rows=extract_quotes(quotes,names,url,date,collected) if article_kind(url) in ('oddspark','kdreams','marche') else extract(page,names,url,date,collected)
    title=next((v for t,v in page.blocks if t=='h1'),page.meta.get('og:title',''))
    comments=observations(quotes,url,title,date,collected)
+   from collect_race_material import relationships
+   for rel in relationships(quotes,names,url,date.isoformat(),collected.isoformat()):relations.setdefault(rel['id'],rel)
    for e in rows:
     e['title']=title[:120];evidence.setdefault(e['id'],e)
    for note in comments:
@@ -266,7 +277,7 @@ def main():
  notes=bounded
  for key,stat in statuses.items():
   stat['stored_articles']=sum(source_id(a['url'])==key for a in articles.values());stat['stored_comments']=sum(source_id(n['url'])==key for n in notes.values());stat['stored_evidence']=sum(source_id(n['url'])==key for n in evidence.values())
- result={'schema':'tk-keirin-intelligence/v1.4','generated_at':dt.datetime.now(UTC).isoformat(),'roster_dates':dates,'roster_size':len(names),'evidence':list(evidence.values()),'observations':list(notes.values()),'articles':list(articles.values())[-1500:],'pending_urls':pending[:1000],
+ result={'schema':'tk-keirin-intelligence/v1.4','generated_at':dt.datetime.now(UTC).isoformat(),'roster_dates':dates,'roster_size':len(names),'evidence':list(evidence.values()),'observations':list(notes.values()),'relationships':list(relations.values()),'articles':list(articles.values())[-1500:],'pending_urls':pending[:1000],
   'status':{'attempted':attempted,'body_articles':len(articles),'evidence':len(evidence),'comments':len(notes),'sources':statuses,'robots':fetch.robot_status,'errors':errors[-100:]},'notice':'公開本文の氏名・発言者・掲載日を確認。本人コメントは意向と観察を区別し、コメント全体を恒常的特性のスコアにはしない。発走前の情報だけ予想に適用。'}
  output.parent.mkdir(exist_ok=True);tmp=output.with_suffix('.tmp');tmp.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');tmp.replace(output)
  print(json.dumps({'roster':len(names),'articles':len(articles),'evidence':len(evidence),'comments':len(notes),'attempted':attempted,'errors':len(errors)},ensure_ascii=False),flush=True)

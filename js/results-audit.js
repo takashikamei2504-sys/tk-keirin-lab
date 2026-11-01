@@ -39,10 +39,12 @@ function snapshot(r,out,savedAt,{origin='browser',evidence=[],baseline=null}={})
  const time=Date.parse(savedAt),cutoff=startAt(r),sourceTime=Date.parse(r.source?.generated_at);
  const eligible=Number.isFinite(time)&&time<cutoff&&Number.isFinite(sourceTime)&&sourceTime<cutoff&&sourceTime<=time&&r.source?.mode==='live-public-feed';
  const input={...r,riders:r.riders.map(x=>{const rider={...x};if(x.recent_form){rider.recent_form={...x.recent_form};delete rider.recent_form.recent_meetings;delete rider.recent_form.current_meeting_results;}return rider;})};
- const chosen=out.chosen.map(t=>({key:t.key,trio:t.trio,mode:t.supporting_path.mode,explanation:t.supporting_path.explanation}));
- if(chosen.length!==20||new Set(chosen.map(t=>t.key)).size!==20||chosen.some(t=>!combo(t.trio,r.riders.map(x=>x.no))||t.key!==t.trio.join('-')))throw Error('保存対象の20点が不正です');
+ const chosen=out.chosen.map(t=>({key:t.key,trio:t.trio,mode:t.mode||t.supporting_path.mode,group:t.group||'legacy',story_id:t.supporting_path.id||null,explanation:out.story?t.supporting_path.scenes[5].action:t.supporting_path.explanation}));
+ const points=out.selection_policy?.total??20;
+ if(points===10&&(out.selection_policy?.method!=='story-before-tickets'||chosen.filter(t=>t.group==='main').length!==6||chosen.filter(t=>t.group==='alternative').length!==4))throw Error('本線6点・別筋4点の構成が不正です');
+ if(![10,20].includes(points)||chosen.length!==points||new Set(chosen.map(t=>t.key)).size!==points||chosen.some(t=>!combo(t.trio,r.riders.map(x=>x.no))||t.key!==t.trio.join('-')))throw Error('保存対象の点数・買い目が不正です');
  return {schema:SCHEMA,race_id:raceKey(r),version:out.version,saved_at:savedAt,cutoff:new Date(cutoff).toISOString(),pre_race:eligible,origin,
-  identity:identity(r),input,chosen,ranked_keys:out.tickets.map(t=>t.key),evidence,diagnostics:out.diagnostics,baseline,
+  identity:identity(r),input,selection_policy:out.selection_policy||{total:20,method:'legacy'},story:out.story?{main:{id:out.story.main.id,scenes:out.story.main.scenes},alternatives:out.story.alternatives.map(s=>({id:s.id,scenes:s.scenes,trigger:s.trigger}))}:null,relationship_evidence:out.context?.relationships||[],chosen,ranked_keys:out.tickets.map(t=>t.key),evidence,diagnostics:out.diagnostics,baseline,
   note:eligible?'発走前の予想を固定保存':'発走後・サンプル・資料時刻不明のため成績集計対象外'};
 }
 function evaluate(prediction,observed){
@@ -54,16 +56,17 @@ function evaluate(prediction,observed){
  let category='的中';
  if(!hit){const heads=new Set(prediction.chosen.map(t=>t.trio[0])),pairs=new Set(prediction.chosen.map(t=>t.trio.slice(0,2).join('-')));
   category=!observed.combos.some(c=>heads.has(c.trio[0]))?'1着候補漏れ':!observed.combos.some(c=>pairs.has(c.trio.slice(0,2).join('-')))?'1・2着の組合せ漏れ':'3着候補漏れ';}
- return {status:'evaluated',hit,category,best_rank:Number.isFinite(bestRank)?bestRank:null,selection_miss:!hit&&Number.isFinite(bestRank),
-  baseline_hit:Array.isArray(prediction.baseline?.chosen)?winning.some(k=>prediction.baseline.chosen.includes(k)):null,
+ return {status:'evaluated',hit,category,points:prediction.chosen.length,version:prediction.version,best_rank:Number.isFinite(bestRank)?bestRank:null,selection_miss:!hit&&Number.isFinite(bestRank),
+  baseline_hit:Array.isArray(prediction.baseline?.chosen)&&prediction.baseline.chosen.length===prediction.chosen.length?winning.some(k=>prediction.baseline.chosen.includes(k)):null,
   hit_modes:[...new Set(prediction.chosen.filter(t=>winning.includes(t.key)).map(t=>t.mode))]};
 }
 function summarize(rows){
  const evaluated=rows.filter(r=>r.evaluation.status==='evaluated'),hits=evaluated.filter(r=>r.evaluation.hit).length,misses={};
  for(const row of evaluated.filter(r=>!r.evaluation.hit))misses[row.evaluation.category]=(misses[row.evaluation.category]||0)+1;
- const paired=evaluated.filter(r=>r.evaluation.baseline_hit!==null),newHits=paired.filter(r=>r.evaluation.hit).length,oldHits=paired.filter(r=>r.evaluation.baseline_hit).length;
- const recommendations=Object.entries(misses).sort((a,b)=>b[1]-a[1]).map(([reason,count])=>({reason,count,action:({'1着候補漏れ':'前受け・主導権・終盤の1着候補の重みを比較する','1・2着の組合せ漏れ':'番手残り・別線追込みと2着選定を比較する','3着候補漏れ':'3着候補の絞り方と20点への配分を比較する'})[reason]}));
- return {evaluated:evaluated.length,hits,hit_rate:evaluated.length?hits/evaluated.length:null,pending:rows.filter(r=>r.evaluation.status==='pending').length,
+ const paired=evaluated.filter(r=>typeof r.evaluation.baseline_hit==='boolean'),newHits=paired.filter(r=>r.evaluation.hit).length,oldHits=paired.filter(r=>r.evaluation.baseline_hit).length;
+ const recommendations=Object.entries(misses).sort((a,b)=>b[1]-a[1]).map(([reason,count])=>({reason,count,action:({'1着候補漏れ':'前受け・主導権・終盤の1着候補の重みを比較する','1・2着の組合せ漏れ':'番手残り・別線追込みと2着選定を比較する','3着候補漏れ':'ストーリー内の3着候補と点数配分を比較する'})[reason]}));
+ const byPolicy={};for(const row of evaluated){const key=`${row.evaluation.version||row.version||'旧版'} / ${row.evaluation.points||20}点`;if(!byPolicy[key])byPolicy[key]={count:0,hits:0};byPolicy[key].count++;byPolicy[key].hits+=Number(row.evaluation.hit);}
+ return {by_policy:byPolicy,evaluated:evaluated.length,hits,hit_rate:evaluated.length?hits/evaluated.length:null,pending:rows.filter(r=>r.evaluation.status==='pending').length,
   excluded:rows.filter(r=>r.evaluation.status==='excluded'||r.evaluation.status==='no_prediction').length,misses,paired:{count:paired.length,new_hits:newHits,baseline_hits:oldHits},recommendations,
   caveat:'着順だけでは突っ張り・追走離れ等の実際の展開を確定できません。改善候補を蓄積し、モデル係数や選手特性は自動変更しません。'};
 }

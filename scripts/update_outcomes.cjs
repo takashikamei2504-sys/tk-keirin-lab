@@ -1,14 +1,15 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const Audit=require('../js/results-audit.js'),Feed=require('../js/race-feed.js');
-const Legacy=require('../js/race-brain.js'),Brain=require('../js/race-brain-v2.js'),Form=require('../js/recent-form.js');
+const Legacy=require('../js/race-brain.js'),Brain=require('../js/story-brain.js'),Form=require('../js/recent-form.js');
+const Material=require('../js/race-material.js');
 const root=path.join(__dirname,'..');
 const read=(file,fallback)=>fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):fallback;
 function save(file,value){const text=JSON.stringify(value)+'\n';if(fs.existsSync(file)&&fs.readFileSync(file,'utf8')===text)return;fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file+'.tmp',text);fs.renameSync(file+'.tmp',file);}
 function update(feedDir,outputDir=path.join(root,'data'),now){
  const liveClock=now===undefined;now=now||new Date().toISOString();
  const epoch=Date.parse(now);if(!Number.isFinite(epoch))throw Error('Invalid collection clock');
- const form=read(path.join(root,'data/recent_form.json'),{}),intel=read(path.join(root,'data/intelligence.json'),{});
+ const form=read(path.join(root,'data/recent_form.json'),{}),intel=read(path.join(root,'data/intelligence.json'),{}),materials=read(path.join(root,'data/race_material.json'),{});
  const historyDir=path.join(outputDir,'lab_history');fs.mkdirSync(historyDir,{recursive:true});
  const collection=read(path.join(feedDir,'collection.json'),{errors:[]});
  const previous=read(path.join(outputDir,'lab_evaluation.json'),{}).collection||{};
@@ -38,12 +39,12 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
     const id=`${feed.date}:${source.venue}:${Number(source.race_number)}`;
     const generationStarted=liveClock?Date.now():epoch;
     if(!(generationStarted<start&&published<start&&published<=generationStarted)||saved.has(id+'|'+Brain.VERSION))continue;
-    const race=Form.attach(Feed.convert(source,feed),form),out=Brain.build(race,intel),base=Legacy.build(race,intel);
+    const race=Material.attach(Form.attach(Feed.convert(source,feed),form),materials),inputPack={...intel,observations:[...(intel.observations||[]),...(race.race_material?.comments||[])]},out=Brain.build(race,inputPack),base=Legacy.build(race,intel);
     const evidence=Object.values(out.profiles).flatMap(p=>p.memory||[]);
     const savedAt=liveClock?new Date().toISOString():now;
     if(!(Date.parse(savedAt)<start))continue;
-    const prediction=Audit.snapshot(race,out,savedAt,{origin:process.env.GITHUB_ACTIONS==='true'?'github_actions':'development_automation',evidence,baseline:{version:Legacy.VERSION,chosen:base.chosen.map(t=>t.key)}});
-    prediction.code_hashes=Object.fromEntries(['race-brain-v2.js','race-brain.js','brain-memory.js','branch-weights.js','recent-form.js','race-feed.js'].map(file=>['js/'+file,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'js',file))).digest('hex')]));
+    const prediction=Audit.snapshot(race,out,savedAt,{origin:process.env.GITHUB_ACTIONS==='true'?'github_actions':'development_automation',evidence,baseline:{version:Legacy.VERSION,chosen:base.chosen.slice(0,out.chosen.length).map(t=>t.key)}});
+    prediction.code_hashes=Object.fromEntries(['story-brain.js','rider-context.js','race-material.js','race-brain.js','brain-memory.js','branch-weights.js','recent-form.js','race-feed.js'].map(file=>['js/'+file,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'js',file))).digest('hex')]));
     prediction.input_sha256=crypto.createHash('sha256').update(JSON.stringify({race:prediction.input,evidence})).digest('hex');
     if(!prediction.pre_race)throw Error('Prediction was not pre-race');
     history.predictions.push(prediction);saved.add(id+'|'+Brain.VERSION);generated++;

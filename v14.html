@@ -187,7 +187,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .causal-meta{font-size:12px;color:#a4bbcc;margin:12px 0;white-space:pre-wrap}
 @media(max-width:520px){.causal-grid{grid-template-columns:1fr}.causal-tickets{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
-<link rel="stylesheet" href="css/prediction-layout.css?v=0de7068a8886">
+<link rel="stylesheet" href="css/prediction-layout.css?v=6175bea983b0">
 </head>
 <body><main class="wrap">
 <header class="app-heading"><div><h1>TK KEIRIN LAB</h1><p class="sub">展開予想と、そこから選ぶ買い目</p></div><a href="riders.html">全S級データ</a></header>
@@ -199,7 +199,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <div class="prediction-head"><h2>展開予想</h2><button type="button" class="btn secondary" id="causal-run">再推理</button></div>
 <p id="prediction-race" class="prediction-race"></p><p id="prediction-context" class="prediction-context"></p>
 <div id="causal-stories"></div>
-<div class="ticket-section-heading"><h3>３連単20点</h3><button type="button" class="btn" id="causal-copy">20点をコピー</button></div>
+<div class="ticket-section-heading"><h3>展開から選ぶ３連単10点</h3><button type="button" class="btn" id="causal-copy">10点をコピー</button></div>
 <p class="small" id="ticket-display-count"></p><p class="small">1・2着が同じ買い目をまとめています。例：1-2-345＝3点。「展開・採用理由」から元の展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
 <p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
 </section>
@@ -453,7 +453,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <p class="footer">データ参照：<a href="https://keirin.tokyo-sports.co.jp/list/race/20261030_31588" target="_blank" rel="noopener noreferrer">東スポ競輪 2026/10/31 防府12R</a>、<a href="https://keirin.kdreams.jp/yenjoy/keirin-kaisai/race-card/odds/6320261031/63202610310100/12/3rentan/" target="_blank" rel="noopener noreferrer">楽天Kドリームス 出走表</a>。データの利用許諾に適合する取得方法は本格開発時に確認が必要です。<br />本試作はデータを手入力・同梱する方式です。リアルタイム取得、AI学習、実オッズの自動取得、自動投票は未実装です。予想と結果の照合は100円均等購入を仮定した机上検証です。</p>
 </details>
 </main>
-<script src="js/race-brain.js?v=decisions-2"></script><script src="js/branch-weights.js?v=6bb94e17c1d0"></script><script src="js/brain-memory.js?v=022ff93a7e00"></script><script src="js/race-brain-v2.js?v=46e8af432e4f"></script><script src="js/race-feed.js?v=e17bdfe21149"></script><script src="js/results-audit.js?v=8763518c1caf"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=dd9e1b9def43"></script><script src="js/results-ui.js?v=5c1e572c7020"></script><script>
+<script src="js/race-brain.js?v=decisions-2"></script><script src="js/branch-weights.js?v=6bb94e17c1d0"></script><script src="js/brain-memory.js?v=45ecb6f474fb"></script><script src="js/race-material.js?v=014dae82e03e"></script><script src="js/rider-context.js?v=0d842ca8b914"></script><script src="js/story-brain.js?v=b77e61133132"></script><script src="js/race-feed.js?v=e17bdfe21149"></script><script src="js/results-audit.js?v=129cb3b605d3"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=80d5de3033dd"></script><script src="js/prediction-view.js?v=2c17599aa796"></script><script src="js/results-ui.js?v=02c116a88d70"></script><script>
 'use strict';
 const DEMO={"date":"2026-10-31","venue":"防府","race_no":12,"grade":"GIII","class":"S級初日特選","start":"16:25","lineup":[[2,8,7],[1,4],[5,6],[3],[9]],"riders":[{"no":1,"name":"郡司浩平","score":116.60,"style":"両","s":8,"b":9,"wins":6,"seconds":6,"thirds":1,"outs":8},{"no":2,"name":"太田海也","score":123.50,"style":"逃","s":3,"b":2,"wins":2,"seconds":1,"thirds":0,"outs":1},{"no":3,"name":"南修二","score":114.71,"style":"追","s":0,"b":0,"wins":2,"seconds":3,"thirds":4,"outs":12},{"no":4,"name":"渡部幸訓","score":114.42,"style":"追","s":2,"b":1,"wins":2,"seconds":7,"thirds":6,"outs":7},{"no":5,"name":"松本貴治","score":118.64,"style":"両","s":4,"b":2,"wins":9,"seconds":3,"thirds":0,"outs":6},{"no":6,"name":"佐々木豪","score":113.91,"style":"逃","s":1,"b":1,"wins":6,"seconds":5,"thirds":1,"outs":13},{"no":7,"name":"清水裕友","score":116.06,"style":"両","s":2,"b":0,"wins":4,"seconds":2,"thirds":1,"outs":8},{"no":8,"name":"取鳥雄吾","score":113.91,"style":"逃","s":14,"b":6,"wins":9,"seconds":1,"thirds":2,"outs":11},{"no":9,"name":"山口拳矢","score":115.37,"style":"両","s":11,"b":2,"wins":10,"seconds":4,"thirds":2,"outs":11}]};
 let data=structuredClone(DEMO); let currentTickets=[];
@@ -1701,13 +1701,13 @@ try{
 }catch(e){}
 
 
-const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};
-function causalBuild(r){validate(r);const enriched=RecentForm.attach(r,recentFormPack);const out=RaceBrain.build(enriched,autoIntelPack);out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}
+const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};let raceMaterialPack={};
+function causalBuild(r){validate(r);const enriched=RaceMaterial.attach(RecentForm.attach(r,recentFormPack),raceMaterialPack);const out=RaceBrain.build(enriched,{...autoIntelPack,observations:[...(autoIntelPack.observations||[]),...(enriched.race_material?.comments||[])]});out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,s:x.s,s_source:x.s_source,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}
 function causalRun(){
  try{
   const out=causalBuild(data);causalLast=out;autoIntelRender(out);recentFormRender(out);
   const top=out.keymen;
-  $('causal-state').textContent=`${out.race.date} ${out.race.venue}${out.race.race_no}R｜${out.diagnostics?.terminalStates||out.narratives.length}展開経路、${out.tickets.length}買い目候補から20点選定。${out.missing?'一部データは未取得（近況の取得状況は上欄）':'選手データを反映'}。`;
+  $('causal-state').textContent=`${out.race.date} ${out.race.venue}${out.race.race_no}R｜${out.diagnostics?.terminalStates||out.narratives.length}展開経路、${out.tickets.length}買い目候補から${out.chosen.length}点選定。${out.missing?'一部データは未取得（近況の取得状況は上欄）':'選手データを反映'}。`;
   $('causal-top').innerHTML=top.map((x,i)=>`<div class="causal-k"><small>${i===0?'最重要キーマン':'変動要因'+(i+1)}</small><strong>${x.no}番 ${causalEsc(x.name)}</strong><span>${causalEsc(x.decisions.slice(0,3).join(' ／ '))}</span></div>`).join('');
   $('causal-keymen').innerHTML=top.map(x=>`<div class="line"><strong>${x.no}番 ${causalEsc(x.name)}</strong>：${causalEsc(x.decisions.filter(z=>z!=='直線の決着').slice(0,3).join('・'))}</div>`).join('');
   PredictionView.render(out,data);ResultsUI.track(out,data);
@@ -1718,11 +1718,11 @@ $('causal-run').addEventListener('click',causalRun);
 $('causal-copy').addEventListener('click',async()=>{
  if(!causalLast)causalRun();if(!causalLast)return;
  const s=PredictionView.copyText(causalLast);
- try{await navigator.clipboard.writeText(s);$('prediction-feedback').textContent='20点をコピーしました。';}catch(e){window.prompt('買い目をコピーしてください',s);}
+ try{await navigator.clipboard.writeText(s);$('prediction-feedback').textContent=causalLast.chosen.length+'点をコピーしました。';}catch(e){window.prompt('買い目をコピーしてください',s);}
 });
 $('causal-export').addEventListener('click',()=>{
  if(!causalLast)causalRun();if(!causalLast)return;
- const o={schema:'tk-keirin-causal/v1.4',generated_at:new Date().toISOString(),version:CAUSAL_V,race:causalLast.race,keymen:causalLast.keymen,intelligence:causalLast.intelligence,profiles:causalLast.profiles,hypotheses:causalLast.hypotheses,diagnostics:causalLast.diagnostics,recent_form:causalLast.form,rating:causalLast.rating,chosen:causalLast.chosen.map(t=>({...t,paths:t.paths.slice(0,3)}))};
+ const o={schema:'tk-keirin-causal/v1.4',generated_at:new Date().toISOString(),version:CAUSAL_V,race:causalLast.race,keymen:causalLast.keymen,intelligence:causalLast.intelligence,profiles:causalLast.profiles,selection_policy:causalLast.selection_policy,story:causalLast.story,context:causalLast.context,hypotheses:causalLast.hypotheses,diagnostics:causalLast.diagnostics,recent_form:causalLast.form,rating:causalLast.rating,chosen:causalLast.chosen.map(t=>({...t,paths:t.paths.slice(0,3)}))};
  const blob=new Blob([JSON.stringify(o,null,2)],{type:'application/json'}),link=URL.createObjectURL(blob),a=document.createElement('a');a.href=link;a.download='TK_KEIRIN_CAUSAL_'+causalLast.race.date+'_'+causalLast.race.venue+causalLast.race.race_no+'R.json';a.click();setTimeout(()=>URL.revokeObjectURL(link),10000);
 });
 const causalOldRender=render;render=function(){causalOldRender();causalRun();};
@@ -1750,5 +1750,14 @@ function autoIntelRender(out){
   return `<div class="intel-record"><strong>${x.no}番 ${esc(x.name)}</strong><p>${esc(p.basis)}${p.form_basis?'<br>'+esc(p.form_basis):''}${p.measurements.length?'<br>'+esc(p.measurements.join(' ／ ')):''}${!es.length?'／このレースの発走前に利用可能な記事根拠なし':''}</p>`+es.map(e=>`<p><a target="_blank" rel="noopener noreferrer" href="${esc(e.url)}">${esc(e.title||'公開記事')}</a>：${esc(BRAIN_TRAITS[e.trait]||e.trait)}<br>${esc(e.excerpt||'')}<br><small>公開 ${esc(e.published_at)}／取得 ${esc(e.collected_at)}</small></p>`).join('')+'</div>';
  }).join('');
 }
-autoIntelLoad();recentFormLoad();
+
+async function raceMaterialLoad(){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
+ try{let response;try{response=await fetch('https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/main/data/race_material.json',{cache:'no-store',signal:controller.signal});}catch(_){}
+ if(!response?.ok)response=await fetch('data/race_material.json',{cache:'no-store',signal:controller.signal});
+ if(!response.ok)throw Error('資料未取得');const pack=await response.json();if(pack.schema!=='tk-keirin-race-material/v1'||!Array.isArray(pack.cards)||pack.cards.length>10000)throw Error('資料形式不正');raceMaterialPack=pack;causalRun();
+ }catch(_){/* Missing S stays missing; no fabricated fallback. */}finally{clearTimeout(timer);}
+}
+
+autoIntelLoad();recentFormLoad();raceMaterialLoad();
 </script></body></html>

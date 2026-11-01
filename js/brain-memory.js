@@ -1,6 +1,6 @@
 /* Automatic, pre-race evidence memory. Comments never become executed actions. */
 (function(root){'use strict';
-const traits=new Set(['front','resist','withdraw','kamashi','makuri','track','seat','recover','finish','outer']);
+const traits=new Set(['front','resist','withdraw','kamashi','makuri','track','seat','recover','finish','outer','block','vertical','inside','long_makuri']);
 const key=s=>String(s||'').replace(/[\s\u3000]/g,'');
 const raceKey=r=>`${r.date}:${r.venue}:${r.race_no}`;
 const cutoffOf=r=>Date.parse(`${r.date}T${r.start}:00+09:00`);
@@ -14,7 +14,7 @@ function build(r,pack={}){
  const records=[],seen=new Set();
  for(const [kind,rows] of [['habitual_observation',pack.evidence||[]],['interview_comment',pack.observations||[]]])for(const row of rows){
   const rider=byName.get(key(row.rider));
-  if(!rider||!before(row,cutoff)||(row.rider_id&&String(row.rider_id)!==String(rider.id||rider.rider_id)))continue;
+  if(!rider||!before(row,cutoff)||(row.rider_id&&String(row.rider_id).padStart(6,'0')!==String(rider.meta?.rider_id||rider.id||rider.rider_id).padStart(6,'0')))continue;
   if(kind==='habitual_observation'&&(!traits.has(row.trait)||!Number.isFinite(row.value)||row.value<0||row.value>1||!Number.isFinite(row.confidence)||row.confidence<=0))continue;
   const id=[rider.no,row.url,row.trait||row.excerpt].join('|');if(seen.has(id))continue;seen.add(id);
   // Older generic comments stay readable but cannot affect numeric traits.

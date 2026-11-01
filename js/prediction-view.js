@@ -18,8 +18,8 @@ function compact(tickets){
  }
  return [...rows.values()].map(row=>{const tickets=row.tickets.slice().sort((a,b)=>a.trio[2]-b.trio[2]);return {...row,tickets,count:tickets.length,label:row.pair+'-'+tickets.map(t=>t.trio[2]).join('')};});
 }
-function copyText(out){return `${out.race.date} ${out.race.venue}${out.race.race_no}R ３連単${out.chosen.length}点\n`+compact(out.chosen).map(r=>`${r.label}（${r.count}点）`).join('\n');}
-function render(out,race){
+function copyLegacy(out){return `${out.race.date} ${out.race.venue}${out.race.race_no}R ３連単${out.chosen.length}点\n`+compact(out.chosen).map(r=>`${r.label}（${r.count}点）`).join('\n');}
+function renderLegacy(out,race){
  const $=id=>document.getElementById(id),labels=root.RaceBrain.MODES,all=group(out.chosen),featured=[];
  for(const g of all)if(featured.length<3&&!featured.some(f=>f.path.mode===g.path.mode))featured.push(g);
  for(const g of all)if(featured.length<3&&!featured.includes(g))featured.push(g);
@@ -35,6 +35,24 @@ function render(out,race){
  $('causal-tickets').innerHTML=rows.map(row=>`<div class="causal-ticket" data-count="${row.count}" data-ticket-keys="${esc(JSON.stringify(row.tickets.map(t=>t.key)))}"><div class="ticket-title"><strong>${esc(row.label)}</strong><span class="ticket-count">${row.count}点</span></div><details class="ticket-reason"><summary>展開・採用理由</summary>${row.tickets.map(t=>`<div class="compact-ticket-source"><p class="small"><strong>${esc(t.key)}</strong> <a href="#scenario-${ticketGroup.get(t.key)}" data-scenario="${ticketGroup.get(t.key)}">展開${ticketGroup.get(t.key)}へ</a><br>${esc(t.selection_reason)}</p><p class="small">${esc(t.supporting_path.explanation)}</p></div>`).join('')}<p class="small">未校正の仮説スコアから選定。</p></details></div>`).join('');
  $('prediction-feedback').textContent='';
  if(out.diagnostics)$('causal-state').textContent+=` 逐次判断 ${out.diagnostics.terminalStates}経路。探索打切りによる未解決の重み ${(out.diagnostics.unresolvedMass*100).toFixed(1)}%（的中確率ではない）。`;
+}
+function copyText(out){
+ if(!out.story)return copyLegacy(out);
+ return `${out.race.date} ${out.race.venue}${out.race.race_no}R ３連単${out.chosen.length}点\n【本線6点】\n`+compact(out.chosen.filter(t=>t.group==='main')).map(r=>`${r.label}（${r.count}点）`).join('\n')+'\n【別筋4点】\n'+out.chosen.filter(t=>t.group==='alternative').map((t,i)=>`${i+1}. ${t.key}（${out.story.alternatives[i].divergence}）`).join('\n');
+}
+function render(out,race){
+ if(!out.story)return renderLegacy(out,race);
+ const $=id=>document.getElementById(id),main=out.story.main,alternatives=out.story.alternatives;
+ const stages=s=>s.scenes.map(x=>`<section class="story-stage" data-stage="${x.stage}"><h4>${x.stage}. ${esc(x.phase)}</h4><p>${esc(x.action)}</p><p class="story-order">${esc(x.shape)}：${esc(x.order.join(' → '))}</p></section>`).join('');
+ const sourceLines=out.context.lines.filter(l=>l.facts.length).map(l=>`<p>${l.facts.map(esc).join('。')}。<br>${esc(l.inference)}</p>`).join('');
+ $('prediction-race').textContent=`${out.race.date} ${out.race.venue}${out.race.race_no}R ｜ ${race.riders.length}車・${out.race.start}発走`;
+ $('prediction-context').textContent=`想定並び ${race.lineup.map(l=>l.join('-')).join(' / ')} ／ ${out.context.lineup_status}`;
+ $('causal-stories').innerHTML=`<article class="scenario-card main-story" id="scenario-1"><h3>本線の展開仮説</h3><p class="story-lead">${esc(main.title)}</p>${stages(main)}<details class="decision-reasons"><summary>判断材料・情報の不足</summary>${sourceLines||'<p>連係上の特別な動機は確認できていません。</p>'}${out.context.relationships.map(e=>`<p class="small"><a href="${esc(e.url)}" target="_blank" rel="noopener noreferrer">${esc(e.title||'本文の関係発言')}</a>：${esc(e.excerpt)}</p>`).join('')}<p class="small">${out.context.missing.map(esc).join('。')}。位置・車間・速度・消耗は未計測の仮説です。</p></details></article><details class="more-scenarios" id="more-scenarios"><summary>判断が変わる4つの別筋（穴候補を含む）</summary>${alternatives.map((s,i)=>`<article class="scenario-card alternative-story" id="scenario-${i+2}"><h3>別筋${i+1}：${esc(s.divergence)}</h3><p>${esc(s.trigger)}。</p><p>${esc(s.scenes[5].action)}</p><div class="scenario-bets"><span>${esc(out.chosen[6+i].key)}</span>${s.upset?'<small>本線と1着が変わる穴候補（オッズ未確認）</small>':''}</div><details class="scenario-path"><summary>この別筋の6段階を見る</summary>${stages(s)}</details></article>`).join('')}</details>`;
+ const row=(tickets,scenario)=>compact(tickets).map(r=>`<div class="causal-ticket" data-count="${r.count}" data-ticket-keys="${esc(JSON.stringify(r.tickets.map(t=>t.key)))}"><div class="ticket-title"><strong>${esc(r.label)}</strong><span>${r.count}点</span></div><details class="ticket-reason"><summary>対応する展開</summary>${r.tickets.map(t=>`<p><strong>${esc(t.key)}</strong> <a href="#scenario-${scenario(t)}" data-scenario="${scenario(t)}">${t.group==='main'?'本線のストーリー':'別筋のストーリー'}へ</a><br>${esc(t.selection_reason)}</p>`).join('')}<p class="small">対応するストーリー内の決着候補から選んだ買い目です。</p></details></div>`).join('');
+ $('causal-tickets').innerHTML='<h4 class="bet-group-title">本線6点</h4>'+row(out.chosen.filter(t=>t.group==='main'),()=>1)+'<h4 class="bet-group-title">別筋4点（各展開から1点）</h4>'+row(out.chosen.filter(t=>t.group==='alternative'),t=>2+out.chosen.filter(x=>x.group==='alternative').findIndex(x=>x.key===t.key));
+ $('ticket-display-count').textContent='本線6点 ＋ 別筋4点 ＝ 合計10点。同じ1・2着はまとめて表示。';
+ $('prediction-feedback').textContent='';$('causal-copy').textContent='10点をコピー';
+ $('causal-state').textContent+=` 本線は買い目の順位付けより先に選択。探索${out.diagnostics.terminalStates}経路、未解決の重み${(out.diagnostics.unresolvedMass*100).toFixed(1)}%（確率ではない）。`;
 }
 if(typeof document!=='undefined')document.addEventListener('click',e=>{const a=e.target.closest?.('[data-scenario]');if(!a)return;const card=document.getElementById('scenario-'+a.dataset.scenario);if(!card)return;e.preventDefault();for(let p=card.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;card.scrollIntoView({block:'start',behavior:'smooth'});const h=card.querySelector('h3');h.tabIndex=-1;h.focus({preventScroll:true});});
 const api={group,compact,copyText,render};if(typeof module!=='undefined')module.exports=api;root.PredictionView=api;

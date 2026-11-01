@@ -32,7 +32,7 @@ def tidy(s):
 <div class="prediction-head"><h2>展開予想</h2><button type="button" class="btn secondary" id="causal-run">再推理</button></div>
 <p id="prediction-race" class="prediction-race"></p><p id="prediction-context" class="prediction-context"></p>
 <div id="causal-stories"></div>
-<div class="ticket-section-heading"><h3>３連単20点</h3><button type="button" class="btn" id="causal-copy">20点をコピー</button></div>
+<div class="ticket-section-heading"><h3>展開から選ぶ３連単10点</h3><button type="button" class="btn" id="causal-copy">10点をコピー</button></div>
 <p class="small" id="ticket-display-count"></p><p class="small">1・2着が同じ買い目をまとめています。例：1-2-345＝3点。「展開・採用理由」から元の展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
 <p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
 </section>
@@ -54,7 +54,7 @@ def tidy(s):
  tail=s[scripts:].replace('<script src="js/recent-form-ui.js?v=all-s-1"></script>','<script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=layout-1"></script>',1)
  a=tail.index('  const stories=out.hypotheses.map');b=tail.index('  return out;',a)
  tail=tail[:a]+'  PredictionView.render(out,data);ResultsUI.track(out,data);\n'+tail[b:]
- tail=tail.replace("$('causal-state').textContent+='\\n買い目をコピーしました。';", "$('prediction-feedback').textContent='20点をコピーしました。';")
+ tail=tail.replace("$('causal-state').textContent+='\\n買い目をコピーしました。';", "$('prediction-feedback').textContent=causalLast.chosen.length+'点をコピーしました。';")
  a=tail.index(' const s=`${causalLast.race.date}')
  b=tail.index('\n try{await navigator.clipboard',a)
  tail=tail[:a]+' const s=PredictionView.copyText(causalLast);'+tail[b:]

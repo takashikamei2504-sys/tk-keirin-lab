@@ -1312,5 +1312,21 @@
       }
     ]
   },
-  "notice": "公開本文の氏名・発言者・掲載日を確認。本人コメントは意向と観察を区別し、コメント全体を恒常的特性のスコアにはしない。発走前の情報だけ予想に適用。"
+  "notice": "公開本文の氏名・発言者・掲載日を確認。本人コメントは意向と観察を区別し、コメント全体を恒常的特性のスコアにはしない。発走前の情報だけ予想に適用。",
+  "relationships": [
+    {
+      "id": "d83302efb59779d06bb3",
+      "rider": "阿部弘",
+      "peer": "古川大輔",
+      "kind": "assistance_received",
+      "excerpt": "古川大輔君のおかげ。全部やってもらいました。スタートを取って突っ張ってくれて",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261031_30624",
+      "published_at": "2026-11-01T15:55:27.175067+00:00",
+      "collected_at": "2026-11-01T15:55:27.175067+00:00",
+      "body_verified": true,
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合／同一出走者の一意な姓を解決",
+      "publication_basis": "article_date_or_collection_upper_bound",
+      "scope": "historical_statement"
+    }
+  ]
 }

@@ -9,7 +9,7 @@ function track(out,race){
  if(race.source?.mode==='live-public-feed')try{
   const entry=Audit.snapshot(race,out,new Date().toISOString()),rows=read(),i=rows.findIndex(p=>p.race_id===entry.race_id&&p.version===entry.version);
   // Keep the last displayed pre-race version; post-race redraws must not replace it.
-  if(i<0)rows.push(entry);else if(entry.pre_race)rows[i]=entry;
+  if(i<0){if(entry.pre_race||!rows.some(p=>p.race_id===entry.race_id&&p.pre_race))rows.push(entry);}else if(entry.pre_race)rows[i]=entry;
   rows.sort((a,b)=>b.saved_at.localeCompare(a.saved_at));localStorage.setItem(store,JSON.stringify(rows.slice(0,300)));
  }catch(error){$('evaluation-storage').textContent='端末への保存不可：'+error.message+'。共通の自動保存記録は引き続き確認できます。';}
  render();
@@ -18,7 +18,8 @@ function render(){
  if(!$('evaluation-summary'))return;
  const summary=report?.summary;
  $('evaluation-summary').textContent=summary?`発走前保存 ${summary.evaluated}件を評価 ／ 的中${summary.hits}件${summary.hit_rate===null?'':`（${(summary.hit_rate*100).toFixed(1)}%）`} ／ 結果待ち${summary.pending}件 ／ 事前予想なし・対象外${summary.excluded}件`:'共通の自動保存記録を読み込み中。発走後に作った予想は成績へ含めません。';
- $('evaluation-paired').textContent=summary?.paired.count?`同じ事前入力で旧エンジンと比較：${summary.paired.count}件中 新${summary.paired.new_hits}的中／旧${summary.paired.baseline_hits}的中。少数件の差だけで改善と断定しません。`:'新旧比較は発走前に両方を保存したレースから蓄積します。';
+ $('evaluation-paired').textContent=summary?.paired.count?`同じ事前入力・同一点数で旧エンジンと比較：${summary.paired.count}件中 新${summary.paired.new_hits}的中／旧${summary.paired.baseline_hits}的中。少数件の差だけで改善と断定しません。`:'新旧比較は発走前に両方を保存したレースから蓄積します。';
+ if(summary?.by_policy)$('evaluation-paired').textContent+=' バージョン・点数別：'+Object.entries(summary.by_policy).map(([key,v])=>`${key} ${v.count}件中${v.hits}的中`).join(' ／ ');
  const recommendations=summary?.recommendations||[];
  $('evaluation-improvements').innerHTML=recommendations.length?recommendations.map(r=>`<p><strong>${esc(r.reason)} ${r.count}件</strong>：${esc(r.action)}</p>`).join(''):'評価できるレースが増えたら、1着・1／2着の組合せ・3着の候補漏れを集計します。';
  const filter=$('evaluation-date'),selected=filter.value||'all',dates=[...new Set((report?.rows||[]).map(r=>r.date))];
@@ -26,7 +27,7 @@ function render(){
  const rows=(report?.rows||[]).filter(r=>filter.value==='all'||r.date===filter.value);
  $('evaluation-races').innerHTML=rows.slice(0,80).map(r=>`<article class="intel-record"><strong>${esc(r.date)} ${esc(r.venue)}${r.race_no}R</strong><p>${r.result?esc(r.result.combos.map(c=>c.key+(c.payout?`（払戻${c.payout.toLocaleString()}円）`:'')).join(' ／ ')):'結果未取得'}<br>${esc(r.evaluation.category)}${r.evaluation.best_rank?` ／ 決着買い目のモデル内順位 ${r.evaluation.best_rank}位`:''}</p><p class="small">${r.saved_at?'共通予想保存 '+esc(new Date(r.saved_at).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})):'発走前に保存した予想なし'}${r.result?` ／ <a href="${esc(r.result.source_url)}" target="_blank" rel="noopener noreferrer">結果配信元</a>（公式未照合）`:''}</p></article>`).join('')||'結果記録はまだありません。配信結果が取得でき次第、自動で追加します。';
  $('evaluation-limit').textContent=rows.length>80?`${rows.length}件中80件を表示。日付で絞り込めます。`:'';
- const local=read().find(p=>p.race_id===current?.race_id),observed=report?.rows.find(r=>r.race_id===current?.race_id)?.result;
+ const matching=read().filter(p=>p.race_id===current?.race_id),local=matching.find(p=>p.pre_race)||matching[0],observed=report?.rows.find(r=>r.race_id===current?.race_id)?.result;
  $('evaluation-device').textContent=local?`この端末で表示した予想：${new Date(local.saved_at).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})}保存。${!local.pre_race?'発走後の参考予想のため評価対象外。':observed?Audit.evaluate(local,observed).category+'。':'発走前保存済み・結果待ち。'} 共通予想の成績とは別に照合します。`:'この端末の記録：公開出走表で予想を表示すると自動保存します。端末の時計を使うため、共通の自動保存とは区別します。';
 }
 async function refresh(){
