@@ -64,5 +64,7 @@ s=s.replace('causalLast=out;autoIntelRender(out);','causalLast=out;autoIntelRend
 s=s.replace('B/S・直近成績は未提供（欠損として処理）','一部データは未取得（近況の取得状況は上欄）')
 s=s.replace('autoIntelLoad();\n</script>','autoIntelLoad();recentFormLoad();\n</script>')
 # Hoisted autoIntelRender is available when initial causalRun executes.
+from layout_page import tidy
+s=tidy(s)
 (root/'v14.html').write_text(s)
 # index.html is the independent app entrance; rebuilding predictions preserves it.

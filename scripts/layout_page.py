@@ -1,0 +1,55 @@
+"""Static layout transform. IDs and legacy handlers survive below a closed archive."""
+import re
+
+def section(text,id):
+ marker=re.search(r'\bid="'+re.escape(id)+r'"',text)
+ if not marker:raise ValueError('missing layout anchor '+id)
+ start=text.rfind('<section',0,marker.start());depth=0
+ for tag in re.finditer(r'</?section\b[^>]*>',text[start:]):
+  depth+=-1 if tag.group().startswith('</') else 1
+  if depth==0:return text[start:start+tag.end()]
+ raise ValueError('unclosed section '+id)
+
+def tidy(s):
+ quick=section(s,'quick-race');causal=section(s,'causal-lab');recent=section(causal,'recent-form-panel')
+ lines=section(s,'lines');players=section(s,'players')
+ manual=quick[quick.index('<details class="quick-help">'):quick.rfind('</section>')]
+ start=s.index('<body><div class="wrap">');scripts=s.index('<script src="js/race-brain.js')
+ legacy=s[start+len('<body><div class="wrap">'):scripts]
+ legacy=legacy[legacy.index(quick)+len(quick):]
+ for part in (causal,lines,players):legacy=legacy.replace(part,'',1)
+ # The original document closes .wrap immediately before its scripts.
+ legacy=legacy.rstrip();assert legacy.endswith('</div>');legacy=legacy[:-6]
+ head=s[:start].replace('</head>','<link rel="stylesheet" href="css/prediction-layout.css?v=layout-1">\n</head>')
+ body='''<body><main class="wrap">
+<header class="app-heading"><div><h1>TK KEIRIN LAB</h1><p class="sub">展開予想と、そこから選ぶ買い目</p></div><a href="riders.html">全S級データ</a></header>
+<section class="panel quick-panel" id="quick-race" aria-label="レース選択">
+<h2>レースを選ぶ</h2><div class="quick-grid"><label>開催日<input type="date" id="quick-date"></label><label>競輪場<select id="quick-venue"></select></label><label>レース<select id="quick-race-number"></select></label></div>
+<button class="btn quick-main" id="quick-fetch" type="button">このレースの展開を予想する</button><p id="quick-status" class="quick-message" role="status"></p>
+</section>
+<section class="panel causal-panel" id="causal-lab" aria-label="展開予想と買い目">
+<div class="prediction-head"><h2>展開予想</h2><button type="button" class="btn secondary" id="causal-run">再推理</button></div>
+<p id="prediction-race" class="prediction-race"></p><p id="prediction-context" class="prediction-context"></p>
+<div id="causal-stories"></div>
+<div class="ticket-section-heading"><h3>３連単20点</h3><button type="button" class="btn" id="causal-copy">20点をコピー</button></div>
+<p class="small">「展開番号」から、その買い目を導いた展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
+<p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
+</section>
+<h2 class="support-heading">参考情報・詳細</h2>
+<details class="panel support-disclosure" id="race-data-details"><summary>出走選手・想定並び・近況成績</summary>'''+lines+players+recent+'''</details>
+<details class="panel support-disclosure" id="keymen-details"><summary>レースを動かすキーマン</summary><div class="causal-grid" id="causal-top"></div><div id="causal-keymen"></div></details>
+<details class="panel support-disclosure" id="article-details"><summary>選手特性・記事の根拠</summary><div id="auto-intel-status" class="causal-meta" role="status">記事データを取得中…</div><div id="auto-intel-evidence"></div></details>
+<details class="panel support-disclosure" id="collection-details"><summary>取得状況・出典・予想の保存</summary><div id="causal-state" class="causal-meta" role="status"></div><p id="quick-status-detail" class="aux-status"></p><p id="quick-data-info" class="small"></p><p class="small">出走表配信元：<a href="https://github.com/kurinaka12-afk/keirin-app-data" target="_blank" rel="noopener noreferrer">keirin-app-data</a>。近況成績はKEIRIN.JPの公開プロフィールから取得。未取得項目や発走後に取得した情報は実績として補完しません。</p><button type="button" class="btn secondary" id="causal-export">展開と買い目をJSON保存</button><div class="support-links"><a href="riders.html">全S級の収集状況</a><a href="v12.html">従来のv1.2</a><a href="v13.html">元のv1.3</a></div></details>
+<details class="panel support-disclosure" id="manual-input-details"><summary>出走表を手元のデータから取り込む</summary>'''+manual+'''</details>
+<details class="panel support-disclosure" id="research-archive"><summary>旧モデル・研究用の画面</summary><p class="small">以前の試作・比較機能です。上の展開予想と買い目は、独立したエンジンで生成しています。</p>'''+legacy+'''</details>
+</main>'''
+ tail=s[scripts:].replace('<script src="js/recent-form-ui.js?v=all-s-1"></script>','<script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=layout-1"></script>',1)
+ a=tail.index('  const stories=out.hypotheses.map');b=tail.index('  return out;',a)
+ tail=tail[:a]+'  PredictionView.render(out,data);\n'+tail[b:]
+ tail=tail.replace("$('causal-state').textContent+='\\n買い目をコピーしました。';", "$('prediction-feedback').textContent='20点をコピーしました。';")
+ tail=tail.replace("}catch(e){$('causal-state').textContent='展開推理のエラー：'+e.message;", "}catch(e){$('prediction-feedback').textContent='展開予想を生成できませんでした：'+e.message;$('causal-stories').innerHTML='';$('causal-tickets').innerHTML='';$('causal-state').textContent='展開推理のエラー：'+e.message;")
+ old="function quickStatus(s,kind=''){$('quick-status').textContent=s;$('quick-status').className='quick-message '+kind;}"
+ new="function quickStatus(s,kind=''){$('quick-status').textContent=String(s).split('\\n')[0];$('quick-status-detail').textContent=s;$('quick-status').className='quick-message '+kind;}"
+ assert old in tail;tail=tail.replace(old,new)
+ tail=tail.replace("$('header').scrollIntoView", "$('causal-lab').scrollIntoView")
+ return head+'\n'.join(line.rstrip() for line in body.splitlines())+'\n'+tail

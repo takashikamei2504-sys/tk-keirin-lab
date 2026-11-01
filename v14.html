@@ -187,29 +187,28 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .causal-meta{font-size:12px;color:#a4bbcc;margin:12px 0;white-space:pre-wrap}
 @media(max-width:520px){.causal-grid{grid-template-columns:1fr}.causal-tickets{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
+<link rel="stylesheet" href="css/prediction-layout.css?v=layout-1">
 </head>
-<body><div class="wrap">
-<div class="eyebrow">RACE INTAKE / OFFLINE-FIRST</div>
-<h1>TK KEIRIN LAB <span style="font-size:13px;color:var(--muted);font-weight:500">v1.4</span></h1>
-<p class="sub">選手の個性 × 局面別の展開分岐 × 独立した買い目仮説</p>
-<div class="warning">これは<strong>予想ロジックの研究用試作版</strong>です。学習済みAI・確率較正済み予測ではありません。モデル内の数値は未検証の仮推定で、実際の的中確率や儲かる根拠ではありません。初期表示は参考サンプルです。画面上部でレースを切り替えられます。資料は原本と照合してください。</div>
-<br />
-
-
-
-<section class="panel quick-panel" id="quick-race">
- <div class="eyebrow">QUICK RACE / かんたん取得</div>
- <h2>レースを選んで予想 <span class="pill">v1.4</span></h2>
- <p class="details">保存済みの出走表があれば、JSONの保存・読み込みをせずに、ここから予想へ進めます。</p>
- <div class="quick-grid">
-  <label>開催日<input type="date" id="quick-date" /></label>
-  <label>競輪場<select id="quick-venue"></select></label>
-  <label>レース<select id="quick-race-number"></select></label>
- </div>
- <button class="btn quick-main" id="quick-fetch" type="button">出走表を自動取得して展開予想する</button>
- <p id="quick-status" class="quick-message" role="status"></p><p id="quick-data-info" class="quick-tip"></p>
- <p class="quick-tip">公開データ配信元：<a href="https://github.com/kurinaka12-afk/keirin-app-data" target="_blank" rel="noopener noreferrer">keirin-app-data</a>（独立したデータ配信元。楽天・オッズパークの公式APIではありません）。B/S・近況着数は配信されないため、未取得と表示します。</p><p class="quick-tip">取得順：公開日別レースデータ（オンライン） → GitHub Pagesの登録済みデータ → 端末保存データ → 同梱例。<strong>出走表の公開後に利用できます。</strong> 不足するB・S・直近着数は推測値を実績として表示しません。</p>
- <details class="quick-help"><summary>出走表の文章をコピーして取り込む（JSON操作不要）</summary>
+<body><main class="wrap">
+<header class="app-heading"><div><h1>TK KEIRIN LAB</h1><p class="sub">展開予想と、そこから選ぶ買い目</p></div><a href="riders.html">全S級データ</a></header>
+<section class="panel quick-panel" id="quick-race" aria-label="レース選択">
+<h2>レースを選ぶ</h2><div class="quick-grid"><label>開催日<input type="date" id="quick-date"></label><label>競輪場<select id="quick-venue"></select></label><label>レース<select id="quick-race-number"></select></label></div>
+<button class="btn quick-main" id="quick-fetch" type="button">このレースの展開を予想する</button><p id="quick-status" class="quick-message" role="status"></p>
+</section>
+<section class="panel causal-panel" id="causal-lab" aria-label="展開予想と買い目">
+<div class="prediction-head"><h2>展開予想</h2><button type="button" class="btn secondary" id="causal-run">再推理</button></div>
+<p id="prediction-race" class="prediction-race"></p><p id="prediction-context" class="prediction-context"></p>
+<div id="causal-stories"></div>
+<div class="ticket-section-heading"><h3>３連単20点</h3><button type="button" class="btn" id="causal-copy">20点をコピー</button></div>
+<p class="small">「展開番号」から、その買い目を導いた展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
+<p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
+</section>
+<h2 class="support-heading">参考情報・詳細</h2>
+<details class="panel support-disclosure" id="race-data-details"><summary>出走選手・想定並び・近況成績</summary><section class="panel"><h2>ライン構成</h2><div id="lines" class="lineup"></div></section><section class="panel"><h2>出走選手データ</h2><div id="players"></div><p class="small">競走得点・B本数・1着率。率は出走表の直近4か月成績。</p></section><section class="intel-box" id="recent-form-panel"><h3>自動収集した近況成績</h3><p class="causal-meta" role="status" id="recent-form-status">近況成績を自動取得中…</p><div id="recent-form-riders"></div></section></details>
+<details class="panel support-disclosure" id="keymen-details"><summary>レースを動かすキーマン</summary><div class="causal-grid" id="causal-top"></div><div id="causal-keymen"></div></details>
+<details class="panel support-disclosure" id="article-details"><summary>選手特性・記事の根拠</summary><div id="auto-intel-status" class="causal-meta" role="status">記事データを取得中…</div><div id="auto-intel-evidence"></div></details>
+<details class="panel support-disclosure" id="collection-details"><summary>取得状況・出典・予想の保存</summary><div id="causal-state" class="causal-meta" role="status"></div><p id="quick-status-detail" class="aux-status"></p><p id="quick-data-info" class="small"></p><p class="small">出走表配信元：<a href="https://github.com/kurinaka12-afk/keirin-app-data" target="_blank" rel="noopener noreferrer">keirin-app-data</a>。近況成績はKEIRIN.JPの公開プロフィールから取得。未取得項目や発走後に取得した情報は実績として補完しません。</p><button type="button" class="btn secondary" id="causal-export">展開と買い目をJSON保存</button><div class="support-links"><a href="riders.html">全S級の収集状況</a><a href="v12.html">従来のv1.2</a><a href="v13.html">元のv1.3</a></div></details>
+<details class="panel support-disclosure" id="manual-input-details"><summary>出走表を手元のデータから取り込む</summary><details class="quick-help"><summary>出走表の文章をコピーして取り込む（JSON操作不要）</summary>
   <p class="quick-tip">出走表ページの選手情報をコピーして貼り付けます。選手名・得点・脚質・S・B・直近着数の10項目が必要です。自動で不足値を作りません。</p>
   <textarea id="quick-text" placeholder="例：
 1,選手名,108.50,逃,0,4,3,2,1,10
@@ -224,30 +223,11 @@ button:disabled{opacity:.4;cursor:not-allowed}
   <p class="quick-tip">CSVの10列形式、または「1 選手名 108.50 逃 0 4 3 2 1 10」の行を認識します。各種サイト固有の段組みには未対応です。</p>
  </details>
  <div class="quick-smallrow"><label class="btn secondary" for="quick-file" style="color:#fff;cursor:pointer">手元の出走表JSON・CSVを直接開く</label><input id="quick-file" type="file" accept=".json,.csv,.tsv,.txt,application/json,text/plain,text/csv" hidden></div>
-</section>
+</details>
+<details class="panel support-disclosure" id="research-archive"><summary>旧モデル・研究用の画面</summary><p class="small">以前の試作・比較機能です。上の展開予想と買い目は、独立したエンジンで生成しています。</p>
 
 
-<section class="panel causal-panel" id="causal-lab">
- <div class="eyebrow">INDEPENDENT RACE BRAIN / v1.4</div>
- <h2>自律型・展開仮説エンジン <span class="pill">新機能</span></h2>
- <p class="causal-intro">前受けからの先行争い、引いて捲り返し、第三ラインの仕掛け、番手差し・切替、3番手の追込み、単騎の追上げなどを検討。並び・位置・消耗・選手特性に応じた展開仮説を生成します。</p>
- <button type="button" class="btn causal-action" id="causal-run">展開を再推理して３連単を生成</button>
- <div class="quick-smallrow"><a class="btn secondary" href="riders.html">全S級選手データ</a><a class="btn secondary" href="v12.html">従来のv1.2を開く</a><a class="btn secondary" href="v13.html">元のv1.3</a></div>
- <div id="auto-intel-status" class="causal-meta" role="status">記事データを自動取得中…</div>
- <details class="causal-story"><summary>選手別の記事根拠・情報不足を確認</summary><div id="auto-intel-evidence"></div></details>
-<section class="intel-box" id="recent-form-panel"><h3>自動収集した近況成績</h3><p class="causal-meta" role="status" id="recent-form-status">近況成績を自動取得中…</p><div id="recent-form-riders"></div></section>
- <div id="causal-state" class="causal-meta" role="status">レースデータを読み込み中</div>
- <div class="causal-grid" id="causal-top"></div>
- <h3>レースを変える判断・キーマン</h3>
- <div id="causal-keymen" class="causal-km"></div>
- <h3>選んだ理由を説明できる展開仮説</h3>
- <div id="causal-stories"></div>
- <h3>３連単20点（展開から導出）</h3>
- <p class="small">本線16点 + 意外な筋4点。数値は仮説の相対強度であり、的中確率ではありません。</p>
- <div class="causal-tickets" id="causal-tickets"></div>
- <div class="quick-smallrow"><button type="button" class="btn secondary" id="causal-export">展開推理をJSON保存</button><button type="button" class="btn secondary" id="causal-copy">20点をコピー</button></div>
- <p class="causal-meta">公開記事本文の自動抽出と脚質・得点から独立推理。従来の印・買い目・手入力の人物仮説は使いません。記事不足時は暫定値で生成し、未校正の仮説スコアとして表示します。</p>
-</section>
+
 
 <details class="panel"><summary>従来の研究台帳（独立エンジンでは使用しません）</summary><section id="intel-panel">
  <div class="eyebrow">RIDER INTELLIGENCE / EVIDENCE LEDGER</div>
@@ -426,11 +406,11 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <section id="header" class="panel"></section>
 <div class="grid">
   <div>
-    <section class="panel"><h2>ライン構成</h2><div id="lines" class="lineup"></div></section>
+
     <section class="panel"><h2>予想見解（入力データから自動生成）</h2><div id="report" class="report"></div></section>
   </div>
   <div>
-    <section class="panel"><h2>出走選手データ</h2><div id="players"></div><p class="small">競走得点・B本数・1着率。率は出走表の直近4か月成績。</p></section>
+
     <section class="panel" id="forecast-tickets"><h2>３連単・全通り予測 <span class="pill">v0.4</span></h2>
 <div class="forecast-options">
 <label class="entry-field">展開重視タイプ<select id="forecast-profile"><option value="balanced">標準（4展開を統合）</option><option value="front">先行ライン重視</option><option value="sashi">番手差し重視</option><option value="upset">別線・混戦重視</option></select></label>
@@ -464,7 +444,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <div id="audit-history"></div>
 </section>
 <p class="footer">データ参照：<a href="https://keirin.tokyo-sports.co.jp/list/race/20261030_31588" target="_blank" rel="noopener noreferrer">東スポ競輪 2026/10/31 防府12R</a>、<a href="https://keirin.kdreams.jp/yenjoy/keirin-kaisai/race-card/odds/6320261031/63202610310100/12/3rentan/" target="_blank" rel="noopener noreferrer">楽天Kドリームス 出走表</a>。データの利用許諾に適合する取得方法は本格開発時に確認が必要です。<br />本試作はデータを手入力・同梱する方式です。リアルタイム取得、AI学習、実オッズの自動取得、自動投票は未実装です。予想と結果の照合は100円均等購入を仮定した机上検証です。</p>
-</div><script src="js/race-brain.js?v=decisions-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script>
+</details>
+</main>
+<script src="js/race-brain.js?v=decisions-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=layout-1"></script><script>
 'use strict';
 const DEMO={"date":"2026-10-31","venue":"防府","race_no":12,"grade":"GIII","class":"S級初日特選","start":"16:25","lineup":[[2,8,7],[1,4],[5,6],[3],[9]],"riders":[{"no":1,"name":"郡司浩平","score":116.60,"style":"両","s":8,"b":9,"wins":6,"seconds":6,"thirds":1,"outs":8},{"no":2,"name":"太田海也","score":123.50,"style":"逃","s":3,"b":2,"wins":2,"seconds":1,"thirds":0,"outs":1},{"no":3,"name":"南修二","score":114.71,"style":"追","s":0,"b":0,"wins":2,"seconds":3,"thirds":4,"outs":12},{"no":4,"name":"渡部幸訓","score":114.42,"style":"追","s":2,"b":1,"wins":2,"seconds":7,"thirds":6,"outs":7},{"no":5,"name":"松本貴治","score":118.64,"style":"両","s":4,"b":2,"wins":9,"seconds":3,"thirds":0,"outs":6},{"no":6,"name":"佐々木豪","score":113.91,"style":"逃","s":1,"b":1,"wins":6,"seconds":5,"thirds":1,"outs":13},{"no":7,"name":"清水裕友","score":116.06,"style":"両","s":2,"b":0,"wins":4,"seconds":2,"thirds":1,"outs":8},{"no":8,"name":"取鳥雄吾","score":113.91,"style":"逃","s":14,"b":6,"wins":9,"seconds":1,"thirds":2,"outs":11},{"no":9,"name":"山口拳矢","score":115.37,"style":"両","s":11,"b":2,"wins":10,"seconds":4,"thirds":2,"outs":11}]};
 let data=structuredClone(DEMO); let currentTickets=[];
@@ -842,7 +824,7 @@ $('entry-check').addEventListener('click',()=>{
 });
 $('entry-apply').addEventListener('click',()=>{
  if(!entryState.checked||entryFingerprint()!==entryState.signature){invalidateEntry();entryMsg('入力が変更されています。再度検査してください。',true);return;}
- try{validate(entryState.checked);data=structuredClone(entryState.checked);$('raw').value=JSON.stringify(data,null,2);render();entryMsg(`${data.venue}${data.race_no}Rの予想に切り替えました。参照情報が正しいか、買い目を検討する前に確認してください。`);$('header').scrollIntoView({behavior:'smooth',block:'start'});}
+ try{validate(entryState.checked);data=structuredClone(entryState.checked);$('raw').value=JSON.stringify(data,null,2);render();entryMsg(`${data.venue}${data.race_no}Rの予想に切り替えました。参照情報が正しいか、買い目を検討する前に確認してください。`);$('causal-lab').scrollIntoView({behavior:'smooth',block:'start'});}
  catch(e){entryMsg(e.message,true);}
 });
 for(const id of ['entry-date','entry-venue','entry-race','entry-start','entry-size','entry-grade','entry-class','entry-source','entry-source-url','entry-lineup','entry-riders']){
@@ -1650,7 +1632,7 @@ async function quickRefreshDate(){
 }
 
 function quickKey(d,v,n){return [d,v,Number(n)].join('|');}
-function quickStatus(s,kind=''){$('quick-status').textContent=s;$('quick-status').className='quick-message '+kind;}
+function quickStatus(s,kind=''){$('quick-status').textContent=String(s).split('\n')[0];$('quick-status-detail').textContent=s;$('quick-status').className='quick-message '+kind;}
 function quickPick(){return {date:$('quick-date').value,venue:$('quick-venue').value,race_no:Number($('quick-race-number').value)};}
 function quickPublish(r,label){
  validate(r);
@@ -1759,17 +1741,15 @@ function causalRun(){
   $('causal-state').textContent=`${out.race.date} ${out.race.venue}${out.race.race_no}R｜${out.narratives.length}展開分岐、${out.tickets.length}買い目候補から20点選定。${out.missing?'一部データは未取得（近況の取得状況は上欄）':'選手データを反映'}。`;
   $('causal-top').innerHTML=top.map((x,i)=>`<div class="causal-k"><small>${i===0?'最重要キーマン':'変動要因'+(i+1)}</small><strong>${x.no}番 ${causalEsc(x.name)}</strong><span>${causalEsc(x.decisions.slice(0,3).join(' ／ '))}</span></div>`).join('');
   $('causal-keymen').innerHTML=top.map(x=>`<div class="line"><strong>${x.no}番 ${causalEsc(x.name)}</strong>：${causalEsc(x.decisions.filter(z=>z!=='直線の決着').slice(0,3).join('・'))}</div>`).join('');
-  const stories=out.hypotheses.map(h=>h.representative);
-  $('causal-stories').innerHTML=stories.map((n,i)=>`<details class="causal-story" ${i===0?'open':''}><summary><strong>${i+1}. ${n.key}</strong>　${causalEsc(RaceBrain.MODES[n.mode])}</summary><p class="small">同じ局面の着順候補をまとめた展開仮説</p><ol>${n.states.map(v=>`<li>${causalEsc(v)}</li>`).join('')}</ol><p class="hyp">${causalEsc(n.explanation)}（仮説スコア。確率ではない）</p><details class="decision-reasons"><summary>この局面での判断根拠</summary>${n.decisions.map(d=>`<p class="small"><strong>${d.no}番 ${causalEsc(d.name)}</strong>：${causalEsc(d.context)}<br>${causalEsc(d.basis)}${d.measurements.length?'<br>'+causalEsc(d.measurements.join(' ／ ')):''}</p>`).join('')}<p class="small">Bと3連対率は追走力・前受けの実測値ではありません。記事不足の判断は暫定値です。</p></details></details>`).join('');
-  $('causal-tickets').innerHTML=out.chosen.map((t,i)=>{const p=t.supporting_path;return `<div class="causal-ticket"><strong>${i+1}. ${causalEsc(t.key)}</strong><span>${causalEsc(RaceBrain.MODES[p.mode])}${t.selection_reason.includes('別筋を確保')?' ✦ 別筋枠':''}</span><details class="ticket-reason"><summary>採用理由</summary><p class="small">${causalEsc(t.selection_reason)}</p><p class="small">${causalEsc(p.explanation)}</p><p class="small">${t.paths.length}通りの決着経路を集約。未校正の仮説スコアで選定。</p></details></div>`;}).join('');
+  PredictionView.render(out,data);
   return out;
- }catch(e){$('causal-state').textContent='展開推理のエラー：'+e.message;causalLast=null;return null;}
+ }catch(e){$('prediction-feedback').textContent='展開予想を生成できませんでした：'+e.message;$('causal-stories').innerHTML='';$('causal-tickets').innerHTML='';$('causal-state').textContent='展開推理のエラー：'+e.message;causalLast=null;return null;}
 }
 $('causal-run').addEventListener('click',causalRun);
 $('causal-copy').addEventListener('click',async()=>{
  if(!causalLast)causalRun();if(!causalLast)return;
  const s=`${causalLast.race.date} ${causalLast.race.venue}${causalLast.race.race_no}R 展開推理\n`+causalLast.chosen.map((x,i)=>`${i+1}. ${x.key}`).join('\n');
- try{await navigator.clipboard.writeText(s);$('causal-state').textContent+='\n買い目をコピーしました。';}catch(e){window.prompt('買い目をコピーしてください',s);}
+ try{await navigator.clipboard.writeText(s);$('prediction-feedback').textContent='20点をコピーしました。';}catch(e){window.prompt('買い目をコピーしてください',s);}
 });
 $('causal-export').addEventListener('click',()=>{
  if(!causalLast)causalRun();if(!causalLast)return;
