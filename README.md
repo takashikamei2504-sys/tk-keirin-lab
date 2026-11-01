@@ -2,6 +2,10 @@
 
 [独立展開推理を開く](https://takashikamei2504-sys.github.io/tk-keirin-lab/v14.html) · [従来v1.2](https://takashikamei2504-sys.github.io/tk-keirin-lab/v12.html) · [添付の元v1.3](v13.html)
 
+## 次期エンジンの実装準備
+
+[実装仕様・段階別の完了条件](docs/NEXT_BRAIN_IMPLEMENTATION.md)を追加。`npm run prepare:next-brain` で架空ケース、分岐の重み保存・重複不変性、情報の時点と範囲、現行エンジンの基準を確認する。準備部品は公開画面に接続せず、現在の予想を維持する。次は状況別判断・相手の反応を実装する。
+
 ## 今回の実装
 
 v1.3の画面を基に、別ファイルの独立エンジン `js/race-brain.js` を接続。従来のAI印・買い目・手入力の人物仮説・特定選手の固定シードから独立して生成する。
