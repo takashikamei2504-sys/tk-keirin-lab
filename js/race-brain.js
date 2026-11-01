@@ -8,8 +8,9 @@ const TRAITS=['front','resist','withdraw','kamashi','makuri','track','seat','rec
 function profiles(r,pack={}){
  const cutoff=Date.parse(`${r.date}T${r.start}:00+09:00`);
  return new Map(r.riders.map(x=>{
-  const own=x.style!=='追', absent=new Set([...(x.meta?.absent_fields||[]),...(r.source?.missing_fields?.includes('b_s_recent')?['s','b']:[])]);
+  const own=x.style!=='追', absent=new Set([...(x.meta?.absent_fields||[]),...(r.source?.missing_fields?.includes('b_s_recent')&&!x.recent_form?['s','b']:[])]);
   const p={front:.4,resist:own?.55:.22,withdraw:.5,kamashi:own?.6:.2,makuri:own?.6:.22,track:.55,seat:.45,recover:own?.55:.3,finish:clip(.45+(x.score-100)*.012,.2,.8),outer:own?.5:.35,evidence:[],basis:'脚質・得点による暫定値'};
+  if(x.recent_form){const st=x.recent_form.stats;p.finish=clip(p.finish+.12*(st.top3_rate/100-.5),.08,.92);p.form_basis='KEIRIN.JP直近4ヶ月の3連対率を小幅反映（未校正）';}
   if(!absent.has('s')&&Number.isFinite(x.s))p.front=clip(.3+x.s*.045,.2,.85);
   if(!absent.has('b')&&Number.isFinite(x.b)&&own){p.resist=clip(.4+x.b*.025,.3,.85);p.kamashi=clip(.5+x.b*.015,.35,.85);}
   const rows=(pack.evidence||[]).filter(e=>nameKey(e.rider)===nameKey(x.name)&&TRAITS.includes(e.trait)&&Number.isFinite(e.value)&&e.value>=0&&e.value<=1&&Number.isFinite(e.confidence)&&e.confidence>0&&/^https:\/\//.test(e.url||'')&&e.body_verified===true&&Date.parse(e.published_at)<cutoff&&Date.parse(e.collected_at)<cutoff);
@@ -32,7 +33,7 @@ function build(r,pack={},forced=null){
  if(![7,9].includes(ids.length)||valid.size!==ids.length||r.lineup.flat().length!==ids.length||new Set(r.lineup.flat()).size!==ids.length||r.lineup.some(l=>!l.length)||r.lineup.flat().some(n=>!valid.has(n)))throw Error('7車・9車の全選手を並びに一度ずつ指定してください');
  const p=profiles(r,pack),by=new Map(r.riders.map(x=>[x.no,x])),leaders=r.lineup.map(l=>l[0]),lineOf=new Map();
  r.lineup.forEach(l=>l.forEach(n=>lineOf.set(n,l)));
- const ability=n=>clip(.55+(by.get(n).score-100)*.025,.2,1.25);
+ const ability=n=>{const x=by.get(n),form=x.recent_form?.stats;return clip(.55+(x.score-100)*.025+(form?.total>0?.12*(form.top3_rate/100-.5):0),.2,1.25);};
  const move=(order,ns,at=0)=>{const rest=order.filter(n=>!ns.includes(n));rest.splice(at,0,...ns);return rest;};
  const narratives=[];
  const choices=(no,key,options)=>forced&&forced.no===no&&forced.key===key?options.filter(x=>x[0]===forced.value).map(x=>[x[0],1]):options;

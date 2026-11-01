@@ -5,8 +5,8 @@ root=Path(__file__).resolve().parents[1]
 s=(root/'v13.html').read_text()
 start=s.index('/* TK KEIRIN LAB v1.3 - explicit causal-state event branching.')
 ui=s.index('function causalRun(){',start)
-s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};\nfunction causalBuild(r){validate(r);return RaceBrain.build(r,autoIntelPack);}\n"+s[ui:]
-s=s.replace('<script>','<script src="js/race-brain.js"></script><script>',1)
+s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};\nfunction causalBuild(r){validate(r);const enriched=RecentForm.attach(r,recentFormPack);const out=RaceBrain.build(enriched,autoIntelPack);out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}\n"+s[ui:]
+s=s.replace('<script>','<script src="js/race-brain.js"></script><script src="js/recent-form.js"></script><script src="js/recent-form-ui.js"></script><script>',1)
 s=s.replace('v1.3','v1.4')
 s=s.replace('font-weight:500">v1.2</span></h1>', 'font-weight:500">v1.4</span></h1>')
 s=s.replace('CAUSAL RACE BRAIN / v1.4','INDEPENDENT RACE BRAIN / v1.4')
@@ -18,7 +18,7 @@ end=s.index('</section>',pos)
 s=s[:end]+s[end:].replace('</section>','</section></details>',1)
 s=s.replace("const out=causalBuild(data);causalLast=out;","const out=causalBuild(data);causalLast=out;autoIntelRender(out);")
 s=s.replace("'B/S・直近成績は未提供（人物仮説の推定値で補助）'","'B/S・直近成績は未提供（欠損として処理）'")
-s=s.replace("const o={schema:'tk-keirin-causal/v1.4',generated_at:new Date().toISOString(),...causalLast};","const o={schema:'tk-keirin-causal/v1.4',generated_at:new Date().toISOString(),version:CAUSAL_V,race:causalLast.race,keymen:causalLast.keymen,intelligence:causalLast.intelligence,profiles:causalLast.profiles,rating:causalLast.rating,chosen:causalLast.chosen.map(t=>({...t,paths:t.paths.slice(0,3)}))};")
+s=s.replace("const o={schema:'tk-keirin-causal/v1.4',generated_at:new Date().toISOString(),...causalLast};","const o={schema:'tk-keirin-causal/v1.4',generated_at:new Date().toISOString(),version:CAUSAL_V,race:causalLast.race,keymen:causalLast.keymen,intelligence:causalLast.intelligence,profiles:causalLast.profiles,recent_form:causalLast.form,rating:causalLast.rating,chosen:causalLast.chosen.map(t=>({...t,paths:t.paths.slice(0,3)}))};")
 s=s.replace('causalRun();\n\n</script>', '''causalRun();
 async function autoIntelLoad(){
  const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),10000);
@@ -45,6 +45,11 @@ function autoIntelRender(out){
 }
 autoIntelLoad();
 </script>''')
+# Recent form is a separate automatic feed, preserving the supplied v1.3 and v1.2.
+s=s.replace(' <div id="causal-state"', '<section class="intel-box" id="recent-form-panel"><h3>自動収集した近況成績</h3><p class="causal-meta" role="status" id="recent-form-status">近況成績を自動取得中…</p><div id="recent-form-riders"></div></section>\n <div id="causal-state"',1)
+s=s.replace('causalLast=out;autoIntelRender(out);','causalLast=out;autoIntelRender(out);recentFormRender(out);')
+s=s.replace('B/S・直近成績は未提供（欠損として処理）','一部データは未取得（近況の取得状況は上欄）')
+s=s.replace('autoIntelLoad();\n</script>','autoIntelLoad();recentFormLoad();\n</script>')
 # Hoisted autoIntelRender is available when initial causalRun executes.
 (root/'v14.html').write_text(s)
 # index.html is the independent app entrance; rebuilding predictions preserves it.

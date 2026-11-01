@@ -1,0 +1,40 @@
+name: Collect official recent form
+on:
+  schedule:
+    - cron: '10 */2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/collect_recent.py', '.github/workflows/collect-recent-form.yml']
+permissions:
+  contents: write
+concurrency:
+  group: official-recent-form
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Collect official recent form
+        id: collect
+        continue-on-error: true
+        run: python -u scripts/collect_recent.py --max-riders 650 --workers 3 --budget-seconds 1080
+      - name: Save snapshots and collection status
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/recent_form.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update measured recent-form snapshots'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Report unavailable collection
+        if: steps.collect.outcome == 'failure'
+        run: exit 1
