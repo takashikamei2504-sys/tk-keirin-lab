@@ -8,7 +8,7 @@ function attach(r,pack={},now=Date.now()){
  const riders=r.riders.map(x=>{
   const rid=x.meta?.rider_id?String(x.meta.rider_id).padStart(6,'0'):null;
   const matches=rows.filter(s=>norm(s.name)===norm(x.name)&&(!rid||s.rider_id===rid)&&valid(s));
-  const eligible=matches.filter(s=>{const c=Date.parse(s.collected_at),u=Date.parse(s.source_updated_at);return Number.isFinite(c)&&Number.isFinite(u)&&u<=c&&c<cutoff&&c<=now&&u<cutoff&&cutoff-u<=72*3600000;}).sort((a,b)=>Date.parse(b.source_updated_at)-Date.parse(a.source_updated_at)||Date.parse(a.collected_at)-Date.parse(b.collected_at));
+  const eligible=matches.filter(s=>{const c=Date.parse(s.collected_at),u=Date.parse(s.source_updated_at);return Number.isFinite(c)&&Number.isFinite(u)&&u<=c&&c<cutoff&&c<=now&&u<cutoff&&cutoff-u<=72*3600000;}).sort((a,b)=>Date.parse(b.source_updated_at)-Date.parse(a.source_updated_at)||Date.parse(b.collected_at)-Date.parse(a.collected_at));
   const recent=eligible[0];
   if(!recent)return {...x,recent_form:null,form_status:matches.length?'この発走前に利用可能な72時間以内の集計なし':'自動収集待ち・取得情報なし'};
   const st=recent.stats;

@@ -4,6 +4,6 @@ const snapshot={rider_id:'015009',name:x.name,verified_identity:true,source_url:
 const pack={schema:Recent.schema,snapshots:[snapshot]};const now=Date.parse('2026-11-01T01:00:00Z'),original=JSON.stringify(race);
 const enriched=Recent.attach(race,pack,now);assert.equal(enriched.riders[0].b,4);assert.equal(enriched.riders[0].outs,12);assert.equal(enriched.riders[0].recent_form.stats.total,26);assert(enriched.riders[0].meta.absent_fields.includes('s'));assert.equal(JSON.stringify(race),original);
 for(const delta of [{rider_id:'015010'},{name:'別人'},{collected_at:'2026-11-01T10:00:00Z'},{source_updated_at:'2026-10-20T00:00:00Z'},{verified_identity:false}])assert.equal(Recent.attach(race,{...pack,snapshots:[{...snapshot,...delta}]},now).riders[0].recent_form,null,JSON.stringify(delta));
-const duplicate={...snapshot,collected_at:'2026-11-01T00:30:00Z'};assert.equal(Recent.attach(race,{...pack,snapshots:[duplicate,snapshot]},now).riders[0].recent_form.collected_at,snapshot.collected_at);
+const duplicate={...snapshot,collected_at:'2026-11-01T00:30:00Z'};assert.equal(Recent.attach(race,{...pack,snapshots:[duplicate,snapshot]},now).riders[0].recent_form.collected_at,duplicate.collected_at);
 assert.notEqual(Brain.profiles(enriched).get(x.no).finish,Brain.profiles(race).get(x.no).finish);
 assert.equal(Brain.build(enriched).chosen.length,20);console.log('PASS recent form identity, pre-race cutoff, stale/future rejection, official denominator, immutability and model integration');

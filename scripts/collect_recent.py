@@ -80,9 +80,27 @@ def parse_profile(source,rider_id,expected_name,collected_at):
    text=plain(block)
    finishes=[x for x in ['負傷欠場','途中欠場','欠場'] if x in text][:1]
   meetings.append({'date':date.isoformat(),'date_precision':'meeting_start','venue_grade':plain(label.group(1)) if label else '', 'finishes':finishes})
- record={'rider_id':str(rider_id).zfill(6),'name':key(expected_name),'period':'直近4ヶ月','stats':stats,'recent_meetings':meetings[:20],
+ current=[]
+ a=source.find('■開催中のレース',marker);b=source.find('■最近の成績',a)
+ active=source[a:b] if a>=0 and b>a else ''
+ venue=re.search(r'<a\b[^>]*>(.*?)</a>',active,re.S|re.I)
+ dates=[]
+ for row in re.findall(r'<tr\b[^>]*>(.*?)</tr>',active,re.S|re.I):
+  cells=re.findall(r'<td\b[^>]*>(.*?)</td>',row,re.S|re.I)
+  header=[plain(c) for c in cells]
+  if header and all(re.fullmatch(r'\d{2}/\d{2}',x) for x in header):dates=header;continue
+  if not dates or len(cells)!=3*len(dates):continue
+  for i,md in enumerate(dates):
+   result=re.search(r'<p\b[^>]*title=[\"\']([^\"\']+)[\"\']',cells[3*i+1],re.I)
+   if not result:continue
+   date=dt.datetime.strptime(f'{updated.year}/{md}','%Y/%m/%d').date()
+   if updated.month<4 and date.month>9:date=date.replace(year=date.year-1)
+   if date>collected_at.astimezone(JST).date():continue
+   current.append({'date':date.isoformat(),'venue_grade':plain(venue.group(1)) if venue else '', 'race':plain(cells[3*i]),'finish':html.unescape(result.group(1)),'b':'imgbadge_s4_B' in cells[3*i+1]})
+  dates=[]
+ record={'rider_id':str(rider_id).zfill(6),'name':key(expected_name),'period':'直近4ヶ月','stats':stats,'recent_meetings':meetings[:20],'current_meeting_results':current,'parser_version':'recent-profile-v2',
   'source_url':ORIGIN+'/pc/racerprofile?snum='+str(rider_id).zfill(6),'source_updated_at':updated.isoformat(),'collected_at':collected_at.isoformat(),'verified_identity':True}
- record['id']=hashlib.sha256((record['rider_id']+'|'+record['source_updated_at']+'|'+json.dumps(stats,sort_keys=True)+'|'+json.dumps(meetings,ensure_ascii=False)).encode()).hexdigest()[:24]
+ record['id']=hashlib.sha256((record['rider_id']+'|'+record['source_updated_at']+'|'+json.dumps(stats,sort_keys=True)+'|'+json.dumps(meetings,ensure_ascii=False)+'|'+json.dumps(current,ensure_ascii=False)).encode()).hexdigest()[:24]
  return record
 
 class Fetcher:
@@ -138,7 +156,7 @@ def main():
  for s in snapshots:
   rid=s['rider_id']
   if rid not in known or stamp(s['collected_at'])>stamp(known[rid]['collected_at']):known[rid]=s
- targets=[r for r in roster if r['rider_id'] not in known or (now-stamp(known[r['rider_id']].get('last_checked_at',known[r['rider_id']]['collected_at']))).total_seconds()>8*3600]
+ targets=[r for r in roster if r['rider_id'] not in known or known[r['rider_id']].get('parser_version')!='recent-profile-v2' or (now-stamp(known[r['rider_id']].get('last_checked_at',known[r['rider_id']]['collected_at']))).total_seconds()>8*3600]
  targets.sort(key=lambda r:(r['rider_id'] in known,r['date'],r['start'],r['race_no'],r['rider_id']))
  targets=targets[:max(1,min(args.max_riders,1000))];f=Fetcher();attempted=0;success=0
  try:

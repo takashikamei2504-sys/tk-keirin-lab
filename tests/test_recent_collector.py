@@ -10,6 +10,10 @@ class RecentCollectorTests(unittest.TestCase):
  def parse(self,s):return parse_profile(s,'015035','阿部拓真',dt.datetime(2026,11,1,1,tzinfo=UTC))
  def test_identity_and_recent_only(self):
   p=self.parse(fixture());self.assertEqual(p['stats']['total'],26);self.assertEqual(p['stats']['b'],4);self.assertEqual(p['recent_meetings'][0]['finishes'],['3','落車棄権']);self.assertEqual(p['recent_meetings'][0]['date'],'2026-10-17')
+ def test_current_meeting_results_only_completed(self):
+  block='<p>■開催中のレース <a>防府Ｇ３</a></p><table><tr><td>10/31</td><td>11/01</td></tr><tr><td>一予選/11R</td><td><p title="3"></p><p class="imgbadge_s4_B">B</p></td><td>映像</td><td>二予選/12R</td><td>-</td><td>-</td></tr></table>'
+  p=self.parse(fixture().replace('<p>■最近の成績</p>',block+'<p>■最近の成績</p>'))
+  self.assertEqual(len(p['current_meeting_results']),1);self.assertEqual(p['current_meeting_results'][0]['finish'],'3');self.assertTrue(p['current_meeting_results'][0]['b']);self.assertEqual(p['current_meeting_results'][0]['date'],'2026-10-31')
  def test_wrong_identity(self):
   with self.assertRaisesRegex(ValueError,'name mismatch'):self.parse(fixture().replace('阿部　拓真','清水裕友'))
  def test_changed_layout(self):

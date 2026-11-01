@@ -1,7 +1,7 @@
 /* Independent state-transition engine. No legacy picks, manual profiles or seed personalities. */
 (function(root){
 'use strict';
-const VERSION='independent-causal-v1.4.0';
+const VERSION='independent-causal-v1.4.1-recent';
 const clip=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const nameKey=s=>String(s).replace(/[\s\u3000]/g,'');
 const TRAITS=['front','resist','withdraw','kamashi','makuri','track','seat','recover','finish','outer'];
