@@ -10,7 +10,7 @@ assert.match(await page.locator('#recent-form-riders').innerText(),/26走/);
 assert.match(await page.locator('#recent-form-riders').innerText(),/失格/);
 await page.waitForFunction(()=>typeof causalLast!=='undefined'&&causalLast?.chosen?.length===20);await page.waitForTimeout(1200);
 console.log('state:',await page.locator('#causal-state').innerText());console.log('intel:',await page.locator('#auto-intel-status').innerText());
-assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);assert.equal(await page.locator('#causal-top .causal-k').count(),3);
+assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);assert.equal(await page.locator('.ticket-reason').count(),20);await page.locator('.ticket-reason summary').first().click();assert.match(await page.locator('.ticket-reason').first().innerText(),/仮説スコア/);assert(await page.locator('.decision-reasons').count()>0);assert.equal(await page.locator('#causal-top .causal-k').count(),3);
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'mobile horizontal overflow');
 await page.locator('#causal-run').click();assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);
 await page.locator('#causal-stories details').first().locator('summary').click();await page.locator('#causal-stories details').first().locator('summary').click();

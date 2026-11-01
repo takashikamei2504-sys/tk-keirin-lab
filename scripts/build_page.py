@@ -6,7 +6,7 @@ s=(root/'v13.html').read_text()
 start=s.index('/* TK KEIRIN LAB v1.3 - explicit causal-state event branching.')
 ui=s.index('function causalRun(){',start)
 s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};\nfunction causalBuild(r){validate(r);const enriched=RecentForm.attach(r,recentFormPack);const out=RaceBrain.build(enriched,autoIntelPack);out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}\n"+s[ui:]
-s=s.replace('<script>','<script src="js/race-brain.js?v=recent-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script>',1)
+s=s.replace('<script>','<script src="js/race-brain.js?v=decisions-1"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script>',1)
 s=s.replace('v1.3','v1.4')
 s=s.replace('font-weight:500">v1.2</span></h1>', 'font-weight:500">v1.4</span></h1>')
 s=s.replace('CAUSAL RACE BRAIN / v1.4','INDEPENDENT RACE BRAIN / v1.4')
@@ -45,6 +45,18 @@ function autoIntelRender(out){
 }
 autoIntelLoad();
 </script>''')
+# Show broad tactical hypotheses and the actual path supporting each selected ticket.
+a=s.index('  const seen=new Set(),stories=[];')
+b=s.index("  $('causal-stories').innerHTML",a)
+s=s[:a]+"  const stories=out.hypotheses.map(h=>h.representative);\n"+s[b:]
+a=s.index("  $('causal-stories').innerHTML")
+b=s.index('  return out;',a)
+s=s[:a]+r'''  $('causal-stories').innerHTML=stories.map((n,i)=>`<details class="causal-story" ${i===0?'open':''}><summary><strong>${i+1}. ${n.key}</strong>　${causalEsc(RaceBrain.MODES[n.mode])}</summary><p class="small">同じ局面の着順候補をまとめた展開仮説</p><ol>${n.states.map(v=>`<li>${causalEsc(v)}</li>`).join('')}</ol><p class="hyp">${causalEsc(n.explanation)}（仮説スコア。確率ではない）</p><details class="decision-reasons"><summary>この局面での判断根拠</summary>${n.decisions.map(d=>`<p class="small"><strong>${d.no}番 ${causalEsc(d.name)}</strong>：${causalEsc(d.context)}<br>${causalEsc(d.basis)}${d.measurements.length?'<br>'+causalEsc(d.measurements.join(' ／ ')):''}</p>`).join('')}<p class="small">Bと3連対率は追走力・前受けの実測値ではありません。記事不足の判断は暫定値です。</p></details></details>`).join('');
+  $('causal-tickets').innerHTML=out.chosen.map((t,i)=>{const p=t.supporting_path;return `<div class="causal-ticket"><strong>${i+1}. ${causalEsc(t.key)}</strong><span>${causalEsc(RaceBrain.MODES[p.mode])}${t.selection_reason.includes('別筋を確保')?' ✦ 別筋枠':''}</span><details class="ticket-reason"><summary>採用理由</summary><p class="small">${causalEsc(t.selection_reason)}</p><p class="small">${causalEsc(p.explanation)}</p><p class="small">${t.paths.length}通りの決着経路を集約。未校正の仮説スコアで選定。</p></details></div>`;}).join('');
+'''+s[b:]
+s=s.replace('profiles:causalLast.profiles,recent_form:', 'profiles:causalLast.profiles,hypotheses:causalLast.hypotheses,recent_form:')
+s=s.replace("${esc(p.basis)}${!es.length?", "${esc(p.basis)}${p.form_basis?'<br>'+esc(p.form_basis):''}${p.measurements.length?'<br>'+esc(p.measurements.join(' ／ ')):''}${!es.length?")
+
 # Recent form is a separate automatic feed, preserving the supplied v1.3 and v1.2.
 s=s.replace(' <div id="causal-state"', '<section class="intel-box" id="recent-form-panel"><h3>自動収集した近況成績</h3><p class="causal-meta" role="status" id="recent-form-status">近況成績を自動取得中…</p><div id="recent-form-riders"></div></section>\n <div id="causal-state"',1)
 s=s.replace('causalLast=out;autoIntelRender(out);','causalLast=out;autoIntelRender(out);recentFormRender(out);')
