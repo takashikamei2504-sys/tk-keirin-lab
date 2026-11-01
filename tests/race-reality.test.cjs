@@ -49,6 +49,7 @@ for(const race of [sample,real]){
  assert.equal(prediction.diagnostics.realityVersion,Reality.VERSION);
  assert.ok(Math.abs(prediction.diagnostics.terminalMass+prediction.diagnostics.unresolvedMass-1)<1e-9);
  assert.equal(prediction.chosen.length,10);
+ if(race.date==='2026-11-02')console.log('HOFU_12R_REALITY_REVIEW '+JSON.stringify({reading:prediction.story.main.reading,scenes:prediction.story.main.scenes.map(x=>({phase:x.phase,action:x.action,order:x.order})),main:prediction.chosen.filter(x=>x.group==='main').map(x=>x.key),alternatives:prediction.chosen.filter(x=>x.group==='alternative').map(x=>x.key),excluded:prediction.diagnostics.realityExcluded,unresolved:prediction.diagnostics.unresolvedMass}));
  for(const story of [prediction.story.main,...prediction.story.alternatives]){
   assert.equal(story.scenes.length,6);
   assert.ok(story.scenes[5].action.includes('最終コーナー'));
