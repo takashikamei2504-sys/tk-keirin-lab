@@ -47,6 +47,4 @@ autoIntelLoad();
 </script>''')
 # Hoisted autoIntelRender is available when initial causalRun executes.
 (root/'v14.html').write_text(s)
-# Preserve the prior landing page before promoting the new brain.
-if not (root/'v02.html').exists(): (root/'v02.html').write_bytes((root/'index.html').read_bytes())
-(root/'index.html').write_text('<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=v14.html"><title>TK KEIRIN LAB</title><p><a href="v14.html">TK KEIRIN LAB v1.4を開く</a></p><p><a href="v12.html">従来のv1.2</a></p></html>')
+# index.html is the independent app entrance; rebuilding predictions preserves it.
