@@ -28,7 +28,7 @@ assert.equal(Reality.audit(blocked,ids).passed,true);
 // 7th rider cannot be promoted to the winner by last-straight score alone.
 assert.equal(Reality.finishingAccess(base,5,1).allowed,false);
 assert.equal(Reality.finishingAccess(base,2,2).allowed,true);
-assert.equal(Reality.finishingAccess({...base,survivingAttack:9},9,3).allowed,false);
+assert.equal(Reality.finishingAccess({...base,survivingAttack:5},5,3).allowed,false);
 assert.ok(Reality.finishExplanation(base,[1,4,2],n=>n+'番').includes('最終コーナー'));
 // A concrete race-day case from the published Nov 2, 2026, pre-race entry
 // feed, used only as a fixture; no outcome data enters the model.
