@@ -187,7 +187,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .causal-meta{font-size:12px;color:#a4bbcc;margin:12px 0;white-space:pre-wrap}
 @media(max-width:520px){.causal-grid{grid-template-columns:1fr}.causal-tickets{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
-<link rel="stylesheet" href="css/prediction-layout.css?v=f1f0842a267e">
+<link rel="stylesheet" href="css/prediction-layout.css?v=0de7068a8886">
 </head>
 <body><main class="wrap">
 <header class="app-heading"><div><h1>TK KEIRIN LAB</h1><p class="sub">展開予想と、そこから選ぶ買い目</p></div><a href="riders.html">全S級データ</a></header>
@@ -200,7 +200,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <p id="prediction-race" class="prediction-race"></p><p id="prediction-context" class="prediction-context"></p>
 <div id="causal-stories"></div>
 <div class="ticket-section-heading"><h3>３連単20点</h3><button type="button" class="btn" id="causal-copy">20点をコピー</button></div>
-<p class="small">「展開番号」から、その買い目を導いた展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
+<p class="small" id="ticket-display-count"></p><p class="small">1・2着が同じ買い目をまとめています。例：1-2-345＝3点。「展開・採用理由」から元の展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
 <p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
 </section>
 <h2 class="support-heading">参考情報・詳細</h2>
@@ -446,7 +446,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <p class="footer">データ参照：<a href="https://keirin.tokyo-sports.co.jp/list/race/20261030_31588" target="_blank" rel="noopener noreferrer">東スポ競輪 2026/10/31 防府12R</a>、<a href="https://keirin.kdreams.jp/yenjoy/keirin-kaisai/race-card/odds/6320261031/63202610310100/12/3rentan/" target="_blank" rel="noopener noreferrer">楽天Kドリームス 出走表</a>。データの利用許諾に適合する取得方法は本格開発時に確認が必要です。<br />本試作はデータを手入力・同梱する方式です。リアルタイム取得、AI学習、実オッズの自動取得、自動投票は未実装です。予想と結果の照合は100円均等購入を仮定した机上検証です。</p>
 </details>
 </main>
-<script src="js/race-brain.js?v=decisions-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=71c72cf656a5"></script><script>
+<script src="js/race-brain.js?v=decisions-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=4c5604960bf3"></script><script>
 'use strict';
 const DEMO={"date":"2026-10-31","venue":"防府","race_no":12,"grade":"GIII","class":"S級初日特選","start":"16:25","lineup":[[2,8,7],[1,4],[5,6],[3],[9]],"riders":[{"no":1,"name":"郡司浩平","score":116.60,"style":"両","s":8,"b":9,"wins":6,"seconds":6,"thirds":1,"outs":8},{"no":2,"name":"太田海也","score":123.50,"style":"逃","s":3,"b":2,"wins":2,"seconds":1,"thirds":0,"outs":1},{"no":3,"name":"南修二","score":114.71,"style":"追","s":0,"b":0,"wins":2,"seconds":3,"thirds":4,"outs":12},{"no":4,"name":"渡部幸訓","score":114.42,"style":"追","s":2,"b":1,"wins":2,"seconds":7,"thirds":6,"outs":7},{"no":5,"name":"松本貴治","score":118.64,"style":"両","s":4,"b":2,"wins":9,"seconds":3,"thirds":0,"outs":6},{"no":6,"name":"佐々木豪","score":113.91,"style":"逃","s":1,"b":1,"wins":6,"seconds":5,"thirds":1,"outs":13},{"no":7,"name":"清水裕友","score":116.06,"style":"両","s":2,"b":0,"wins":4,"seconds":2,"thirds":1,"outs":8},{"no":8,"name":"取鳥雄吾","score":113.91,"style":"逃","s":14,"b":6,"wins":9,"seconds":1,"thirds":2,"outs":11},{"no":9,"name":"山口拳矢","score":115.37,"style":"両","s":11,"b":2,"wins":10,"seconds":4,"thirds":2,"outs":11}]};
 let data=structuredClone(DEMO); let currentTickets=[];
@@ -1748,7 +1748,7 @@ function causalRun(){
 $('causal-run').addEventListener('click',causalRun);
 $('causal-copy').addEventListener('click',async()=>{
  if(!causalLast)causalRun();if(!causalLast)return;
- const s=`${causalLast.race.date} ${causalLast.race.venue}${causalLast.race.race_no}R 展開推理\n`+causalLast.chosen.map((x,i)=>`${i+1}. ${x.key}`).join('\n');
+ const s=PredictionView.copyText(causalLast);
  try{await navigator.clipboard.writeText(s);$('prediction-feedback').textContent='20点をコピーしました。';}catch(e){window.prompt('買い目をコピーしてください',s);}
 });
 $('causal-export').addEventListener('click',()=>{

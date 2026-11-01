@@ -33,7 +33,7 @@ def tidy(s):
 <p id="prediction-race" class="prediction-race"></p><p id="prediction-context" class="prediction-context"></p>
 <div id="causal-stories"></div>
 <div class="ticket-section-heading"><h3>３連単20点</h3><button type="button" class="btn" id="causal-copy">20点をコピー</button></div>
-<p class="small">「展開番号」から、その買い目を導いた展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
+<p class="small" id="ticket-display-count"></p><p class="small">1・2着が同じ買い目をまとめています。例：1-2-345＝3点。「展開・採用理由」から元の展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
 <p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
 </section>
 <h2 class="support-heading">参考情報・詳細</h2>
@@ -48,6 +48,9 @@ def tidy(s):
  a=tail.index('  const stories=out.hypotheses.map');b=tail.index('  return out;',a)
  tail=tail[:a]+'  PredictionView.render(out,data);\n'+tail[b:]
  tail=tail.replace("$('causal-state').textContent+='\\n買い目をコピーしました。';", "$('prediction-feedback').textContent='20点をコピーしました。';")
+ a=tail.index(' const s=`${causalLast.race.date}')
+ b=tail.index('\n try{await navigator.clipboard',a)
+ tail=tail[:a]+' const s=PredictionView.copyText(causalLast);'+tail[b:]
  tail=tail.replace("}catch(e){$('causal-state').textContent='展開推理のエラー：'+e.message;", "}catch(e){$('prediction-feedback').textContent='展開予想を生成できませんでした：'+e.message;$('causal-stories').innerHTML='';$('causal-tickets').innerHTML='';$('causal-state').textContent='展開推理のエラー：'+e.message;")
  old="function quickStatus(s,kind=''){$('quick-status').textContent=s;$('quick-status').className='quick-message '+kind;}"
  new="function quickStatus(s,kind=''){$('quick-status').textContent=String(s).split('\\n')[0];$('quick-status-detail').textContent=s;$('quick-status').className='quick-message '+kind;}"
