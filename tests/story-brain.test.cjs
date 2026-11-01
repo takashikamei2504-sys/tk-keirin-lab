@@ -14,6 +14,7 @@ function check(r){
   let previous=s.scenes[0].order;for(const move of s.movementTrace){const changed=move.order.map((n,i)=>n===previous[i]?-1:i).filter(i=>i>=0);assert.equal(changed.length,2);assert.equal(changed[1]-changed[0],1);previous=move.order;}
  }
  assert.ok(out.chosen.filter(t=>t.group==='main').every(t=>t.supporting_path===out.story.main),'six main tickets must share one complete story');
+ for(const t of out.chosen.filter(t=>t.group==='alternative'))assert.deepEqual(t.supporting_path.scenes[5].order.slice(0,3),t.trio,'alternative conclusion must match its one ticket');
  for(const t of out.chosen)assert.ok(t.supporting_path.outcomes.some(o=>o.key===t.key));
  return out;
 }

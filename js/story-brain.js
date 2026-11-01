@@ -5,7 +5,7 @@ const Memory=typeof module!=='undefined'?require('./brain-memory.js'):root.Brain
 const Context=typeof module!=='undefined'?require('./rider-context.js'):root.RiderContext;
 const Weights=typeof module!=='undefined'?require('./branch-weights.js'):root.BranchWeights;
 const VERSION='story-first-v3.0.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
-const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'番手が縦に踏む',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
+const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
 function validate(r){const ids=r?.riders?.map(x=>x.no)||[],flat=r?.lineup?.flat()||[];
  if(![7,9].includes(ids.length)||new Set(ids).size!==ids.length||ids.some(n=>!Number.isInteger(n)||n<1||n>9)||flat.length!==ids.length||new Set(flat).size!==ids.length||flat.some(n=>!ids.includes(n))||r.lineup.some(l=>!l.length)||r.riders.some(x=>!Number.isFinite(x.score))||!Number.isFinite(Memory.cutoffOf(r)))throw Error('発走日時・全選手の得点・重複のない想定並びが必要です');
@@ -144,8 +144,13 @@ function build(r,pack={},options={}){
  const main=scenarios.find(s=>s.signature===signatureOf(mainState)),alternatives=[],signatures=new Set([main.signature]),categories=new Set();
  const difference=s=>s.front!==main.front?['S取り・初手',`${who(s.starter)}がSを取ると初手の位置関係が変わる`]:s.attacker!==main.attacker||s.stand!==main.stand||s.tactic!==main.tactic?['赤板の攻防',`${s.attacker?who(s.attacker)+'の仕掛け':'赤板の待機'}と、前受け側の${s.stand==='resist'?'突っ張り':'対応'}が変わる`]:s.homeRider!==main.homeRider||s.homeResult!==main.homeResult||s.gap!==main.gap?['ホームの仕掛け・追走','ホームのロング捲り、または追走の成否が変わる']:s.defense!==main.defense||s.innerRider!==main.innerRider?['3～4角の判断','横の仕事・縦踏み・内のコース選択が変わる']:['終盤の別筋','外からの仕掛けや番手の収まり方が変わる'];
  const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:'一本の本線ストーリーから導く6点'})),used=new Set(selected.map(t=>t.key));
- function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);alternatives.push({...s,divergence:category,trigger,upset:s.first!==main.first});signatures.add(s.signature);categories.add(category);
-  selected.push({...t,group:'alternative',supporting_path:s,paths:[s],selection_reason:`${category}が変わる別筋：${trigger}`});used.add(t.key);return true;}
+ function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
+  const last=s.scenes[5],closing=`この別筋では${who(t.trio[0])}の${MODES[t.mode]}を取り、${who(t.trio[1])}を2着、${who(t.trio[2])}を3着に選ぶ。`+t.trio.slice(1).map(n=>`${who(n)}は最終コーナーの${s.scenes[4].order.indexOf(n)+1}番手から直線を伸ばす筋。`).join('');
+  const scenes=[...s.scenes.slice(0,5),{...last,action:closing,order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio}];
+  const alternative={...s,first:t.trio[0],mode:t.mode,scenes,snapshots:scenes,states:scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),explanation:scenes.map(x=>x.action).join('\n'),divergence:category,trigger,upset:t.trio[0]!==main.first};
+  alternatives.push(alternative);signatures.add(s.signature);categories.add(category);
+  selected.push({...t,group:'alternative',supporting_path:alternative,paths:[alternative],selection_reason:`${category}が変わる別筋：${trigger}`});used.add(t.key);return true;}
+
  for(const category of ['赤板の攻防','ホームの仕掛け・追走','3～4角の判断','S取り・初手']){
   const eligible=scenarios.filter(s=>!signatures.has(s.signature)&&difference(s)[0]===category);
   const preferred=alternatives.length===3&&!alternatives.some(s=>s.upset)?eligible.filter(s=>s.first!==main.first):eligible;
