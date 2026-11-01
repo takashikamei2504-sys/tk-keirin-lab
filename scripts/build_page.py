@@ -6,7 +6,7 @@ s=(root/'v13.html').read_text()
 start=s.index('/* TK KEIRIN LAB v1.3 - explicit causal-state event branching.')
 ui=s.index('function causalRun(){',start)
 s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};\nfunction causalBuild(r){validate(r);const enriched=RecentForm.attach(r,recentFormPack);const out=RaceBrain.build(enriched,autoIntelPack);out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}\n"+s[ui:]
-s=s.replace('<script>','<script src="js/race-brain.js?v=decisions-1"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script>',1)
+s=s.replace('<script>','<script src="js/race-brain.js?v=decisions-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script>',1)
 s=s.replace('v1.3','v1.4')
 s=s.replace('font-weight:500">v1.2</span></h1>', 'font-weight:500">v1.4</span></h1>')
 s=s.replace('CAUSAL RACE BRAIN / v1.4','INDEPENDENT RACE BRAIN / v1.4')
@@ -45,6 +45,7 @@ function autoIntelRender(out){
 }
 autoIntelLoad();
 </script>''')
+s=s.replace('前受け・突っ張り・引き・カマシ・追走離れ・番手はまり・差し・大外強襲を、位置関係がつながる複数の展開として生成。レース選択後は自動で再計算します。', '前受けからの先行争い、引いて捲り返し、第三ラインの仕掛け、番手差し・切替、3番手の追込み、単騎の追上げなどを検討。並び・位置・消耗・選手特性に応じた展開仮説を生成します。')
 # Show broad tactical hypotheses and the actual path supporting each selected ticket.
 a=s.index('  const seen=new Set(),stories=[];')
 b=s.index("  $('causal-stories').innerHTML",a)

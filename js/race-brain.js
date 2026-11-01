@@ -152,10 +152,14 @@ function build(r,pack={},forced=null){
  for(const no of ids)for(const [key,label,a,b] of [['stand','突っ張るか／引くか','resist','yield'],['tactic','カマシか／捲りか','kamashi','makuri'],['gap','追走を維持するか／離れるか','holds','breaks']]){
   const role=key==='stand'?'front':key==='tactic'?'attacker':'follower';
   const relevant=narratives.filter(n=>role==='follower'?lineOf.get(n.leader)[1]===no:n[role]===no);
-  const groups=new Map();for(const n of relevant){const context=[n.front,n.attacker,n.outcome,...['stand','tactic','gap'].filter(k=>k!==key).map(k=>n[k])].join('|');if(!groups.has(context))groups.set(context,[[],[]]);const k=n[key]===a?0:n[key]===b?1:-1;if(k>=0)groups.get(context)[k].push(n);}
+  const groups=new Map();for(const n of relevant){const context=[n.front,n.attacker,...(key==='gap'?[n.outcome]:[]),...['stand','tactic','gap'].filter(k=>k!==key).map(k=>n[k])].join('|');if(!groups.has(context))groups.set(context,[[],[]]);const k=n[key]===a?0:n[key]===b?1:-1;if(k>=0)groups.get(context)[k].push(n);}
   let diff=0,count=0;const da=new Map(),db=new Map();
   for(const [aa,bb] of groups.values()){if(!aa.length||!bb.length)continue;const ad=distribution(aa),bd=distribution(bb);diff+=ids.reduce((s,n)=>s+Math.abs((ad.get(n)||0)-(bd.get(n)||0)),0)/2;for(const n of ids){da.set(n,(da.get(n)||0)+(ad.get(n)||0));db.set(n,(db.get(n)||0)+(bd.get(n)||0));}count++;}
-  if(count){const winner=d=>[...d].sort((x,y)=>y[1]-x[1])[0][0];pivots.push({no,name:by.get(no).name,score:diff/count,decisions:[label,`対になる${count}条件を比較：１着候補 ${winner(da)}番 → ${winner(db)}番`],matched_contexts:count});}
+  if(count){
+   const winner=d=>[...d].sort((x,y)=>y[1]-x[1])[0][0],wa=winner(da),wb=winner(db);
+   const changed=ids.map(n=>({no:n,change:((db.get(n)||0)-(da.get(n)||0))/count})).sort((x,y)=>Math.abs(y.change)-Math.abs(x.change)||x.no-y.no)[0];
+   pivots.push({no,name:by.get(no).name,score:diff/count,decisions:[label,`対になる${count}条件を比較：${wa!==wb?`１着候補 ${wa}番 → ${wb}番`:`候補${changed.no}番の仮説内比重が${Math.abs(changed.change*100).toFixed(1)}pt変化（的中確率ではない）`}`],matched_contexts:count});
+  }
  }
  const best=new Map();for(const x of pivots)if(!best.has(x.no)||best.get(x.no).score<x.score)best.set(x.no,x);
  const keymen=[...best.values()].sort((a,b)=>b.score-a.score||a.no-b.no).slice(0,3);
