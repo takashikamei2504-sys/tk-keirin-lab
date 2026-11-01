@@ -18,9 +18,13 @@ function attackOpportunity(s,no,phase){
 function takeoverOpportunity(s,no,phase){
  const from=s.order?.indexOf(no);
  if(!Number.isInteger(from)||from<0)return {allowed:false,reason:'選手の現在位置が不明'};
- const continuous=Array.isArray(s.outside)&&s.outside.includes(no);
- // A fresh surge between home and the back is not an instantaneous move from
- // sixth to first. This is a model support gate, not a physical impossibility.
+ const continuous=(Array.isArray(s.outside)&&s.outside.includes(no))||
+    (phase==='home'&&s.attacker===no&&s.outcome==='front-holds');
+ // A rider may advance rapidly, but a model that has not represented a prior
+ // run-up cannot silently promote a distant rider to first place.
+ if(phase==='home'&&from>=5&&!continuous){
+   return {allowed:false,reason:(from+1)+'番手から最終ホームで即座に先頭へ移る仕掛けの助走が記録されていない'};
+ }
  if(phase==='back'&&from>=4&&!continuous){
    return {allowed:false,reason:(from+1)+'番手からバックまでに'+from+'人を一気に抜く軌跡・車間・速度が未収録。外並走の候補だけ残す'};
  }
