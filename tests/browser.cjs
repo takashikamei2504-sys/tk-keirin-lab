@@ -13,7 +13,7 @@ console.log('state:',await page.locator('#causal-state').innerText());console.lo
 assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);assert.equal(await page.locator('.ticket-reason').count(),20);await page.locator('.ticket-reason summary').first().click();assert.match(await page.locator('.ticket-reason').first().innerText(),/仮説スコア/);assert(await page.locator('.decision-reasons').count()>0);assert.equal(await page.locator('#causal-top .causal-k').count(),3);
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'mobile horizontal overflow');
 await page.locator('#causal-run').click();assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);
-await page.locator('#causal-stories details').first().locator('summary').click();await page.locator('#causal-stories details').first().locator('summary').click();
+await page.locator('#causal-stories > details').first().locator(':scope > summary').click();await page.locator('#causal-stories > details').first().locator(':scope > summary').click();
 await page.locator('#causal-lab').screenshot({path:process.env.LAB_SCREENSHOT||'/tmp/mobile-brain.png'});
 const exported=page.waitForEvent('download');await page.locator('#causal-export').click();console.log('export:',(await exported).suggestedFilename());
 const available=await page.evaluate(()=>({bundled:QUICK_BUNDLED.map(r=>({date:r.date,venue:r.venue,race_no:r.race_no})),ids:[...document.querySelectorAll('[id]')].map(x=>x.id)}));
