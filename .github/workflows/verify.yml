@@ -26,3 +26,4 @@ jobs:
       - run: |
           python -m http.server 8765 >/tmp/lab-server.log 2>&1 &
           npm run test:browser
+          node tests/s-riders-browser.cjs

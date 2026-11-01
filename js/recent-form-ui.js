@@ -4,7 +4,9 @@ function recentFormRender(out){
  const rows=out.form?.riders||[],covered=rows.filter(r=>r.recent_form).length;
  const status=document.getElementById('recent-form-status'),body=document.getElementById('recent-form-riders');
  if(!status||!body)return;
- status.textContent=`近況成績 ${covered}/${rows.length}選手を自動反映。KEIRIN.JP・直近4ヶ月集計／最近の開催成績。Bも取得、Sは未取得。発走前に収集済みで更新から72時間以内の情報を使用。`;
+ const population=recentFormPack.s_class_coverage;
+ const fullText=population?`全S級名簿 ${population.total}人／取得済み ${population.covered}人（出走予定に関係なく収集）。${population.roster_refresh_error?'名簿更新は再試行中。':''}`:'全S級の収集状況は「全S級選手データ」で確認できます。';
+ status.textContent=fullText+`近況成績 ${covered}/${rows.length}選手を自動反映。KEIRIN.JP・直近4ヶ月集計／最近の開催成績。Bも取得、Sは未取得。発走前に収集済みで更新から72時間以内の情報を使用。`;
  body.innerHTML=rows.map(r=>{
   const f=r.recent_form;if(!f)return `<div class="intel-record"><strong>${esc(r.no)}番 ${esc(r.name)}</strong><p>${esc(r.form_status)}</p></div>`;
   const s=f.stats,meetings=(f.recent_meetings||[]).slice(0,5),jst=t=>new Date(t).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'});
