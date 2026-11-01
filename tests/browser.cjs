@@ -4,7 +4,7 @@ const formFixture={schema:'tk-keirin-recent-form/v1',generated_at:'2026-10-30T00
 await page.route('**/recent_form.json*',route=>route.fulfill({json:formFixture,headers:{'access-control-allow-origin':'*'}}));
 await page.goto(process.env.LAB_URL||'http://127.0.0.1:8765/v14.html');
 await page.waitForFunction(()=>typeof causalLast!=='undefined'&&causalLast?.form?.status?.covered===1);
-assert.match(await page.locator('#recent-form-status').innerText(),/1\/9/);
+assert.match(await page.locator('#recent-form-status').textContent(),/1\/9/);
 await page.locator('#race-data-details > summary').click();
 await page.locator('#recent-form-riders details').first().locator('summary').click();
 assert.match(await page.locator('#recent-form-riders').innerText(),/26走/);
@@ -22,6 +22,6 @@ const available=await page.evaluate(()=>({bundled:QUICK_BUNDLED.map(r=>({date:r.
 console.log('quick:',JSON.stringify(available.bundled));
 await page.evaluate(()=>{data=structuredClone(QUICK_BUNDLED[1]);render();});
 assert.equal(await page.locator('#causal-tickets .causal-ticket').count(),20);assert.match(await page.locator('#causal-state').innerText(),/2026-11-01/);
-assert.match(await page.locator('#recent-form-status').innerText(),/0\/9/,'previous race recent form must not leak after switching riders');
+assert.match(await page.locator('#recent-form-status').textContent(),/0\/9/,'previous race recent form must not leak after switching riders');
 assert.equal(errors.length,0,errors.join('\n'));
 console.log('PASS mobile rendering, regenerate, race switch, export, no JS errors');await browser.close();})();
