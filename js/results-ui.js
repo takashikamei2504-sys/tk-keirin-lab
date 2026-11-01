@@ -41,7 +41,10 @@ async function refresh(){
   if(!response?.ok)throw Error('配信データ未取得');
   const value=await response.json();if(value.schema!==Audit.SCHEMA||!Array.isArray(value.rows)||value.rows.length>20000||!value.summary||!Array.isArray(value.collection?.errors))throw Error('評価データの形式が不正です');
   report=value;
-  $('evaluation-status').textContent=`最終収集 ${new Date(value.generated_at).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})}（日本時間）。${value.collection.errors.length?'一部未取得 '+value.collection.errors.length+'件。':''}結果は配信更新後に反映。未取得は外れに数えません。`;
+  const scheduled=value.collection.last_scheduled_at,automatic=value.collection.last_automatic_at;
+  const trigger=({schedule:'定期実行',workflow_run:'他収集後の自動実行',workflow_dispatch:'手動実行',push:'設定更新時の実行'})[value.collection.event]||'起動元未取得';
+  const timing=scheduled?`最終定期成功 ${new Date(scheduled).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})}。${Date.now()-Date.parse(scheduled)>90*60000?'定期更新が遅れています。':''}`:automatic?`予備経路で自動更新済み。定期実行は未確認。`:'定期実行は未確認。';
+  $('evaluation-status').textContent=`${trigger}。${timing}最終収集 ${new Date(value.generated_at).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})}（日本時間）。${value.collection.errors.length?'一部未取得 '+value.collection.errors.length+'件。':''}結果は配信更新後に反映。未取得は外れに数えません。`;
  }catch(error){$('evaluation-status').textContent='取得できませんでした：'+error.message+'。既に表示している記録は保持します。';}
  finally{loading=false;$('evaluation-update').disabled=false;render();}
 }

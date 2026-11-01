@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Bounded public feed collection for frozen pre-race forecasts and reported results."""
-import argparse, datetime as dt, json, subprocess, tempfile, urllib.request, urllib.error
+import argparse, os, datetime as dt, json, subprocess, tempfile, urllib.request, urllib.error
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 JST=dt.timezone(dt.timedelta(hours=9))
@@ -22,7 +22,7 @@ def main():
             except urllib.error.HTTPError as exc:
                 if exc.code!=404:errors.append({'date':date,'error':f'HTTP {exc.code}'})
             except Exception as exc:errors.append({'date':date,'error':str(exc)[:160]})
-        Path(directory,'collection.json').write_text(json.dumps({'collected_at':dt.datetime.now(dt.timezone.utc).isoformat(),'errors':errors,'feeds':count}))
+        Path(directory,'collection.json').write_text(json.dumps({'collected_at':dt.datetime.now(dt.timezone.utc).isoformat(),'errors':errors,'feeds':count,'event':os.environ.get('GITHUB_EVENT_NAME','local'),'run_id':os.environ.get('GITHUB_RUN_ID')}))
         subprocess.run(['node','scripts/update_outcomes.cjs','--feed-dir',directory],cwd=ROOT,check=True)
     if errors:print('Some feeds unavailable; existing history was preserved:',json.dumps(errors,ensure_ascii=False))
 if __name__=='__main__':main()

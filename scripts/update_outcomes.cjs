@@ -11,6 +11,10 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
  const form=read(path.join(root,'data/recent_form.json'),{}),intel=read(path.join(root,'data/intelligence.json'),{});
  const historyDir=path.join(outputDir,'lab_history');fs.mkdirSync(historyDir,{recursive:true});
  const collection=read(path.join(feedDir,'collection.json'),{errors:[]});
+ const previous=read(path.join(outputDir,'lab_evaluation.json'),{}).collection||{};
+ const successful=Number(collection.feeds)>0;
+ const lastScheduled=successful&&collection.event==='schedule'?now:previous.last_scheduled_at||null;
+ const lastAutomatic=successful&&['schedule','workflow_run'].includes(collection.event)?now:previous.last_automatic_at||null;
  const errors=[...(collection.errors||[])];let generated=0;
  for(const name of fs.readdirSync(feedDir).filter(n=>/^\d{4}-\d{2}-\d{2}\.json$/.test(n)).sort()){
   const feed=read(path.join(feedDir,name));if(feed.date+'.json'!==name||!Array.isArray(feed.races))throw Error('Invalid day feed');
@@ -61,7 +65,7 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
   }
  }
  rows.sort((a,b)=>b.date.localeCompare(a.date)||a.venue.localeCompare(b.venue,'ja')||b.race_no-a.race_no);
- const report={schema:Audit.SCHEMA,generated_at:now,collection:{feeds:collection.feeds||0,errors},summary:Audit.summarize(rows),rows,
+ const report={schema:Audit.SCHEMA,generated_at:now,collection:{feeds:collection.feeds||0,event:collection.event||'unknown',run_id:collection.run_id||null,last_scheduled_at:lastScheduled,last_automatic_at:lastAutomatic,errors},summary:Audit.summarize(rows),rows,
   policy:'同一レースは最新保存バージョンを1回だけ集計。各バージョンの最初の発走前予想は固定保存。過去レースへ予想を後付けしない。配信結果は公式未照合。'};
  save(path.join(outputDir,'lab_evaluation.json'),report);
  console.log(JSON.stringify({new_predictions:generated,reported_results:rows.filter(r=>r.result).length,evaluated:report.summary.evaluated,errors:errors.length}));return report;

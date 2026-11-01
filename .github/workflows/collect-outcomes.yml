@@ -1,7 +1,12 @@
 name: Collect results and evaluate frozen forecasts
 on:
   schedule:
-    - cron: '25 * * * *'
+    # Re-register the schedule and retry within the hour if one delivery is delayed.
+    - cron: '27,57 * * * *'
+  workflow_run:
+    workflows: ['Collect official recent form', 'Collect public article intelligence']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
   push:
     branches: [main]
@@ -13,10 +18,16 @@ concurrency:
   cancel-in-progress: false
 jobs:
   collect:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
