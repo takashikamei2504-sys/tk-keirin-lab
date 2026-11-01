@@ -145,7 +145,7 @@ function build(r,pack={},options={}){
  },(s,c)=>{
   s.innerRider=c.key==='none'?null:Number(c.key.split(':')[1]);s.innerMode=c.key.split(':')[0];
   const attempt=s.cornerRider?`${who(s.cornerRider)}が${s.cornerOrigin==='recover'?'離れた位置から踏み直して':s.cornerOrigin==='outer'?'大外を回して':'3コーナーから捲って'}迫る。`:'別線の仕掛け直しより追走・直線勝負を重く評価し、前団の直線勝負と読む。';
-  const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める':'仕掛けを止め切れない'}で、そのぶん内に空きができる。`:s.defense==='vertical'?`${who(s.defender)}は横に振るより縦を踏む。${s.cornerRider?'外の仕掛けへの抵抗は薄くなるが、自分の伸びを優先する':'前の消耗を見て早めに踏み込む'}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手が空いているため、組織的なブロックは期待しない。';
+  const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める':'仕掛けを止め切れない'}。そのぶん内に空きができる。`:s.defense==='vertical'?`${who(s.defender)}は横に振るより縦を踏む。${s.cornerRider?'外の仕掛けへの抵抗は薄くなるが、自分の伸びを優先する':'前の消耗を見て早めに踏み込む'}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手が空いているため、組織的なブロックは期待しない。';
   const inner=s.innerRider?`${who(s.innerRider)}は${s.innerMode==='split'?'3番手から中割り':'後続からインを突く'}を狙う。開いたコースを使えることが成立条件。`:'後続は内へ切り込まず、外の動きと直線の進路を追う。';
   addScene(s,4,attempt+defense+inner,s.openInside?'外の攻防・内に空き':s.cornerRider?'外からの仕掛け':'直線待ち',[s.cornerRider,s.defender,s.innerRider].filter(Boolean));
  });
