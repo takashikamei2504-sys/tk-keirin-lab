@@ -168,7 +168,7 @@ function build(r,pack={},options={}){
   const rank=n=>ability(n)*.5+trait(n,'finish',{...s,stage:5})*.3-s.energy[n]*.38-s.order.indexOf(n)*.07+(n===s.innerRider?.13:0)+(n===s.survivingAttack?.12:0)+(n===s.defender&&s.defense==='vertical'?.15:0);
   const distribute=(arr,place)=>Weights.allocate(1,arr.filter(n=>Reality.finishingAccess(s,n,place).allowed).map(n=>choose(String(n),Math.exp(rank(n)*3)))).branches;
   const all=[];
-  for(const first of distribute(unique,1))for(const second of distribute(ids.filter(n=>n!==Number(first.key)),2))for(const third of distribute(ids.filter(n=>n!==Number(first.key)&&n!==Number(second.key)),3))){
+  for(const first of distribute(unique,1))for(const second of distribute(ids.filter(n=>n!==Number(first.key)),2))for(const third of distribute(ids.filter(n=>n!==Number(first.key)&&n!==Number(second.key)),3)){
    const trio=[first,second,third].map(v=>Number(v.key)),winner=trio[0];
    const mode=winner===s.innerRider?s.innerMode:winner===s.survivingAttack?s.cornerOrigin:winner===s.defender?s.defense==='vertical'?'vertical':'sashi':winner===s.leader?'lead':'thirdsprint';
    all.push({key:trio.join('-'),trio,score:first.mass*second.mass*third.mass,mode});
