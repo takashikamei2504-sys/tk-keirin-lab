@@ -9,7 +9,7 @@ s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causal
 s=s.replace('<script>','<script src="js/race-brain.js?v=decisions-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script>',1)
 # Hash every runtime dependency so Pages never mixes old and new engine files.
 import hashlib
-new_scripts=''.join('<script src="'+file+'?v='+hashlib.sha256((root/file).read_bytes()).hexdigest()[:12]+'"></script>' for file in ['js/branch-weights.js','js/brain-memory.js','js/race-brain-v2.js'])
+new_scripts=''.join('<script src="'+file+'?v='+hashlib.sha256((root/file).read_bytes()).hexdigest()[:12]+'"></script>' for file in ['js/branch-weights.js','js/brain-memory.js','js/race-brain-v2.js','js/race-feed.js','js/results-audit.js'])
 s=s.replace('<script src="js/recent-form.js',new_scripts+'<script src="js/recent-form.js',1)
 s=s.replace('v1.3','v1.4')
 s=s.replace('font-weight:500">v1.2</span></h1>', 'font-weight:500">v1.4</span></h1>')
@@ -69,6 +69,10 @@ s=s.replace('B/S・直近成績は未提供（欠損として処理）','一部�
 s=s.replace('autoIntelLoad();\n</script>','autoIntelLoad();recentFormLoad();\n</script>')
 # Hoisted autoIntelRender is available when initial causalRun executes.
 s=s.replace('${out.narratives.length}展開分岐、', '${out.diagnostics?.terminalStates||out.narratives.length}展開経路、')
+# Use the same safe adapter in browser and scheduled evaluation.
+a=s.index('function quickExternalToRace(source,day){');b=s.index('function quickShowCoverage',a)
+s=s[:a]+"function quickExternalToRace(source,day){const race=RaceFeed.convert(source,day);validate(race);return race;}\n"+s[b:]
+s=s.replace('PredictionView.render(out,data);','PredictionView.render(out,data);')
 from layout_page import tidy
 s=tidy(s)
 (root/'v14.html').write_text(s)

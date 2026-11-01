@@ -37,6 +37,13 @@ def tidy(s):
 <p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
 </section>
 <h2 class="support-heading">参考情報・詳細</h2>
+<details class="panel support-disclosure" id="evaluation-details"><summary>レース結果・予想の評価と改善</summary>
+<h3>発走前に保存した共通予想の成績</h3><p id="evaluation-status" role="status"></p><p id="evaluation-summary"></p><p id="evaluation-paired" class="small"></p>
+<div class="quick-smallrow"><button type="button" class="btn secondary" id="evaluation-update">結果を更新</button><button type="button" class="btn secondary" id="evaluation-export">評価記録をJSON保存</button></div>
+<p class="small">共通予想はGitHubで自動保存。この端末では発走前に最後に表示した予想も自動保存します。公開配信の着順・同着・払戻を照合し、事前記録のない過去レースは成績に入れません。払戻表示は実際の購入収支ではありません。</p>
+<p id="evaluation-storage" class="small"></p><p id="evaluation-device" class="small"></p>
+<h3>改善の候補</h3><div id="evaluation-improvements"></div><p class="small">着順だけで実際の攻防を確定せず、候補漏れを分類して改善に使います。モデル係数・選手特性の自動書換えは行いません。</p>
+<label>結果の日付<select id="evaluation-date"><option value="all">全日</option></select></label><div id="evaluation-races"></div><p id="evaluation-limit" class="small"></p></details>
 <details class="panel support-disclosure" id="race-data-details"><summary>出走選手・想定並び・近況成績</summary>'''+lines+players+recent+'''</details>
 <details class="panel support-disclosure" id="keymen-details"><summary>レースを動かすキーマン</summary><div class="causal-grid" id="causal-top"></div><div id="causal-keymen"></div></details>
 <details class="panel support-disclosure" id="article-details"><summary>選手特性・記事の根拠</summary><div id="auto-intel-status" class="causal-meta" role="status">記事データを取得中…</div><div id="auto-intel-evidence"></div></details>
@@ -46,7 +53,7 @@ def tidy(s):
 </main>'''
  tail=s[scripts:].replace('<script src="js/recent-form-ui.js?v=all-s-1"></script>','<script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=layout-1"></script>',1)
  a=tail.index('  const stories=out.hypotheses.map');b=tail.index('  return out;',a)
- tail=tail[:a]+'  PredictionView.render(out,data);\n'+tail[b:]
+ tail=tail[:a]+'  PredictionView.render(out,data);ResultsUI.track(out,data);\n'+tail[b:]
  tail=tail.replace("$('causal-state').textContent+='\\n買い目をコピーしました。';", "$('prediction-feedback').textContent='20点をコピーしました。';")
  a=tail.index(' const s=`${causalLast.race.date}')
  b=tail.index('\n try{await navigator.clipboard',a)
@@ -56,6 +63,8 @@ def tidy(s):
  new="function quickStatus(s,kind=''){$('quick-status').textContent=String(s).split('\\n')[0];$('quick-status-detail').textContent=s;$('quick-status').className='quick-message '+kind;}"
  assert old in tail;tail=tail.replace(old,new)
  tail=tail.replace("$('header').scrollIntoView", "$('causal-lab').scrollIntoView")
+ digest=hashlib.sha256((Path(__file__).resolve().parents[1]/'js/results-ui.js').read_bytes()).hexdigest()[:12]
+ tail=tail.replace('<script src="js/prediction-view.js?v=layout-1"></script>','<script src="js/prediction-view.js?v=layout-1"></script><script src="js/results-ui.js?v='+digest+'"></script>',1)
  result=head+'\n'.join(line.rstrip() for line in body.splitlines())+'\n'+tail
  for asset in ('css/prediction-layout.css','js/prediction-view.js'):
   digest=hashlib.sha256((Path(__file__).resolve().parents[1]/asset).read_bytes()).hexdigest()[:12]

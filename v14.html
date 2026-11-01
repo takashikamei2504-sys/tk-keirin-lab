@@ -204,6 +204,13 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
 </section>
 <h2 class="support-heading">参考情報・詳細</h2>
+<details class="panel support-disclosure" id="evaluation-details"><summary>レース結果・予想の評価と改善</summary>
+<h3>発走前に保存した共通予想の成績</h3><p id="evaluation-status" role="status"></p><p id="evaluation-summary"></p><p id="evaluation-paired" class="small"></p>
+<div class="quick-smallrow"><button type="button" class="btn secondary" id="evaluation-update">結果を更新</button><button type="button" class="btn secondary" id="evaluation-export">評価記録をJSON保存</button></div>
+<p class="small">共通予想はGitHubで自動保存。この端末では発走前に最後に表示した予想も自動保存します。公開配信の着順・同着・払戻を照合し、事前記録のない過去レースは成績に入れません。払戻表示は実際の購入収支ではありません。</p>
+<p id="evaluation-storage" class="small"></p><p id="evaluation-device" class="small"></p>
+<h3>改善の候補</h3><div id="evaluation-improvements"></div><p class="small">着順だけで実際の攻防を確定せず、候補漏れを分類して改善に使います。モデル係数・選手特性の自動書換えは行いません。</p>
+<label>結果の日付<select id="evaluation-date"><option value="all">全日</option></select></label><div id="evaluation-races"></div><p id="evaluation-limit" class="small"></p></details>
 <details class="panel support-disclosure" id="race-data-details"><summary>出走選手・想定並び・近況成績</summary><section class="panel"><h2>ライン構成</h2><div id="lines" class="lineup"></div></section><section class="panel"><h2>出走選手データ</h2><div id="players"></div><p class="small">競走得点・B本数・1着率。率は出走表の直近4か月成績。</p></section><section class="intel-box" id="recent-form-panel"><h3>自動収集した近況成績</h3><p class="causal-meta" role="status" id="recent-form-status">近況成績を自動取得中…</p><div id="recent-form-riders"></div></section></details>
 <details class="panel support-disclosure" id="keymen-details"><summary>レースを動かすキーマン</summary><div class="causal-grid" id="causal-top"></div><div id="causal-keymen"></div></details>
 <details class="panel support-disclosure" id="article-details"><summary>選手特性・記事の根拠</summary><div id="auto-intel-status" class="causal-meta" role="status">記事データを取得中…</div><div id="auto-intel-evidence"></div></details>
@@ -446,7 +453,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <p class="footer">データ参照：<a href="https://keirin.tokyo-sports.co.jp/list/race/20261030_31588" target="_blank" rel="noopener noreferrer">東スポ競輪 2026/10/31 防府12R</a>、<a href="https://keirin.kdreams.jp/yenjoy/keirin-kaisai/race-card/odds/6320261031/63202610310100/12/3rentan/" target="_blank" rel="noopener noreferrer">楽天Kドリームス 出走表</a>。データの利用許諾に適合する取得方法は本格開発時に確認が必要です。<br />本試作はデータを手入力・同梱する方式です。リアルタイム取得、AI学習、実オッズの自動取得、自動投票は未実装です。予想と結果の照合は100円均等購入を仮定した机上検証です。</p>
 </details>
 </main>
-<script src="js/race-brain.js?v=decisions-2"></script><script src="js/branch-weights.js?v=6bb94e17c1d0"></script><script src="js/brain-memory.js?v=022ff93a7e00"></script><script src="js/race-brain-v2.js?v=46e8af432e4f"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=dd9e1b9def43"></script><script>
+<script src="js/race-brain.js?v=decisions-2"></script><script src="js/branch-weights.js?v=6bb94e17c1d0"></script><script src="js/brain-memory.js?v=022ff93a7e00"></script><script src="js/race-brain-v2.js?v=46e8af432e4f"></script><script src="js/race-feed.js?v=e17bdfe21149"></script><script src="js/results-audit.js?v=8763518c1caf"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script src="js/prediction-view.js?v=dd9e1b9def43"></script><script src="js/results-ui.js?v=5c2e927abd31"></script><script>
 'use strict';
 const DEMO={"date":"2026-10-31","venue":"防府","race_no":12,"grade":"GIII","class":"S級初日特選","start":"16:25","lineup":[[2,8,7],[1,4],[5,6],[3],[9]],"riders":[{"no":1,"name":"郡司浩平","score":116.60,"style":"両","s":8,"b":9,"wins":6,"seconds":6,"thirds":1,"outs":8},{"no":2,"name":"太田海也","score":123.50,"style":"逃","s":3,"b":2,"wins":2,"seconds":1,"thirds":0,"outs":1},{"no":3,"name":"南修二","score":114.71,"style":"追","s":0,"b":0,"wins":2,"seconds":3,"thirds":4,"outs":12},{"no":4,"name":"渡部幸訓","score":114.42,"style":"追","s":2,"b":1,"wins":2,"seconds":7,"thirds":6,"outs":7},{"no":5,"name":"松本貴治","score":118.64,"style":"両","s":4,"b":2,"wins":9,"seconds":3,"thirds":0,"outs":6},{"no":6,"name":"佐々木豪","score":113.91,"style":"逃","s":1,"b":1,"wins":6,"seconds":5,"thirds":1,"outs":13},{"no":7,"name":"清水裕友","score":116.06,"style":"両","s":2,"b":0,"wins":4,"seconds":2,"thirds":1,"outs":8},{"no":8,"name":"取鳥雄吾","score":113.91,"style":"逃","s":14,"b":6,"wins":9,"seconds":1,"thirds":2,"outs":11},{"no":9,"name":"山口拳矢","score":115.37,"style":"両","s":11,"b":2,"wins":10,"seconds":4,"thirds":2,"outs":11}]};
 let data=structuredClone(DEMO); let currentTickets=[];
@@ -1566,45 +1573,7 @@ async function quickDayFeed(date){
  }
  throw Error(lastError||'公開データを取得できませんでした');
 }
-function quickExternalToRace(source,day){
- if(!source || !Array.isArray(source.entries))throw Error('出走表に選手データがありません');
- const count=source.entries.length;
- if(![7,9].includes(count))throw Error('この試作版は7車・9車に対応しています（提供データは'+count+'車）');
- const riders=[];const groups=new Map();const used=new Set();
- for(const entry of source.entries){
-  const no=Number(entry.car_number);
-  if(!Number.isInteger(no)||no<1||no>9||used.has(no))throw Error('車番が重複または不正です');used.add(no);
-  const nm=String(entry.rider_full_name||entry.rider_name||'').replace(/[\s\u3000]/g,'').trim();
-  const score=Number(entry.competition_score);
-  if(!nm||nm.length>40||!Number.isFinite(score)||score<50||score>145)throw Error('選手名・競走得点が欠損しています');
-  const style=String(entry.running_style||'');if(!['逃','両','追'].includes(style))throw Error('脚質が欠けています');
-  const pos=/^(\d{1,2})-(\d{1,2})$/.exec(String(entry.line_position||''));
-  if(!pos)throw Error(nm+'のライン位置が不明です（予想を中止）');
-  const line=Number(pos[1]),order=Number(pos[2]);
-  if(line>12||line<1||order>9||order<1)throw Error('並びに不正値があります');
-  if(!groups.has(line))groups.set(line,[]);groups.get(line).push({no,order});
-  riders.push({no,name:nm,score,style,
-    // Computational fallbacks ONLY. These are not actual B/S or recent finishes.
-    s:0,b:0,wins:0,seconds:0,thirds:0,outs:0,
-    meta:{rider_id:String(entry.rider_id||''),term:entry.term,prefecture:entry.prefecture,rank:entry.class_rank,
-      supplied_fields:['name','score','style','line_position'],absent_fields:['s','b','wins','seconds','thirds','outs']}});
- }
- const lineup=[...groups.entries()].sort((a,b)=>a[0]-b[0]).map(([_,li])=>{
-   li.sort((a,b)=>a.order-b.order);
-   if(li.some((p,i)=>p.order!==i+1))throw Error('並びの順序が不連続です');
-   return li.map(p=>p.no);
- });
- const time=String(source.start_time||'');if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(time))throw Error('発走時刻が不明です');
- const venue=String(source.venue||'');if(!QUICK_VENUES.includes(venue))throw Error('競輪場名が確認できません');
- const raceNo=Number(source.race_number);if(!Number.isInteger(raceNo)||raceNo<1||raceNo>12)throw Error('R番号が不正です');
- const grade={'F1':'FI','F2':'FII','G1':'GI','G2':'GII','G3':'GIII','GP':'GP'}[String(source.grade||'').toUpperCase()]||'未確認';
- const result={date:day.date,venue,race_no:raceNo,grade,class:String(source.round_name||'レース種別未取得'),start:time,lineup,riders,
-  source:{mode:'live-public-feed',label:'公開日別データ（keirin-app-data）',url:QUICK_EXTERNAL_INFO,
-   generated_at:String(day.generated_at||''),verified:false,
-   missing_fields:['b_s_recent'],
-   note:'競走得点/脚質/想定並びは配信データを使用。B/S/直近着数は未提供であり、モデル内では欠損用の中立値を利用。実測値ではない。'}};
- validate(result);return result;
-}
+function quickExternalToRace(source,day){const race=RaceFeed.convert(source,day);validate(race);return race;}
 function quickShowCoverage(payload){
  const date=$('quick-date').value;
  const meet=[...new Set(payload.races.filter(r=>[7,9].includes(Number(r.n_cars))&&!r.is_girls).map(r=>String(r.venue||'')))].filter(v=>QUICK_VENUES.includes(v));
@@ -1741,7 +1710,7 @@ function causalRun(){
   $('causal-state').textContent=`${out.race.date} ${out.race.venue}${out.race.race_no}R｜${out.diagnostics?.terminalStates||out.narratives.length}展開経路、${out.tickets.length}買い目候補から20点選定。${out.missing?'一部データは未取得（近況の取得状況は上欄）':'選手データを反映'}。`;
   $('causal-top').innerHTML=top.map((x,i)=>`<div class="causal-k"><small>${i===0?'最重要キーマン':'変動要因'+(i+1)}</small><strong>${x.no}番 ${causalEsc(x.name)}</strong><span>${causalEsc(x.decisions.slice(0,3).join(' ／ '))}</span></div>`).join('');
   $('causal-keymen').innerHTML=top.map(x=>`<div class="line"><strong>${x.no}番 ${causalEsc(x.name)}</strong>：${causalEsc(x.decisions.filter(z=>z!=='直線の決着').slice(0,3).join('・'))}</div>`).join('');
-  PredictionView.render(out,data);
+  PredictionView.render(out,data);ResultsUI.track(out,data);
   return out;
  }catch(e){$('prediction-feedback').textContent='展開予想を生成できませんでした：'+e.message;$('causal-stories').innerHTML='';$('causal-tickets').innerHTML='';$('causal-state').textContent='展開推理のエラー：'+e.message;causalLast=null;return null;}
 }
