@@ -1,5 +1,6 @@
 """Static layout transform. IDs and legacy handlers survive below a closed archive."""
-import re
+import re,hashlib
+from pathlib import Path
 
 def section(text,id):
  marker=re.search(r'\bid="'+re.escape(id)+r'"',text)
@@ -52,4 +53,8 @@ def tidy(s):
  new="function quickStatus(s,kind=''){$('quick-status').textContent=String(s).split('\\n')[0];$('quick-status-detail').textContent=s;$('quick-status').className='quick-message '+kind;}"
  assert old in tail;tail=tail.replace(old,new)
  tail=tail.replace("$('header').scrollIntoView", "$('causal-lab').scrollIntoView")
- return head+'\n'.join(line.rstrip() for line in body.splitlines())+'\n'+tail
+ result=head+'\n'.join(line.rstrip() for line in body.splitlines())+'\n'+tail
+ for asset in ('css/prediction-layout.css','js/prediction-view.js'):
+  digest=hashlib.sha256((Path(__file__).resolve().parents[1]/asset).read_bytes()).hexdigest()[:12]
+  result=result.replace(asset+'?v=layout-1',asset+'?v='+digest)
+ return result
