@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect public KEIRIN.JP recent form for today's/tomorrow's entrants.
+"""Collect public KEIRIN.JP recent form for all active S-class riders and entrants.
 No paid service, login, browser or predictions. Snapshots preserve acquisition time.
 """
 import argparse, concurrent.futures, datetime as dt, hashlib, html, json, re, threading, time, urllib.request, urllib.error, urllib.parse
@@ -116,13 +116,22 @@ class Fetcher:
   self.robots=self.raw(ORIGIN+'/robots.txt')
   if '<html' in self.robots.lower():raise ValueError('robots response invalid')
   if not robots_allowed(self.robots,ORIGIN+'/pc/racerprofile?snum=015035'):raise ValueError('robots disallows profile collection')
+ def get(self,url):
+  if urllib.parse.urlparse(url).hostname!=urllib.parse.urlparse(ORIGIN).hostname:raise ValueError("unexpected public host")
+  if not robots_allowed(self.robots,url):raise ValueError("robots disallows URL")
+  for attempt in range(2):
+   with self.lock:
+    wait=max(0,self.next_start-time.monotonic());self.next_start=max(self.next_start,time.monotonic())+self.delay
+   if wait:time.sleep(wait)
+   try:return self.raw(url)
+   except urllib.error.HTTPError as exc:
+    if attempt or exc.code<500:raise
+   except (urllib.error.URLError,TimeoutError,ConnectionError):
+    if attempt:raise
+   time.sleep(2)
  def profile(self,rider):
   url=ORIGIN+'/pc/racerprofile?snum='+rider['rider_id']
-  if not robots_allowed(self.robots,url):raise ValueError('robots disallows URL')
-  with self.lock:
-   wait=max(0,self.next_start-time.monotonic());self.next_start=max(self.next_start,time.monotonic())+self.delay
-  if wait:time.sleep(wait)
-  body=self.raw(url)
+  body=self.get(url)
   return parse_profile(body,rider['rider_id'],rider['name'],dt.datetime.now(UTC))
 
 def load_roster(now,venue=None,race_number=None):
@@ -148,36 +157,54 @@ def load_roster(now,venue=None,race_number=None):
  return list(riders.values()),dates,errors
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--max-riders',type=int,default=650);ap.add_argument('--venue');ap.add_argument('--race-number',type=int);ap.add_argument('--workers',type=int,default=3);ap.add_argument('--budget-seconds',type=int,default=1080);args=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--max-riders',type=int,default=1000);ap.add_argument('--all-s',action='store_true',help='Include complete current S-class membership');ap.add_argument('--roster-only',action='store_true');ap.add_argument('--refresh-roster',action='store_true');ap.add_argument('--venue');ap.add_argument('--race-number',type=int);ap.add_argument('--workers',type=int,default=3);ap.add_argument('--budget-seconds',type=int,default=1080);args=ap.parse_args()
  start=time.monotonic();now=dt.datetime.now(UTC);path=ROOT/'data/recent_form.json';old=json.loads(path.read_text()) if path.exists() else {};snapshots=old.get('snapshots',[])
  # Retain old snapshots, so a later collection cannot silently overwrite a pre-race observation.
  snapshots=[s for s in snapshots if (now-stamp(s['collected_at'])).days<=45]
- roster,dates,errors=load_roster(now,args.venue,args.race_number);known={}
+ roster,dates,errors=load_roster(now,args.venue,args.race_number);known={};manifest=None;f=Fetcher()
+ if args.all_s or args.roster_only or not (args.venue or args.race_number):
+  from s_roster import refresh,coverage
+  f.initialize();manifest=refresh(f,args.refresh_roster)
+  if args.roster_only:return
+  combined={r['rider_id']:r for r in roster}
+  for r in manifest['riders']:
+   old_entry=combined.get(r['rider_id'],{})
+   combined[r['rider_id']]={**old_entry,**r,'date':old_entry.get('date',now.astimezone(JST).date().isoformat()),'start':old_entry.get('start','23:59'),'race_no':old_entry.get('race_no',0),'all_s_member':True}
+  roster=list(combined.values())
  for s in snapshots:
   rid=s['rider_id']
   if rid not in known or stamp(s['collected_at'])>stamp(known[rid]['collected_at']):known[rid]=s
- targets=[r for r in roster if r['rider_id'] not in known or known[r['rider_id']].get('parser_version')!='recent-profile-v2' or (now-stamp(known[r['rider_id']].get('last_checked_at',known[r['rider_id']]['collected_at']))).total_seconds()>8*3600]
- targets.sort(key=lambda r:(r['rider_id'] in known,r['date'],r['start'],r['race_no'],r['rider_id']))
- targets=targets[:max(1,min(args.max_riders,1000))];f=Fetcher();attempted=0;success=0
+ targets=[r for r in roster if r['rider_id'] not in known or not known[r['rider_id']].get('verified_identity') or key(known[r['rider_id']]['name'])!=key(r['name']) or known[r['rider_id']].get('parser_version')!='recent-profile-v2' or (now-stamp(known[r['rider_id']].get('last_checked_at',known[r['rider_id']]['collected_at']))).total_seconds()>8*3600]
+ targets.sort(key=lambda r:(not r.get('all_s_member',False),r['rider_id'] in known,r.get('class_rank')!='SS',r['date'],r['start'],r['race_no'],r['rider_id']))
+ targets=targets[:max(1,min(args.max_riders,1000))];attempted=0;success=0
  try:
   f.initialize()
-  with concurrent.futures.ThreadPoolExecutor(max_workers=max(1,min(args.workers,3))) as pool:
-   # Small batches stop cleanly at the request/time budget and are globally spaced.
-   for offset in range(0,len(targets),3):
-    if time.monotonic()-start>args.budget_seconds:break
-    batch=targets[offset:offset+3];pending={pool.submit(f.profile,r):r for r in batch}
-    for future in concurrent.futures.as_completed(pending):
-     rider=pending[future];attempted+=1
+  workers=max(1,min(args.workers,3))
+  with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+   remaining=iter(targets);pending={}
+   def enqueue():
+    if time.monotonic()-start>args.budget_seconds:return
+    rider=next(remaining,None)
+    if rider is not None:pending[pool.submit(f.profile,rider)]=rider
+   for _ in range(workers):enqueue()
+   while pending:
+    done,_=concurrent.futures.wait(pending,return_when=concurrent.futures.FIRST_COMPLETED)
+    for future in done:
+     rider=pending.pop(future);attempted+=1
      try:
       record=future.result();existing=next((s for s in snapshots if s['id']==record['id']),None)
       if existing is None:snapshots.append(record)
       else:existing['last_checked_at']=record['collected_at']
       success+=1
-     except Exception as exc:errors.append({'rider_id':rider['rider_id'],'name':rider['name'],'error':str(exc)[:180]})
-    print(json.dumps({'attempted':attempted,'success':success,'remaining':len(targets)-attempted}),flush=True)
+     except Exception as exc:
+      errors.append({'rider_id':rider['rider_id'],'name':rider['name'],'error':str(exc)[:180]})
+      print(json.dumps(errors[-1],ensure_ascii=False),flush=True)
+     enqueue()
+    if attempted%3==0 or not pending:print(json.dumps({'attempted':attempted,'success':success,'remaining':len(targets)-attempted}),flush=True)
+
  except Exception as exc:errors.append({'stage':'collector','error':str(exc)[:180]})
  covered={s['rider_id'] for s in snapshots};missing=[r['rider_id'] for r in roster if r['rider_id'] not in covered]
- out={'schema':'tk-keirin-recent-form/v1','generated_at':dt.datetime.now(UTC).isoformat(),'roster_dates':dates,'snapshots':snapshots,'status':{'roster':len(roster),'covered':sum(r['rider_id'] in covered for r in roster),'attempted':attempted,'succeeded':success,'missing_rider_ids':missing,'errors':errors[-100:]},'notice':'KEIRIN.JPの直近4ヶ月集計と最近20開催。開催日は初日。S回数は取得対象外。発走前取得のスナップショットのみ予想へ反映。'}
+ out={'schema':'tk-keirin-recent-form/v1','generated_at':dt.datetime.now(UTC).isoformat(),'roster_dates':dates,'s_class_coverage':coverage(manifest,snapshots,dt.datetime.now(UTC)) if manifest else old.get('s_class_coverage'),'snapshots':snapshots,'status':{'roster':len(roster),'covered':sum(r['rider_id'] in covered for r in roster),'attempted':attempted,'succeeded':success,'missing_rider_ids':missing,'errors':errors[-100:]},'notice':'KEIRIN.JPの直近4ヶ月集計と最近20開催。開催日は初日。S回数は取得対象外。発走前取得のスナップショットのみ予想へ反映。'}
  path.parent.mkdir(exist_ok=True);tmp=path.with_suffix('.tmp');tmp.write_text(json.dumps(out,ensure_ascii=False,separators=(',',':'))+'\n');tmp.replace(path)
  print(json.dumps(out['status'],ensure_ascii=False),flush=True)
  if not snapshots:raise SystemExit('No recent-form snapshots collected')

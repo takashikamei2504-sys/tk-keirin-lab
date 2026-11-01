@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/collect_recent.py', '.github/workflows/collect-recent-form.yml']
+    paths: ['scripts/collect_recent.py', 'scripts/s_roster.py', '.github/workflows/collect-recent-form.yml']
 permissions:
   contents: write
 concurrency:
@@ -24,12 +24,12 @@ jobs:
       - name: Collect official recent form
         id: collect
         continue-on-error: true
-        run: python -u scripts/collect_recent.py --max-riders 650 --workers 3 --budget-seconds 1080
+        run: python -u scripts/collect_recent.py --all-s --max-riders 1000 --workers 3 --budget-seconds 1080
       - name: Save snapshots and collection status
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/recent_form.json
+          git add data/recent_form.json data/s_riders.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update measured recent-form snapshots'
             git pull --rebase origin main

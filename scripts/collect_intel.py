@@ -131,6 +131,10 @@ def extract(page, names, url, date, collected):
 
 def roster(now,errors):
  names=set(); dates=[]
+ manifest=ROOT/'data/s_riders.json'
+ if manifest.exists():
+  population=json.loads(manifest.read_text())
+  if population.get('complete'):names.update(r['name'] for r in population.get('riders',[]))
  for off in (0,1):
   day=(now.astimezone(dt.timezone(dt.timedelta(hours=9)))+dt.timedelta(days=off)).date().isoformat()
   try:
