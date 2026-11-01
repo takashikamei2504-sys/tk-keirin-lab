@@ -82,7 +82,7 @@ function build(r,pack={},options={}){
   const actor=s.attacker?by.get(s.attacker):null,form=actor?.recent_form?.stats;
   const raceReason=actor?`${form?`${form.total}走でB${form.b}回という近況を踏まえ、`:''}${lineOf.get(actor.no).length>1?'後続を連れ出して好位置を確保したい':'単騎なので踏み合いを長引かせず位置を確保したい'}と読む。`:'';
   const reason=context.lines.find(l=>l.leader===(s.attacker||s.front));
-  addScene(s,1,s.attacker?`${who(s.attacker)}が${s.tactic==='kamashi'?'カマシで一気に叩く':'赤板から上昇して抑えに行く'}。${raceReason}${reason.facts.length?reason.facts.join('。')+'。'+reason.inference:''}${who(s.front)}は${s.stand==='resist'?'突っ張って主導権を守ろうとする':'いったん出させ、引いて脚を残す'}。ここでは${who(s.leader)}が前に出ると読む。`:`この筋では赤板で他線の早い仕掛けを置かず、${who(s.front)}がペースを作る。後方勢はホーム以降の仕掛けを待つ。`,s.stand==='resist'?'踏み合い':'一本棒',[s.front,s.attacker].filter(Boolean));
+  addScene(s,1,s.attacker?`${who(s.attacker)}が${s.tactic==='kamashi'?'カマシを狙って踏み上げる':'赤板から上昇して抑えに行く'}。${raceReason}${reason.facts.length?reason.facts.join('。')+'。'+reason.inference:''}${who(s.front)}は${s.stand==='resist'?'突っ張って対抗する':'いったん出させ、引いて脚を残す'}。${s.outcome==='attacker-takes'?`${who(s.attacker)}が主導権を奪う`:`${who(s.front)}が抵抗して主導権を守る`}と読む。`:`この筋では赤板で他線の早い仕掛けを置かず、${who(s.front)}がペースを作る。後方勢はホーム以降の仕掛けを待つ。`,s.stand==='resist'?'踏み合い':'一本棒',[s.front,s.attacker].filter(Boolean));
  });
  states.forEach(s=>s.stage=2);
  states=branch(states,'home-attack',s=>[choose('settle',.8),...attackers(s,'home',6)],(s,c)=>{
