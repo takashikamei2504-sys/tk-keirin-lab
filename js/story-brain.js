@@ -285,6 +285,15 @@ function build(r,pack={},options={}){
   return '本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる'+thirdText;
  };
  const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:mainTicketReason(t.trio)})),used=new Set(selected.map(t=>t.key));
+ // Main story fixes the decisive contest, but allows short-straight placing
+ // variance. A cover for third is NOT promoted into the main six-stage path.
+ const thirdCovers=[...new Set(selected.map(t=>t.trio[2]))].filter(n=>n!==mainPodium[2]);
+ main.third_place_coverage={
+  anchor:mainPodium[2],
+  options:thirdCovers.map(no=>({no,from:cornerOrder.indexOf(no)+1,
+   reason:cornerOrder.indexOf(no)>=3?'直線の伸びと前団の脚色差で３着へ食い込む押さえ':'直線の脚色差による３着の押さえ'}))
+ };
+
  function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
   const last=s.scenes[5],finishState={order:s.scenes[4].order,defender:s.defender,defense:s.defense,survivingAttack:s.cornerRider&&s.blockResult!=='stopped'?s.cornerRider:null,innerRider:s.innerRider,outside:[]};
   const closing=`この別展開では${who(t.trio[0])}が${MODES[t.mode]}で勝ち切る。${who(t.trio[1])}が２着、${who(t.trio[2])}が３着。`+Reality.finishExplanation(finishState,t.trio,who);
