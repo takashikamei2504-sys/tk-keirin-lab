@@ -9,7 +9,7 @@ s=s[:start]+"const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causal
 s=s.replace('<script>','<script src="js/race-brain.js?v=decisions-2"></script><script src="js/recent-form.js?v=recent-2"></script><script src="js/recent-form-ui.js?v=all-s-1"></script><script>',1)
 # Hash every runtime dependency so Pages never mixes old and new engine files.
 import hashlib
-new_scripts=''.join('<script src="'+file+'?v='+hashlib.sha256((root/file).read_bytes()).hexdigest()[:12]+'"></script>' for file in ['js/branch-weights.js','js/brain-memory.js','js/race-material.js','js/rider-context.js','js/decision-reasons.js','js/tactical-deliberation.js','js/race-reality.js','js/story-brain.js,'js/race-feed.js','js/results-audit.js'])
+new_scripts=''.join('<script src="'+file+'?v='+hashlib.sha256((root/file).read_bytes()).hexdigest()[:12]+'"></script>' for file in ['js/branch-weights.js','js/brain-memory.js','js/race-material.js','js/rider-context.js','js/decision-reasons.js','js/tactical-deliberation.js','js/race-reality.js','js/story-brain.js','js/formation-diagram.js','js/race-feed.js','js/results-audit.js'])
 s=s.replace('<script src="js/recent-form.js',new_scripts+'<script src="js/recent-form.js',1)
 s=s.replace('v1.3','v1.4')
 s=s.replace('font-weight:500">v1.2</span></h1>', 'font-weight:500">v1.4</span></h1>')
@@ -86,6 +86,7 @@ s=s.replace('autoIntelLoad();recentFormLoad();',loader+'\nautoIntelLoad();recent
 s=s.replace('profiles:causalLast.profiles,hypotheses:', 'profiles:causalLast.profiles,selection_policy:causalLast.selection_policy,story:causalLast.story,context:causalLast.context,hypotheses:')
 from layout_page import tidy
 s=tidy(s)
+s=s.replace('</head>','<link rel="stylesheet" href="css/formation-diagram.css?v='+hashlib.sha256((root/'css/formation-diagram.css').read_bytes()).hexdigest()[:12]+'">\n</head>')
 s=s.replace('js/recent-form-ui.js?v=all-s-1','js/recent-form-ui.js?v='+hashlib.sha256((root/'js/recent-form-ui.js').read_bytes()).hexdigest()[:12])
 s=s.replace('買い目候補から20点選定','買い目候補から${out.chosen.length}点選定')
 (root/'v14.html').write_text(s)

@@ -9,6 +9,9 @@ await page.goto(process.env.LAB_URL||'http://127.0.0.1:8765/v14.html');
 await page.waitForFunction(()=>typeof causalLast!=='undefined'&&causalLast?.form?.status?.covered===1&&raceMaterialPack?.schema&&autoIntelPack?.generated_at);
 assert.equal(await page.evaluate(()=>causalLast.version),'story-first-v4.0.0');
 assert.equal(await page.locator('#scenario-1 > .story-stage').count(),6);
+assert.equal(await page.locator('#scenario-1 .formation-diagram').count(),6);
+assert.deepEqual(await page.locator('#scenario-1 > .story-stage').evaluateAll(nodes=>nodes.map(n=>Array.from(n.children).map(x=>x.tagName))),Array.from({length:6},()=>['H4','FIGURE','P','DETAILS']));
+assert.deepEqual(await page.locator('#scenario-1 .formation-diagram').evaluateAll(nodes=>nodes.map(n=>JSON.parse(n.dataset.engineOrder))),await page.evaluate(()=>causalLast.story.main.scenes.map(s=>s.order)));
 assert.equal(await page.locator('#scenario-1 .stage-reasoning').count(),6);
 assert.equal(await page.evaluate(()=>causalLast.story.main.audit.passed),true);assert.equal(await page.evaluate(()=>causalLast.story.selection_review.method),'counterplay-before-tickets');assert.match(await page.locator('#scenario-1 .story-lead').innerText(),/^私は/);
 assert.equal(await page.evaluate(()=>causalLast.chosen.filter(t=>t.group==='main').every(t=>t.supporting_path.id===causalLast.story.main.id)),true);
@@ -30,5 +33,7 @@ await page.locator('#collection-details > summary').click();const exporting=page
 assert.equal(json.version,'story-first-v4.0.0');assert.equal(json.selection_policy.total,10);assert.equal(json.story.main.scenes.length,6);assert.equal(json.chosen.length,10);
 await page.evaluate(()=>{data=structuredClone(QUICK_BUNDLED[1]);render();});
 assert.equal(await page.evaluate(()=>causalLast.chosen.length),10);assert.match(await page.locator('#recent-form-status').textContent(),/0\/9/);
+await page.evaluate(()=>{const r=structuredClone(QUICK_BUNDLED[0]);r.riders=r.riders.slice(0,7);r.lineup=r.lineup.map(l=>l.filter(n=>r.riders.some(x=>x.no===n))).filter(l=>l.length);data=r;render();});
+assert.equal(await page.locator('#scenario-1 .formation-diagram').count(),6);assert.equal(await page.locator('#scenario-1 .story-stage[data-stage="1"] .formation-rider').count(),7);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
 assert.equal(errors.length,0,errors.join('\n'));await browser.close();console.log('PASS story-first mobile main6 + alternative4, six stages, exact ticket links, recent form, race switch and JSON export');
 })().catch(e=>{console.error(e);process.exit(1);});

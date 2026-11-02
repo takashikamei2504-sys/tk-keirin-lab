@@ -39,7 +39,16 @@ function build(r,pack={},options={}){
   const fact=reasoning.facts.find(f=>(f.kind==='race_intention'||f.kind==='observed_action')&&
     !/未確認|未取得|出典未確認|発言末尾未収録/.test(f.label));
   const basis=fact&&!text.includes(fact.label)?fact.label+'。':'';
-  s.stage=index;s.scenes.push({stage:index+1,phase:STAGES[index],action:basis+text,order:[...s.order],energy:{...s.energy},shape,actors,reasoning,assumption:'位置・車間・速度は未計測の展開仮説'});
+  const tactical={schema:'tk-keirin-scene-state/v1',leader:s.leader,front:s.front,starter:s.starter,
+   attacker:s.attacker||null,tactic:s.tactic||null,stand:s.stand||null,outcome:s.outcome||null,
+   homeRider:s.homeRider||null,homeResult:s.homeResult||null,backRider:s.backRider||null,backResult:s.backResult||null,
+   gap:s.gap||null,defender:s.defender||null,seat:s.seat||null,outside:index===4&&s.cornerRider?[...new Set([...s.outside,s.cornerRider])]:[...s.outside],connected:{...s.connected},control_line:controlLine(s.leader),
+   encounter:index===1&&s.attacker?{outside:s.attacker,front:s.front,tactic:s.tactic,stand:s.stand,leader:s.leader}:null,
+   cornerRider:s.cornerRider||null,cornerOrigin:s.cornerOrigin||null,defense:s.defense||null,blockResult:s.blockResult||null,
+   innerRider:s.innerRider||null,innerMode:s.innerMode||null,openInside:!!s.openInside,
+   corner_order_before:s.cornerOrderBefore?[...s.cornerOrderBefore]:null,
+   finish_from:index===5?[...s.order]:null,finish_order:index===5?[...actors.slice(0,3)]:null};
+  s.stage=index;s.scenes.push({stage:index+1,phase:STAGES[index],action:basis+text,order:[...s.order],energy:{...s.energy},shape,actors,reasoning,tactical,assumption:'位置・車間・速度は未計測の展開仮説'});
  }
  function branch(states,key,candidates,apply){const all=[];
   for(const s of states){const choices=candidates(s).map(c=>{const reasoning=reasons.evaluate(key,c,{...s,phase:STAGES[s.stage||0]});return {...c,weight:c.weight*reasoning.multiplier,reasoning};});
@@ -103,7 +112,7 @@ function build(r,pack={},options={}){
   s.gap=c.key;const f=controlLine(s.leader)[1];
   if(c.key==='breaks'){const dropped=controlLine(s.leader).slice(1);dropped.forEach(n=>{s.connected[n]=false;s.energy[n]+=.18;});const at=s.order.indexOf(f);move(s,dropped,Math.min(at+2,ids.length-dropped.length),'踏み出しで番手以降が遅れる仮説');}
   const follow=f?`${who(f)}は${c.key==='holds'?'加速に合わせて追走を保つ':'踏み出しで離れる'}`:'先行側は単騎';
-  addScene(s,2,`${s.homeRider?`${who(s.homeRider)}が最終ホームからロング捲り。${s.homeResult==='takes'?`${who(s.leader)}が前団をとらえる`:'先行側の抵抗で外に併走したまま'}。`:`${who(s.leader)}は仕掛け直される前にホームでペースを上げる。隊列は一本棒に落ち着く。`}${follow}。`,s.homeResult==='parallel'?'併走':'一本棒',[s.homeRider,s.leader,f].filter(Boolean));
+  addScene(s,2,`${s.homeRider?`${who(s.homeRider)}が最終ホームからロング捲り。${s.homeResult==='takes'?`${who(s.leader)}が前団をとらえる`:'先行側の抵抗で外に併走したまま'}。`:`${who(s.leader)}は仕掛け直される前にホームでペースを上げる。${s.gap==='breaks'?'加速で後ろとの間に切れ目ができる。':'隊列は一本棒に落ち着く。'}`}${follow}。`,s.homeResult==='parallel'?'併走':s.gap==='breaks'?'隊列に切れ目':'一本棒',[s.homeRider,s.leader,f].filter(Boolean));
  });
  states.forEach(s=>s.stage=3);
  states=branch(states,'back-seat',s=>{
@@ -212,7 +221,7 @@ function build(r,pack={},options={}){
  function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
   const last=s.scenes[5],finishState={order:s.scenes[4].order,defender:s.defender,defense:s.defense,survivingAttack:s.cornerRider&&s.blockResult!=='stopped'?s.cornerRider:null,innerRider:s.innerRider,outside:[]};
   const closing=`この別展開では${who(t.trio[0])}が${MODES[t.mode]}で勝ち切る。${who(t.trio[1])}が２着、${who(t.trio[2])}が３着。`+Reality.finishExplanation(finishState,t.trio,who);
-  const scenes=[...s.scenes.slice(0,5),{...last,action:closing,reasoning:reasons.finish({order:s.scenes[4].order,energy:s.scenes[4].energy},t.trio),order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio}];
+  const scenes=[...s.scenes.slice(0,5),{...last,action:closing,reasoning:reasons.finish({order:s.scenes[4].order,energy:s.scenes[4].energy},t.trio),tactical:{...last.tactical,finish_from:[...s.scenes[4].order],finish_order:[...t.trio]},order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio}];
   const alternative={...s,first:t.trio[0],mode:t.mode,scenes,snapshots:scenes,states:scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),explanation:scenes.map(x=>x.action).join('\n'),divergence:category,trigger,upset:t.trio[0]!==main.first};
   alternatives.push(alternative);signatures.add(s.signature);categories.add(category);
   selected.push({...t,group:'alternative',supporting_path:alternative,paths:[alternative],selection_reason:`${category}が変わる別筋：${trigger}`});used.add(t.key);return true;}
