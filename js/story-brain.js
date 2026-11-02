@@ -80,7 +80,7 @@ function build(r,pack={},options={}){
    for(const b of allocation.branches){const c=lookup.get(b.key),next=state(s),review=reviews?.get(c.key);next.mass=b.mass;next.analysisCost+=(review?review.regret:Math.log(topWeight/c.weight)*.08)+(strategic?strategic.assessments.get(c.key).regret*.48:0);next.auditFailures+=review&&!review.passed?1:0;next.decisions.push({stage:s.stage,key,choice:c.key,actor:c.actor||null,basis:c.reasoning.basis,reasoning:c.reasoning,deliberation:review||null,strategic:strategic?.assessments.get(c.key)||null,alternatives:choices.filter(o=>o.key!==c.key).sort((a,b)=>b.weight-a.weight||a.key.localeCompare(b.key)).slice(0,3).map(o=>({label:o.reasoning.label,choice:o.key,actor:o.actor||null,feasibility:o.feasibility,basis:o.reasoning.basis}))});apply(next,c);all.push(next);}}
   all.sort((a,b)=>a.auditFailures-b.auditFailures||a.analysisCost-b.analysisCost||b.mass-a.mass||JSON.stringify(a.decisions.map(d=>d.choice)).localeCompare(JSON.stringify(b.decisions.map(d=>d.choice))));
   // Preserve a representative of each new decision before filling the beam by weight.
-  const keep=[],seen=new Set();for(const s of all){const id=[s.front,s.attacker,s.stand,s.homeRider,s.backRider,s.gap,s.defense,s.innerRider,s.decisions.at(-1).choice].join('|');if(!seen.has(id)&&keep.length<width){seen.add(id);keep.push(s);}}
+  const keep=[],seen=new Set();for(const s of all){const id=[s.front,s.attacker,s.stand,s.redThird||null,s.homeRider,s.backRider,s.gap,s.defense,s.innerRider,s.decisions.at(-1).choice].join('|');if(!seen.has(id)&&keep.length<width){seen.add(id);keep.push(s);}}
   for(const s of all)if(keep.length<width&&!keep.includes(s))keep.push(s);
   const retained=new Set(keep);unresolved+=all.filter(s=>!retained.has(s)).reduce((a,s)=>a+s.mass,0);return keep;
  }
@@ -243,7 +243,7 @@ function build(r,pack={},options={}){
  states=acceptedReality;
  const diagnostics={lineReactionSchema:'tk-line-reactions/v1',openingStrategy:'cross-line-counterplay-v1',realityVersion:Reality.VERSION,realityExcluded:excludedReality,considered_corner_actions:[...considered],initialMass:1,terminalStates:states.length,terminalMass:states.reduce((a,s)=>a+s.mass,0),unresolvedMass:unresolved,width,kinematics:'隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測',reconsidered_choices:reconsidered};
  if(Math.abs(diagnostics.terminalMass+unresolved-1)>1e-9)throw Error('展開分岐の重みが保存されていません');
- const signatureOf=s=>[s.front,s.attacker,s.tactic,s.stand,s.outcome,s.homeRider,s.homeResult,s.backRider,s.backResult,s.gap,s.seat,s.cornerRider,s.defense,s.blockResult,s.innerRider].join('|');
+ const signatureOf=s=>[s.front,s.attacker,s.tactic,s.stand,s.outcome,s.redThird||null,s.redThirdAhead||null,s.homeRider,s.homeResult,s.backRider,s.backResult,s.gap,s.seat,s.cornerRider,s.defense,s.blockResult,s.innerRider].join('|');
  // Decide the main complete tactical path before generating any finishing ticket.
  const reviewed=states.map(s=>({s,audit:deliberation.audit(s)}));
  const accepted=reviewed.filter(x=>x.audit.passed).sort((a,b)=>a.s.analysisCost-b.s.analysisCost||b.s.mass-a.s.mass||signatureOf(a.s).localeCompare(signatureOf(b.s)));
@@ -258,7 +258,7 @@ function build(r,pack={},options={}){
   addScene(last,5,closing,'ゴール前',top.trio);last.scenes[5].order=[...top.trio,...s.order.filter(n=>!top.trio.includes(n))];
   last.scenes[5].lineReactions=reactions.snapshot({...s,order:last.scenes[5].order},5,last.scenes[4]);
   const id='story-'+(++serial),signature=signatureOf(s);
-  return {id,signature,score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
+  return {id,signature,score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,redThird:s.redThird||null,redThirdAhead:s.redThirdAhead||null,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
    scenes:last.scenes,snapshots:last.scenes,states:last.scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),decisions:s.decisions,movementTrace:s.moves,explanation:last.scenes.map(x=>x.action).join('\n'),
    title:`${who(s.leader)}の主導権から${MODES[top.mode]}`,outcomes,defender:s.defender,homeResult:s.homeResult,homeRider:s.homeRider,backRider:s.backRider,backResult:s.backResult,defense:s.defense,blockResult:s.blockResult,cornerRider:s.cornerRider,innerRider:s.innerRider,audit:deliberation.audit(s)};
  }).sort((a,b)=>b.score-a.score||a.signature.localeCompare(b.signature));
@@ -267,7 +267,7 @@ function build(r,pack={},options={}){
  const turningPoints=[main.homeRider?`${who(main.homeRider)}がホームで仕掛け`:'ホームでは前団が隊列を保ち',main.backRider?`${who(main.backRider)}がバックで${main.backRider===main.homeRider?'踏み続け':'反撃し'}`:'バックでは前団が主導権を守り',main.cornerRider?`${who(main.cornerRider)}の最後の仕掛け${main.defender?'に番手が'+(main.defense==='block'?'ブロックで応じる':main.defense==='vertical'?'縦へ踏む':'直線勝負を選ぶ'):'が迫る'}`:'3〜4角から直線勝負へ進む'];
  main.reading=`私はこう読む。${turningPoints.join('、')}。最後は${who(main.first)}が${MODES[main.mode]}で勝つ。`;
  main.rationale='なぜなら、'+main.audit.reviews.filter(d=>d.phase_key).map(d=>`${d.phase}は${d.selected_reason}`).join('。')+'。';
- const difference=s=>s.front!==main.front?['S取り・初手',`${who(s.starter)}がSを取ると初手の位置関係が変わる`]:s.attacker!==main.attacker||s.stand!==main.stand||s.tactic!==main.tactic?['赤板の攻防',`${s.attacker?who(s.attacker)+'の仕掛け':'赤板の待機'}と、前受け側の${s.stand==='resist'?'突っ張り':'対応'}が変わる`]:s.homeRider!==main.homeRider||s.homeResult!==main.homeResult||s.gap!==main.gap?['ホームの仕掛け・追走','ホームのロング捲り、または追走の成否が変わる']:s.backRider!==main.backRider||s.backResult!==main.backResult?['バックの反撃','最終バックでの仕掛け直しと、その反撃への抵抗が変わる']:s.defense!==main.defense||s.innerRider!==main.innerRider?['3～4角の判断','横の仕事・縦踏み・内のコース選択が変わる']:['終盤の別筋','外からの仕掛けや番手の収まり方が変わる'];
+ const difference=s=>s.front!==main.front?['S取り・初手',`${who(s.starter)}がSを取ると初手の位置関係が変わる`]:s.attacker!==main.attacker||s.redThird!==main.redThird||s.stand!==main.stand||s.tactic!==main.tactic?['赤板の攻防',`${s.attacker?who(s.attacker)+'の仕掛け':'赤板の待機'}と、前受け側の${s.stand==='resist'?'突っ張り':'対応'}${s.redThird?'、さらに'+who(s.redThird)+'の位置上昇':''}が変わる`]:s.homeRider!==main.homeRider||s.homeResult!==main.homeResult||s.gap!==main.gap?['ホームの仕掛け・追走','ホームのロング捲り、または追走の成否が変わる']:s.backRider!==main.backRider||s.backResult!==main.backResult?['バックの反撃','最終バックでの仕掛け直しと、その反撃への抵抗が変わる']:s.defense!==main.defense||s.innerRider!==main.innerRider?['3～4角の判断','横の仕事・縦踏み・内のコース選択が変わる']:['終盤の別筋','外からの仕掛けや番手の収まり方が変わる'];
  const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:'一本の本線ストーリーから導く6点'})),used=new Set(selected.map(t=>t.key));
  function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
   const last=s.scenes[5],finishState={order:s.scenes[4].order,defender:s.defender,defense:s.defense,survivingAttack:s.cornerRider&&s.blockResult!=='stopped'?s.cornerRider:null,innerRider:s.innerRider,outside:[]};
