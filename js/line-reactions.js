@@ -21,7 +21,7 @@ function build(r){
  // A second line may exploit an existing confrontation by passing exactly
  // one adjacent rival line, but never the current leader as a free reaction.
  function possibleCounter(s,head){
-  if(head===s.attacker||head===s.leader||head===s.front)return null;
+  if(!s.attacker||head===s.attacker||head===s.leader||head===s.front)return null;
   const own=contiguous(s,head),at=s.order.indexOf(head);
   if(!own.length||at<2||s.connected[head]===false)return null;
   const before=s.order[at-1],previous=lineOf.get(before),previousHead=previous?.[0];
@@ -52,7 +52,7 @@ function build(r){
    if(stage===1){action='初手の位置取り';cause='S取りで決まった初手の隊列に収まる';}
    else if(stage===2){
     if(no===s.attacker){action=s.outcome==='attacker-takes'?'主導権奪取':'仕掛け不発・立て直し';cause=action==='主導権奪取'?'前受けを越える':'前受けに突っ張られ、出切れず後退する';}
-    else if(no===s.front){action=s.outcome==='attacker-takes'?'いったん下げる':'突っ張り';cause=action==='突っ張り'?'前を譲らずに踏み返す':'別線を出させて巻き返しを狙う';}
+    else if(no===s.front){action=s.outcome==='attacker-takes'?(s.stand==='yield'?'出させて下げる':'主導権を奪われる'):'突っ張り';cause=action==='突っ張り'?'前を譲らずに踏み返す':action==='主導権を奪われる'?'突っ張ったが出切られる':'別線を出させて巻き返しを狙う';}
     else if(no===s.redThird){action='攻防を利用した位置上昇';cause='前の別線を一組だけ越える';}
     else {action='反応を見て待機';cause='先頭の攻防に無理に加わらない';}
    }else if(stage===3||stage===4){
