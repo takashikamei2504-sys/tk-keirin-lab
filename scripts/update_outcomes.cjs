@@ -20,7 +20,7 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
  for(const name of fs.readdirSync(feedDir).filter(n=>/^\d{4}-\d{2}-\d{2}\.json$/.test(n)).sort()){
   const feed=read(path.join(feedDir,name));if(feed.date+'.json'!==name||!Array.isArray(feed.races))throw Error('Invalid day feed');
   const file=path.join(historyDir,name),history=read(file,{schema:Audit.SCHEMA,date:feed.date,predictions:[],results:[]});
-  const saved=new Set(history.predictions.map(p=>p.race_id+'|'+(p.model_id||p.version)));
+  const saved=new Set(history.predictions.map(p=>p.race_id+'|'+Audit.modelId(p)));
   for(const source of feed.races){
    if(source.is_girls||![7,9].includes(source.entries?.length))continue;
    try{
@@ -60,7 +60,7 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
   const resultMap=new Map(h.results.map(r=>[r.race_id,r]));
   for(const id of new Set([...latest.keys(),...resultMap.keys()])){
    const prediction=latest.get(id),observed=resultMap.get(id),race=observed?.race||prediction.input;
-   rows.push({race_id:id,date:race.date,venue:race.venue,race_no:race.race_no,start:race.start,version:prediction?.version||null,model_id:prediction?.model_id||prediction?.version||null,saved_at:prediction?.saved_at||null,
+   rows.push({race_id:id,date:race.date,venue:race.venue,race_no:race.race_no,start:race.start,version:prediction?.version||null,model_id:prediction?Audit.modelId(prediction):null,saved_at:prediction?.saved_at||null,
     result:observed?{race_id:observed.race_id,race:{date:race.date,venue:race.venue,race_no:race.race_no,start:race.start},identity:observed.identity,combos:observed.combos,collected_at:observed.collected_at,source_url:observed.source_url,verification:observed.verification}:null,
     evaluation:observed?Audit.evaluate(prediction,observed):{status:'pending',category:'結果待ち'},history_url:'data/lab_history/'+file});
   }

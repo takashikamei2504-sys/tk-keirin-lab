@@ -1,6 +1,7 @@
 /* Result accounting only. Never imported by the prediction engine. */
 (function(root){'use strict';
-const SCHEMA='tk-keirin-outcomes/v1';
+const SCHEMA='tk-keirin-outcomes/v1',Provenance=typeof module!=='undefined'?require('./model-provenance.js'):root.ModelProvenance;
+const modelId=p=>p?.model_id||p?.provenance?.model?.model_id||(p?.code_hashes?`${p.version}@${Provenance.sha256(p.code_hashes).slice(0,16)}`:`${p?.version||'unknown'}@legacy-unidentified`);
 const raceKey=r=>`${r.date}:${r.venue}:${r.race_no}`;
 const startAt=r=>Date.parse(`${r.date}T${r.start}:00+09:00`);
 const identity=r=>r.riders.map(x=>[x.no,String(x.meta?.rider_id||''),String(x.name).replace(/[\s\u3000]/g,'')]).sort((a,b)=>a[0]-b[0]);
@@ -56,7 +57,7 @@ function evaluate(prediction,observed){
  let category='的中';
  if(!hit){const heads=new Set(prediction.chosen.map(t=>t.trio[0])),pairs=new Set(prediction.chosen.map(t=>t.trio.slice(0,2).join('-')));
   category=!observed.combos.some(c=>heads.has(c.trio[0]))?'1着候補漏れ':!observed.combos.some(c=>pairs.has(c.trio.slice(0,2).join('-')))?'1・2着の組合せ漏れ':'3着候補漏れ';}
- return {status:'evaluated',hit,category,points:prediction.chosen.length,version:prediction.version,best_rank:Number.isFinite(bestRank)?bestRank:null,selection_miss:!hit&&Number.isFinite(bestRank),
+ return {status:'evaluated',hit,category,points:prediction.chosen.length,version:prediction.version,model_id:modelId(prediction),best_rank:Number.isFinite(bestRank)?bestRank:null,selection_miss:!hit&&Number.isFinite(bestRank),
   baseline_hit:Array.isArray(prediction.baseline?.chosen)&&prediction.baseline.chosen.length===prediction.chosen.length?winning.some(k=>prediction.baseline.chosen.includes(k)):null,
   hit_modes:[...new Set(prediction.chosen.filter(t=>winning.includes(t.key)).map(t=>t.mode))]};
 }
@@ -65,10 +66,10 @@ function summarize(rows){
  for(const row of evaluated.filter(r=>!r.evaluation.hit))misses[row.evaluation.category]=(misses[row.evaluation.category]||0)+1;
  const paired=evaluated.filter(r=>typeof r.evaluation.baseline_hit==='boolean'),newHits=paired.filter(r=>r.evaluation.hit).length,oldHits=paired.filter(r=>r.evaluation.baseline_hit).length;
  const recommendations=Object.entries(misses).sort((a,b)=>b[1]-a[1]).map(([reason,count])=>({reason,count,action:({'1着候補漏れ':'前受け・主導権・終盤の1着候補の重みを比較する','1・2着の組合せ漏れ':'番手残り・別線追込みと2着選定を比較する','3着候補漏れ':'ストーリー内の3着候補と点数配分を比較する'})[reason]}));
- const byPolicy={};for(const row of evaluated){const key=`${row.model_id||row.evaluation.version||row.version||'旧版'} / ${row.evaluation.points||20}点`;if(!byPolicy[key])byPolicy[key]={count:0,hits:0};byPolicy[key].count++;byPolicy[key].hits+=Number(row.evaluation.hit);}
+ const byPolicy={};for(const row of evaluated){const key=`${row.model_id||row.evaluation.model_id||row.evaluation.version||row.version||'旧版'} / ${row.evaluation.points||20}点`;if(!byPolicy[key])byPolicy[key]={count:0,hits:0};byPolicy[key].count++;byPolicy[key].hits+=Number(row.evaluation.hit);}
  return {by_policy:byPolicy,evaluated:evaluated.length,hits,hit_rate:evaluated.length?hits/evaluated.length:null,pending:rows.filter(r=>r.evaluation.status==='pending').length,
   excluded:rows.filter(r=>r.evaluation.status==='excluded'||r.evaluation.status==='no_prediction').length,misses,paired:{count:paired.length,new_hits:newHits,baseline_hits:oldHits},recommendations,
   caveat:'着順だけでは突っ張り・追走離れ等の実際の展開を確定できません。改善候補を蓄積し、モデル係数や選手特性は自動変更しません。'};
 }
-const api={SCHEMA,raceKey,startAt,identity,result,snapshot,evaluate,summarize};if(typeof module!=='undefined')module.exports=api;root.ResultsAudit=api;
+const api={SCHEMA,modelId,raceKey,startAt,identity,result,snapshot,evaluate,summarize};if(typeof module!=='undefined')module.exports=api;root.ResultsAudit=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
