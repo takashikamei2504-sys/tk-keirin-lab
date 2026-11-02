@@ -47,8 +47,12 @@ function render(out,race){
   const ledger=x.lineReactions;
   if(!ledger?.rows?.length)return '';
   return '<details class="waiting-checks"><summary>この局面の全ラインの反応</summary>'+
-   ledger.rows.map(row=>'<p class="small"><strong>'+esc(row.line.join('－'))+'（'+esc(row.action)+'）</strong>：'+esc(row.cause)+
-     (row.changed?'。ライン先頭は'+row.from+'番手→'+row.to+'番手':'')+'</p>').join('')+'</details>';
+   ledger.rows.map(row=>{
+    const changes=(ledger.riders||[]).filter(r=>r.lineHead===row.leader&&r.from!==r.to);
+    return '<p class="small"><strong>'+esc(row.line.join('－'))+'（'+esc(row.action)+'）</strong>：'+esc(row.cause)+
+     (row.changed?'。ライン先頭は'+row.from+'番手→'+row.to+'番手':'')+
+     (changes.length?'<span> ／ '+changes.map(r=>esc(r.no+'番'+r.name+' '+r.from+'→'+r.to+'番手')).join('、')+'</span>':'')+'</p>';
+   }).join('')+'</details>';
  };
  const reasoning=x=>{const a=x.reasoning;if(!a)return '';return `<details class="stage-reasoning"><summary>この判断の材料・別の選択肢</summary>${a.facts.length?'<p class="small"><strong>入力・公開資料の材料</strong></p><ul>'+a.facts.slice(0,5).map(f=>`<li>${esc(f.label)}${f.source?.url?` <a href="${esc(f.source.url)}" target="_blank" rel="noopener noreferrer">出典</a>`:''}</li>`).join('')+'</ul>':''}${a.inferences.length?'<p class="small"><strong>この筋で置いた判断</strong></p><ul>'+a.inferences.slice(0,5).map(t=>`<li>${esc(t)}</li>`).join('')+'</ul>':''}${a.scrutiny?.length?'<details class="waiting-checks"><summary>仕掛けと待機を問い直した記録</summary>'+a.scrutiny.map(d=>'<p><strong>'+esc(d.phase)+'</strong>：'+esc(d.selected_reason)+'</p>'+d.riders.map(x=>'<p class="small"><strong>'+x.no+'番</strong>：'+esc(x.no===d.actor?x.attack_reasons.join('。'):d.waiting.find(w=>w.no===x.no)?.reason||x.wait_reasons.join('。'))+'</p>').join('')+d.reply.map(x=>'<p class="small">反撃の検討：'+esc(x.reason)+'</p>').join('')).join('')+'</details>':''}${a.decisions.filter(d=>d.alternatives?.length).map(d=>`<div class="decision-comparison"><p><strong>${esc(d.reasoning.label)}</strong></p>${d.alternatives.slice(0,2).map(o=>`<p class="small">別の選択：${esc(o.label)}${o.feasibility==='blocked'?'（進路条件で除外）':''}<br>${esc(o.basis)}</p>`).join('')}</div>`).join('')}${a.missing.length?'<p class="small">未確認：'+a.missing.slice(0,2).map(esc).join('。')+'。</p>':''}<p class="small">選択肢の重み付けに実際に使った材料です。位置・消耗と判断係数は未校正の仮説です。</p>${strategy({decisions:a.decisions})}${reactionLedger(x)}</details>`;};
  const diagrams=root.FormationDiagram||(typeof module!=='undefined'?require('./formation-diagram.js'):null);
