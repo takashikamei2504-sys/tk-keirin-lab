@@ -1,6 +1,6 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path');
-const Audit=require('../js/results-audit.js'),Feed=require('../js/race-feed.js'),Brain=require('../js/race-brain-v2.js'),{update}=require('../scripts/update_outcomes.cjs');
+const History=require('../scripts/history-store.cjs'),Audit=require('../js/results-audit.js'),Feed=require('../js/race-feed.js'),Brain=require('../js/race-brain-v2.js'),{update}=require('../scripts/update_outcomes.cjs');
 const date='2020-01-02',before='2020-01-02T00:00:00Z',after='2020-01-02T02:00:00Z';
 const source={venue:'弥彦',race_number:12,start_time:'10:00',is_girls:false,grade:'F1',round_name:'決勝',entries:Array.from({length:7},(_,i)=>({car_number:i+1,rider_id:String(15000+i),rider_full_name:'架空'+(i+1),competition_score:105,running_style:i%2?'追':'逃',line_position:({1:'1-1',2:'1-2',3:'1-3',4:'2-1',5:'2-2',6:'3-1',7:'3-2'})[i+1]})),predictions:{1:{win_probability:1}},recommendations:[{combo:'7-6-5'}]};
 const day={date,generated_at:'2020-01-01T23:00:00Z',races:[source]};
@@ -45,15 +45,18 @@ try{
  fs.writeFileSync(path.join(feeds,date+'.json'),JSON.stringify(day));
  fs.writeFileSync(path.join(feeds,'collection.json'),JSON.stringify({feeds:1,event:'schedule',run_id:'test-run',errors:[]}));
  const first=update(feeds,output,before);assert.equal(first.rows.length,1,'Forecast build errors: '+JSON.stringify(first.collection.errors));assert.equal(first.summary.pending,1);assert.equal(first.collection.last_scheduled_at,before);
- const file=path.join(output,'lab_history',date+'.json'),frozen=JSON.parse(fs.readFileSync(file)).predictions[0];
+ const historyDir=path.join(output,'lab_history'),frozen=History.load(historyDir,date).predictions[0];
+ const legacyOutput=path.join(temporary,'legacy'),legacyDir=path.join(legacyOutput,'lab_history');fs.mkdirSync(legacyDir,{recursive:true});
+ const legacyFile=path.join(legacyDir,date+'.json'),legacyBytes=JSON.stringify(History.load(historyDir,date),null,2)+'\n';fs.writeFileSync(legacyFile,legacyBytes);
+ const resumed=update(feeds,legacyOutput,before);assert.equal(resumed.rows.length,1);assert.equal(History.load(legacyDir,date).predictions.length,1,'legacy forecast must not be frozen twice');assert.equal(fs.readFileSync(legacyFile,'utf8'),legacyBytes);
  const trio=frozen.chosen[0].trio;
  fs.writeFileSync(path.join(feeds,date+'.json'),JSON.stringify({...day,generated_at:after,races:[{...source,result_top3:trio,result_combos:[{combo:trio,payout:1000}],result_places:trio.map(n=>[n])}]}));
  fs.writeFileSync(path.join(feeds,'collection.json'),JSON.stringify({feeds:1,event:'push',errors:[]}));
  const second=update(feeds,output,after);assert.equal(second.collection.last_scheduled_at,before,'manual/push runs must not masquerade as scheduled success');assert.equal(second.summary.evaluated,1);assert.equal(second.summary.hits,1);assert.equal(second.summary.paired.count,1);
- assert.deepEqual(JSON.parse(fs.readFileSync(file)).predictions[0],frozen);
+ assert.deepEqual(History.load(historyDir,date).predictions[0],frozen);
  const freshOutput=path.join(temporary,'late');const late=update(feeds,freshOutput,after);
  assert.equal(late.summary.evaluated,0);assert.equal(late.rows[0].evaluation.status,'no_prediction');
- const priorResults=JSON.parse(fs.readFileSync(file)).results.length;fs.unlinkSync(path.join(feeds,date+'.json'));
- update(feeds,output,after);assert.equal(JSON.parse(fs.readFileSync(file)).results.length,priorResults);
+ const priorResults=History.load(historyDir,date).results.length;fs.unlinkSync(path.join(feeds,date+'.json'));
+ update(feeds,output,after);assert.equal(History.load(historyDir,date).results.length,priorResults);
 }finally{fs.rmSync(temporary,{recursive:true,force:true});}
 console.log('PASS result/dead-heat validation, pending exclusion, cutoff/identity, miss classification and immutable pre-race collection');
