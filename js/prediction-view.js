@@ -46,7 +46,7 @@ function render(out,race){
  const reactionLedger=x=>{
   const ledger=x.lineReactions;
   if(!ledger?.rows?.length)return '';
-  return '<details class="waiting-checks"><summary>この局面の全ラインの反応</summary>'+
+  return '<details class="line-reactions-detail"><summary>この局面の全ラインの反応</summary>'+
    ledger.rows.map(row=>{
     const changes=(ledger.riders||[]).filter(r=>r.lineHead===row.leader&&r.from!==r.to);
     return '<p class="small"><strong>'+esc(row.line.join('－'))+'（'+esc(row.action)+'）</strong>：'+esc(row.cause)+
