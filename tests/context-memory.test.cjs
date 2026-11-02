@@ -14,6 +14,9 @@ const conflicted=[row,{...row,id:'conflict',value:.1}];a.deepEqual(M.build(r,{ev
 const state={stage:2,leader:2,attacker:2,tactic:'kamashi',homeRider:1,homeResult:'parallel',order:r.lineup.flat(),energy:Object.fromEntries(r.riders.map(x=>[x.no,0])),connected:Object.fromEntries(r.riders.map(x=>[x.no,true]))};
 a.equal(M.context(r,8,state).attack_type,'kamashi');a.equal(M.context(r,4,state).attack_type,'makuri','a different line is following a different acceleration');
 const reasons=R.build(r,records,C.build(r)).evaluate('home-attack',{key:String(no),actor:no},{...state,phase:'最終ホーム'});a.ok(reasons.facts.some(f=>f.kind==='observed_action'&&f.source.url===row.url));
+const mixed=M.build(r,{evidence:[row,{...row,id:'generic',confidence:1,value:.1,context:{},excerpt:'generic observation'}]});
+const exact=R.build(r,mixed,C.build(r)).evaluate('home-attack',{key:String(no),actor:no},{...state,phase:'最終ホーム'});
+a.ok(exact.facts.some(f=>f.kind==='observed_action'&&f.label.includes(row.excerpt)),'the quoted fact must be the specific observation actually used, not a displaced generic row');
 const before=JSON.stringify(r),pack={evidence:r.riders.map(x=>({...row,id:'S-'+x.no,rider:x.name,trait:'front',context:{phase:'並び確認・S取り'}}))};
 const o=B.build(r,pack),decision=o.story.main.decisions.find(d=>d.key==='S');
 a.ok(decision.reasoning.trait_review.some(t=>t.trait==='front'&&t.source_count===1&&t.value!==t.prior),'runtime ranking and saved explanation must consume the same contextual observation');

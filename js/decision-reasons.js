@@ -96,7 +96,7 @@ function build(r,records,context){
   if(key==='inside')infer('直前のブロックで内が空いた仮説が前提。コースが開かなければこの筋は成立しない');
   const usedTraits=key.endsWith('-individual-follow')?['track']:key==='red-attack'?[c.key.endsWith(':press')?'resist':'kamashi']:key==='red-response'?[c.key==='resist'?'resist':'withdraw']:key==='defense'?(c.key==='block'?['block']:c.key==='vertical'?['vertical','finish']:[]):TRAITS[key]||[];
   const matchedContext=Memory.context(r,no,s);
-  const evidence=usedTraits.flatMap(k=>Memory.matching(records,no,k,matchedContext)).sort((a,b)=>b.confidence-a.confidence||a.ageDays-b.ageDays)[0];
+  const evidence=usedTraits.flatMap(k=>Memory.review(.5,records,no,k,matchedContext).sources).sort((a,b)=>b.confidence-a.confidence||a.ageDays-b.ageDays)[0];
   if(evidence)fact(`${who(no)}の本文観察「${evidence.excerpt}」`,evidence,'observed_action');
   else if(usedTraits.length)missing.push(`${who(no)}のこの動作を裏付ける本文観察は未取得`);
   return {label:label(key,c),no,used_traits:usedTraits,intent_tags:tags,multiplier:Math.max(.5,Math.min(2,multiplier)),facts,inferences,missing,basis:[...facts.map(f=>f.label),...inferences].join('。')||'現時点の位置と消耗からの暫定判断'};

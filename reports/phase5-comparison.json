@@ -3,7 +3,7 @@
   "kind": "research_recalculation",
   "eligible_for_pre_race_statistics": false,
   "baseline": "story-first-v4.0.0@23e9205",
-  "model": "story-first-v5.5.0@7714f01a31e5c438",
+  "model": "story-first-v5.5.0@36cea6ca80a4e09d",
   "policy": "Identical frozen input and scoped evidence for both builds. No result-based selection or observed hit-rate claim. Synthetic context fixtures are labeled; comparisons are research recalculations, not measured accuracy/ROI.",
   "cases": [
     {
@@ -13,7 +13,7 @@
       "cutoff": "2026-11-02T07:19:00.000Z",
       "old": {
         "version": "story-first-v4.0.0",
-        "ms": 278.2,
+        "ms": 190,
         "main": "私はこう読む。1番太田海也がホームで仕掛け、2番長島大介がバックで反撃し、2番長島大介の最後の仕掛けに番手が縦へ踏む。最後は5番清水裕友が縦踏みで勝つ。",
         "signature": "4|1|press|resist|front-holds|||1|takes|2|parallel|holds||2|vertical|free|",
         "scenes": [
@@ -218,7 +218,7 @@
       },
       "new": {
         "version": "story-first-v5.5.0",
-        "ms": 478.1,
+        "ms": 348.7,
         "main": "私はこう読む。1番太田海也が最終バックの主導権を握る。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、3〜4角から直線勝負へ進む。最後は5番清水裕友が番手差しで勝ち、1番太田海也が２着。1番太田海也は前半から長く主導権を担った負担と踏み直しを評価する。5番清水裕友は追走の負担を差し引き、先行の残り脚と直線の伸びを比較する。5番清水裕友が前で脚を使った1番太田海也を直線で差し切る決着を選ぶ。",
         "signature": "4|1|press|yield|attacker-takes||||settled||unchanged|holds|||follow|free|",
         "scenes": [
@@ -1313,7 +1313,7 @@
       "cutoff": "2026-10-31T07:25:00.000Z",
       "old": {
         "version": "story-first-v4.0.0",
-        "ms": 192.1,
+        "ms": 143.7,
         "main": "私はこう読む。ホームでは前団が隊列を保ち、9番山口拳矢がバックで反撃し、9番山口拳矢の最後の仕掛けに番手がブロックで応じる。最後は2番太田海也が逃げ粘りで勝つ。",
         "signature": "9|2|press|yield|attacker-takes||||settled|9|parallel|holds||9|block|stopped|",
         "scenes": [
@@ -1518,7 +1518,7 @@
       },
       "new": {
         "version": "story-first-v5.5.0",
-        "ms": 423.3,
+        "ms": 339.8,
         "main": "私はこう読む。2番太田海也が最終バックの主導権を握る。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、9番山口拳矢の最後の仕掛けに番手がブロックで応じる。最後は8番取鳥雄吾が番手差しで勝ち、2番太田海也が２着。2番太田海也は前半から長く主導権を担った負担と踏み直しを評価する。8番取鳥雄吾は追走の負担と横の仕事の消耗を差し引き、先行の残り脚と直線の伸びを比較する。8番取鳥雄吾が前で脚を使った2番太田海也を直線で差し切る決着を選ぶ。",
         "signature": "9|2|press|yield|attacker-takes||||settled||unchanged|holds||9|block|stopped|",
         "scenes": [
@@ -2623,7 +2623,7 @@
       "cutoff": "2026-10-31T07:25:00.000Z",
       "old": {
         "version": "story-first-v4.0.0",
-        "ms": 107.5,
+        "ms": 95,
         "main": "私はこう読む。ホームでは前団が隊列を保ち、1番郡司浩平がバックで反撃し、1番郡司浩平の最後の仕掛けに番手がブロックで応じる。最後は2番太田海也が逃げ粘りで勝つ。",
         "signature": "1|2|press|yield|attacker-takes||||settled|1|parallel|holds||1|block|stopped|",
         "scenes": [
@@ -2815,7 +2815,7 @@
       },
       "new": {
         "version": "story-first-v5.5.0",
-        "ms": 264.7,
+        "ms": 238.5,
         "main": "私はこう読む。2番太田海也が最終バックの主導権を握る。ホームでは前団が隊列を保ち、5番松本貴治がバックで反撃し、5番松本貴治の最後の仕掛けに番手がブロックで応じる。最後は7番清水裕友が番手差しで勝ち、2番太田海也が２着。2番太田海也は前半から長く主導権を担った負担と踏み直しを評価する。7番清水裕友は追走の負担と横の仕事の消耗を差し引き、先行の残り脚と直線の伸びを比較する。7番清水裕友が前で脚を使った2番太田海也を直線で差し切る決着を選ぶ。",
         "signature": "5|2|press|yield|attacker-takes||||settled|5|parallel|holds||5|block|stopped|",
         "scenes": [
@@ -3878,7 +3878,7 @@
       "cutoff": "2026-10-31T07:25:00.000Z",
       "old": {
         "version": "story-first-v4.0.0",
-        "ms": 36.4,
+        "ms": 40.5,
         "main": "私はこう読む。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、3〜4角から直線勝負へ進む。最後は2番太田海也が番手差しで勝つ。",
         "signature": "1||wait|pace|front-holds||||settled||unchanged|holds|||follow|free|",
         "scenes": [
@@ -4066,7 +4066,7 @@
       },
       "new": {
         "version": "story-first-v5.5.0",
-        "ms": 135.1,
+        "ms": 139.1,
         "main": "私はこう読む。1番郡司浩平が最終バックの主導権を握る。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、3〜4角から直線勝負へ進む。最後は2番太田海也が番手差しで勝ち、1番郡司浩平が２着。1番郡司浩平は前半から長く主導権を担った負担と踏み直しを評価する。2番太田海也は追走の負担を差し引き、先行の残り脚と直線の伸びを比較する。2番太田海也が前で脚を使った1番郡司浩平を直線で差し切る決着を選ぶ。",
         "signature": "1||wait|pace|front-holds||||settled||unchanged|holds|||follow|free|",
         "scenes": [
@@ -5120,7 +5120,7 @@
       "cutoff": "2026-10-31T07:25:00.000Z",
       "old": {
         "version": "story-first-v4.0.0",
-        "ms": 107.4,
+        "ms": 110.7,
         "main": "私はこう読む。1番郡司浩平がホームで仕掛け、9番山口拳矢がバックで反撃し、8番取鳥雄吾の最後の仕掛けが迫る。最後は9番山口拳矢が逃げ粘りで勝つ。",
         "signature": "8|5|press|resist|front-holds|||1|takes|9|takes|solo||8|none|free|",
         "scenes": [
@@ -5324,7 +5324,7 @@
       },
       "new": {
         "version": "story-first-v5.5.0",
-        "ms": 329.3,
+        "ms": 364.3,
         "main": "私はこう読む。1番郡司浩平が最終バックの主導権を握る。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、3〜4角から直線勝負へ進む。最後は2番太田海也が番手差しで勝ち、1番郡司浩平が２着。1番郡司浩平は前半から長く主導権を担った負担と踏み直しを評価する。2番太田海也は追走の負担を差し引き、先行の残り脚と直線の伸びを比較する。2番太田海也が前で脚を使った1番郡司浩平を直線で差し切る決着を選ぶ。",
         "signature": "3|1|press|yield|attacker-takes|9|8||settled||unchanged|holds|||follow|free|",
         "scenes": [
@@ -6423,7 +6423,7 @@
       "cutoff": "2026-10-31T07:25:00.000Z",
       "old": {
         "version": "story-first-v4.0.0",
-        "ms": 111.2,
+        "ms": 114.7,
         "main": "私はこう読む。ホームでは前団が隊列を保ち、9番山口拳矢がバックで反撃し、9番山口拳矢の最後の仕掛けに番手がブロックで応じる。最後は2番太田海也が逃げ粘りで勝つ。",
         "signature": "9|2|press|yield|attacker-takes||||settled|9|parallel|holds||9|block|stopped|",
         "scenes": [
@@ -6628,7 +6628,7 @@
       },
       "new": {
         "version": "story-first-v5.5.0",
-        "ms": 287.8,
+        "ms": 295.5,
         "main": "私はこう読む。2番太田海也が最終バックの主導権を握る。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、9番山口拳矢の最後の仕掛けに番手がブロックで応じる。最後は8番取鳥雄吾が番手差しで勝ち、2番太田海也が２着。2番太田海也は前半から長く主導権を担った負担と踏み直しを評価する。8番取鳥雄吾は追走の負担と横の仕事の消耗を差し引き、先行の残り脚と直線の伸びを比較する。8番取鳥雄吾が前で脚を使った2番太田海也を直線で差し切る決着を選ぶ。",
         "signature": "9|2|press|yield|attacker-takes||||settled||unchanged|holds||9|block|stopped|",
         "scenes": [
@@ -7764,7 +7764,7 @@
       "cutoff": "2026-10-31T07:25:00.000Z",
       "old": {
         "version": "story-first-v4.0.0",
-        "ms": 78.6,
+        "ms": 74.8,
         "main": "私はこう読む。ホームでは前団が隊列を保ち、5番松本貴治がバックで反撃し、5番松本貴治の最後の仕掛けに番手がブロックで応じる。最後は2番太田海也が逃げ粘りで勝つ。",
         "signature": "5|2|press|yield|attacker-takes||||settled|5|parallel|holds||5|block|stopped|",
         "scenes": [
@@ -7956,7 +7956,7 @@
       },
       "new": {
         "version": "story-first-v5.5.0",
-        "ms": 228,
+        "ms": 242.9,
         "main": "私はこう読む。2番太田海也が最終バックの主導権を握る。ホームでは前団が隊列を保ち、5番松本貴治がバックで反撃し、5番松本貴治の最後の仕掛けに番手がブロックで応じる。最後は7番清水裕友が番手差しで勝ち、2番太田海也が２着。2番太田海也は前半から長く主導権を担った負担と踏み直しを評価する。7番清水裕友は追走の負担と横の仕事の消耗を差し引き、先行の残り脚と直線の伸びを比較する。7番清水裕友が前で脚を使った2番太田海也を直線で差し切る決着を選ぶ。",
         "signature": "5|2|press|yield|attacker-takes||||settled|5|parallel|holds||5|block|stopped|",
         "scenes": [
