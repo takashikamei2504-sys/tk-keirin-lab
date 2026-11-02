@@ -268,7 +268,32 @@ function build(r,pack={},options={}){
  main.reading=`私はこう読む。${turningPoints.join('、')}。最後は${who(main.first)}が${MODES[main.mode]}で勝つ。`;
  main.rationale='なぜなら、'+main.audit.reviews.filter(d=>d.phase_key).map(d=>`${d.phase}は${d.selected_reason}`).join('。')+'。';
  const difference=s=>s.front!==main.front?['S取り・初手',`${who(s.starter)}がSを取ると初手の位置関係が変わる`]:s.attacker!==main.attacker||s.redThird!==main.redThird||s.stand!==main.stand||s.tactic!==main.tactic?['赤板の攻防',`${s.attacker?who(s.attacker)+'の仕掛け':'赤板の待機'}と、前受け側の${s.stand==='resist'?'突っ張り':'対応'}${s.redThird?'、さらに'+who(s.redThird)+'の位置上昇':''}が変わる`]:s.homeRider!==main.homeRider||s.homeResult!==main.homeResult||s.gap!==main.gap?['ホームの仕掛け・追走','ホームのロング捲り、または追走の成否が変わる']:s.backRider!==main.backRider||s.backResult!==main.backResult?['バックの反撃','最終バックでの仕掛け直しと、その反撃への抵抗が変わる']:s.defense!==main.defense||s.innerRider!==main.innerRider?['3～4角の判断','横の仕事・縦踏み・内のコース選択が変わる']:['終盤の別筋','外からの仕掛けや番手の収まり方が変わる'];
- const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:'一本の本線ストーリーから導く6点'})),used=new Set(selected.map(t=>t.key));
+ // The front-of-race causal path is one story. A minor placing may change
+ // through the short straight's relative finishing speeds without inventing
+ // a second major tactical attack or replacing the main story.
+ const mainPodium=main.outcomes[0].trio,cornerOrder=main.scenes[4].order;
+ const mainTicketReason=trio=>{
+  const [first,second,third]=trio,front=cornerOrder.indexOf(third)+1;
+  const thirdOption=third!==mainPodium[2];
+  const leadPair=first===mainPodium[0]&&second===mainPodium[1];
+  const reversedPair=first===mainPodium[1]&&second===mainPodium[0];
+  const thirdText=thirdOption&&front>3?
+   `。3着は${who(third)}が4角${front}番手から、直線の伸びと前団の脚色差で食い込む押さえ`:
+   thirdOption?`。3着は${who(third)}の直線の伸びを押さえる`:'';
+  if(leadPair)return '本線の1・2着を軸にする'+thirdText;
+  if(reversedPair)return '先行の粘りと番手差しの1・2着逆転を押さえる'+thirdText;
+  return '本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる'+thirdText;
+ };
+ const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:mainTicketReason(t.trio)})),used=new Set(selected.map(t=>t.key));
+ // Main story fixes the decisive contest, but allows short-straight placing
+ // variance. A cover for third is NOT promoted into the main six-stage path.
+ const thirdCovers=[...new Set(selected.map(t=>t.trio[2]))].filter(n=>n!==mainPodium[2]);
+ main.third_place_coverage={
+  anchor:mainPodium[2],
+  options:thirdCovers.map(no=>({no,from:cornerOrder.indexOf(no)+1,
+   reason:cornerOrder.indexOf(no)>=3?'直線の伸びと前団の脚色差で３着へ食い込む押さえ':'直線の脚色差による３着の押さえ'}))
+ };
+
  function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
   const last=s.scenes[5],finishState={order:s.scenes[4].order,defender:s.defender,defense:s.defense,survivingAttack:s.cornerRider&&s.blockResult!=='stopped'?s.cornerRider:null,innerRider:s.innerRider,outside:[]};
   const closing=`この別展開では${who(t.trio[0])}が${MODES[t.mode]}で勝ち切る。${who(t.trio[1])}が２着、${who(t.trio[2])}が３着。`+Reality.finishExplanation(finishState,t.trio,who);

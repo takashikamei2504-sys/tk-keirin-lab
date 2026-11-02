@@ -15,6 +15,14 @@ function check(r){
   let previous=s.scenes[0].order;for(const move of s.movementTrace){const changed=move.order.map((n,i)=>n===previous[i]?-1:i).filter(i=>i>=0);assert.equal(changed.length,2);assert.equal(changed[1]-changed[0],1);previous=move.order;}
  }
  assert.ok(out.chosen.filter(t=>t.group==='main').every(t=>t.supporting_path===out.story.main),'six main tickets must share one complete story');
+ const core=out.story.main,extras=[...new Set(out.chosen.filter(t=>t.group==='main').map(t=>t.trio[2]))].filter(n=>n!==core.outcomes[0].trio[2]);
+ assert.deepEqual(core.third_place_coverage.options.map(x=>x.no),extras,'cover riders must be taken from selected main tickets');
+ for(const cover of core.third_place_coverage.options){
+  assert.equal(cover.from,core.scenes[4].order.indexOf(cover.no)+1);
+  assert.match(cover.reason,/直線/);
+ }
+ for(const t of out.chosen.filter(t=>t.group==='main'))assert.match(t.selection_reason,/本線|直線|先行|番手/);
+
  for(const t of out.chosen.filter(t=>t.group==='alternative'))assert.deepEqual(t.supporting_path.scenes[5].order.slice(0,3),t.trio,'alternative conclusion must match its one ticket');
  for(const t of out.chosen)assert.ok(t.supporting_path.outcomes.some(o=>o.key===t.key));
  return out;
