@@ -12,4 +12,10 @@ const doubleAttack=scene(4,{homeRider:4,homeResult:'parallel',backRider:6,backRe
 const tripleBand=scene(5,{homeRider:4,homeResult:'parallel',backRider:6,backResult:'parallel',outside:[4,6],cornerRider:6,defense:'vertical',openInside:true,innerRider:3,innerMode:'split'});tripleBand.shape='外と内の攻防';
 const race9={...race,lineup:[...race.lineup,[8,9]],riders:[...race.riders,{no:8,name:'追加八郎',score:100,style:'逃'},{no:9,name:'追加九郎',score:100,style:'追'}]};
 const overlaps9=[doubleAttack,tripleBand].map(s=>({...s,order:[...s.order,8,9],tactical:{...s.tactical,connected:{...s.tactical.connected,8:true,9:true}}}));
-module.exports={race,race9,overlaps9,scene,overlaps:[doubleAttack,tripleBand],cases:[initial,red,parallel,seat,block,vertical,finish]};
+const following=structuredClone(parallel);following.tactical.outside_groups=[{head:4,members:[4,5]}];
+const dropped=structuredClone(following);dropped.tactical.connected[5]=false;dropped.tactical.outside_groups=[{head:4,members:[4]}];
+const groupedDouble=structuredClone(doubleAttack);groupedDouble.tactical.outside_groups=[{head:4,members:[4,5]},{head:6,members:[6,7]}];
+const followCorner=scene(5,{cornerRider:4,cornerOrigin:'outer',outside:[4],outside_groups:[{head:4,members:[4,5]}],defense:'vertical'},[1,2,4,3,5,6,7]);
+const followRace9={...race9,lineup:[[1,2,3],[4,5,8],[6,7,9]]};
+const following9=scene(4,{backRider:4,backResult:'parallel',outside:[4],outside_groups:[{head:4,members:[4,5,8]}],connected:Object.fromEntries([1,2,3,4,5,6,7,8,9].map(n=>[n,true]))},[1,2,3,4,5,8,6,7,9]);
+module.exports={race,race9,followRace9,following9,following:[following,dropped,groupedDouble,followCorner],overlaps9,scene,overlaps:[doubleAttack,tripleBand],cases:[initial,red,parallel,seat,block,vertical,finish]};

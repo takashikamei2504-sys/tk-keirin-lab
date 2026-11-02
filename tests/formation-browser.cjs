@@ -5,7 +5,7 @@ const D=require('../js/formation-diagram.js'),B=require('../js/story-brain.js'),
  const browser=await chromium.launch({headless:true}),page=await browser.newPage();
  const css=fs.readFileSync('css/formation-diagram.css','utf8'),race=require('../race_sample.json'),out=B.build(race);
  const previous=[null,F.cases[0],F.cases[1],F.cases[2],F.scene(4),F.scene(4),F.cases[5]];
- const examples=F.cases.map((s,i)=>({model:D.project(s,F.race,previous[i]),cars:7})).concat(F.overlaps.map(s=>({model:D.project(s,F.race),cars:7}))).concat(F.overlaps9.map(s=>({model:D.project(s,F.race9),cars:9}))).concat(out.story.main.scenes.map((s,i)=>({model:D.project(s,race,out.story.main.scenes[i-1]),cars:9})));
+ const examples=F.cases.map((s,i)=>({model:D.project(s,F.race,previous[i]),cars:7})).concat(F.following.map(s=>({model:D.project(s,F.race),cars:7}))).concat([{model:D.project(F.following9,F.followRace9),cars:9}]).concat(F.overlaps.map(s=>({model:D.project(s,F.race),cars:7}))).concat(F.overlaps9.map(s=>({model:D.project(s,F.race9),cars:9}))).concat(out.story.main.scenes.map((s,i)=>({model:D.project(s,race,out.story.main.scenes[i-1]),cars:9})));
  for(const width of [320,390]){
   await page.setViewportSize({width,height:844});
   await page.setContent('<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;background:#0b1420;color:#e8f3ff;font-family:system-ui,sans-serif}main{width:calc(100% - 88px);margin:auto}'+css+'</style><main>'+examples.map((e,i)=>'<section id="example-'+i+'">'+D.render(e.model,{storyId:'test-'+i})+'</section>').join('')+'</main></html>');

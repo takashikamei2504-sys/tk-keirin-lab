@@ -45,3 +45,26 @@ assert.deepEqual(double.order,F.overlaps[0].order,'engagement layout must not re
 console.log('PASS three-band stacked attacks, shared target column, inside route, stopped attack and collision-free layout');
 
 for(const s of F.overlaps9){const m=Diagram.project(s,F.race9);assert.equal(m.board.bands.length,3);assert.equal(m.board.nodes.length,9);assert.equal(new Set(m.board.nodes.map(n=>n.row+':'+n.column)).size,9);assert.deepEqual(m.order,s.order);}
+
+const followed=Diagram.project(F.following[0],F.race),cut=Diagram.project(F.following[1],F.race),both=Diagram.project(F.following[2],F.race),cornerFollow=Diagram.project(F.following[3],F.race);
+for(const m of [followed,cornerFollow]){
+ assert.equal(placement(m,4).row,placement(m,5).row,'connected follower travels outside with the attacker');
+ assert.equal(placement(m,5).column,placement(m,4).column+1);
+ assert.equal(placement(m,5).relation,'follow');assert.equal(placement(m,5).target,4);
+ assert.ok(m.connections.some(c=>c.from===4&&c.to===5&&c.type==='line'));
+ assert.ok(m.riders.find(r=>r.no===5).statuses.some(s=>s.text==='追走'));
+}
+assert.equal(cut.riders.find(r=>r.no===5).lane,'queue','detached follower cannot be dragged along');
+assert.notEqual(placement(cut,4).row,placement(cut,5).row);
+assert.equal(both.board.bands.length,3,'two travelling lines consume two bands, not four');
+assert.equal(placement(both,6).row,placement(both,7).row);assert.notEqual(placement(both,4).row,placement(both,6).row);
+const nineFollow=Diagram.project(F.following9,F.followRace9);assert.equal(placement(nineFollow,4).row,placement(nineFollow,8).row);assert.equal(placement(nineFollow,8).column,placement(nineFollow,4).column+2);
+const invalid=structuredClone(F.following[0]);invalid.tactical.connected[5]=false;assert.throws(()=>Diagram.project(invalid,F.race),/追走/);
+for(const input of [sample,seven,target]){const out=Brain.build(input);for(const story of [out.story.main,...out.story.alternatives])for(const s of story.scenes){
+ for(const g of s.tactical.outside_groups){
+  assert.equal(g.members[0],g.head);if(s.tactical.connected[g.head]===false)assert.equal(g.members.length,1);
+  const line=input.lineup.find(l=>l.includes(g.head));assert.deepEqual(g.members,line.slice(line.indexOf(g.head),line.indexOf(g.head)+g.members.length));
+  for(const n of g.members.slice(1)){assert.equal(s.tactical.connected[n],true);assert.notEqual(n,s.tactical.seat);assert.notEqual(n,s.tactical.innerRider);}
+ }
+}}
+console.log('PASS outside travelling lines, continuous followers after one-car advance, detached/independent exclusion, two-line bands and nine-car third follower');

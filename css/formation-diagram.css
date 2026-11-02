@@ -32,3 +32,5 @@
 .formation-lane-label{white-space:nowrap;font-size:10px;line-height:1.2;letter-spacing:0}
 .formation-encounter .encounter-rider{display:flex;align-items:center;gap:4px}
 .formation-encounter .encounter-rider .formation-number{width:26px;height:21px;font-size:16px}
+
+.encounter-line{display:inline-flex;align-items:center;gap:2px;max-width:100%;flex-wrap:wrap}.encounter-link{font-size:10px;color:#8d99a4}.formation-slot[data-relation="follow"] .formation-team{left:10%;right:10%}

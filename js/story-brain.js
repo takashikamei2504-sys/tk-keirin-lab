@@ -33,6 +33,19 @@ function build(r,pack={},options={}){
   const group=s.order.filter(n=>moving.includes(n)),rest=s.order.filter(n=>!moving.includes(n)),at=Math.max(0,Math.min(target,rest.length)),desired=[...rest.slice(0,at),...group,...rest.slice(at)];
   for(let i=0;i<desired.length;i++){let j=s.order.indexOf(desired[i]);while(j>i){[s.order[j-1],s.order[j]]=[s.order[j],s.order[j-1]];j--;s.moves.push({stage:s.stage,order:[...s.order],reason:why,feasibility:'unknown'});}}
  }
+ // Snapshot the connected travelling line. This only describes the selected
+ // path; it does not add choices, probabilities, rank moves or ticket changes.
+ function travellingLine(s,head,heads=[]){
+  const members=[head];if(s.connected[head]===false)return members;
+  const line=controlLine(head),prior=s.scenes.at(-1)?.tactical?.outside_groups||[];
+  for(const next of line.slice(1)){
+   const prev=members.at(-1),continued=prior.some(g=>g.members.includes(prev)&&g.members[g.members.indexOf(prev)+1]===next);
+   if(s.connected[next]!==true||heads.includes(next)||next===s.leader||next===s.defender||next===s.seat||next===s.innerRider)break;
+   if(s.order.indexOf(next)!==s.order.indexOf(prev)+1&&!(continued&&s.order.indexOf(next)>s.order.indexOf(prev)))break;
+   members.push(next);
+  }
+  return members;
+ }
  function addScene(s,index,text,shape='一本棒',actors=[]){
   const reasoning=index===5?reasons.finish(s,actors):reasons.scene(s.decisions.filter(d=>d.stage===index));
   const scrutiny=s.decisions.filter(d=>d.stage===index&&d.deliberation).map(d=>d.deliberation);reasoning.scrutiny=scrutiny;
@@ -41,11 +54,12 @@ function build(r,pack={},options={}){
   const fact=reasoning.facts.find(f=>(f.kind==='race_intention'||f.kind==='observed_action')&&
     !/未確認|未取得|出典未確認|発言末尾未収録/.test(f.label));
   const basis=fact&&!text.includes(fact.label)?fact.label+'。':'';
+  const outsideHeads=index===4&&s.cornerRider?[...new Set([...s.outside,s.cornerRider])]:[...s.outside];
   const tactical={schema:'tk-keirin-scene-state/v1',leader:s.leader,front:s.front,starter:s.starter,
    attacker:s.attacker||null,tactic:s.tactic||null,stand:s.stand||null,outcome:s.outcome||null,
    homeRider:s.homeRider||null,homeResult:s.homeResult||null,backRider:s.backRider||null,backResult:s.backResult||null,
-   gap:s.gap||null,defender:s.defender||null,seat:s.seat||null,outside:index===4&&s.cornerRider?[...new Set([...s.outside,s.cornerRider])]:[...s.outside],connected:{...s.connected},control_line:controlLine(s.leader),
-   encounter:index===1&&s.attacker?{outside:s.attacker,front:s.front,tactic:s.tactic,stand:s.stand,leader:s.leader}:null,
+   gap:s.gap||null,defender:s.defender||null,seat:s.seat||null,outside:outsideHeads,outside_groups:outsideHeads.map(head=>({head,members:travellingLine(s,head,outsideHeads),basis:'connected-order'})),connected:{...s.connected},control_line:controlLine(s.leader),
+   encounter:index===1&&s.attacker?{outside:s.attacker,front:s.front,tactic:s.tactic,stand:s.stand,leader:s.leader,attack_line:travellingLine(s,s.attacker),front_line:travellingLine(s,s.front)}:null,
    cornerRider:s.cornerRider||null,cornerOrigin:s.cornerOrigin||null,defense:s.defense||null,blockResult:s.blockResult||null,
    innerRider:s.innerRider||null,innerMode:s.innerMode||null,openInside:!!s.openInside,
    corner_order_before:s.cornerOrderBefore?[...s.cornerOrderBefore]:null,
