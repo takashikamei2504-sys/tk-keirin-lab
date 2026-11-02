@@ -2,7 +2,7 @@
   "name": "tk-keirin-lab",
   "private": true,
   "scripts": {
-    "test": "node tests/brain.test.js && node tests/brain-patterns.test.js && node tests/prediction-view.test.js && node tests/next-brain-prep.test.cjs && node tests/sequential-brain.test.cjs && node tests/results-audit.test.cjs && node tests/race-reality.test.cjs && node tests/story-brain.test.cjs && node tests/decision-reasons.test.cjs && node tests/tactical-deliberation.test.cjs && node tests/formation-diagram.test.cjs",
+    "test": "node tests/brain.test.js && node tests/brain-patterns.test.js && node tests/prediction-view.test.js && node tests/next-brain-prep.test.cjs && node tests/sequential-brain.test.cjs && node tests/results-audit.test.cjs && node tests/race-reality.test.cjs && node tests/story-brain.test.cjs && node tests/decision-reasons.test.cjs && node tests/tactical-deliberation.test.cjs && node tests/cross-line-tactics.test.cjs && node tests/formation-diagram.test.cjs",
     "test:browser": "node tests/browser.cjs",
     "prepare:next-brain": "node scripts/check_next_brain.cjs"
   },
