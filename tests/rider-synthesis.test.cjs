@@ -30,3 +30,8 @@ const reason=Reasons.build(r,memory(fatigue),Context.build(r)).evaluate('home-at
 assert.ok(reason.facts.some(f=>f.kind==='qualitative_statement'&&f.source.url===fatigue.url));assert.match(reason.inferences.join('。'),/疲労・調整/);
 const recovered=Brain.build(r,{knowledge:[]});assert.deepEqual(recovered.chosen.map(t=>t.key),baseline.chosen.map(t=>t.key));
 console.log('PASS attributed rider synthesis affects tactical comparison, preserves negation/cutoff/identity, bounds duplicates and freezes exact replay');
+
+const View=require('../js/prediction-view.js'),elements={};
+global.document={getElementById:id=>elements[id]??={innerHTML:'',textContent:''}};
+try{View.render(enriched,r);assert.match(elements['causal-stories'].innerHTML,/選手情報から組み立てた総合所見/);assert.match(elements['causal-stories'].innerHTML,/まだ疲れが残っていますね/);assert.match(elements['causal-stories'].innerHTML,/https:\/\/example.org\/interview/);}finally{delete global.document;}
+console.log('PASS actual story renderer includes synthesis and attributed source without a browser-only reference error');
