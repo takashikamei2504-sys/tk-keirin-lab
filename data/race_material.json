@@ -1,6 +1,6 @@
 {
   "schema": "tk-keirin-race-material/v1",
-  "generated_at": "2026-11-02T07:50:06.923395+00:00",
+  "generated_at": "2026-11-02T11:18:18.327851+00:00",
   "cards": [
     {
       "date": "2026-11-01",
@@ -8824,7 +8824,8 @@
           "race_id": "2026-11-02:久留米:1"
         }
       ],
-      "id": "eaa4a658f81e1c079888"
+      "id": "eaa4a658f81e1c079888",
+      "last_checked_at": "2026-11-02T11:17:33.258401+00:00"
     },
     {
       "date": "2026-11-02",
@@ -9460,7 +9461,8 @@
           "race_id": "2026-11-01:名古屋:7"
         }
       ],
-      "id": "287488cdefcaa79f4b9e"
+      "id": "287488cdefcaa79f4b9e",
+      "last_checked_at": "2026-11-02T11:18:14.140221+00:00"
     },
     {
       "date": "2026-11-01",
@@ -9662,7 +9664,8 @@
           "race_id": "2026-11-01:松戸:7"
         }
       ],
-      "id": "768540fb0ddfba8c53dd"
+      "id": "768540fb0ddfba8c53dd",
+      "last_checked_at": "2026-11-02T11:18:16.223253+00:00"
     },
     {
       "date": "2026-11-02",
@@ -9874,7 +9877,8 @@
           "follow_position": "immediate"
         }
       ],
-      "id": "39bf6d8772e88089cf89"
+      "id": "39bf6d8772e88089cf89",
+      "last_checked_at": "2026-11-02T11:17:35.241014+00:00"
     },
     {
       "date": "2026-11-02",
@@ -10086,7 +10090,8 @@
           "race_id": "2026-11-02:久留米:3"
         }
       ],
-      "id": "fab3b031c1ea9ca2f68a"
+      "id": "fab3b031c1ea9ca2f68a",
+      "last_checked_at": "2026-11-02T11:17:37.291696+00:00"
     },
     {
       "date": "2026-11-02",
@@ -10509,7 +10514,8 @@
           "race_id": "2026-11-02:久留米:5"
         }
       ],
-      "id": "154212af77be1829cb0a"
+      "id": "154212af77be1829cb0a",
+      "last_checked_at": "2026-11-02T11:17:39.314022+00:00"
     },
     {
       "date": "2026-11-02",
@@ -10967,7 +10973,8 @@
           "race_id": "2026-11-02:久留米:8"
         }
       ],
-      "id": "1dac8c2f87c260568c0e"
+      "id": "1dac8c2f87c260568c0e",
+      "last_checked_at": "2026-11-02T11:17:45.873999+00:00"
     },
     {
       "date": "2026-11-02",
@@ -11197,7 +11204,8 @@
           "race_id": "2026-11-02:久留米:9"
         }
       ],
-      "id": "cc7ff9c792082867c02e"
+      "id": "cc7ff9c792082867c02e",
+      "last_checked_at": "2026-11-02T11:17:48.061405+00:00"
     },
     {
       "date": "2026-11-02",
@@ -11425,7 +11433,8 @@
           "race_id": "2026-11-02:久留米:10"
         }
       ],
-      "id": "ca24b1fbe33acafb1669"
+      "id": "ca24b1fbe33acafb1669",
+      "last_checked_at": "2026-11-02T11:17:49.829918+00:00"
     },
     {
       "date": "2026-11-02",
@@ -11654,7 +11663,8 @@
           "race_id": "2026-11-02:久留米:11"
         }
       ],
-      "id": "e0bb2918d874aa24f8fc"
+      "id": "e0bb2918d874aa24f8fc",
+      "last_checked_at": "2026-11-02T11:17:51.967370+00:00"
     },
     {
       "date": "2026-11-02",
@@ -11883,7 +11893,8 @@
           "race_id": "2026-11-02:久留米:12"
         }
       ],
-      "id": "6d93b4b910c1bac5d80c"
+      "id": "6d93b4b910c1bac5d80c",
+      "last_checked_at": "2026-11-02T11:17:31.145809+00:00"
     },
     {
       "date": "2026-11-02",
@@ -17677,19 +17688,232 @@
         }
       ],
       "id": "3a84f2f71be9eccf8389"
+    },
+    {
+      "date": "2026-11-02",
+      "venue": "久留米",
+      "race_no": 7,
+      "start": "18:24",
+      "riders": [
+        {
+          "no": 1,
+          "name": "荒沢貴史",
+          "family": "荒沢",
+          "age": 48,
+          "prefecture": "北海道",
+          "term": 85,
+          "rank": "S2",
+          "b": 0,
+          "s": 1
+        },
+        {
+          "no": 2,
+          "name": "三谷政史",
+          "family": "三谷",
+          "age": 43,
+          "prefecture": "奈良",
+          "term": 93,
+          "rank": "S2",
+          "b": 0,
+          "s": 0,
+          "rider_id": "014310",
+          "verified_identity": true,
+          "identity_basis": "公式全S級名簿のフルネーム・登録地・級班を照合"
+        },
+        {
+          "no": 3,
+          "name": "室井健一（欠場）",
+          "family": "室井",
+          "age": 56,
+          "prefecture": "徳島",
+          "term": 69,
+          "rank": "S2",
+          "b": 0,
+          "s": 0
+        },
+        {
+          "no": 4,
+          "name": "前反祐一郎",
+          "family": "前反",
+          "age": 52,
+          "prefecture": "広島",
+          "term": 81,
+          "rank": "S2",
+          "b": 0,
+          "s": 6,
+          "rider_id": "013438",
+          "verified_identity": true,
+          "identity_basis": "公式全S級名簿のフルネーム・登録地・級班を照合"
+        },
+        {
+          "no": 5,
+          "name": "明田春喜",
+          "family": "明田",
+          "age": 45,
+          "prefecture": "北海道",
+          "term": 89,
+          "rank": "S2",
+          "b": 0,
+          "s": 0,
+          "rider_id": "013976",
+          "verified_identity": true,
+          "identity_basis": "公式全S級名簿のフルネーム・登録地・級班を照合"
+        },
+        {
+          "no": 6,
+          "name": "坂本周作",
+          "family": "坂本",
+          "age": 34,
+          "prefecture": "青森",
+          "term": 105,
+          "rank": "S2",
+          "b": 6,
+          "s": 0,
+          "rider_id": "014982",
+          "verified_identity": true,
+          "identity_basis": "公式全S級名簿のフルネーム・登録地・級班を照合"
+        },
+        {
+          "no": 7,
+          "name": "稲毛知也",
+          "family": "稲毛",
+          "age": 28,
+          "prefecture": "和歌山",
+          "term": 123,
+          "rank": "S2",
+          "b": 13,
+          "s": 5,
+          "rider_id": "015723",
+          "verified_identity": true,
+          "identity_basis": "公式全S級名簿のフルネーム・登録地・級班を照合"
+        }
+      ],
+      "source_url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34614",
+      "collected_at": "2026-11-02T11:17:43.699642+00:00",
+      "period": "直近4ヶ月",
+      "source_published_at": null,
+      "parser_version": "race-card-story-v1.2",
+      "publication_basis": "取得時刻を利用可能時刻の上限として使用",
+      "related_urls": [
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34633",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34628",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34626",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34621",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34616",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34615",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34614",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34613",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34612",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34611",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34605",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261101_34604"
+      ],
+      "comments": [
+        {
+          "rider": "荒沢貴史",
+          "excerpt": "坂本君に任せて。",
+          "declaration": "坂本君に任せて",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-02T11:17:43.699642+00:00",
+          "collected_at": "2026-11-02T11:17:43.699642+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34614",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-02:久留米:7"
+        },
+        {
+          "rider": "三谷政史",
+          "excerpt": "神田君が３着に届いてるから、せめて４着には入りたかったですね。稲毛に。",
+          "declaration": "稲毛に",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-02T11:17:43.699642+00:00",
+          "collected_at": "2026-11-02T11:17:43.699642+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34614",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-02:久留米:7",
+          "follow_no": 7,
+          "follow_position": "ahead"
+        },
+        {
+          "rider": "前反祐一郎",
+          "excerpt": "前が強いバイク誘導みたいでしたね。近畿の後ろへ。",
+          "declaration": "近畿の後ろへ",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-02T11:17:43.699642+00:00",
+          "collected_at": "2026-11-02T11:17:43.699642+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34614",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-02:久留米:7"
+        },
+        {
+          "rider": "明田春喜",
+          "excerpt": "北日本の３番手。",
+          "declaration": "北日本の３番手",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-02T11:17:43.699642+00:00",
+          "collected_at": "2026-11-02T11:17:43.699642+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34614",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-02:久留米:7"
+        },
+        {
+          "rider": "坂本周作",
+          "excerpt": "仕掛けてはみたけど、遠かったです。自力。",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-02T11:17:43.699642+00:00",
+          "collected_at": "2026-11-02T11:17:43.699642+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34614",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-02:久留米:7"
+        },
+        {
+          "rider": "稲毛知也",
+          "excerpt": "ジャンですか？ 黒沢さんに合されて危なかったので下げたんですよ。自力。明日（",
+          "declaration": "明日（２日目）が大事です",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-02T11:17:43.699642+00:00",
+          "collected_at": "2026-11-02T11:17:43.699642+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34614",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-02:久留米:7"
+        }
+      ],
+      "id": "73794fe7aa305c9a54a5"
     }
   ],
   "status": {
-    "discovered": 19,
+    "discovered": 20,
     "attempted": 24,
     "errors": [
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_31791",
-        "error": "full identity missing"
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_34615",
+        "error": "S/B header layout changed"
       },
       {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261102_31154",
         "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261102_32817",
+        "error": "S/B header layout changed"
       },
       {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_32268",
@@ -17712,7 +17936,19 @@
         "error": "S/B header layout changed"
       },
       {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261101_31767",
+        "error": "full identity missing"
+      },
+      {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261031_31337",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261031_37362",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261031_37926",
         "error": "full identity missing"
       }
     ]
