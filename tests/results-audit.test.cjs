@@ -5,6 +5,8 @@ const date='2020-01-02',before='2020-01-02T00:00:00Z',after='2020-01-02T02:00:00
 const source={venue:'弥彦',race_number:12,start_time:'10:00',is_girls:false,grade:'F1',round_name:'決勝',entries:Array.from({length:7},(_,i)=>({car_number:i+1,rider_id:String(15000+i),rider_full_name:'架空'+(i+1),competition_score:105,running_style:i%2?'追':'逃',line_position:({1:'1-1',2:'1-2',3:'1-3',4:'2-1',5:'2-2',6:'3-1',7:'3-2'})[i+1]})),predictions:{1:{win_probability:1}},recommendations:[{combo:'7-6-5'}]};
 const day={date,generated_at:'2020-01-01T23:00:00Z',races:[source]};
 const race=Feed.convert(source,day),out=Brain.build(race),prediction=Audit.snapshot(race,out,before);
+// Keep the full seven-rider production narrative build compatible with the frozen feed.
+try{require('../js/story-brain.js').build(race);}catch(error){console.error('STORY-BRAIN-REGRESSION',error.stack);throw error;}
 assert.equal(prediction.pre_race,true);assert.ok(!JSON.stringify(race).includes('recommendations'));assert.ok(!JSON.stringify(race).includes('win_probability'));
 const expired=Audit.snapshot(race,out,after);assert.equal(expired.pre_race,false);
 assert.equal(Audit.snapshot({...race,source:{...race.source,mode:'bundled'}},out,before).pre_race,false);
