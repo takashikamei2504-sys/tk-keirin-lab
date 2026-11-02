@@ -64,5 +64,5 @@ const out=Brain.build(sample);
 const decision=out.story.main.decisions.find(x=>x.key==='red-attack');
 assert.ok(decision?.strategic&&decision.strategic.comparisons.length>=3);
 assert.equal(out.story.main.scenes.length,6);
-assert.equal(out.chosen.length,10);
+assert.ok(out.chosen.length>=1&&out.chosen.length<=10);
 console.log('PASS pre-bell opponent counterplay, B0 vs missing, alternative reactions, determinism and story integration');

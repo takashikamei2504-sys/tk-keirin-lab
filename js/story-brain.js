@@ -1,4 +1,4 @@
-/* Story first: choose a coherent six-stage race, then derive 6 main + 4 alternative tickets. */
+/* Story first: choose a coherent six-stage race, then derive at most ten justified tickets. */
 (function(root){'use strict';
 const Legacy=typeof module!=='undefined'?require('./race-brain.js'):root.RaceBrainV1||root.RaceBrain;
 const Memory=typeof module!=='undefined'?require('./brain-memory.js'):root.BrainMemory;
@@ -13,7 +13,7 @@ const Provenance=typeof module!=='undefined'?require('./model-provenance.js'):ro
 const Build=typeof module!=='undefined'?require('./model-build.js'):root.ModelBuild;
 const Search=typeof module!=='undefined'?require('./search-policy.js'):root.TacticalSearch;
 const Finish=typeof module!=='undefined'?require('./finish-review.js'):root.FinishReview;
-const VERSION='story-first-v5.3.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
+const VERSION='story-first-v5.4.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
 function validate(r){const ids=r?.riders?.map(x=>x.no)||[],flat=r?.lineup?.flat()||[];
@@ -275,7 +275,7 @@ function build(r,pack={},options={}){
   addScene(last,5,closing,'ゴール前',top.trio);last.scenes[5].order=[...top.trio,...s.order.filter(n=>!top.trio.includes(n))];
   last.scenes[5].lineReactions=reactions.snapshot({...s,order:last.scenes[5].order},5,last.scenes[4]);
   const id='story-'+(++serial),signature=signatureOf(s);
-  return {id,signature,score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,redThird:s.redThird||null,redThirdAhead:s.redThirdAhead||null,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
+  return {id,signature,tactical_review:Search.assess(s,deliberation.audit(s)),score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,redThird:s.redThird||null,redThirdAhead:s.redThirdAhead||null,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
    scenes:last.scenes,snapshots:last.scenes,states:last.scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),decisions:s.decisions,movementTrace:s.moves,explanation:last.scenes.map(x=>x.action).join('\n'),
    title:`${who(s.leader)}の主導権から${MODES[top.mode]}`,finish_review:finish,outcomes,defender:s.defender,homeResult:s.homeResult,homeRider:s.homeRider,backRider:s.backRider,backResult:s.backResult,defense:s.defense,blockResult:s.blockResult,cornerRider:s.cornerRider,innerRider:s.innerRider,audit:deliberation.audit(s)};
  }).sort((a,b)=>b.score-a.score||a.signature.localeCompare(b.signature));
@@ -301,7 +301,9 @@ function build(r,pack={},options={}){
   if(reversedPair)return '先行の粘りと番手差しの1・2着逆転を押さえる'+thirdText;
   return '本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる'+thirdText;
  };
- const selected=main.outcomes.slice(0,6).map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:mainTicketReason(t.trio)})),used=new Set(selected.map(t=>t.key));
+ // Relative finish support is an uncalibrated ranking, not probability or EV.
+ const mainCandidates=main.outcomes.filter(t=>t.score>=main.outcomes[0].score*.65).slice(0,6);
+ const selected=mainCandidates.map(t=>({...t,group:'main',supporting_path:main,paths:[main],selection_reason:mainTicketReason(t.trio)})),used=new Set(selected.map(t=>t.key));
  // Main story fixes the decisive contest, but allows short-straight placing
  // variance. A cover for third is NOT promoted into the main six-stage path.
  const thirdCovers=[...new Set(selected.map(t=>t.trio[2]))].filter(n=>n!==mainPodium[2]);
@@ -311,7 +313,9 @@ function build(r,pack={},options={}){
    reason:cornerOrder.indexOf(no)>=3?'直線の伸びと前団の脚色差で３着へ食い込む押さえ':'直線の脚色差による３着の押さえ'}))
  };
 
- function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
+ const mainAssessment=main.tactical_review;
+ const alternativePool=scenarios.filter(s=>s.signature!==main.signature&&s.tactical_review.passed&&s.tactical_review.score>=mainAssessment.score-.12).sort((a,b)=>b.tactical_review.score-a.tactical_review.score||a.signature.localeCompare(b.signature));
+ function take(s){if(alternatives.length>=4||selected.length>=10)return false;const t=s.outcomes.find(t=>!used.has(t.key)&&t.score>=s.outcomes[0].score*.65);if(!t)return false;const [category,trigger]=difference(s);if(categories.has(category))return false;
   const last=s.scenes[5],finishState={order:s.scenes[4].order,defender:s.defender,defense:s.defense,survivingAttack:s.cornerRider&&s.blockResult!=='stopped'?s.cornerRider:null,innerRider:s.innerRider,outside:[]};
   const closing=`この別展開では${who(t.trio[0])}が${MODES[t.mode]}で勝ち切る。${who(t.trio[1])}が２着、${who(t.trio[2])}が３着。`+Reality.finishExplanation(finishState,t.trio,who);
   const scenes=[...s.scenes.slice(0,5),{...last,action:closing,reasoning:reasons.finish({order:s.scenes[4].order,energy:s.scenes[4].energy},t.trio),tactical:{...last.tactical,finish_from:[...s.scenes[4].order],finish_order:[...t.trio]},order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio,lineReactions:reactions.snapshot({...s,order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))]},5,s.scenes[4])}];
@@ -320,18 +324,17 @@ function build(r,pack={},options={}){
   selected.push({...t,group:'alternative',supporting_path:alternative,paths:[alternative],selection_reason:`${category}が変わる別筋：${trigger}`});used.add(t.key);return true;}
 
  for(const category of ['赤板の攻防','ホームの仕掛け・追走','3～4角の判断','S取り・初手']){
-  const eligible=scenarios.filter(s=>!signatures.has(s.signature)&&difference(s)[0]===category);
-  const preferred=alternatives.length===3&&!alternatives.some(s=>s.upset)?eligible.filter(s=>s.first!==main.first):eligible;
-  for(const s of (preferred.length?preferred:eligible))if(take(s))break;
+  const eligible=alternativePool.filter(s=>!signatures.has(s.signature)&&difference(s)[0]===category);
+  for(const s of eligible)if(take(s))break;
  }
- for(const s of scenarios){if(alternatives.length===4)break;if(!signatures.has(s.signature)&&!categories.has(difference(s)[0]))take(s);}
- for(const s of scenarios){if(alternatives.length===4)break;if(!signatures.has(s.signature))take(s);}
- if(selected.length!==10)throw Error('本線6点と別筋4点を成立条件から生成できません');
+ for(const s of alternativePool){if(alternatives.length===4)break;if(!signatures.has(s.signature)&&!categories.has(difference(s)[0]))take(s);}
+ // Do not pad with another copy of an already covered tactical divergence.
+ if(!selected.length||selected.length>10)throw Error('買い目の選定点数が不正です');
  const ticketMap=new Map();for(const s of scenarios)for(const t of s.outcomes){if(!ticketMap.has(t.key))ticketMap.set(t.key,{key:t.key,trio:t.trio,score:0});ticketMap.get(t.key).score+=s.score*t.score;}
  const tickets=[...ticketMap.values()].sort((a,b)=>b.score-a.score||a.key.localeCompare(b.key));
  const profiles=Object.fromEntries(ids.map(n=>[n,{...priors.get(n),evidence:memories.filter(m=>m.no===n&&m.numeric),memory:memories.filter(m=>m.no===n)}]));
  const keymen=[...new Set([main.attacker,main.defender,main.homeRider,main.cornerRider,main.leader].filter(Boolean))].slice(0,3).map(no=>({no,name:by.get(no).name,decisions:[no===main.leader?'主導権と残り脚が本線の軸':'仕掛け・反応が本線と別筋の分かれ目'],score:0,matched_contexts:0}));
- return {version:VERSION,model:Build,reproducibility:Provenance.capture(r,pack,Build,width),race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles,context,missing:context.missing.length>0,story:{main,alternatives,selection_review:selectionReview},selection_policy:{main:6,alternatives:4,total:10,method:'story-before-tickets'},chosen:selected,tickets,narratives:[main,...alternatives],hypotheses:[main,...alternatives].map(s=>({id:s.id,mode:s.mode,score:s.score,representative:s})),keymen,front:main.front,dataSource:r.source?.label||'参考サンプル',diagnostics,
+ return {version:VERSION,model:Build,reproducibility:Provenance.capture(r,pack,Build,width),race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles,context,missing:context.missing.length>0,story:{main,alternatives,selection_review:selectionReview},selection_policy:{main:mainCandidates.length,alternatives:alternatives.length,total:selected.length,max_total:10,method:'story-before-tickets',ticket_rule:'relative-support-v1',main_relative_floor:.65,alternative_score_gap:.12,scope:'未校正の比較基準。確率・期待値・回収率最適化ではない'},chosen:selected,tickets,narratives:[main,...alternatives],hypotheses:[main,...alternatives].map(s=>({id:s.id,mode:s.mode,score:s.score,representative:s})),keymen,front:main.front,dataSource:r.source?.label||'参考サンプル',diagnostics,
   intelligence:{generated_at:pack.generated_at||null,evidence_count:memories.filter(m=>m.numeric).length,memory_count:memories.length,relationship_count:context.relationships.length,cutoff_policy:'公開・初回取得ともに発走前'},rating:'6段階をつなぐ展開仮説。的中確率ではありません'};
 }
 const api={VERSION,STAGES,MODES,build,validate,profiles:Legacy.profiles};if(typeof module!=='undefined')module.exports=api;root.RaceBrain=api;

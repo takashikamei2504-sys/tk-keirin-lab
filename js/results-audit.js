@@ -42,8 +42,14 @@ function snapshot(r,out,savedAt,{origin='browser',evidence=[],baseline=null}={})
  const input=JSON.parse(JSON.stringify(r));
  const chosen=out.chosen.map(t=>({key:t.key,trio:t.trio,mode:t.mode||t.supporting_path.mode,group:t.group||'legacy',story_id:t.supporting_path.id||null,explanation:out.story?t.supporting_path.scenes[5].action:t.supporting_path.explanation}));
  const points=out.selection_policy?.total??20;
- if(points===10&&(out.selection_policy?.method!=='story-before-tickets'||chosen.filter(t=>t.group==='main').length!==6||chosen.filter(t=>t.group==='alternative').length!==4))throw Error('本線6点・別筋4点の構成が不正です');
- if(![10,20].includes(points)||chosen.length!==points||new Set(chosen.map(t=>t.key)).size!==points||chosen.some(t=>!combo(t.trio,r.riders.map(x=>x.no))||t.key!==t.trio.join('-')))throw Error('保存対象の点数・買い目が不正です');
+ const policy=out.selection_policy,flexible=policy?.ticket_rule==='relative-support-v1';
+ if(flexible){
+  if(policy.method!=='story-before-tickets'||!Number.isInteger(points)||points<1||points>10||policy.max_total!==10||policy.main<1||policy.main>6||policy.alternatives<0||policy.alternatives>4||policy.main+policy.alternatives!==points||chosen.filter(t=>t.group==='main').length!==policy.main||chosen.filter(t=>t.group==='alternative').length!==policy.alternatives)throw Error('可変点数の本線・別筋構成が不正です');
+ }else{
+  if(points===10&&(policy?.method!=='story-before-tickets'||chosen.filter(t=>t.group==='main').length!==6||chosen.filter(t=>t.group==='alternative').length!==4))throw Error('本線6点・別筋4点の構成が不正です');
+  if(![10,20].includes(points))throw Error('保存対象の点数が不正です');
+ }
+ if(chosen.length!==points||new Set(chosen.map(t=>t.key)).size!==points||chosen.some(t=>!combo(t.trio,r.riders.map(x=>x.no))||t.key!==t.trio.join('-')))throw Error('保存対象の点数・買い目が不正です');
  return {schema:SCHEMA,race_id:raceKey(r),version:out.version,model_id:out.model?.model_id||out.version,provenance:out.reproducibility||null,saved_at:savedAt,cutoff:new Date(cutoff).toISOString(),pre_race:eligible,origin,
   identity:identity(r),input,selection_policy:out.selection_policy||{total:20,method:'legacy'},story:out.story?{main:{id:out.story.main.id,scenes:out.story.main.scenes,reading:out.story.main.reading,audit:out.story.main.audit?{passed:out.story.main.audit.passed,checked:out.story.main.audit.checked,violations:out.story.main.audit.violations}:null},selection_review:out.story.selection_review?{method:out.story.selection_review.method,accepted:out.story.selection_review.accepted,examined:out.story.selection_review.examined,reconsidered:out.story.selection_review.reconsidered,rejected_objections:out.story.selection_review.rejected_objections}:null,alternatives:out.story.alternatives.map(s=>({id:s.id,scenes:s.scenes,trigger:s.trigger}))}:null,relationship_evidence:out.context?.relationships||[],chosen,ranked_keys:out.tickets.map(t=>t.key),evidence,diagnostics:out.diagnostics,baseline,
   note:eligible?'発走前の予想を固定保存':'発走後・サンプル・資料時刻不明のため成績集計対象外'};

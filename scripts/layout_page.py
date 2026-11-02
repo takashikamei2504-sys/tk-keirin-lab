@@ -32,7 +32,7 @@ def tidy(s):
 <div class="prediction-head"><h2>展開予想</h2><button type="button" class="btn secondary" id="causal-run">再推理</button></div>
 <p id="prediction-race" class="prediction-race"></p><p id="prediction-context" class="prediction-context"></p>
 <div id="causal-stories"></div>
-<div class="ticket-section-heading"><h3>展開から選ぶ３連単10点</h3><button type="button" class="btn" id="causal-copy">10点をコピー</button></div>
+<div class="ticket-section-heading"><h3>展開から選ぶ３連単（上限10点）</h3><button type="button" class="btn" id="causal-copy">買い目をコピー</button></div>
 <p class="small" id="ticket-display-count"></p><p class="small">1・2着が同じ買い目をまとめています。例：1-2-345＝3点。「展開・採用理由」から元の展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
 <p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
 </section>
