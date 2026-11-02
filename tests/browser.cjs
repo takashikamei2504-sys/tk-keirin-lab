@@ -7,7 +7,7 @@ await page.route('**/race_material.json*',route=>route.fulfill({json:{schema:'tk
 await page.route('**/intelligence.json*',route=>route.fulfill({json:{schema:'tk-keirin-intelligence/v1.4',evidence:[],observations:[],relationships:[],generated_at:'2026-10-30T00:00:00Z'},headers:{'access-control-allow-origin':'*'}}));
 await page.goto(process.env.LAB_URL||'http://127.0.0.1:8765/v14.html');
 await page.waitForFunction(()=>typeof causalLast!=='undefined'&&causalLast?.form?.status?.covered===1&&raceMaterialPack?.schema&&autoIntelPack?.generated_at);
-assert.equal(await page.evaluate(()=>causalLast.version),'story-first-v4.0.0');
+assert.equal(await page.evaluate(()=>causalLast.version),require('../js/model-build.js').version);
 assert.equal(await page.locator('#scenario-1 > .story-stage').count(),6);
 assert.equal(await page.locator('#scenario-1 .formation-diagram').count(),6);
 assert.deepEqual(await page.locator('#scenario-1 > .story-stage').evaluateAll(nodes=>nodes.map(n=>Array.from(n.children).map(x=>x.tagName))),Array.from({length:6},()=>['H4','FIGURE','P','DETAILS']));
@@ -30,7 +30,7 @@ await page.locator('.alternative-story .scenario-path > summary').first().click(
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'mobile horizontal overflow');
 await page.locator('#causal-run').click();assert.equal(await page.locator('#scenario-1 > .story-stage').count(),6);
 await page.locator('#collection-details > summary').click();const exporting=page.waitForEvent('download');await page.locator('#causal-export').click();const download=await exporting;const json=JSON.parse(require('fs').readFileSync(await download.path(),'utf8'));
-assert.equal(json.version,'story-first-v4.0.0');assert.equal(json.selection_policy.total,10);assert.equal(json.story.main.scenes.length,6);assert.equal(json.chosen.length,10);
+assert.equal(json.version,require('../js/model-build.js').version);assert.equal(json.selection_policy.total,10);assert.equal(json.story.main.scenes.length,6);assert.equal(json.chosen.length,10);
 await page.evaluate(()=>{data=structuredClone(QUICK_BUNDLED[1]);render();});
 assert.equal(await page.evaluate(()=>causalLast.chosen.length),10);assert.match(await page.locator('#recent-form-status').textContent(),/0\/9/);
 await page.evaluate(()=>{const r=structuredClone(QUICK_BUNDLED[0]);r.riders=r.riders.slice(0,7);r.lineup=r.lineup.map(l=>l.filter(n=>r.riders.some(x=>x.no===n))).filter(l=>l.length);data=r;render();});
