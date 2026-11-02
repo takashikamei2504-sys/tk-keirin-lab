@@ -97,7 +97,7 @@ function render(model,{storyId=''}={}){
   const lanes=[...(outer?[['outside','外',1]]:[]),['queue',outer||inner?'前団':'列',base],...(inner?[['inside','内',base+1]]:[])];
   body+=`<div class="formation-track" style="--cars:${model.riders.length}" aria-label="左が先頭、右が後方">${lanes.map(([lane,label,row])=>`<span class="formation-lane-label lane-${lane}" style="grid-row:${row}">${label}</span>`).join('')}${model.riders.map((r,i)=>{
    const row=r.lane==='outside'?1:r.lane==='inside'?base+1:base,link=model.connections.find(l=>l.from===r.no);
-   const badge=r.statuses.some(x=>x.text==='S取り')?'S':r.statuses.some(x=>x.kind==='gap')?'離':r.statuses.some(x=>x.text==='ブロック')?'↗':r.statuses.some(x=>x.text==='縦踏み')?'←':r.statuses.some(x=>x.kind==='stopped')?'止':'';
+   const badge=r.statuses.some(x=>x.text==='S取り')?'S':r.statuses.some(x=>x.kind==='gap')?'離':r.statuses.some(x=>x.text==='ブロック')?'↗':r.statuses.some(x=>x.text==='縦踏み')?'←':r.statuses.some(x=>x.kind==='stopped')?'止':r.lane==='outside'?'←':r.lane==='inside'?'↖':'';
    return `<div class="formation-slot" style="grid-column:${i+2};grid-row:${row}" data-rank="${r.position}">${chip(r)}${badge?`<span class="formation-motion">${badge}</span>`:''}${i<model.riders.length-1&&link?.type!=='order'?`<span class="formation-link link-${link?.type}" aria-hidden="true">${link?.type==='line'?'━':'⋯'}</span>`:''}</div>`;
   }).join('')}</div><div class="formation-roster" aria-label="車番と選手名">${model.riders.map(r=>`<span class="formation-roster-item"><span class="formation-number car-${r.no}">${r.no}</span><span class="formation-name">${esc(r.label)}<small class="formation-roster-team">${r.team.id}</small></span></span>`).join('')}</div>`;
 
