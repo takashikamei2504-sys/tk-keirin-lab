@@ -97,6 +97,10 @@ function build(r,records,context){
   const usedTraits=key.endsWith('-individual-follow')?['track']:key==='red-attack'?[c.key.endsWith(':press')?'resist':'kamashi']:key==='red-response'?[c.key==='resist'?'resist':'withdraw']:key==='defense'?(c.key==='block'?['block']:c.key==='vertical'?['vertical','finish']:[]):TRAITS[key]||[];
   const matchedContext=Memory.context(r,no,s);
   const evidence=usedTraits.flatMap(k=>Memory.review(.5,records,no,k,matchedContext).sources).sort((a,b)=>b.confidence-a.confidence||a.ageDays-b.ageDays)[0];
+  const general=usedTraits.map(k=>Memory.review(.5,records,no,k,matchedContext).qualitative).filter(q=>q.source_count);
+  const generalSources=[...new Map(general.flatMap(q=>q.contributions.flatMap(c=>c.sources)).map(m=>[m.url+'|'+m.excerpt,m])).values()];
+  for(const row of generalSources.slice(0,2))fact(`${who(no)}の総合材料となる発言「${row.excerpt}」`,row,'qualitative_statement');
+  if(general.length)inferences.push(`${who(no)}は、${general[0].summary}。局面に合う範囲で小幅反映する`);
   if(evidence)fact(`${who(no)}の本文観察「${evidence.excerpt}」`,evidence,'observed_action');
   else if(usedTraits.length)missing.push(`${who(no)}のこの動作を裏付ける本文観察は未取得`);
   return {label:label(key,c),no,used_traits:usedTraits,intent_tags:tags,multiplier:Math.max(.5,Math.min(2,multiplier)),facts,inferences,missing,basis:[...facts.map(f=>f.label),...inferences].join('。')||'現時点の位置と消耗からの暫定判断'};

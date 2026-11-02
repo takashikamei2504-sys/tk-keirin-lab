@@ -43,10 +43,10 @@ function autoIntelRender(out){
  const total=data.riders.length,covered=Object.values(out.profiles).filter(p=>p.evidence.length).length;
  const generated=autoIntelPack.generated_at?new Date(autoIntelPack.generated_at).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'}):'未取得';
  const errors=autoIntelPack.status?.errors?.length||0;
- $('auto-intel-status').textContent=`記事自動分析：${covered}/${total}選手に本文根拠。適用${out.intelligence.evidence_count}件。最終収集 ${generated}（日本時間）。${errors?'収集時の未取得・日付不明等 '+errors+'件。':''}記事公開・初回取得が発走より前の情報だけ適用。未校正のルール推理です。`;
+ $('auto-intel-status').textContent=`記事自動分析：直接の走り観察 ${covered}/${total}選手・適用${out.intelligence.evidence_count}件。総合所見 ${out.intelligence.synthesis_riders||0}/${total}選手（追加資料${out.intelligence.knowledge_count||0}件）。最終収集 ${generated}（日本時間）。${errors?'収集時の未取得・日付不明等 '+errors+'件。':''}記事公開・初回取得が発走より前の情報だけ適用。未校正のルール推理です。`;
  $('auto-intel-evidence').innerHTML=data.riders.map(x=>{
   const p=out.profiles[x.no],es=p.evidence.slice(0,6);
-  return `<div class="intel-record"><strong>${x.no}番 ${esc(x.name)}</strong><p>${esc(p.basis)}${!es.length?'／このレースの発走前に利用可能な記事根拠なし':''}</p>`+es.map(e=>`<p><a target="_blank" rel="noopener noreferrer" href="${esc(e.url)}">${esc(e.title||'公開記事')}</a>：${esc(BRAIN_TRAITS[e.trait]||e.trait)}<br>${esc(e.excerpt||'')}<br><small>公開 ${esc(e.published_at)}／取得 ${esc(e.collected_at)}</small></p>`).join('')+'</div>';
+  return `<div class="intel-record"><strong>${x.no}番 ${esc(x.name)}</strong><p>${esc(p.basis)}${p.qualitative?.source_count?'<br>総合所見：'+esc(p.qualitative.summary):''}${!es.length?'／この発走前に利用可能な直接の走り観察は未取得':''}</p>`+es.map(e=>`<p><a target="_blank" rel="noopener noreferrer" href="${esc(e.url)}">${esc(e.title||'公開記事')}</a>：${esc(BRAIN_TRAITS[e.trait]||e.trait)}<br>${esc(e.excerpt||'')}<br><small>公開 ${esc(e.published_at)}／取得 ${esc(e.collected_at)}</small></p>`).join('')+'</div>';
  }).join('');
 }
 autoIntelLoad();
@@ -62,7 +62,7 @@ s=s[:a]+r'''  $('causal-stories').innerHTML=stories.map((n,i)=>`<details class="
   $('causal-tickets').innerHTML=out.chosen.map((t,i)=>{const p=t.supporting_path;return `<div class="causal-ticket"><strong>${i+1}. ${causalEsc(t.key)}</strong><span>${causalEsc(RaceBrain.MODES[p.mode])}${t.selection_reason.includes('別筋を確保')?' ✦ 別筋枠':''}</span><details class="ticket-reason"><summary>採用理由</summary><p class="small">${causalEsc(t.selection_reason)}</p><p class="small">${causalEsc(p.explanation)}</p><p class="small">${t.paths.length}通りの決着経路を集約。未校正の仮説スコアで選定。</p></details></div>`;}).join('');
 '''+s[b:]
 s=s.replace('profiles:causalLast.profiles,recent_form:', 'profiles:causalLast.profiles,hypotheses:causalLast.hypotheses,diagnostics:causalLast.diagnostics,recent_form:')
-s=s.replace("${esc(p.basis)}${!es.length?", "${esc(p.basis)}${p.form_basis?'<br>'+esc(p.form_basis):''}${p.measurements.length?'<br>'+esc(p.measurements.join(' ／ ')):''}${!es.length?")
+s=s.replace("${esc(p.basis)}${p.qualitative?.source_count?'<br>総合所見：'+esc(p.qualitative.summary):''}${!es.length?", "${esc(p.basis)}${p.form_basis?'<br>'+esc(p.form_basis):''}${p.measurements.length?'<br>'+esc(p.measurements.join(' ／ ')):''}${!es.length?")
 
 # Recent form is a separate automatic feed, preserving the supplied v1.3 and v1.2.
 s=s.replace(' <div id="causal-state"', '<section class="intel-box" id="recent-form-panel"><h3>自動収集した近況成績</h3><p class="causal-meta" role="status" id="recent-form-status">近況成績を自動取得中…</p><div id="recent-form-riders"></div></section>\n <div id="causal-state"',1)
