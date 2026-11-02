@@ -126,6 +126,9 @@ function build(r,pack={},options={}){
    return options;
  },(s,c)=>{
    if(c.actor)reactions.applyCounter(s,c.actor,move);
+   // Branch states copy the scenes array but share its scene objects.
+   // Copy the red scene before recording a branch-specific reaction.
+   s.scenes[s.scenes.length-1]={...s.scenes.at(-1),tactical:{...s.scenes.at(-1).tactical}};
    const scene=s.scenes.at(-1);
    // The red-board resolution, including third-line reactions, belongs to
    // the same scene rather than being invented in the next stage.
