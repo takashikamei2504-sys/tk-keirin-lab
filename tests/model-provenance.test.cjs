@@ -1,0 +1,7 @@
+'use strict';
+const assert=require('node:assert/strict'),crypto=require('node:crypto'),fs=require('node:fs'),P=require('../js/model-provenance.js'),Build=require('../js/model-build.js'),B=require('../js/story-brain.js'),Old=require('../baselines/story-v4-23e9205/js/story-brain.js'),cases=require('./engine-cases.cjs');
+for(const text of ['', 'abc','太田海也・清水裕友','x'.repeat(1000)])assert.equal(P.sha256(text),crypto.createHash('sha256').update(text).digest('hex'));
+assert.equal(P.sha256({a:1,b:2}),P.sha256({b:2,a:1}));assert.deepEqual(require('../scripts/model_identity.cjs').manifest(),Build,'rebuild the manifest after engine edits');
+const frozen=require('../baselines/story-v4-23e9205/manifest.json');for(const [f,hash] of Object.entries(frozen.files))assert.equal(crypto.createHash('sha256').update(fs.readFileSync('baselines/story-v4-23e9205/js/'+f)).digest('hex'),hash,'frozen baseline bytes cannot change');
+for(const c of cases){const a=B.build(c.race,c.pack),replay=B.build(structuredClone(c.race),a.reproducibility.replay_pack,a.reproducibility.search_settings);assert.deepEqual(a.chosen.map(t=>t.key),replay.chosen.map(t=>t.key));assert.equal(a.reproducibility.input_sha256,replay.reproducibility.input_sha256);assert.equal(a.model.model_id,Build.model_id);if(B.VERSION==='story-first-v4.1.0')assert.deepEqual(a.chosen.map(t=>t.key),Old.build(c.race,c.pack).chosen.map(t=>t.key),'phase 0 cannot change predictions');}
+console.log('PASS frozen source hashes, browser/node SHA256, scoped exact replay, build identity and same-input baseline');

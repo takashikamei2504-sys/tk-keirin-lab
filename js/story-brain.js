@@ -9,7 +9,9 @@ const Deliberation=typeof module!=='undefined'?require('./tactical-deliberation.
 const CrossLine=typeof module!=='undefined'?require('./cross-line-tactics.js'):root.CrossLineTactics;
 const Reality=typeof module!=='undefined'?require('./race-reality.js'):root.RaceReality;
 const Reactions=typeof module!=='undefined'?require('./line-reactions.js'):root.LineReactions;
-const VERSION='story-first-v4.0.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
+const Provenance=typeof module!=='undefined'?require('./model-provenance.js'):root.ModelProvenance;
+const Build=typeof module!=='undefined'?require('./model-build.js'):root.ModelBuild;
+const VERSION='story-first-v4.1.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
 function validate(r){const ids=r?.riders?.map(x=>x.no)||[],flat=r?.lineup?.flat()||[];
@@ -314,7 +316,7 @@ function build(r,pack={},options={}){
  const tickets=[...ticketMap.values()].sort((a,b)=>b.score-a.score||a.key.localeCompare(b.key));
  const profiles=Object.fromEntries(ids.map(n=>[n,{...priors.get(n),evidence:memories.filter(m=>m.no===n&&m.numeric),memory:memories.filter(m=>m.no===n)}]));
  const keymen=[...new Set([main.attacker,main.defender,main.homeRider,main.cornerRider,main.leader].filter(Boolean))].slice(0,3).map(no=>({no,name:by.get(no).name,decisions:[no===main.leader?'主導権と残り脚が本線の軸':'仕掛け・反応が本線と別筋の分かれ目'],score:0,matched_contexts:0}));
- return {version:VERSION,race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles,context,missing:context.missing.length>0,story:{main,alternatives,selection_review:selectionReview},selection_policy:{main:6,alternatives:4,total:10,method:'story-before-tickets'},chosen:selected,tickets,narratives:[main,...alternatives],hypotheses:[main,...alternatives].map(s=>({id:s.id,mode:s.mode,score:s.score,representative:s})),keymen,front:main.front,dataSource:r.source?.label||'参考サンプル',diagnostics,
+ return {version:VERSION,model:Build,reproducibility:Provenance.capture(r,pack,Build,width),race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles,context,missing:context.missing.length>0,story:{main,alternatives,selection_review:selectionReview},selection_policy:{main:6,alternatives:4,total:10,method:'story-before-tickets'},chosen:selected,tickets,narratives:[main,...alternatives],hypotheses:[main,...alternatives].map(s=>({id:s.id,mode:s.mode,score:s.score,representative:s})),keymen,front:main.front,dataSource:r.source?.label||'参考サンプル',diagnostics,
   intelligence:{generated_at:pack.generated_at||null,evidence_count:memories.filter(m=>m.numeric).length,memory_count:memories.length,relationship_count:context.relationships.length,cutoff_policy:'公開・初回取得ともに発走前'},rating:'6段階をつなぐ展開仮説。的中確率ではありません'};
 }
 const api={VERSION,STAGES,MODES,build,validate,profiles:Legacy.profiles};if(typeof module!=='undefined')module.exports=api;root.RaceBrain=api;

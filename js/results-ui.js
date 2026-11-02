@@ -7,16 +7,16 @@ function read(){try{const rows=JSON.parse(localStorage.getItem(store)||'[]');ret
 function track(out,race){
  current={race_id:Audit.raceKey(race)};
  if(race.source?.mode==='live-public-feed')try{
-  const entry=Audit.snapshot(race,out,new Date().toISOString()),rows=read(),i=rows.findIndex(p=>p.race_id===entry.race_id&&p.version===entry.version);
+  const entry=Audit.snapshot(race,out,new Date().toISOString()),rows=read(),i=rows.findIndex(p=>p.race_id===entry.race_id&&(p.model_id||p.version)===(entry.model_id||entry.version));
   // Keep the last displayed pre-race version; post-race redraws must not replace it.
-  if(i<0){if(entry.pre_race||!rows.some(p=>p.race_id===entry.race_id&&p.pre_race))rows.push(entry);}else if(entry.pre_race)rows[i]=entry;
+  if(i<0){if(entry.pre_race||!rows.some(p=>p.race_id===entry.race_id&&p.pre_race))rows.push(entry);}
   rows.sort((a,b)=>b.saved_at.localeCompare(a.saved_at));localStorage.setItem(store,JSON.stringify(rows.slice(0,300)));
  }catch(error){$('evaluation-storage').textContent='端末への保存不可：'+error.message+'。共通の自動保存記録は引き続き確認できます。';}
  render();
 }
 function render(){
  if(!$('evaluation-summary'))return;
- const summary=report?.summary;
+ const summary=report?.summary?.current_model||report?.summary;
  $('evaluation-summary').textContent=summary?`発走前保存 ${summary.evaluated}件を評価 ／ 的中${summary.hits}件${summary.hit_rate===null?'':`（${(summary.hit_rate*100).toFixed(1)}%）`} ／ 結果待ち${summary.pending}件 ／ 事前予想なし・対象外${summary.excluded}件`:'共通の自動保存記録を読み込み中。発走後に作った予想は成績へ含めません。';
  $('evaluation-paired').textContent=summary?.paired.count?`同じ事前入力・同一点数で旧エンジンと比較：${summary.paired.count}件中 新${summary.paired.new_hits}的中／旧${summary.paired.baseline_hits}的中。少数件の差だけで改善と断定しません。`:'新旧比較は発走前に両方を保存したレースから蓄積します。';
  if(summary?.by_policy)$('evaluation-paired').textContent+=' バージョン・点数別：'+Object.entries(summary.by_policy).map(([key,v])=>`${key} ${v.count}件中${v.hits}的中`).join(' ／ ');
