@@ -21,7 +21,7 @@ function build(r){
  // A second line may exploit an existing confrontation by passing exactly
  // one adjacent rival line, but never the current leader as a free reaction.
  function possibleCounter(s,head){
-  if(!s.attacker||head===s.attacker||head===s.leader||head===s.front)return null;
+  if(!s.attacker||by.get(head)?.style==='追'||head===s.attacker||head===s.leader||head===s.front)return null;
   const own=contiguous(s,head),at=s.order.indexOf(head);
   if(!own.length||at<2||s.connected[head]===false)return null;
   const before=s.order[at-1],previous=lineOf.get(before),previousHead=previous?.[0];
