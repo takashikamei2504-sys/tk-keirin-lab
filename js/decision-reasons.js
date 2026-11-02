@@ -33,7 +33,7 @@ function build(r,records,context){
   return (names[key]||'直線の判断')+'：'+chosen;
  }
  function evaluate(key,c,s){
-  const no=c.actor||(['red-response','red-result'].includes(key)?s.front:['follow','back-follow'].includes(key)?r.lineup.find(l=>l[0]===s.leader)?.[1]:key==='defense'?s.defender:null),x=by.get(no);
+  const no=c.actor||(['red-response','red-result'].includes(key)?s.front:['follow','back-follow'].includes(key)?r.lineup.find(l=>l.includes(s.leader))?.slice(r.lineup.find(l=>l.includes(s.leader)).indexOf(s.leader)+1)[0]:key==='defense'?s.defender:null),x=by.get(no);
   const facts=[],inferences=[],missing=[];let multiplier=1;
   const fact=(label,src=null,kind='measurement')=>facts.push({no,kind,label,source:source(src)});
   const infer=(label,factor=1)=>{inferences.push(label);multiplier*=factor;};
@@ -94,12 +94,12 @@ function build(r,records,context){
    if(c.key==='follow')infer('差しのタイミングを待つ代わりに、外の進出を止める動きは取らない');
   }
   if(key==='inside')infer('直前のブロックで内が空いた仮説が前提。コースが開かなければこの筋は成立しない');
-  const usedTraits=key==='red-attack'?[c.key.endsWith(':press')?'resist':'kamashi']:key==='red-response'?[c.key==='resist'?'resist':'withdraw']:key==='defense'?(c.key==='block'?['block']:c.key==='vertical'?['vertical','finish']:[]):TRAITS[key]||[];
-  const matchedContext={phase:s.phase,role:r.lineup.find(l=>l.includes(no))?.[0]===no?'leader':'follower'};
-  const evidence=records.filter(m=>m.no===no&&m.numeric&&usedTraits.includes(m.trait)&&(!m.context||Object.entries(m.context).every(([k,v])=>matchedContext[k]===v))).sort((a,b)=>b.confidence-a.confidence||a.ageDays-b.ageDays)[0];
+  const usedTraits=key.endsWith('-individual-follow')?['track']:key==='red-attack'?[c.key.endsWith(':press')?'resist':'kamashi']:key==='red-response'?[c.key==='resist'?'resist':'withdraw']:key==='defense'?(c.key==='block'?['block']:c.key==='vertical'?['vertical','finish']:[]):TRAITS[key]||[];
+  const matchedContext=Memory.context(r,no,s);
+  const evidence=usedTraits.flatMap(k=>Memory.matching(records,no,k,matchedContext)).sort((a,b)=>b.confidence-a.confidence||a.ageDays-b.ageDays)[0];
   if(evidence)fact(`${who(no)}の本文観察「${evidence.excerpt}」`,evidence,'observed_action');
   else if(usedTraits.length)missing.push(`${who(no)}のこの動作を裏付ける本文観察は未取得`);
-  return {label:label(key,c),intent_tags:tags,multiplier:Math.max(.5,Math.min(2,multiplier)),facts,inferences,missing,basis:[...facts.map(f=>f.label),...inferences].join('。')||'現時点の位置と消耗からの暫定判断'};
+  return {label:label(key,c),no,used_traits:usedTraits,intent_tags:tags,multiplier:Math.max(.5,Math.min(2,multiplier)),facts,inferences,missing,basis:[...facts.map(f=>f.label),...inferences].join('。')||'現時点の位置と消耗からの暫定判断'};
  }
  function scene(decisions){
   const facts=[],inferences=[],missing=[],seen=new Set();

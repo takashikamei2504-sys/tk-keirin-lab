@@ -13,7 +13,7 @@ const Provenance=typeof module!=='undefined'?require('./model-provenance.js'):ro
 const Build=typeof module!=='undefined'?require('./model-build.js'):root.ModelBuild;
 const Search=typeof module!=='undefined'?require('./search-policy.js'):root.TacticalSearch;
 const Finish=typeof module!=='undefined'?require('./finish-review.js'):root.FinishReview;
-const VERSION='story-first-v5.4.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
+const VERSION='story-first-v5.5.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
 function validate(r){const ids=r?.riders?.map(x=>x.no)||[],flat=r?.lineup?.flat()||[];
@@ -24,7 +24,7 @@ function build(r,pack={},options={}){
  const leaders=r.lineup.map(l=>l[0]),context=Context.build(r,pack),memories=Memory.build(r,pack),priors=Legacy.profiles(r,{}),width=options.width??256;
  if(!Number.isInteger(width)||width<16||width>2048)throw Error('探索幅は16～2048で指定してください');
  const who=n=>`${n}番${by.get(n).name}`,own=n=>by.get(n).style!=='追',ability=n=>clip(.55+(by.get(n).score-100)*.024,.2,1.3);
- const trait=(n,k,s)=>Memory.trait(priors.get(n)[k]??.5,memories,n,k,{phase:STAGES[s.stage||0],role:lineOf.get(n)[0]===n?'leader':'follower'});
+ const trait=(n,k,s)=>Memory.trait(priors.get(n)[k]??.5,memories,n,k,Memory.context(r,n,s));
  const controlLine=n=>lineOf.get(n).slice(lineOf.get(n).indexOf(n));
  const motivation=n=>context.lines.find(l=>l.leader===n)?.motivation||0;
  const reasons=Reasons.build(r,memories,context);
@@ -74,7 +74,7 @@ function build(r,pack={},options={}){
   s.stage=index;s.scenes.push({stage:index+1,phase:STAGES[index],action:basis+text,order:[...s.order],energy:{...s.energy},shape,actors,reasoning,tactical,lineReactions,assumption:'位置・車間・速度は未計測の展開仮説'});
  }
  function branch(states,key,candidates,apply){const all=[];
-  for(const s of states){const choices=candidates(s).map(c=>{const reasoning=reasons.evaluate(key,c,{...s,phase:STAGES[s.stage||0]});return {...c,weight:c.weight*reasoning.multiplier,reasoning};});
+  for(const s of states){const choices=candidates(s).map(c=>{const reasoning=reasons.evaluate(key,c,{...s,phase:STAGES[s.stage||0]});reasoning.trait_review=(reasoning.used_traits||[]).map(k=>Memory.review(priors.get(reasoning.no)[k]??.5,memories,reasoning.no,k,Memory.context(r,reasoning.no,s))).map(x=>({...x,sources:x.sources.map(m=>({url:m.url,excerpt:m.excerpt,published_at:m.published_at,collected_at:m.collected_at,context:m.context||{}}))}));return {...c,weight:c.weight*reasoning.multiplier,reasoning};});
    const strategic=key==='red-attack'?crossLine.review(s,choices):null;
     if(strategic)for(const c of choices)c.weight*=strategic.assessments.get(c.key)?.multiplier??1;
     const phase={'home-attack':'home','back-attack':'back','corner-attack':'late'}[key],reviews=phase?deliberation.review(s,phase,choices).assessments:key==='defense'?deliberation.response(s,choices):null;
