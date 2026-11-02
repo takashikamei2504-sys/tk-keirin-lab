@@ -13,7 +13,7 @@ UTC = dt.timezone.utc
 AGENT = 'TKKeirinLab/1.4 (public article research; bounded requests)'
 HOSTS = {urllib.parse.urlsplit(u).hostname for _,_,u in SOURCES}|{'keirin.jp','www.keirin.jp'}
 INDEXES = [u for _,_,u in SOURCES]
-PARSER_VERSION='public-sources-v1.6-story'
+PARSER_VERSION='public-sources-v1.7-context'
 RULES = {
  'block': [(r'ブロック|けん制|牽制', .85)],
  'vertical': [(r'縦に踏|タテに踏', .85)],
@@ -117,6 +117,19 @@ def article_url(url):
  p=urllib.parse.urlparse(url)
  return p.hostname in HOSTS and (article_kind(url) is not None or bool(re.search(r'/articles/-/\d+',p.path)) or ('news_detail' in p.path and 'id=' in p.query) or '/chumoku_race/' in p.path or '/keirin_news/' in p.path or bool(re.search(r'/report.+/report_\d+\.html',p.path)))
 
+def action_context(text, trait):
+ """Only explicit circumstances attached to this action; no guessed personality."""
+ context={}
+ phases=[('並び確認・S取り',r'S取り|スタート取り'),('赤板周回～打鐘',r'赤板|打鐘'),('最終ホーム',r'最終ホーム|ホームから'),('最終バック',r'最終バック|バックから'),('最終3～4コーナー',r'[３3]角|[４4]角|[３3][〜～・~][４4]コーナー'),('最後の直線',r'直線')]
+ found=[name for name,pattern in phases if re.search(pattern,text)]
+ # Multiple time markers do not establish which one modifies the action.
+ if len(found)>1:return None
+ if len(found)==1:context['phase']=found[0]
+ if re.search(r'番手(?:から|で|を回)',text):context['role']='follower'
+ if trait=='track' and re.search(r'(?:カマシ|かまし)(?:に|への)',text):context['attack_type']='kamashi'
+ if trait in ('recover','makuri') and re.search(r'(?:離れて|千切れて|ちぎれて)から',text):context['connection']='detached'
+ return context
+
 def extract(page, names, url, date, collected):
  rows=[]; title=next((s for t,s in page.blocks if t=='h1'),page.meta.get('og:title',''))
  for tag,text in page.blocks:
@@ -136,14 +149,25 @@ def extract(page, names, url, date, collected):
     for pattern,value in rules:
      match=re.search(pattern,tail)
      if not match: continue
+     if trait=='kamashi' and re.search(r'(?:カマシ|かまし)(?:に|への)',tail):continue
      window=tail[max(0,match.start()-8):match.end()+16]
      if re.search(r'できな|しなかった|せず|られず|れなか|したくな|ない|厳しい|失敗|つもり|予定|たい|れば',window): continue
+     context=action_context(tail,trait)
+     if context is None:continue
      identity=hashlib.sha256(f'{url}|{rider}|{trait}|{sentence}'.encode()).hexdigest()[:20]
      rows.append(dict(id=identity,rider=rider,trait=trait,value=value,confidence=.6,
        url=url,title=title[:120],excerpt=sentence[:110],condition='単一局面の観察。恒常的な性格と断定しない',
-       published_at=date.isoformat(),collected_at=collected.isoformat(),body_verified=True,extractor='explicit-subject-rules-v1.4'))
+       context=context,context_schema='tk-action-context/v1',
+       published_at=date.isoformat(),collected_at=collected.isoformat(),body_verified=True,extractor='explicit-subject-context-v1.7'))
      break
  return rows
+
+def merge_evidence(previous, url, rows):
+ # A successful reparse replaces older unscoped interpretations, including
+ # actions that the stricter parser no longer attributes to this rider.
+ kept={k:e for k,e in previous.items() if e.get('url')!=url or e.get('context_schema')=='tk-action-context/v1'}
+ for row in rows:kept.setdefault(row['id'],row)
+ return kept
 
 def roster(now,errors):
  names=set(); dates=[]
@@ -178,7 +202,7 @@ SPOKEN_ACTIONS={
  'resist':r'突っ張った|突っ張りました',
  'withdraw':r'引いた|引きました|下げた|下げました',
  'kamashi':r'カマした|かました|カマシを決めた|カマシを決めました',
- 'makuri':r'捲った|まくった|捲りました|まくりました|捲りで勝った|捲りで勝ちました',
+ 'makuri':r'捲った|まくった|捲りました|まくりました|捲りで勝った|捲りで勝ちました|捲って勝った|捲って勝ちました',
  'track':r'追走できた|追走できました|食らいついた',
  'seat':r'番手にはまった|飛びついた|飛び付きました',
  'recover':r'自力に切り替えた|再度仕掛けた',
@@ -260,8 +284,8 @@ def main():
    comments=observations(quotes,url,title,date,collected)
    from collect_race_material import relationships
    for rel in relationships(quotes,names,url,date.isoformat(),collected.isoformat()):relations.setdefault(rel['id'],rel)
-   for e in rows:
-    e['title']=title[:120];evidence.setdefault(e['id'],e)
+   for e in rows:e['title']=title[:120]
+   evidence=merge_evidence(evidence,url,rows)
    for note in comments:
     if note['id'] not in notes:notes[note['id']]=note;stat['comments_added']+=1
    first=articles.get(url,{}).get('collected_at',collected.isoformat())
