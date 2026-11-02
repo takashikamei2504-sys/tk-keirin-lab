@@ -1,7 +1,7 @@
 /* Fixed-budget tactical diversity. Retained mass is never an outcome probability. */
 (function(root){'use strict';
-function family(s){const opening=s.attacker?(s.stand==='resist'&&s.leader===s.front?'突っ張り':s.tactic==='kamashi'?'カマシ':'抑え'):'前受け維持';const move=s.backRider?'バック反撃':s.homeRider?'ホーム捲り':s.redThird?'第三線利用':'先行継続';return `${opening}:${s.attacker||s.front}|${move}:${s.backRider||s.homeRider||s.redThird||s.leader}|${s.defense||'未決'}`;}
-function key(s){return JSON.stringify([s.stage,s.order,s.energy,s.connected,s.outside,s.starter,s.front,s.attacker,s.tactic,s.stand,s.outcome,s.redThird,s.redThirdAhead,s.homeRider,s.homeResult,s.backRider,s.backResult,s.gap,s.seat,s.defender,s.cornerRider,s.defense,s.blockResult,s.innerRider,s.openInside,s.analysisCost,s.auditFailures,s.reactionLog,s.recovery]);}
+function family(s){const opening=s.attacker?(s.stand==='resist'&&s.leader===s.front?'突っ張り':s.tactic==='kamashi'?'カマシ':'抑え'):'前受け維持';const move=s.backRider?'バック反撃':s.homeRider?'ホーム捲り':s.redThird?'第三線利用':'先行継続';return `${opening}:${s.attacker||s.front}|${move}:${s.backRider||s.homeRider||s.redThird||s.leader}|${s.defense||'未決'}|追走切れ:${Object.values(s.connected||{}).filter(v=>v===false).length}|内:${s.openInside?'open':'closed'}:${s.innerRider||''}`;}
+function key(s){return JSON.stringify([s.stage,s.order,s.energy,s.connected,s.outside,s.starter,s.front,s.attacker,s.tactic,s.stand,s.outcome,s.redThird,s.redThirdAhead,s.homeRider,s.homeResult,s.backRider,s.backResult,s.gap,s.seat,s.defender,s.cornerRider,s.defense,s.blockResult,s.innerRider,s.openInside,s.analysisCost,s.auditFailures,s.reactionLog,s.recovery,s.frontResponse]);}
 const compare=(a,b)=>a.auditFailures-b.auditFailures||a.analysisCost-b.analysisCost||b.mass-a.mass||key(a).localeCompare(key(b));
 function retain(all,width,phase){
  const unique=new Map();let merged=0;for(const s of all){const id=key(s),old=unique.get(id);if(old){old.mass+=s.mass;merged++;}else unique.set(id,{...s});}
