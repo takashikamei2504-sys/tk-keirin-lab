@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const Audit=require('../js/results-audit.js'),Feed=require('../js/race-feed.js');
-const Legacy=require('../js/race-brain.js'),Brain=require('../js/story-brain.js'),Form=require('../js/recent-form.js');
+const Legacy=require('../baselines/story-v4-23e9205/js/story-brain.js'),Brain=require('../js/story-brain.js'),Form=require('../js/recent-form.js');
 const Material=require('../js/race-material.js'),Build=require('../js/model-build.js');
 const root=path.join(__dirname,'..');
 const read=(file,fallback)=>fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):fallback;
@@ -39,11 +39,11 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
     const id=`${feed.date}:${source.venue}:${Number(source.race_number)}`;
     const generationStarted=liveClock?Date.now():epoch;
     if(!(generationStarted<start&&published<start&&published<=generationStarted)||saved.has(id+'|'+Build.model_id))continue;
-    const race=Material.attach(Form.attach(Feed.convert(source,feed),form),materials),inputPack={...intel,observations:[...(intel.observations||[]),...(race.race_material?.comments||[])]},out=Brain.build(race,inputPack),base=Legacy.build(race,intel);
+    const race=Material.attach(Form.attach(Feed.convert(source,feed),form),materials),inputPack={...intel,observations:[...(intel.observations||[]),...(race.race_material?.comments||[])]},out=Brain.build(race,inputPack),base=Legacy.build(race,inputPack);
     const evidence=Object.values(out.profiles).flatMap(p=>p.memory||[]);
     const savedAt=liveClock?new Date().toISOString():now;
     if(!(Date.parse(savedAt)<start))continue;
-    const prediction=Audit.snapshot(race,out,savedAt,{origin:process.env.GITHUB_ACTIONS==='true'?'github_actions':'development_automation',evidence,baseline:{version:Legacy.VERSION,chosen:base.chosen.slice(0,out.chosen.length).map(t=>t.key)}});
+    const prediction=Audit.snapshot(race,out,savedAt,{origin:process.env.GITHUB_ACTIONS==='true'?'github_actions':'development_automation',evidence,baseline:{model_id:'story-first-v4.0.0@23e9205',input_sha256:out.reproducibility.input_sha256,version:Legacy.VERSION,chosen:base.chosen.slice(0,out.chosen.length).map(t=>t.key)}});
     prediction.code_hashes=Object.fromEntries(['story-brain.js','decision-reasons.js','tactical-deliberation.js','cross-line-tactics.js','race-reality.js','line-reactions.js','rider-context.js','race-material.js','race-brain.js','brain-memory.js','branch-weights.js','recent-form.js','race-feed.js'].map(file=>['js/'+file,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'js',file))).digest('hex')]));
     prediction.input_sha256=crypto.createHash('sha256').update(JSON.stringify({race:prediction.input,evidence})).digest('hex');
     if(!prediction.pre_race)throw Error('Prediction was not pre-race');

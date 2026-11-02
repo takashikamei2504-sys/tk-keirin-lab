@@ -1,0 +1,5328 @@
+{
+  "schema": "tk-model-comparison/v1",
+  "kind": "research_recalculation",
+  "eligible_for_pre_race_statistics": false,
+  "baseline": "story-first-v4.0.0@23e9205",
+  "model": "story-first-v5.1.0@69ea6189d5ec9b60",
+  "policy": "Identical frozen input and scoped evidence for both builds. No result-based selection or observed hit-rate claim.",
+  "cases": [
+    {
+      "id": "hofu-20261102-12",
+      "input_sha256": "de40c5bd21593d1833122d27888229ececac0b607c743303b53619c6e5d74e19",
+      "input_as_of": "2026-11-02T05:06:12+09:00",
+      "cutoff": "2026-11-02T07:19:00.000Z",
+      "old": {
+        "version": "story-first-v4.0.0",
+        "ms": 172.2,
+        "main": "私はこう読む。1番太田海也がホームで仕掛け、2番長島大介がバックで反撃し、2番長島大介の最後の仕掛けに番手が縦へ踏む。最後は5番清水裕友が縦踏みで勝つ。",
+        "signature": "4|1|press|resist|front-holds|||1|takes|2|parallel|holds||2|vertical|free|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは1-5-7／2-8／6-3／4-9。9番原井博斗がSを取り、4番阿部英斗を迎え入れて前受け。直近4か月でS6回の実績がある。初手は4→9→1→5→7→2→8→6→3。",
+            "order": [
+              4,
+              9,
+              1,
+              5,
+              7,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "1番太田海也が赤板から上昇して抑えに行く。4走でB2回という近況を踏まえ、後続を連れ出して好位置を確保したいと読む。5番清水裕友は105期で、121期の太田海也より先輩。5番は開催地と登録地が同じ（地元は登録地ベース）。7番小倉竜二は77期で、121期の太田海也より先輩。4番阿部英斗は突っ張って対抗する。4番阿部英斗が抵抗して主導権を守る。1番太田海也は前に出切れず、3番手で態勢を立て直す。",
+            "order": [
+              4,
+              9,
+              1,
+              5,
+              7,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "1番太田海也が最終ホームからロング捲り。1番太田海也が前団をとらえる。5番清水裕友は加速に合わせて追走を保つ。4番阿部英斗は4番手へ下がる。",
+            "order": [
+              1,
+              5,
+              7,
+              4,
+              9,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "2番長島大介がバックから反撃し、外で先頭に迫る。1番太田海也がバックを先頭で通過する。2番長島大介が外に残り、前団は一本棒ではない。",
+            "order": [
+              1,
+              5,
+              7,
+              4,
+              9,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "2番長島大介が大外を回して迫る。5番清水裕友は横へ牽制せず縦に踏み、外の仕掛けを止めるより自分の伸びを優先する。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              1,
+              5,
+              7,
+              4,
+              2,
+              9,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は5番清水裕友が縦踏みで勝ち切る。1番太田海也が２着、7番小倉竜二が３着。外からの勢いと先行の残り脚がぶつかる。5番清水裕友は最終コーナー2番手から1着へ。番手から縦に踏む。1番太田海也は最終コーナー1番手から5番清水裕友に交わされるが、後続を抑えて2着に粘る。7番小倉竜二は最終コーナー3番手から3着へ。現在の位置を残す。",
+            "order": [
+              5,
+              1,
+              7,
+              4,
+              2,
+              9,
+              8,
+              6,
+              3
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "5-1-7",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "5-7-1",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は1番太田海也の直線の伸びを押さえる"
+          },
+          {
+            "key": "1-5-7",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "5-1-2",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は2番長島大介が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "7-5-1",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は1番太田海也の直線の伸びを押さえる"
+          },
+          {
+            "key": "1-5-2",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる。3着は2番長島大介が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "1-7-5",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：1番太田海也の仕掛けと、前受け側の対応が変わる"
+          },
+          {
+            "key": "1-5-9",
+            "group": "alternative",
+            "reason": "ホームの仕掛け・追走が変わる別筋：ホームのロング捲り、または追走の成否が変わる"
+          },
+          {
+            "key": "7-1-5",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "1-5-3",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：3番村上博幸がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 0,
+          "considered_corner_actions": [
+            "vertical",
+            "follow",
+            "block",
+            "none",
+            "split",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 256,
+          "terminalMass": 0.02170013791371714,
+          "unresolvedMass": 0.9782998620862831,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 1697
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "accepted": 235,
+          "examined": 256,
+          "reconsidered": 1697,
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "1番太田海也は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終ホーム",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "2番長島大介は6番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "2番長島大介は6番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            }
+          ]
+        },
+        "finish_review": null
+      },
+      "new": {
+        "version": "story-first-v5.1.0",
+        "ms": 203.6,
+        "main": "私はこう読む。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、3〜4角から直線勝負へ進む。最後は1番太田海也が逃げ粘りで勝つ。",
+        "signature": "4|1|press|yield|attacker-takes||||settled||unchanged|holds|||follow|free|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは1-5-7／2-8／6-3／4-9。9番原井博斗がSを取り、4番阿部英斗を迎え入れて前受け。直近4か月でS6回の実績がある。初手は4→9→1→5→7→2→8→6→3。",
+            "order": [
+              4,
+              9,
+              1,
+              5,
+              7,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "1番太田海也が赤板から上昇して抑えに行く。4走でB2回という近況を踏まえ、後続を連れ出して好位置を確保したいと読む。5番清水裕友は105期で、121期の太田海也より先輩。5番は開催地と登録地が同じ（地元は登録地ベース）。7番小倉竜二は77期で、121期の太田海也より先輩。4番阿部英斗はいったん出させ、引いて脚を残す。1番太田海也が主導権を奪う。",
+            "order": [
+              1,
+              5,
+              7,
+              4,
+              9,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "1番太田海也は仕掛け直される前にホームでペースを上げる。隊列は一本棒に落ち着く。5番清水裕友は加速に合わせて追走を保つ。",
+            "order": [
+              1,
+              5,
+              7,
+              4,
+              9,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "別線は動かず、先行ラインがペースを握る。1番太田海也がバックを先頭で通過する。5番清水裕友が追走し、前団は一本棒。",
+            "order": [
+              1,
+              5,
+              7,
+              4,
+              9,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "別線は仕掛けず、前団が直線勝負に入る。5番清水裕友は番手を保ち、差しのタイミングを待つ。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              1,
+              5,
+              7,
+              4,
+              9,
+              2,
+              8,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は1番太田海也が逃げ粘りで勝ち切る。5番清水裕友が２着、7番小倉竜二が３着。先行が使った脚と番手の余力が最後の差になる。1番太田海也は最終コーナー1番手から1着へ。現在の位置を残す。5番清水裕友は最終コーナー2番手から2着へ。現在の位置を残す。7番小倉竜二は最終コーナー3番手から3着へ。現在の位置を残す。",
+            "order": [
+              1,
+              5,
+              7,
+              4,
+              9,
+              2,
+              8,
+              6,
+              3
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "1-5-7",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "5-1-7",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "1-7-5",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は5番清水裕友の直線の伸びを押さえる"
+          },
+          {
+            "key": "1-5-9",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は9番原井博斗が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "1-5-4",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は4番阿部英斗が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "7-1-5",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は5番清水裕友の直線の伸びを押さえる"
+          },
+          {
+            "key": "1-5-2",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：1番太田海也の仕掛けと、前受け側の対応、さらに2番長島大介の位置上昇が変わる"
+          },
+          {
+            "key": "5-1-9",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "5-7-1",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：1番太田海也がSを取ると初手の位置関係が変わる"
+          },
+          {
+            "key": "5-1-4",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：1番太田海也がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 0,
+          "considered_corner_actions": [
+            "vertical",
+            "follow",
+            "block",
+            "none",
+            "split",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 256,
+          "terminalMass": 0.018377379578463273,
+          "unresolvedMass": 0.9816226204215363,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 1814,
+          "search_policy": "family-round-robin-v1",
+          "search_trace": [
+            {
+              "phase": "S",
+              "generated": 9,
+              "unique": 9,
+              "merged": 0,
+              "retained": 9,
+              "families_before": 4,
+              "families_after": 4,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-attack",
+              "generated": 28,
+              "unique": 28,
+              "merged": 0,
+              "retained": 28,
+              "families_before": 28,
+              "families_after": 28,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-response",
+              "generated": 52,
+              "unique": 52,
+              "merged": 0,
+              "retained": 52,
+              "families_before": 40,
+              "families_after": 40,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-result",
+              "generated": 76,
+              "unique": 76,
+              "merged": 0,
+              "retained": 76,
+              "families_before": 24,
+              "families_after": 24,
+              "pruned_mass": 2.220446049250313e-16
+            },
+            {
+              "phase": "red-third",
+              "generated": 204,
+              "unique": 204,
+              "merged": 0,
+              "retained": 204,
+              "families_before": 57,
+              "families_after": 57,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "home-attack",
+              "generated": 636,
+              "unique": 636,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 104,
+              "families_after": 104,
+              "pruned_mass": 0.4166087191690827
+            },
+            {
+              "phase": "home-result",
+              "generated": 363,
+              "unique": 363,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 109,
+              "families_after": 109,
+              "pruned_mass": 0.06151669060385434
+            },
+            {
+              "phase": "follow",
+              "generated": 512,
+              "unique": 512,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 109,
+              "families_after": 109,
+              "pruned_mass": 0.18240770817764085
+            },
+            {
+              "phase": "back-seat",
+              "generated": 318,
+              "unique": 318,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 109,
+              "families_after": 109,
+              "pruned_mass": 0.030005423360637107
+            },
+            {
+              "phase": "back-attack",
+              "generated": 824,
+              "unique": 824,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 178,
+              "families_after": 178,
+              "pruned_mass": 0.16541764359312053
+            },
+            {
+              "phase": "back-result",
+              "generated": 334,
+              "unique": 334,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 180,
+              "families_after": 180,
+              "pruned_mass": 0.008487017142030873
+            },
+            {
+              "phase": "back-follow",
+              "generated": 287,
+              "unique": 287,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 180,
+              "families_after": 180,
+              "pruned_mass": 0.0019132129277741883
+            },
+            {
+              "phase": "corner-attack",
+              "generated": 780,
+              "unique": 780,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 180,
+              "families_after": 180,
+              "pruned_mass": 0.0917416859157989
+            },
+            {
+              "phase": "defense",
+              "generated": 627,
+              "unique": 627,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 494,
+              "families_after": 256,
+              "pruned_mass": 0.02147641969290549
+            },
+            {
+              "phase": "block-result",
+              "generated": 348,
+              "unique": 348,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.0013538172691076565
+            },
+            {
+              "phase": "inside",
+              "generated": 455,
+              "unique": 455,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.000694282569583482
+            }
+          ]
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "policy": "whole-race-diverse-v1",
+          "accepted": 87,
+          "examined": 256,
+          "reconsidered": 1814,
+          "compared": [
+            {
+              "signature": "4|1|press|yield|attacker-takes||||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:1|先行継続:1|follow",
+              "score": 0.9776478624207936,
+              "components": {
+                "personality": 0.9804928747359791,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": true,
+              "reason": "反撃と待機の反証を通過し、全体の戦術評価が最上位"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes||||settled||unchanged|holds||4|block|stopped|",
+              "family": "抑え:1|先行継続:1|block",
+              "score": 0.9773044296960038,
+              "components": {
+                "personality": 0.9799317581297401,
+                "counterplay": 0.9994163408569396,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "他ラインへの応答の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|6|press|resist|front-holds|||1|takes||unchanged|holds|||vertical|free|",
+              "family": "抑え:6|ホーム捲り:1|vertical",
+              "score": 0.9647207816271697,
+              "components": {
+                "personality": 0.9774026054238989,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes||||settled||unchanged|holds|||vertical|free|",
+              "family": "抑え:1|先行継続:1|vertical",
+              "score": 0.9645864579330645,
+              "components": {
+                "personality": 0.9591479476989331,
+                "counterplay": 0.9778069120779491,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "他ラインへの応答の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "6|4|press|resist|front-holds|||1|takes||unchanged|holds|||vertical|free|",
+              "family": "抑え:4|ホーム捲り:1|vertical",
+              "score": 0.964408835601474,
+              "components": {
+                "personality": 0.9763627853382464,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|4|press|yield|attacker-takes|||1|takes||unchanged|holds||4|block|stopped|",
+              "family": "抑え:4|ホーム捲り:1|block",
+              "score": 0.9635795386305799,
+              "components": {
+                "personality": 0.9619317954352665,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|4|press|resist|front-holds||||settled||unchanged|holds|||vertical|free|",
+              "family": "突っ張り:4|先行継続:1|vertical",
+              "score": 0.960725612230362,
+              "components": {
+                "personality": 0.9724187074345405,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.76,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|4|press|resist|front-holds||||settled||unchanged|holds||4|block|stopped|",
+              "family": "突っ張り:4|先行継続:1|block",
+              "score": 0.9606765872200669,
+              "components": {
+                "personality": 0.972339283678149,
+                "counterplay": 0.9999160070554074,
+                "control": 0.9299999999999999,
+                "energy": 0.76,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|2|press|resist|front-holds|||1|takes||unchanged|holds|||vertical|free|",
+              "family": "抑え:2|ホーム捲り:1|vertical",
+              "score": 0.957452027741297,
+              "components": {
+                "personality": 0.9531734258043234,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes|2|4||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:1|第三線利用:2|follow",
+              "score": 0.955564432144874,
+              "components": {
+                "personality": 0.9068814404829132,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes|2|4||settled||unchanged|holds||2|block|stopped|",
+              "family": "抑え:1|第三線利用:2|block",
+              "score": 0.9549713002360138,
+              "components": {
+                "personality": 0.9059891560034811,
+                "counterplay": 0.9989151781165655,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|kamashi|resist|attacker-takes||||settled||unchanged|holds|||vertical|free|",
+              "family": "カマシ:1|先行継続:1|vertical",
+              "score": 0.9525613772570696,
+              "components": {
+                "personality": 0.9268712575235653,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.78,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes|6|2||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:1|第三線利用:6|follow",
+              "score": 0.9478514843431026,
+              "components": {
+                "personality": 0.881171614477009,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|6|press|resist|front-holds||||settled|4|takes|holds||1|block|survives|",
+              "family": "抑え:6|バック反撃:4|block",
+              "score": 0.9476696732408469,
+              "components": {
+                "personality": 0.9038989108028231,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.8,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes|6|2||settled||unchanged|holds||4|block|stopped|",
+              "family": "抑え:1|第三線利用:6|block",
+              "score": 0.9475404201789182,
+              "components": {
+                "personality": 0.880718393072788,
+                "counterplay": 0.9994163408569396,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|press|yield|attacker-takes|4|2||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:1|第三線利用:4|follow",
+              "score": 0.9475081536098873,
+              "components": {
+                "personality": 0.8800271786996245,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|2|press|yield|attacker-takes|||1|takes|2|parallel|holds|||vertical|free|",
+              "family": "抑え:2|バック反撃:2|vertical",
+              "score": 0.9456302679536597,
+              "components": {
+                "personality": 0.935434226512199,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.65,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1||wait|pace|front-holds||||settled||unchanged|holds|||follow|free|",
+              "family": "前受け維持:1|先行継続:1|follow",
+              "score": 0.9434471040477563,
+              "components": {
+                "personality": 0.8514903468258549,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.95,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes|2|4||settled||unchanged|holds|||vertical|free|",
+              "family": "抑え:1|第三線利用:2|vertical",
+              "score": 0.9434194616372549,
+              "components": {
+                "personality": 0.8885912933795675,
+                "counterplay": 0.9778069120779491,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|kamashi|yield|attacker-takes||||settled|2|parallel|holds||2|block|stopped|",
+              "family": "カマシ:1|バック反撃:2|block",
+              "score": 0.9433387575527662,
+              "components": {
+                "personality": 0.9294625251758878,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6799999999999999,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|kamashi|yield|attacker-takes||||settled|4|parallel|holds||4|block|stopped|",
+              "family": "カマシ:1|バック反撃:4|block",
+              "score": 0.9428751574547957,
+              "components": {
+                "personality": 0.9279171915159857,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6799999999999999,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|6|press|resist|front-holds||||settled|4|parallel|holds||4|block|stopped|",
+              "family": "突っ張り:6|バック反撃:4|block",
+              "score": 0.9418909034200955,
+              "components": {
+                "personality": 0.9429696780669851,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.66,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds||||settled|4|takes|holds||1|block|survives|",
+              "family": "抑え:2|バック反撃:4|block",
+              "score": 0.9415287144735218,
+              "components": {
+                "personality": 0.8834290482450728,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.8,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|2|press|yield|attacker-takes|||1|takes|2|parallel|holds||2|block|stopped|",
+              "family": "抑え:2|バック反撃:2|block",
+              "score": 0.9405639368018128,
+              "components": {
+                "personality": 0.9275506439543446,
+                "counterplay": 0.9909958120516983,
+                "control": 1,
+                "energy": 0.65,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|kamashi|resist|front-holds|4|1|4|parallel|4|parallel|holds||1|block|survives|",
+              "family": "突っ張り:1|バック反撃:4|block",
+              "score": 0.8944203791376416,
+              "components": {
+                "personality": 0.839497809633469,
+                "counterplay": 0.9752367874920029,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る4番阿部英斗の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "4|1|kamashi|resist|front-holds|2|1|2|parallel|2|parallel|holds||1|block|survives|",
+              "family": "突っ張り:1|バック反撃:2|block",
+              "score": 0.90104580766565,
+              "components": {
+                "personality": 0.8368193588855002,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る2番長島大介の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "6|1|press|resist|front-holds|||1|takes||unchanged|holds||4|block|stopped|",
+              "family": "抑え:1|ホーム捲り:1|block",
+              "score": 0.9149693286315577,
+              "components": {
+                "personality": 0.9261523897037668,
+                "counterplay": 0.9620787057347588,
+                "control": 0.965,
+                "energy": 0.52,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終バック",
+                  "objection": "4番阿部英斗は6番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "6|1|press|resist|front-holds|||1|takes|6|parallel|holds||4|vertical|free|",
+              "family": "抑え:1|バック反撃:6|vertical",
+              "score": 0.9015156572753111,
+              "components": {
+                "personality": 0.9206145619033804,
+                "counterplay": 0.95610429568099,
+                "control": 0.965,
+                "energy": 0.42000000000000004,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終バック",
+                  "objection": "4番阿部英斗は6番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            }
+          ],
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "1番太田海也は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終ホーム",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "2番長島大介は6番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "2番長島大介は6番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            }
+          ]
+        },
+        "finish_review": null
+      }
+    },
+    {
+      "id": "nine",
+      "input_sha256": "bcd9531d9218a8783cdd90badaae5ca0d8087dddd769d598cdfbc4f451069b98",
+      "input_as_of": null,
+      "cutoff": "2026-10-31T07:25:00.000Z",
+      "old": {
+        "version": "story-first-v4.0.0",
+        "ms": 124,
+        "main": "私はこう読む。ホームでは前団が隊列を保ち、9番山口拳矢がバックで反撃し、9番山口拳矢の最後の仕掛けに番手がブロックで応じる。最後は2番太田海也が逃げ粘りで勝つ。",
+        "signature": "9|2|press|yield|attacker-takes||||settled|9|parallel|holds||9|block|stopped|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは2-8-7／1-4／5-6／3／9。9番山口拳矢がSを取り、そのまま前受け。初手は9→1→4→5→6→2→8→7→3。",
+            "order": [
+              9,
+              1,
+              4,
+              5,
+              6,
+              2,
+              8,
+              7,
+              3
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "2番太田海也が赤板から上昇して抑えに行く。後続を連れ出して好位置を確保したいと読む。9番山口拳矢はいったん出させ、引いて脚を残す。2番太田海也が主導権を奪う。",
+            "order": [
+              2,
+              8,
+              7,
+              9,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "2番太田海也は仕掛け直される前にホームでペースを上げる。隊列は一本棒に落ち着く。8番取鳥雄吾は加速に合わせて追走を保つ。",
+            "order": [
+              2,
+              8,
+              7,
+              9,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "9番山口拳矢がバックから反撃し、外で先頭に迫る。2番太田海也がバックを先頭で通過する。9番山口拳矢が外に残り、前団は一本棒ではない。",
+            "order": [
+              2,
+              8,
+              7,
+              9,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "9番山口拳矢が3コーナーから捲って迫る。8番取鳥雄吾は外へブロック。仕掛けの勢いを止める。そのぶん内に空きができる。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              2,
+              8,
+              7,
+              9,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は2番太田海也が逃げ粘りで勝ち切る。7番清水裕友が２着、8番取鳥雄吾が３着。番手の横の仕事で生まれた内の空きが勝負を分ける。2番太田海也は最終コーナー1番手から1着へ。現在の位置を残す。7番清水裕友は最終コーナー3番手から2着へ。直線で外から1人を交わす（進路未測定）。8番取鳥雄吾は最終コーナー2番手から7番清水裕友に交わされるが、後続を抑えて3着に粘る。",
+            "order": [
+              2,
+              7,
+              8,
+              9,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "2-7-8",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "2-8-7",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は7番清水裕友の直線の伸びを押さえる"
+          },
+          {
+            "key": "7-2-8",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "8-2-7",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は7番清水裕友の直線の伸びを押さえる"
+          },
+          {
+            "key": "2-7-1",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は1番郡司浩平が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-8-1",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は1番郡司浩平が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-8-9",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：2番太田海也の仕掛けと、前受け側の突っ張りが変わる"
+          },
+          {
+            "key": "2-9-8",
+            "group": "alternative",
+            "reason": "ホームの仕掛け・追走が変わる別筋：ホームのロング捲り、または追走の成否が変わる"
+          },
+          {
+            "key": "7-8-2",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "2-8-4",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：1番郡司浩平がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 0,
+          "considered_corner_actions": [
+            "vertical",
+            "follow",
+            "block",
+            "none",
+            "split",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 256,
+          "terminalMass": 0.005634108582868479,
+          "unresolvedMass": 0.9943658914171326,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 2432
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "accepted": 208,
+          "examined": 256,
+          "reconsidered": 2432,
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終ホーム",
+              "reason": "2番太田海也は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "9番山口拳矢は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "1番郡司浩平は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "9番山口拳矢は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "1番郡司浩平は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            }
+          ]
+        },
+        "finish_review": null
+      },
+      "new": {
+        "version": "story-first-v5.1.0",
+        "ms": 173.7,
+        "main": "私はこう読む。5番松本貴治がホームで仕掛け、1番郡司浩平がバックで反撃し、2番太田海也の最後の仕掛けに番手がブロックで応じる。最後は1番郡司浩平が逃げ粘りで勝つ。",
+        "signature": "9|2|press|resist|front-holds|||5|takes|1|takes|holds||2|block|stopped|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは2-8-7／1-4／5-6／3／9。9番山口拳矢がSを取り、そのまま前受け。初手は9→1→4→5→6→2→8→7→3。",
+            "order": [
+              9,
+              1,
+              4,
+              5,
+              6,
+              2,
+              8,
+              7,
+              3
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "2番太田海也が赤板から上昇して抑えに行く。後続を連れ出して好位置を確保したいと読む。9番山口拳矢は突っ張って対抗する。9番山口拳矢が抵抗して主導権を守る。2番太田海也は前に出切れず、6番手で態勢を立て直す。",
+            "order": [
+              9,
+              1,
+              4,
+              5,
+              6,
+              2,
+              8,
+              7,
+              3
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "5番松本貴治が最終ホームからロング捲り。5番松本貴治が前団をとらえる。6番佐々木豪は加速に合わせて追走を保つ。9番山口拳矢は3番手へ下がる。",
+            "order": [
+              5,
+              6,
+              9,
+              1,
+              4,
+              2,
+              8,
+              7,
+              3
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "1番郡司浩平がバックから反撃し、主導権を取り直す。1番郡司浩平がバックを先頭で通過する。4番渡部幸訓が追走し、前団は一本棒。",
+            "order": [
+              1,
+              4,
+              5,
+              6,
+              9,
+              2,
+              8,
+              7,
+              3
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "2番太田海也が大外を回して迫る。4番渡部幸訓は外へブロック。仕掛けの勢いを止める。そのぶん内に空きができる。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              1,
+              4,
+              5,
+              6,
+              9,
+              2,
+              8,
+              7,
+              3
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は1番郡司浩平が逃げ粘りで勝ち切る。4番渡部幸訓が２着、5番松本貴治が３着。番手の横の仕事で生まれた内の空きが勝負を分ける。1番郡司浩平は最終コーナー1番手から1着へ。現在の位置を残す。4番渡部幸訓は最終コーナー2番手から2着へ。現在の位置を残す。5番松本貴治は最終コーナー3番手から3着へ。現在の位置を残す。",
+            "order": [
+              1,
+              4,
+              5,
+              6,
+              9,
+              2,
+              8,
+              7,
+              3
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "1-4-5",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "1-4-6",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は6番佐々木豪が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "4-1-5",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "4-1-6",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる。3着は6番佐々木豪が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "1-5-4",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は4番渡部幸訓の直線の伸びを押さえる"
+          },
+          {
+            "key": "1-6-4",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は4番渡部幸訓の直線の伸びを押さえる"
+          },
+          {
+            "key": "2-8-7",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：2番太田海也の仕掛けと、前受け側の対応、さらに5番松本貴治の位置上昇が変わる"
+          },
+          {
+            "key": "2-7-8",
+            "group": "alternative",
+            "reason": "ホームの仕掛け・追走が変わる別筋：ホームのロング捲り、または追走の成否が変わる"
+          },
+          {
+            "key": "1-4-2",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "2-8-9",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：8番取鳥雄吾がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 0,
+          "considered_corner_actions": [
+            "vertical",
+            "follow",
+            "block",
+            "none",
+            "split",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 256,
+          "terminalMass": 0.00579014260838966,
+          "unresolvedMass": 0.9942098573916113,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 2426,
+          "search_policy": "family-round-robin-v1",
+          "search_trace": [
+            {
+              "phase": "S",
+              "generated": 9,
+              "unique": 9,
+              "merged": 0,
+              "retained": 9,
+              "families_before": 5,
+              "families_after": 5,
+              "pruned_mass": 2.220446049250313e-16
+            },
+            {
+              "phase": "red-attack",
+              "generated": 37,
+              "unique": 37,
+              "merged": 0,
+              "retained": 37,
+              "families_before": 37,
+              "families_after": 37,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-response",
+              "generated": 69,
+              "unique": 69,
+              "merged": 0,
+              "retained": 69,
+              "families_before": 53,
+              "families_after": 53,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-result",
+              "generated": 101,
+              "unique": 101,
+              "merged": 0,
+              "retained": 101,
+              "families_before": 29,
+              "families_after": 29,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-third",
+              "generated": 269,
+              "unique": 269,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 60,
+              "families_after": 60,
+              "pruned_mass": 0.017489317263785553
+            },
+            {
+              "phase": "home-attack",
+              "generated": 989,
+              "unique": 989,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 116,
+              "families_after": 116,
+              "pruned_mass": 0.5581522883648402
+            },
+            {
+              "phase": "home-result",
+              "generated": 371,
+              "unique": 371,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 120,
+              "families_after": 120,
+              "pruned_mass": 0.04829805346343391
+            },
+            {
+              "phase": "follow",
+              "generated": 443,
+              "unique": 443,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 120,
+              "families_after": 120,
+              "pruned_mass": 0.10128280370018233
+            },
+            {
+              "phase": "back-seat",
+              "generated": 311,
+              "unique": 311,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 120,
+              "families_after": 120,
+              "pruned_mass": 0.022954662349537247
+            },
+            {
+              "phase": "back-attack",
+              "generated": 1102,
+              "unique": 1102,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 216,
+              "families_after": 216,
+              "pruned_mass": 0.16295693582968518
+            },
+            {
+              "phase": "back-result",
+              "generated": 350,
+              "unique": 350,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 218,
+              "families_after": 218,
+              "pruned_mass": 0.005886933843309808
+            },
+            {
+              "phase": "back-follow",
+              "generated": 279,
+              "unique": 279,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 218,
+              "families_after": 218,
+              "pruned_mass": 0.0008091649833065206
+            },
+            {
+              "phase": "corner-attack",
+              "generated": 937,
+              "unique": 937,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 218,
+              "families_after": 218,
+              "pruned_mass": 0.06358513865151849
+            },
+            {
+              "phase": "defense",
+              "generated": 581,
+              "unique": 581,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 529,
+              "families_after": 256,
+              "pruned_mass": 0.011088572044749802
+            },
+            {
+              "phase": "block-result",
+              "generated": 363,
+              "unique": 363,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.0012636030643521845
+            },
+            {
+              "phase": "inside",
+              "generated": 477,
+              "unique": 477,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.0004423838329099105
+            }
+          ]
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "policy": "whole-race-diverse-v1",
+          "accepted": 76,
+          "examined": 256,
+          "reconsidered": 2426,
+          "compared": [
+            {
+              "signature": "9|2|press|resist|front-holds|||5|takes|1|takes|holds||2|block|stopped|",
+              "family": "抑え:2|バック反撃:1|block",
+              "score": 0.9760916194746339,
+              "components": {
+                "personality": 0.9869720649154462,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.8,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": true,
+              "reason": "反撃と待機の反証を通過し、全体の戦術評価が最上位"
+            },
+            {
+              "signature": "9|2|press|yield|attacker-takes||||settled|9|parallel|holds||9|block|stopped|",
+              "family": "抑え:2|バック反撃:9|block",
+              "score": 0.9720754780896916,
+              "components": {
+                "personality": 0.9952515936323056,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.77,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|2|press|resist|attacker-takes||||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:2|先行継続:2|follow",
+              "score": 0.9704969421905676,
+              "components": {
+                "personality": 0.9566564739685588,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|2|press|yield|attacker-takes||||settled||unchanged|holds||9|block|stopped|",
+              "family": "抑え:2|先行継続:2|block",
+              "score": 0.9691938561521329,
+              "components": {
+                "personality": 0.9738833115302145,
+                "counterplay": 0.9784295423102287,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "他ラインへの応答の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|5|press|yield|attacker-takes||||settled|1|takes|holds||5|block|stopped|",
+              "family": "抑え:5|バック反撃:1|block",
+              "score": 0.9644949260432798,
+              "components": {
+                "personality": 0.9483164201442662,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.8,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|2|press|resist|attacker-takes||||settled||unchanged|holds|||vertical|free|",
+              "family": "抑え:2|先行継続:2|vertical",
+              "score": 0.9554083648373768,
+              "components": {
+                "personality": 0.9326081458811588,
+                "counterplay": 0.9737530702434305,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|press|yield|attacker-takes|||2|takes|1|parallel|holds||1|block|stopped|",
+              "family": "抑え:1|バック反撃:1|block",
+              "score": 0.9543889444595199,
+              "components": {
+                "personality": 0.9929631481983995,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|press|resist|front-holds||||settled|9|parallel|holds||9|block|stopped|",
+              "family": "突っ張り:1|バック反撃:9|block",
+              "score": 0.9528259057993167,
+              "components": {
+                "personality": 0.9794196859977224,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.66,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|press|yield|attacker-takes|9|1||settled||unchanged|holds||9|block|stopped|",
+              "family": "抑え:2|第三線利用:9|block",
+              "score": 0.9517193072270513,
+              "components": {
+                "personality": 0.8940643574235045,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|yield|attacker-takes|||2|takes|5|parallel|holds||5|block|stopped|",
+              "family": "抑え:5|バック反撃:5|block",
+              "score": 0.9504180355115126,
+              "components": {
+                "personality": 0.9797267850383757,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds||||settled|9|parallel|holds||9|block|stopped|",
+              "family": "突っ張り:5|バック反撃:9|block",
+              "score": 0.9489618775396962,
+              "components": {
+                "personality": 0.9665395917989877,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.66,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|5|press|resist|front-holds|||1|takes|2|parallel|holds||2|block|stopped|",
+              "family": "抑え:5|バック反撃:2|block",
+              "score": 0.9437389314000981,
+              "components": {
+                "personality": 0.940796438000327,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|2|press|yield|attacker-takes|1|9||settled||unchanged|holds||1|block|stopped|",
+              "family": "抑え:2|第三線利用:1|block",
+              "score": 0.9421366041790541,
+              "components": {
+                "personality": 0.8931738943193488,
+                "counterplay": 0.9689481196108317,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2||wait|pace|front-holds||||settled||unchanged|holds||9|block|stopped|",
+              "family": "前受け維持:2|先行継続:2|block",
+              "score": 0.9411000867906972,
+              "components": {
+                "personality": 0.8436669559689911,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.95,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|2|press|yield|attacker-takes|5|1||settled||unchanged|holds||9|block|stopped|",
+              "family": "抑え:2|第三線利用:5|block",
+              "score": 0.9397777557102365,
+              "components": {
+                "personality": 0.87582964339056,
+                "counterplay": 0.9784295423102287,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|press|resist|front-holds|||9|takes|2|takes|holds||1|block|stopped|",
+              "family": "突っ張り:1|バック反撃:2|block",
+              "score": 0.9377640585206262,
+              "components": {
+                "personality": 0.982830384398803,
+                "counterplay": 0.9980498106699509,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|press|resist|front-holds|||9|takes|2|takes|holds||1|vertical|free|",
+              "family": "突っ張り:1|バック反撃:2|vertical",
+              "score": 0.9372028123859939,
+              "components": {
+                "personality": 0.9819093403596225,
+                "counterplay": 0.9971000342603572,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5|1|press|yield|attacker-takes|||5|takes|2|parallel|holds||2|block|stopped|",
+              "family": "抑え:1|バック反撃:2|block",
+              "score": 0.9351440122258259,
+              "components": {
+                "personality": 0.9288133740860864,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||9|takes|2|takes|holds||1|block|stopped|",
+              "family": "突っ張り:5|バック反撃:2|block",
+              "score": 0.9338732496588251,
+              "components": {
+                "personality": 0.9698610215261327,
+                "counterplay": 0.9980498106699509,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||9|takes|2|takes|holds||1|vertical|free|",
+              "family": "突っ張り:5|バック反撃:2|vertical",
+              "score": 0.9333192445022845,
+              "components": {
+                "personality": 0.9689641140805915,
+                "counterplay": 0.9971000342603572,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds|||5|takes|1|takes|holds||9|vertical|free|",
+              "family": "突っ張り:2|バック反撃:1|vertical",
+              "score": 0.9309621764393504,
+              "components": {
+                "personality": 0.9582072547978349,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds|||5|takes|1|takes|holds||9|block|stopped|",
+              "family": "突っ張り:2|バック反撃:1|block",
+              "score": 0.9308774826607938,
+              "components": {
+                "personality": 0.9580721205379952,
+                "counterplay": 0.9998528216646507,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|2|kamashi|yield|attacker-takes||||settled|1|takes|holds||9|block|stopped|",
+              "family": "カマシ:2|バック反撃:1|block",
+              "score": 0.9301843101452296,
+              "components": {
+                "personality": 0.8339477004840989,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.8,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2||wait|pace|front-holds||||settled|9|parallel|holds||9|block|stopped|",
+              "family": "前受け維持:2|バック反撃:9|block",
+              "score": 0.9293320563233733,
+              "components": {
+                "personality": 0.8412156320266947,
+                "counterplay": 0.996557889051217,
+                "control": 0.9299999999999999,
+                "energy": 0.85,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|press|resist|front-holds|||9|parallel|1|parallel|breaks||9|none|free|",
+              "family": "突っ張り:1|バック反撃:1|none",
+              "score": 0.8917630963392877,
+              "components": {
+                "personality": 0.9578271771276747,
+                "counterplay": 0.9980498106699509,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る1番郡司浩平の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "5|2|press|resist|front-holds|||1|takes|5|parallel|holds||9|block|stopped|",
+              "family": "抑え:2|バック反撃:5|block",
+              "score": 0.9456082812079036,
+              "components": {
+                "personality": 0.947027604026346,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る5番松本貴治の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||9|takes|2|parallel|solo||1|none|free|",
+              "family": "抑え:5|バック反撃:2|none",
+              "score": 0.8998679926311404,
+              "components": {
+                "personality": 0.9465101647671839,
+                "counterplay": 0.9980498106699509,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る2番太田海也の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||9|parallel|1|parallel|breaks||1|none|free|",
+              "family": "突っ張り:5|バック反撃:1|none",
+              "score": 0.8804364103618776,
+              "components": {
+                "personality": 0.9200715572029743,
+                "counterplay": 0.9980498106699509,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る9番山口拳矢の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            }
+          ],
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終ホーム",
+              "reason": "2番太田海也は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "9番山口拳矢は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "1番郡司浩平は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "9番山口拳矢は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "1番郡司浩平は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            }
+          ]
+        },
+        "finish_review": null
+      }
+    },
+    {
+      "id": "seven",
+      "input_sha256": "c50e78834700f2f857dcba58b4519a98ca3b4e99cc5fedd86cc929c276c21d27",
+      "input_as_of": null,
+      "cutoff": "2026-10-31T07:25:00.000Z",
+      "old": {
+        "version": "story-first-v4.0.0",
+        "ms": 95.7,
+        "main": "私はこう読む。ホームでは前団が隊列を保ち、1番郡司浩平がバックで反撃し、1番郡司浩平の最後の仕掛けに番手がブロックで応じる。最後は2番太田海也が逃げ粘りで勝つ。",
+        "signature": "1|2|press|yield|attacker-takes||||settled|1|parallel|holds||1|block|stopped|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは2-7／1-4／5-6／3。1番郡司浩平がSを取り、そのまま前受け。初手は1→4→5→6→2→7→3。",
+            "order": [
+              1,
+              4,
+              5,
+              6,
+              2,
+              7,
+              3
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "2番太田海也が赤板から上昇して抑えに行く。後続を連れ出して好位置を確保したいと読む。1番郡司浩平はいったん出させ、引いて脚を残す。2番太田海也が主導権を奪う。",
+            "order": [
+              2,
+              7,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "2番太田海也は仕掛け直される前にホームでペースを上げる。隊列は一本棒に落ち着く。7番清水裕友は加速に合わせて追走を保つ。",
+            "order": [
+              2,
+              7,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "1番郡司浩平がバックから反撃し、外で先頭に迫る。2番太田海也がバックを先頭で通過する。1番郡司浩平が外に残り、前団は一本棒ではない。",
+            "order": [
+              2,
+              7,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "1番郡司浩平が3コーナーから捲って迫る。7番清水裕友は外へブロック。仕掛けの勢いを止める。そのぶん内に空きができる。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              2,
+              7,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は2番太田海也が逃げ粘りで勝ち切る。7番清水裕友が２着、4番渡部幸訓が３着。番手の横の仕事で生まれた内の空きが勝負を分ける。2番太田海也は最終コーナー1番手から1着へ。現在の位置を残す。7番清水裕友は最終コーナー2番手から2着へ。現在の位置を残す。4番渡部幸訓は最終コーナー4番手から3着へ。直線で外から1人を交わす（進路未測定）。",
+            "order": [
+              2,
+              7,
+              4,
+              1,
+              5,
+              6,
+              3
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "2-7-4",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "2-7-5",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は5番松本貴治が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-7-1",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は1番郡司浩平の直線の伸びを押さえる"
+          },
+          {
+            "key": "2-4-7",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は7番清水裕友の直線の伸びを押さえる"
+          },
+          {
+            "key": "7-2-4",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "7-2-5",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる。3着は5番松本貴治が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-1-4",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：2番太田海也の仕掛けと、前受け側の突っ張りが変わる"
+          },
+          {
+            "key": "2-4-1",
+            "group": "alternative",
+            "reason": "ホームの仕掛け・追走が変わる別筋：ホームのロング捲り、または追走の成否が変わる"
+          },
+          {
+            "key": "2-5-7",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "5-2-6",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：5番松本貴治がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 0,
+          "considered_corner_actions": [
+            "vertical",
+            "follow",
+            "block",
+            "none",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 256,
+          "terminalMass": 0.00651995209254824,
+          "unresolvedMass": 0.9934800479074521,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 1510
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "accepted": 211,
+          "examined": 256,
+          "reconsidered": 1510,
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "5番松本貴治は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終ホーム",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "5番松本貴治は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "2番太田海也は5番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            }
+          ]
+        },
+        "finish_review": null
+      },
+      "new": {
+        "version": "story-first-v5.1.0",
+        "ms": 127.8,
+        "main": "私はこう読む。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、1番郡司浩平の最後の仕掛けに番手がブロックで応じる。最後は2番太田海也が逃げ粘りで勝つ。",
+        "signature": "1|2|press|resist|attacker-takes||||settled||unchanged|holds||1|block|stopped|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは2-7／1-4／5-6／3。1番郡司浩平がSを取り、そのまま前受け。初手は1→4→5→6→2→7→3。",
+            "order": [
+              1,
+              4,
+              5,
+              6,
+              2,
+              7,
+              3
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "2番太田海也が赤板から上昇して抑えに行く。後続を連れ出して好位置を確保したいと読む。1番郡司浩平は突っ張って対抗する。2番太田海也が主導権を奪う。",
+            "order": [
+              2,
+              7,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "2番太田海也は仕掛け直される前にホームでペースを上げる。隊列は一本棒に落ち着く。7番清水裕友は加速に合わせて追走を保つ。",
+            "order": [
+              2,
+              7,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "別線は動かず、先行ラインがペースを握る。2番太田海也がバックを先頭で通過する。7番清水裕友が追走し、前団は一本棒。",
+            "order": [
+              2,
+              7,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "1番郡司浩平が3コーナーから捲って迫る。7番清水裕友は外へブロック。仕掛けの勢いを止める。そのぶん内に空きができる。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              2,
+              7,
+              1,
+              4,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は2番太田海也が逃げ粘りで勝ち切る。7番清水裕友が２着、4番渡部幸訓が３着。番手の横の仕事で生まれた内の空きが勝負を分ける。2番太田海也は最終コーナー1番手から1着へ。現在の位置を残す。7番清水裕友は最終コーナー2番手から2着へ。現在の位置を残す。4番渡部幸訓は最終コーナー4番手から3着へ。直線で外から1人を交わす（進路未測定）。",
+            "order": [
+              2,
+              7,
+              4,
+              1,
+              5,
+              6,
+              3
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "2-7-4",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "2-7-5",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は5番松本貴治が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-7-1",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は1番郡司浩平の直線の伸びを押さえる"
+          },
+          {
+            "key": "2-4-7",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は7番清水裕友の直線の伸びを押さえる"
+          },
+          {
+            "key": "7-2-4",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "7-2-5",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる。3着は5番松本貴治が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-1-4",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：5番松本貴治の仕掛けと、前受け側の突っ張りが変わる"
+          },
+          {
+            "key": "5-1-2",
+            "group": "alternative",
+            "reason": "ホームの仕掛け・追走が変わる別筋：ホームのロング捲り、または追走の成否が変わる"
+          },
+          {
+            "key": "2-1-7",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "2-4-1",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：2番太田海也がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 0,
+          "considered_corner_actions": [
+            "vertical",
+            "follow",
+            "block",
+            "none",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 256,
+          "terminalMass": 0.008150096957217247,
+          "unresolvedMass": 0.9918499030427829,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 1554,
+          "search_policy": "family-round-robin-v1",
+          "search_trace": [
+            {
+              "phase": "S",
+              "generated": 7,
+              "unique": 7,
+              "merged": 0,
+              "retained": 7,
+              "families_before": 4,
+              "families_after": 4,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-attack",
+              "generated": 22,
+              "unique": 22,
+              "merged": 0,
+              "retained": 22,
+              "families_before": 22,
+              "families_after": 22,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-response",
+              "generated": 40,
+              "unique": 40,
+              "merged": 0,
+              "retained": 40,
+              "families_before": 31,
+              "families_after": 31,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-result",
+              "generated": 58,
+              "unique": 58,
+              "merged": 0,
+              "retained": 58,
+              "families_before": 19,
+              "families_after": 19,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-third",
+              "generated": 116,
+              "unique": 116,
+              "merged": 0,
+              "retained": 116,
+              "families_before": 34,
+              "families_after": 34,
+              "pruned_mass": 2.220446049250313e-16
+            },
+            {
+              "phase": "home-attack",
+              "generated": 359,
+              "unique": 359,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 64,
+              "families_after": 64,
+              "pruned_mass": 0.12961181426049262
+            },
+            {
+              "phase": "home-result",
+              "generated": 393,
+              "unique": 393,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 70,
+              "families_after": 70,
+              "pruned_mass": 0.11311971295972467
+            },
+            {
+              "phase": "follow",
+              "generated": 485,
+              "unique": 485,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 70,
+              "families_after": 70,
+              "pruned_mass": 0.2490505607323239
+            },
+            {
+              "phase": "back-seat",
+              "generated": 350,
+              "unique": 350,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 70,
+              "families_after": 70,
+              "pruned_mass": 0.07072501168043893
+            },
+            {
+              "phase": "back-attack",
+              "generated": 828,
+              "unique": 828,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 131,
+              "families_after": 131,
+              "pruned_mass": 0.2850736372824346
+            },
+            {
+              "phase": "back-result",
+              "generated": 350,
+              "unique": 350,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 131,
+              "families_after": 131,
+              "pruned_mass": 0.01335928009498738
+            },
+            {
+              "phase": "back-follow",
+              "generated": 276,
+              "unique": 276,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 131,
+              "families_after": 131,
+              "pruned_mass": 0.0032152176262326693
+            },
+            {
+              "phase": "corner-attack",
+              "generated": 818,
+              "unique": 818,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 131,
+              "families_after": 131,
+              "pruned_mass": 0.10714492671902946
+            },
+            {
+              "phase": "defense",
+              "generated": 583,
+              "unique": 583,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 371,
+              "families_after": 256,
+              "pruned_mass": 0.018061153480213026
+            },
+            {
+              "phase": "block-result",
+              "generated": 334,
+              "unique": 334,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.0018902608537014476
+            },
+            {
+              "phase": "inside",
+              "generated": 413,
+              "unique": 413,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.0005983273532039115
+            }
+          ]
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "policy": "whole-race-diverse-v1",
+          "accepted": 56,
+          "examined": 256,
+          "reconsidered": 1554,
+          "compared": [
+            {
+              "signature": "1|2|press|resist|attacker-takes||||settled||unchanged|holds||1|block|stopped|",
+              "family": "抑え:2|先行継続:2|block",
+              "score": 0.9739509181376961,
+              "components": {
+                "personality": 0.9681697271256539,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": true,
+              "reason": "反撃と待機の反証を通過し、全体の戦術評価が最上位"
+            },
+            {
+              "signature": "5|2|press|yield|attacker-takes||||settled|5|parallel|holds||5|block|stopped|",
+              "family": "抑え:2|バック反撃:5|block",
+              "score": 0.9671503323864818,
+              "components": {
+                "personality": 0.9788344412882729,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.77,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||1|takes|2|parallel|holds||2|block|stopped|",
+              "family": "抑え:5|バック反撃:2|block",
+              "score": 0.9455547310105499,
+              "components": {
+                "personality": 0.9468491033684999,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||1|parallel|1|parallel|holds||1|block|stopped|",
+              "family": "突っ張り:5|バック反撃:1|block",
+              "score": 0.9360918782730122,
+              "components": {
+                "personality": 0.9536395942433742,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds|||5|takes|1|takes|holds||2|vertical|free|",
+              "family": "突っ張り:2|バック反撃:1|vertical",
+              "score": 0.9359649120569896,
+              "components": {
+                "personality": 0.9748830401899654,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds|||5|takes|1|takes|holds||2|block|stopped|",
+              "family": "突っ張り:2|バック反撃:1|block",
+              "score": 0.935878795049304,
+              "components": {
+                "personality": 0.9747431618330292,
+                "counterplay": 0.9998528216646507,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5|2|press|resist|front-holds|||1|takes|5|takes|holds||2|block|stopped|",
+              "family": "突っ張り:2|バック反撃:5|block",
+              "score": 0.9332906200334544,
+              "components": {
+                "personality": 0.9659687334448481,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||1|takes|2|takes|holds||5|vertical|free|",
+              "family": "突っ張り:5|バック反撃:2|vertical",
+              "score": 0.9328076510280611,
+              "components": {
+                "personality": 0.9643588367602033,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5|2|press|resist|front-holds|||1|takes|5|takes|holds||2|vertical|free|",
+              "family": "突っ張り:2|バック反撃:5|vertical",
+              "score": 0.9327376551832928,
+              "components": {
+                "personality": 0.9650790072667969,
+                "counterplay": 0.9990465100108458,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||1|parallel|1|takes|holds||2|block|stopped|",
+              "family": "抑え:5|バック反撃:1|block",
+              "score": 0.9324540490281715,
+              "components": {
+                "personality": 0.9365134967605716,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.55,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||1|takes|2|takes|holds||5|block|stopped|",
+              "family": "突っ張り:5|バック反撃:2|block",
+              "score": 0.9306791045474236,
+              "components": {
+                "personality": 0.9609397187190204,
+                "counterplay": 0.9963239631057251,
+                "control": 0.965,
+                "energy": 0.47,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2||wait|pace|front-holds||||settled|1|parallel|holds||1|block|stopped|",
+              "family": "前受け維持:2|バック反撃:1|block",
+              "score": 0.929477143581207,
+              "components": {
+                "personality": 0.8382571452706907,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.85,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5|1|press|resist|front-holds|||2|takes|5|parallel|holds||5|block|stopped|",
+              "family": "抑え:1|バック反撃:5|block",
+              "score": 0.9276206485862912,
+              "components": {
+                "personality": 0.8870688286209711,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||1|takes||unchanged|breaks|2|5|vertical|free|",
+              "family": "抑え:5|ホーム捲り:1|vertical",
+              "score": 0.9250741665579384,
+              "components": {
+                "personality": 0.9119138885264613,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.75,
+                "following": 0.8,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5|1|press|yield|attacker-takes|||5|takes|2|parallel|holds||2|block|stopped|",
+              "family": "抑え:1|バック反撃:2|block",
+              "score": 0.9246254121947566,
+              "components": {
+                "personality": 0.8937513739825222,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|yield|attacker-takes|||2|parallel|2|takes|holds||5|vertical|free|",
+              "family": "抑え:5|バック反撃:2|vertical",
+              "score": 0.9191985034161847,
+              "components": {
+                "personality": 0.9231035130845927,
+                "counterplay": 0.9858914983026894,
+                "control": 0.965,
+                "energy": 0.5,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|press|resist|attacker-takes||||settled|2|takes|holds||1|block|stopped|",
+              "family": "突っ張り:1|バック反撃:2|block",
+              "score": 0.9187641926709861,
+              "components": {
+                "personality": 0.8875473089032868,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.56,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5||wait|pace|front-holds||||settled|1|parallel|holds||1|block|stopped|",
+              "family": "前受け維持:5|バック反撃:1|block",
+              "score": 0.911703593289144,
+              "components": {
+                "personality": 0.7790119776304804,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.85,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds|||5|takes|6|parallel|breaks||6|none|free|",
+              "family": "抑え:2|バック反撃:6|none",
+              "score": 0.9064861594833731,
+              "components": {
+                "personality": 0.9666205316112438,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|1|press|resist|attacker-takes||||settled||unchanged|breaks|2|5|vertical|free|",
+              "family": "抑え:1|先行継続:1|vertical",
+              "score": 0.9061190331336074,
+              "components": {
+                "personality": 0.8123866907954733,
+                "counterplay": 0.9963434196498848,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 0.8,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|kamashi|yield|attacker-takes|||1|takes|2|takes|holds||5|block|stopped|",
+              "family": "カマシ:2|バック反撃:2|block",
+              "score": 0.9053884193250612,
+              "components": {
+                "personality": 0.8662947310835373,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.49,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2|5|press|resist|front-holds|||1|parallel|7|parallel|breaks|1|7|vertical|free|",
+              "family": "突っ張り:5|バック反撃:7|vertical",
+              "score": 0.9043635723711873,
+              "components": {
+                "personality": 0.9145452412372906,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 0.8,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "2||wait|pace|front-holds||||settled||unchanged|breaks|1||follow|free|",
+              "family": "前受け維持:2|先行継続:2|follow",
+              "score": 0.9030863148841802,
+              "components": {
+                "personality": 0.783621049613934,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.95,
+                "following": 0.8,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "3|5|kamashi|yield|attacker-takes|||1|takes|2|parallel|holds||2|block|stopped|",
+              "family": "カマシ:5|バック反撃:2|block",
+              "score": 0.9029839845297585,
+              "components": {
+                "personality": 0.7932799484325284,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.65,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds|||5|takes|1|parallel|holds||2|block|stopped|",
+              "family": "抑え:2|バック反撃:1|block",
+              "score": 0.9615,
+              "components": {
+                "personality": 1,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る1番郡司浩平の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "2|5|press|yield|attacker-takes|||2|takes|5|parallel|holds||1|block|stopped|",
+              "family": "抑え:5|バック反撃:5|block",
+              "score": 0.9481785388981063,
+              "components": {
+                "personality": 0.9722617963270208,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る5番松本貴治の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds|||5|takes|2|parallel|breaks|1|6|vertical|free|",
+              "family": "抑え:2|バック反撃:2|vertical",
+              "score": 0.9190217463935856,
+              "components": {
+                "personality": 0.9382855648789232,
+                "counterplay": 0.9867869230996951,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 0.8,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る2番太田海也の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "1|2|press|resist|front-holds|||5|takes|2|parallel|breaks||6|none|free|",
+              "family": "抑え:2|バック反撃:2|none",
+              "score": 0.8887740096348862,
+              "components": {
+                "personality": 0.9380870672419868,
+                "counterplay": 0.9694929648743005,
+                "control": 0.965,
+                "energy": 0.65,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る2番太田海也の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            }
+          ],
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "5番松本貴治は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終ホーム",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "5番松本貴治は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "2番太田海也は5番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "5番松本貴治は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            }
+          ]
+        },
+        "finish_review": null
+      }
+    },
+    {
+      "id": "one-initiator",
+      "input_sha256": "137899d953316c0cc187de3fad3e49d6c5b293e66a4ef3f0e9bec3b1dd679e25",
+      "input_as_of": null,
+      "cutoff": "2026-10-31T07:25:00.000Z",
+      "old": {
+        "version": "story-first-v4.0.0",
+        "ms": 40.3,
+        "main": "私はこう読む。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、3〜4角から直線勝負へ進む。最後は2番太田海也が番手差しで勝つ。",
+        "signature": "1||wait|pace|front-holds||||settled||unchanged|holds|||follow|free|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは1-2-3／4-5／6-7。1番郡司浩平がSを取り、そのまま前受け。初手は1→2→3→4→5→6→7。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "この筋では赤板で他線の早い仕掛けを置かず、1番郡司浩平がペースを作る。後方勢はホーム以降の仕掛けを待つ。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "1番郡司浩平は仕掛け直される前にホームでペースを上げる。隊列は一本棒に落ち着く。2番太田海也は加速に合わせて追走を保つ。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "別線は動かず、先行ラインがペースを握る。1番郡司浩平がバックを先頭で通過する。2番太田海也が追走し、前団は一本棒。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "別線は仕掛けず、前団が直線勝負に入る。2番太田海也は番手を保ち、差しのタイミングを待つ。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は2番太田海也が番手差しで勝ち切る。1番郡司浩平が２着、3番南修二が３着。先行が使った脚と番手の余力が最後の差になる。2番太田海也は最終コーナー2番手から1着へ。直線で外から1人を交わす（進路未測定）。1番郡司浩平は最終コーナー1番手から2番太田海也に交わされるが、後続を抑えて2着に粘る。3番南修二は最終コーナー3番手から3着へ。現在の位置を残す。",
+            "order": [
+              2,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "2-1-3",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "1-2-3",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "2-3-1",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は1番郡司浩平の直線の伸びを押さえる"
+          },
+          {
+            "key": "2-1-4",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は4番渡部幸訓が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-1-5",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は5番松本貴治が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "1-2-4",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる。3着は4番渡部幸訓が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "1-4-5",
+            "group": "alternative",
+            "reason": "ホームの仕掛け・追走が変わる別筋：ホームのロング捲り、または追走の成否が変わる"
+          },
+          {
+            "key": "2-4-1",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "1-2-5",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：5番松本貴治がSを取ると初手の位置関係が変わる"
+          },
+          {
+            "key": "2-1-6",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：7番清水裕友がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 16,
+          "considered_corner_actions": [
+            "vertical",
+            "follow",
+            "none",
+            "block",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 240,
+          "terminalMass": 0.9190702156854537,
+          "unresolvedMass": 0.0809297843145464,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 202
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "accepted": 113,
+          "examined": 240,
+          "reconsidered": 202,
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "1番郡司浩平は2番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "1番郡司浩平は2番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            }
+          ]
+        },
+        "finish_review": null
+      },
+      "new": {
+        "version": "story-first-v5.1.0",
+        "ms": 45.9,
+        "main": "私はこう読む。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、3〜4角から直線勝負へ進む。最後は2番太田海也が番手差しで勝つ。",
+        "signature": "1||wait|pace|front-holds||||settled||unchanged|holds|||follow|free|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは1-2-3／4-5／6-7。1番郡司浩平がSを取り、そのまま前受け。初手は1→2→3→4→5→6→7。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "この筋では赤板で他線の早い仕掛けを置かず、1番郡司浩平がペースを作る。後方勢はホーム以降の仕掛けを待つ。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "1番郡司浩平は仕掛け直される前にホームでペースを上げる。隊列は一本棒に落ち着く。2番太田海也は加速に合わせて追走を保つ。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "別線は動かず、先行ラインがペースを握る。1番郡司浩平がバックを先頭で通過する。2番太田海也が追走し、前団は一本棒。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "別線は仕掛けず、前団が直線勝負に入る。2番太田海也は番手を保ち、差しのタイミングを待つ。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は2番太田海也が番手差しで勝ち切る。1番郡司浩平が２着、3番南修二が３着。先行が使った脚と番手の余力が最後の差になる。2番太田海也は最終コーナー2番手から1着へ。直線で外から1人を交わす（進路未測定）。1番郡司浩平は最終コーナー1番手から2番太田海也に交わされるが、後続を抑えて2着に粘る。3番南修二は最終コーナー3番手から3着へ。現在の位置を残す。",
+            "order": [
+              2,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "2-1-3",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "1-2-3",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "2-3-1",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は1番郡司浩平の直線の伸びを押さえる"
+          },
+          {
+            "key": "2-1-4",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は4番渡部幸訓が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-1-5",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は5番松本貴治が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "1-2-4",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる。3着は4番渡部幸訓が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "1-4-5",
+            "group": "alternative",
+            "reason": "ホームの仕掛け・追走が変わる別筋：ホームのロング捲り、または追走の成否が変わる"
+          },
+          {
+            "key": "2-4-1",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "1-2-5",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：5番松本貴治がSを取ると初手の位置関係が変わる"
+          },
+          {
+            "key": "2-1-6",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：7番清水裕友がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 8,
+          "considered_corner_actions": [
+            "vertical",
+            "follow",
+            "block",
+            "none",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 248,
+          "terminalMass": 0.9279171363645033,
+          "unresolvedMass": 0.07208286363549696,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 202,
+          "search_policy": "family-round-robin-v1",
+          "search_trace": [
+            {
+              "phase": "S",
+              "generated": 7,
+              "unique": 7,
+              "merged": 0,
+              "retained": 7,
+              "families_before": 3,
+              "families_after": 3,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-attack",
+              "generated": 7,
+              "unique": 7,
+              "merged": 0,
+              "retained": 7,
+              "families_before": 7,
+              "families_after": 7,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-response",
+              "generated": 11,
+              "unique": 11,
+              "merged": 0,
+              "retained": 11,
+              "families_before": 9,
+              "families_after": 9,
+              "pruned_mass": 2.220446049250313e-16
+            },
+            {
+              "phase": "red-result",
+              "generated": 15,
+              "unique": 15,
+              "merged": 0,
+              "retained": 15,
+              "families_before": 7,
+              "families_after": 7,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-third",
+              "generated": 15,
+              "unique": 15,
+              "merged": 0,
+              "retained": 15,
+              "families_before": 7,
+              "families_after": 7,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "home-attack",
+              "generated": 21,
+              "unique": 21,
+              "merged": 0,
+              "retained": 21,
+              "families_before": 10,
+              "families_after": 10,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "home-result",
+              "generated": 27,
+              "unique": 27,
+              "merged": 0,
+              "retained": 27,
+              "families_before": 12,
+              "families_after": 12,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "follow",
+              "generated": 54,
+              "unique": 54,
+              "merged": 0,
+              "retained": 54,
+              "families_before": 12,
+              "families_after": 12,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "back-seat",
+              "generated": 81,
+              "unique": 81,
+              "merged": 0,
+              "retained": 81,
+              "families_before": 12,
+              "families_after": 12,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "back-attack",
+              "generated": 105,
+              "unique": 105,
+              "merged": 0,
+              "retained": 105,
+              "families_before": 15,
+              "families_after": 15,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "back-result",
+              "generated": 129,
+              "unique": 129,
+              "merged": 0,
+              "retained": 129,
+              "families_before": 17,
+              "families_after": 17,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "back-follow",
+              "generated": 153,
+              "unique": 153,
+              "merged": 0,
+              "retained": 153,
+              "families_before": 17,
+              "families_after": 17,
+              "pruned_mass": 2.220446049250313e-16
+            },
+            {
+              "phase": "corner-attack",
+              "generated": 201,
+              "unique": 201,
+              "merged": 0,
+              "retained": 201,
+              "families_before": 17,
+              "families_after": 17,
+              "pruned_mass": 2.220446049250313e-16
+            },
+            {
+              "phase": "defense",
+              "generated": 339,
+              "unique": 339,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 61,
+              "families_after": 61,
+              "pruned_mass": 0.035053661027602656
+            },
+            {
+              "phase": "block-result",
+              "generated": 278,
+              "unique": 278,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 61,
+              "families_after": 61,
+              "pruned_mass": 0.01370464689661921
+            },
+            {
+              "phase": "inside",
+              "generated": 326,
+              "unique": 326,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 61,
+              "families_after": 61,
+              "pruned_mass": 0.02314729668768334
+            }
+          ]
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "policy": "whole-race-diverse-v1",
+          "accepted": 93,
+          "examined": 248,
+          "reconsidered": 202,
+          "compared": [
+            {
+              "signature": "1||wait|pace|front-holds||||settled||unchanged|holds|||follow|free|",
+              "family": "前受け維持:1|先行継続:1|follow",
+              "score": 0.9879999999999999,
+              "components": {
+                "personality": 1,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.95,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": true,
+              "reason": "反撃と待機の反証を通過し、全体の戦術評価が最上位"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes||||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:1|先行継続:1|follow",
+              "score": 0.9771503323864819,
+              "components": {
+                "personality": 0.9788344412882729,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes||||settled||unchanged|holds|||vertical|free|",
+              "family": "抑え:1|先行継続:1|vertical",
+              "score": 0.9735072350976809,
+              "components": {
+                "personality": 0.972892087522826,
+                "counterplay": 0.9937986961361106,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|kamashi|yield|attacker-takes||||settled||unchanged|holds|||vertical|free|",
+              "family": "カマシ:1|先行継続:1|vertical",
+              "score": 0.9520604797837027,
+              "components": {
+                "personality": 0.9252015992790092,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.78,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|resist|front-holds|||1|takes||unchanged|holds|||vertical|free|",
+              "family": "抑え:1|ホーム捲り:1|vertical",
+              "score": 0.9244123876354284,
+              "components": {
+                "personality": 0.9197079587847613,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.52,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|resist|front-holds|||1|parallel|1|parallel|holds||1|block|stopped|",
+              "family": "突っ張り:1|バック反撃:1|block",
+              "score": 0.9226946338957217,
+              "components": {
+                "personality": 0.908982112985739,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1||wait|pace|front-holds||||settled||unchanged|breaks|||none|free|",
+              "family": "前受け維持:1|先行継続:1|none",
+              "score": 0.918110769390159,
+              "components": {
+                "personality": 0.9170358979671969,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.95,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|yield|attacker-takes||||settled||unchanged|breaks|||none|free|",
+              "family": "抑え:1|先行継続:1|none",
+              "score": 0.9082615926340478,
+              "components": {
+                "personality": 0.8992053087801596,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|kamashi|resist|front-holds|||1|takes||unchanged|holds|||vertical|free|",
+              "family": "カマシ:1|ホーム捲り:1|vertical",
+              "score": 0.9001423373392928,
+              "components": {
+                "personality": 0.8688077911309761,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.42999999999999994,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4||wait|pace|front-holds|||1|takes||unchanged|holds|||vertical|free|",
+              "family": "前受け維持:4|ホーム捲り:1|vertical",
+              "score": 0.8981681587581454,
+              "components": {
+                "personality": 0.7555605291938178,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|resist|front-holds|||1|parallel||unchanged|breaks|1||vertical|free|",
+              "family": "突っ張り:1|ホーム捲り:1|vertical",
+              "score": 0.8972670766248257,
+              "components": {
+                "personality": 0.8575569220827522,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.67,
+                "following": 0.8,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|resist|front-holds|||1|parallel|1|takes|holds|||vertical|free|",
+              "family": "抑え:1|バック反撃:1|vertical",
+              "score": 0.8968064207433355,
+              "components": {
+                "personality": 0.8943547358111181,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.32000000000000006,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "6||wait|pace|front-holds|||1|takes||unchanged|holds|||vertical|free|",
+              "family": "前受け維持:6|ホーム捲り:1|vertical",
+              "score": 0.8957415864180216,
+              "components": {
+                "personality": 0.7474719547267386,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|kamashi|yield|attacker-takes||||settled||unchanged|breaks|||none|free|",
+              "family": "カマシ:1|先行継続:1|none",
+              "score": 0.895229945395678,
+              "components": {
+                "personality": 0.8857664846522599,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.78,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4||wait|pace|front-holds|||1|parallel|1|parallel|holds||1|block|stopped|",
+              "family": "前受け維持:4|バック反撃:1|block",
+              "score": 0.8921949782444485,
+              "components": {
+                "personality": 0.7439832608148284,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.76,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "6||wait|pace|front-holds|||1|parallel|1|parallel|holds||1|block|stopped|",
+              "family": "前受け維持:6|バック反撃:1|block",
+              "score": 0.8894209202247081,
+              "components": {
+                "personality": 0.7347364007490274,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.76,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|kamashi|resist|front-holds|||1|parallel|1|takes|holds|||vertical|free|",
+              "family": "カマシ:1|バック反撃:1|vertical",
+              "score": 0.8732413640924555,
+              "components": {
+                "personality": 0.8458045469748516,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.22999999999999998,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4||wait|pace|front-holds|||1|parallel|1|takes|holds|||vertical|free|",
+              "family": "前受け維持:4|バック反撃:1|vertical",
+              "score": 0.8730055766002446,
+              "components": {
+                "personality": 0.7383519220008153,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.55,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4||wait|pace|front-holds|||1|parallel||unchanged|breaks|1||follow|free|",
+              "family": "前受け維持:4|ホーム捲り:1|follow",
+              "score": 0.8717526862048984,
+              "components": {
+                "personality": 0.7091756206829954,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.86,
+                "following": 0.8,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "6||wait|pace|front-holds|||1|parallel|1|takes|holds|||vertical|free|",
+              "family": "前受け維持:6|バック反撃:1|vertical",
+              "score": 0.870681318589586,
+              "components": {
+                "personality": 0.7306043952986196,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.55,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "6||wait|pace|front-holds|||1|parallel||unchanged|breaks|1||follow|free|",
+              "family": "前受け維持:6|ホーム捲り:1|follow",
+              "score": 0.8692306610264698,
+              "components": {
+                "personality": 0.700768870088233,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.86,
+                "following": 0.8,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|resist|front-holds|||1|takes||unchanged|breaks|||none|free|",
+              "family": "抑え:1|ホーム捲り:1|none",
+              "score": 0.8677189708218038,
+              "components": {
+                "personality": 0.8807299027393456,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.52,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4|1|press|resist|front-holds|||1|parallel|1|parallel|breaks||1|none|free|",
+              "family": "突っ張り:1|バック反撃:1|none",
+              "score": 0.8662667210094323,
+              "components": {
+                "personality": 0.8708890700314409,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "4||wait|pace|front-holds|||1|takes||unchanged|breaks|||none|free|",
+              "family": "前受け維持:4|ホーム捲り:1|none",
+              "score": 0.8452161366768922,
+              "components": {
+                "personality": 0.7290537889229739,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.75,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1||wait|pace|front-holds||||settled||unchanged|holds|||vertical|free|",
+              "family": "前受け維持:1|先行継続:1|vertical",
+              "score": 0.9403641184268668,
+              "components": {
+                "personality": 0.9206068640447782,
+                "counterplay": 0.9206068640447782,
+                "control": 0.9299999999999999,
+                "energy": 0.95,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "番手の応答",
+                  "objection": "より自然な応答との差が残る"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "4|1|press|resist|front-holds|||1|parallel|1|parallel|holds||1|vertical|free|",
+              "family": "突っ張り:1|バック反撃:1|vertical",
+              "score": 0.8961862478610382,
+              "components": {
+                "personality": 0.8689084291216397,
+                "counterplay": 0.9517123970818212,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "番手の応答",
+                  "objection": "より自然な応答との差が残る"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "4|1|kamashi|yield|attacker-takes||||settled||unchanged|holds|||follow|free|",
+              "family": "カマシ:1|先行継続:1|follow",
+              "score": 0.9089120103649262,
+              "components": {
+                "personality": 0.8586598519755065,
+                "counterplay": 0.922713515907581,
+                "control": 0.965,
+                "energy": 0.78,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "番手の応答",
+                  "objection": "より自然な応答との差が残る"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "4|1|kamashi|resist|front-holds|||1|parallel||unchanged|breaks||1|none|free|",
+              "family": "突っ張り:1|ホーム捲り:1|none",
+              "score": 0.8241882407379557,
+              "components": {
+                "personality": 0.7790272360091622,
+                "counterplay": 0.9182668997840236,
+                "control": 0.9299999999999999,
+                "energy": 0.67,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終バック",
+                  "objection": "1番郡司浩平は2番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            }
+          ],
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "1番郡司浩平は2番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "1番郡司浩平は2番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            }
+          ]
+        },
+        "finish_review": null
+      }
+    },
+    {
+      "id": "fragmented-nine",
+      "input_sha256": "e3071adcf1cb76e40f71e8bf77f9c22c597e5152388a1f7a6ee540cd11fe1a16",
+      "input_as_of": null,
+      "cutoff": "2026-10-31T07:25:00.000Z",
+      "old": {
+        "version": "story-first-v4.0.0",
+        "ms": 123.1,
+        "main": "私はこう読む。1番郡司浩平がホームで仕掛け、9番山口拳矢がバックで反撃し、8番取鳥雄吾の最後の仕掛けが迫る。最後は9番山口拳矢が逃げ粘りで勝つ。",
+        "signature": "8|5|press|resist|front-holds|||1|takes|9|takes|solo||8|none|free|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは1-2／3-4／5-6／7／8／9。8番取鳥雄吾がSを取り、そのまま前受け。初手は8→9→1→2→5→6→7→3→4。",
+            "order": [
+              8,
+              9,
+              1,
+              2,
+              5,
+              6,
+              7,
+              3,
+              4
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "5番松本貴治が赤板から上昇して抑えに行く。後続を連れ出して好位置を確保したいと読む。8番取鳥雄吾は突っ張って対抗する。8番取鳥雄吾が抵抗して主導権を守る。5番松本貴治は前に出切れず、5番手で態勢を立て直す。",
+            "order": [
+              8,
+              9,
+              1,
+              2,
+              5,
+              6,
+              7,
+              3,
+              4
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "1番郡司浩平が最終ホームからロング捲り。1番郡司浩平が前団をとらえる。2番太田海也は加速に合わせて追走を保つ。8番取鳥雄吾は3番手へ下がる。",
+            "order": [
+              1,
+              2,
+              8,
+              9,
+              5,
+              6,
+              7,
+              3,
+              4
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "9番山口拳矢がバックから反撃し、主導権を取り直す。9番山口拳矢がバックを先頭で通過する。先頭は単騎で、後ろは別線。",
+            "order": [
+              9,
+              1,
+              2,
+              8,
+              5,
+              6,
+              7,
+              3,
+              4
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "8番取鳥雄吾が3コーナーから捲って迫る。番手は空いたまま、先行選手が外の動きに対応する。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              9,
+              1,
+              8,
+              2,
+              5,
+              6,
+              7,
+              3,
+              4
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は9番山口拳矢が逃げ粘りで勝ち切る。2番太田海也が２着、1番郡司浩平が３着。外からの勢いと先行の残り脚がぶつかる。9番山口拳矢は最終コーナー1番手から1着へ。現在の位置を残す。2番太田海也は最終コーナー4番手から2着へ。直線で外から2人を交わす（進路未測定）。1番郡司浩平は最終コーナー2番手から2番太田海也に交わされるが、後続を抑えて3着に粘る。",
+            "order": [
+              9,
+              2,
+              1,
+              8,
+              5,
+              6,
+              7,
+              3,
+              4
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "9-2-1",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "9-2-8",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は8番取鳥雄吾の直線の伸びを押さえる"
+          },
+          {
+            "key": "9-1-2",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は2番太田海也が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "9-8-2",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は2番太田海也が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "9-2-5",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は5番松本貴治が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "8-9-2",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は2番太田海也が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "8-2-9",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：1番郡司浩平の仕掛けと、前受け側の対応が変わる"
+          },
+          {
+            "key": "9-5-1",
+            "group": "alternative",
+            "reason": "ホームの仕掛け・追走が変わる別筋：ホームのロング捲り、または追走の成否が変わる"
+          },
+          {
+            "key": "2-1-3",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：4番渡部幸訓がSを取ると初手の位置関係が変わる"
+          },
+          {
+            "key": "5-6-3",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：4番渡部幸訓がSを取ると初手の位置関係が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 0,
+          "considered_corner_actions": [
+            "none",
+            "vertical",
+            "follow",
+            "block",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 256,
+          "terminalMass": 0.005222255390378298,
+          "unresolvedMass": 0.994777744609622,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 2939
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "accepted": 229,
+          "examined": 256,
+          "reconsidered": 2939,
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終ホーム",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "9番山口拳矢は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "9番山口拳矢は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "8番取鳥雄吾は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "9番山口拳矢は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            }
+          ]
+        },
+        "finish_review": null
+      },
+      "new": {
+        "version": "story-first-v5.1.0",
+        "ms": 160.7,
+        "main": "私はこう読む。ホームでは前団が隊列を保ち、バックでは前団が主導権を守り、3〜4角から直線勝負へ進む。最後は2番太田海也が番手差しで勝つ。",
+        "signature": "3|1|press|yield|attacker-takes||||settled||unchanged|holds|||follow|free|",
+        "scenes": [
+          {
+            "stage": 1,
+            "action": "並びは1-2／3-4／5-6／7／8／9。4番渡部幸訓がSを取り、3番南修二を迎え入れて前受け。初手は3→4→8→9→1→2→5→6→7。",
+            "order": [
+              3,
+              4,
+              8,
+              9,
+              1,
+              2,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 2,
+            "action": "1番郡司浩平が赤板から上昇して抑えに行く。後続を連れ出して好位置を確保したいと読む。2番は競走得点が6.9点上位。3番南修二はいったん出させ、引いて脚を残す。1番郡司浩平が主導権を奪う。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              8,
+              9,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 3,
+            "action": "1番郡司浩平は仕掛け直される前にホームでペースを上げる。隊列は一本棒に落ち着く。2番太田海也は加速に合わせて追走を保つ。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              8,
+              9,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 4,
+            "action": "別線は動かず、先行ラインがペースを握る。1番郡司浩平がバックを先頭で通過する。2番太田海也が追走し、前団は一本棒。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              8,
+              9,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 5,
+            "action": "別線は仕掛けず、前団が直線勝負に入る。2番太田海也は番手を保ち、差しのタイミングを待つ。後続は内を突かず、直線で踏み込む。",
+            "order": [
+              1,
+              2,
+              3,
+              4,
+              8,
+              9,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "stage": 6,
+            "action": "直線は2番太田海也が番手差しで勝ち切る。1番郡司浩平が２着、3番南修二が３着。先行が使った脚と番手の余力が最後の差になる。2番太田海也は最終コーナー2番手から1着へ。直線で外から1人を交わす（進路未測定）。1番郡司浩平は最終コーナー1番手から2番太田海也に交わされるが、後続を抑えて2着に粘る。3番南修二は最終コーナー3番手から3着へ。現在の位置を残す。",
+            "order": [
+              2,
+              1,
+              3,
+              4,
+              8,
+              9,
+              5,
+              6,
+              7
+            ]
+          }
+        ],
+        "chosen": [
+          {
+            "key": "2-1-3",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする"
+          },
+          {
+            "key": "1-2-3",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる"
+          },
+          {
+            "key": "2-1-4",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は4番渡部幸訓が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-3-1",
+            "group": "main",
+            "reason": "本線の主導権争いは維持し、直線の脚色差による着順の入れ替わりを押さえる。3着は1番郡司浩平の直線の伸びを押さえる"
+          },
+          {
+            "key": "1-2-4",
+            "group": "main",
+            "reason": "先行の粘りと番手差しの1・2着逆転を押さえる。3着は4番渡部幸訓が4角4番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-1-8",
+            "group": "main",
+            "reason": "本線の1・2着を軸にする。3着は8番取鳥雄吾が4角5番手から、直線の伸びと前団の脚色差で食い込む押さえ"
+          },
+          {
+            "key": "2-4-1",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：1番郡司浩平の仕掛けと、前受け側の対応、さらに9番山口拳矢の位置上昇が変わる"
+          },
+          {
+            "key": "2-3-4",
+            "group": "alternative",
+            "reason": "3～4角の判断が変わる別筋：横の仕事・縦踏み・内のコース選択が変わる"
+          },
+          {
+            "key": "9-1-2",
+            "group": "alternative",
+            "reason": "S取り・初手が変わる別筋：1番郡司浩平がSを取ると初手の位置関係が変わる"
+          },
+          {
+            "key": "1-3-2",
+            "group": "alternative",
+            "reason": "赤板の攻防が変わる別筋：1番郡司浩平の仕掛けと、前受け側の対応、さらに7番清水裕友の位置上昇が変わる"
+          }
+        ],
+        "diagnostics": {
+          "lineReactionSchema": "tk-line-reactions/v1",
+          "openingStrategy": "cross-line-counterplay-v1",
+          "realityVersion": "race-reality-v1.0.0",
+          "realityExcluded": 0,
+          "considered_corner_actions": [
+            "none",
+            "vertical",
+            "follow",
+            "block",
+            "inside"
+          ],
+          "initialMass": 1,
+          "terminalStates": 256,
+          "terminalMass": 0.004966837739410914,
+          "unresolvedMass": 0.995033162260587,
+          "width": 256,
+          "kinematics": "隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測",
+          "reconsidered_choices": 2838,
+          "search_policy": "family-round-robin-v1",
+          "search_trace": [
+            {
+              "phase": "S",
+              "generated": 9,
+              "unique": 9,
+              "merged": 0,
+              "retained": 9,
+              "families_before": 6,
+              "families_after": 6,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-attack",
+              "generated": 56,
+              "unique": 56,
+              "merged": 0,
+              "retained": 56,
+              "families_before": 56,
+              "families_after": 56,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-response",
+              "generated": 106,
+              "unique": 106,
+              "merged": 0,
+              "retained": 106,
+              "families_before": 81,
+              "families_after": 81,
+              "pruned_mass": 1.1102230246251565e-16
+            },
+            {
+              "phase": "red-result",
+              "generated": 156,
+              "unique": 156,
+              "merged": 0,
+              "retained": 156,
+              "families_before": 41,
+              "families_after": 41,
+              "pruned_mass": 0
+            },
+            {
+              "phase": "red-third",
+              "generated": 520,
+              "unique": 520,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 91,
+              "families_after": 91,
+              "pruned_mass": 0.30826244732120256
+            },
+            {
+              "phase": "home-attack",
+              "generated": 1262,
+              "unique": 1262,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 180,
+              "families_after": 180,
+              "pruned_mass": 0.4242839290622492
+            },
+            {
+              "phase": "home-result",
+              "generated": 380,
+              "unique": 380,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 185,
+              "families_after": 185,
+              "pruned_mass": 0.03942674163153251
+            },
+            {
+              "phase": "follow",
+              "generated": 400,
+              "unique": 400,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 185,
+              "families_after": 185,
+              "pruned_mass": 0.04249506888305221
+            },
+            {
+              "phase": "back-seat",
+              "generated": 265,
+              "unique": 265,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 185,
+              "families_after": 185,
+              "pruned_mass": 0.0016593701872042732
+            },
+            {
+              "phase": "back-attack",
+              "generated": 1274,
+              "unique": 1274,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 296,
+              "families_after": 256,
+              "pruned_mass": 0.12853369657441738
+            },
+            {
+              "phase": "back-result",
+              "generated": 336,
+              "unique": 336,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 261,
+              "families_after": 256,
+              "pruned_mass": 0.0036888606679698135
+            },
+            {
+              "phase": "back-follow",
+              "generated": 269,
+              "unique": 269,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.00016198106146345786
+            },
+            {
+              "phase": "corner-attack",
+              "generated": 1018,
+              "unique": 1018,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.040301325916025914
+            },
+            {
+              "phase": "defense",
+              "generated": 562,
+              "unique": 562,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 562,
+              "families_after": 256,
+              "pruned_mass": 0.005669803492269215
+            },
+            {
+              "phase": "block-result",
+              "generated": 363,
+              "unique": 363,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.0003968961663299471
+            },
+            {
+              "phase": "inside",
+              "generated": 473,
+              "unique": 473,
+              "merged": 0,
+              "retained": 256,
+              "families_before": 256,
+              "families_after": 256,
+              "pruned_mass": 0.0001530412968704549
+            }
+          ]
+        },
+        "selection_review": {
+          "method": "counterplay-before-tickets",
+          "policy": "whole-race-diverse-v1",
+          "accepted": 60,
+          "examined": 256,
+          "reconsidered": 2838,
+          "compared": [
+            {
+              "signature": "3|1|press|yield|attacker-takes||||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:1|先行継続:1|follow",
+              "score": 0.9677588674591977,
+              "components": {
+                "personality": 0.947529558197326,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": true,
+              "reason": "反撃と待機の反証を通過し、全体の戦術評価が最上位"
+            },
+            {
+              "signature": "3|1|press|yield|attacker-takes||||settled||unchanged|holds|||vertical|free|",
+              "family": "抑え:1|先行継続:1|vertical",
+              "score": 0.9642276506402669,
+              "components": {
+                "personality": 0.9419601393314462,
+                "counterplay": 0.9937986961361106,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "他ラインへの応答の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "3|1|press|yield|attacker-takes|9|8||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:1|第三線利用:9|follow",
+              "score": 0.9470831435846845,
+              "components": {
+                "personality": 0.878610478615615,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5|1|press|yield|attacker-takes|||5|parallel|5|parallel|holds||5|block|stopped|",
+              "family": "抑え:1|バック反撃:5|block",
+              "score": 0.9461269967584865,
+              "components": {
+                "personality": 0.9387566558616224,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6799999999999999,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "3|1|press|yield|attacker-takes|9|8||settled||unchanged|holds|||vertical|free|",
+              "family": "抑え:1|第三線利用:9|vertical",
+              "score": 0.9437855297107809,
+              "components": {
+                "personality": 0.8738197362331593,
+                "counterplay": 0.9937986961361106,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5|1|press|yield|attacker-takes|||5|takes|1|takes|holds||8|block|stopped|",
+              "family": "抑え:1|バック反撃:1|block",
+              "score": 0.9431073099943132,
+              "components": {
+                "personality": 0.9620243666477108,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.58,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "3|1|press|yield|attacker-takes|7|5||settled||unchanged|holds|||follow|free|",
+              "family": "抑え:1|第三線利用:7|follow",
+              "score": 0.9398371806731121,
+              "components": {
+                "personality": 0.8544572689103739,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "3|1|press|yield|attacker-takes|7|5||settled||unchanged|holds|||vertical|free|",
+              "family": "抑え:1|第三線利用:7|vertical",
+              "score": 0.9366172960751572,
+              "components": {
+                "personality": 0.8499256241144135,
+                "counterplay": 0.9937986961361106,
+                "control": 0.965,
+                "energy": 0.87,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|9|press|yield|attacker-takes|||8|takes|1|takes|holds||5|block|stopped|",
+              "family": "抑え:9|バック反撃:1|block",
+              "score": 0.9336785445636699,
+              "components": {
+                "personality": 0.8622618152122336,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "8|5|press|resist|front-holds|||1|takes|9|takes|solo||8|none|free|",
+              "family": "抑え:5|バック反撃:9|none",
+              "score": 0.9331570468012369,
+              "components": {
+                "personality": 0.9938568226707898,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.8,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|7|press|yield|attacker-takes|||8|takes|1|takes|holds||5|block|stopped|",
+              "family": "抑え:7|バック反撃:1|block",
+              "score": 0.9327160053573049,
+              "components": {
+                "personality": 0.8590533511910163,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "8|5|press|resist|front-holds|||1|parallel|1|takes|holds||9|block|stopped|",
+              "family": "抑え:5|バック反撃:1|block",
+              "score": 0.9322184199955049,
+              "components": {
+                "personality": 0.9357280666516828,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.55,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|5|press|resist|front-holds|||1|takes|8|takes|solo||9|none|free|",
+              "family": "抑え:5|バック反撃:8|none",
+              "score": 0.9292962295357661,
+              "components": {
+                "personality": 0.9809874317858869,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.8,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|8|press|yield|attacker-takes|||9|takes|1|takes|holds||5|block|stopped|",
+              "family": "抑え:8|バック反撃:1|block",
+              "score": 0.9250792000345316,
+              "components": {
+                "personality": 0.8335973334484391,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1||wait|pace|front-holds||||settled|8|parallel|holds||8|block|stopped|",
+              "family": "前受け維持:1|バック反撃:8|block",
+              "score": 0.9225631077983496,
+              "components": {
+                "personality": 0.8152103593278326,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.85,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5|1|press|resist|front-holds|||8|takes|9|takes|solo||5|none|free|",
+              "family": "抑え:1|バック反撃:9|none",
+              "score": 0.9212858890999405,
+              "components": {
+                "personality": 0.9542862969998019,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.8,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "9|1|press|resist|front-holds|||1|takes|8|takes|solo||5|none|free|",
+              "family": "抑え:1|バック反撃:8|none",
+              "score": 0.9170578959921643,
+              "components": {
+                "personality": 0.9401929866405477,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.8,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "ラインの追走の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "8|5|press|resist|front-holds|||1|parallel|1|takes|holds||9|vertical|free|",
+              "family": "抑え:5|バック反撃:1|vertical",
+              "score": 0.9167520984378627,
+              "components": {
+                "personality": 0.9116380666567724,
+                "counterplay": 0.97253559480277,
+                "control": 0.965,
+                "energy": 0.55,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "8|7|press|yield|attacker-takes|5|1|9|takes|5|takes|holds||7|block|stopped|",
+              "family": "抑え:7|バック反撃:5|block",
+              "score": 0.9143816445395905,
+              "components": {
+                "personality": 0.8212721484653023,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.6799999999999999,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "3|1|kamashi|yield|attacker-takes||||settled|5|parallel|holds||8|block|stopped|",
+              "family": "カマシ:1|バック反撃:5|block",
+              "score": 0.91324643052199,
+              "components": {
+                "personality": 0.8291547684066335,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.6799999999999999,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "先行の残り脚の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "5||wait|pace|front-holds||||settled|8|parallel|holds||8|block|stopped|",
+              "family": "前受け維持:5|バック反撃:8|block",
+              "score": 0.9112462242582859,
+              "components": {
+                "personality": 0.7774874141942869,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.85,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "3|1|kamashi|yield|attacker-takes||||settled||unchanged|holds||8|block|stopped|",
+              "family": "カマシ:1|先行継続:1|block",
+              "score": 0.9079136555455756,
+              "components": {
+                "personality": 0.8082686156617462,
+                "counterplay": 0.9697769028235054,
+                "control": 0.965,
+                "energy": 0.78,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|8|kamashi|yield|attacker-takes|||9|takes|1|takes|holds||5|block|stopped|",
+              "family": "カマシ:8|バック反撃:1|block",
+              "score": 0.9047717194249085,
+              "components": {
+                "personality": 0.7659057314163616,
+                "counterplay": 1,
+                "control": 1,
+                "energy": 0.75,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "3|1|kamashi|yield|attacker-takes|7|5||settled||unchanged|holds||8|block|stopped|",
+              "family": "カマシ:1|第三線利用:7|block",
+              "score": 0.9015998304441137,
+              "components": {
+                "personality": 0.7569994348137127,
+                "counterplay": 1,
+                "control": 0.965,
+                "energy": 0.78,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": true,
+              "objections": [],
+              "selected": false,
+              "reason": "選手の仕掛け・待機の整合性の比較を含む全体評価で本線を下回る"
+            },
+            {
+              "signature": "1|5|press|resist|front-holds|||8|parallel|8|parallel|holds||9|block|stopped|",
+              "family": "突っ張り:5|バック反撃:8|block",
+              "score": 0.9349274643387963,
+              "components": {
+                "personality": 0.9497582144626543,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る8番取鳥雄吾の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "5|1|press|resist|front-holds|||8|parallel|8|parallel|holds||9|block|stopped|",
+              "family": "突っ張り:1|バック反撃:8|block",
+              "score": 0.9302374204889767,
+              "components": {
+                "personality": 0.934124734963256,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 1,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る8番取鳥雄吾の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "9|1|press|resist|front-holds|||1|parallel|5|parallel|solo||5|none|free|",
+              "family": "突っ張り:1|バック反撃:5|none",
+              "score": 0.8849347237717337,
+              "components": {
+                "personality": 0.9331157459057786,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る1番郡司浩平の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            },
+            {
+              "signature": "8|5|press|resist|front-holds|||1|parallel|1|parallel|solo||9|none|free|",
+              "family": "突っ張り:5|バック反撃:1|none",
+              "score": 0.8782758428407226,
+              "components": {
+                "personality": 0.9109194761357416,
+                "counterplay": 1,
+                "control": 0.9299999999999999,
+                "energy": 0.5700000000000001,
+                "following": 0.55,
+                "finish_access": 1
+              },
+              "passed": false,
+              "objections": [
+                {
+                  "phase": "最終3〜4コーナー",
+                  "objection": "外に残る1番郡司浩平の再攻撃を処理していない"
+                }
+              ],
+              "selected": false,
+              "reason": "反証に未解決の矛盾がある"
+            }
+          ],
+          "rejected_objections": [
+            {
+              "phase": "最終ホーム",
+              "reason": "1番郡司浩平は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終ホーム",
+              "reason": "仕掛けの負担が大きく、ここで動くより待つ判断を高く評価する"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "9番山口拳矢は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終バック",
+              "reason": "9番山口拳矢は3番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "8番取鳥雄吾は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            },
+            {
+              "phase": "最終3〜4コーナー",
+              "reason": "9番山口拳矢は4番手からの仕掛けを待機より高く評価している。この反撃を置かずに前団を固定する展開は採用しない"
+            }
+          ]
+        },
+        "finish_review": null
+      }
+    }
+  ]
+}
