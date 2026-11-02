@@ -1,26 +1,11 @@
 {
   "schema": "tk-keirin-intelligence/v1.4",
-  "generated_at": "2026-11-02T00:48:42.673361+00:00",
+  "generated_at": "2026-11-02T07:49:07.218530+00:00",
   "roster_dates": [
     "2026-11-02"
   ],
   "roster_size": 1005,
   "evidence": [
-    {
-      "id": "5913a8385144d76af2cb",
-      "rider": "町田太我",
-      "trait": "resist",
-      "value": 0.9,
-      "confidence": 0.6,
-      "url": "https://keirin.tokyo-sports.co.jp/articles/-/2241",
-      "title": "【防府競輪・ＧⅢ周防国府杯争奪戦】桑原大志「僕の仕事の一つなのかな、と」",
-      "excerpt": "レースは町田太我が堂々の突っ張り先行",
-      "condition": "単一局面の観察。恒常的な性格と断定しない",
-      "published_at": "2026-10-30T06:41:00+00:00",
-      "collected_at": "2026-10-31T22:51:04.036409+00:00",
-      "body_verified": true,
-      "extractor": "explicit-subject-rules-v1.4"
-    },
     {
       "id": "1f537bb72eb2e4379fac",
       "rider": "脇本勇希",
@@ -37,6 +22,23 @@
       "extractor": "explicit-subject-rules-v1.4"
     },
     {
+      "id": "5913a8385144d76af2cb",
+      "rider": "町田太我",
+      "trait": "resist",
+      "value": 0.9,
+      "confidence": 0.6,
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/2241",
+      "title": "【防府競輪・ＧⅢ周防国府杯争奪戦】桑原大志「僕の仕事の一つなのかな、と」",
+      "excerpt": "レースは町田太我が堂々の突っ張り先行",
+      "condition": "単一局面の観察。恒常的な性格と断定しない",
+      "context": {},
+      "context_schema": "tk-action-context/v1",
+      "published_at": "2026-10-30T06:41:00+00:00",
+      "collected_at": "2026-11-02T07:48:40.073320+00:00",
+      "body_verified": true,
+      "extractor": "explicit-subject-context-v1.7"
+    },
+    {
       "id": "fa3fc7092692ce9e44a0",
       "rider": "山口拳矢",
       "trait": "makuri",
@@ -46,10 +48,12 @@
       "title": "【平塚競輪・寺内大吉記念杯】元Ｓ級Ｓ班の山口拳矢がＶ締め「単騎の動きを洗練したい」",
       "excerpt": "平塚競輪場を舞台に熱戦が繰り広げられた「ＫＥＩＲＩＮグランプリ２０２５シリーズ」最終日の３０日、１０Ｒで「寺内大吉記念杯」の決勝が行われ、単騎で臨んだ元Ｓ級Ｓ班の山口拳矢（２９＝岐阜）が鮮やかなまくりで激戦を制した",
       "condition": "単一局面の観察。恒常的な性格と断定しない",
+      "context": {},
+      "context_schema": "tk-action-context/v1",
       "published_at": "2026-10-09T12:10:00+00:00",
-      "collected_at": "2026-11-01T05:12:47.328596+00:00",
+      "collected_at": "2026-11-02T07:48:55.736829+00:00",
       "body_verified": true,
-      "extractor": "explicit-subject-rules-v1.4"
+      "extractor": "explicit-subject-context-v1.7"
     }
   ],
   "observations": [
@@ -482,96 +486,96 @@
       "source": "tospo",
       "published_at": "2026-10-09T12:10:00+00:00",
       "collected_at": "2026-11-01T02:40:39.011267+00:00",
-      "last_checked_at": "2026-11-01T16:12:38.302970+00:00",
+      "last_checked_at": "2026-11-02T07:48:18.443034+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/1663",
       "source": "tospo",
       "published_at": "2026-11-01T11:56:00+00:00",
       "collected_at": "2026-11-01T02:40:41.425097+00:00",
-      "last_checked_at": "2026-11-01T16:12:42.029676+00:00",
+      "last_checked_at": "2026-11-02T07:48:22.783734+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/1661",
       "source": "tospo",
       "published_at": "2026-11-01T11:56:00+00:00",
       "collected_at": "2026-11-01T02:40:43.773962+00:00",
-      "last_checked_at": "2026-11-01T16:12:44.777671+00:00",
+      "last_checked_at": "2026-11-02T07:48:26.741479+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/1044",
       "source": "tospo",
       "published_at": "2026-10-27T08:00:00+00:00",
       "collected_at": "2026-11-01T02:40:46.121452+00:00",
-      "last_checked_at": "2026-11-01T16:12:47.851325+00:00",
+      "last_checked_at": "2026-11-02T07:48:30.222431+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/2241",
       "source": "tospo",
       "published_at": "2026-10-30T06:41:00+00:00",
       "collected_at": "2026-11-01T02:40:48.484821+00:00",
-      "last_checked_at": "2026-11-01T16:12:55.331403+00:00",
+      "last_checked_at": "2026-11-02T07:48:40.073320+00:00",
       "body_verified": true,
       "evidence_count": 1,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/2240",
       "source": "tospo",
       "published_at": "2026-10-31T10:35:00+00:00",
       "collected_at": "2026-11-01T02:40:50.841804+00:00",
-      "last_checked_at": "2026-11-01T16:12:57.479707+00:00",
+      "last_checked_at": "2026-11-02T07:48:46.873353+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/2239",
       "source": "tospo",
       "published_at": "2026-10-26T09:16:00+00:00",
       "collected_at": "2026-11-01T02:40:53.035592+00:00",
-      "last_checked_at": "2026-11-01T16:13:03.173691+00:00",
+      "last_checked_at": "2026-11-02T07:48:53.518007+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/2238",
       "source": "tospo",
       "published_at": "2026-08-01T13:00:00+00:00",
       "collected_at": "2026-11-01T02:40:55.236595+00:00",
-      "last_checked_at": "2026-11-01T16:12:59.398268+00:00",
+      "last_checked_at": "2026-11-02T07:48:49.070611+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/1938",
@@ -625,12 +629,12 @@
       "source": "tospo",
       "published_at": "2026-10-24T09:55:00+00:00",
       "collected_at": "2026-11-01T02:41:09.053492+00:00",
-      "last_checked_at": "2026-11-01T16:13:01.311176+00:00",
+      "last_checked_at": "2026-11-02T07:48:51.369345+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/2234",
@@ -765,12 +769,12 @@
       "source": "kdreams",
       "published_at": "2026-10-30T14:59:59+00:00",
       "collected_at": "2026-11-01T05:01:28.580745+00:00",
-      "last_checked_at": "2026-11-01T16:12:39.817207+00:00",
+      "last_checked_at": "2026-11-02T07:48:20.116134+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 3,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://blog.oddspark.com/interview/2026/01/post-379.html",
@@ -957,72 +961,72 @@
       "source": "marche",
       "published_at": "2026-10-28T14:59:59+00:00",
       "collected_at": "2026-11-01T05:08:44.764277+00:00",
-      "last_checked_at": "2026-11-01T16:12:40.553872+00:00",
+      "last_checked_at": "2026-11-02T07:48:21.163642+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 2,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin-marche.jp/enjoy/interview/introduction61/",
       "source": "marche",
       "published_at": "2026-10-14T14:59:59+00:00",
       "collected_at": "2026-11-01T05:09:04.398422+00:00",
-      "last_checked_at": "2026-11-01T16:12:43.780625+00:00",
+      "last_checked_at": "2026-11-02T07:48:25.287405+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin-marche.jp/enjoy/interview/introduction60/",
       "source": "marche",
       "published_at": "2026-09-30T14:59:59+00:00",
       "collected_at": "2026-11-01T05:09:16.981385+00:00",
-      "last_checked_at": "2026-11-01T16:12:46.773916+00:00",
+      "last_checked_at": "2026-11-02T07:48:29.071101+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 1,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/1660",
       "source": "tospo",
       "published_at": "2026-10-09T12:10:00+00:00",
       "collected_at": "2026-11-01T05:12:47.328596+00:00",
-      "last_checked_at": "2026-11-01T16:13:05.190432+00:00",
+      "last_checked_at": "2026-11-02T07:48:55.736829+00:00",
       "body_verified": true,
       "evidence_count": 1,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/2243",
       "source": "tospo",
       "published_at": "2026-11-01T11:56:00+00:00",
       "collected_at": "2026-11-01T10:32:37.330000+00:00",
-      "last_checked_at": "2026-11-01T16:12:51.778209+00:00",
+      "last_checked_at": "2026-11-02T07:48:34.915557+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/2242",
       "source": "tospo",
       "published_at": "2026-09-05T11:39:00+00:00",
       "collected_at": "2026-11-01T10:32:39.319688+00:00",
-      "last_checked_at": "2026-11-01T16:12:53.308673+00:00",
+      "last_checked_at": "2026-11-02T07:48:37.196694+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/517",
@@ -1041,72 +1045,72 @@
       "source": "sponichi",
       "published_at": "2026-11-01T06:05:39+00:00",
       "collected_at": "2026-11-01T16:12:42.801897+00:00",
-      "last_checked_at": "2026-11-01T16:12:42.801897+00:00",
+      "last_checked_at": "2026-11-02T07:48:23.848595+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirinsponichi.jp/keirin_news/%e3%80%90%e5%b2%a1%e5%b4%8e%e5%85%bc%e6%b2%bb%e3%83%bb%e6%89%93%e9%90%98%e6%97%a5%e8%a8%98%e3%80%91%e9%98%b2%e5%ba%9c%ef%bd%87%e2%85%b2%ef%bc%92%e6%97%a5%e7%9b%ae%e3%80%80%e5%8f%96%e9%b3%a5%e3%80%80-2/\"",
       "source": "sponichi",
       "published_at": "2026-11-01T06:04:21+00:00",
       "collected_at": "2026-11-01T16:12:45.500275+00:00",
-      "last_checked_at": "2026-11-01T16:12:45.500275+00:00",
+      "last_checked_at": "2026-11-02T07:48:27.679052+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirinsponichi.jp/keirin_news/%e3%80%90%e6%9c%ac%e9%96%93%e6%ad%a3%e5%89%87%e3%83%bb%e3%83%9b%e3%83%b3%e3%83%9e%e3%81%a7%e3%81%a3%e3%81%8b%e2%81%89%e3%80%91%e9%98%b2%e5%ba%9c%ef%bd%87%e2%85%b2%ef%bc%92%e6%97%a5%e7%9b%ae%e3%80%80-2/\"",
       "source": "sponichi",
       "published_at": "2026-11-01T06:03:01+00:00",
       "collected_at": "2026-11-01T16:12:48.461537+00:00",
-      "last_checked_at": "2026-11-01T16:12:48.461537+00:00",
+      "last_checked_at": "2026-11-02T07:48:30.913323+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/2244",
       "source": "tospo",
       "published_at": "2026-07-06T07:05:00+00:00",
       "collected_at": "2026-11-01T16:12:49.754865+00:00",
-      "last_checked_at": "2026-11-01T16:12:49.754865+00:00",
+      "last_checked_at": "2026-11-02T07:48:32.419734+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirinsponichi.jp/keirin_news/%e3%80%90%e9%98%b2%e5%ba%9c%ef%bd%87%e2%85%b2%ef%bc%93%e6%97%a5%e7%9b%ae10%ef%bd%92%e3%80%91%e5%8f%96%e9%b3%a5%e3%80%80%e3%80%9d%e5%9c%b0%e5%85%83%e3%80%9f%e6%b1%ba%e5%8b%9d%e3%81%b8/\"",
       "source": "sponichi",
       "published_at": "2026-11-01T06:02:43+00:00",
       "collected_at": "2026-11-01T16:12:50.296422+00:00",
-      "last_checked_at": "2026-11-01T16:12:50.296422+00:00",
+      "last_checked_at": "2026-11-02T07:48:33.425121+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirinsponichi.jp/keirin_news/%e3%80%90%e8%b1%8a%e6%a9%8b%ef%bd%86%e2%85%b0%e5%88%9d%e6%97%a511%ef%bd%92%e3%80%91%e5%b0%8f%e5%a0%80%e3%80%80%ef%bd%99%ef%bd%87%ef%bd%90%e3%81%b8%e6%84%8f%e6%ac%b2/\"",
       "source": "sponichi",
       "published_at": "2026-11-01T06:01:07+00:00",
       "collected_at": "2026-11-01T16:12:52.303499+00:00",
-      "last_checked_at": "2026-11-01T16:12:52.303499+00:00",
+      "last_checked_at": "2026-11-02T07:48:35.616123+00:00",
       "body_verified": true,
       "evidence_count": 0,
       "comment_count": 0,
-      "roster_hash": "0c8d957124235380",
-      "parser_version": "public-sources-v1.6-story"
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     },
     {
       "url": "https://keirin.tokyo-sports.co.jp/articles/-/1790",
@@ -1119,31 +1123,60 @@
       "comment_count": 0,
       "roster_hash": "2e4135ea80443927",
       "parser_version": "public-sources-v1.6-story"
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/176",
+      "source": "tospo",
+      "published_at": "2026-11-01T11:56:00+00:00",
+      "collected_at": "2026-11-02T07:48:42.419581+00:00",
+      "last_checked_at": "2026-11-02T07:48:42.419581+00:00",
+      "body_verified": true,
+      "evidence_count": 0,
+      "comment_count": 0,
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/796",
+      "source": "tospo",
+      "published_at": "2026-11-01T11:56:00+00:00",
+      "collected_at": "2026-11-02T07:48:44.728044+00:00",
+      "last_checked_at": "2026-11-02T07:48:44.728044+00:00",
+      "body_verified": true,
+      "evidence_count": 0,
+      "comment_count": 0,
+      "roster_hash": "2e4135ea80443927",
+      "parser_version": "public-sources-v1.7-context"
     }
   ],
   "pending_urls": [
     "https://keirinsponichi.jp/chumoku_race/",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49566",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49582",
     "https://blog.oddspark.com/interview/2024/12/post-343.html",
     "https://keirin.jp/pc/dfw/portal/guest/report/GIII/37itou/2025/report_2.html",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49565",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49580",
     "https://blog.oddspark.com/interview/2024/12/post-342.html",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=47697",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49578",
     "https://blog.oddspark.com/interview/2024/12/post-345.html",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49559",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49577",
     "https://blog.oddspark.com/interview/2024/11/post-341.html",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49558",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49568",
     "https://blog.oddspark.com/interview/2024/11/post-340.html",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49520",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49566",
     "https://blog.oddspark.com/interview/2024/10/post-339.html",
     "https://keirinsponichi.jp/keirin_news/",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49555",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49565",
     "https://blog.oddspark.com/interview/2024/10/post-338.html",
     "https://keirinsponichi.jp/chumoku_race/%E9%98%B2%E5%BA%9C%EF%BD%87%E2%85%B2%E5%88%9D%E6%97%A512%EF%BD%92%E3%80%80%EF%BD%93%E7%B4%9A%E7%89%B9%E9%81%B8%E3%80%80%E5%8F%96%E9%B3%A5%E3%80%80%E5%A5%BD%E7%9B%AE%E6%A8%99%E5%BE%97%E3%81%A6/",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49552",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=47697",
     "https://blog.oddspark.com/interview/2024/10/post-337.html",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49551",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49559",
     "https://blog.oddspark.com/interview/2024/10/post-336.html",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49558",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49520",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49555",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49552",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49551",
     "https://keirin.netkeiba.com/news/news_detail.html?id=49550",
     "https://keirin.netkeiba.com/news/news_detail.html?id=49547",
     "https://keirin.netkeiba.com/news/news_detail.html?id=49543",
@@ -1163,8 +1196,8 @@
     "https://keirin.netkeiba.com/news/news_detail.html?id=47678"
   ],
   "status": {
-    "attempted": 39,
-    "body_articles": 56,
+    "attempted": 60,
+    "body_articles": 58,
     "evidence": 3,
     "comments": 28,
     "sources": {
@@ -1172,12 +1205,12 @@
         "name": "東スポ競輪",
         "index_url": "https://keirin.tokyo-sports.co.jp/",
         "index_ok": true,
-        "discovered": 13,
-        "attempted": 0,
-        "body_succeeded": 0,
+        "discovered": 15,
+        "attempted": 15,
+        "body_succeeded": 15,
         "comments_added": 0,
         "errors": 0,
-        "stored_articles": 28,
+        "stored_articles": 30,
         "stored_comments": 0,
         "stored_evidence": 3
       },
@@ -1186,8 +1219,8 @@
         "index_url": "https://keirinsponichi.jp/",
         "index_ok": true,
         "discovered": 8,
-        "attempted": 3,
-        "body_succeeded": 0,
+        "attempted": 8,
+        "body_succeeded": 5,
         "comments_added": 0,
         "errors": 3,
         "stored_articles": 10,
@@ -1198,11 +1231,11 @@
         "name": "netkeirin",
         "index_url": "https://keirin.netkeiba.com/news/news_list.html",
         "index_ok": true,
-        "discovered": 26,
-        "attempted": 26,
+        "discovered": 31,
+        "attempted": 23,
         "body_succeeded": 0,
         "comments_added": 0,
-        "errors": 26,
+        "errors": 23,
         "stored_articles": 0,
         "stored_comments": 0,
         "stored_evidence": 0
@@ -1225,8 +1258,8 @@
         "index_url": "https://keirin.kdreams.jp/",
         "index_ok": true,
         "discovered": 1,
-        "attempted": 0,
-        "body_succeeded": 0,
+        "attempted": 1,
+        "body_succeeded": 1,
         "comments_added": 0,
         "errors": 0,
         "stored_articles": 1,
@@ -1238,8 +1271,8 @@
         "index_url": "https://keirin-marche.jp/column/",
         "index_ok": true,
         "discovered": 3,
-        "attempted": 0,
-        "body_succeeded": 0,
+        "attempted": 3,
+        "body_succeeded": 3,
         "comments_added": 0,
         "errors": 0,
         "stored_articles": 3,
@@ -1283,7 +1316,7 @@
         "error": "article body missing"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49566",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49582",
         "error": "publication date unknown; not used"
       },
       {
@@ -1295,7 +1328,7 @@
         "error": "robots unavailable or disallowed"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49565",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49580",
         "error": "publication date unknown; not used"
       },
       {
@@ -1303,7 +1336,7 @@
         "error": "robots unavailable or disallowed"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=47697",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49578",
         "error": "publication date unknown; not used"
       },
       {
@@ -1311,7 +1344,7 @@
         "error": "robots unavailable or disallowed"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49559",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49577",
         "error": "publication date unknown; not used"
       },
       {
@@ -1319,7 +1352,7 @@
         "error": "robots unavailable or disallowed"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49558",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49568",
         "error": "publication date unknown; not used"
       },
       {
@@ -1327,7 +1360,7 @@
         "error": "robots unavailable or disallowed"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49520",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49566",
         "error": "publication date unknown; not used"
       },
       {
@@ -1339,7 +1372,7 @@
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49555",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49565",
         "error": "publication date unknown; not used"
       },
       {
@@ -1351,7 +1384,7 @@
         "error": "HTTP Error 404: Not Found"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49552",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=47697",
         "error": "publication date unknown; not used"
       },
       {
@@ -1359,12 +1392,32 @@
         "error": "robots unavailable or disallowed"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49551",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49559",
         "error": "publication date unknown; not used"
       },
       {
         "url": "https://blog.oddspark.com/interview/2024/10/post-336.html",
         "error": "robots unavailable or disallowed"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49558",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49520",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49555",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49552",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49551",
+        "error": "publication date unknown; not used"
       },
       {
         "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49550",
@@ -1400,38 +1453,6 @@
       },
       {
         "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49539",
-        "error": "publication date unknown; not used"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49538",
-        "error": "publication date unknown; not used"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49537",
-        "error": "publication date unknown; not used"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49357",
-        "error": "publication date unknown; not used"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=36186",
-        "error": "publication date unknown; not used"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=38036",
-        "error": "publication date unknown; not used"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=38332",
-        "error": "publication date unknown; not used"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=40174",
-        "error": "publication date unknown; not used"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=47678",
         "error": "publication date unknown; not used"
       }
     ]
