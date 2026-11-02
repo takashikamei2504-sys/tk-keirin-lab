@@ -73,8 +73,8 @@ function build(r){
     stage===2&&x.no===s.redThird?'攻防を利用して進出':
     stage===2&&x.no===s.attacker?(s.outcome==='attacker-takes'?'主導権奪取':'仕掛け不発'):
     to<from?'位置を上げる':to>from?'位置を下げる':
-    s.connected[x.no]===false?'追走離れ':x.no!==head?'ラインを追走':'位置を維持';
-   return {no:x.no,name:x.name,lineHead:head,from,to,status,connected:s.connected[x.no]!==false};
+    s.connected?.[x.no]===false?'追走離れ':x.no!==head?'ラインを追走':'位置を維持';
+   return {no:x.no,name:x.name,lineHead:head,from,to,status,connected:s.connected?.[x.no]!==false};
   });
   const unique=new Set(rows.flatMap(x=>x.line));
   if(unique.size!==r.riders.length||rows.length!==lines.length)throw Error('全ラインの反応記録が欠落しました');
