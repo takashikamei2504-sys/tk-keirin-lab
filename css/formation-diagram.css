@@ -23,3 +23,12 @@
 @media(prefers-reduced-motion:reduce){.formation-diagram *{animation:none!important;transition:none!important}}
 
 .formation-roster-team{font-size:9px;color:#68727c;margin-left:3px;font-weight:400}
+
+/* Up to three simultaneous tactical bands, with shared engagement columns. */
+.formation-board-label{font-size:10px;color:#68727c;margin:0 0 4px}
+.formation-track{grid-template-rows:repeat(var(--bands),32px);row-gap:18px;padding-top:18px;padding-bottom:15px;min-height:0;max-width:520px;margin:0 auto}
+.formation-track.has-overlap{background:repeating-linear-gradient(to bottom,transparent 0,transparent 49px,#dce1e6 49px,#dce1e6 50px);background-position:0 4px}
+.formation-track .formation-slot{align-self:center}
+.formation-lane-label{white-space:nowrap;font-size:10px;line-height:1.2;letter-spacing:0}
+.formation-encounter .encounter-rider{display:flex;align-items:center;gap:4px}
+.formation-encounter .encounter-rider .formation-number{width:26px;height:21px;font-size:16px}

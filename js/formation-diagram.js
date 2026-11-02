@@ -63,6 +63,28 @@ function project(scene,race,previous=null){
   return {no,name:r.name,label,position:i+1,team:team.get(no),lane:inside===no?'inside':outside.includes(no)?'outside':'queue',statuses,
    separated:t?.connected?.[no]===false,connected:t?.connected?.[no]!==false};
  });
+ // Draw explicit tactical relationships; columns are schematic engagement anchors,
+ // not a new rank, measured wheel overlap, or a simulation of rider movement.
+ const baseRiders=riders.filter(r=>r.lane==='queue'),outerRiders=riders.filter(r=>r.lane==='outside');
+ const outerBands=Math.min(inside?1:2,outerRiders.length),baseRow=outerBands+1;
+ const bands=[...Array.from({length:outerBands},(_,i)=>({row:i+1,label:outerBands===2?(i===0?'外②':'外①'):'外',kind:'outside'})),{row:baseRow,label:outerBands||inside?'前団':'列',kind:'queue'},...(inside?[{row:baseRow+1,label:'内',kind:'inside'}]:[])];
+ const queueCol=new Map(baseRiders.map((r,i)=>[r.no,i])),occupied=new Set(),nodes=[];
+ const nearestColumn=no=>{const preceding=baseRiders.filter(r=>r.position<=order.indexOf(no)+1);return queueCol.get(preceding.at(-1)?.no)??0;};
+ for(const r of riders){
+  let row=baseRow,column=queueCol.get(r.no),target=null,relation='order';
+  if(r.lane==='outside'){
+   const i=outerRiders.findIndex(x=>x.no===r.no);
+   // Later attacks sit outside earlier attacks only as separate schematic bands.
+   row=outerBands===2?(i===0?2:1):1;
+   const stopped=r.statuses.some(x=>x.kind==='stopped');
+   if(stopped){column=nearestColumn(r.no)+1;relation='stopped';}
+   else {target=stage===5&&r.no===t?.cornerRider?t.defender||t.leader:t?.leader;
+    column=queueCol.get(target)??nearestColumn(r.no);relation=target?'challenge':'outside';}
+  }else if(r.lane==='inside'){row=baseRow+1;column=nearestColumn(r.no);relation='inside';}
+  while(occupied.has(row+':'+column))column++;
+  occupied.add(row+':'+column);nodes.push({no:r.no,row,column:column+1,target,relation});
+ }
+ const board={bands,nodes,columns:Math.max(1,...nodes.map(n=>n.column)),overlap:!!outerBands||!!inside};
  const connections=[];
  for(let i=0;i<riders.length-1;i++){
   const a=riders[i],b=riders[i+1];
@@ -75,7 +97,7 @@ function project(scene,race,previous=null){
   if(podium.length!==3||podium.some((n,i)=>n!==order[i]))throw Error('モデル図の着順がこの展開の決着と一致しません');
   finish={podium:podium.map((no,i)=>{const passed=from?from.slice(0,from.indexOf(no)).filter(n=>order.indexOf(n)>i):[];return {...riders.find(x=>x.no===no),statuses:passed.length?[{text:t?.defender===no&&t.defense==='vertical'?'縦踏み':t?.innerRider===no?t.innerMode==='split'?'中割り':'イン突き':'直線の追込み',kind:'action'}]:[],place:i+1,from:from?.includes(no)?from.indexOf(no)+1:null,passed};}),from:from?[...from]:null};
  }
- return {stage,phase:scene.phase,shape:scene.shape,order,riders,connections,events,outside,inside,encounter,finish,hasState:!!t};
+ return {stage,phase:scene.phase,shape:scene.shape,order,riders,connections,events,outside,inside,encounter,finish,board,hasState:!!t};
 }
 function render(model,{storyId=''}={}){
  const chip=(r,extra='')=>`<div class="formation-rider ${r.separated?'is-separated':''}" data-no="${r.no}" data-position="${r.position}" data-lane="${r.lane}" data-status="${esc(r.statuses.map(x=>x.text).join('|'))}" style="--line-color:${r.team.color}" aria-label="${esc(r.no+'番 '+r.name+'、'+r.position+'番目、ライン'+r.team.id+'、'+r.statuses.map(x=>x.text).join('、'))}"><span class="formation-team">${r.team.id}</span><span class="formation-number car-${r.no}">${r.no}</span><span class="formation-chip-name" title="${esc(r.name)}">${esc(r.label)}</span>${extra}${r.statuses.slice(0,2).map(x=>`<span class="formation-state state-${x.kind}">${esc(x.text)}</span>`).join('')}</div>`;
@@ -86,19 +108,19 @@ function render(model,{storyId=''}={}){
  }).join('');
  let body='';
  if(model.encounter){const e=model.encounter,short=n=>esc(model.riders.find(x=>x.no===n).label);
-  body=`<div class="formation-encounter" aria-label="赤板の攻防"><strong>赤板の攻防</strong><div><span>外から</span><b>${e.attacker} ${short(e.attacker)}</b><em>← ${esc(e.attack)}</em></div><div><span>前受け</span><b>${e.front} ${short(e.front)}</b><em>${e.response==='突っ張り'?'↔':'↘'} ${esc(e.response)}</em></div><small>${e.leader} ${short(e.leader)}が主導権</small></div><div class="formation-result-label">この局面後の並び</div>`;
+  body=`<div class="formation-encounter" aria-label="赤板の攻防"><strong>赤板の攻防</strong><div><span>外から</span><b class="encounter-rider"><span class="formation-number car-${e.attacker}">${e.attacker}</span> ${short(e.attacker)}</b><em>← ${esc(e.attack)}</em></div><div><span>前受け</span><b class="encounter-rider"><span class="formation-number car-${e.front}">${e.front}</span> ${short(e.front)}</b><em>${e.response==='突っ張り'?'↔':'↘'} ${esc(e.response)}</em></div><small>${e.leader} ${short(e.leader)}が主導権</small></div><div class="formation-result-label">この局面後の並び</div>`;
  }
  if(model.finish){
   body=`<div class="formation-podium">${model.finish.podium.map(r=>`<div class="finish-place" data-place="${r.place}" data-finish-no="${r.no}"><span class="finish-rank">${r.place}着</span>${chip(r)}<span class="finish-from">${r.from?'4角 '+r.from+'番目 → '+r.place+'着':''}</span></div>`).join('')}</div>`;
   const passing=model.finish.podium.filter(r=>r.passed.length);
   body+=passing.length?`<ul class="formation-passes">${passing.map(r=>`<li data-passer="${r.no}"><strong>${r.no} ${esc(r.label)}</strong> <span aria-hidden="true">←</span> ${r.passed.map(n=>{const other=model.riders.find(x=>x.no===n);return esc(n+' '+other.label);}).join('・')}を交わす</li>`).join('')}</ul>`:'<p class="formation-hold">前の位置を保ってゴール</p>';
  }else{
-  const outer=model.riders.some(r=>r.lane==='outside'),inner=model.riders.some(r=>r.lane==='inside'),base=outer?2:1;
-  const lanes=[...(outer?[['outside','外',1]]:[]),['queue',outer||inner?'前団':'列',base],...(inner?[['inside','内',base+1]]:[])];
-  body+=`<div class="formation-track" style="--cars:${model.riders.length}" aria-label="左が先頭、右が後方">${lanes.map(([lane,label,row])=>`<span class="formation-lane-label lane-${lane}" style="grid-row:${row}">${label}</span>`).join('')}${model.riders.map((r,i)=>{
-   const row=r.lane==='outside'?1:r.lane==='inside'?base+1:base,link=model.connections.find(l=>l.from===r.no);
-   const badge=r.statuses.some(x=>x.text==='S取り')?'S':r.statuses.some(x=>x.kind==='gap')?'離':r.statuses.some(x=>x.text==='ブロック')?'↗':r.statuses.some(x=>x.text==='縦踏み')?'←':r.statuses.some(x=>x.kind==='stopped')?'止':r.lane==='outside'?'←':r.lane==='inside'?'↖':'';
-   return `<div class="formation-slot" style="grid-column:${i+2};grid-row:${row}" data-rank="${r.position}">${chip(r)}${badge?`<span class="formation-motion">${badge}</span>`:''}${i<model.riders.length-1&&link?.type!=='order'?`<span class="formation-link link-${link?.type}" aria-hidden="true">${link?.type==='line'?'━':'⋯'}</span>`:''}</div>`;
+  const board=model.board;
+  body+=`<div class="formation-board-label">${board.overlap?'攻防の位置関係':'左が先頭・右が後方'}</div><div class="formation-track${board.overlap?' has-overlap':''}" style="--cars:${board.columns};--bands:${board.bands.length}" data-bands="${board.bands.length}" aria-label="${board.overlap?'前団と仕掛ける選手の位置関係（模式図）':'左が先頭、右が後方'}">${board.bands.map(b=>`<span class="formation-lane-label lane-${b.kind}" style="grid-row:${b.row}" data-board-row="${b.row}">${b.label}</span>`).join('')}${model.riders.map(r=>{
+   const node=board.nodes.find(n=>n.no===r.no),link=model.connections.find(l=>l.from===r.no),next=board.nodes.find(n=>n.no===link?.to);
+   const badge=r.statuses.some(x=>x.text==='S取り')?'S':r.statuses.some(x=>x.kind==='gap')?'離':r.statuses.some(x=>x.kind==='stopped')?'止':r.statuses.some(x=>x.text==='ブロック')?'↗':r.statuses.some(x=>x.text==='縦踏み')?'←':r.lane==='outside'?'←':r.lane==='inside'?'↖':'';
+   const joined=next&&next.row===node.row&&next.column===node.column+1&&link.type!=='order';
+   return `<div class="formation-slot" style="grid-column:${node.column+1};grid-row:${node.row}" data-rank="${r.position}" data-board-row="${node.row}" data-board-column="${node.column}" data-engagement-target="${node.target||''}" data-relation="${node.relation}">${chip(r)}${badge?`<span class="formation-motion">${badge}</span>`:''}${joined?`<span class="formation-link link-${link.type}" aria-hidden="true">${link.type==='line'?'━':'⋯'}</span>`:''}</div>`;
   }).join('')}</div><div class="formation-roster" aria-label="車番と選手名">${model.riders.map(r=>`<span class="formation-roster-item"><span class="formation-number car-${r.no}">${r.no}</span><span class="formation-name">${esc(r.label)}<small class="formation-roster-team">${r.team.id}</small></span></span>`).join('')}</div>`;
 
  }

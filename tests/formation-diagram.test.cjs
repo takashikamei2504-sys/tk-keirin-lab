@@ -29,3 +29,19 @@ assert.throws(()=>Diagram.project({...F.cases[4],tactical:{...F.cases[4].tactica
 const revived=structuredClone(F.cases[3]);revived.tactical.connected[2]=true;assert.throws(()=>Diagram.project(revived,F.race,F.cases[2]),/復帰/);
 const unsafe=structuredClone(F.race);unsafe.riders[0].name='<img src=x onerror=alert(1)>';assert.ok(!Diagram.render(Diagram.project(F.cases[0],unsafe)).includes('<img'));
 console.log('PASS exact 7/9 scene projection, identity, lanes, gaps, block/inside, overtakes, alternate tickets and non-mutation');
+
+const double=Diagram.project(F.overlaps[0],F.race),multi=Diagram.project(F.overlaps[1],F.race);
+assert.equal(double.board.bands.length,3,'two outside attacks and front group use three bands');
+const placement=(m,n)=>m.board.nodes.find(x=>x.no===n);
+assert.equal(placement(double,4).column,placement(double,1).column,'parallel attacker aligns with the explicit leader engagement');
+assert.equal(placement(double,6).column,placement(double,1).column);
+assert.notEqual(placement(double,4).row,placement(double,6).row,'separate attacks are visibly stacked');
+assert.equal(multi.board.bands.length,3,'multiple outside attacks plus inside route stay within three bands');
+assert.equal(placement(multi,3).row,3,'explicit inside rider occupies bottom band');
+assert.equal(placement(models[4],4).relation,'stopped');assert.equal(placement(models[4],4).target,null,'stopped attack must not be moved to the defender');
+assert.equal(new Set(multi.board.nodes.map(n=>n.row+':'+n.column)).size,F.race.riders.length,'riders must never occupy the same drawing cell');
+assert.equal(Diagram.project(legacy,F.race).board.bands.length,1,'no lateral diagram invented from prose');
+assert.deepEqual(double.order,F.overlaps[0].order,'engagement layout must not rewrite engine order');
+console.log('PASS three-band stacked attacks, shared target column, inside route, stopped attack and collision-free layout');
+
+for(const s of F.overlaps9){const m=Diagram.project(s,F.race9);assert.equal(m.board.bands.length,3);assert.equal(m.board.nodes.length,9);assert.equal(new Set(m.board.nodes.map(n=>n.row+':'+n.column)).size,9);assert.deepEqual(m.order,s.order);}

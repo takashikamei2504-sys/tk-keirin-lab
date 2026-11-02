@@ -5,7 +5,7 @@ const D=require('../js/formation-diagram.js'),B=require('../js/story-brain.js'),
  const browser=await chromium.launch({headless:true}),page=await browser.newPage();
  const css=fs.readFileSync('css/formation-diagram.css','utf8'),race=require('../race_sample.json'),out=B.build(race);
  const previous=[null,F.cases[0],F.cases[1],F.cases[2],F.scene(4),F.scene(4),F.cases[5]];
- const examples=F.cases.map((s,i)=>({model:D.project(s,F.race,previous[i]),cars:7})).concat(out.story.main.scenes.map((s,i)=>({model:D.project(s,race,out.story.main.scenes[i-1]),cars:9})));
+ const examples=F.cases.map((s,i)=>({model:D.project(s,F.race,previous[i]),cars:7})).concat(F.overlaps.map(s=>({model:D.project(s,F.race),cars:7}))).concat(F.overlaps9.map(s=>({model:D.project(s,F.race9),cars:9}))).concat(out.story.main.scenes.map((s,i)=>({model:D.project(s,race,out.story.main.scenes[i-1]),cars:9})));
  for(const width of [320,390]){
   await page.setViewportSize({width,height:844});
   await page.setContent('<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;background:#0b1420;color:#e8f3ff;font-family:system-ui,sans-serif}main{width:calc(100% - 88px);margin:auto}'+css+'</style><main>'+examples.map((e,i)=>'<section id="example-'+i+'">'+D.render(e.model,{storyId:'test-'+i})+'</section>').join('')+'</main></html>');
@@ -16,7 +16,10 @@ const D=require('../js/formation-diagram.js'),B=require('../js/story-brain.js'),
    const boxes=await example.locator('.formation-rider').evaluateAll(nodes=>nodes.map(n=>({x:n.getBoundingClientRect().x,right:n.getBoundingClientRect().right,width:n.getBoundingClientRect().width})));
    assert.ok(boxes.every(r=>r.x>=0&&r.right<=width&&r.width>=14),'visible rider chips at '+width+' case '+i);
    assert.equal(await example.locator('.formation-name, .formation-podium .formation-chip-name').evaluateAll(nodes=>nodes.every(n=>parseFloat(getComputedStyle(n).fontSize)>=13&&n.scrollWidth<=n.clientWidth+1&&n.textContent.length>0)),true,'names must be readable and uncropped');
-   if(!e.model.finish){assert.equal(await example.locator('.formation-track').count(),1,'single continuous formation');assert.equal(await example.locator('.formation-roster-item').count(),e.cars);}
+   if(!e.model.finish){assert.equal(await example.locator('.formation-track').count(),1,'single continuous formation');assert.equal(await example.locator('.formation-roster-item').count(),e.cars);assert.ok(e.model.board.bands.length<=3);
+    const cells=await example.locator('.formation-slot').evaluateAll(ns=>ns.map(n=>{const b=n.getBoundingClientRect();return {row:n.dataset.boardRow,col:n.dataset.boardColumn,x:b.x,y:b.y,w:b.width,h:b.height};}));
+    assert.equal(new Set(cells.map(n=>n.row+':'+n.col)).size,e.cars,'no occupied cell collisions');
+    for(let a=0;a<cells.length;a++)for(let b=a+1;b<cells.length;b++){const x=cells[a],y=cells[b];assert.ok(x.x+x.w<=y.x+.5||y.x+y.w<=x.x+.5||x.y+x.h<=y.y+.5||y.y+y.h<=x.y+.5,'rider rectangles cannot overlap');}}
    assert.deepEqual(JSON.parse(await example.locator('figure').getAttribute('data-engine-order')),e.model.order);
   }
  }

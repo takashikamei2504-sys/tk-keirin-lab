@@ -8,4 +8,8 @@ const seat=scene(4,{seat:4,defender:4,gap:'breaks',connected:parallel.tactical.c
 const block=scene(5,{cornerRider:4,cornerOrigin:'makuri',outside:[4],defense:'block',blockResult:'stopped',corner_order_before:order,openInside:true,innerRider:3,innerMode:'split'});block.shape='外の攻防・内に空き';
 const vertical=scene(5,{cornerRider:4,outside:[4],defense:'vertical',blockResult:'free',corner_order_before:order});vertical.shape='外からの仕掛け';
 const finish=scene(6,{finish_order:[2,1,3],finish_from:order,defense:'vertical'},[2,1,3,4,5,6,7]);finish.shape='ゴール前';
-module.exports={race,scene,cases:[initial,red,parallel,seat,block,vertical,finish]};
+const doubleAttack=scene(4,{homeRider:4,homeResult:'parallel',backRider:6,backResult:'parallel',outside:[4,6]});doubleAttack.shape='二つの仕掛け';
+const tripleBand=scene(5,{homeRider:4,homeResult:'parallel',backRider:6,backResult:'parallel',outside:[4,6],cornerRider:6,defense:'vertical',openInside:true,innerRider:3,innerMode:'split'});tripleBand.shape='外と内の攻防';
+const race9={...race,lineup:[...race.lineup,[8,9]],riders:[...race.riders,{no:8,name:'追加八郎',score:100,style:'逃'},{no:9,name:'追加九郎',score:100,style:'追'}]};
+const overlaps9=[doubleAttack,tripleBand].map(s=>({...s,order:[...s.order,8,9],tactical:{...s.tactical,connected:{...s.tactical.connected,8:true,9:true}}}));
+module.exports={race,race9,overlaps9,scene,overlaps:[doubleAttack,tripleBand],cases:[initial,red,parallel,seat,block,vertical,finish]};
