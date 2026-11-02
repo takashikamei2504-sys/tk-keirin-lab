@@ -1,34 +1,25 @@
-/* Ordinal formation, folded into groups of three. Cell spacing is not distance. */
-.formation-diagram{margin:10px 0 16px;padding:10px 8px 8px;background:#091521;border:1px solid #314859;border-radius:11px;min-width:0;color:#dfebf2;font-size:12px;line-height:1.45}
+/* Compact ordinal race board. Horizontal spacing is symbolic, never measured. */
+.formation-diagram{margin:10px 0 16px;padding:12px 9px;background:#f3f4f6;border:1px solid #cbd0d6;border-radius:9px;min-width:0;color:#27313c;font-size:12px;line-height:1.45}
 .formation-diagram *{box-sizing:border-box}
-.formation-diagram figcaption{display:flex;justify-content:space-between;gap:8px;color:#a8c6d8;font-size:11px;padding:0 2px 8px}
-.formation-segment{max-width:440px;margin:auto}
-.formation-range{font-size:10px;color:#8ca4b7;margin:0 0 3px 22px}
-.formation-grid{display:grid;grid-template-columns:16px repeat(3,minmax(0,1fr));column-gap:7px;row-gap:6px;align-items:end}
-.formation-lane-label{grid-column:1;align-self:center;font-size:11px;color:#a6bacb;writing-mode:vertical-rl;letter-spacing:.1em}
-.formation-lane-label.lane-outside{color:#f7bd8c}.formation-lane-label.lane-inside{color:#afdcbd}
-.formation-slot{min-width:0;position:relative}
-.formation-position{display:block;font-size:10px;color:#b3c7d5;text-align:center;margin-bottom:3px}
-.formation-rider{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;min-width:0;min-height:54px;padding:5px 3px;border:1px solid var(--line-color);border-top-width:3px;border-radius:7px;background:#142434}
-.formation-team{position:absolute;right:4px;top:3px;color:var(--line-color);font:700 10px/1.2 system-ui,sans-serif}
-.formation-number{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;border-radius:50%;border:1px solid #ffffff65;font:800 16px/1 system-ui,sans-serif;background:#fff;color:#111;flex-shrink:0}
-.formation-number.car-2{background:#13171c;color:#fff}.formation-number.car-3{background:#c83b47;color:#fff}.formation-number.car-4{background:#2768ad;color:#fff}.formation-number.car-5{background:#f0d446;color:#171717}.formation-number.car-6{background:#247955;color:#fff}.formation-number.car-7{background:#e88e37;color:#1d140c}.formation-number.car-8{background:#eea2bb;color:#29151d}.formation-number.car-9{background:#8756aa;color:#fff}
-.formation-name{font-size:14px;font-weight:700;line-height:1.35;text-align:center;max-width:100%;overflow-wrap:anywhere;word-break:normal}
-.formation-state{display:block;border-radius:3px;font-size:11px;line-height:1.35;text-align:center;max-width:100%;overflow-wrap:anywhere;background:#ffffff09;color:#d9edf5;padding:1px 3px}
-.formation-state.state-key{color:#f2de9b}.formation-state.state-gap,.formation-state.state-stopped{color:#ffbb9d;background:#6c30242e}
-.formation-rider.is-separated{border-style:dashed;background:#12202d}.formation-rider.is-separated::after{content:'⋯';color:#ffbb9d;font-weight:800;line-height:.6}
-.formation-slot[data-rank="1"] .formation-position{color:#edda9f;font-weight:700}
-.formation-rider[data-lane="outside"]{background:#30251f}.formation-rider[data-lane="inside"]{background:#142c26}
-.formation-link{position:absolute;right:-8px;top:44px;width:9px;text-align:center;color:#678292;font-size:12px;line-height:1;pointer-events:none}.formation-link.link-line{color:#c1dae6;font-size:11px}.formation-link.link-gap{color:#ffc09c;font-size:16px}
-.formation-continuation{font-size:10px;line-height:1.4;color:#8ea7ba;text-align:right;margin:5px auto;max-width:440px;padding-right:4px}
-.formation-events{list-style:none;margin:10px 0 0;padding:8px 0 0;border-top:1px solid #ffffff17;display:flex;gap:5px;flex-wrap:wrap}
-.formation-event{font-size:11px;line-height:1.6;overflow-wrap:anywhere;max-width:100%;background:#ffffff06;border:1px solid #ffffff13;padding:3px 6px;border-radius:5px}
-.formation-event>span:first-child{font-size:16px;line-height:1;vertical-align:middle}.formation-event strong{font-size:11px}.formation-event small{display:block;color:#b6c8d4;font-size:10px}.event-target{color:#c5dce9}
-.formation-event.event-block{border-color:#9d7155}.formation-event.event-inside{border-color:#527c65}.formation-event.event-gap{border-style:dashed;border-color:#8f6b55}
-.formation-podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;max-width:440px;margin:0 auto}
-.finish-place{min-width:0;text-align:center}.finish-rank{display:block;font-size:13px;font-weight:750;color:#c9d8e4;margin:0 0 5px}.finish-place[data-place="1"] .finish-rank{color:#f1d99b}.finish-place[data-place="1"] .formation-rider{box-shadow:0 0 0 1px #dac17d}
-.finish-from{display:block;font-size:10px;margin-top:5px;line-height:1.5;color:#bdd0dd;overflow-wrap:anywhere}
-.formation-passes{font-size:11px;line-height:1.8;margin:10px 0 0;padding:8px 0 0;list-style:none;border-top:1px solid #ffffff15}.formation-passes li+li{margin-top:4px}.story-stage .formation-hold{font-size:11px;text-align:center;color:#b3c9d8;margin:10px 0 0}
-.formation-diagram+.story-prose{margin-top:12px}
+.formation-diagram figcaption{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#56616c;padding-bottom:10px}
+.formation-track{display:grid;grid-template-columns:14px repeat(var(--cars),minmax(0,1fr));column-gap:3px;row-gap:22px;align-items:center;padding:13px 0 21px;min-height:77px}
+.formation-lane-label{grid-column:1;font-size:10px;color:#69727c;writing-mode:vertical-rl;letter-spacing:.1em}.formation-lane-label.lane-outside,.formation-lane-label.lane-inside{color:#a4372c}
+.formation-slot{position:relative;min-width:0}
+.formation-rider{position:relative;display:flex;align-items:center;justify-content:center;min-width:0}
+.formation-number{display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:31px;height:23px;border-radius:50%;border:1px solid #7c828a;background:#fff;color:#17191b;font:800 17px/1 system-ui,sans-serif;flex-shrink:0}
+.formation-number.car-2{background:#25282e;color:#fff;border-color:#25282e}.formation-number.car-3{background:#c90025;color:#fff;border-color:#c90025}.formation-number.car-4{background:#0648c7;color:#fff;border-color:#0648c7}.formation-number.car-5{background:#f5d449;color:#24262a}.formation-number.car-6{background:#008322;color:#fff;border-color:#008322}.formation-number.car-7{background:#d96100;color:#fff;border-color:#d96100}.formation-number.car-8{background:#ed91ad;color:#24262a}.formation-number.car-9{background:#8647a3;color:#fff;border-color:#8647a3}
+.formation-team{position:absolute;bottom:-7px;left:20%;right:20%;height:3px;background:var(--line-color);font-size:0;border-radius:2px}
+.formation-chip-name,.formation-state{display:none}
+.formation-motion{position:absolute;top:-17px;left:0;right:0;text-align:center;font-size:11px;font-weight:750;color:#bc2e24;line-height:1.2}
+.formation-rider.is-separated .formation-number{outline:1px dashed #b13f2d;outline-offset:2px}
+.formation-link{position:absolute;right:-4px;top:8px;width:5px;color:#9aa4ae;font:10px/1 sans-serif;pointer-events:none}.formation-link.link-gap{color:#b53124;right:-5px}
+.formation-roster{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 4px;border-top:1px solid #d4d9df;padding-top:9px}
+.formation-roster-item{display:flex;align-items:flex-start;gap:3px;min-width:0}.formation-roster-item>.formation-number{width:17px;height:17px;font-size:12px;margin-top:2px}.formation-name{font-size:14px;line-height:1.4;min-width:0;overflow-wrap:anywhere;font-weight:600}
+.formation-events{display:flex;flex-wrap:wrap;gap:5px;list-style:none;margin:10px 0 0;padding:8px 0 0;border-top:1px solid #d4d9df}
+.formation-event{max-width:100%;font-size:11px;line-height:1.6;padding:3px 5px;border-left:2px solid #ba3d30;background:#fff;overflow-wrap:anywhere}.formation-event>span:first-child{font-size:16px;color:#ba3d30}.formation-event strong{font-size:11px}.formation-event small{display:block;font-size:10px;color:#626c76}.event-target{color:#4c5865}
+.formation-encounter{border-bottom:1px solid #d4d9df;padding:0 0 8px;margin-bottom:8px}.formation-encounter>strong{font-size:11px;color:#56616c}.formation-encounter>div{display:grid;grid-template-columns:36px minmax(0,1fr) minmax(0,1fr);gap:4px;align-items:center;margin-top:5px}.formation-encounter>div>span{font-size:10px;color:#69727c}.formation-encounter b{font-size:12px;overflow-wrap:anywhere}.formation-encounter em{font-style:normal;font-size:11px;color:#b32b23;overflow-wrap:anywhere}.formation-encounter small{display:block;font-size:11px;margin-top:5px}.formation-result-label{font-size:10px;color:#69727c}
+.formation-podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.finish-place{min-width:0;text-align:center}.finish-rank{display:block;font-size:13px;font-weight:750;margin-bottom:7px}.finish-place[data-place="1"] .finish-rank{color:#a83a23}.formation-podium .formation-rider{flex-direction:column;gap:5px}.formation-podium .formation-chip-name{display:block;font-size:14px;line-height:1.4;font-weight:650;overflow-wrap:anywhere;max-width:100%}.formation-podium .formation-team{display:none}.formation-podium .formation-state{display:block;color:#ad3027;font-size:11px}.finish-from{display:block;font-size:10px;margin-top:7px;overflow-wrap:anywhere;color:#5c6670}
+.formation-passes{font-size:11px;line-height:1.8;list-style:none;border-top:1px solid #d4d9df;margin:10px 0 0;padding:8px 0 0}.formation-passes li+li{margin-top:4px}.story-stage .formation-hold{font-size:11px;text-align:center;color:#5c6670;margin:10px 0 0}.formation-key{font-size:10px;color:#68727c;margin-top:8px}.formation-diagram+.story-prose{margin-top:12px}
 @media(prefers-reduced-motion:reduce){.formation-diagram *{animation:none!important;transition:none!important}}
-.formation-encounter{border:1px solid #506171;border-radius:7px;padding:7px;margin:0 0 8px;background:#14212d}.formation-encounter>strong{font-size:11px;color:#b4cede}.formation-encounter>div{display:grid;grid-template-columns:40px minmax(0,1fr) minmax(0,1fr);align-items:center;gap:4px;margin-top:6px;font-size:12px}.formation-encounter>div>span{font-size:10px;color:#a9c2d1}.formation-encounter b{font-size:12px;overflow-wrap:anywhere}.formation-encounter em{font-style:normal;font-size:11px;color:#f1c59d;overflow-wrap:anywhere}.formation-encounter small{display:block;margin-top:6px;font-size:11px;color:#c5d9e5}.formation-result-label{font-size:11px;color:#b2cad9;margin-bottom:6px}.formation-key{font-size:10px;color:#a9c2d1;margin-top:8px}
+
+.formation-roster-team{font-size:9px;color:#68727c;margin-left:3px;font-weight:400}

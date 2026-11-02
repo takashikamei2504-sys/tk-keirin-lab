@@ -14,8 +14,9 @@ const D=require('../js/formation-diagram.js'),B=require('../js/story-brain.js'),
    const example=page.locator('#example-'+i),e=examples[i];
    assert.equal(await example.locator('.formation-rider').count(),e.model.finish?3:e.cars);
    const boxes=await example.locator('.formation-rider').evaluateAll(nodes=>nodes.map(n=>({x:n.getBoundingClientRect().x,right:n.getBoundingClientRect().right,width:n.getBoundingClientRect().width})));
-   assert.ok(boxes.every(r=>r.x>=0&&r.right<=width&&r.width>30),'visible rider chips at '+width+' case '+i);
-   assert.equal(await example.locator('.formation-name').evaluateAll(nodes=>nodes.every(n=>parseFloat(getComputedStyle(n).fontSize)>=13&&n.scrollWidth<=n.clientWidth+1&&n.textContent.length>0)),true,'names must be readable and uncropped');
+   assert.ok(boxes.every(r=>r.x>=0&&r.right<=width&&r.width>=14),'visible rider chips at '+width+' case '+i);
+   assert.equal(await example.locator('.formation-name, .formation-podium .formation-chip-name').evaluateAll(nodes=>nodes.every(n=>parseFloat(getComputedStyle(n).fontSize)>=13&&n.scrollWidth<=n.clientWidth+1&&n.textContent.length>0)),true,'names must be readable and uncropped');
+   if(!e.model.finish){assert.equal(await example.locator('.formation-track').count(),1,'single continuous formation');assert.equal(await example.locator('.formation-roster-item').count(),e.cars);}
    assert.deepEqual(JSON.parse(await example.locator('figure').getAttribute('data-engine-order')),e.model.order);
   }
  }

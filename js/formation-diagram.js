@@ -78,7 +78,7 @@ function project(scene,race,previous=null){
  return {stage,phase:scene.phase,shape:scene.shape,order,riders,connections,events,outside,inside,encounter,finish,hasState:!!t};
 }
 function render(model,{storyId=''}={}){
- const chip=(r,extra='')=>`<div class="formation-rider ${r.separated?'is-separated':''}" data-no="${r.no}" data-position="${r.position}" data-lane="${r.lane}" data-status="${esc(r.statuses.map(x=>x.text).join('|'))}" style="--line-color:${r.team.color}" aria-label="${esc(r.no+'番 '+r.name+'、'+r.position+'番目、ライン'+r.team.id+'、'+r.statuses.map(x=>x.text).join('、'))}"><span class="formation-team">${r.team.id}</span><span class="formation-number car-${r.no}">${r.no}</span><span class="formation-name" title="${esc(r.name)}">${esc(r.label)}</span>${extra}${r.statuses.slice(0,2).map(x=>`<span class="formation-state state-${x.kind}">${esc(x.text)}</span>`).join('')}</div>`;
+ const chip=(r,extra='')=>`<div class="formation-rider ${r.separated?'is-separated':''}" data-no="${r.no}" data-position="${r.position}" data-lane="${r.lane}" data-status="${esc(r.statuses.map(x=>x.text).join('|'))}" style="--line-color:${r.team.color}" aria-label="${esc(r.no+'番 '+r.name+'、'+r.position+'番目、ライン'+r.team.id+'、'+r.statuses.map(x=>x.text).join('、'))}"><span class="formation-team">${r.team.id}</span><span class="formation-number car-${r.no}">${r.no}</span><span class="formation-chip-name" title="${esc(r.name)}">${esc(r.label)}</span>${extra}${r.statuses.slice(0,2).map(x=>`<span class="formation-state state-${x.kind}">${esc(x.text)}</span>`).join('')}</div>`;
  const events=model.events.filter(e=>e.type!=='start'||e.target).map(e=>{
   const actor=model.riders.find(r=>r.no===e.actor),target=model.riders.find(r=>r.no===e.target);
   const arrow=({block:'↗',inside:'↖',gap:'⋯',yield:'↘',resist:'↔',start:'←'})[e.type]||'←';
@@ -93,16 +93,16 @@ function render(model,{storyId=''}={}){
   const passing=model.finish.podium.filter(r=>r.passed.length);
   body+=passing.length?`<ul class="formation-passes">${passing.map(r=>`<li data-passer="${r.no}"><strong>${r.no} ${esc(r.label)}</strong> <span aria-hidden="true">←</span> ${r.passed.map(n=>{const other=model.riders.find(x=>x.no===n);return esc(n+' '+other.label);}).join('・')}を交わす</li>`).join('')}</ul>`:'<p class="formation-hold">前の位置を保ってゴール</p>';
  }else{
-  for(let offset=0;offset<model.riders.length;offset+=3){
-   const group=model.riders.slice(offset,offset+3),outer=group.some(r=>r.lane==='outside'),inner=group.some(r=>r.lane==='inside'),base=outer?2:1;
-   const lanes=[...(outer?[['outside','外',1]]:[]),['queue',outer||inner?'前団':'列',base],...(inner?[['inside','内',base+1]]:[])];
-   body+=`<div class="formation-segment"><div class="formation-range">${offset===0?'先頭から':(offset+1)+'番目から'}${group.length}車</div><div class="formation-grid">${lanes.map(([lane,label,row])=>`<span class="formation-lane-label lane-${lane}" style="grid-row:${row}">${label}</span>`).join('')}${group.map((r,i)=>{
-    const row=r.lane==='outside'?1:r.lane==='inside'?base+1:base,link=model.connections.find(l=>l.from===r.no);
-    return `<div class="formation-slot" style="grid-column:${i+2};grid-row:${row}" data-rank="${r.position}"><span class="formation-position">${r.position===1?'先頭':r.position+'番目'}</span>${chip(r)}${i<group.length-1?`<span class="formation-link link-${link?.type||'order'}" aria-hidden="true">${link?.type==='line'?'━':link?.type==='gap'?'⋯':'›'}</span>`:''}</div>`;
-   }).join('')}</div></div>${offset+3<model.riders.length?'<div class="formation-continuation" aria-hidden="true">↓ 後方へ続く</div>':''}`;
-  }
+  const outer=model.riders.some(r=>r.lane==='outside'),inner=model.riders.some(r=>r.lane==='inside'),base=outer?2:1;
+  const lanes=[...(outer?[['outside','外',1]]:[]),['queue',outer||inner?'前団':'列',base],...(inner?[['inside','内',base+1]]:[])];
+  body+=`<div class="formation-track" style="--cars:${model.riders.length}" aria-label="左が先頭、右が後方">${lanes.map(([lane,label,row])=>`<span class="formation-lane-label lane-${lane}" style="grid-row:${row}">${label}</span>`).join('')}${model.riders.map((r,i)=>{
+   const row=r.lane==='outside'?1:r.lane==='inside'?base+1:base,link=model.connections.find(l=>l.from===r.no);
+   const badge=r.statuses.some(x=>x.text==='S取り')?'S':r.statuses.some(x=>x.kind==='gap')?'離':r.statuses.some(x=>x.text==='ブロック')?'↗':r.statuses.some(x=>x.text==='縦踏み')?'←':r.statuses.some(x=>x.kind==='stopped')?'止':'';
+   return `<div class="formation-slot" style="grid-column:${i+2};grid-row:${row}" data-rank="${r.position}">${chip(r)}${badge?`<span class="formation-motion">${badge}</span>`:''}${i<model.riders.length-1&&link?.type!=='order'?`<span class="formation-link link-${link?.type}" aria-hidden="true">${link?.type==='line'?'━':'⋯'}</span>`:''}</div>`;
+  }).join('')}</div><div class="formation-roster" aria-label="車番と選手名">${model.riders.map(r=>`<span class="formation-roster-item"><span class="formation-number car-${r.no}">${r.no}</span><span class="formation-name">${esc(r.label)}<small class="formation-roster-team">${r.team.id}</small></span></span>`).join('')}</div>`;
+
  }
- return `<figure class="formation-diagram" data-diagram-stage="${model.stage}" data-story-id="${esc(storyId)}" data-engine-order="${esc(JSON.stringify(model.order))}" aria-label="${esc(model.phase+'の展開モデル図')}"><figcaption><span>${model.finish?'ゴール順':'← 進行方向'}</span><span>${esc(model.shape)}</span></figcaption>${body}${events?`<ul class="formation-events" aria-label="この局面の動き">${events}</ul>`:''}${model.stage===1?'<div class="formation-key">同じ英字・線色＝同じライン</div>':''}</figure>`;
+ return `<figure class="formation-diagram" data-diagram-stage="${model.stage}" data-story-id="${esc(storyId)}" data-engine-order="${esc(JSON.stringify(model.order))}" aria-label="${esc(model.phase+'の展開モデル図')}"><figcaption><span>${model.finish?'ゴール順':'← 進行方向'}</span><span>${esc(model.shape)}</span></figcaption>${body}${events?`<ul class="formation-events" aria-label="この局面の動き">${events}</ul>`:''}${model.stage===1?'<div class="formation-key">同じ英字・下線＝元のライン ／ S＝S取り・離＝追走離れ</div>':''}</figure>`;
 }
 const api={project,render};if(typeof module!=='undefined')module.exports=api;root.FormationDiagram=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
