@@ -42,7 +42,7 @@ try{
  const feeds=path.join(temporary,'feeds'),output=path.join(temporary,'output');fs.mkdirSync(feeds);
  fs.writeFileSync(path.join(feeds,date+'.json'),JSON.stringify(day));
  fs.writeFileSync(path.join(feeds,'collection.json'),JSON.stringify({feeds:1,event:'schedule',run_id:'test-run',errors:[]}));
- const first=update(feeds,output,before);assert.equal(first.rows.length,1);assert.equal(first.summary.pending,1);assert.equal(first.collection.last_scheduled_at,before);
+ const first=update(feeds,output,before);assert.equal(first.rows.length,1,'Forecast build errors: '+JSON.stringify(first.collection.errors));assert.equal(first.summary.pending,1);assert.equal(first.collection.last_scheduled_at,before);
  const file=path.join(output,'lab_history',date+'.json'),frozen=JSON.parse(fs.readFileSync(file)).predictions[0];
  const trio=frozen.chosen[0].trio;
  fs.writeFileSync(path.join(feeds,date+'.json'),JSON.stringify({...day,generated_at:after,races:[{...source,result_top3:trio,result_combos:[{combo:trio,payout:1000}],result_places:trio.map(n=>[n])}]}));
