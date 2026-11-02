@@ -47,7 +47,7 @@ assert.ok(review.assessments.get('2:kamashi').regret>review.assessments.get('2:p
 assert.equal(review.assessments.get('2:kamashi').comparisons.length,7);
 assert.ok(review.assessments.get('2:kamashi').opponents.some(x=>x.no===4));
 assert.ok(review.assessments.get('2:kamashi').opponents.some(x=>x.no===6));
-assert.ok(review.assessments.get('2:kamashi').opponent.includes('太田海也'));
+assert.ok(review.assessments.get('2:kamashi').comparisons.find(x=>x.key==='2:kamashi').opponent.includes('太田海也'));
 assert.ok(review.assessments.get('2:kamashi').rejected.length>=2);
 const unknown=structuredClone(race);
 delete unknown.riders.find(x=>x.no===2).recent_form;
