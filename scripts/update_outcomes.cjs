@@ -3,6 +3,7 @@ const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypt
 const Audit=require('../js/results-audit.js'),Feed=require('../js/race-feed.js');
 const Legacy=require('../baselines/story-v4-23e9205/js/story-brain.js'),Brain=require('../js/story-brain.js'),Form=require('../js/recent-form.js');
 const Material=require('../js/race-material.js'),Build=require('../js/model-build.js');
+const History=require('./history-store.cjs');
 const root=path.join(__dirname,'..');
 const read=(file,fallback)=>fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):fallback;
 function save(file,value){const text=JSON.stringify(value)+'\n';if(fs.existsSync(file)&&fs.readFileSync(file,'utf8')===text)return;fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file+'.tmp',text);fs.renameSync(file+'.tmp',file);}
@@ -19,7 +20,7 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
  const errors=[...(collection.errors||[])];let generated=0;
  for(const name of fs.readdirSync(feedDir).filter(n=>/^\d{4}-\d{2}-\d{2}\.json$/.test(n)).sort()){
   const feed=read(path.join(feedDir,name));if(feed.date+'.json'!==name||!Array.isArray(feed.races))throw Error('Invalid day feed');
-  const file=path.join(historyDir,name),history=read(file,{schema:Audit.SCHEMA,date:feed.date,predictions:[],results:[]});
+  const history=History.load(historyDir,feed.date);
   const saved=new Set(history.predictions.map(p=>p.race_id+'|'+Audit.modelId(p)));
   for(const source of feed.races){
    if(source.is_girls||![7,9].includes(source.entries?.length))continue;
@@ -51,18 +52,18 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
    }catch(error){errors.push({date:feed.date,race:source.race_number,venue:source.venue,error:error.message});}
   }
   history.predictions.sort((a,b)=>a.race_id.localeCompare(b.race_id)||a.saved_at.localeCompare(b.saved_at));
-  history.results.sort((a,b)=>a.race_id.localeCompare(b.race_id));save(file,history);
+  history.results.sort((a,b)=>a.race_id.localeCompare(b.race_id));History.save(historyDir,history);
  }
  const rows=[];
- for(const file of fs.readdirSync(historyDir).filter(n=>/^\d{4}-\d{2}-\d{2}\.json$/.test(n)).sort()){
-  const h=read(path.join(historyDir,file)),latest=new Map();
+ for(const date of History.dates(historyDir)){
+  const h=History.load(historyDir,date),latest=new Map();
   for(const p of h.predictions)if(!latest.has(p.race_id)||latest.get(p.race_id).saved_at<p.saved_at)latest.set(p.race_id,p);
   const resultMap=new Map(h.results.map(r=>[r.race_id,r]));
   for(const id of new Set([...latest.keys(),...resultMap.keys()])){
    const prediction=latest.get(id),observed=resultMap.get(id),race=observed?.race||prediction.input;
    rows.push({race_id:id,date:race.date,venue:race.venue,race_no:race.race_no,start:race.start,version:prediction?.version||null,model_id:prediction?Audit.modelId(prediction):null,saved_at:prediction?.saved_at||null,
     result:observed?{race_id:observed.race_id,race:{date:race.date,venue:race.venue,race_no:race.race_no,start:race.start},identity:observed.identity,combos:observed.combos,collected_at:observed.collected_at,source_url:observed.source_url,verification:observed.verification}:null,
-    evaluation:observed?Audit.evaluate(prediction,observed):{status:'pending',category:'結果待ち'},history_url:'data/lab_history/'+file});
+    evaluation:observed?Audit.evaluate(prediction,observed):{status:'pending',category:'結果待ち'},history_url:prediction?'data/lab_history/'+h.locations.get(History.key(prediction)):null});
   }
  }
  rows.sort((a,b)=>b.date.localeCompare(a.date)||a.venue.localeCompare(b.venue,'ja')||b.race_no-a.race_no);

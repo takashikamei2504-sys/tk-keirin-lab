@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/collect_outcomes.py', 'scripts/update_outcomes.cjs', 'js/results-audit.js', 'js/race-feed.js', 'js/race-brain-v2.js', 'js/story-brain.js', 'js/decision-reasons.js', 'js/tactical-deliberation.js', 'js/rider-context.js', 'js/race-material.js', '.github/workflows/collect-outcomes.yml']
+    paths: ['scripts/collect_outcomes.py', 'scripts/update_outcomes.cjs', 'scripts/history-store.cjs', 'js/results-audit.js', 'js/race-feed.js', 'js/race-brain-v2.js', 'js/story-brain.js', 'js/decision-reasons.js', 'js/tactical-deliberation.js', 'js/rider-context.js', 'js/race-material.js', '.github/workflows/collect-outcomes.yml']
 permissions:
   contents: write
 concurrency:
@@ -34,6 +34,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: node tests/history-store.test.cjs
       - run: node tests/results-audit.test.cjs
       - run: python -u scripts/collect_outcomes.py --days 7
       - name: Save frozen forecasts, results and evaluation
