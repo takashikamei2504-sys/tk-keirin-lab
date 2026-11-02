@@ -78,7 +78,7 @@ A合理性・B成立可能性・C実績・D相互作用・E頑健性を各判断
 - 新エンジン：718チェック。A構成変更、B特性変更、C待機、D早い捲りと遅い後方仕掛けの制約、E牽制3帰結、F表示と実計算の一致、G入力時点、H同一入力の新旧実行。
 - 既存 `npm test`：全スイート成功。既存モデルのソース変更なし。
 - Python：46テスト成功。
-- スマホ用Playwrightテストを追加。ローカルのブラウザー配布取得が失敗したため、GitHub CIでも実行して確認する。
+- GitHub CIでスマホ用Playwright検証成功（7/9車・320/390px・6局面・同一入力比較・JSON保存・再計算の明示）。スクリーンショットも目視確認。ローカルのブラウザー配布取得は失敗したため、CI上で検証した。
 
 ## 再実行
 
@@ -95,3 +95,7 @@ node tests/line/browser.cjs
 ## 未解決の課題
 
 上記の限定実装、確率校正、予測性能・回収率、バンク・風、探索幅の感度が残る。実レースの結果で係数や選手個性を自動書換えしない。複雑な競りを含む要求全体が完全実装済みとは扱わない。追加の有料API・サービスは導入しない。
+
+## GitHub
+
+ブランチ：`feat/lab-line-engine-v1`。PR：[16](https://github.com/takashikamei2504-sys/tk-keirin-lab/pull/16)。新画面CI：[実行結果](https://github.com/takashikamei2504-sys/tk-keirin-lab/actions/runs/41548279571)。

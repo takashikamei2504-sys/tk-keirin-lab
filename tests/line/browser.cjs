@@ -15,7 +15,15 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
  await page.locator('#example7').click();await page.waitForFunction(()=>window.lineOutput?.input.race.riders.length===7);assert.equal(await page.locator('.scene').count(),6);
  assert.equal(await page.locator('.formation').first().locator('.rider').count(),7);
  await page.setViewportSize({width:320,height:740});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'320px overflow');
- await page.setViewportSize({width:390,height:844});await page.locator('#example9').click();await page.waitForFunction(()=>window.lineOutput?.input.race.riders.length===9);
+ await page.setViewportSize({width:390,height:844});
+ const fixture=require('../../race_sample.json'),date='2098-10-31',entries=fixture.riders.map(x=>({car_number:x.no,rider_full_name:x.name,competition_score:x.score,running_style:x.style,line_position:(fixture.lineup.findIndex(l=>l.includes(x.no))+1)+'-'+(fixture.lineup.find(l=>l.includes(x.no)).indexOf(x.no)+1)}));
+ const day={date,generated_at:new Date(Date.now()-1000).toISOString(),races:[{venue:'防府',race_number:12,start_time:'16:25',entries}]};
+ await page.route('**/2098-10-31.json',route=>route.fulfill({json:day,headers:{'access-control-allow-origin':'*'}}));
+ await page.locator('#date').fill(date);await page.locator('#date').dispatchEvent('change');await page.waitForFunction(()=>document.getElementById('status').textContent.includes('開催情報を取得しました'));
+ await page.locator('#load').click();await page.waitForFunction(()=>window.lineOutput?.input.race.date==='2098-10-31');assert.equal(await page.evaluate(()=>lineOutput.mode),'pre-race');
+ const frozen=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tk-line:first:')).map(k=>[k,localStorage[k]]));assert.equal(frozen.length,1);
+ await page.locator('#load').click();await page.waitForFunction(()=>document.getElementById('save-status').textContent.includes('最初の発走前予想を保持'));assert.deepEqual(await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tk-line:first:')).map(k=>[k,localStorage[k]])),frozen);
+ await page.locator('#example9').click();await page.waitForFunction(()=>window.lineOutput?.input.race.riders.length===9);
  await page.locator('.axis details summary').click();await page.screenshot({path:'reports/line/iphone-preview.png',fullPage:true});
- assert.equal(errors.length,0,errors.join('\n'));await browser.close();console.log('PASS LAB LINE mobile: 7/9 riders, 6 exact engine diagrams, 320/390px, same-input comparison, JSON export and replay labeling');
+ assert.equal(errors.length,0,errors.join('\n'));await browser.close();console.log('PASS LAB LINE mobile: 7/9 riders, 6 exact engine diagrams, 320/390px, same-input comparison, live feed selection, immutable device storage, JSON export and replay labeling');
 })().catch(e=>{console.error(e);process.exit(1);});
