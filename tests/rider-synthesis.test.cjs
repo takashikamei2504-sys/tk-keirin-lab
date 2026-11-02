@@ -9,12 +9,13 @@ assert.ok(Memory.review(.5,memory(fatigue),no,'makuri').value<.5,'general fatigu
 assert.ok(Memory.review(.5,memory(positive),no,'finish').value>.5,'current positive condition can weakly support late energy');
 assert.equal(Memory.review(.5,memory(neutral),no,'makuri').value,.5,'equipment mention alone is not improved performance');
 assert.match(Memory.synthesize(memory(neutral),no).summary,/効果を確定できる材料は不足/);
-for(const bad of [note('疲れは残っていない'),note('太田君が疲れが残っています'),note(r.riders[1].name+'が疲れが残っています'),note('疲れが残っていれば苦しい'),note('状態は良いです',{truncated:true}),note('状態は良いです',{published_at:'2025-01-01T00:00:00Z',collected_at:'2025-01-02T00:00:00Z'})]){
+for(const bad of [note('疲れは残っていない'),note('太田君が疲れが残っています'),note(r.riders[1].name+'が疲れが残っています'),note('疲れが残っていれば苦しい'),note('状態は良いとは言えない'),note('調子は悪くない'),note('不調ではない'),note('状態は良いです',{truncated:true}),note('状態は良いです',{published_at:'2025-01-01T00:00:00Z',collected_at:'2025-01-02T00:00:00Z'})]){
  const q=Memory.synthesize(memory(bad),no);
  if(bad.excerpt==='疲れは残っていない')assert.ok(q.axes.readiness.value>=0,'negation must not reverse the meaning');
  else assert.equal(q.axes.readiness.value,0,'opponent/conditional/truncated/stale statements must not become readiness');
 }
 for(const bad of [{...fatigue,collected_at:'2099-01-01T00:00:00Z'},{...fatigue,body_verified:false},{...fatigue,rider_id:'999999'}])assert.equal(memory(bad).length,0);
+assert.equal(Memory.review(.5,memory(note('追走が得意ではない')),no,'track').value,.5,'denied strength must not become a positive habit');
 const dup=Memory.build(r,{knowledge:[fatigue,{...fatigue,id:'duplicate'}],observations:[fatigue]});
 assert.equal(Memory.review(.5,dup,no,'makuri').value,Memory.review(.5,memory(fatigue),no,'makuri').value,'same source/quote cannot add a vote through another feed');
 const contradict=Memory.build(r,{knowledge:[fatigue,positive]});assert.ok(Math.abs(Memory.review(.5,contradict,no,'makuri').value-.5)<Math.abs(Memory.review(.5,memory(fatigue),no,'makuri').value-.5));
