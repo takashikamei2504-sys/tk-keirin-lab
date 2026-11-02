@@ -3,9 +3,10 @@
  * Unknown speed, gaps and lanes must never be claimed as observed.
  */
 (function(root){'use strict';
-const VERSION='race-reality-v1.0.0';
+const VERSION='race-reality-v1.1.0';
 const validOrder=(order,ids)=>Array.isArray(order)&&order.length===ids.length&&new Set(order).size===ids.length&&ids.every(n=>order.includes(n));
 function attackOpportunity(s,no,phase){
+ if(s.connected?.[no]===false&&(s.energy?.[no]||0)>.6&&!(s.recovery?.[no]>0))return {allowed:false,reason:'追走離れ直後で、再加速前の立て直しが足りない'};
  if((s.energy?.[no]||0)>=.85)return {allowed:false,reason:'既に高い仮説消耗。再加速の余地を確認できない'};
  if(phase==='late'&&s.homeRider===no&&s.homeResult==='takes'&&s.backRider&&s.backRider!==no){
    return {allowed:false,reason:'ホームで主導権を奪った直後に抜かれ、3角でもう一度全力で捲るには回復区間が不足'};
@@ -71,7 +72,7 @@ function audit(s,ids){
  }
  if(s.backResult==='takes'&&s.backLeadPositionBefore>=5&&s.backRider&&!s.backWasContinuing)fail('back_teleport','バックで後方から突然先頭に出ている');
  if(s.cornerRider){
-  const x=attackOpportunity(s,s.cornerRider,'late');
+  const x=attackOpportunity(s.cornerEnergyBefore==null?s:{...s,energy:{...s.energy,[s.cornerRider]:s.cornerEnergyBefore}},s.cornerRider,'late');
   if(!x.allowed)fail('repeated_sprint',x.reason);
  }
  return {passed:issues.length===0,issues,level:'structural_consistency_only',limits:'車間・速度・走路・接触・正式な違反判定は未検証'};

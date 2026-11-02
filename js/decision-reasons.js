@@ -20,6 +20,11 @@ function build(r,records,context){
  const source=e=>e?{url:e.url||e.source_url,published_at:e.published_at||e.source_updated_at,collected_at:e.collected_at,excerpt:e.excerpt||e.declaration||null}:null;
  const who=n=>`${n}番${by.get(n)?.name||''}`;
  function label(key,c){
+  if(key.endsWith('-front-response'))return c.key==='resist'?'仕掛けに合わせて踏み直す':'ペースを保って受ける';
+  if(key.endsWith('-individual-follow')&&c.actor)return c.actor+'番の追走離れ';
+  if(key.endsWith('-line-response'))return c.actor?c.actor+'番が攻防を利用して位置を上げる':'他ラインは反応を見て脚を残す';
+  if(key.endsWith('-outside-resolution'))return c.key==='retreat'?'外並走を解消して立て直す':c.key==='continue'?'外の仕掛けを継続する':'外並走なし';
+  if(key==='inside-opening')return c.key==='opens'?'内の進路が開く':'内の進路は締まったまま';
   const names={S:'S取り','red-attack':'赤板の仕掛け','red-response':'前受けの応答','red-result':'主導権の攻防','home-attack':'ホームの仕掛け','home-result':'ホームの攻防','back-attack':'バックの反撃','back-result':'バックの攻防','back-follow':'バックの追走',follow:'追走','back-seat':'空き番手','corner-attack':'3〜4角の仕掛け',defense:'番手の判断','block-result':'ブロックの成否',inside:'内の進路'};
   const action={unchanged:'前段階を維持する',wait:'仕掛けを待つ',settle:'隊列を保つ',resist:'突っ張る',yield:'出させて引く',pace:'ペースを保つ',front:'前受け側が守る',take:'仕掛け側が前に出る',settled:'隊列が落ち着く',takes:'前団をとらえる',parallel:'外に併走',solo:'単騎',holds:'追走を保つ',breaks:'追走が離れる',none:'新たな動きを置かない',vertical:'縦に踏む',follow:'差しを待つ',block:'ブロックする',stopped:'仕掛けを止める',survives:'仕掛けが残る',free:'ブロックの影響なし'};
   const [no,tactic]=c.key.split(':');

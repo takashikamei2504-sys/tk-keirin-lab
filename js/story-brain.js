@@ -12,7 +12,7 @@ const Reactions=typeof module!=='undefined'?require('./line-reactions.js'):root.
 const Provenance=typeof module!=='undefined'?require('./model-provenance.js'):root.ModelProvenance;
 const Build=typeof module!=='undefined'?require('./model-build.js'):root.ModelBuild;
 const Search=typeof module!=='undefined'?require('./search-policy.js'):root.TacticalSearch;
-const VERSION='story-first-v5.1.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
+const VERSION='story-first-v5.2.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
 function validate(r){const ids=r?.riders?.map(x=>x.no)||[],flat=r?.lineup?.flat()||[];
@@ -33,7 +33,7 @@ function build(r,pack={},options={}){
  let unresolved=0,serial=0,reconsidered=0;const searchTrace=[];const considered=new Set(),objections=new Map();
  const choose=(key,weight,extra={})=>({key,weight:Math.max(.001,weight),feasibility:'allowed',...extra});
  const initial={mass:1,analysisCost:0,auditFailures:0,outside:[],order:r.lineup.flat(),energy:Object.fromEntries(ids.map(n=>[n,0])),connected:Object.fromEntries(ids.map(n=>[n,true])),scenes:[],decisions:[],moves:[],stage:0};
- function state(s){return {...s,outside:[...s.outside],order:[...s.order],energy:{...s.energy},connected:{...s.connected},scenes:[...s.scenes],decisions:[...s.decisions],moves:[...s.moves]};}
+ function state(s){return {...s,outside:[...s.outside],order:[...s.order],energy:{...s.energy},connected:{...s.connected},scenes:[...s.scenes],decisions:[...s.decisions],moves:[...s.moves],reactionLog:[...(s.reactionLog||[])],recovery:{...s.recovery}};}
  function move(s,moving,target,why){
   const group=s.order.filter(n=>moving.includes(n)),rest=s.order.filter(n=>!moving.includes(n)),at=Math.max(0,Math.min(target,rest.length)),desired=[...rest.slice(0,at),...group,...rest.slice(at)];
   for(let i=0;i<desired.length;i++){let j=s.order.indexOf(desired[i]);while(j>i){[s.order[j-1],s.order[j]]=[s.order[j],s.order[j-1]];j--;s.moves.push({stage:s.stage,order:[...s.order],reason:why,feasibility:'unknown'});}}
@@ -88,7 +88,7 @@ function build(r,pack={},options={}){
    const opportunity=Reality.attackOpportunity(s,n,phase);
    return choose(String(n),.12+trait(n,'makuri',s)*.2,{actor:n,feasibility:opportunity.allowed?available(n,phase):'blocked',feasibilityReason:opportunity.reason});
  });
- const attackResult=(s,n)=>clip(.5+(ability(n)-ability(s.leader))*.65+(s.energy[s.leader]-s.energy[n])*.6,.15,.85);
+ const attackResult=(s,n)=>clip(.5+(ability(n)-ability(s.leader))*.65+(s.energy[s.leader]-s.energy[n])*.6-(s.frontResponse?.choice==='resist'&&s.frontResponse.actor===s.leader?.13:0),.15,.85);
  let states=branch([initial],'S',s=>ids.map(n=>choose(String(n),.1+trait(n,'front',s),{actor:n})),(s,c)=>{
   s.starter=Number(c.key);s.front=lineOf.get(s.starter)[0];s.leader=s.front;
   const others=r.lineup.filter(l=>l[0]!==s.front).sort((a,b)=>trait(b[0],'front',s)-trait(a[0],'front',s)||a[0]-b[0]);s.order=[...lineOf.get(s.front),...others.flat()];
@@ -143,6 +143,7 @@ function build(r,pack={},options={}){
  states=branch(states,'home-attack',s=>[choose('settle',.8),...attackers(s,'home',6)],(s,c)=>{
   s.homeRider=c.key==='settle'?null:Number(c.key);s.stage=2;
  });
+ states=branch(states,'home-front-response',s=>!s.homeRider?[choose('pace',1)]:[choose('resist',Math.max(.1,.7-(s.energy[s.leader]||0)),{actor:s.leader}),choose('hold',.25+(s.energy[s.leader]||0)*.4,{actor:s.leader})],(s,c)=>{s.frontResponse={phase:'home',actor:s.leader,choice:c.key};if(s.homeRider)s.energy[s.leader]=Math.min(.95,s.energy[s.leader]+(c.key==='resist'?.065:.015));});
  states=branch(states,'home-result',s=>{if(!s.homeRider)return [choose('settled',1)];
   const gate=Reality.takeoverOpportunity(s,s.homeRider,'home'),p=attackResult(s,s.homeRider);
   return [choose('takes',p,{feasibility:gate.allowed?'unknown':'blocked',feasibilityReason:gate.reason}),choose('parallel',1-p)];
@@ -150,6 +151,7 @@ function build(r,pack={},options={}){
   s.homeResult=c.key;const before=s.leader;
   if(s.homeRider){s.energy[s.homeRider]+=.25;s.energy[before]+=.09;if(c.key==='takes'){s.leader=s.homeRider;move(s,controlLine(s.leader).filter(n=>n===s.leader||s.connected[n]!==false),0,'ホームのロング捲りで隊列を入れ替える仮説');}else s.outside.push(s.homeRider);}
  });
+ states=branch(states,'home-line-response',s=>reactions.laterOptions(s,'home').choices.map(c=>choose(c.key,c.weight,c)),(s,c)=>reactions.applyLater(s,c.actor||null,'home',move));
  states=branch(states,'follow',s=>{
   const f=controlLine(s.leader)[1];if(!f)return [choose('solo',1)];
   const keep=clip(.62+.32*trait(f,'track',s)-(s.homeRider||s.tactic==='kamashi'?.15:.04)-Math.max(0,ability(s.leader)-ability(f))*.35);return [choose('holds',keep),choose('breaks',1-keep)];
@@ -163,7 +165,9 @@ function build(r,pack={},options={}){
     if(additional)s.scenes.at(-1).action+=additional;
   }
  });
+ states=individualFollow(states,'home',2);
  states.forEach(s=>s.stage=3);
+ states=branch(states,'back-outside-resolution',s=>reactions.outsideOptions(s).map(c=>choose(c.key,c.weight,c)),(s,c)=>reactions.applyOutside(s,c,'back',move));
  states=branch(states,'back-seat',s=>{
   if(s.gap!=='breaks')return [choose('none',1)];const candidate=s.order.find((n,i)=>i>0&&i<=3&&!controlLine(s.leader).includes(n));
   return [choose('none',.55),...(candidate?[choose(String(candidate),.35+trait(candidate,'seat',s)*.2,{actor:candidate,feasibility:available(candidate,'seat')})]:[])];
@@ -173,6 +177,7 @@ function build(r,pack={},options={}){
  });
  // The back is a new decision point, not a photograph of the home formation.
  states=branch(states,'back-attack',s=>[choose('wait',.7),...attackers(s,'back',6)],(s,c)=>{s.backRider=c.actor||null;s.backLeaderBefore=s.leader;s.backLeadPositionBefore=s.backRider?s.order.indexOf(s.backRider)+1:null;s.backWasContinuing=!!(s.backRider&&s.outside.includes(s.backRider));s.stage=3;});
+ states=branch(states,'back-front-response',s=>!s.backRider?[choose('pace',1)]:[choose('resist',Math.max(.1,.7-(s.energy[s.leader]||0)),{actor:s.leader}),choose('hold',.25+(s.energy[s.leader]||0)*.4,{actor:s.leader})],(s,c)=>{s.frontResponse={phase:'back',actor:s.leader,choice:c.key};if(s.backRider)s.energy[s.leader]=Math.min(.95,s.energy[s.leader]+(c.key==='resist'?.065:.015));});
  states=branch(states,'back-result',s=>{if(!s.backRider)return [choose('unchanged',1)];
   const gate=Reality.takeoverOpportunity(s,s.backRider,'back'),p=attackResult(s,s.backRider);
   return [choose('takes',p,{feasibility:gate.allowed?'unknown':'blocked',feasibilityReason:gate.reason}),choose('parallel',1-p)];
@@ -183,6 +188,7 @@ function build(r,pack={},options={}){
    else if(!s.outside.includes(s.backRider))s.outside.push(s.backRider);
   }
  });
+ states=branch(states,'back-line-response',s=>reactions.laterOptions(s,'back').choices.map(c=>choose(c.key,c.weight,c)),(s,c)=>reactions.applyLater(s,c.actor||null,'back',move));
  states=branch(states,'back-follow',s=>{
   if(s.gap!=='unchecked')return [choose('unchanged',1)];const f=controlLine(s.leader)[1];
   if(s.connected[f]===false)return [choose('breaks',1)];const keep=clip(.60+.32*trait(f,'track',s)-.12-Math.max(0,ability(s.leader)-ability(f))*.35);return [choose('holds',keep),choose('breaks',1-keep)];
@@ -190,16 +196,18 @@ function build(r,pack={},options={}){
   if(c.key!=='unchanged'){s.gap=c.key;const f=controlLine(s.leader)[1];if(c.key==='breaks'){const dropped=controlLine(s.leader).slice(1);dropped.forEach(n=>{s.connected[n]=false;s.energy[n]+=.18;});const at=s.order.indexOf(f);move(s,dropped,Math.min(at+2,ids.length-dropped.length),'バックの再加速で番手以降が遅れる仮説');}}
   s.defender=s.seat||s.gap==='holds'&&controlLine(s.leader)[1]||null;
   const shape=s.outside.length?'併走・混戦':s.gap==='breaks'&&!s.seat?'隊列に切れ目':'一本棒';
-  const counter=s.backRider?`${who(s.backRider)}が${s.homeRider===s.backRider?'ホームからの仕掛けを継続し':'バックから反撃し'}、${s.backResult==='takes'?'主導権を取り直す':'外で先頭に迫る'}。`:'別線は動かず、先行ラインがペースを握る。';
+  const counter=s.backRider?`${who(s.backRider)}が${s.homeRider===s.backRider?'ホームからの仕掛けを継続し':'バックから反撃し'}、${s.backResult==='takes'?'主導権を取り直す':'外で先頭に迫る'}。`:'別線から新しい仕掛けはなく、先行ラインがペースを握る。';
   addScene(s,3,counter+`${who(s.leader)}がバックを先頭で通過する。${s.outside.length?s.outside.map(who).join('・')+'が外に残り、前団は一本棒ではない':s.gap==='breaks'?'番手が離れ、隊列に切れ目ができる':s.defender?`${who(s.defender)}が追走し、前団は一本棒`:'先頭は単騎で、後ろは別線'}。${s.seat?`${who(s.seat)}が空いた番手へ入る。`:''}`,shape,[s.leader,s.defender,s.backRider].filter(Boolean));
  });
+ states=individualFollow(states,'back',3);
  states.forEach(s=>s.stage=4);
+ states=branch(states,'late-outside-resolution',s=>reactions.outsideOptions(s).map(c=>choose(c.key,c.weight,c)),(s,c)=>reactions.applyOutside(s,c,'late',move));
  states=branch(states,'corner-attack',s=>[choose('wait',.7),...attackers(s,'late',5)],(s,c)=>{
-  s.cornerRider=c.actor||null;s.cornerOrderBefore=[...s.order];s.cornerOrigin=s.cornerRider&&s.connected[s.cornerRider]===false?'recover':s.cornerRider&&s.order.indexOf(s.cornerRider)>=4?'outer':'makuri';s.stage=4;
+  s.cornerRider=c.actor||null;s.cornerEnergyBefore=s.cornerRider?s.energy[s.cornerRider]:null;s.cornerOrderBefore=[...s.order];s.cornerOrigin=s.cornerRider&&s.connected[s.cornerRider]===false?'recover':s.cornerRider&&s.order.indexOf(s.cornerRider)>=4?'outer':'makuri';s.stage=4;
  });
  states=branch(states,'defense',s=>s.defender?[
-  choose('vertical',.1+trait(s.defender,'vertical',s)*.2+trait(s.defender,'finish',s)*.2),choose('follow',.65),...(s.cornerRider?[choose('block',.25+trait(s.defender,'block',s)*.45)]:[])
- ]:[choose('none',1)],(s,c)=>{s.defense=c.key;s.openInside=c.key==='block';});
+  choose('vertical',.1+trait(s.defender,'vertical',s)*.2+trait(s.defender,'finish',s)*.2),choose('follow',.65),...(s.cornerRider?[choose('block',.25+trait(s.defender,'block',s)*.45,{feasibility:s.order.indexOf(s.defender)===1&&s.order.indexOf(s.cornerRider)<=4?'unknown':'blocked'})]:[])
+ ]:[choose('none',1)],(s,c)=>{s.defense=c.key;s.openInside=false;});
  states=branch(states,'block-result',s=>s.defense==='block'?[choose('stopped',clip(.45+trait(s.defender,'block',s)*.2+(ability(s.defender)-ability(s.cornerRider))*.3+(s.energy[s.cornerRider]-s.energy[s.defender])*.15)),choose('survives',1-clip(.45+trait(s.defender,'block',s)*.2+(ability(s.defender)-ability(s.cornerRider))*.3+(s.energy[s.cornerRider]-s.energy[s.defender])*.15))]:[choose('free',1)],(s,c)=>{
   s.blockResult=c.key;s.survivingAttack=c.key==='stopped'?null:s.cornerRider;
   if(s.cornerRider){s.energy[s.cornerRider]=Math.min(.95,s.energy[s.cornerRider]+.15);
@@ -208,21 +216,29 @@ function build(r,pack={},options={}){
    }
   if(s.defense==='block')s.energy[s.defender]+=.1;
  });
+ states=branch(states,'late-line-response',s=>reactions.laterOptions(s,'late').choices.map(c=>choose(c.key,c.weight,c)),(s,c)=>reactions.applyLater(s,c.actor||null,'late',move));
+ states=branch(states,'inside-opening',s=>s.defense==='block'?[choose('opens',.45),choose('closed',.55)]:[choose('closed',1)],(s,c)=>{s.openInside=c.key==='opens';});
  states=branch(states,'inside',s=>{
   const options=[choose('none',.85)];if(!s.openInside)return options;
   const third=controlLine(s.leader)[2];
-  if(third&&s.gap==='holds'&&s.order.indexOf(third)<=3)options.push(choose(`split:${third}`,.05+trait(third,'inside',s)*.15+trait(third,'finish',s)*.15,{actor:third,feasibility:available(third,'inside')}));
+  if(third&&s.gap==='holds'&&s.connected[third]!==false&&s.order.indexOf(third)<=3)options.push(choose(`split:${third}`,.05+trait(third,'inside',s)*.15+trait(third,'finish',s)*.15,{actor:third,feasibility:available(third,'inside')}));
   for(const n of s.order.slice(2,5).filter(n=>n!==third&&n!==s.cornerRider&&n!==s.defender))options.push(choose(`inside:${n}`,.04+trait(n,'inside',s)*.12+trait(n,'finish',s)*.08,{actor:n,feasibility:available(n,'inside')}));
   return options;
  },(s,c)=>{
   s.innerRider=c.key==='none'?null:Number(c.key.split(':')[1]);s.innerMode=c.key.split(':')[0];
   const attempt=s.cornerRider?`${who(s.cornerRider)}が${s.cornerOrigin==='recover'?'離れた位置から踏み直して':s.cornerOrigin==='outer'?'大外を回して':'3コーナーから捲って'}迫る。`:'別線は仕掛けず、前団が直線勝負に入る。';
-  const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める':'仕掛けを止め切れない'}。そのぶん内に空きができる。`:s.defense==='vertical'?`${s.cornerRider?`${who(s.defender)}は横へ牽制せず縦に踏み、外の仕掛けを止めるより自分の伸びを優先する`:`${who(s.defender)}は番手から踏み出し、先行の残り脚を見て差しを狙う`}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手は空いたまま、先行選手が外の動きに対応する。';
+  const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める':'仕掛けを止め切れない'}。${s.openInside?'横の仕事で内に空きができる':'内のコースは締めたまま直線へ向く'}。`:s.defense==='vertical'?`${s.cornerRider?`${who(s.defender)}は横へ牽制せず縦に踏み、外の仕掛けを止めるより自分の伸びを優先する`:`${who(s.defender)}は番手から踏み出し、先行の残り脚を見て差しを狙う`}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手は空いたまま、先行選手が外の動きに対応する。';
   const inner=s.innerRider?`${who(s.innerRider)}は${s.innerMode==='split'?'3番手から中割り':'後続からインを突く'}を狙う。開いたコースを使えることが成立条件。`:'後続は内を突かず、直線で踏み込む。';
-  addScene(s,4,attempt+defense+inner,s.openInside?'外の攻防・内に空き':s.cornerRider?'外からの仕掛け':'直線待ち',[s.cornerRider,s.defender,s.innerRider].filter(Boolean));
+  addScene(s,4,attempt+defense+inner+reactions.closing(s,'late'),s.openInside?'外の攻防・内に空き':s.cornerRider?'外からの仕掛け':'直線待ち',[s.cornerRider,s.defender,s.innerRider].filter(Boolean));
  });
+ function individualFollow(states,phase,index){return branch(states,phase+'-individual-follow',s=>{
+  const heads=[s.leader,...s.outside],candidates=[...new Set(heads.flatMap(head=>controlLine(head).slice(1)))].filter(n=>s.connected[n]!==false&&n!==s.leader&&n!==s.seat&&n!==s.defender);
+  return [choose('holds',1),...candidates.map(no=>choose('drop:'+no,Math.max(.02,.22-trait(no,'track',s)*.18+(s.energy[no]||0)*.08),{actor:no}))];
+ },(s,c)=>{let text='';if(c.actor){const line=controlLine(c.actor);for(const n of line){s.connected[n]=false;s.energy[n]=Math.min(.95,s.energy[n]+.12);}text=who(c.actor)+'は加速に付け切れず、後ろとの連結が切れる。';}
+  const old=s.scenes.at(-1);s.scenes=s.scenes.slice(0,-1);addScene(s,index,old.action+text+reactions.closing(s,phase),c.actor?'隊列に切れ目':old.shape,old.actors);
+ });}
  function finishes(s){
-  const third=controlLine(s.leader)[2],heads=[s.leader,s.defender,s.survivingAttack,s.innerRider,third&&s.gap==='holds'&&s.order.indexOf(third)<=3?third:null].filter(Boolean);
+  const third=controlLine(s.leader)[2],heads=[s.leader,s.defender,s.survivingAttack,s.innerRider,third&&s.gap==='holds'&&s.connected[third]!==false&&s.order.indexOf(third)<=3?third:null].filter(Boolean);
   const unique=[...new Set(heads)];
   const rank=n=>ability(n)*.5+trait(n,'finish',{...s,stage:5})*.3-s.energy[n]*.38-s.order.indexOf(n)*.07+(n===s.innerRider?.13:0)+(n===s.survivingAttack?.12:0)+(n===s.defender&&s.defense==='vertical'?.15:0);
   const distribute=(arr,place)=>Weights.allocate(1,arr.filter(n=>Reality.finishingAccess(s,n,place).allowed).map(n=>choose(String(n),Math.exp(rank(n)*3)))).branches;
@@ -251,7 +267,7 @@ function build(r,pack={},options={}){
  const compared=[...accepted.filter((x,i,a)=>i===0||a.findIndex(y=>y.whole.family===x.whole.family)===i).slice(0,24),...reviewed.filter(x=>!x.whole.passed).slice(0,4)].map(x=>({signature:signatureOf(x.s),family:x.whole.family,score:x.whole.score,components:x.whole.components,passed:x.whole.passed,objections:x.whole.objections,selected:x.s===mainState,reason:x.s===mainState?'反撃と待機の反証を通過し、全体の戦術評価が最上位':x.whole.passed?(['personality','counterplay','energy','following'].sort((a,b)=>(accepted[0].whole.components[b]-x.whole.components[b])-(accepted[0].whole.components[a]-x.whole.components[a])).map(k=>({personality:'選手の仕掛け・待機の整合性',counterplay:'他ラインへの応答',energy:'先行の残り脚',following:'ラインの追走'}[k]))[0]+'の比較を含む全体評価で本線を下回る'):'反証に未解決の矛盾がある'}));
  const selectionReview={method:'counterplay-before-tickets',policy:'whole-race-diverse-v1',compared,accepted:accepted.length,examined:states.length,reconsidered,rejected_objections:[...new Set([...objections.values()].map(x=>x.phase))].flatMap(phase=>[...objections.values()].filter(x=>x.phase===phase).slice(0,2)),audit:accepted[0].audit,scope:'ホーム・バック・3〜4角の仕掛け/待機と番手の応答を比較。車間・速度は未計測、係数は未校正'};
  const scenarios=states.map(s=>{const outcomes=finishes(s),top=outcomes[0],last=state(s);
-  const conclusion=`直線は${who(top.trio[0])}が${MODES[top.mode]}で勝ち切る。${who(top.trio[1])}が２着、${who(top.trio[2])}が３着。${s.defense==='block'?'番手の横の仕事で生まれた内の空きが勝負を分ける':s.survivingAttack?'外からの勢いと先行の残り脚がぶつかる':s.defender?'先行が使った脚と番手の余力が最後の差になる':'先行の残り脚と別線の追込みで決まる'}。`;
+  const conclusion=`直線は${who(top.trio[0])}が${MODES[top.mode]}で勝ち切る。${who(top.trio[1])}が２着、${who(top.trio[2])}が３着。${s.defense==='block'?(s.openInside?'番手の横の仕事で内の進路が開き、直線の伸びを比べる':'番手の横の仕事と、その後の脚色が決着を分ける'):s.survivingAttack?'外からの勢いと先行の残り脚がぶつかる':s.defender?'先行が使った脚と番手の余力が最後の差になる':'先行の残り脚と別線の追込みで決まる'}。`;
   const otherHeads=[...new Set(outcomes.slice(0,6).map(t=>t.trio[0]))].filter(n=>n!==top.trio[0]);
   const closing=conclusion+Reality.finishExplanation(s,top.trio,who);
   addScene(last,5,closing,'ゴール前',top.trio);last.scenes[5].order=[...top.trio,...s.order.filter(n=>!top.trio.includes(n))];

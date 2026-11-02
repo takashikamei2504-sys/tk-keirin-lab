@@ -44,6 +44,30 @@ function build(r){
   for(const follower of candidate.members.slice(1))s.energy[follower]=Math.min(.95,(s.energy[follower]||0)+.04);
   return {...candidate,final:position(s.order,no)};
  }
+ // Bounded secondary reaction: one adjacent rival line may be passed, never
+ // the controlling front group. Every other line keeps an explicit wait reason.
+ function laterOptions(s,phase){
+  const primary=phase==='home'?s.homeRider:phase==='back'?s.backRider:s.cornerRider;
+  const rows=lines.map(line=>{
+   const no=line[0],at=s.order.indexOf(no),spent=s.energy[no]||0;
+   const candidate=primary&&no!==primary&&no!==s.leader&&!s.outside.includes(no)&&by.get(no).style!=='追'&&spent<.65?possibleCounter({...s,attacker:primary,front:s.leader},no):null;
+   const gain=candidate?.12+Math.max(0,(s.energy[s.leader]||0)-spent)*.25-Math.max(0,at-3)*.04:0;
+   return {no,candidate,gain,reason:no===primary?'自分の仕掛けを継続する':no===s.leader?'前団の踏み直しと後続への応答を優先する':spent>=.65?'先の攻防で脚を使っており、再加速を控える':candidate?'直前の別線を一組だけ越える選択と、脚を残す待機を比較する':'前団を一気に越える位置ではなく、前の仕掛けを利用して脚を残す'};
+  });
+  return {primary,rows,choices:[{key:'wait',weight:.85,feasibility:'allowed'},...rows.filter(x=>x.candidate).map(x=>({key:String(x.no),actor:x.no,weight:Math.max(.04,x.gain),feasibility:'unknown'}))]};
+ }
+ function applyLater(s,no,phase,move){
+  const reviewed=laterOptions(s,phase),row=reviewed.rows.find(x=>x.no===no);
+  if(no){if(!row?.candidate)throw Error('後半の反撃が現位置から成立しません');const c=row.candidate;move(s,c.members,c.to-1,phase+'の攻防を利用し直前の別線一組を越える');s.energy[no]=Math.min(.95,s.energy[no]+.12);for(const n of c.members.slice(1))s.energy[n]=Math.min(.95,s.energy[n]+.04);}
+  s.reactionLog=[...(s.reactionLog||[]),{phase,actor:no||null,action:no?'counter':'wait',rows:reviewed.rows.map(x=>({no:x.no,reason:x.reason,selected:x.no===no}))}];
+ }
+ function outsideOptions(s){const head=s.outside.filter(n=>n!==s.leader).sort((a,b)=>(s.energy[b]||0)-(s.energy[a]||0)||a-b)[0];return !head?[{key:'none',weight:1,feasibility:'allowed'}]:[{key:'continue',actor:head,weight:Math.max(.15,1-(s.energy[head]||0)),feasibility:'allowed'},{key:'retreat',actor:head,weight:.10+(s.energy[head]||0)*.45,feasibility:'allowed'}];}
+ function applyOutside(s,choice,phase,move){if(!choice.actor)return;const no=choice.actor;if(choice.key==='retreat'){
+  const members=contiguous(s,no).length?contiguous(s,no):[no],at=s.order.indexOf(no);s.outside=s.outside.filter(n=>n!==no);if(at<s.order.length-members.length){const next=s.order[at+members.length],line=lineOf.get(next),tail=s.order.slice(at+members.length).filter(n=>line.includes(n)).length;move(s,members,Math.min(s.order.length-members.length,at+Math.max(1,tail)),'不発の外並走を解消し直後の別線一組まで下げる');}
+  s.energy[no]=Math.max(0,s.energy[no]-.035);s.recovery={...(s.recovery||{}),[no]:(s.recovery?.[no]||0)+1};
+ }else s.energy[no]=Math.min(.95,s.energy[no]+.055);
+ s.reactionLog=[...(s.reactionLog||[]),{phase,actor:no,action:choice.key==='retreat'?'retreat':'outside-continue',rows:[]}];}
+ function closing(s,phase){const entries=(s.reactionLog||[]).filter(x=>x.phase===phase),parts=[];for(const e of entries){if(e.action==='counter')parts.push(who(e.actor)+'は前の攻防を利用し、直前の別線を越えて'+position(s.order,e.actor)+'番手へ上がる');if(e.action==='retreat')parts.push(who(e.actor)+'は外で踏み続けず、一度下げて脚を立て直す');}return parts.length?parts.join('。')+'。':'';}
  function snapshot(s,index,previous){
   const before=previous?.order||s.order,after=s.order,stage=index+1;
   const leaderAt=(order,l)=>position(order,l[0]),rows=lines.map(l=>{
@@ -65,6 +89,9 @@ function build(r){
     else if(no===s.leader){action='先行の踏み直し';cause='主導権を保って直線へ';}
     else if(to>from){action='後退';cause='前団の攻防で位置を下げる';}
    }else if(stage===6){action=to<from?'直線で進出':to>from?'直線で後退':'着順維持';cause='直線での決着';}
+   const phaseKey={3:'home',4:'back',5:'late'}[stage],reply=(s.reactionLog||[]).filter(x=>x.phase===phaseKey).at(-1),assessment=reply?.rows?.find(x=>x.no===no);
+   if(reply?.actor===no&&reply.action==='counter'){action='攻防を利用した位置上昇';cause='直前の別線を一組越え、次の仕掛けに備える';}else if(assessment&&action==='待機')cause=assessment.reason;
+   if(s.frontResponse&&s.frontResponse.phase===phaseKey&&s.frontResponse.actor===no){action=s.frontResponse.choice==='resist'?'踏み直しで抵抗':action;cause=s.frontResponse.choice==='resist'?'仕掛けに合わせて踏み直し、主導権を守りにいく':cause;}
    return {line:[...l],leader:no,from,to,action,cause,changed:to!==from};
   });
   const riders=r.riders.slice().sort((a,b)=>a.no-b.no).map(x=>{
@@ -96,7 +123,7 @@ function build(r){
   const beaten=previous.order[0],after=position(s.order,beaten);
   return beaten!==s.homeRider&&after>1?who(beaten)+'は'+after+'番手へ下がる。':'';
  }
- return {counters,applyCounter,snapshot,redClosing,homeClosing};
+ return {counters,applyCounter,laterOptions,applyLater,outsideOptions,applyOutside,closing,snapshot,redClosing,homeClosing};
 }
 const api={build};if(typeof module!=='undefined')module.exports=api;root.LineReactions=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
