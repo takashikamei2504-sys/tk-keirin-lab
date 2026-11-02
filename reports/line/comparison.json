@@ -68,17 +68,17 @@
         ]
       },
       "axis": {
-        "axis": "robustness",
-        "label": "頑健性・反証",
-        "reason": "候補間で「頑健性・反証」の評価差0.357が最も大きく、同軸を優先。固定のレース別重みを置かず、この入力の候補比較から抽出。",
+        "axis": "feasibility",
+        "label": "成立可能性",
+        "reason": "候補間で「成立可能性」の評価差0.210が有力候補間で最も大きく、同軸を優先。局面矛盾を棄却し、全軸で劣る候補を除いたうえで、この入力の有力候補比較から抽出。",
         "spreads": [
           {
-            "axis": "robustness",
-            "spread": 0.3572
+            "axis": "feasibility",
+            "spread": 0.2100872101449276
           },
           {
-            "axis": "feasibility",
-            "spread": 0.3453593055555556
+            "axis": "robustness",
+            "spread": 0.20455000000000007
           },
           {
             "axis": "interaction",
@@ -86,7 +86,7 @@
           },
           {
             "axis": "rationality",
-            "spread": 0.07285444444444439
+            "spread": 0.04554888888888886
           },
           {
             "axis": "evidence",
@@ -95,17 +95,32 @@
         ],
         "weights": {
           "rationality": 1,
-          "feasibility": 1,
+          "feasibility": 2,
           "evidence": 1,
           "interaction": 1,
-          "robustness": 2
+          "robustness": 1
         },
         "drivers": [
           {
-            "phase": 2,
-            "axis": "robustness",
-            "value": -0.07160000000000011,
-            "reason": "未仕掛けの有力別線を止め続ける仮説を反証",
+            "phase": 1,
+            "axis": "feasibility",
+            "value": 0.6,
+            "reason": "上昇側の先行傾向が主導権取得を支える",
+            "features": [
+              {
+                "no": 1,
+                "key": "initiative",
+                "value": 0.625,
+                "basis": "B2／出走4の縮小的比較",
+                "sources": []
+              }
+            ]
+          },
+          {
+            "phase": 5,
+            "axis": "feasibility",
+            "value": 0.1135666666666666,
+            "reason": "番手差しは先行負担・残る脚・番手の追走／牽制負担を独立比較",
             "features": [
               {
                 "no": 1,
@@ -113,52 +128,72 @@
                 "value": 0.8916666666666667,
                 "basis": "競走得点123.5を比較尺度に変換",
                 "sources": []
-              }
-            ]
-          },
-          {
-            "phase": 3,
-            "axis": "robustness",
-            "value": -0.07160000000000011,
-            "reason": "未仕掛けの有力別線を止め続ける仮説を反証",
-            "features": [
+              },
               {
                 "no": 1,
+                "key": "endurance",
+                "value": 0.58125,
+                "basis": "先行傾向による暫定値",
+                "sources": []
+              },
+              {
+                "no": 5,
                 "key": "ability",
-                "value": 0.8916666666666667,
-                "basis": "競走得点123.5を比較尺度に変換",
+                "value": 0.7678333333333333,
+                "basis": "競走得点116.07を比較尺度に変換",
+                "sources": []
+              },
+              {
+                "no": 5,
+                "key": "finish",
+                "value": 0.53,
+                "basis": "3着内7／出走15（差し脚の実測ではない）",
+                "sources": []
+              },
+              {
+                "no": 5,
+                "key": "track",
+                "value": 0.55,
+                "basis": "追走の直接資料なし・中立値",
                 "sources": []
               }
             ]
-          },
-          {
-            "phase": 4,
-            "axis": "robustness",
-            "value": 0.05,
-            "reason": "余分なブロック成功を前提としない",
-            "features": []
           }
         ],
-        "gap": 0.11356666666666637,
+        "gap": 0.19495144444444423,
         "confidence": "拮抗",
-        "selection_reason": "未仕掛けの有力別線を止め続ける仮説を反証。未仕掛けの有力別線を止め続ける仮説を反証。余分なブロック成功を前提としない",
+        "selection_reason": "上昇側の先行傾向が主導権取得を支える。番手差しは先行負担・残る脚・番手の追走／牽制負担を独立比較",
         "reversal": {
-          "rival": 553,
-          "condition": "本線を支える「成立可能性」の優位が崩れ、対抗の条件が上回る場合。Aライン（1-5-7）は後方回避と主導権確保のため上昇する。対抗との差0.114は校正確率ではない。",
+          "rival": 559,
+          "condition": "本線を支える「頑健性・反証」の優位が崩れ、対抗の条件が上回る場合。Dライン（4-9）は後方回避と主導権確保のため上昇する。対抗との差0.195は校正確率ではない。",
           "changes": [
+            {
+              "axis": "robustness",
+              "label": "頑健性・反証",
+              "main": -0.03106666666666674,
+              "rival": -0.18721666666666675,
+              "weighted_difference": 0.15615
+            },
+            {
+              "axis": "interaction",
+              "label": "他ラインとの相互作用",
+              "main": 0.6,
+              "rival": 0.48333333333333334,
+              "weighted_difference": 0.11666666666666664
+            },
             {
               "axis": "feasibility",
               "label": "成立可能性",
               "main": 0.3567833333333333,
-              "rival": 0.2432166666666667,
-              "weighted_difference": 0.1135666666666666
+              "rival": 0.40737916666666674,
+              "weighted_difference": -0.1011916666666669
             },
             {
               "axis": "rationality",
               "label": "戦術的合理性",
               "main": 0.39713200000000004,
-              "rival": 0.39713200000000004,
-              "weighted_difference": 0
+              "rival": 0.37380555555555556,
+              "weighted_difference": 0.023326444444444483
             },
             {
               "axis": "evidence",
@@ -166,28 +201,29 @@
               "main": 0,
               "rival": 0,
               "weighted_difference": 0
-            },
-            {
-              "axis": "interaction",
-              "label": "他ラインとの相互作用",
-              "main": 0.6,
-              "rival": 0.6,
-              "weighted_difference": 0
-            },
-            {
-              "axis": "robustness",
-              "label": "頑健性・反証",
-              "main": -0.03106666666666674,
-              "rival": -0.03106666666666674,
-              "weighted_difference": 0
             }
           ],
           "terms": [
             {
+              "phase": 1,
+              "axis": "feasibility",
+              "value": 0.51,
+              "reason": "上昇側の先行傾向が主導権取得を支える",
+              "features": [
+                {
+                  "no": 4,
+                  "key": "initiative",
+                  "value": 0.4,
+                  "basis": "B4／出走17の縮小的比較",
+                  "sources": []
+                }
+              ]
+            },
+            {
               "phase": 2,
-              "axis": "robustness",
-              "value": -0.07160000000000011,
-              "reason": "未仕掛けの有力別線を止め続ける仮説を反証",
+              "axis": "feasibility",
+              "value": 0.5072500000000001,
+              "reason": "出発位置2番目・相手の得点差・負担を評価",
               "features": [
                 {
                   "no": 1,
@@ -195,30 +231,94 @@
                   "value": 0.8916666666666667,
                   "basis": "競走得点123.5を比較尺度に変換",
                   "sources": []
-                }
-              ]
-            },
-            {
-              "phase": 3,
-              "axis": "robustness",
-              "value": -0.07160000000000011,
-              "reason": "未仕掛けの有力別線を止め続ける仮説を反証",
-              "features": [
+                },
                 {
-                  "no": 1,
+                  "no": 4,
                   "key": "ability",
-                  "value": 0.8916666666666667,
-                  "basis": "競走得点123.5を比較尺度に変換",
+                  "value": 0.5888333333333333,
+                  "basis": "競走得点105.33を比較尺度に変換",
                   "sources": []
                 }
               ]
             },
             {
               "phase": 4,
-              "axis": "robustness",
-              "value": 0.05,
-              "reason": "余分なブロック成功を前提としない",
-              "features": []
+              "axis": "feasibility",
+              "value": 0.5858333333333333,
+              "reason": "攻撃側が前団を越える条件を比較",
+              "features": [
+                {
+                  "no": 1,
+                  "key": "ability",
+                  "value": 0.8916666666666667,
+                  "basis": "競走得点123.5を比較尺度に変換",
+                  "sources": []
+                },
+                {
+                  "no": 1,
+                  "key": "sprint",
+                  "value": 0.6066666666666667,
+                  "basis": "得点・脚質逃の暫定値",
+                  "sources": []
+                },
+                {
+                  "no": 4,
+                  "key": "ability",
+                  "value": 0.5888333333333333,
+                  "basis": "競走得点105.33を比較尺度に変換",
+                  "sources": []
+                },
+                {
+                  "no": 9,
+                  "key": "block",
+                  "value": 0.4,
+                  "basis": "牽制の直接資料なし・中立値",
+                  "sources": []
+                }
+              ]
+            },
+            {
+              "phase": 5,
+              "axis": "feasibility",
+              "value": 0.02643333333333331,
+              "reason": "先行残りは先行負担・残る脚・番手の追走／牽制負担を独立比較",
+              "features": [
+                {
+                  "no": 1,
+                  "key": "ability",
+                  "value": 0.8916666666666667,
+                  "basis": "競走得点123.5を比較尺度に変換",
+                  "sources": []
+                },
+                {
+                  "no": 1,
+                  "key": "endurance",
+                  "value": 0.58125,
+                  "basis": "先行傾向による暫定値",
+                  "sources": []
+                },
+                {
+                  "no": 5,
+                  "key": "ability",
+                  "value": 0.7678333333333333,
+                  "basis": "競走得点116.07を比較尺度に変換",
+                  "sources": []
+                },
+                {
+                  "no": 5,
+                  "key": "finish",
+                  "value": 0.53,
+                  "basis": "3着内7／出走15（差し脚の実測ではない）",
+                  "sources": []
+                },
+                {
+                  "no": 5,
+                  "key": "track",
+                  "value": 0.55,
+                  "basis": "追走の直接資料なし・中立値",
+                  "sources": []
+                }
+              ]
             }
           ]
         }
@@ -229,13 +329,13 @@
       ],
       "alternatives": [
         {
-          "id": 556,
+          "id": 559,
           "pair": [
-            5,
-            1
+            1,
+            5
           ],
-          "mode": "番手差し",
-          "not_selected": "比較評価1.291。本線1.292との差は0.000。頑健性・反証：-0.031／本線-0.031"
+          "mode": "先行残り",
+          "not_selected": "比較評価1.485。本線1.680との差は0.195。成立可能性：0.407／本線0.357"
         },
         {
           "id": 564,
@@ -244,16 +344,7 @@
             1
           ],
           "mode": "番手差し",
-          "not_selected": "比較評価1.134。本線1.292との差は0.157。頑健性・反証：0.000／本線-0.031"
-        },
-        {
-          "id": 578,
-          "pair": [
-            8,
-            2
-          ],
-          "mode": "番手差し",
-          "not_selected": "比較評価1.122。本線1.292との差は0.170。頑健性・反証：0.000／本線-0.031"
+          "not_selected": "比較評価1.375。本線1.680との差は0.305。成立可能性：0.240／本線0.357"
         }
       ]
     }
@@ -350,25 +441,25 @@
         ]
       },
       "axis": {
-        "axis": "feasibility",
-        "label": "成立可能性",
-        "reason": "候補間で「成立可能性」の評価差0.363が最も大きく、同軸を優先。固定のレース別重みを置かず、この入力の候補比較から抽出。",
+        "axis": "robustness",
+        "label": "頑健性・反証",
+        "reason": "候補間で「頑健性・反証」の評価差0.300が有力候補間で最も大きく、同軸を優先。局面矛盾を棄却し、全軸で劣る候補を除いたうえで、この入力の有力候補比較から抽出。",
         "spreads": [
           {
-            "axis": "feasibility",
-            "spread": 0.3626277560083595
-          },
-          {
             "axis": "robustness",
-            "spread": 0.3373666666666667
+            "spread": 0.29973333333333335
           },
           {
-            "axis": "rationality",
-            "spread": 0.12313929989550687
+            "axis": "feasibility",
+            "spread": 0.17698493991640551
           },
           {
             "axis": "interaction",
             "spread": 0.11666666666666664
+          },
+          {
+            "axis": "rationality",
+            "spread": 0.08233275772503362
           },
           {
             "axis": "evidence",
@@ -377,84 +468,97 @@
         ],
         "weights": {
           "rationality": 1,
-          "feasibility": 2,
+          "feasibility": 1,
           "evidence": 1,
           "interaction": 1,
-          "robustness": 1
+          "robustness": 2
         },
         "drivers": [
           {
-            "phase": 1,
-            "axis": "feasibility",
-            "value": 0.43,
-            "reason": "上昇側の先行傾向が主導権取得を支える",
-            "features": [
-              {
-                "no": 2,
-                "key": "initiative",
-                "value": 0.2,
-                "basis": "B0／出走24の縮小的比較",
-                "sources": []
-              }
-            ]
+            "phase": 4,
+            "axis": "robustness",
+            "value": 0.05,
+            "reason": "余分なブロック成功を前提としない",
+            "features": []
           },
           {
-            "phase": 5,
-            "axis": "feasibility",
-            "value": 0.08325057471264363,
-            "reason": "番手差しは先行負担・残る脚・番手の追走／牽制負担を独立比較",
+            "phase": 3,
+            "axis": "robustness",
+            "value": 0,
+            "reason": "未仕掛けの有力別線を止め続ける仮説を反証",
             "features": [
               {
                 "no": 3,
-                "key": "endurance",
-                "value": 0.5614655172413794,
-                "basis": "先行傾向による暫定値",
+                "key": "ability",
+                "value": 0.6568333333333333,
+                "basis": "競走得点109.41を比較尺度に変換",
                 "sources": []
               },
               {
-                "no": 7,
-                "key": "finish",
-                "value": 0.49,
-                "basis": "3着内10／出走25（差し脚の実測ではない）",
+                "no": 6,
+                "key": "ability",
+                "value": 0.4508333333333333,
+                "basis": "競走得点97.05を比較尺度に変換",
                 "sources": []
               },
               {
-                "no": 7,
-                "key": "track",
-                "value": 0.55,
-                "basis": "追走の直接資料なし・中立値",
+                "no": 6,
+                "key": "sprint",
+                "value": 0.43033333333333335,
+                "basis": "得点・脚質逃の暫定値",
+                "sources": []
+              },
+              {
+                "no": 5,
+                "key": "ability",
+                "value": 0.525,
+                "basis": "競走得点101.5を比較尺度に変換",
+                "sources": []
+              },
+              {
+                "no": 5,
+                "key": "sprint",
+                "value": 0.46,
+                "basis": "得点・脚質逃の暫定値",
                 "sources": []
               }
             ]
           }
         ],
-        "gap": 0.028096211225555834,
+        "gap": 0.14769536535303773,
         "confidence": "拮抗",
-        "selection_reason": "上昇側の先行傾向が主導権取得を支える。番手差しは先行負担・残る脚・番手の追走／牽制負担を独立比較",
+        "selection_reason": "余分なブロック成功を前提としない。未仕掛けの有力別線を止め続ける仮説を反証",
         "reversal": {
-          "rival": 849,
-          "condition": "本線を支える「成立可能性」の優位が崩れ、対抗の条件が上回る場合。Aライン（5-1）は後方回避と主導権確保のため上昇する。対抗との差0.028は校正確率ではない。",
+          "rival": 850,
+          "condition": "本線を支える「他ラインとの相互作用」の優位が崩れ、対抗の条件が上回る場合。Cライン（3-7）は後方回避と主導権確保のため上昇する。対抗との差0.148は校正確率ではない。",
           "changes": [
             {
-              "axis": "feasibility",
-              "label": "成立可能性",
-              "main": 0.25662528735632184,
-              "rival": 0.43361022727272736,
-              "weighted_difference": -0.35396987983281103
+              "axis": "interaction",
+              "label": "他ラインとの相互作用",
+              "main": 0.6,
+              "rival": 0.48333333333333334,
+              "weighted_difference": 0.11666666666666664
             },
             {
               "axis": "robustness",
               "label": "頑健性・反証",
               "main": 0.025,
-              "rival": -0.27473333333333333,
-              "weighted_difference": 0.29973333333333335
+              "rival": 0,
+              "weighted_difference": 0.05
+            },
+            {
+              "axis": "feasibility",
+              "label": "成立可能性",
+              "main": 0.25662528735632184,
+              "rival": 0.2920459482758621,
+              "weighted_difference": -0.03542066091954027
             },
             {
               "axis": "rationality",
               "label": "戦術的合理性",
               "main": 0.4365983251231527,
-              "rival": 0.3542655673981191,
-              "weighted_difference": 0.08233275772503362
+              "rival": 0.4201489655172414,
+              "weighted_difference": 0.016449359605911318
             },
             {
               "axis": "evidence",
@@ -462,59 +566,58 @@
               "main": 0,
               "rival": 0,
               "weighted_difference": 0
-            },
-            {
-              "axis": "interaction",
-              "label": "他ラインとの相互作用",
-              "main": 0.6,
-              "rival": 0.6,
-              "weighted_difference": 0
             }
           ],
           "terms": [
             {
-              "phase": 1,
-              "axis": "feasibility",
-              "value": 0.6618181818181819,
-              "reason": "上昇側の先行傾向が主導権取得を支える",
+              "phase": 3,
+              "axis": "robustness",
+              "value": 0,
+              "reason": "未仕掛けの有力別線を止め続ける仮説を反証",
               "features": [
                 {
+                  "no": 3,
+                  "key": "ability",
+                  "value": 0.6568333333333333,
+                  "basis": "競走得点109.41を比較尺度に変換",
+                  "sources": []
+                },
+                {
                   "no": 5,
-                  "key": "initiative",
-                  "value": 0.7795454545454545,
-                  "basis": "B15／出走22の縮小的比較",
+                  "key": "ability",
+                  "value": 0.525,
+                  "basis": "競走得点101.5を比較尺度に変換",
+                  "sources": []
+                },
+                {
+                  "no": 5,
+                  "key": "sprint",
+                  "value": 0.46,
+                  "basis": "得点・脚質逃の暫定値",
+                  "sources": []
+                },
+                {
+                  "no": 6,
+                  "key": "ability",
+                  "value": 0.4508333333333333,
+                  "basis": "競走得点97.05を比較尺度に変換",
+                  "sources": []
+                },
+                {
+                  "no": 6,
+                  "key": "sprint",
+                  "value": 0.43033333333333335,
+                  "basis": "得点・脚質逃の暫定値",
                   "sources": []
                 }
               ]
             },
             {
-              "phase": 5,
-              "axis": "feasibility",
-              "value": 0.2054022727272728,
-              "reason": "番手差しは先行負担・残る脚・番手の追走／牽制負担を独立比較",
-              "features": [
-                {
-                  "no": 5,
-                  "key": "endurance",
-                  "value": 0.6507954545454546,
-                  "basis": "先行傾向による暫定値",
-                  "sources": []
-                },
-                {
-                  "no": 1,
-                  "key": "finish",
-                  "value": 0.5125,
-                  "basis": "3着内14／出走32（差し脚の実測ではない）",
-                  "sources": []
-                },
-                {
-                  "no": 1,
-                  "key": "track",
-                  "value": 0.55,
-                  "basis": "追走の直接資料なし・中立値",
-                  "sources": []
-                }
-              ]
+              "phase": 4,
+              "axis": "robustness",
+              "value": 0,
+              "reason": "相手より不利な条件での都合のよい成功には不利な評価",
+              "features": []
             }
           ]
         }
@@ -522,18 +625,9 @@
       "chosen": [
         "7-3-2",
         "7-3-6",
-        "1-5-3"
+        "2-3-7"
       ],
       "alternatives": [
-        {
-          "id": 847,
-          "pair": [
-            7,
-            3
-          ],
-          "mode": "番手差し",
-          "not_selected": "比較評価1.559。本線1.575との差は0.016。成立可能性：0.257／本線0.257"
-        },
         {
           "id": 850,
           "pair": [
@@ -541,16 +635,25 @@
             3
           ],
           "mode": "単騎先頭からの直線",
-          "not_selected": "比較評価1.488。本線1.575との差は0.087。成立可能性：0.292／本線0.257"
+          "not_selected": "比較評価1.196。本線1.343との差は0.148。頑健性・反証：0.000／本線0.025"
         },
         {
-          "id": 851,
+          "id": 849,
           "pair": [
-            2,
+            1,
+            5
+          ],
+          "mode": "番手差し",
+          "not_selected": "比較評価0.838。本線1.343との差は0.505。頑健性・反証：-0.275／本線0.025"
+        },
+        {
+          "id": 862,
+          "pair": [
+            7,
             3
           ],
-          "mode": "単騎先頭からの直線",
-          "not_selected": "比較評価1.479。本線1.575との差は0.096。成立可能性：0.292／本線0.257"
+          "mode": "番手差し",
+          "not_selected": "比較評価0.792。本線1.343との差は0.551。頑健性・反証：-0.219／本線0.025"
         }
       ]
     }

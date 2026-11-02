@@ -110,7 +110,7 @@ function build(raw,packs={},options={}){
   for(const id of s.order)event(waiting,id,'wait',id===lead?'先頭でペースを作り、踏み直せる余力を残す':s.outside?.id===id?'前局面の外進行を継続する':'前団の踏み合いを避けて位置と余力を維持する');
   term(waiting,'rationality',.25,'待機は無駄な踏み合いを避ける選択');
   const unused=s.order.slice(1).filter(id=>topology.active.includes(id)&&!s.used.includes(id));
-  term(waiting,'robustness',-Math.max(0,...unused.map(id=>power(id)+f(lines[id].head,'sprint')-power(lead)-.35)),'未仕掛けの有力別線を止め続ける仮説を反証',[ev(lines[lead].head,'ability')]);
+  term(waiting,'robustness',-Math.max(0,...unused.map(id=>power(id)+f(lines[id].head,'sprint')-power(lead)-.35)),'未仕掛けの有力別線を止め続ける仮説を反証',[ev(lines[lead].head,'ability'),...unused.flatMap(id=>[ev(lines[id].head,'ability'),ev(lines[id].head,'sprint')])]);
   result.push(waiting);
   if(s.outside)return result;
   for(const id of unused){for(const kind of stage===2?['kamashi','long']:['short'])result.push(...attack(s,id,kind));}
@@ -129,7 +129,7 @@ function build(raw,packs={},options={}){
    if(outcome==='failure'&&s.outside.kind==='short'&&index>1){rejected.push({line:attackId,tactic:'short',reason:'後方から最終バックで動いた短い捲りを一局面で先頭へ移す根拠がない'});continue;}
    if(action==='vertical'&&outcome==='partial')continue;
    if(outcome==='failure'){
-    move(t,attackId,0);t.outside=null;term(t,'feasibility',margin,'攻撃側が前団を越える条件を比較',[ev(att.head,'ability'),ev(att.head,'sprint'),ev(def.head,'ability')]);
+    move(t,attackId,0);t.outside=null;term(t,'feasibility',margin,'攻撃側が前団を越える条件を比較',[ev(att.head,'ability'),ev(att.head,s.outside.kind==='long'?'endurance':'sprint'),ev(def.head,'ability'),...(follower?[ev(follower,'block')]:[])]);
     event(t,attackId,'pass',`${who(attackId)}は前局面からの外進行を継続し${who(defId)}を乗り越える`);
     if(action==='block')t.burden[defId]++;
    }else if(outcome==='success'){
@@ -209,7 +209,7 @@ function build(raw,packs={},options={}){
   if(state.outside&&!(state.outside.kind==='short'&&state.outside.from>1)){const attacker=lines[state.outside.id].head;pairs.push({pair:[attacker,head],mode:'外並走から直線で捲り切り',margin:f(attacker,'sprint')*.5+f(attacker,'ability')*.5-state.burden[state.outside.id]*.08-leaderStrength});}
   if(third&&!state.detached.includes(third)&&f(third,'finish')>f(head,'finish')+.15)pairs.push({pair:[third,second||head],mode:'3番手の直線勝負',margin:f(third,'finish')-leaderStrength-.2});
   for(const fin of pairs){const s=copy(state);s.id=++serial;
-   term(s,'feasibility',fin.margin,`${fin.mode}は先行負担・残る脚・番手の追走／牽制負担を独立比較`,[ev(head,'endurance'),...(second?[ev(second,'finish'),ev(second,'track')]:[])]);
+   term(s,'feasibility',fin.margin,`${fin.mode}は先行負担・残る脚・番手の追走／牽制負担を独立比較`,[ev(head,'ability'),ev(head,'endurance'),...(second?[ev(second,'ability'),ev(second,'finish'),ev(second,'track')]:[])]);
    const corner=s.scenes[4],position=n=>corner.order.indexOf(n),available=corner.order.filter(n=>!fin.pair.includes(n));
    const thirdRank=available.map(no=>({no,comparison:f(no,'finish')+f(no,'ability')*.3-position(no)*.07-(s.detached.includes(no)?.35:0),reason:`${no}番は4角${position(no)+1}番手から直線。${idOf(no)===lead?'同ラインの連結を保つ':'前団との位置差と伸びを比較'}。`,features:[ev(no,'finish'),ev(no,'ability')]})).sort((a,b)=>b.comparison-a.comparison);
    const best=thirdRank[0],thirds=thirdRank.filter(x=>x.comparison>=best.comparison-.13&&position(x.no)<=4&&!s.detached.includes(x.no)).slice(0,3);
@@ -225,23 +225,33 @@ function build(raw,packs={},options={}){
  // Hard audit precedes any weighted comparison.
  const valid=finishHypotheses.filter(s=>{
   const ids=r.riders.map(x=>x.no).sort().join();
-  const ok=s.scenes.every(scene=>scene.order.slice().sort().join()===ids)&&s.scenes.length===6;
-  if(!ok)rejected.push({id:s.id,reason:'全員の位置が連続状態に存在しないため棄却'});return ok;
+  const failures=[];
+  if(!s.scenes.every(scene=>scene.order.slice().sort().join()===ids)||s.scenes.length!==6)failures.push('全員の局面状態が保持されない');
+  if(s.pendingCut)failures.push('斬った後に主導権を引き受けるラインが未解決');
+  const corner=s.scenes[4],winner=s.finish.pair[0];
+  if(s.detached.includes(winner))failures.push('追走離れの後に回復過程なく1着へ置かれている');
+  if(s.outside?.kind==='short'&&s.outside.from>1&&winner===lines[s.outside.id].head)failures.push('後方の遅い仕掛けを説明なく1着へ進めている');
+  if(s.attacks.some(a=>a.from===0))failures.push('先頭から捲る矛盾');
+  for(const scene of s.scenes.slice(1,5))if(scene.control!==s.scenes[s.scenes.indexOf(scene)-1].control&&!scene.events.some(e=>['press','pass','resist','yield'].includes(e.action)))failures.push('主導権変化を説明する相互作用がない');
+  s.audit={passed:!failures.length,failures,checks:['全員の位置保持','主導権変化の因果','斬りの目的と受入れ','遅い後方仕掛けの制約','追走離れの帰結']};const ok=s.audit.passed;
+  if(!ok)rejected.push({id:s.id,reason:failures.join('。')});return ok;
  });
  if(!valid.length)throw Error('局面状態の整合性を満たす候補なし');
- const spreads=Object.keys(AXES).map(axis=>{const values=valid.map(s=>subtotal(s,axis));return {axis,spread:Math.max(...values)-Math.min(...values)};}).sort((a,b)=>b.spread-a.spread);
+ const pareto=valid.filter(a=>!valid.some(b=>b!==a&&Object.keys(AXES).every(k=>subtotal(b,k)>=subtotal(a,k)-1e-10)&&Object.keys(AXES).some(k=>subtotal(b,k)>subtotal(a,k)+1e-10)));
+ const strongest=Math.max(...pareto.map(rank)),finalists=pareto.filter(s=>rank(s)>=strongest-.4);
+ const spreads=Object.keys(AXES).map(axis=>{const values=finalists.map(s=>subtotal(s,axis));return {axis,spread:Math.max(...values)-Math.min(...values)};}).sort((a,b)=>b.spread-a.spread);
  const axis=spreads[0].axis,dominance=spreads[0].spread;
  const weight=Object.fromEntries(Object.keys(AXES).map(k=>[k,k===axis?2:1]));
- const rated=valid.map(s=>({...s,axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),score:Object.keys(AXES).reduce((a,k)=>a+subtotal(s,k)*weight[k],0)})).sort((a,b)=>b.score-a.score||a.id-b.id);
+ const rated=pareto.map(s=>({...s,axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),score:Object.keys(AXES).reduce((a,k)=>a+subtotal(s,k)*weight[k],0)})).sort((a,b)=>b.score-a.score||a.id-b.id);
  const main=rated[0],rival=rated.find(s=>s.order[0]!==main.order[0]||s.finish.pair.join()!==main.finish.pair.join()||s.attacks[0]?.id!==main.attacks[0]?.id)||rated[1];
  const drivers=main.terms.filter(t=>t.axis===axis).sort((a,b)=>Math.abs(b.value)-Math.abs(a.value)),gap=rival?main.score-rival.score:null;
  const tickets=main.finish.thirds.map(x=>({trio:[...main.finish.pair,x.no],key:[...main.finish.pair,x.no].join('-'),hypothesis:main.id,group:'main',reason:x.reason}));
  if(rival&&gap<.45){const x=rival.finish.thirds[0],trio=[...rival.finish.pair,x.no];if(!tickets.some(t=>t.key===trio.join('-')))tickets.push({trio,key:trio.join('-'),hypothesis:rival.id,group:'alternative',reason:`${rival.finish.mode}の独立仮説：`+rival.scenes.flatMap(x=>x.events).filter(e=>['pass','resist','yield','long','kamashi','short'].includes(e.action)).map(e=>e.reason).join('。')});}
  const reversalChanges=rival?Object.keys(AXES).map(k=>({axis:k,label:AXES[k],main:main.axes[k],rival:rival.axes[k],weighted_difference:(main.axes[k]-rival.axes[k])*weight[k]})).sort((a,b)=>Math.abs(b.weighted_difference)-Math.abs(a.weighted_difference)):[];
- const decision={axis,label:AXES[axis],reason:`候補間で「${AXES[axis]}」の評価差${dominance.toFixed(3)}が最も大きく、同軸を優先。固定のレース別重みを置かず、この入力の候補比較から抽出。`,spreads,weights:weight,drivers,gap,confidence:gap!==null&&gap<.2?'拮抗':'相対的に優位',selection_reason:drivers.map(t=>t.reason).slice(0,3).join('。'),reversal:rival?{rival:rival.id,condition:`本線を支える「${reversalChanges[0].label}」の優位が崩れ、対抗の条件が上回る場合。${rival.scenes.flatMap(s=>s.events).find(e=>['long','kamashi','short','press'].includes(e.action))?.reason||rival.finish.mode}。対抗との差${gap.toFixed(3)}は校正確率ではない。`,changes:reversalChanges,terms:rival.terms.filter(t=>t.axis===axis)}:null};
+ const decision={axis,label:AXES[axis],reason:`候補間で「${AXES[axis]}」の評価差${dominance.toFixed(3)}が有力候補間で最も大きく、同軸を優先。局面矛盾を棄却し、全軸で劣る候補を除いたうえで、この入力の有力候補比較から抽出。`,spreads,weights:weight,drivers,gap,confidence:gap!==null&&gap<.2?'拮抗':'相対的に優位',selection_reason:drivers.map(t=>t.reason).slice(0,3).join('。'),reversal:rival?{rival:rival.id,condition:`本線を支える「${reversalChanges[0].label}」の優位が崩れ、対抗の条件が上回る場合。${rival.scenes.flatMap(s=>s.events).find(e=>['long','kamashi','short','press'].includes(e.action))?.reason||rival.finish.mode}。対抗との差${gap.toFixed(3)}は校正確率ではない。`,changes:reversalChanges,terms:rival.terms.filter(t=>t.axis===axis)}:null};
  const diverse=[],seenFamilies=new Set();for(const s of rated.filter(s=>s.id!==main.id)){const family=[s.attacks.at(-1)?.kind,s.defense?.action,s.defense?.outcome,s.detached.length>0,!!s.contest].join('|');if(!seenFamilies.has(family)){diverse.push(s);seenFamilies.add(family);}}
  const alternatives=diverse.slice(0,12).map(s=>({...s,not_selected:`比較評価${s.score.toFixed(3)}。本線${main.score.toFixed(3)}との差は${(main.score-s.score).toFixed(3)}。${AXES[axis]}：${s.axes[axis].toFixed(3)}／本線${main.axes[axis].toFixed(3)}`}));
- return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,input_as_of:input.as_of,cutoff:input.cutoff},input,topology,main,decision,rival,alternatives,candidate_evaluations:rated.map(s=>({id:s.id,score:s.score,axes:s.axes,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,detached:s.detached,contest:s.contest||null})),tickets,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,retained:rated.length,method:'ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
+ return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,input_as_of:input.as_of,cutoff:input.cutoff},input,topology,main,decision,rival,alternatives,candidate_evaluations:valid.map(s=>({id:s.id,score:Object.keys(AXES).reduce((sum,k)=>sum+subtotal(s,k)*weight[k],0),axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),audit:s.audit,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,detached:s.detached,contest:s.contest||null})),tickets,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,audit_passed:valid.length,pareto:pareto.length,finalists:finalists.length,retained:rated.length,method:'ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
 }
 function compress(tickets){const groups=new Map();for(const t of tickets){const k=t.trio.slice(0,2).join('-');if(!groups.has(k))groups.set(k,new Set());groups.get(k).add(t.trio[2]);}return [...groups].map(([k,thirds])=>({text:k+'-'+[...thirds].sort((a,b)=>a-b).join(''),count:thirds.size}));}
 const api={VERSION,PHASES,AXES,TACTICS,structure,build,compress};if(typeof module!=='undefined')module.exports=api;root.LineEngine=api;
