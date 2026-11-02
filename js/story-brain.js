@@ -13,7 +13,7 @@ const Provenance=typeof module!=='undefined'?require('./model-provenance.js'):ro
 const Build=typeof module!=='undefined'?require('./model-build.js'):root.ModelBuild;
 const Search=typeof module!=='undefined'?require('./search-policy.js'):root.TacticalSearch;
 const Finish=typeof module!=='undefined'?require('./finish-review.js'):root.FinishReview;
-const VERSION='story-first-v5.5.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
+const VERSION='story-first-v5.6.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
 function validate(r){const ids=r?.riders?.map(x=>x.no)||[],flat=r?.lineup?.flat()||[];
@@ -57,7 +57,7 @@ function build(r,pack={},options={}){
   const scrutiny=s.decisions.filter(d=>d.stage===index&&d.deliberation).map(d=>d.deliberation);reasoning.scrutiny=scrutiny;
   // Race prose states the selected action directly. Source limits, competing
   // decisions and unmeasured inputs live in the existing expandable reasoning.
-  const fact=reasoning.facts.find(f=>(f.kind==='race_intention'||f.kind==='observed_action')&&
+  const fact=reasoning.facts.find(f=>(f.kind==='race_intention'||f.kind==='observed_action'||f.kind==='qualitative_statement')&&
     !/未確認|未取得|出典未確認|発言末尾未収録/.test(f.label));
   const basis=fact&&!text.includes(fact.label)?fact.label+'。':'';
   const outsideHeads=index===4&&s.cornerRider?[...new Set([...s.outside,s.cornerRider])]:[...s.outside];
@@ -332,10 +332,12 @@ function build(r,pack={},options={}){
  if(!selected.length||selected.length>10)throw Error('買い目の選定点数が不正です');
  const ticketMap=new Map();for(const s of scenarios)for(const t of s.outcomes){if(!ticketMap.has(t.key))ticketMap.set(t.key,{key:t.key,trio:t.trio,score:0});ticketMap.get(t.key).score+=s.score*t.score;}
  const tickets=[...ticketMap.values()].sort((a,b)=>b.score-a.score||a.key.localeCompare(b.key));
- const profiles=Object.fromEntries(ids.map(n=>[n,{...priors.get(n),evidence:memories.filter(m=>m.no===n&&m.numeric),memory:memories.filter(m=>m.no===n)}]));
+ const profiles=Object.fromEntries(ids.map(n=>[n,{...priors.get(n),evidence:memories.filter(m=>m.no===n&&m.numeric),qualitative:Memory.synthesize(memories,n),memory:memories.filter(m=>m.no===n)}]));
+ const generalLeaders=[...new Set([main.leader,main.defender,main.homeRider,main.attacker].filter(Boolean))].filter(n=>profiles[n].qualitative.source_count).slice(0,2);
+ if(generalLeaders.length)main.reading+=' 総合材料として、'+generalLeaders.map(n=>who(n)+'は'+profiles[n].qualitative.summary).join('。')+'。';
  const keymen=[...new Set([main.attacker,main.defender,main.homeRider,main.cornerRider,main.leader].filter(Boolean))].slice(0,3).map(no=>({no,name:by.get(no).name,decisions:[no===main.leader?'主導権と残り脚が本線の軸':'仕掛け・反応が本線と別筋の分かれ目'],score:0,matched_contexts:0}));
  return {version:VERSION,model:Build,reproducibility:Provenance.capture(r,pack,Build,width),race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles,context,missing:context.missing.length>0,story:{main,alternatives,selection_review:selectionReview},selection_policy:{main:mainCandidates.length,alternatives:alternatives.length,total:selected.length,max_total:10,method:'story-before-tickets',ticket_rule:'relative-support-v1',main_relative_floor:.65,alternative_score_gap:.12,scope:'未校正の比較基準。確率・期待値・回収率最適化ではない'},chosen:selected,tickets,narratives:[main,...alternatives],hypotheses:[main,...alternatives].map(s=>({id:s.id,mode:s.mode,score:s.score,representative:s})),keymen,front:main.front,dataSource:r.source?.label||'参考サンプル',diagnostics,
-  intelligence:{generated_at:pack.generated_at||null,evidence_count:memories.filter(m=>m.numeric).length,memory_count:memories.length,relationship_count:context.relationships.length,cutoff_policy:'公開・初回取得ともに発走前'},rating:'6段階をつなぐ展開仮説。的中確率ではありません'};
+  intelligence:{generated_at:pack.generated_at||null,evidence_count:memories.filter(m=>m.numeric).length,memory_count:memories.length,knowledge_count:memories.filter(m=>m.kind==='rider_knowledge').length,synthesis_riders:ids.filter(n=>Memory.synthesize(memories,n).source_count).length,relationship_count:context.relationships.length,cutoff_policy:'公開・初回取得ともに発走前'},rating:'6段階をつなぐ展開仮説。的中確率ではありません'};
 }
 const api={VERSION,STAGES,MODES,build,validate,profiles:Legacy.profiles};if(typeof module!=='undefined')module.exports=api;root.RaceBrain=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
