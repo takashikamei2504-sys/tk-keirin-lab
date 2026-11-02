@@ -36,6 +36,8 @@ for(const story of [result.story.main,...result.story.alternatives]){
  for(const [i,scene] of story.scenes.entries()){
   assert.equal(scene.lineReactions.stage,i+1);
   assert.equal(scene.lineReactions.rows.length,race.lineup.length);
+  assert.equal(scene.lineReactions.riders.length,race.riders.length);
+  assert.deepEqual(scene.lineReactions.riders.map(x=>x.to),race.riders.slice().sort((a,b)=>a.no-b.no).map(x=>scene.order.indexOf(x.no)+1));
   assert.deepEqual(scene.lineReactions.rows.map(x=>x.leader),race.lineup.map(l=>l[0]));
   assert.deepEqual(scene.lineReactions.rows.map(x=>x.to),race.lineup.map(l=>scene.order.indexOf(l[0])+1));
   if(i===5)for(const row of scene.lineReactions.rows)assert.equal(row.from,story.scenes[4].order.indexOf(row.leader)+1);
