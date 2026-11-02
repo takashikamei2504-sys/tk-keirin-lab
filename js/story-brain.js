@@ -136,6 +136,7 @@ function build(r,pack={},options={}){
    scene.order=[...s.order];
    scene.energy={...s.energy};
    scene.lineReactions=reactions.snapshot(s,1,s.scenes.at(-2));
+   scene.reasoning=reasons.scene(s.decisions.filter(d=>d.stage===1));
    scene.tactical.redThird=s.redThird||null;
    scene.tactical.redThirdAhead=s.redThirdAhead||null;
  });
@@ -217,7 +218,7 @@ function build(r,pack={},options={}){
  },(s,c)=>{
   s.innerRider=c.key==='none'?null:Number(c.key.split(':')[1]);s.innerMode=c.key.split(':')[0];
   const attempt=s.cornerRider?`${who(s.cornerRider)}が${s.cornerOrigin==='recover'?'離れた位置から踏み直して':s.cornerOrigin==='outer'?'大外を回して':'3コーナーから捲って'}迫る。`:'別線は仕掛けず、前団が直線勝負に入る。';
-  const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める':'仕掛けを止め切れない'}。そのぶん内に空きができる。`:s.defense==='vertical'?`${who(s.defender)}は横に振るより縦を踏む。${s.cornerRider?'外の仕掛けへの抵抗は薄くなるが、自分の伸びを優先する':'前の消耗を見て早めに踏み込む'}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手は空いたまま、先行選手が外の動きに対応する。';
+  const defense=s.defender?s.defense==='block'?`${who(s.defender)}は外へブロック。${s.blockResult==='stopped'?'仕掛けの勢いを止める':'仕掛けを止め切れない'}。そのぶん内に空きができる。`:s.defense==='vertical'?`${s.cornerRider?`${who(s.defender)}は横へ牽制せず縦に踏み、外の仕掛けを止めるより自分の伸びを優先する`:`${who(s.defender)}は番手から踏み出し、先行の残り脚を見て差しを狙う`}。`:`${who(s.defender)}は番手を保ち、差しのタイミングを待つ。`:'番手は空いたまま、先行選手が外の動きに対応する。';
   const inner=s.innerRider?`${who(s.innerRider)}は${s.innerMode==='split'?'3番手から中割り':'後続からインを突く'}を狙う。開いたコースを使えることが成立条件。`:'後続は内を突かず、直線で踏み込む。';
   addScene(s,4,attempt+defense+inner,s.openInside?'外の攻防・内に空き':s.cornerRider?'外からの仕掛け':'直線待ち',[s.cornerRider,s.defender,s.innerRider].filter(Boolean));
  });
@@ -255,6 +256,7 @@ function build(r,pack={},options={}){
   const otherHeads=[...new Set(outcomes.slice(0,6).map(t=>t.trio[0]))].filter(n=>n!==top.trio[0]);
   const closing=conclusion+Reality.finishExplanation(s,top.trio,who);
   addScene(last,5,closing,'ゴール前',top.trio);last.scenes[5].order=[...top.trio,...s.order.filter(n=>!top.trio.includes(n))];
+  last.scenes[5].lineReactions=reactions.snapshot({...s,order:last.scenes[5].order},5,last.scenes[4]);
   const id='story-'+(++serial),signature=signatureOf(s);
   return {id,signature,score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
    scenes:last.scenes,snapshots:last.scenes,states:last.scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),decisions:s.decisions,movementTrace:s.moves,explanation:last.scenes.map(x=>x.action).join('\n'),
@@ -270,7 +272,7 @@ function build(r,pack={},options={}){
  function take(s){const t=s.outcomes.find(t=>!used.has(t.key));if(!t)return false;const [category,trigger]=difference(s);
   const last=s.scenes[5],finishState={order:s.scenes[4].order,defender:s.defender,defense:s.defense,survivingAttack:s.cornerRider&&s.blockResult!=='stopped'?s.cornerRider:null,innerRider:s.innerRider,outside:[]};
   const closing=`この別展開では${who(t.trio[0])}が${MODES[t.mode]}で勝ち切る。${who(t.trio[1])}が２着、${who(t.trio[2])}が３着。`+Reality.finishExplanation(finishState,t.trio,who);
-  const scenes=[...s.scenes.slice(0,5),{...last,action:closing,reasoning:reasons.finish({order:s.scenes[4].order,energy:s.scenes[4].energy},t.trio),tactical:{...last.tactical,finish_from:[...s.scenes[4].order],finish_order:[...t.trio]},order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio}];
+  const scenes=[...s.scenes.slice(0,5),{...last,action:closing,reasoning:reasons.finish({order:s.scenes[4].order,energy:s.scenes[4].energy},t.trio),tactical:{...last.tactical,finish_from:[...s.scenes[4].order],finish_order:[...t.trio]},order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))],actors:t.trio,lineReactions:reactions.snapshot({...s,order:[...t.trio,...last.order.filter(n=>!t.trio.includes(n))]},5,s.scenes[4])}];
   const alternative={...s,first:t.trio[0],mode:t.mode,scenes,snapshots:scenes,states:scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),explanation:scenes.map(x=>x.action).join('\n'),divergence:category,trigger,upset:t.trio[0]!==main.first};
   alternatives.push(alternative);signatures.add(s.signature);categories.add(category);
   selected.push({...t,group:'alternative',supporting_path:alternative,paths:[alternative],selection_reason:`${category}が変わる別筋：${trigger}`});used.add(t.key);return true;}
