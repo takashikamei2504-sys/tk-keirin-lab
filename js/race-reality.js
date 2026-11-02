@@ -46,7 +46,7 @@ function finishingAccess(s,no,place){
  if(index>=5&&!attack)return {allowed:false,reason:'後方'+(index+1)+'番手から直線だけで急上昇する根拠がない'};
  if(passing>limit)return {allowed:false,reason:'直線だけで'+passing+'人を交わす移動を説明できない'};
  if(place===1&&index>3&&!attack)return {allowed:false,reason:'最終コーナーからの勝ち切り経路が未設定'};
- let route=vertical?'番手から縦に踏む':s.innerRider===no?'内の空きコースを使う（成立仮定）':attack?'外の仕掛けをつなぐ（成立仮定）':passing?'直線で外から'+passing+'人を交わす（進路未測定）':'現在の位置を残す';
+ let route=vertical?'番手から縦に踏む':s.innerRider===no?'内の空きコースを使う':attack?'外の仕掛けをつなぐ':passing?'直線で'+passing+'人を交わす':'現在の位置を残す';
  return {allowed:true,passing,route,reason:'位置と仮説上の進路に基づく可到達性。速度・車間は未計測'};
 }
 function finishExplanation(s,trio,who){

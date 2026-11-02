@@ -12,7 +12,8 @@ const Reactions=typeof module!=='undefined'?require('./line-reactions.js'):root.
 const Provenance=typeof module!=='undefined'?require('./model-provenance.js'):root.ModelProvenance;
 const Build=typeof module!=='undefined'?require('./model-build.js'):root.ModelBuild;
 const Search=typeof module!=='undefined'?require('./search-policy.js'):root.TacticalSearch;
-const VERSION='story-first-v5.2.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
+const Finish=typeof module!=='undefined'?require('./finish-review.js'):root.FinishReview;
+const VERSION='story-first-v5.3.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
 const clip=(v,a=.04,b=.96)=>Math.min(b,Math.max(a,v));
 function validate(r){const ids=r?.riders?.map(x=>x.no)||[],flat=r?.lineup?.flat()||[];
@@ -29,7 +30,7 @@ function build(r,pack={},options={}){
  const reasons=Reasons.build(r,memories,context);
  const deliberation=Deliberation.build(r,context,{ability,trait});
  const crossLine=CrossLine.build(r,context,{ability,trait});
- const reactions=Reactions.build(r);
+ const reactions=Reactions.build(r),finishReview=Finish.build(r,{ability,trait});
  let unresolved=0,serial=0,reconsidered=0;const searchTrace=[];const considered=new Set(),objections=new Map();
  const choose=(key,weight,extra={})=>({key,weight:Math.max(.001,weight),feasibility:'allowed',...extra});
  const initial={mass:1,analysisCost:0,auditFailures:0,outside:[],order:r.lineup.flat(),energy:Object.fromEntries(ids.map(n=>[n,0])),connected:Object.fromEntries(ids.map(n=>[n,true])),scenes:[],decisions:[],moves:[],stage:0};
@@ -240,7 +241,7 @@ function build(r,pack={},options={}){
  function finishes(s){
   const third=controlLine(s.leader)[2],heads=[s.leader,s.defender,s.survivingAttack,s.innerRider,third&&s.gap==='holds'&&s.connected[third]!==false&&s.order.indexOf(third)<=3?third:null].filter(Boolean);
   const unique=[...new Set(heads)];
-  const rank=n=>ability(n)*.5+trait(n,'finish',{...s,stage:5})*.3-s.energy[n]*.38-s.order.indexOf(n)*.07+(n===s.innerRider?.13:0)+(n===s.survivingAttack?.12:0)+(n===s.defender&&s.defense==='vertical'?.15:0);
+  const review=finishReview.assess(s),rank=n=>review.rows.find(x=>x.no===n).score;
   const distribute=(arr,place)=>Weights.allocate(1,arr.filter(n=>Reality.finishingAccess(s,n,place).allowed).map(n=>choose(String(n),Math.exp(rank(n)*3)))).branches;
   const all=[];
   for(const first of distribute(unique,1))for(const second of distribute(ids.filter(n=>n!==Number(first.key)),2))for(const third of distribute(ids.filter(n=>n!==Number(first.key)&&n!==Number(second.key)),3)){
@@ -269,18 +270,19 @@ function build(r,pack={},options={}){
  const scenarios=states.map(s=>{const outcomes=finishes(s),top=outcomes[0],last=state(s);
   const conclusion=`直線は${who(top.trio[0])}が${MODES[top.mode]}で勝ち切る。${who(top.trio[1])}が２着、${who(top.trio[2])}が３着。${s.defense==='block'?(s.openInside?'番手の横の仕事で内の進路が開き、直線の伸びを比べる':'番手の横の仕事と、その後の脚色が決着を分ける'):s.survivingAttack?'外からの勢いと先行の残り脚がぶつかる':s.defender?'先行が使った脚と番手の余力が最後の差になる':'先行の残り脚と別線の追込みで決まる'}。`;
   const otherHeads=[...new Set(outcomes.slice(0,6).map(t=>t.trio[0]))].filter(n=>n!==top.trio[0]);
-  const closing=conclusion+Reality.finishExplanation(s,top.trio,who);
+  const finish=finishReview.assess(s);finish.explanation=finishReview.explain(finish,top.trio);
+  const closing=conclusion+finish.explanation+Reality.finishExplanation(s,top.trio,who);
   addScene(last,5,closing,'ゴール前',top.trio);last.scenes[5].order=[...top.trio,...s.order.filter(n=>!top.trio.includes(n))];
   last.scenes[5].lineReactions=reactions.snapshot({...s,order:last.scenes[5].order},5,last.scenes[4]);
   const id='story-'+(++serial),signature=signatureOf(s);
   return {id,signature,score:s.mass,first:top.trio[0],starter:s.starter,front:s.front,attacker:s.attacker,redThird:s.redThird||null,redThirdAhead:s.redThirdAhead||null,tactic:s.tactic,stand:s.stand,leader:s.leader,gap:s.gap,seat:s.seat,mode:top.mode,outcome:s.outcome,
    scenes:last.scenes,snapshots:last.scenes,states:last.scenes.map(x=>`${x.phase}：${x.action}【${x.shape}／隊列 ${x.order.join('→')}】`),decisions:s.decisions,movementTrace:s.moves,explanation:last.scenes.map(x=>x.action).join('\n'),
-   title:`${who(s.leader)}の主導権から${MODES[top.mode]}`,outcomes,defender:s.defender,homeResult:s.homeResult,homeRider:s.homeRider,backRider:s.backRider,backResult:s.backResult,defense:s.defense,blockResult:s.blockResult,cornerRider:s.cornerRider,innerRider:s.innerRider,audit:deliberation.audit(s)};
+   title:`${who(s.leader)}の主導権から${MODES[top.mode]}`,finish_review:finish,outcomes,defender:s.defender,homeResult:s.homeResult,homeRider:s.homeRider,backRider:s.backRider,backResult:s.backResult,defense:s.defense,blockResult:s.blockResult,cornerRider:s.cornerRider,innerRider:s.innerRider,audit:deliberation.audit(s)};
  }).sort((a,b)=>b.score-a.score||a.signature.localeCompare(b.signature));
  // The main scenario is selected BEFORE looking at any finish-ticket ranking.
  const main=scenarios.find(s=>s.signature===signatureOf(mainState)),alternatives=[],signatures=new Set([main.signature]),categories=new Set();
  const turningPoints=[main.homeRider?`${who(main.homeRider)}がホームで仕掛け`:'ホームでは前団が隊列を保ち',main.backRider?`${who(main.backRider)}がバックで${main.backRider===main.homeRider?'踏み続け':'反撃し'}`:'バックでは前団が主導権を守り',main.cornerRider?`${who(main.cornerRider)}の最後の仕掛け${main.defender?'に番手が'+(main.defense==='block'?'ブロックで応じる':main.defense==='vertical'?'縦へ踏む':'直線勝負を選ぶ'):'が迫る'}`:'3〜4角から直線勝負へ進む'];
- main.reading=`私はこう読む。${turningPoints.join('、')}。最後は${who(main.first)}が${MODES[main.mode]}で勝つ。`;
+ main.reading=`私はこう読む。${who(main.leader)}が最終バックの主導権を握る。${turningPoints.join('、')}。最後は${who(main.first)}が${MODES[main.mode]}で勝ち、${who(main.outcomes[0].trio[1])}が２着。${main.finish_review.explanation}`;
  main.rationale='なぜなら、'+main.audit.reviews.filter(d=>d.phase_key).map(d=>`${d.phase}は${d.selected_reason}`).join('。')+'。';
  const difference=s=>s.front!==main.front?['S取り・初手',`${who(s.starter)}がSを取ると初手の位置関係が変わる`]:s.attacker!==main.attacker||s.redThird!==main.redThird||s.stand!==main.stand||s.tactic!==main.tactic?['赤板の攻防',`${s.attacker?who(s.attacker)+'の仕掛け':'赤板の待機'}と、前受け側の${s.stand==='resist'?'突っ張り':'対応'}${s.redThird?'、さらに'+who(s.redThird)+'の位置上昇':''}が変わる`]:s.homeRider!==main.homeRider||s.homeResult!==main.homeResult||s.gap!==main.gap?['ホームの仕掛け・追走','ホームのロング捲り、または追走の成否が変わる']:s.backRider!==main.backRider||s.backResult!==main.backResult?['バックの反撃','最終バックでの仕掛け直しと、その反撃への抵抗が変わる']:s.defense!==main.defense||s.innerRider!==main.innerRider?['3～4角の判断','横の仕事・縦踏み・内のコース選択が変わる']:['終盤の別筋','外からの仕掛けや番手の収まり方が変わる'];
  // The front-of-race causal path is one story. A minor placing may change
