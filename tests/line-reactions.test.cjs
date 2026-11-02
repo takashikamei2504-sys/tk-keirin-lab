@@ -38,7 +38,7 @@ for(const story of [result.story.main,...result.story.alternatives]){
   assert.equal(scene.lineReactions.rows.length,race.lineup.length);
   assert.deepEqual(scene.lineReactions.rows.map(x=>x.leader),race.lineup.map(l=>l[0]));
   assert.deepEqual(scene.lineReactions.rows.map(x=>x.to),race.lineup.map(l=>scene.order.indexOf(l[0])+1));
-  if(i===5)assert.equal(scene.lineReactions.rows.some(x=>x.changed),scene.scenes?.length>0?true:scene.order.some((n,j)=>j<3&&n!==story.scenes[4].order[j]));
+  if(i===5)for(const row of scene.lineReactions.rows)assert.equal(row.from,story.scenes[4].order.indexOf(row.leader)+1);
  }
  if(story.scenes[1].tactical.redThird){
   assert.ok(story.scenes[1].action.includes('攻防を利用して'));
