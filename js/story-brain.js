@@ -6,6 +6,7 @@ const Context=typeof module!=='undefined'?require('./rider-context.js'):root.Rid
 const Weights=typeof module!=='undefined'?require('./branch-weights.js'):root.BranchWeights;
 const Reasons=typeof module!=='undefined'?require('./decision-reasons.js'):root.DecisionReasons;
 const Deliberation=typeof module!=='undefined'?require('./tactical-deliberation.js'):root.TacticalDeliberation;
+const CrossLine=typeof module!=='undefined'?require('./cross-line-tactics.js'):root.CrossLineTactics;
 const Reality=typeof module!=='undefined'?require('./race-reality.js'):root.RaceReality;
 const VERSION='story-first-v4.0.0',STAGES=['並び確認・S取り','赤板周回～打鐘','最終ホーム','最終バック','最終3～4コーナー','最後の直線'];
 const MODES={lead:'逃げ粘り',sashi:'番手差し',makuri:'捲り',outer:'大外強襲',split:'3番手の中割り',inside:'後続のイン突き',vertical:'縦踏み',block:'番手のブロック',recover:'離れから立て直し',thirdsprint:'3番手の追込み'};
@@ -23,6 +24,7 @@ function build(r,pack={},options={}){
  const motivation=n=>context.lines.find(l=>l.leader===n)?.motivation||0;
  const reasons=Reasons.build(r,memories,context);
  const deliberation=Deliberation.build(r,context,{ability,trait});
+ const crossLine=CrossLine.build(r,context,{ability,trait});
  let unresolved=0,serial=0,reconsidered=0;const considered=new Set(),objections=new Map();
  const choose=(key,weight,extra={})=>({key,weight:Math.max(.001,weight),feasibility:'allowed',...extra});
  const initial={mass:1,analysisCost:0,auditFailures:0,outside:[],order:r.lineup.flat(),energy:Object.fromEntries(ids.map(n=>[n,0])),connected:Object.fromEntries(ids.map(n=>[n,true])),scenes:[],decisions:[],moves:[],stage:0};
@@ -52,11 +54,13 @@ function build(r,pack={},options={}){
  }
  function branch(states,key,candidates,apply){const all=[];
   for(const s of states){const choices=candidates(s).map(c=>{const reasoning=reasons.evaluate(key,c,{...s,phase:STAGES[s.stage||0]});return {...c,weight:c.weight*reasoning.multiplier,reasoning};});
-   const phase={'home-attack':'home','back-attack':'back','corner-attack':'late'}[key],reviews=phase?deliberation.review(s,phase,choices).assessments:key==='defense'?deliberation.response(s,choices):null;
+   const strategic=key==='red-attack'?crossLine.review(s,choices):null;
+    if(strategic)for(const c of choices)c.weight*=strategic.assessments.get(c.key)?.multiplier??1;
+    const phase={'home-attack':'home','back-attack':'back','corner-attack':'late'}[key],reviews=phase?deliberation.review(s,phase,choices).assessments:key==='defense'?deliberation.response(s,choices):null;
    if(reviews)for(const v of reviews.values())if(!v.passed){reconsidered++;if(v.objection)objections.set(v.phase+'|'+v.objection,{phase:v.phase,reason:v.objection});}
    if(['defense','inside'].includes(key))for(const c of choices.filter(c=>c.feasibility!=='blocked'))considered.add(c.key.split(':')[0]);const allocation=Weights.allocate(s.mass,choices),lookup=new Map(choices.map(c=>[c.key,c]));unresolved+=allocation.unresolvedMass;
    const topWeight=Math.max(...choices.filter(c=>c.feasibility!=='blocked').map(c=>c.weight));
-   for(const b of allocation.branches){const c=lookup.get(b.key),next=state(s),review=reviews?.get(c.key);next.mass=b.mass;next.analysisCost+=(review?review.regret:Math.log(topWeight/c.weight)*.08);next.auditFailures+=review&&!review.passed?1:0;next.decisions.push({stage:s.stage,key,choice:c.key,actor:c.actor||null,basis:c.reasoning.basis,reasoning:c.reasoning,deliberation:review||null,alternatives:choices.filter(o=>o.key!==c.key).sort((a,b)=>b.weight-a.weight||a.key.localeCompare(b.key)).slice(0,3).map(o=>({label:o.reasoning.label,choice:o.key,actor:o.actor||null,feasibility:o.feasibility,basis:o.reasoning.basis}))});apply(next,c);all.push(next);}}
+   for(const b of allocation.branches){const c=lookup.get(b.key),next=state(s),review=reviews?.get(c.key);next.mass=b.mass;next.analysisCost+=(review?review.regret:Math.log(topWeight/c.weight)*.08)+(strategic?strategic.assessments.get(c.key).regret*.48:0);next.auditFailures+=review&&!review.passed?1:0;next.decisions.push({stage:s.stage,key,choice:c.key,actor:c.actor||null,basis:c.reasoning.basis,reasoning:c.reasoning,deliberation:review||null,strategic:strategic?.assessments.get(c.key)||null,alternatives:choices.filter(o=>o.key!==c.key).sort((a,b)=>b.weight-a.weight||a.key.localeCompare(b.key)).slice(0,3).map(o=>({label:o.reasoning.label,choice:o.key,actor:o.actor||null,feasibility:o.feasibility,basis:o.reasoning.basis}))});apply(next,c);all.push(next);}}
   all.sort((a,b)=>a.auditFailures-b.auditFailures||a.analysisCost-b.analysisCost||b.mass-a.mass||JSON.stringify(a.decisions.map(d=>d.choice)).localeCompare(JSON.stringify(b.decisions.map(d=>d.choice))));
   // Preserve a representative of each new decision before filling the beam by weight.
   const keep=[],seen=new Set();for(const s of all){const id=[s.front,s.attacker,s.stand,s.homeRider,s.backRider,s.gap,s.defense,s.innerRider,s.decisions.at(-1).choice].join('|');if(!seen.has(id)&&keep.length<width){seen.add(id);keep.push(s);}}
@@ -191,7 +195,7 @@ function build(r,pack={},options={}){
  const excludedReality=states.length-acceptedReality.length;
  unresolved+=states.filter(x=>!Reality.audit(x,ids).passed).reduce((a,x)=>a+x.mass,0);
  states=acceptedReality;
- const diagnostics={realityVersion:Reality.VERSION,realityExcluded:excludedReality,considered_corner_actions:[...considered],initialMass:1,terminalStates:states.length,terminalMass:states.reduce((a,s)=>a+s.mass,0),unresolvedMass:unresolved,width,kinematics:'隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測',reconsidered_choices:reconsidered};
+ const diagnostics={openingStrategy:'cross-line-counterplay-v1',realityVersion:Reality.VERSION,realityExcluded:excludedReality,considered_corner_actions:[...considered],initialMass:1,terminalStates:states.length,terminalMass:states.reduce((a,s)=>a+s.mass,0),unresolvedMass:unresolved,width,kinematics:'隊列・進路・消耗は未校正の仮説。実際の車間・速度は未計測',reconsidered_choices:reconsidered};
  if(Math.abs(diagnostics.terminalMass+unresolved-1)>1e-9)throw Error('展開分岐の重みが保存されていません');
  const signatureOf=s=>[s.front,s.attacker,s.tactic,s.stand,s.outcome,s.homeRider,s.homeResult,s.backRider,s.backResult,s.gap,s.seat,s.cornerRider,s.defense,s.blockResult,s.innerRider].join('|');
  // Decide the main complete tactical path before generating any finishing ticket.
