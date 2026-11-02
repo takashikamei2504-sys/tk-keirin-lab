@@ -67,9 +67,18 @@ function build(r){
    }else if(stage===6){action=to<from?'直線で進出':to>from?'直線で後退':'着順維持';cause='直線での決着';}
    return {line:[...l],leader:no,from,to,action,cause,changed:to!==from};
   });
+  const riders=r.riders.slice().sort((a,b)=>a.no-b.no).map(x=>{
+   const from=position(before,x.no),to=position(after,x.no),head=lineOf.get(x.no)[0];
+   const status=stage===6?(to<from?'直線で進出':to>from?'直線で交わされる':'着順維持'):
+    stage===2&&x.no===s.redThird?'攻防を利用して進出':
+    stage===2&&x.no===s.attacker?(s.outcome==='attacker-takes'?'主導権奪取':'仕掛け不発'):
+    to<from?'位置を上げる':to>from?'位置を下げる':
+    s.connected[x.no]===false?'追走離れ':x.no!==head?'ラインを追走':'位置を維持';
+   return {no:x.no,name:x.name,lineHead:head,from,to,status,connected:s.connected[x.no]!==false};
+  });
   const unique=new Set(rows.flatMap(x=>x.line));
   if(unique.size!==r.riders.length||rows.length!==lines.length)throw Error('全ラインの反応記録が欠落しました');
-  return {schema:'tk-line-reactions/v1',stage,rows,third:s.redThird||null,unresolvedLocation:false};
+  return {schema:'tk-line-reactions/v1',stage,rows,riders,third:s.redThird||null,unresolvedLocation:false};
  }
  function redClosing(s){
   const clauses=[];
