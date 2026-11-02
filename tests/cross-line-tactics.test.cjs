@@ -35,7 +35,7 @@ const race={
  [7,'小倉竜二',109,'追',0,20],
  [8,'竹内智彦',104.52,'追',0,20],
  [9,'原井博斗',108.4,'追',0,20]
- ].map(([no,name,score,style,b,total])=>({no,name,score,style,recent_form:{stats:{b,total,top3_rate:30}}}})),
+ ].map(([no,name,score,style,b,total])=>({no,name,score,style,recent_form:{stats:{b,total,top3_rate:30}}})),
  source:{label:'test fixture'}
 };
 const {s,options}=setup(race);
