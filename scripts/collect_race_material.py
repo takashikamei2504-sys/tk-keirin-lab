@@ -4,6 +4,7 @@ import argparse, datetime as dt, hashlib, json, re, time, urllib.parse
 from pathlib import Path
 from collect_intel import Fetcher, Page, ROOT
 from intel_sources import DOM, clean, norm
+from rider_knowledge import extract_knowledge, TOPICS
 INDEX='https://keirin.tokyo-sports.co.jp/list/race'
 UTC=dt.timezone.utc
 PARSER_VERSION='race-card-story-v1.2'
@@ -99,6 +100,7 @@ def collect(max_races=24,budget=90):
         links=discover_races(fetch.get(INDEX))
     except Exception as e:errors.append({'url':INDEX,'error':str(e)[:160]})
     relations={r['id']:r for r in intel.get('relationships',[])}
+    knowledge={r['id']:r for r in intel.get('knowledge',[])}
     queue=list(links);seen=set()
     while queue:
         url=queue.pop(0)
@@ -127,6 +129,10 @@ def collect(max_races=24,budget=90):
                     if family and sum(r.get('family')==family for r in card['riders'])==1:resolved=re.sub(re.escape(family)+r'(君|さん)',rider['name']+r'\1',resolved)
                 relation_quotes.append({**q,'text':resolved,'original_text':q['text'],'attribution':q['attribution']+('／同一出走者の一意な姓を解決' if resolved!=q['text'] else '')})
             card['comments']=[comment_entry(q,card) for q in quotes]
+            acquired=dt.datetime.fromisoformat(card['collected_at'])
+            for note in extract_knowledge(Page(),quotes,[r['name'] for r in card['riders']],url,acquired,acquired,'tospo'):
+                note.update(race_id=f'{card["date"]}:{card["venue"]}:{card["race_no"]}',publication_basis='collection_upper_bound')
+                knowledge.setdefault(note['id'],note)
             for e in relationships(relation_quotes,sorted(set(names)|{r['name'] for r in card['riders']}),url,card['collected_at'],card['collected_at']):relations.setdefault(e['id'],e)
             digest=hashlib.sha256(json.dumps({'card':{k:v for k,v in card.items() if k not in ('collected_at','comments')},'comments':[{k:v for k,v in c.items() if k not in ('published_at','collected_at')} for c in card['comments']]},sort_keys=True,ensure_ascii=False).encode()).hexdigest()[:20]
             card['id']=digest;existing=next((c for c in cards if c['id']==digest),None)
@@ -135,7 +141,7 @@ def collect(max_races=24,budget=90):
         except Exception as e:errors.append({'url':url,'error':str(e)[:160]})
     cards=[c for c in cards if (now-dt.datetime.fromisoformat(c['collected_at'])).days<=45]
     output.write_text(json.dumps({'schema':'tk-keirin-race-material/v1','generated_at':dt.datetime.now(UTC).isoformat(),'cards':cards,'status':{'discovered':len(links),'attempted':attempted,'errors':errors}},ensure_ascii=False,indent=2)+'\n')
-    intel['relationships']=list(relations.values());intel_path.write_text(json.dumps(intel,ensure_ascii=False,indent=2)+'\n')
+    intel['relationships']=list(relations.values());intel['knowledge']=list(knowledge.values());intel['knowledge_topics']={k:v[0] for k,v in TOPICS.items()};intel_path.write_text(json.dumps(intel,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'cards':len(cards),'rider_rows':sum(len(c['riders']) for c in cards),'relations':len(relations),'errors':len(errors)},ensure_ascii=False))
 if __name__=='__main__':
     ap=argparse.ArgumentParser();ap.add_argument('--max-races',type=int,default=24);ap.add_argument('--budget-seconds',type=int,default=90);a=ap.parse_args();collect(max(1,min(a.max_races,48)),max(5,min(a.budget_seconds,150)))

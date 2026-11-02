@@ -5,6 +5,7 @@ never evidence. Unknown dates, future articles and inaccessible bodies are skipp
 """
 import argparse, datetime as dt, hashlib, json, re, time, urllib.request, urllib.parse, urllib.robotparser, urllib.error
 from intel_sources import SOURCES, article_kind, discovery_url, canonical, source_id, adapt, observations
+from rider_knowledge import extract_knowledge, TOPICS
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -13,7 +14,7 @@ UTC = dt.timezone.utc
 AGENT = 'TKKeirinLab/1.4 (public article research; bounded requests)'
 HOSTS = {urllib.parse.urlsplit(u).hostname for _,_,u in SOURCES}|{'keirin.jp','www.keirin.jp'}
 INDEXES = [u for _,_,u in SOURCES]
-PARSER_VERSION='public-sources-v1.7-context'
+PARSER_VERSION='public-sources-v1.8-knowledge'
 RULES = {
  'block': [(r'ブロック|けん制|牽制', .85)],
  'vertical': [(r'縦に踏|タテに踏', .85)],
@@ -235,7 +236,7 @@ def fair_urls(urls):
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--max-articles',type=int,default=60);ap.add_argument('--max-discovery',type=int,default=8);ap.add_argument('--budget-seconds',type=int,default=480);args=ap.parse_args()
  started=time.monotonic();now=dt.datetime.now(UTC);output=ROOT/'data/intelligence.json';previous=json.loads(output.read_text()) if output.exists() else {}
- fetch=Fetcher();errors=[];names,dates=roster(now,errors);links=[];discovery=[]
+ fetch=Fetcher();errors=[];names,dates=roster(now,errors);links=[];discovery=list(previous.get('pending_discovery_urls',[]))
  statuses={key:{'name':label,'index_url':url,'index_ok':False,'discovered':0,'attempted':0,'body_succeeded':0,'comments_added':0,'errors':0} for key,label,url in SOURCES}
  statuses['other']={'name':'その他の公式レポート','index_ok':False,'discovered':0,'attempted':0,'body_succeeded':0,'comments_added':0,'errors':0}
  def discover(url):
@@ -255,22 +256,31 @@ def main():
   if url in seen or counts.get(key,0)>=4:continue
   if len(seen)>=min(max(args.max_discovery,0),12) or time.monotonic()-started>args.budget_seconds:break
   seen.add(url);counts[key]=counts.get(key,0)+1
-  try:discover(url)
+  try:
+   found=discover(url)
+   discovery.extend(u for u in found if discovery_url(u) and u not in seen)
   except Exception as exc:errors.append({'url':url,'error':str(exc)[:160]});statuses[key]['errors']+=1
- links.extend(previous.get('pending_urls',[]))
+ # Drain carried work before fresh links so bounded runs cannot starve archives.
+ links=previous.get('pending_urls',[])+links
  links.extend(re.findall(r'https://[^\s\"\'<>]+',(ROOT/'v13.html').read_text()))
  roster_hash=hashlib.sha256('|'.join(names).encode()).hexdigest()[:16]
  cache=previous.get('articles',[])
+ links.extend(a['url'] for a in cache if a.get('parser_version')!=PARSER_VERSION)
  known={canonical(a['url']) for a in cache if a.get('body_verified') and a.get('parser_version')==PARSER_VERSION and (now-(iso(a.get('last_checked_at')) or iso(a['collected_at']))).days<30}
  evidence={e['id']:e for e in previous.get('evidence',[]) if e.get('extractor')!='public-sources-v1.5' and iso(e.get('published_at')) and (now-iso(e['published_at'])).days<1095}
  relations={e['id']:e for e in previous.get('relationships',[]) if iso(e.get('published_at')) and (now-iso(e['published_at'])).days<1095}
  notes={n['id']:n for n in previous.get('observations',[]) if iso(n.get('published_at')) and (now-iso(n['published_at'])).days<1095}
+ knowledge={e['id']:e for e in previous.get('knowledge',[]) if iso(e.get('published_at')) and (now-iso(e['published_at'])).days<1095}
  articles={canonical(a['url']):a for a in cache};attempted=0
  queue=list(fair_urls(links))
  for url in queue:statuses[source_id(url)]['discovered']+=1
  pending=[]
+ retries=previous.get('retry_state',{})
  for url in queue:
   if url in known:continue
+  retry=retries.get(url,{})
+  if (iso(retry.get('retry_after')) or now)<=now:pass
+  else:pending.append(url);continue
   if attempted>=max(1,min(args.max_articles,120)) or time.monotonic()-started>args.budget_seconds:pending.append(url);continue
   key=source_id(url);stat=statuses[key];attempted+=1;stat['attempted']+=1
   try:
@@ -282,6 +292,7 @@ def main():
    rows=extract_quotes(quotes,names,url,date,collected) if article_kind(url) in ('oddspark','kdreams','marche') else extract(page,names,url,date,collected)
    title=next((v for t,v in page.blocks if t=='h1'),page.meta.get('og:title',''))
    comments=observations(quotes,url,title,date,collected)
+   for note in extract_knowledge(page,quotes,names,url,date,collected,key):knowledge.setdefault(note['id'],note)
    from collect_race_material import relationships
    for rel in relationships(quotes,names,url,date.isoformat(),collected.isoformat()):relations.setdefault(rel['id'],rel)
    for e in rows:e['title']=title[:120]
@@ -290,8 +301,11 @@ def main():
     if note['id'] not in notes:notes[note['id']]=note;stat['comments_added']+=1
    first=articles.get(url,{}).get('collected_at',collected.isoformat())
    articles[url]={'url':url,'source':key,'published_at':date.isoformat(),'collected_at':first,'last_checked_at':collected.isoformat(),'body_verified':True,'evidence_count':len(rows),'comment_count':len(comments),'roster_hash':roster_hash,'parser_version':PARSER_VERSION}
-   stat['body_succeeded']+=1
-  except Exception as exc:errors.append({'url':url,'error':str(exc)[:160]});stat['errors']+=1;pending.append(url)
+   stat['body_succeeded']+=1;retries.pop(url,None)
+  except Exception as exc:
+   errors.append({'url':url,'error':str(exc)[:160]});stat['errors']+=1;pending.append(url)
+   failures=min(8,retry.get('failures',0)+1)
+   retries[url]={'failures':failures,'retry_after':(now+dt.timedelta(hours=min(72,3*2**(failures-1)))).isoformat()}
   print(json.dumps({'source':key,'attempted':attempted,'evidence':len(evidence),'comments':len(notes)},ensure_ascii=False),flush=True)
  counts={};bounded={}
  for n in notes.values():
@@ -301,7 +315,7 @@ def main():
  notes=bounded
  for key,stat in statuses.items():
   stat['stored_articles']=sum(source_id(a['url'])==key for a in articles.values());stat['stored_comments']=sum(source_id(n['url'])==key for n in notes.values());stat['stored_evidence']=sum(source_id(n['url'])==key for n in evidence.values())
- result={'schema':'tk-keirin-intelligence/v1.4','generated_at':dt.datetime.now(UTC).isoformat(),'roster_dates':dates,'roster_size':len(names),'evidence':list(evidence.values()),'observations':list(notes.values()),'relationships':list(relations.values()),'articles':list(articles.values())[-1500:],'pending_urls':pending[:1000],
+ result={'schema':'tk-keirin-intelligence/v1.4','generated_at':dt.datetime.now(UTC).isoformat(),'roster_dates':dates,'roster_size':len(names),'knowledge':list(knowledge.values()),'knowledge_topics':{k:v[0] for k,v in TOPICS.items()},'evidence':list(evidence.values()),'observations':list(notes.values()),'relationships':list(relations.values()),'articles':list(articles.values())[-1500:],'pending_urls':pending[:1000],'pending_discovery_urls':list(dict.fromkeys(u for u in discovery if u not in seen))[:200],'retry_state':{u:retries[u] for u in pending[:1000] if u in retries},
   'status':{'attempted':attempted,'body_articles':len(articles),'evidence':len(evidence),'comments':len(notes),'sources':statuses,'robots':fetch.robot_status,'errors':errors[-100:]},'notice':'公開本文の氏名・発言者・掲載日を確認。本人コメントは意向と観察を区別し、コメント全体を恒常的特性のスコアにはしない。発走前の情報だけ予想に適用。'}
  output.parent.mkdir(exist_ok=True);tmp=output.with_suffix('.tmp');tmp.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');tmp.replace(output)
  print(json.dumps({'roster':len(names),'articles':len(articles),'evidence':len(evidence),'comments':len(notes),'attempted':attempted,'errors':len(errors)},ensure_ascii=False),flush=True)
