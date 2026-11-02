@@ -51,7 +51,11 @@ function finishingAccess(s,no,place){
 function finishExplanation(s,trio,who){
  return trio.map((no,i)=>{
   const x=finishingAccess(s,no,i+1),from=s.order.indexOf(no)+1;
-  return who(no)+'は最終コーナー'+from+'番手から'+(i+1)+'着へ。'+x.route+'。';
+  const overtakers=trio.slice(0,i).filter(other=>s.order.indexOf(other)>s.order.indexOf(no));
+  const result=from<i+1&&overtakers.length?
+    who(no)+'は最終コーナー'+from+'番手から'+overtakers.map(who).join('・')+'に交わされるが、後続を抑えて'+(i+1)+'着に粘る。':
+    who(no)+'は最終コーナー'+from+'番手から'+(i+1)+'着へ。'+x.route+'。';
+  return result;
  }).join('');
 }
 function audit(s,ids){

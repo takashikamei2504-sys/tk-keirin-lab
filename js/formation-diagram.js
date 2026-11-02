@@ -40,6 +40,7 @@ function project(scene,race,previous=null){
   if(stage===1){tag(t.starter,'S取り','key');tag(t.front,'前受け','key');event('start',t.starter,'S取り',{target:t.starter!==t.front?t.front:null,result:t.starter!==t.front?'先頭を迎え入れる':'前受け'});}
   if(stage===2){
    if(t.attacker){tag(t.attacker,t.tactic==='kamashi'?'カマシ':'上昇・抑え');event('red-attack',t.attacker,t.tactic==='kamashi'?'カマシ':'上昇・抑え',{target:t.front,side:'outside',result:t.outcome==='attacker-takes'?'主導権を奪う':'前受けが守る'});}
+   if(t.redThird){tag(t.redThird,'攻防利用の上昇');event('red-counter',t.redThird,'攻防を利用して位置を上げる',{target:t.redThirdAhead,side:'outside',result:'先行争いとは別のラインを越える'});}
    if(t.stand==='resist'){tag(t.front,'突っ張り');event('resist',t.front,'突っ張り',{target:t.attacker,side:'inside'});}
    if(t.stand==='yield'){tag(t.front,'引き');event('yield',t.front,'出させて引く',{target:t.attacker});}
    tag(t.leader,'主導権','key');
