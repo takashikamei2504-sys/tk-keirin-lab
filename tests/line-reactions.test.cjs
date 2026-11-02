@@ -33,6 +33,8 @@ assert.deepEqual(engine.counters(blocked).find(x=>x.no===5).members,[5]);
 const result=Brain.build(race);
 assert.equal(result.diagnostics.lineReactionSchema,'tk-line-reactions/v1');
 for(const story of [result.story.main,...result.story.alternatives]){
+ assert.equal(story.redThird||null,story.scenes[1].tactical.redThird||null);
+ if(story.redThird)assert.equal(story.signature.split('|')[5],String(story.redThird),'third-line branch must be part of the scenario identity');
  for(const [i,scene] of story.scenes.entries()){
   assert.equal(scene.lineReactions.stage,i+1);
   assert.equal(scene.lineReactions.rows.length,race.lineup.length);
