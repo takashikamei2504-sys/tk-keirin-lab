@@ -1723,7 +1723,7 @@ $('causal-copy').addEventListener('click',async()=>{
 });
 $('causal-export').addEventListener('click',()=>{
  if(!causalLast)causalRun();if(!causalLast)return;
- const o={schema:'tk-keirin-causal/v1.4',generated_at:new Date().toISOString(),version:CAUSAL_V,race:causalLast.race,keymen:causalLast.keymen,intelligence:causalLast.intelligence,profiles:causalLast.profiles,selection_policy:causalLast.selection_policy,story:causalLast.story,context:causalLast.context,hypotheses:causalLast.hypotheses,diagnostics:causalLast.diagnostics,recent_form:causalLast.form,rating:causalLast.rating,chosen:causalLast.chosen.map(t=>({...t,paths:t.paths.slice(0,3)}))};
+ const o={schema:'tk-keirin-causal/v1.4',generated_at:new Date().toISOString(),version:CAUSAL_V,race:causalLast.race,keymen:causalLast.keymen,intelligence:causalLast.intelligence,model:causalLast.model,reproducibility:causalLast.reproducibility,profiles:causalLast.profiles,selection_policy:causalLast.selection_policy,story:causalLast.story,context:causalLast.context,hypotheses:causalLast.hypotheses,diagnostics:causalLast.diagnostics,recent_form:causalLast.form,rating:causalLast.rating,chosen:causalLast.chosen.map(t=>({...t,paths:t.paths.slice(0,3)}))};
  const blob=new Blob([JSON.stringify(o,null,2)],{type:'application/json'}),link=URL.createObjectURL(blob),a=document.createElement('a');a.href=link;a.download='TK_KEIRIN_CAUSAL_'+causalLast.race.date+'_'+causalLast.race.venue+causalLast.race.race_no+'R.json';a.click();setTimeout(()=>URL.revokeObjectURL(link),10000);
 });
 const causalOldRender=render;render=function(){causalOldRender();causalRun();};

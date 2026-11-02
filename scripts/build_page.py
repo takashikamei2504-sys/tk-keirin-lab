@@ -91,5 +91,6 @@ s=tidy(s)
 s=s.replace('</head>','<link rel="stylesheet" href="css/formation-diagram.css?v='+hashlib.sha256((root/'css/formation-diagram.css').read_bytes()).hexdigest()[:12]+'">\n</head>')
 s=s.replace('js/recent-form-ui.js?v=all-s-1','js/recent-form-ui.js?v='+hashlib.sha256((root/'js/recent-form-ui.js').read_bytes()).hexdigest()[:12])
 s=s.replace('買い目候補から20点選定','買い目候補から${out.chosen.length}点選定')
+s=s.replace('profiles:causalLast.profiles,selection_policy:', 'model:causalLast.model,reproducibility:causalLast.reproducibility,profiles:causalLast.profiles,selection_policy:')
 (root/'v14.html').write_text(s)
 # index.html is the independent app entrance; rebuilding predictions preserves it.
