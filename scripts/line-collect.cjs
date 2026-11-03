@@ -3,7 +3,7 @@
 const fs=require('node:fs'),path=require('node:path'),Engine=require('../js/line/engine.js'),Feed=require('../js/race-feed.js'),Store=require('./line-store.cjs');
 const root=path.join(__dirname,'..'),read=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
 async function collect(){
- const packs={intelligence:read('data/intelligence.json'),recent:read('data/recent_form.json'),material:read('data/race_material.json')};let saved=0;const errors=[];
+ const packs={intelligence:read('data/intelligence.json'),recent:read('data/recent_form.json'),material:read('data/race_material.json'),conditions:read('data/line_conditions.json')};let saved=0;const errors=[];
  for(const offset of [0,1]){
   const date=new Date(Date.now()+9*3600000+offset*86400000).toISOString().slice(0,10);
   try{const response=await fetch('https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/'+date+'.json',{signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('HTTP '+response.status);const day=await response.json();if(day.date!==date||!Array.isArray(day.races))throw Error('Invalid feed');

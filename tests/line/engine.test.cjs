@@ -10,8 +10,8 @@ function audit(r,out){
   for(const scene of s.scenes){assert.deepEqual(scene.order.slice().sort(),r.riders.map(x=>x.no).sort());checks++;ok(scene.events.every(e=>e.reason),'event reasons');}
   ok(s.finish.pair.every(n=>r.riders.some(x=>x.no===n)),'valid pair');
  }
- for(const t of out.tickets){const s=t.hypothesis===out.main.id?out.main:out.rival;assert.deepEqual(t.trio.slice(0,2),s.finish.pair);checks++;ok(s.finish.thirds.some(x=>x.no===t.trio[2]),'third derived from finish');}
- ok(out.decision.axis===out.decision.spreads[0].axis,'F selected axis is measured candidate spread');
+ for(const t of out.tickets){ok(new Set(t.trio).size===3,'three different riders per ticket');const s=[out.main,...out.alternatives].find(s=>s.id===t.hypothesis);assert.deepEqual(t.trio.slice(0,2),s.finish.pair);checks++;ok(s.finish.thirds.some(x=>x.no===t.trio[2]),'third derived from finish');}
+ ok(out.decision.axis===out.decision.rounds.at(-1).axis,'F final axis is the one used in the recorded comparison');if(out.rival&&out.decision.confidence!=='拮抗')ok(out.main.axes[out.decision.axis]>out.rival.axes[out.decision.axis],'F decisive axis must actually favor the selected main');
  for(const s of [out.main,...out.alternatives]){const expected=Object.keys(E.AXES).reduce((sum,k)=>sum+s.axes[k]*out.decision.weights[k],0);ok(Math.abs(expected-s.score)<1e-10,'F displayed score equals actual decision');}
  ok(out.decision.drivers.every(t=>t.axis===out.decision.axis&&out.main.terms.some(x=>JSON.stringify(x)===JSON.stringify(t))),'F exact terms used in explanation');
  ok(out.provenance.input_sha256===P.sha256(out.input),'input hash reproducible');
