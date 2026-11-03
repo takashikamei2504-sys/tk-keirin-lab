@@ -1,3 +1,5 @@
+> この文書は初版V1.0の実装記録です。最新の対応状況は [V1.1の実装報告](LAB_LINE_V1_1.md) を参照してください。
+
 # TK KEIRIN LAB LINE 実装報告
 
 Project: LAB_LINE_ENGINE_V1

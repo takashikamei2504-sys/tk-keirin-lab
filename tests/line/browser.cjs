@@ -10,6 +10,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
  assert.equal(await page.evaluate(()=>lineOutput.mode),'historical-replay');assert.match(await page.locator('.race-title').innerText(),/再計算/);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'390px overflow');
  for(let i=0;i<6;i++){const displayed=await page.locator('.formation').nth(i).getAttribute('data-order');assert.deepEqual(JSON.parse(displayed),await page.evaluate(i=>lineOutput.main.scenes[i].order,i));}
+ const rivalDetails=page.locator('details[data-hypothesis-id]').first();await page.locator('summary').filter({hasText:'対抗仮説・自己反証・候補比較'}).click();await rivalDetails.locator('summary').first().click();assert.equal(await rivalDetails.locator('.formation svg').count(),6);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'alternative diagram overflow');await page.locator('summary').filter({hasText:'対抗仮説・自己反証・候補比較'}).click();
  await page.locator('#compare').click();await page.waitForFunction(()=>window.lineComparison);assert.ok(await page.evaluate(()=>lineComparison.old.chosen.length>0));
  const downloadPromise=page.waitForEvent('download');await page.locator('#export').click();const download=await downloadPromise,exported=JSON.parse(fs.readFileSync(await download.path(),'utf8'));assert.equal(exported.provenance.input_sha256,await page.evaluate(()=>lineOutput.provenance.input_sha256));
  await page.locator('#example7').click();await page.waitForFunction(()=>window.lineOutput?.input.race.riders.length===7);assert.equal(await page.locator('.scene').count(),6);
@@ -24,6 +25,6 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
  const frozen=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tk-line:first:')).map(k=>[k,localStorage[k]]));assert.equal(frozen.length,1);
  await page.locator('#load').click();await page.waitForFunction(()=>document.getElementById('save-status').textContent.includes('最初の発走前予想を保持'));assert.deepEqual(await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tk-line:first:')).map(k=>[k,localStorage[k]])),frozen);
  await page.locator('#example9').click();await page.waitForFunction(()=>window.lineOutput?.input.race.riders.length===9);
- await page.locator('.axis details summary').click();await page.screenshot({path:'reports/line/iphone-preview.png',fullPage:true});
+ await page.locator('.axis > details > summary').click();await page.screenshot({path:'reports/line/iphone-preview.png',fullPage:true});
  assert.equal(errors.length,0,errors.join('\n'));await browser.close();console.log('PASS LAB LINE mobile: 7/9 riders, 6 exact engine diagrams, 320/390px, same-input comparison, live feed selection, immutable device storage, JSON export and replay labeling');
 })().catch(e=>{console.error(e);process.exit(1);});
