@@ -6,8 +6,10 @@ const State=typeof module!=='undefined'?require('./state.js'):root.LineState;
 const Interactions=typeof module!=='undefined'?require('./interactions.js'):root.LineInteractions;
 const Conditions=typeof module!=='undefined'?require('./conditions.js'):root.LineConditions;
 const Selection=typeof module!=='undefined'?require('./selection.js'):root.LineSelection;
+const Tickets=typeof module!=='undefined'?require('./tickets.js'):root.LineTickets;
+const Sensitivity=typeof module!=='undefined'?require('./sensitivity.js'):root.LineSensitivity;
 const Build=typeof module!=='undefined'?require('./build.js'):root.LineBuild;
-const VERSION='LAB_LINE_ENGINE_V1.1.0',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
+const VERSION='LAB_LINE_ENGINE_V1.2.0',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
 const AXES={rationality:'戦術的合理性',feasibility:'成立可能性',evidence:'実績の裏付け',interaction:'他ラインとの相互作用',robustness:'頑健性・反証'};
 const TACTICS={press:'押さえ先行',cut:'斬って中団',resist:'突っ張り',yield:'出させて脚を温存',kamashi:'カマシ',long:'早めの捲り',short:'短い捲り',wait:'待機・位置維持',use:'別線の仕掛けを利用',seat:'番手飛びつき',block:'牽制',vertical:'縦に踏む',continue:'外進行の継続',counter:'別線の外から反撃',recover:'不発後の立て直し',relaunch:'仕掛け直し',reconnect:'離れから追走回復',inside:'内の進路',seat_won:'番手確保',seat_held:'番手防衛',seat_partial:'番手競り継続'};
 const copy=x=>JSON.parse(JSON.stringify(x)),clamp=x=>Math.max(0,Math.min(1,x));
@@ -279,19 +281,10 @@ function build(raw,packs={},options={}){
  const valid=finishHypotheses.filter(s=>{s.audit=State.audit(s,r,lines);if(!s.audit.passed)rejected.push({id:s.id,reason:s.audit.failures.join('。')});return s.audit.passed;});
  if(!valid.length)throw Error('局面状態の整合性を満たす候補なし');
  const selected=Selection.select(valid),{main,rival,decision,rated,alternatives}=selected,{gap}=decision,weight=decision.weights;
- const tickets=main.finish.thirds.map(x=>({trio:[...main.finish.pair,x.no],key:[...main.finish.pair,x.no].join('-'),hypothesis:main.id,group:'main',reason:x.reason}));
- let alternativeCount=0;const ticketFamilies=new Set();
- for(const candidate of alternatives){
-  if(tickets.length>=10||alternativeCount>=3)break;
-  if(main.score-candidate.score>.35||!candidate.audit.passed)continue;
-  const signature=Selection.family(candidate);if(ticketFamilies.has(signature))continue;
-  const third=candidate.finish.thirds.find(x=>!tickets.some(t=>t.key===[...candidate.finish.pair,x.no].join('-')));if(!third)continue;
-  const trio=[...candidate.finish.pair,third.no];ticketFamilies.add(signature);alternativeCount++;
-  const events=candidate.scenes.flatMap(x=>x.events).filter(e=>['pass','resist','yield','long','kamashi','short','counter','relaunch','inside','seat_won'].includes(e.action));
-  tickets.push({trio,key:trio.join('-'),hypothesis:candidate.id,group:'alternative',reason:`${candidate.finish.mode}の独立仮説：${events.map(e=>e.reason).join('。')}。${third.reason}`});
- }
+ decision.sensitivity=Sensitivity.review(main,rated,weight);
+ const {tickets,policy:ticket_policy}=Tickets.generate(main,alternatives);
 
- return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,search_settings:{width,trace_candidates:!!options.traceCandidates},input_as_of:input.as_of,cutoff:input.cutoff},input,environment,topology,main,decision,rival,alternatives,candidate_evaluations:valid.map(s=>({id:s.id,score:Object.keys(AXES).reduce((sum,k)=>sum+subtotal(s,k)*weight[k],0),axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),audit:s.audit,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,defenses:s.defenses,detached:s.detached,recovered_lines:s.recoveredLines||[],recovered_riders:s.recoveredRiders||[],inside:s.innerRoute||null,contest:s.contest||null,contest_history:s.contestHistory,...(options.traceCandidates?{terms:s.terms,scenes:s.scenes.map(x=>({phase:x.phase,control:x.control,order:x.order,positions:x.positions,groups:x.groups,events:x.events}))}:{})})),tickets,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,audit_passed:valid.length,pareto:selected.pareto,finalists:selected.finalists,retained:rated.length,method:'ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
+ return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,search_settings:{width,trace_candidates:!!options.traceCandidates},input_as_of:input.as_of,cutoff:input.cutoff},input,environment,topology,main,decision,rival,alternatives,candidate_evaluations:valid.map(s=>({id:s.id,score:Object.keys(AXES).reduce((sum,k)=>sum+subtotal(s,k)*weight[k],0),axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),audit:s.audit,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,defenses:s.defenses,detached:s.detached,recovered_lines:s.recoveredLines||[],recovered_riders:s.recoveredRiders||[],inside:s.innerRoute||null,contest:s.contest||null,contest_history:s.contestHistory,...(options.traceCandidates?{terms:s.terms,scenes:s.scenes.map(x=>({phase:x.phase,control:x.control,order:x.order,positions:x.positions,groups:x.groups,events:x.events}))}:{})})),tickets,ticket_policy,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,audit_passed:valid.length,pareto:selected.pareto,finalists:selected.finalists,retained:rated.length,method:'ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
 }
 function compress(tickets){const groups=new Map();for(const t of tickets){const k=t.trio.slice(0,2).join('-');if(!groups.has(k))groups.set(k,new Set());groups.get(k).add(t.trio[2]);}return [...groups].map(([k,thirds])=>({text:k+'-'+[...thirds].sort((a,b)=>a-b).join(''),count:thirds.size}));}
 const api={VERSION,PHASES,AXES,TACTICS,structure,build,compress};if(typeof module!=='undefined')module.exports=api;root.LineEngine=api;

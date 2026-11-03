@@ -1,0 +1,42 @@
+name: Evaluate frozen LAB LINE forecasts
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Freeze independent LAB LINE forecasts', 'Collect results and evaluate frozen forecasts']
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths: ['scripts/line-evaluate.cjs', 'js/line/evaluation.js', '.github/workflows/line-evaluation.yml']
+permissions:
+  contents: write
+concurrency:
+  group: lab-line-evaluation
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/line/audit.test.cjs
+      - run: node scripts/line-evaluate.cjs
+      - name: Save LINE summary only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/line_evaluation.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update frozen LAB LINE evaluation summary'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

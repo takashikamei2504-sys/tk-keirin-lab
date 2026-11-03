@@ -1,7 +1,7 @@
 name: LAB LINE independent engine
 on:
   pull_request:
-    paths: ['js/line/**', 'js/brain-memory.js', 'js/recent-form.js', 'js/race-material.js', 'js/model-provenance.js', 'data/line_conditions.json', 'line.html', 'css/line.css', 'tests/line/**', 'scripts/line*', '.github/workflows/line-engine.yml']
+    paths: ['js/line/**', 'js/brain-memory.js', 'js/recent-form.js', 'js/race-material.js', 'js/model-provenance.js', 'data/line_conditions.json', 'data/line_evaluation.json', 'line.html', 'css/line.css', 'tests/line/**', 'scripts/line*', '.github/workflows/line-engine.yml', '.github/workflows/line-evaluation.yml']
   push:
     branches: ['feat/lab-line-*']
   workflow_dispatch:
@@ -17,6 +17,8 @@ jobs:
       - run: node scripts/line_identity.cjs && git diff --exit-code -- js/line/build.js
       - run: node tests/line/engine.test.cjs
       - run: node tests/line/interactions.test.cjs
+      - run: node tests/line/audit.test.cjs
+      - run: node scripts/line-evaluate.cjs
       - run: node scripts/line-checks.cjs
       - run: node scripts/line-examples.cjs
       - run: npx playwright install --with-deps chromium
@@ -35,3 +37,4 @@ jobs:
             data/recent_form.json
             data/race_material.json
             data/line_conditions.json
+            data/line_evaluation.json

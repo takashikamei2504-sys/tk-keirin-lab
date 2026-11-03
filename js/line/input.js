@@ -41,7 +41,7 @@ function prepare(raw,packs={},asOf=Date.now()){
  race.contests=contests;
  if(contests.length){const resolved=new Set(contests.map(c=>race.riders.find(x=>x.no===c.challenger).name));race.race_material.lineup_conflicts=(race.race_material.lineup_conflicts||[]).filter(message=>!Array.from(resolved).some(name=>message.startsWith(name+'は競り・直付け')));}
  const shared=packs.conditions?.schema==='tk-line-conditions/v1'?(packs.conditions.snapshots||[]).filter(o=>o.venue===race.venue&&(!o.date||o.date===race.date)&&(!o.race_no||o.race_no===race.race_no)):[];
- const observed=[...(raw.conditions?.observations||[]),...shared].filter(o=>o.verified===true&&/^https:\/\//.test(o.source_url||'')&&Date.parse(o.published_at)<=Date.parse(o.collected_at)&&Date.parse(o.collected_at)<bound&&['bank','wind'].includes(o.kind));
+ const observed=[...(raw.conditions?.observations||[]),...shared].filter(o=>(!o.venue||o.venue===race.venue)&&(!o.date||o.date===race.date)&&(!o.race_no||o.race_no===race.race_no)&&o.verified===true&&/^https:\/\//.test(o.source_url||'')&&Date.parse(o.published_at)<=Date.parse(o.collected_at)&&Date.parse(o.collected_at)<bound&&['bank','wind'].includes(o.kind));
  race.conditions={observations:clone(observed.filter(o=>o.kind!=='wind'||bound-Date.parse(o.collected_at)<=3*3600000))};
  const records=Memory.build(race,pack),features={};
  for(const x of race.riders){
