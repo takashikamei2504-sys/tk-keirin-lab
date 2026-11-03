@@ -1,0 +1,30 @@
+name: Freeze independent LAB LINE forecasts
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '12,42 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: lab-line-forecasts
+  cancel-in-progress: false
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/line/engine.test.cjs
+      - run: node scripts/line-collect.cjs
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/line_history
+          if ! git diff --cached --quiet; then
+            git commit -m 'Freeze independent LAB LINE forecasts'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

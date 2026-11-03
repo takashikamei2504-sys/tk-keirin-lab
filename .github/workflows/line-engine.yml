@@ -1,0 +1,34 @@
+name: LAB LINE independent engine
+on:
+  pull_request:
+    paths: ['js/line/**', 'line.html', 'css/line.css', 'tests/line/**', 'scripts/line*', '.github/workflows/line-engine.yml']
+  push:
+    branches: ['feat/lab-line-engine-v1']
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --ignore-scripts
+      - run: node scripts/line_identity.cjs && git diff --exit-code -- js/line/build.js
+      - run: node tests/line/engine.test.cjs
+      - run: node scripts/line-examples.cjs
+      - run: npx playwright install --with-deps chromium
+      - run: |
+          python3 -m http.server 8765 >/tmp/line-server.log 2>&1 &
+          node tests/line/browser.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lab-line-preview-and-predictions
+          path: |
+            line.html
+            js/
+            css/
+            reports/line/
+            data/intelligence.json
+            data/recent_form.json
+            data/race_material.json
