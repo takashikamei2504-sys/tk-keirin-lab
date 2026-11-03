@@ -1,0 +1,452 @@
+{
+  "schema": "tk-line-comparison/v1",
+  "scope": "同じ保存済み発走前入力による再計算。後付け予想を発走前予想として保存しない。",
+  "rows": [
+    {
+      "riders": 7,
+      "race_id": "2026-11-02:久留米:10",
+      "input_as_of": "2026-11-01T21:47:26.073Z",
+      "underlying_input_sha256": "b2ed5569c25df871113043e0b2fe6880b64a84c0a1983413903aaf1249b1e7c3",
+      "previous_line": {
+        "version": "LAB_LINE_ENGINE_V1.0.0",
+        "axis": "頑健性・反証",
+        "tickets": [
+          "7-3-2",
+          "7-3-6",
+          "2-3-7"
+        ]
+      },
+      "updated_line": {
+        "version": "LAB_LINE_ENGINE_V1.2.0",
+        "model_id": "LAB_LINE_ENGINE_V1@e334ebd377c219aa",
+        "axis": "成立可能性",
+        "main_pair": [
+          7,
+          3
+        ],
+        "tickets": [
+          "7-3-5",
+          "7-3-1",
+          "7-3-2",
+          "2-5-3",
+          "2-5-1"
+        ],
+        "main_reason": "成立可能性は本線0.373／対抗0.328、差0.044。上昇側の先行傾向が主導権取得を支える。番手差しは先行負担・残る脚・番手の追走／牽制負担を独立比較",
+        "axis_rounds": [
+          {
+            "axis": "feasibility",
+            "weights": {
+              "rationality": 1,
+              "feasibility": 2,
+              "evidence": 1,
+              "interaction": 1,
+              "robustness": 1
+            },
+            "provisional_main": 9005,
+            "provisional_rival": 9009,
+            "axis_difference": 0.04439411964472312
+          }
+        ],
+        "sensitivity": {
+          "changed": 3,
+          "scenarios": [
+            {
+              "axis": "rationality",
+              "factor": 0.5,
+              "weight": 0.5,
+              "winner": 9005,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": true,
+              "gap": 0.06021817746429803
+            },
+            {
+              "axis": "rationality",
+              "factor": 1.5,
+              "weight": 1.5,
+              "winner": 9005,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": true,
+              "gap": 0.025011387147335196
+            },
+            {
+              "axis": "feasibility",
+              "factor": 0.5,
+              "weight": 1,
+              "winner": 9009,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": false,
+              "gap": 0.0017793373389065614
+            },
+            {
+              "axis": "feasibility",
+              "factor": 1.5,
+              "weight": 3,
+              "winner": 9005,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": true,
+              "gap": 0.05531218077324995
+            },
+            {
+              "axis": "evidence",
+              "factor": 0.5,
+              "weight": 0.5,
+              "winner": 9005,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": true,
+              "gap": 0.0426147823058165
+            },
+            {
+              "axis": "evidence",
+              "factor": 1.5,
+              "weight": 1.5,
+              "winner": 9005,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": true,
+              "gap": 0.0426147823058165
+            },
+            {
+              "axis": "interaction",
+              "factor": 0.5,
+              "weight": 0.5,
+              "winner": 9009,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": false,
+              "gap": 0.015718551027516847
+            },
+            {
+              "axis": "interaction",
+              "factor": 1.5,
+              "weight": 1.5,
+              "winner": 9005,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": true,
+              "gap": 0.0856099864158828
+            },
+            {
+              "axis": "robustness",
+              "factor": 0.5,
+              "weight": 0.5,
+              "winner": 9005,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": true,
+              "gap": 0.03560998641588298
+            },
+            {
+              "axis": "robustness",
+              "factor": 1.5,
+              "weight": 1.5,
+              "winner": 9009,
+              "pair": [
+                7,
+                3
+              ],
+              "main_retained": false,
+              "gap": 0.02120188436085013
+            }
+          ],
+          "nearest_boundaries": [
+            {
+              "axis": "robustness",
+              "current_weight": 1,
+              "boundary": 1.3338844265276835,
+              "change": 0.33388442652768346,
+              "rival": 9009,
+              "pair": [
+                7,
+                3
+              ],
+              "direction": "above",
+              "scope": "他の重みを固定した2候補間の同点境界。全候補の首位交代を保証しない。"
+            },
+            {
+              "axis": "interaction",
+              "current_weight": 1,
+              "boundary": 0.6347304373787139,
+              "change": 0.36526956262128607,
+              "rival": 9009,
+              "pair": [
+                7,
+                3
+              ],
+              "direction": "below",
+              "scope": "他の重みを固定した2候補間の同点境界。全候補の首位交代を保証しない。"
+            },
+            {
+              "axis": "robustness",
+              "current_weight": 1,
+              "boundary": 0.14390013584117015,
+              "change": 0.8560998641588299,
+              "rival": 9011,
+              "pair": [
+                7,
+                3
+              ],
+              "direction": "below",
+              "scope": "他の重みを固定した2候補間の同点境界。全候補の首位交代を保証しない。"
+            }
+          ]
+        },
+        "search": {
+          "generated": 8275,
+          "pruned": 7935,
+          "width": 96,
+          "audit_passed": 227,
+          "pareto": 5,
+          "finalists": 5,
+          "retained": 5,
+          "method": "ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較",
+          "limited": true
+        }
+      },
+      "mode": "historical-replay"
+    },
+    {
+      "riders": 9,
+      "race_id": "2026-11-02:防府:12",
+      "input_as_of": "2026-11-01T21:47:23.804Z",
+      "underlying_input_sha256": "18ab09adafe061522c2a5f572980974ec9902c057cf18c6c7f1ad6fc8c8a3765",
+      "previous_line": {
+        "version": "LAB_LINE_ENGINE_V1.0.0",
+        "axis": "成立可能性",
+        "tickets": [
+          "5-1-7",
+          "1-5-7"
+        ]
+      },
+      "updated_line": {
+        "version": "LAB_LINE_ENGINE_V1.2.0",
+        "model_id": "LAB_LINE_ENGINE_V1@e334ebd377c219aa",
+        "axis": "頑健性・反証",
+        "main_pair": [
+          5,
+          1
+        ],
+        "tickets": [
+          "5-1-7",
+          "8-2-1"
+        ],
+        "main_reason": "頑健性・反証は本線0.000／対抗-0.031、差0.031。本線に直接の裏付け加点はなく、対抗側の不利が比較差を作る。未仕掛けの有力別線を止め続ける仮説を反証。余分なブロック成功を前提としない",
+        "axis_rounds": [
+          {
+            "axis": "robustness",
+            "weights": {
+              "rationality": 1,
+              "feasibility": 1,
+              "evidence": 1,
+              "interaction": 1,
+              "robustness": 2
+            },
+            "provisional_main": 11000,
+            "provisional_rival": 10998,
+            "axis_difference": 0.03106666666666674
+          }
+        ],
+        "sensitivity": {
+          "changed": 3,
+          "scenarios": [
+            {
+              "axis": "rationality",
+              "factor": 0.5,
+              "weight": 0.5,
+              "winner": 11000,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": true,
+              "gap": 0.02067766861046505
+            },
+            {
+              "axis": "rationality",
+              "factor": 1.5,
+              "weight": 1.5,
+              "winner": 11000,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": true,
+              "gap": 0.03417252128670545
+            },
+            {
+              "axis": "feasibility",
+              "factor": 0.5,
+              "weight": 0.5,
+              "winner": 10998,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": false,
+              "gap": 0.006806692854253837
+            },
+            {
+              "axis": "feasibility",
+              "factor": 1.5,
+              "weight": 1.5,
+              "winner": 11000,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": true,
+              "gap": 0.061656882751424336
+            },
+            {
+              "axis": "evidence",
+              "factor": 0.5,
+              "weight": 0.5,
+              "winner": 11000,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": true,
+              "gap": 0.027425094948585027
+            },
+            {
+              "axis": "evidence",
+              "factor": 1.5,
+              "weight": 1.5,
+              "winner": 11000,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": true,
+              "gap": 0.027425094948585027
+            },
+            {
+              "axis": "interaction",
+              "factor": 0.5,
+              "weight": 0.5,
+              "winner": 11000,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": true,
+              "gap": 0.08575842828191849
+            },
+            {
+              "axis": "interaction",
+              "factor": 1.5,
+              "weight": 1.5,
+              "winner": 10998,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": false,
+              "gap": 0.03090823838474832
+            },
+            {
+              "axis": "robustness",
+              "factor": 0.5,
+              "weight": 1,
+              "winner": 10998,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": false,
+              "gap": 0.0036415717180815488
+            },
+            {
+              "axis": "robustness",
+              "factor": 1.5,
+              "weight": 3,
+              "winner": 11000,
+              "pair": [
+                5,
+                1
+              ],
+              "main_retained": true,
+              "gap": 0.058491761615251825
+            }
+          ],
+          "nearest_boundaries": [
+            {
+              "axis": "interaction",
+              "current_weight": 1,
+              "boundary": 1.2350722424164455,
+              "change": 0.23507224241644553,
+              "rival": 10998,
+              "pair": [
+                5,
+                1
+              ],
+              "direction": "above",
+              "scope": "他の重みを固定した2候補間の同点境界。全候補の首位交代を保証しない。"
+            },
+            {
+              "axis": "feasibility",
+              "current_weight": 1,
+              "boundary": 0.599420645124606,
+              "change": 0.400579354875394,
+              "rival": 10998,
+              "pair": [
+                5,
+                1
+              ],
+              "direction": "below",
+              "scope": "他の重みを固定した2候補間の同点境界。全候補の首位交代を保証しない。"
+            },
+            {
+              "axis": "robustness",
+              "current_weight": 2,
+              "boundary": 1.117217973757986,
+              "change": 0.8827820262420141,
+              "rival": 10998,
+              "pair": [
+                5,
+                1
+              ],
+              "direction": "below",
+              "scope": "他の重みを固定した2候補間の同点境界。全候補の首位交代を保証しない。"
+            }
+          ]
+        },
+        "search": {
+          "generated": 10267,
+          "pruned": 9927,
+          "width": 96,
+          "audit_passed": 288,
+          "pareto": 5,
+          "finalists": 5,
+          "retained": 5,
+          "method": "ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較",
+          "limited": true
+        }
+      },
+      "mode": "historical-replay"
+    }
+  ]
+}
