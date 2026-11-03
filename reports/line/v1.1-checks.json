@@ -18,7 +18,7 @@
       },
       "updated_line": {
         "version": "LAB_LINE_ENGINE_V1.1.0",
-        "model_id": "LAB_LINE_ENGINE_V1@4683c01b2d98de23",
+        "model_id": "LAB_LINE_ENGINE_V1@2b4f577d59bd1114",
         "axis": "成立可能性",
         "main_pair": [
           7,
@@ -51,9 +51,9 @@
           "pruned": 7935,
           "width": 96,
           "audit_passed": 227,
-          "pareto": 4,
-          "finalists": 4,
-          "retained": 4,
+          "pareto": 5,
+          "finalists": 5,
+          "retained": 5,
           "method": "ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較",
           "limited": true
         }
@@ -75,7 +75,7 @@
       },
       "updated_line": {
         "version": "LAB_LINE_ENGINE_V1.1.0",
-        "model_id": "LAB_LINE_ENGINE_V1@4683c01b2d98de23",
+        "model_id": "LAB_LINE_ENGINE_V1@2b4f577d59bd1114",
         "axis": "頑健性・反証",
         "main_pair": [
           5,

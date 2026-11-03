@@ -27,6 +27,7 @@ function prepare(raw,packs={},asOf=Date.now()){
  for(const c of race.race_material.comments){const actor=race.riders.find(x=>x.name.replace(/\s/g,'')===String(c.rider).replace(/\s/g,''));if(!actor)continue;const line=race.lineup.find(l=>l.includes(actor.no)),at=line.indexOf(actor.no);
   if(c.lineup_intention==='compete'&&(!c.follow_no||!race.lineup.some(l=>l[0]===c.follow_no&&l[1]&&l[1]!==actor.no&&l[0]!==actor.no)))race.race_material.lineup_conflicts.push(actor.name+'の競り先を特定できない');
   else if(c.lineup_intention==='solo'&&line.length!==1)race.race_material.lineup_conflicts.push(actor.name+'の単騎方針と並びが不一致');
+  else if(c.lineup_intention==='unfixed'&&at>0)race.race_material.lineup_conflicts.push(actor.name+'の位置を決めない方針と固定追走が不一致');
   else if(c.lineup_intention!=='compete'&&c.follow_no&&(!line.includes(c.follow_no)||line.indexOf(c.follow_no)>=at||(c.follow_position==='immediate'&&line[at-1]!==c.follow_no)))race.race_material.lineup_conflicts.push(actor.name+'の追走先と並びが不一致');
  }
  pack.observations=[...pack.observations,...race.race_material.comments];

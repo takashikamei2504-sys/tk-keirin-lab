@@ -216,7 +216,7 @@ function build(raw,packs={},options={}){
     if(outcome==='seat')t.switches[no]=lead;
     if(outcome==='seat_partial'){
      // A contested second position does not erase the incumbent; retain parallel lanes.
-     t.contest={challenger:no,incumbent:State.members(s,lead,lines)[1],target:lead};t.burden[solo]++;t.burden[lead]++;
+     t.contest={outcome:'unresolved',challenger:no,incumbent:State.members(s,lead,lines)[1],target:lead};t.burden[solo]++;t.burden[lead]++;
     }
     if(outcome==='seat_fail')t.burden[solo]++;
     event(t,solo,outcome,vacancy?'単騎は直前の追走離れによる空席を利用し番手へ切り替える':outcome==='seat_partial'?'単騎は番手を求めるが守備側も譲らず、競りが続く':'番手確保はできず、3番手以降で立て直し直線を待つ');

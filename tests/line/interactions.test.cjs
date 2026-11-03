@@ -30,6 +30,7 @@ const duel=Engine.build(contested,{intelligence:pack},{width:128,traceCandidates
 ok(duel.input.race.contests.length===1,'explicit target is resolved from the existing comments');
 const duelEvents=duel.candidate_evaluations.flatMap(c=>c.scenes).flatMap(s=>s.events);ok(duelEvents.some(e=>e.action==='seat_won'),'competition can be won');ok(duelEvents.some(e=>e.action==='seat_held'),'incumbent can hold the seat');
 const held={...contested,race_material:{comments:[{...comment,follow_no:null}]}};assert.throws(()=>Engine.build(held),/競り先/);checked++;
+const unfixed=structuredClone(contested);unfixed.race_material.comments=[{...comment,rider:unfixed.riders.find(x=>x.no===2).name,lineup_intention:'unfixed',follow_no:null}];assert.throws(()=>Engine.build(unfixed),/位置を決めない/);checked++;
 const future=structuredClone(contested);future.race_material.comments=[{...comment,published_at:'2099-01-01T00:00:00Z',collected_at:'2099-01-02T00:00:00Z'}];ok(Input.prepare(future).race.contests.length===0,'post-start competition cannot change the race model');
 // A misleading largest spread must be reconsidered if it cannot separate the two leading hypotheses.
 function fake(id,values){return {id,terms:Object.entries(values).map(([axis,value])=>({phase:1,axis,value,reason:axis+'の比較',features:[]})),finish:{pair:[id,id+3],mode:'比較用'},scenes:[{events:[]},{events:[{actor:id,action:'press'}]}],detached:[],switches:{}};}
