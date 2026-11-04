@@ -41,6 +41,32 @@ function create(env){
      !/先行しない|逃げない|主導権は取らない|かもしれない|できれば|ならば|しません/.test(words);
   });
  }
+
+ function formation(id){
+  const line=lines[id],head=line.head,followers=line.members.slice(1);
+  const link=followers.length?followers.reduce((total,no)=>total+f(no,'track'),0)/followers.length:0;
+  const leader={ability:power(id),initiative:f(head,'initiative'),endurance:f(head,'endurance'),makuri:f(head,'makuri')};
+  return {size:line.length,head,followers:followers.length,link,leader,
+   continuity:clamp(followers.length*.06+link*.11),
+   trackingRisk:clamp(followers.length*.045+(1-link)*followers.length*.06),
+   solo:line.length===1};
+ }
+ function matchup(front,mover){
+  const a=formation(front),b=formation(mover),initiation=a.leader.initiative-b.leader.initiative,ability=a.leader.ability-b.leader.ability,depth=a.size-b.size;
+  const pressure=initiation*.42+ability*.40+(a.continuity-b.continuity)*.45+Math.max(-.18,Math.min(.18,depth*.05));
+  return {front:a,mover:b,pressure,advantage:pressure>0?'front':'mover',
+   frontCanDefend:active.has(front)&&a.size>=3&&b.size<=2&&a.leader.initiative>=.54&&a.link>=.35&&pressure>.085,
+   rationale:named(front)+'は'+a.size+'車（先行意欲'+a.leader.initiative.toFixed(2)+'、追走維持'+a.link.toFixed(2)+'）、'+named(mover)+'は'+b.size+'車（先行意欲'+b.leader.initiative.toFixed(2)+'）。ライン長は援護と選択肢を増やすが、先頭の加速力そのものを増やさない'};
+ }
+ function permitsStrategicYield(id){
+  const rider=r.riders.find(x=>x.no===lines[id].head),name=String(rider?.name||'').replace(/\s/g,'');
+  return (r.race_material?.comments||[]).some(c=>{
+   if(String(c.rider||'').replace(/\s/g,'')!==name||c.declaration_complete===false)return false;
+   const text=String(c.declaration||c.excerpt||'');
+   return /引いて捲|引いてまく|出させて捲|出させてまく|出してから捲|出してからまく|一度引いて|前を取らせる/.test(text)
+     &&!/しない|ません|ではない|かもしれない|できれば|なら/.test(text);
+  });
+ }
  function goal(id){
   const h=lines[id].head,rawLead=clamp(f(h,'initiative')*.70+power(id)*.12+Math.min(.12,(lines[id].length-1)*.05));
   const lead=soloAgainstLongLine(id)&&!soloLeadSupported(id)?Math.min(.28,rawLead*.40):rawLead;
@@ -48,9 +74,10 @@ function create(env){
   const attack=clamp(f(h,'kamashi')*.40+f(h,'long_makuri')*.30+f(h,'sprint')*.20);
   const scores={lead,middle,attack,conserve:clamp(f(h,'withdraw')*.45+f(h,'makuri')*.20)};
   const sources=[ev(h,'initiative'),ev(h,'position'),ev(h,'makuri'),ev(h,'withdraw'),ev(h,'kamashi')];
-  if(!active.has(id))return {primary:'support',scores:{lead:0,middle:0,attack:0,conserve:scores.conserve},reason:named(id)+'は自力上昇を支持する脚質・当該レース情報がなく、先頭から斬る候補にはしない。ラインの並びが追込のみ等であれば通常の自力三分戦とは区別する',sources};
+  if(!active.has(id))return {primary:'support',scores:{lead:0,middle:0,attack:0,conserve:scores.conserve},formation:formation(id),reason:named(id)+'は自力上昇を支持する脚質・当該レース情報がなく、先頭から斬る候補にはしない。ラインの並びが追込のみ等であれば通常の自力三分戦とは区別する',sources};
   const primary=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
-  return {primary,scores,reason:named(id)+'の先行傾向・位置取り・捲り・仕掛けを比較した暫定的な目的',sources};
+  const fm=formation(id),benefit=fm.size>=3?'後続の厚みによる援護と先行継続の選択肢':fm.size===2?'機動的な位置取り。ただし番手以外の援護はない':'単騎の自由な進路選択。ただしライン援護はない';
+  return {primary,scores,formation:fm,reason:named(id)+'は'+fm.size+'車。'+benefit+'。先頭の加速力はライン長で増えない。追走維持の負担'+fm.trackingRisk.toFixed(2)+'と先行・位置取り・捲りを比較',sources};
  }
  function step(s,x){
   if(!s.positioning_steps)s.positioning_steps=[];
@@ -186,6 +213,10 @@ function create(env){
    if(soloAgainstLongLine(mover)&&!soloLeadSupported(mover))continue;
    const startIndex=s.order.indexOf(mover),mg=goal(mover);
    for(const intent of ['press','cut'])for(const response of ['resist','yield']){
+    const duel=matchup(front,mover);
+    // A short line can briefly cut in front, but cannot claim an easy sustained
+    // surrender by a strong 3/4-rider line without a causal strategy.
+    if(response==='yield'&&intent==='press'&&duel.frontCanDefend&&!permitsStrategicYield(front))continue;
     const t=clone(s);t.id=allocate();t.positioning_goals=Object.fromEntries(s.order.map(id=>[id,goal(id)]));
     const before=[...t.order],fh=lines[front].head,ah=lines[mover].head;
     t.burden[mover]=(t.burden[mover]||0)+1;
@@ -198,9 +229,15 @@ function create(env){
       t.assumptions.push(exception||'中団の先動きを選ぶには、後方ラインが動かない事情が必要');
      }
     }
+    term(t,'interaction',(response==='resist'?duel.pressure:-duel.pressure)*.52,'ライン長だけでなく先頭の先行意欲・脚力と後続の追走能力を比較：'+duel.rationale,[ev(lines[front].head,'initiative'),ev(lines[mover].head,'initiative'),ev(lines[front].head,'ability'),ev(lines[mover].head,'ability')]);
+    if(response==='yield'&&duel.frontCanDefend){
+     term(t,'robustness',-.36,'主導権に合理性のある長いラインが短いラインを通すのは一時的な位置交換か明確な引いて捲り戦術。無抵抗で主導権を失うものとは扱わない',fg.sources);
+     t.assumptions.push(named(front)+'が'+named(mover)+'を一時的に通した後の反撃・脚の温存・事前意思が必要。'+duel.rationale);
+    }
     intentTerm(t,mover,intent);intentTerm(t,front,response);
     event(t,mover,intent,named(mover)+'は'+(intent==='cut'?(startIndex>=2?'後方不利を解消し、次の位置取りの選択肢を得るため一度前を斬る':'一度前を斬って中団を取り直す'):'主導権を取って後方を回避する')+'ため、位置'+(startIndex+1)+'から外を上昇');
     if(response==='resist'){
+      if(duel.frontCanDefend)term(t,'rationality',.32,'長い先行ラインが短い上昇ラインに抵抗する戦術的合理性。ただし突っ張りの消耗と成功・失敗を比較',[ev(lines[front].head,'initiative'),ev(lines[front].head,'endurance')]);
       t.burden[front]=(t.burden[front]||0)+2;
       t.burden[mover]++;
       // A blocked challenger may not mysteriously acquire the inner middle.
@@ -210,7 +247,7 @@ function create(env){
       term(t,'robustness',-.27,'突っ張りの踏み合いで双方が脚を使い、第三ラインに利益');
     }else{
       move(t,mover,0);
-      event(t,front,'yield',named(front)+'は'+named(mover)+'を通す。ただし中団の確保は他線の反応次第');
+      event(t,front,'yield',named(front)+'は'+named(mover)+'を一度通す。ただし主導権を恒久的に譲ったのではなく、前への巻き返しと中団維持を別々に比較する');
       term(t,'feasibility',clamp(.30+mg.scores.lead*.45-startIndex*.06+f(ah,'sprint')*.12),'上昇の長さと先行意欲を考慮し、前受けの受入れを評価',[ev(ah,'initiative'),ev(ah,'sprint')]);
       term(t,'rationality',fg.scores.middle+f(fh,'withdraw')*.12-fg.scores.lead*.17,'前受けが出させる狙いと後続の好位争いを比較',fg.sources);
       if(intent==='cut'){
@@ -268,7 +305,7 @@ function create(env){
   t.assumptions.push(named(middle)+'には追走後に加速するための間隔と残存脚が必要。Aが動かなければ本仮説は成立しない');
   return [t];
  }
- return {early,goal,slipstreamCounter,soloLeadSupported,soloAgainstLongLine};
+ return {early,goal,slipstreamCounter,soloLeadSupported,soloAgainstLongLine,formation,matchup,permitsStrategicYield};
 }
 const api={PATTERNS,initialOrders,create};
 if(typeof module!=='undefined')module.exports=api;

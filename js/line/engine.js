@@ -12,7 +12,7 @@ const Selection=typeof module!=='undefined'?require('./selection.js'):root.LineS
 const Tickets=typeof module!=='undefined'?require('./tickets.js'):root.LineTickets;
 const Sensitivity=typeof module!=='undefined'?require('./sensitivity.js'):root.LineSensitivity;
 const Build=typeof module!=='undefined'?require('./build.js'):root.LineBuild;
-const VERSION='LAB_LINE_ENGINE_V1.3.5',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
+const VERSION='LAB_LINE_ENGINE_V1.3.6',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
 const AXES={rationality:'戦術的合理性',feasibility:'成立可能性',evidence:'実績の裏付け',interaction:'他ラインとの相互作用',robustness:'頑健性・反証'};
 const TACTICS={press:'押さえ先行',cut:'斬って中団',resist:'突っ張り',yield:'出させて脚を温存',withdraw:'引いて立て直す',position:'中団を奪う',kamashi:'カマシ',long:'早めの捲り',short:'短い捲り',wait:'待機・位置維持',use:'別線の仕掛けを利用',seat:'番手飛びつき',block:'牽制',vertical:'縦に踏む',continue:'外進行の継続',counter:'別線の外から反撃',recover:'不発後の立て直し',relaunch:'仕掛け直し',reconnect:'離れから追走回復',inside:'内の進路',seat_won:'番手確保',seat_held:'番手防衛',seat_partial:'番手競り継続'};
 const copy=x=>JSON.parse(JSON.stringify(x)),clamp=x=>Math.max(0,Math.min(1,x));
@@ -143,11 +143,17 @@ function build(raw,packs={},options={}){
     const g=positioning.goal(other);
     event(remain,other,'wait',`${who(other)}は中団・捲り志向（${g.scores.middle.toFixed(2)}）と主導権志向（${g.scores.lead.toFixed(2)}）を比較し、次の仕掛け機会を残す`);
    }
-   const release=unsupportedSoloEarlyLead(cut)?[]:[remain];
+   const originallyFront=s.scenes[0]?.control;
+   const defendedFront=originallyFront&&originallyFront!==cut&&eligible.includes(originallyFront)
+    &&positioning.matchup(originallyFront,cut).frontCanDefend
+    &&!positioning.permitsStrategicYield(originallyFront);
+   const release=unsupportedSoloEarlyLead(cut)||defendedFront?[]:[remain];
+   if(defendedFront)rejected.push({phase:stage,line:cut,tactic:'uncontested_short_lead',
+    reason:'強い長いラインが一度短いラインを通しても、そのまま無反応で先行を引き受けさせる根拠がない。前受けラインの踏み直し・カマシを別候補として検討'});
    if(!release.length)rejected.push({phase:stage,line:cut,tactic:'solo_early_lead',reason:'単騎の一時的な先斬りを、長い自力ラインが控える中で無根拠の主導権継続として本線にしない'});
    // The rear line can begin a real outer attack, instead of being teleported to the lead.
-   for(const id of eligible)for(const kind of ['kamashi','long'])release.push(...attack(base,id,kind).map(x=>({...x,cut_resolution:'outer_counter'})));
-   for(const id of eligible){
+   for(const id of eligible.filter(id=>!defendedFront||id===originallyFront))for(const kind of ['kamashi','long'])release.push(...attack(base,id,kind).map(x=>({...x,cut_resolution:'outer_counter'})));
+   for(const id of eligible.filter(id=>!defendedFront||id===originallyFront)){
     const g=positioning.goal(id),h=lines[id].head,from=s.order.indexOf(id);
     // A rear line must attack through an outside lane; it cannot jump directly into the lead.
     if(from>1)continue;
