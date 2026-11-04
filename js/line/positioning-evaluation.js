@@ -1,12 +1,15 @@
 /* Post-race positioning audit. Only compare frozen pre-race predictions with verified independent observations. */
 (function(root){'use strict';
+const Provenance=typeof module!=='undefined'?require('../model-provenance.js'):root.ModelProvenance;
 const allowed=new Set(['press','cut','resist','yield','withdraw','position','wait','kamashi','seat','use']);
 const finite=t=>Number.isFinite(Date.parse(t));
 const unique=arr=>Array.isArray(arr)&&arr.length>0&&new Set(arr).size===arr.length;
 function compare(record,observation,now=Date.now()){
  const exclude=reason=>({status:'excluded',reason,compared:0,matched:0,checks:[]});
  if(record?.schema!=='tk-keirin-line-frozen/v1'||!record.out?.main?.scenes||record.out.main.scenes.length!==6)return exclude('固定した発走前のLINE予測がない');
- const o=record.out,cutoff=Date.parse(o.input?.cutoff),inputTime=Date.parse(o.input?.as_of),saved=Date.parse(record.saved_at),generated=Date.parse(o.generated_at);
+ const o=record.out;
+ if(!record.output_sha256||record.output_sha256!==Provenance.sha256(o))return exclude('固定予測のハッシュが一致しない');
+ const cutoff=Date.parse(o.input?.cutoff),inputTime=Date.parse(o.input?.as_of),saved=Date.parse(record.saved_at),generated=Date.parse(o.generated_at);
  if(o.mode!=='pre-race'||!Number.isFinite(cutoff)||!(inputTime<=generated&&generated<=saved&&saved<cutoff))return exclude('発走前の保存時刻が検証できない');
  const race=o.input.race,raceId=[race.date,race.venue,race.race_no].join(':');
  if(record.race_id!==raceId||observation?.race_id!==raceId)return exclude('レース識別子が一致しない');
