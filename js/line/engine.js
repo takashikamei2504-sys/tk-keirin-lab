@@ -116,7 +116,7 @@ function build(raw,packs={},options={}){
   }return [t];
  }
  const positioning=Positioning.create({r,lines,topology,f,ev,term,event,move,who,intentTerm,allocate:()=>++serial,lineSupport,power});
- function early(s){return positioning.early(s);}
+ function early(s){setContext(s);return positioning.early(s);}
  function launch(s,stage){
   setContext(s);
   if(s.pendingCut){
