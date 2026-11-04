@@ -138,6 +138,8 @@ function build(raw,packs={},options={}){
    for(const id of eligible)for(const kind of ['kamashi','long'])release.push(...attack(base,id,kind));
    for(const id of eligible){
     const g=positioning.goal(id),h=lines[id].head,from=s.order.indexOf(id);
+    // A rear line must attack through an outside lane; it cannot jump directly into the lead.
+    if(from>1)continue;
     const leadUtility=g.scores.lead-g.scores.middle+Math.min(.12,(lines[id].length-1)*.06)-from*.08;
     const t=copy(s);t.id=++serial;t.pendingCut=null;move(t,id,0);t.burden[id]++;
     event(t,id,'press',`${who(id)}は中団維持・捲り（${g.scores.middle.toFixed(2)}）より主導権確保（${g.scores.lead.toFixed(2)}）を選択し、${from+1}番目の位置から上昇する。ラインは${lines[id].length}車`);
