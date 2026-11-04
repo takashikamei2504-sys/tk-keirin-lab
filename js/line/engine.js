@@ -123,7 +123,7 @@ function build(raw,packs={},options={}){
    // A cut is an opportunity, not a command to force another line to the lead.
    const cut=s.pendingCut,cutGoal=positioning.goal(cut);
    const eligible=s.order.filter(id=>id!==cut&&topology.active.includes(id)&&State.members(s,id,lines)[0]===lines[id].head);
-   const base=copy(s);base.id=++serial;base.pendingCut=null;base.burden[cut]++;
+   const base=copy(s);base.id=++serial;base.pendingCut=null;base.cut_resolution='hold_lead';base.burden[cut]++;
    event(base,cut,'press',`${who(cut)}は中団を取り直すつもりで斬ったが、別線が前へ出ないため想定外に先頭を引き受ける`);
    term(base,'rationality',cutGoal.scores.lead-cutGoal.scores.middle-.2,'先斬り側が前に残る場合、先行の利益と中団を望む利益を比較',cutGoal.sources);
    term(base,'robustness',-.15,'別線が主導権を引き受けないため当初の好位確保目的は未達');
@@ -135,13 +135,13 @@ function build(raw,packs={},options={}){
    }
    const release=[remain];
    // The rear line can begin a real outer attack, instead of being teleported to the lead.
-   for(const id of eligible)for(const kind of ['kamashi','long'])release.push(...attack(base,id,kind));
+   for(const id of eligible)for(const kind of ['kamashi','long'])release.push(...attack(base,id,kind).map(x=>({...x,cut_resolution:'outer_counter'})));
    for(const id of eligible){
     const g=positioning.goal(id),h=lines[id].head,from=s.order.indexOf(id);
     // A rear line must attack through an outside lane; it cannot jump directly into the lead.
     if(from>1)continue;
     const leadUtility=g.scores.lead-g.scores.middle+Math.min(.12,(lines[id].length-1)*.06)-from*.08;
-    const t=copy(s);t.id=++serial;t.pendingCut=null;move(t,id,0);t.burden[id]++;
+    const t=copy(s);t.id=++serial;t.pendingCut=null;t.cut_resolution='take_lead';move(t,id,0);t.burden[id]++;
     event(t,id,'press',`${who(id)}は中団維持・捲り（${g.scores.middle.toFixed(2)}）より主導権確保（${g.scores.lead.toFixed(2)}）を選択し、${from+1}番目の位置から上昇する。ラインは${lines[id].length}車`);
     event(t,cut,'yield',`${who(cut)}は先斬り後に${who(id)}を通し、その後ろの好位を狙う。位置確保は別線との関係次第`);
     term(t,'rationality',leadUtility,'中団を捨てて主導権を取る利益を先行志向・捲り志向・ライン長・現位置から比較',g.sources);
@@ -262,11 +262,11 @@ function build(raw,packs={},options={}){
  // Cheap exploration rank only. Final selection below chooses a race-dependent axis.
  function rank(s){return Object.keys(AXES).reduce((a,k)=>a+subtotal(s,k),0);}
  function trim(states){counts.generated+=states.length;const buckets=new Map();
-  for(const s of states){const key=[s.order.join(''),s.pendingCut||'',JSON.stringify(s.burden),s.events.map(e=>e.actor+':'+e.action+':'+(e.outcome||'')).join(','),s.outside?.id,s.outside?.kind,s.secondary?.id,s.secondary?.kind,s.innerRoute?.no,s.contest?.challenger,s.contest?.outcome,JSON.stringify(s.contestHistory),JSON.stringify(s.failedAttacks),s.defense?.action,s.defense?.outcome,s.detached.join(),JSON.stringify(s.switches),JSON.stringify(s.rearJoins),JSON.stringify(s.riderBurden),s.attacks.map(a=>a.kind).join()].join('|');if(!buckets.has(key)||rank(s)>rank(buckets.get(key)))buckets.set(key,s);}
+  for(const s of states){const key=[s.order.join(''),s.pendingCut||'',s.cut_resolution||'',JSON.stringify(s.burden),s.events.map(e=>e.actor+':'+e.action+':'+(e.outcome||'')).join(','),s.outside?.id,s.outside?.kind,s.secondary?.id,s.secondary?.kind,s.innerRoute?.no,s.contest?.challenger,s.contest?.outcome,JSON.stringify(s.contestHistory),JSON.stringify(s.failedAttacks),s.defense?.action,s.defense?.outcome,s.detached.join(),JSON.stringify(s.switches),JSON.stringify(s.rearJoins),JSON.stringify(s.riderBurden),s.attacks.map(a=>a.kind).join()].join('|');if(!buckets.has(key)||rank(s)>rank(buckets.get(key)))buckets.set(key,s);}
   const sorted=[...buckets.values()].sort((a,b)=>rank(b)-rank(a)||a.id-b.id),selected=[],families=new Map();
   // Round-robin across state families, so failure/recovery never vanishes merely
   // because many initial S-order variants of a successful move rank ahead.
-  for(const s of sorted){const earlyEvents=s.scenes[1]?.events||s.events,earlyTactic=earlyEvents.find(e=>['cut','press'].includes(e.action))?.action||'hold',earlyResponse=earlyEvents.find(e=>['resist','yield'].includes(e.action))?.action||'wait';const key=[earlyTactic,earlyResponse,s.outside?.kind||'none',s.secondary?.kind||'none',s.failedAttacks.some(a=>a.status==='failed')?'failed':'',s.retry?'retry':'',s.innerRoute?'inside':'',s.recoveredLines?.length?'reset':'',s.recoveredRiders?.length?'rejoined':'',s.detached.length?'detached':'',s.contestHistory.at(-1)?.outcome||s.contest?.outcome||'',s.defense?.action||'',s.defense?.outcome||''].join('|');if(!families.has(key))families.set(key,[]);families.get(key).push(s);}
+  for(const s of sorted){const earlyEvents=s.scenes[1]?.events||s.events,earlyTactic=earlyEvents.find(e=>['cut','press'].includes(e.action))?.action||'hold',earlyResponse=earlyEvents.find(e=>['resist','yield'].includes(e.action))?.action||'wait';const key=[earlyTactic,earlyResponse,s.cut_resolution||'none',s.outside?.kind||'none',s.secondary?.kind||'none',s.failedAttacks.some(a=>a.status==='failed')?'failed':'',s.retry?'retry':'',s.innerRoute?'inside':'',s.recoveredLines?.length?'reset':'',s.recoveredRiders?.length?'rejoined':'',s.detached.length?'detached':'',s.contestHistory.at(-1)?.outcome||s.contest?.outcome||'',s.defense?.action||'',s.defense?.outcome||''].join('|');if(!families.has(key))families.set(key,[]);families.get(key).push(s);}
   let round=0;while(selected.length<width){let added=0;for(const bucket of families.values()){if(bucket[round]&&selected.length<width){selected.push(bucket[round]);added++;}}if(!added)break;round++;}
   counts.pruned+=states.length-selected.length;return selected;
 
@@ -286,7 +286,7 @@ function build(raw,packs={},options={}){
   snap(s,0);s.scenes[0].start_plan=copy(s.startPlan);return s;
  }));
  evaluationStage=1;states=trim(states.flatMap(early).flatMap(s=>advanced.contest(s,1)));states.forEach(s=>snap(s,1));
- evaluationStage=2;states=trim(states.flatMap(s=>launch(s,2)).flatMap(advanced.homeFailure).flatMap(followers));states.forEach(s=>snap(s,2));
+ evaluationStage=2;const homePlans=states.flatMap(s=>launch(s,2));const cut_choices=Object.fromEntries(['hold_lead','take_lead','outer_counter'].map(k=>[k,homePlans.filter(x=>x.cut_resolution===k).length]));states=trim(homePlans.flatMap(advanced.homeFailure).flatMap(followers));states.forEach(s=>snap(s,2));
  // Existing external attacks first continue; new attacks at the back cannot jump to the front.
  evaluationStage=3;states=trim(states.flatMap(s=>launch(s,3)).flatMap(advanced.recovery).flatMap(advanced.counter).flatMap(s=>advanced.contest(s,3)));states.forEach(s=>snap(s,3));
  evaluationStage=4;states=trim(states.flatMap(defendAll).flatMap(followers).flatMap(s=>soloResponse(s)).flatMap(advanced.inside));states.forEach(s=>snap(s,4));
@@ -326,7 +326,7 @@ function build(raw,packs={},options={}){
  decision.sensitivity=Sensitivity.review(main,rated,weight);
  const {tickets,policy:ticket_policy}=Tickets.generate(main,alternatives,input);
 
- return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,search_settings:{width,trace_candidates:!!options.traceCandidates},input_as_of:input.as_of,cutoff:input.cutoff},input,environment,topology,main,decision,rival,alternatives,candidate_evaluations:valid.map(s=>({id:s.id,score:Object.keys(AXES).reduce((sum,k)=>sum+subtotal(s,k)*weight[k],0),axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),audit:s.audit,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,defenses:s.defenses,detached:s.detached,recovered_lines:s.recoveredLines||[],recovered_riders:s.recoveredRiders||[],inside:s.innerRoute||null,contest:s.contest||null,contest_history:s.contestHistory,...(options.traceCandidates?{terms:s.terms,scenes:s.scenes.map(x=>({phase:x.phase,control:x.control,order:x.order,positions:x.positions,groups:x.groups,events:x.events,positioning_steps:x.positioning_steps,positioning_goals:x.positioning_goals}))}:{})})),tickets,ticket_policy,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,audit_passed:valid.length,pareto:selected.pareto,finalists:selected.finalists,retained:rated.length,method:'ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
+ return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,search_settings:{width,trace_candidates:!!options.traceCandidates},input_as_of:input.as_of,cutoff:input.cutoff},input,environment,topology,main,decision,rival,alternatives,candidate_evaluations:valid.map(s=>({id:s.id,score:Object.keys(AXES).reduce((sum,k)=>sum+subtotal(s,k)*weight[k],0),axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),audit:s.audit,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,defenses:s.defenses,detached:s.detached,recovered_lines:s.recoveredLines||[],recovered_riders:s.recoveredRiders||[],inside:s.innerRoute||null,contest:s.contest||null,contest_history:s.contestHistory,cut_resolution:s.cut_resolution||null,...(options.traceCandidates?{terms:s.terms,scenes:s.scenes.map(x=>({phase:x.phase,control:x.control,order:x.order,positions:x.positions,groups:x.groups,events:x.events,positioning_steps:x.positioning_steps,positioning_goals:x.positioning_goals}))}:{})})),tickets,ticket_policy,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,...(options.traceCandidates?{cut_choices}:{}),audit_passed:valid.length,pareto:selected.pareto,finalists:selected.finalists,retained:rated.length,method:'ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
 }
 function compress(tickets){const groups=new Map();for(const t of tickets){const k=t.trio.slice(0,2).join('-');if(!groups.has(k))groups.set(k,new Set());groups.get(k).add(t.trio[2]);}return [...groups].map(([k,thirds])=>({text:k+'-'+[...thirds].sort((a,b)=>a-b).join(''),count:thirds.size}));}
 const api={VERSION,PHASES,AXES,TACTICS,structure,frontChoices,build,compress};if(typeof module!=='undefined')module.exports=api;root.LineEngine=api;
