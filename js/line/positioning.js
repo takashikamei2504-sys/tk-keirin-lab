@@ -52,7 +52,7 @@ function create(env){
   for(const id of s.order.filter(x=>x!==mover&&x!==front&&active.has(x))){
    const g=goal(id),index=s.order.indexOf(id);
    if(intent==='cut'){
-    const t=clone(s),before=[...t.order];
+    const t=clone(s),before=[...t.order];t.id=allocate();
     move(t,id,0);t.pendingCut=null;t.burden[id]=(t.burden[id]||0)+1;
     event(t,id,'press',named(id)+'は'+named(mover)+'の先斬りを受け、赤板から打鐘へ主導権を引き受ける');
     event(t,mover,'yield',named(mover)+'は先斬りの目的どおり、後続を通して中団を狙う');
@@ -67,7 +67,7 @@ function create(env){
     const resistance=power(incumbent)*.25+occupant.scores.middle*.40;
     // Moving from rear to middle requires an actual pass; it is never automatic.
     if(ability+.12<resistance)continue;
-    const t=clone(s),before=[...t.order];
+    const t=clone(s),before=[...t.order];t.id=allocate();
     move(t,id,1);t.burden[id]=(t.burden[id]||0)+1;
     event(t,id,'position',named(id)+'は先行ライン'+named(mover)+'の後ろを狙い、'+named(incumbent)+'を外から交わして中団を確保する');
     event(t,incumbent,'yield',named(incumbent)+'は中団争いで後方へ下がる');
