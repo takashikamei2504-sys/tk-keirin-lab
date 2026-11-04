@@ -38,7 +38,10 @@ function create(env){
  }
  function step(s,x){
   if(!s.positioning_steps)s.positioning_steps=[];
-  s.positioning_steps.push({...x,sequence:s.positioning_steps.length+1,after:[...s.order],measured_time:false});
+  const from=x.before.indexOf(x.actor);
+  const name=x.action==='cut'?(from<=1?'middle_cut':'sequential_cuts'):x.action==='press'?(from<=1?'middle_press':'rear_press'):null;
+  const pattern=PATTERNS.find(p=>p.id===name);
+  s.positioning_steps.push({...x,sequence:s.positioning_steps.length+1,after:[...s.order],pattern_id:pattern?.id||null,pattern_label:pattern?.label||'好位奪取の個別反応',failure_condition:pattern?.failure||'相手との位置取り争いに敗れる',measured_time:false});
  }
  function reasonsForWait(s,acted){
   for(const id of s.order)if(!acted.has(id)){
