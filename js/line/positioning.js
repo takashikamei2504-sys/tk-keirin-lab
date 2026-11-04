@@ -43,7 +43,8 @@ function create(env){
   const from=x.before.indexOf(x.actor);
   const name=x.action==='cut'?(from<=1?'middle_cut':'sequential_cuts'):x.action==='press'?(from<=1?'middle_press':'rear_press'):null;
   const pattern=PATTERNS.find(p=>p.id===name);
-  s.positioning_steps.push({...x,sequence:s.positioning_steps.length+1,after:[...s.order],pattern_id:pattern?.id||null,pattern_label:pattern?.label||'好位奪取の個別反応',failure_condition:pattern?.failure||'相手との位置取り争いに敗れる',measured_time:false});
+  const label=x.response==='second_yields'?'前受けラインの再上昇・主導権奪回':pattern?.label||'好位奪取の個別反応';
+  s.positioning_steps.push({...x,sequence:s.positioning_steps.length+1,after:[...s.order],pattern_id:pattern?.id||null,pattern_label:label,failure_condition:pattern?.failure||'相手との位置取り争いに敗れる',measured_time:false});
  }
  function reasonsForWait(s,acted){
   for(const id of s.order)if(!acted.has(id)){
@@ -190,7 +191,7 @@ function create(env){
     const baseline=clone(t);reasonsForWait(baseline,new Set([mover,front]));result.push(baseline);
     if(response==='yield'){
       for(const third of addThird(t,mover,front,intent)){
-        reasonsForWait(third,new Set([mover,front,third.positioning_steps.at(-1).actor]));
+        reasonsForWait(third,new Set([front,...third.positioning_steps.map(x=>x.actor)]));
         result.push(third);
       }
     }
