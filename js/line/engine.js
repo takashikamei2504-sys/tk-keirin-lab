@@ -358,6 +358,17 @@ function build(raw,packs={},options={}){
     pairs.push({pair:[attacker,second],mode:'別線捲りと本線番手の混合決着',margin:attackerStrength-followStrength-.02});
    }
    pairs.push({pair:[head,attacker],mode:'先行押し切りと別線捲り残り',margin:leaderStrength-attackerStrength-.02});
+   // A progressing outside line can occupy both podium places if its own marker
+   // actually remains attached at the final corner; do not infer the connection.
+   const outerGroup=corner.groups.find(g=>g.id===a.id&&g.attack&&g.lane>0);
+   const outerMarker=outerGroup?.members?.[1],markerPos=positions[outerMarker];
+   if(outerMarker&&!state.detached.includes(outerMarker)&&markerPos?.band==='outside'&&markerPos.ordinal<=4){
+    const outerMarkerStrength=f(outerMarker,'ability')*.42+f(outerMarker,'finish')*.36
+      +f(outerMarker,'track')*.22-(state.riderBurden[outerMarker]||0)*.05
+      -Effort.fatigue(state,a.id)*.035;
+    pairs.push({pair:[attacker,outerMarker],mode:'別線捲りラインの独占',margin:attackerStrength-outerMarkerStrength});
+    pairs.push({pair:[outerMarker,attacker],mode:'別線番手差しの独占',margin:outerMarkerStrength-attackerStrength});
+   }
   }
   if(state.innerRoute){const n=state.innerRoute.no;pairs.push({pair:[n,second||head],mode:'内進路からの直線',margin:f(n,'inside')*.4+f(n,'finish')*.4+f(n,'ability')*.2-(state.riderBurden[n]||0)*.08-leaderStrength});}
   if(third&&!state.detached.includes(third)&&f(third,'finish')>f(head,'finish')+.15)pairs.push({pair:[third,second||head],mode:'3番手の直線勝負',margin:f(third,'finish')-leaderStrength-.2});
