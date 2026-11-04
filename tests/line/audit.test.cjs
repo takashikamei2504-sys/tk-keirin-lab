@@ -15,7 +15,40 @@ const deadheat=clone(observed);deadheat.combos.push({key:'1-3-2',trio:[1,3,2]});
 const summary=E.summarize([{model_id:'one',evaluation:success},{model_id:'two',evaluation:{...success,hit:false}},{evaluation:{status:'pending'}}]);equal(summary.by_model.one.hits,1);equal(summary.by_model.two.hits,0);equal(summary.evaluated,2);equal(summary.pending,1);
 function h(id,pair,thirds,score=1){return {id,score,audit:{passed:true},finish:{pair,mode:'合成決着',thirds:thirds.map(no=>({no,reason:'合成進路の裏付け'}))},scenes:[{events:[{action:'pass',reason:'合成の独立した展開理由'}]}]};}
 const main=h(1,[1,2],[3,4,5,6,7]),alternatives=[h(2,[2,1],[3,4,5,6,7]),h(3,[3,1],[2,4,5,6,7]),h(4,[1,2],[3,4]),h(5,[7,6],[5],.1)],tickets=T.generate(main,alternatives);
-equal(tickets.tickets.length,15);equal(tickets.policy.fixed_count,false);equal(tickets.tickets.find(t=>t.key==='1-2-3').supporting_hypotheses,[1,4]);equal(tickets.policy.reviews.at(-1).accepted,false);equal(T.generate(h(1,[1,2],[3]),[]).tickets.length,1);
+equal(tickets.tickets.length,12);equal(tickets.policy.fixed_count,false);equal(tickets.tickets.find(t=>t.key==='1-2-3').supporting_hypotheses,[1,4]);equal(tickets.policy.reviews.at(-1).accepted,false);equal(T.generate(h(1,[1,2],[3]),[]).tickets.length,1);
+// Close-finish variations must be conditional on the same 4C state, not
+// synthetic alternative race stories or hard-coded permutations.
+const vv={id:71,score:2,audit:{passed:true},detached:[],riderBurden:{},burden:{A:0},defenses:[{action:'block'}],
+ outside:{id:'B',from:1,kind:'short',progress:'前団に接近',anchor:'A'},secondary:null,
+ scenes:Array.from({length:6},(_,i)=>i===4?{phase:'最終3～4コーナー',control:'A',
+  groups:[{id:'A',lane:0,members:[1,2,3]},{id:'B',lane:1,attack:true,members:[4,5]}],
+  events:[],
+  positions:Object.fromEntries(Array.from({length:7},(_,j)=>[j+1,{band:j===3?'outside':'inner',ordinal:j===3?2:j}]))}:
+  {events:[]}),
+ finish:{pair:[2,1],mode:'番手差し',leaderStrength:.68,followStrength:.69,thirds:[{no:3,reason:'3番手の追走'},{no:4,reason:'外で接近'}]}};
+const vInput={race:{riders:Array.from({length:7},(_,i)=>({no:i+1}))},
+ features:Object.fromEntries(Array.from({length:7},(_,i)=>[i+1,{ability:{value:.70,basis:'力量比較'},finish:{value:i===2?.84:.71,basis:'直線比較'},makuri:{value:i===3?.90:.61,basis:'捲り比較'},inside:{value:.60,basis:'内進路比較'}}]))};
+const vCandidates=T.variations(vv,vInput);
+equal(vCandidates.some(t=>t.trio[0]===2&&t.trio[1]===4&&t.variation.kind==='same-corner'),true);
+equal(vCandidates.some(t=>t.trio[0]===3&&t.trio[1]===2),true);
+const withoutOutside=T.variations({...vv,outside:null},vInput);
+equal(withoutOutside.some(t=>t.trio[0]===2&&t.trio[1]===4),false);
+const withoutThirdRoute=T.variations({...vv,defenses:[]},vInput);
+equal(withoutThirdRoute.some(t=>t.trio[0]===3&&t.trio[1]===2),false);
+equal(vCandidates.every(t=>t.reason&&t.variation.source_hypothesis===vv.id),true);
+const withInside=structuredClone(vv),insideInput=structuredClone(vInput);
+insideInput.race.lineup=[[1,2,3],[4,5],[6,7]];
+withInside.innerRoute={no:3,target:'A'};
+withInside.defenses=[];
+withInside.scenes[4].groups[0].members=[1,2];
+withInside.scenes[4].groups.push({id:'内3',lane:2,members:[3],inside:true});
+withInside.scenes[4].positions[3]={band:'inside',lane:2,ordinal:2};
+equal(T.variations(withInside,insideInput).some(t=>t.trio[0]===3&&t.trio[1]===2),true);
+
+const vOutput=T.generate(vv,[],vInput);
+equal(vOutput.tickets.length<=12,true);equal(vOutput.tickets.some(t=>t.group==='variation'),true);
+equal(vOutput.tickets.every(t=>new Set(t.trio).size===3),true);
+
 const sm={id:1,axes:{a:1,b:0},finish:{pair:[1,2]}},sr={id:2,axes:{a:0,b:1.5},finish:{pair:[3,4]}},weights={a:2,b:1},review=S.review(sm,[sm,sr],weights);
 equal(review.thresholds.find(t=>t.axis==='a').boundary,1.5);equal(review.scenarios.find(t=>t.axis==='a'&&t.factor===.5).winner,2);equal(review.scenarios.find(t=>t.axis==='a'&&t.factor===1.5).winner,1);
 for(const threshold of review.thresholds){const w={...weights,[threshold.axis]:threshold.boundary};equal(Math.abs(Object.keys(w).reduce((sum,k)=>sum+(sm.axes[k]-sr.axes[k])*w[k],0))<1e-10,true);}
