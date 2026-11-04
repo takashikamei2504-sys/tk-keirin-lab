@@ -108,8 +108,8 @@ function generate(main,alternatives,input){
  }
  function emit(h,primary,pool){
   const gap=main.score-h.score;
-  if(!h.audit?.passed||(!primary&&!Number.isFinite(gap))){
-   reviews.push({hypothesis:h.id,accepted:false,gap,added:0,reason:!h.audit?.passed?'局面の整合性検査を通過していない':'候補の比較差が不正'});return;
+  if(!h.audit?.passed||(!primary&&(!Number.isFinite(gap)||gap>.70+1e-10))){
+   reviews.push({hypothesis:h.id,accepted:false,gap,added:0,reason:!h.audit?.passed?'局面の整合性検査を通過していない':'本線との比較差が大きく、別展開の支持が不足'});return;
   }
   const events=h.scenes.flatMap(s=>s.events).filter(e=>['pass','resist','yield','long','kamashi','short','counter','relaunch','inside','seat_won'].includes(e.action));let count=0;
   for(const [i,third] of h.finish.thirds.entries()){
@@ -146,7 +146,7 @@ function generate(main,alternatives,input){
   perWinner.set(best.trio[0],(perWinner.get(best.trio[0])||0)+1);
  }
  for(const r of reviews){const included=chosen.filter(t=>t.supporting_hypotheses.includes(r.hypothesis));r.added=included.length;r.accepted=included.length>0&&r.accepted;if(r.accepted&&included.length<mainPool.filter(x=>x.hypothesis===r.hypothesis).length)r.reason+='。買い目全体の上限と重複を考慮して一部採用';}
- return {tickets:chosen,policy:{method:'causal-marginal-pair-coverage-v2',comparison_margin:null,target_count:null,max_count:MAX_TICKETS,fixed_count:false,reviews,groups:{main:chosen.filter(x=>x.group==='main').length,variation:chosen.filter(x=>x.group==='variation').length,alternative:chosen.filter(x=>x.group==='alternative').length},note:'本線の6局面を維持し、4角での位置・外並走・内進路・選手の力量と直線特性で僅差決着の揺らぎを検討。買い目は本線・4角の着順変化・別展開を固定枠なしで比較。点数は最大12点、根拠がなければ埋めない。特徴量と閾値は未校正、確率・回収率を意味しない。'}};
+ return {tickets:chosen,policy:{method:'causal-marginal-pair-coverage-v2',comparison_margin:.70,target_count:null,max_count:MAX_TICKETS,fixed_count:false,reviews,groups:{main:chosen.filter(x=>x.group==='main').length,variation:chosen.filter(x=>x.group==='variation').length,alternative:chosen.filter(x=>x.group==='alternative').length},note:'本線の6局面を維持し、4角での位置・外並走・内進路・選手の力量と直線特性で僅差決着の揺らぎを検討。買い目は本線・4角の着順変化・別展開を固定枠なしで比較。点数は最大12点、根拠がなければ埋めない。特徴量と閾値は未校正、確率・回収率を意味しない。'}};
 }
 const api={generate,variations};if(typeof module!=='undefined')module.exports=api;root.LineTickets=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
