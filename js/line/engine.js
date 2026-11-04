@@ -12,7 +12,7 @@ const Selection=typeof module!=='undefined'?require('./selection.js'):root.LineS
 const Tickets=typeof module!=='undefined'?require('./tickets.js'):root.LineTickets;
 const Sensitivity=typeof module!=='undefined'?require('./sensitivity.js'):root.LineSensitivity;
 const Build=typeof module!=='undefined'?require('./build.js'):root.LineBuild;
-const VERSION='LAB_LINE_ENGINE_V1.3.4',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
+const VERSION='LAB_LINE_ENGINE_V1.3.5',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
 const AXES={rationality:'戦術的合理性',feasibility:'成立可能性',evidence:'実績の裏付け',interaction:'他ラインとの相互作用',robustness:'頑健性・反証'};
 const TACTICS={press:'押さえ先行',cut:'斬って中団',resist:'突っ張り',yield:'出させて脚を温存',withdraw:'引いて立て直す',position:'中団を奪う',kamashi:'カマシ',long:'早めの捲り',short:'短い捲り',wait:'待機・位置維持',use:'別線の仕掛けを利用',seat:'番手飛びつき',block:'牽制',vertical:'縦に踏む',continue:'外進行の継続',counter:'別線の外から反撃',recover:'不発後の立て直し',relaunch:'仕掛け直し',reconnect:'離れから追走回復',inside:'内の進路',seat_won:'番手確保',seat_held:'番手防衛',seat_partial:'番手競り継続'};
 const copy=x=>JSON.parse(JSON.stringify(x)),clamp=x=>Math.max(0,Math.min(1,x));
@@ -126,6 +126,7 @@ function build(raw,packs={},options={}){
  }
  const positioning=Positioning.create({r,lines,topology,f,ev,term,event,move,who,intentTerm,allocate:()=>++serial,lineSupport,power});
  function early(s){setContext(s);return positioning.early(s);}
+ function unsupportedSoloEarlyLead(id){return !!lines[id]&&positioning.soloAgainstLongLine(id)&&!positioning.soloLeadSupported(id);}
  function launch(s,stage){
   setContext(s);
   if(s.pendingCut){
@@ -142,7 +143,8 @@ function build(raw,packs={},options={}){
     const g=positioning.goal(other);
     event(remain,other,'wait',`${who(other)}は中団・捲り志向（${g.scores.middle.toFixed(2)}）と主導権志向（${g.scores.lead.toFixed(2)}）を比較し、次の仕掛け機会を残す`);
    }
-   const release=[remain];
+   const release=unsupportedSoloEarlyLead(cut)?[]:[remain];
+   if(!release.length)rejected.push({phase:stage,line:cut,tactic:'solo_early_lead',reason:'単騎の一時的な先斬りを、長い自力ラインが控える中で無根拠の主導権継続として本線にしない'});
    // The rear line can begin a real outer attack, instead of being teleported to the lead.
    for(const id of eligible)for(const kind of ['kamashi','long'])release.push(...attack(base,id,kind).map(x=>({...x,cut_resolution:'outer_counter'})));
    for(const id of eligible){
@@ -176,7 +178,9 @@ function build(raw,packs={},options={}){
   term(waiting,'rationality',.25,'待機は無駄な踏み合いを避ける選択');
   const unused=s.order.slice(1).filter(id=>topology.active.includes(id)&&!s.used.includes(id)&&State.members(s,id,lines)[0]===lines[id].head);
   term(waiting,'robustness',-Math.max(0,...unused.map(id=>power(id)+f(lines[id].head,'sprint')-power(lead)-.35)),'未仕掛けの有力別線を止め続ける仮説を反証',[ev(lines[lead].head,'ability'),...unused.flatMap(id=>[ev(lines[id].head,'ability'),ev(lines[id].head,'sprint')])]);
-  result.push(waiting);
+  if(stage===2&&unsupportedSoloEarlyLead(lead)){
+   rejected.push({phase:stage,line:lead,tactic:'solo_hold_front',reason:'自力型でも単騎が4車ラインの前で最終ホームまで先行を継続する根拠がない'});
+  }else result.push(waiting);
   if(stage===3&&s.outside)result.push(...positioning.slipstreamCounter(s));
   if(s.outside)return result;
   for(const id of unused){for(const kind of stage===2?['kamashi','long']:['short'])result.push(...attack(s,id,kind));}
@@ -346,7 +350,13 @@ function build(raw,packs={},options={}){
  }
  if(!finishHypotheses.length)throw Error('成立する決着候補がありません');
  // Hard constraints cannot be rescued by an axis weight.
- const valid=finishHypotheses.filter(s=>{const logical=State.audit(s,r,lines),physical=Physical.audit(s,topology,input.features);s.audit={...logical,physical,passed:logical.passed&&physical.passed,failures:[...logical.failures,...physical.failures]};if(!s.audit.passed)rejected.push({id:s.id,reason:s.audit.failures.join('。')});return s.audit.passed;});
+ const valid=finishHypotheses.filter(s=>{
+  const logical=State.audit(s,r,lines),physical=Physical.audit(s,topology,input.features);
+  const soloHome=s.scenes[2]?.control;
+  const strategic=unsupportedSoloEarlyLead(soloHome)?['強い複数車ラインを相手に、単騎が最終ホームまで先頭を維持する特別な根拠がない']:[];
+  s.audit={...logical,physical,passed:logical.passed&&physical.passed&&!strategic.length,failures:[...logical.failures,...physical.failures,...strategic],strategy_failures:strategic};
+  if(!s.audit.passed)rejected.push({id:s.id,reason:s.audit.failures.join('。')});return s.audit.passed;
+ });
  if(!valid.length)throw Error('局面状態の整合性を満たす候補なし');
  const selected=Selection.select(valid),{main,rival,decision,rated,alternatives}=selected,{gap}=decision,weight=decision.weights;
  decision.physical_gate={generated:finishHypotheses.length,eligible:valid.length,excluded:finishHypotheses.length-valid.length,measured:false,limitations:'相対移動容量と努力消費。秒数や実測速度での成立保証ではない'};

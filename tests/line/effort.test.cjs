@@ -46,7 +46,7 @@ assert.equal(source.secondary,null);checks++;
 ok(model.slipstreamCounter({...source,outside:null}).length===0,'C cannot counter from slipstream if A did not move');
 ok(model.slipstreamCounter({...source,order:['B','A','C']}).length===0,'C cannot follow A from an impossible relative position');
 const out=E.build(sample,{},{width:128,traceCandidates:true});
-ok(out.version==='LAB_LINE_ENGINE_V1.3.4','version reflects effort model');
+ok(out.version==='LAB_LINE_ENGINE_V1.3.5','version reflects effort model');
 ok(out.main.scenes.every(sc=>sc.effort&&sc.effort.A),'effort provenance persists across six scenes');
 ok(out.candidate_evaluations.every(c=>c.effort),'all final candidates retain finite-effort histories');
 const State=require('../../js/line/state.js');

@@ -29,8 +29,21 @@ function create(env){
  const {r,lines,topology,f,ev,term,event,move,who,intentTerm,allocate,lineSupport,power,effortCharge}=env;
  const active=new Set(topology.active);
  const named=(id)=>who(id);
+ // A solo's ability to self-attack does not imply an early lead versus a large line.
+ const soloAgainstLongLine=id=>lines[id]?.length===1&&topology.lines.some(l=>l.id!==id&&l.length>=3&&active.has(l.id));
+ function soloLeadSupported(id){
+  if(lines[id]?.length!==1)return true;
+  const name=String(r.riders.find(x=>x.no===lines[id].head)?.name||'').replace(/\s/g,'');
+  return (r.race_material?.comments||[]).some(c=>{
+   if(String(c.rider||'').replace(/\s/g,'')!==name||c.declaration_complete===false)return false;
+   const words=String(c.declaration||c.excerpt||'');
+   return /(?:単騎|一人).{0,16}(?:先行|逃げ|主導権|駆ける)|(?:先行|逃げ|主導権).{0,16}(?:単騎|一人)|(?:自分から|自分が).{0,8}(?:先行|主導権)/.test(words)&&
+     !/先行しない|逃げない|主導権は取らない|かもしれない|できれば|ならば|しません/.test(words);
+  });
+ }
  function goal(id){
-  const h=lines[id].head,lead=clamp(f(h,'initiative')*.70+power(id)*.12+Math.min(.12,(lines[id].length-1)*.05));
+  const h=lines[id].head,rawLead=clamp(f(h,'initiative')*.70+power(id)*.12+Math.min(.12,(lines[id].length-1)*.05));
+  const lead=soloAgainstLongLine(id)&&!soloLeadSupported(id)?Math.min(.28,rawLead*.40):rawLead;
   const middle=clamp(f(h,'position')*.45+f(h,'makuri')*.32+f(h,'withdraw')*.16);
   const attack=clamp(f(h,'kamashi')*.40+f(h,'long_makuri')*.30+f(h,'sprint')*.20);
   const scores={lead,middle,attack,conserve:clamp(f(h,'withdraw')*.45+f(h,'makuri')*.20)};
@@ -54,7 +67,7 @@ function create(env){
    event(s,id,'wait',named(id)+'は'+(at===0?'前方の主導権を維持':'他線の動きを観察して位置と余力を残す')+'。目標は'+g.primary+'で、今回の先動きは採用しない');
   }
  }
- function standardThree(s){return s.order.length===3&&s.order.every(id=>active.has(id));}
+ function standardThree(s){return s.order.length===3&&s.order.every(id=>active.has(id)&&lines[id].length>=2);}
  function middleFirstReason(s){
   if(!standardThree(s))return null;
   const [front,middle,rear]=s.order,mg=goal(middle),rg=goal(rear);
@@ -91,8 +104,24 @@ function create(env){
    const g=goal(id),index=s.order.indexOf(id);
    if(intent==='cut'){
     const original=s.positioning_steps?.[0]?.before||[];
-    const rearFirst=original.length===3&&original[2]===mover&&original[1]===id&&original[0]===front&&standardThree(s);
+    const rearFirst=original.length===3&&original[2]===mover&&original[1]===id&&original[0]===front&&s.order.every(x=>active.has(x));
     if(rearFirst){
+     if(soloAgainstLongLine(id)&&!soloLeadSupported(id)){
+      // A solo can follow the leading line to recover middle, not recut to the front.
+      const track=f(lines[id].head,'track'),position=f(lines[id].head,'position');
+      if(track>=.30&&position>=.30){
+       const t=clone(s),before=[...t.order];t.id=allocate();
+       move(t,id,1);t.pendingCut=null;t.burden[id]=(t.burden[id]||0)+1;
+       event(t,id,'position',named(id)+'は'+named(mover)+'の上昇に追走し、'+named(front)+'の後ろから中団へ。単騎でさらに前を斬ることは避ける');
+       event(t,front,'yield',named(front)+'は追走して上昇する単騎を通し、後方で態勢を整える');
+       step(t,{stage:'赤板後～打鐘前',actor:id,action:'position',response:'follow_long_line',target:front,before,goal:'middle',reason:'単騎は長いラインの加速を利用し、前を切らず中団確保を狙う'});
+       term(t,'rationality',goal(id).scores.middle+track*.18,'先頭を引き受ける二度踏みより、別線利用による中団確保を比較',[ev(lines[id].head,'track'),ev(lines[id].head,'position')]);
+       term(t,'feasibility',track*.35+position*.35-power(front)*.25-.14,'単騎が別線の動きに追走して中団へ進むには前方ラインの受入れが必要',[ev(lines[id].head,'track'),ev(lines[front].head,'ability')]);
+       t.assumptions.push(named(mover)+'の上昇に追走でき、'+named(front)+'が中団を譲る場合のみ成立');
+       out.push(t);
+      }
+      continue;
+     }
      // C moves from the rear, B moves next to regain middle, A may finally retake lead.
      const t=clone(s),before=[...t.order];t.id=allocate();
      move(t,id,0);t.pendingCut=id;t.burden[id]=(t.burden[id]||0)+1;
@@ -114,6 +143,8 @@ function create(env){
      out.push(resisted);
      continue;
     }
+    // A solo must not become the next leader automatically after another line cuts.
+    if(soloAgainstLongLine(id)&&!soloLeadSupported(id))continue;
     const t=clone(s),before=[...t.order];t.id=allocate();
     move(t,id,0);t.pendingCut=null;t.burden[id]=(t.burden[id]||0)+1;
     event(t,id,'press',named(id)+'は'+named(mover)+'の先斬りを受け、赤板から打鐘へ主導権を引き受ける');
@@ -152,6 +183,7 @@ function create(env){
   reasonsForWait(hold,new Set());
   result.push(hold);
   for(const mover of s.order.slice(1).filter(id=>active.has(id))){
+   if(soloAgainstLongLine(mover)&&!soloLeadSupported(mover))continue;
    const startIndex=s.order.indexOf(mover),mg=goal(mover);
    for(const intent of ['press','cut'])for(const response of ['resist','yield']){
     const t=clone(s);t.id=allocate();t.positioning_goals=Object.fromEntries(s.order.map(id=>[id,goal(id)]));
@@ -236,7 +268,7 @@ function create(env){
   t.assumptions.push(named(middle)+'には追走後に加速するための間隔と残存脚が必要。Aが動かなければ本仮説は成立しない');
   return [t];
  }
- return {early,goal,slipstreamCounter};
+ return {early,goal,slipstreamCounter,soloLeadSupported,soloAgainstLongLine};
 }
 const api={PATTERNS,initialOrders,create};
 if(typeof module!=='undefined')module.exports=api;
