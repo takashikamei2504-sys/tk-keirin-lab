@@ -12,7 +12,7 @@ ok(new Set(allPatterns.map(x=>x.id)).size===12,'pattern IDs unique');
 ok(allPatterns.every(x=>x.goal&&x.action&&x.failure),'each pattern has a goal, move and failure');
 const seven=structuredClone(sample);
 seven.riders=seven.riders.slice(0,7);
-seven.lineup=[[1,2,3],[4,5],[6,7]];
+seven.lineup=[[1,4,3],[5,2],[6,7]]; // Three active line leaders: 1 / 5 / 6
 const topology=E.structure(seven),l=Object.fromEntries(topology.lines.map(x=>[x.id,x]));
 const orders=Positioning.initialOrders(topology,'A');
 ok(orders.length>=2,'alternative starting orders are evaluated');
