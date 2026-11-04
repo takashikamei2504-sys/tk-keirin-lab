@@ -22,6 +22,7 @@ const vv={id:71,score:2,audit:{passed:true},detached:[],riderBurden:{},burden:{A
  outside:{id:'B',from:1,kind:'short',progress:'前団に接近',anchor:'A'},secondary:null,
  scenes:Array.from({length:6},(_,i)=>i===4?{phase:'最終3～4コーナー',control:'A',
   groups:[{id:'A',lane:0,members:[1,2,3]},{id:'B',lane:1,attack:true,members:[4,5]}],
+  events:[],
   positions:Object.fromEntries(Array.from({length:7},(_,j)=>[j+1,{band:j===3?'outside':'inner',ordinal:j===3?2:j}]))}:
   {events:[]}),
  finish:{pair:[2,1],mode:'番手差し',leaderStrength:.68,followStrength:.69,thirds:[{no:3,reason:'3番手の追走'},{no:4,reason:'外で接近'}]}};
