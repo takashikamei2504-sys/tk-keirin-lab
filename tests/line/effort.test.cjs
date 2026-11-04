@@ -16,6 +16,11 @@ const self=Effort.charge(single,'C','press',{phase:'最終ホーム'});
 Effort.charge(follow,'C','follow',{drafted:true,phase:'最終ホーム'});
 const caught=Effort.charge(follow,'C','kamashi',{drafted:true,phase:'最終バック'});
 ok(follow.effort.C.usedDraft===2&&caught.cost<self.cost+.12,'drafted acceleration saves relative effort');
+const direct={effort:Effort.initial(['C'])},assisted={effort:Effort.initial(['C'])};
+Effort.charge(direct,'C','cut');Effort.charge(direct,'C','press');
+Effort.charge(assisted,'C','cut');Effort.charge(assisted,'C','follow',{drafted:true});
+Effort.charge(assisted,'C','kamashi',{drafted:true});
+ok(assisted.effort.C.spent<direct.effort.C.spent,'using the rear attack consumes less than independently recutting twice');
 const topology={lines:[{id:'A',head:1,members:[1,5,6],length:3},{id:'B',head:2,members:[2,7],length:2},{id:'C',head:3,members:[3,4],length:2}],active:['A','B','C']};
 const f=(no,key)=>key==='track'?.7:key==='kamashi'?.75:key==='sprint'?.76:key==='initiative'?.65:key==='endurance'?.65:.6;
 const model=Positioning.create({
