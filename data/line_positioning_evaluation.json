@@ -1,0 +1,16 @@
+{
+  "schema": "tk-line-positioning-evaluation/v1",
+  "generated_at": null,
+  "summary": {
+    "frozen_records": 0,
+    "records_compared": 0,
+    "checks_compared": 0,
+    "checks_matched": 0,
+    "exact_rate": null,
+    "excluded": 0,
+    "warning": "実戦の位置取り観測がなく、一致率は算出できない"
+  },
+  "rows": [],
+  "errors": [],
+  "policy": "観測ゼロ。発走前に固定した予想と出典を確認した実戦の位置取り記録のみ比較し、着順から展開を後付けしない。"
+}
