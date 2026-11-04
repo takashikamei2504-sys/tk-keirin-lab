@@ -46,7 +46,8 @@ function audit(s,r,lines){
  if(s.pendingCut)failures.push('斬りの後の主導権引受けが未解決');
  const winner=s.finish.pair[0],corner=s.scenes[4];
  if(s.detached.includes(winner))failures.push('追走離れ後の回復なしに1着');
- if(corner.order.indexOf(winner)>4&&!['内進路からの直線','不発後の立て直し','外並走から直線で捲り切り'].includes(s.finish.mode))failures.push('4角後方から進路・進行説明なく1着');
+ const winnerPosition=corner.positions?.[winner],finishOrdinal=winnerPosition?.band==='detached'?corner.order.indexOf(winner):(winnerPosition?.ordinal??corner.order.indexOf(winner));
+ if(finishOrdinal>4&&!['内進路からの直線','不発後の立て直し','外並走から直線で捲り切り'].includes(s.finish.mode))failures.push('4角後方から進路・進行説明なく1着');
  for(const a of active(s))if(a.kind==='short'&&a.from>1&&winner===lines[a.id].head)failures.push('後方の遅い仕掛けが一局面で先頭');
  if(s.innerRoute&&(!s.defenses?.some(d=>d.action==='block')&&!s.defense?.action?.includes('block')))failures.push('内進路を作った牽制がない');
  if(s.contest?.outcome==='unresolved'&&s.finish.pair[0]===s.contest.challenger)failures.push('競りの解決なしに挑戦者が1着');
