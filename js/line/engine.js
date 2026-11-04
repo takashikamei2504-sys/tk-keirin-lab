@@ -276,8 +276,20 @@ function build(raw,packs={},options={}){
   const sorted=[...buckets.values()].sort((a,b)=>rank(b)-rank(a)||a.id-b.id),selected=[],families=new Map();
   // Round-robin across state families, so failure/recovery never vanishes merely
   // because many initial S-order variants of a successful move rank ahead.
-  for(const s of sorted){const earlyEvents=s.scenes[1]?.events||s.events,earlyTactic=earlyEvents.find(e=>['cut','press'].includes(e.action))?.action||'hold',earlyResponse=earlyEvents.find(e=>['resist','yield'].includes(e.action))?.action||'wait';const effortBand=Math.round(Object.values(s.effort||{}).reduce((n,v)=>n+(v.spent||0),0)*2);const key=[earlyTactic,earlyResponse,s.cut_resolution||'none',effortBand,s.outside?.kind||'none',s.secondary?.kind||'none',s.failedAttacks.some(a=>a.status==='failed')?'failed':'',s.retry?'retry':'',s.innerRoute?'inside':'',s.recoveredLines?.length?'reset':'',s.recoveredRiders?.length?'rejoined':'',s.detached.length?'detached':'',s.contestHistory.at(-1)?.outcome||s.contest?.outcome||'',s.defense?.action||'',s.defense?.outcome||''].join('|');if(!families.has(key))families.set(key,[]);families.get(key).push(s);}
-  let round=0;while(selected.length<width){let added=0;for(const bucket of families.values()){if(bucket[round]&&selected.length<width){selected.push(bucket[round]);added++;}}if(!added)break;round++;}
+  for(const s of sorted){const earlyEvents=s.scenes[1]?.events||s.events,earlyTactic=earlyEvents.find(e=>['cut','press'].includes(e.action))?.action||'hold',earlyResponse=earlyEvents.find(e=>['resist','yield'].includes(e.action))?.action||'wait';const key=[earlyTactic,earlyResponse,s.cut_resolution||'none',s.outside?.kind||'none',s.secondary?.kind||'none',s.failedAttacks.some(a=>a.status==='failed')?'failed':'',s.retry?'retry':'',s.innerRoute?'inside':'',s.recoveredLines?.length?'reset':'',s.recoveredRiders?.length?'rejoined':'',s.detached.length?'detached':'',s.contestHistory.at(-1)?.outcome||s.contest?.outcome||'',s.defense?.action||'',s.defense?.outcome||''].join('|');if(!families.has(key))families.set(key,[]);families.get(key).push(s);}
+  const reserved=[],ids=new Set();
+  for(const action of ['block','vertical'])for(const outcome of ['success','partial','failure']){
+   const state=sorted.find(x=>x.defense?.action===action&&x.defense?.outcome===outcome);
+   if(state&&!ids.has(state.id)){reserved.push(state);ids.add(state.id);}
+  }
+  selected.push(...reserved.slice(0,width));
+  let round=0;while(selected.length<width){
+   let seen=false;
+   for(const bucket of families.values()){const state=bucket[round];if(!state)continue;seen=true;
+    if(!ids.has(state.id)&&selected.length<width){selected.push(state);ids.add(state.id);}
+   }
+   if(!seen)break;round++;
+  }
   counts.pruned+=states.length-selected.length;return selected;
 
  }
