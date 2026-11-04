@@ -13,7 +13,7 @@ function charge(state,id,action,opts={}){
  const prev=state.effort[id]||{spent:0,surges:0,usedDraft:0,actions:[]};
  const surge=SURGE.has(action);
  const repeat=surge?prev.surges*.15:0;
- const drafting=opts.drafted===true?-.10:0;
+ const drafting=opts.drafted===true?-.18:0;
  const gross=Math.max(.025,(BASE[action]??.25)+repeat+drafting);
  const next={spent:round(prev.spent+gross),surges:prev.surges+(surge?1:0),usedDraft:prev.usedDraft+(opts.drafted?1:0),actions:[...prev.actions,{action,cost:round(gross),repeat:round(repeat),drafted:!!opts.drafted,phase:opts.phase||null}]};
  state.effort[id]=next;
