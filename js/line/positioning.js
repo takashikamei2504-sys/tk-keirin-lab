@@ -29,7 +29,7 @@ function create(env){
  const active=new Set(topology.active);
  const named=(id)=>who(id);
  function goal(id){
-  const h=lines[id].head,lead=clamp(f(h,'initiative')*.70+power(id)*.12+Math.min(.12,(lines[id].length-1)*.05)*lineSupport(null,id));
+  const h=lines[id].head,lead=clamp(f(h,'initiative')*.70+power(id)*.12+Math.min(.12,(lines[id].length-1)*.05));
   const middle=clamp(f(h,'position')*.45+f(h,'makuri')*.32+f(h,'withdraw')*.16);
   const attack=clamp(f(h,'kamashi')*.40+f(h,'long_makuri')*.30+f(h,'sprint')*.20);
   const scores={lead,middle,attack,conserve:clamp(f(h,'withdraw')*.45+f(h,'makuri')*.20)};
