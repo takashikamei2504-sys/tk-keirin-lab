@@ -35,7 +35,7 @@ const early=pos.early(base);
 ok(!early.some(x=>x.positioning_steps?.some(t=>t.actor==='C'&&t.after?.[0]==='C')),'solo does not irrationally recut into lead');
 ok(early.some(x=>x.order.join('-')==='A-C-B'&&x.positioning_steps?.some(st=>st.actor==='C'&&st.action==='position'&&st.response==='follow_long_line')),'solo may use the long line movement to take middle');
 const pre=E.build(r,{},{width:128,traceCandidates:true});
-ok(pre.version==='LAB_LINE_ENGINE_V1.3.6','new version');
+ok(pre.version==='LAB_LINE_ENGINE_V1.3.7','new version');
 ok(pre.main.scenes[2].control!=='C','main cannot put the unsupported solo in the lead at final home');
 ok(pre.candidate_evaluations.every(x=>x.scenes[2].control!=='C'),'unsupportable solo-lead paths are excluded before final selection');
 const declared=structuredClone(r);declared.race_material.comments=[{rider:'田中大我',declaration:'単騎でも先行して主導権を取る',declaration_complete:true}];
