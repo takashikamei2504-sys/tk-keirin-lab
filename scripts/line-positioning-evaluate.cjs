@@ -27,7 +27,7 @@ function report(frozenDir,observationsFile,now=Date.now()){
 }
 function update(){
  const output=report(path.join(root,'data/line_history'),path.join(root,'data/line_positioning_observations.json'));
- const file=path.join(root,'reports/line/positioning-evaluation.json');fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,JSON.stringify(output,null,2)+'\n');
+ const file=path.join(root,'data/line_positioning_evaluation.json');fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,JSON.stringify(output,null,2)+'\n');
  console.log(JSON.stringify(output.summary));return output;
 }
 if(require.main===module)update();
