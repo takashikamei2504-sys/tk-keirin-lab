@@ -16,6 +16,7 @@ jobs:
       - run: npm install --ignore-scripts
       - run: node scripts/line_identity.cjs && git diff --exit-code -- js/line/build.js
       - run: node tests/line/engine.test.cjs
+      - run: node tests/line/positioning.test.cjs
       - run: node tests/line/interactions.test.cjs
       - run: node tests/line/audit.test.cjs
       - run: node scripts/line-evaluate.cjs
