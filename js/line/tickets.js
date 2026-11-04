@@ -15,7 +15,7 @@ function variations(main,input){
  if(!input?.features||!input?.race||!main?.scenes?.[4])return [];
  const corner=main.scenes[4],control=corner.control,lead=corner.groups.find(g=>g.id===control&&g.lane===0);
  if(!lead||!lead.members.length)return [];
- const [leader,second,third]=lead.members,posit=corner.positions||{},active=[main.outside,main.secondary].filter(Boolean);
+ const [leader,second,attachedThird]=lead.members,sourceLine=input.race.lineup?.find(l=>l[0]===leader),third=main.innerRoute?.no===sourceLine?.[2]?sourceLine[2]:attachedThird,posit=corner.positions||{},active=[main.outside,main.secondary].filter(Boolean);
  const connected=no=>Number.isInteger(no)&&!main.detached?.includes(no)&&posit[no]&&posit[no].band!=='detached'&&posit[no].band!=='contest';
  const finish=no=>feature(input,no,'finish'),power=no=>feature(input,no,'ability'),speed=no=>feature(input,no,'makuri');
  const burden=no=>(main.riderBurden?.[no]||0)*.045;
