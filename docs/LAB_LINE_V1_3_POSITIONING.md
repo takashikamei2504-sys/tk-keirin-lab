@@ -29,7 +29,7 @@ node scripts/line-examples.cjs
 
 ## 実戦の位置取り評価（第4段階）
 
-`js/line/positioning-evaluation.js` と `scripts/line-positioning-evaluate.cjs` により、発走前固定・ハッシュ一致のLINE予想と、別途確認された実レースの位置取り情報をモデル別に比較する。出典URL・公開日・取得日・検証フラグを必須とし、初手の順番、打鐘時点の順番、実際の動作順序を比較する。実戦位置取りの観測入力は `data/line_positioning_observations.json`。現在は観測ゼロのため一致率を算出しない。テストは合成記録を用い、実測結果を装わない。
+`js/line/positioning-evaluation.js` と `scripts/line-positioning-evaluate.cjs` により、発走前固定・ハッシュ一致のLINE予想と、別途確認された実レースの位置取り情報をモデル別に比較する。出典URL・公開日・取得日・検証フラグを必須とし、初手の順番、打鐘時点の順番、実際の動作順序を比較する。実戦位置取りの観測入力は `data/line_positioning_observations.json`。モデル別の評価は `data/line_positioning_evaluation.json` に保存し、既存LINEの結果集計ワークフローから更新する。現在は観測ゼロのため一致率を算出しない。テストは合成記録を用い、実測結果を装わない。
 
 ## 方針
 
