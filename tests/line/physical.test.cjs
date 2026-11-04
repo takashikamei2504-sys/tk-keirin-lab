@@ -28,7 +28,7 @@ const first=Effort.charge(ledger,'A','press'),repeat=Effort.charge(ledger,'A','r
 ok(repeat.repeat>0&&ledger.effort.A.surges===2,'repeat acceleration increases cost');
 ok(Effort.reserve(ledger,'A',.5)<Effort.budget(.5),'remaining relative effort declines');
 const out=E.build(sample,{},{width:96,traceCandidates:true});
-ok(out.version==='LAB_LINE_ENGINE_V1.3.6','new model is versioned');
+ok(out.version==='LAB_LINE_ENGINE_V1.3.7','new model is versioned');
 ok(out.main.scenes.slice(0,5).every(x=>x.physical?.impossible?.length===0),'main hypothesis has no hard movement conflicts');
 ok(out.candidate_evaluations.every(x=>x.audit.passed&&x.audit.physical.passed),'only physically valid candidates survive');
 ok(out.decision.physical_gate.generated>=out.decision.physical_gate.eligible,'preselection feasibility gate recorded');

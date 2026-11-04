@@ -62,7 +62,7 @@ ok(new Set(candidates.map(x=>x.id)).size===candidates.length,'unique branch IDs 
 ok(candidates.filter(x=>x.positioning_steps?.length).every(x=>x.positioning_steps.every((step,i)=>step.sequence===i+1&&step.before&&step.after&&step.goal)),'all actions have ordered before/after, intent and reason');
 assert.deepEqual(base.order,['A','B','C']);checks++;
 const out=E.build(seven,{},{width:128,traceCandidates:true});
-ok(out.version==='LAB_LINE_ENGINE_V1.3.6','version provenance updated');
+ok(out.version==='LAB_LINE_ENGINE_V1.3.7','version provenance updated');
 ok(out.main.scenes.length===6,'six scenes preserved');
 ok(out.candidate_evaluations.some(x=>x.scenes?.[1]?.positioning_steps?.length>1),'integrated simulation retains chained positioning');
 ok([out.main,...out.alternatives].every(x=>x.scenes?.[0]?.start_plan?.initial_order.length===3),'initial-order provenance recorded');

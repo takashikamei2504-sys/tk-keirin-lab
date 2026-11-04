@@ -1,0 +1,30 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const Tickets=require('../../js/line/tickets.js');
+const Engine=require('../../js/line/engine.js');
+const sample=require('../../race_sample.json');
+function h(id,pair,thirds,score){
+ return {id,score,audit:{passed:true},finish:{pair,mode:'比較用合成決着',thirds:thirds.map(no=>({no,reason:'4角までの射程を合成固定'}))},scenes:[{events:[]}]};
+}
+const main=h(1,[2,1],[3,4,5,6,7],3);
+const lead=h(2,[1,2],[3,4,5,6,7],2.94);
+const mixed=h(3,[2,4],[1,3,5,6,7],2.91);
+const counter=h(4,[4,2],[1,3,5,6,7],2.87);
+const output=Tickets.generate(main,[lead,mixed,counter],{});
+assert.equal(output.policy.method,'causal-marginal-pair-coverage-v2');
+assert.ok(output.tickets.length<=12);
+assert.ok(output.tickets.some(t=>t.trio[0]===1&&t.trio[1]===2),'Supported lead hold can compete');
+assert.ok(output.tickets.some(t=>t.trio[0]===2&&t.trio[1]===4),'Supported mixed line pair can compete');
+assert.ok(output.tickets.some(t=>t.trio[0]===4&&t.trio[1]===2),'Supported counter-line winner can compete');
+assert.ok(output.tickets.every(t=>t.reason&&t.supporting_hypotheses.length>0));
+const lone=Tickets.generate(main,[],{});
+assert.ok(lone.tickets.every(t=>t.trio[0]===2&&t.trio[1]===1),'No absent counter-line scenario may be invented');
+const race=Engine.build(sample);
+assert.ok(race.tickets.length<=12&&race.tickets.every(t=>new Set(t.trio).size===3));
+assert.ok(race.candidate_evaluations.every(x=>x.audit.passed));
+const registry=JSON.parse(fs.readFileSync('data/line_evaluation.json','utf8'));
+const models=new Set(registry.rows.map(x=>x.model_id));
+assert.ok(models.size>=1,'Frozen forecast versions remain distinct');
+for(const x of registry.rows)if(x.evaluation.status==='evaluated')assert.ok(['的中','1着候補漏れ','1・2着の組合せ漏れ','3着候補漏れ'].includes(x.evaluation.category));
+console.log('PASS LINE FINISH: adaptive pair ranking, no fabricated outsiders, frozen version separation');

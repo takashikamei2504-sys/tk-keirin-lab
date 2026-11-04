@@ -12,7 +12,7 @@ const Selection=typeof module!=='undefined'?require('./selection.js'):root.LineS
 const Tickets=typeof module!=='undefined'?require('./tickets.js'):root.LineTickets;
 const Sensitivity=typeof module!=='undefined'?require('./sensitivity.js'):root.LineSensitivity;
 const Build=typeof module!=='undefined'?require('./build.js'):root.LineBuild;
-const VERSION='LAB_LINE_ENGINE_V1.3.6',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
+const VERSION='LAB_LINE_ENGINE_V1.3.7',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
 const AXES={rationality:'戦術的合理性',feasibility:'成立可能性',evidence:'実績の裏付け',interaction:'他ラインとの相互作用',robustness:'頑健性・反証'};
 const TACTICS={press:'押さえ先行',cut:'斬って中団',resist:'突っ張り',yield:'出させて脚を温存',withdraw:'引いて立て直す',position:'中団を奪う',kamashi:'カマシ',long:'早めの捲り',short:'短い捲り',wait:'待機・位置維持',use:'別線の仕掛けを利用',seat:'番手飛びつき',block:'牽制',vertical:'縦に踏む',continue:'外進行の継続',counter:'別線の外から反撃',recover:'不発後の立て直し',relaunch:'仕掛け直し',reconnect:'離れから追走回復',inside:'内の進路',seat_won:'番手確保',seat_held:'番手防衛',seat_partial:'番手競り継続'};
 const copy=x=>JSON.parse(JSON.stringify(x)),clamp=x=>Math.max(0,Math.min(1,x));
@@ -326,11 +326,50 @@ function build(raw,packs={},options={}){
  for(const state of states){
   setContext(state);
   const lead=State.project(state,lines).control,line=lines[lead],head=line.head,second=state.scenes[4].groups.find(g=>g.id===lead)?.members[1],third=state.scenes[4].groups.find(g=>g.id===lead)?.members[2],burden=state.burden[lead];
-  const leaderStrength=f(head,'ability')*.5+f(head,'endurance')*.5-burden*.07-Effort.fatigue(state,lead)*.085-environment.lead_cost*Math.min(2,burden/3);
-  const followStrength=second&&!state.detached.includes(second)?f(second,'ability')*.45+f(second,'finish')*.4+f(second,'track')*.15+environment.finish_allowance*f(second,'finish')-(state.riderBurden[second]||0)*.055-Effort.fatigue(state,lead)*.012:-1;
-  const pairs=[{pair:[head,second],mode:'先行残り',margin:leaderStrength-followStrength},{pair:[second,head],mode:'番手差し',margin:followStrength-leaderStrength}].filter(x=>x.pair.every(Boolean)&&!state.detached.includes(x.pair[0]));
-  if(!second){const next=state.order.filter(id=>id!==lead&&!State.active(state).some(a=>a.id===id)&&State.members(state,id,lines).length)[0];if(next)pairs.push({pair:[head,lines[next].head],mode:'単騎先頭からの直線',margin:leaderStrength-.4});}
-  for(const a of State.active(state)){if(['short','counter','relaunch'].includes(a.kind)&&a.from>1)continue;const attacker=lines[a.id].head;pairs.push({pair:[attacker,head],mode:'外並走から直線で捲り切り',margin:f(attacker,'sprint')*.5+f(attacker,'ability')*.5-state.burden[a.id]*.08-Effort.fatigue(state,a.id)*.085-leaderStrength});}
+  // Compare physically established finishers, rather than assuming a protected marker wins.
+  // Historical kimarite shares are a diagnostic reference, not calibrated coefficients.
+  const corner=state.scenes[4],positions=corner.positions||{};
+  const blockHistory=(state.defenses||[]).filter(d=>d.action==='block');
+  const blockCount=blockHistory.length||(state.defense?.action==='block'?1:0);
+  const leaderStrength=f(head,'ability')*.48+f(head,'endurance')*.34+f(head,'sprint')*.18
+   -burden*.07-Effort.fatigue(state,lead)*.085-environment.lead_cost*Math.min(2,burden/3);
+  const followStrength=second&&!state.detached.includes(second)?
+   f(second,'ability')*.38+f(second,'finish')*.36+f(second,'track')*.18+f(second,'sprint')*.08
+   +environment.finish_allowance*f(second,'finish')-(state.riderBurden[second]||0)*.055
+   -Effort.fatigue(state,lead)*.012-Math.min(.12,blockCount*.045):-1;
+  const pairs=[{pair:[head,second],mode:'先行残り',margin:leaderStrength-followStrength},
+   {pair:[second,head],mode:'番手差し',margin:followStrength-leaderStrength}]
+   .filter(x=>x.pair.every(Boolean)&&!state.detached.includes(x.pair[0]));
+  if(!second){const next=state.order.filter(id=>id!==lead&&!State.active(state).some(a=>a.id===id)&&State.members(state,id,lines).length)[0];
+   if(next)pairs.push({pair:[head,lines[next].head],mode:'単騎先頭からの直線',margin:leaderStrength-.4});}
+  for(const a of State.active(state)){
+   if(['short','counter','relaunch'].includes(a.kind)&&a.from>1)continue;
+   const attacker=lines[a.id].head,loc=positions[attacker];
+   // A winner cannot arrive from a fictitious late attack; 4C must contain the outside rider.
+   if(!loc||loc.band!=='outside'||loc.ordinal>3||state.detached.includes(attacker))continue;
+   if(a.started>=3&&loc.ordinal>1)continue;
+   const attackerStrength=f(attacker,'sprint')*.35+f(attacker,'ability')*.32+f(attacker,'makuri')*.33
+    -(state.burden[a.id]||0)*.075-Effort.fatigue(state,a.id)*.085
+    -Math.max(0,loc.ordinal-1)*.045-environment.outer_cost;
+   pairs.push({pair:[attacker,head],mode:'外並走から直線で捲り切り',margin:attackerStrength-leaderStrength});
+   // Mixed-line pairs must have a real attacker at the corner, not a last-second teleport.
+   if(second&&!state.detached.includes(second)&&positions[second]?.band!=='detached'){
+    pairs.push({pair:[second,attacker],mode:'番手差しと別線捲りの混合決着',margin:followStrength-attackerStrength-.02});
+    pairs.push({pair:[attacker,second],mode:'別線捲りと本線番手の混合決着',margin:attackerStrength-followStrength-.02});
+   }
+   pairs.push({pair:[head,attacker],mode:'先行押し切りと別線捲り残り',margin:leaderStrength-attackerStrength-.02});
+   // A progressing outside line can occupy both podium places if its own marker
+   // actually remains attached at the final corner; do not infer the connection.
+   const outerGroup=corner.groups.find(g=>g.id===a.id&&g.attack&&g.lane>0);
+   const outerMarker=outerGroup?.members?.[1],markerPos=positions[outerMarker];
+   if(outerMarker&&!state.detached.includes(outerMarker)&&markerPos?.band==='outside'&&markerPos.ordinal<=4){
+    const outerMarkerStrength=f(outerMarker,'ability')*.42+f(outerMarker,'finish')*.36
+      +f(outerMarker,'track')*.22-(state.riderBurden[outerMarker]||0)*.05
+      -Effort.fatigue(state,a.id)*.035;
+    pairs.push({pair:[attacker,outerMarker],mode:'別線捲りラインの独占',margin:attackerStrength-outerMarkerStrength});
+    pairs.push({pair:[outerMarker,attacker],mode:'別線番手差しの独占',margin:outerMarkerStrength-attackerStrength});
+   }
+  }
   if(state.innerRoute){const n=state.innerRoute.no;pairs.push({pair:[n,second||head],mode:'内進路からの直線',margin:f(n,'inside')*.4+f(n,'finish')*.4+f(n,'ability')*.2-(state.riderBurden[n]||0)*.08-leaderStrength});}
   if(third&&!state.detached.includes(third)&&f(third,'finish')>f(head,'finish')+.15)pairs.push({pair:[third,second||head],mode:'3番手の直線勝負',margin:f(third,'finish')-leaderStrength-.2});
   for(const fin of pairs){const s=copy(state);s.id=++serial;
