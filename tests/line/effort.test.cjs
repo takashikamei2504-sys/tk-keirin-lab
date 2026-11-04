@@ -27,7 +27,7 @@ const model=Positioning.create({
  r:{riders:sample.riders},lines:Object.fromEntries(topology.lines.map(l=>[l.id,l])),topology,f,
  ev:(no,key)=>({no,key,value:f(no,key),basis:'synthetic only'}),power:()=>.65,
  term:(s,axis,value,reason)=>s.terms.push({axis,value,reason}),
- event:(s,actor,action,reason)=>s.events.push({actor,action,reason}),
+ event:(s,actor,action,reason)=>{const drafted=action==='draft'||(action==='kamashi'&&s.events.some(e=>e.actor===actor&&e.action==='draft'));Effort.charge(s,actor,action,{drafted});s.events.push({actor,action,reason});},
  who:id=>id+'ライン',move:(s,id,to)=>{s.order=s.order.filter(x=>x!==id);s.order.splice(to,0,id);},
  allocate:()=>100,intentTerm:()=>{},lineSupport:()=>0,
  effortCharge:Effort.charge
@@ -46,7 +46,7 @@ assert.equal(source.secondary,null);checks++;
 ok(model.slipstreamCounter({...source,outside:null}).length===0,'C cannot counter from slipstream if A did not move');
 ok(model.slipstreamCounter({...source,order:['B','A','C']}).length===0,'C cannot follow A from an impossible relative position');
 const out=E.build(sample,{},{width:128,traceCandidates:true});
-ok(out.version==='LAB_LINE_ENGINE_V1.3.3','version reflects effort model');
+ok(out.version==='LAB_LINE_ENGINE_V1.3.4','version reflects effort model');
 ok(out.main.scenes.every(sc=>sc.effort&&sc.effort.A),'effort provenance persists across six scenes');
 ok(out.candidate_evaluations.every(c=>c.effort),'all final candidates retain finite-effort histories');
 const State=require('../../js/line/state.js');
