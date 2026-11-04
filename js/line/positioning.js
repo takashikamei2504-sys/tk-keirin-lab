@@ -33,15 +33,18 @@ function create(env){
   const middle=clamp(f(h,'position')*.45+f(h,'makuri')*.32+f(h,'withdraw')*.16);
   const attack=clamp(f(h,'kamashi')*.40+f(h,'long_makuri')*.30+f(h,'sprint')*.20);
   const scores={lead,middle,attack,conserve:clamp(f(h,'withdraw')*.45+f(h,'makuri')*.20)};
+  const sources=[ev(h,'initiative'),ev(h,'position'),ev(h,'makuri'),ev(h,'withdraw'),ev(h,'kamashi')];
+  if(!active.has(id))return {primary:'support',scores:{lead:0,middle:0,attack:0,conserve:scores.conserve},reason:named(id)+'は自力上昇を支持する脚質・当該レース情報がなく、先頭から斬る候補にはしない。ラインの並びが追込のみ等であれば通常の自力三分戦とは区別する',sources};
   const primary=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
-  return {primary,scores,reason:named(id)+'の先行傾向・位置取り・捲り・仕掛けを比較した暫定的な目的',sources:[ev(h,'initiative'),ev(h,'position'),ev(h,'makuri'),ev(h,'withdraw'),ev(h,'kamashi')]};
+  return {primary,scores,reason:named(id)+'の先行傾向・位置取り・捲り・仕掛けを比較した暫定的な目的',sources};
  }
  function step(s,x){
   if(!s.positioning_steps)s.positioning_steps=[];
   const from=x.before.indexOf(x.actor);
   const name=x.action==='cut'?(from<=1?'middle_cut':'sequential_cuts'):x.action==='press'?(from<=1?'middle_press':'rear_press'):null;
   const pattern=PATTERNS.find(p=>p.id===name);
-  s.positioning_steps.push({...x,sequence:s.positioning_steps.length+1,after:[...s.order],pattern_id:pattern?.id||null,pattern_label:pattern?.label||'好位奪取の個別反応',failure_condition:pattern?.failure||'相手との位置取り争いに敗れる',measured_time:false});
+  const label=x.response==='second_yields'?'前受けラインの再上昇・主導権奪回':pattern?.label||'好位奪取の個別反応';
+  s.positioning_steps.push({...x,sequence:s.positioning_steps.length+1,after:[...s.order],pattern_id:pattern?.id||null,pattern_label:label,failure_condition:pattern?.failure||'相手との位置取り争いに敗れる',measured_time:false});
  }
  function reasonsForWait(s,acted){
   for(const id of s.order)if(!acted.has(id)){
@@ -49,12 +52,66 @@ function create(env){
    event(s,id,'wait',named(id)+'は'+(at===0?'前方の主導権を維持':'他線の動きを観察して位置と余力を残す')+'。目標は'+g.primary+'で、今回の先動きは採用しない');
   }
  }
+ function standardThree(s){return s.order.length===3&&s.order.every(id=>active.has(id));}
+ function middleFirstReason(s){
+  if(!standardThree(s))return null;
+  const [front,middle,rear]=s.order,mg=goal(middle),rg=goal(rear);
+  const lead=lines[middle].head,rider=r.riders.find(x=>x.no===lead);
+  const name=String(rider?.name||'').replace(/\s/g,'');
+  const explicit=(r.race_material?.comments||[]).some(c=>
+   String(c.rider||'').replace(/\s/g,'')===name&&c.declaration_complete!==false&&
+   /先に動く|早めに動く|先行|主導権を取る|押さえて|積極的に/.test(String(c.declaration||''))&&
+   !/しない|ません|なら|れば|かもしれ/.test(String(c.declaration||''))
+  );
+  if(explicit)return '今回の本人コメントに早めの主導権確保を示す根拠がある';
+  if(mg.scores.lead-rg.scores.lead>.24&&mg.scores.lead>.64)return '中団の先行意欲が後方を明確に上回り、先に動く利益がある';
+  return null;
+ }
+ function completeFrontRetake(s,initialFront,second,first){
+  if(s.order.join('|')!==[second,first,initialFront].join('|')||!active.has(initialFront))return [];
+  const a=goal(initialFront),head=r.riders.find(x=>x.no===lines[initialFront].head);
+  // A three-rider line with a credible leader is a typical retake candidate.
+  if(!(a.scores.lead>=.52||(lines[initialFront].length>=3&&a.scores.lead>=.42)||(head?.style==='逃'&&a.scores.lead>=.38)))return [];
+  const t=clone(s),before=[...t.order];t.id=allocate();
+  move(t,initialFront,0);t.burden[initialFront]=(t.burden[initialFront]||0)+1;t.pendingCut=null;
+  event(t,initialFront,'press',named(initialFront)+'は'+named(first)+'→'+named(second)+'の先斬りに続き、再度前に出て主導権を取りに行く。ライン'+lines[initialFront].length+'車と先行意欲を考慮');
+  event(t,second,'yield',named(second)+'は'+named(initialFront)+'を通して中団を狙う。ただし抵抗する別候補も残る');
+  step(t,{stage:'打鐘直前',actor:initialFront,action:'press',response:'second_yields',target:second,before,goal:'lead',reason:'前受けラインが先行意欲とライン長に応じて主導権を取り返す'});
+  term(t,'rationality',a.scores.lead+.08*Math.min(2,lines[initialFront].length-1),'先斬りに続く前受けラインの再上昇は、主導権獲得の利益とライン構成から検討',a.sources);
+  term(t,'feasibility',a.scores.attack-.12,'最後の上昇には打鐘前の助走・前方ラインの受入れが必要（実測速度ではない）',a.sources);
+  t.assumptions.push(named(second)+'が最終の上昇を受け入れ、'+named(initialFront)+'が打鐘までに先頭を取る必要がある');
+  return [t];
+ }
  function addThird(s,mover,front,intent){
   const out=[];
   // All remaining lines must have an opportunity to respond, not only to wait.
   for(const id of s.order.filter(x=>x!==mover&&x!==front&&active.has(x))){
    const g=goal(id),index=s.order.indexOf(id);
    if(intent==='cut'){
+    const original=s.positioning_steps?.[0]?.before||[];
+    const rearFirst=original.length===3&&original[2]===mover&&original[1]===id&&original[0]===front&&standardThree(s);
+    if(rearFirst){
+     // C moves from the rear, B moves next to regain middle, A may finally retake lead.
+     const t=clone(s),before=[...t.order];t.id=allocate();
+     move(t,id,0);t.pendingCut=id;t.burden[id]=(t.burden[id]||0)+1;
+     event(t,id,'cut',named(id)+'は後方'+named(mover)+'の上昇に反応し、後方へ追いやられないよう前を斬って中団を取り直す');
+     event(t,mover,'yield',named(mover)+'は'+named(id)+'の上昇を受け入れる。なお、突っ張りとの比較が必要');
+     step(t,{stage:'赤板後～打鐘前',actor:id,action:'cut',response:'rear_yields',target:mover,before,goal:'middle',reason:'後方の先斬りを受けた元中団の斬り返し'});
+     term(t,'rationality',g.scores.middle+.23,'後方が先に動いたことを受け、中団を取り直す合理性',g.sources);
+     term(t,'feasibility',clamp(.35+f(lines[id].head,'position')*.3+f(lines[id].head,'sprint')*.2-index*.05),'後方上昇の勢いと斬り返しの負担を比較',g.sources);
+     t.assumptions.push(named(mover)+'が'+named(id)+'に前を譲り、'+named(id)+'が先に動いたラインを交わす必要がある');
+     out.push(t,...completeFrontRetake(t,front,id,mover));
+     // Rear C can also resist B. The standard path is not mandatory.
+     const resisted=clone(s);resisted.id=allocate();resisted.burden[id]=(resisted.burden[id]||0)+2;resisted.burden[mover]=(resisted.burden[mover]||0)+1;resisted.pendingCut=null;
+     event(resisted,id,'cut',named(id)+'は中団を取り直そうと上昇する');
+     event(resisted,mover,'resist',named(mover)+'は元中団の斬り返しを突っ張り、前を譲らない');
+     event(resisted,id,'withdraw',named(id)+'は突っ張られて後方に留まり、無条件に好位を得ない');
+     step(resisted,{stage:'赤板後～打鐘前',actor:id,action:'cut',response:'rear_resists',target:mover,before:[...s.order],goal:'middle',reason:'Cの突っ張りによりBの斬り返しは不成立'});
+     term(resisted,'feasibility',g.scores.middle-goal(mover).scores.lead-.26,'Bの斬り返しとCの抵抗が競合する分岐',[...g.sources,...goal(mover).sources]);
+     resisted.assumptions.push(named(mover)+'が突っ張るなら'+named(id)+'の中団奪回は不成立');
+     out.push(resisted);
+     continue;
+    }
     const t=clone(s),before=[...t.order];t.id=allocate();
     move(t,id,0);t.pendingCut=null;t.burden[id]=(t.burden[id]||0)+1;
     event(t,id,'press',named(id)+'は'+named(mover)+'の先斬りを受け、赤板から打鐘へ主導権を引き受ける');
@@ -87,6 +144,7 @@ function create(env){
   const result=[],front=s.order[0],fg=goal(front);
   const hold=clone(s);hold.positioning_goals=Object.fromEntries(s.order.map(id=>[id,goal(id)]));
   const threats=s.order.slice(1).filter(id=>active.has(id)).map(id=>goal(id).scores.lead);
+  if(standardThree(s))term(hold,'rationality',-.65,'自力三分戦で後方が赤板まで動かない仮説は、後方不利を受け入れる特殊な根拠が必要');
   term(hold,'rationality',fg.scores.lead,'前受けの主導権維持と他線の待機を比較。全ラインが先に動かない仮説',fg.sources);
   term(hold,'robustness',-Math.max(0,...threats.map(x=>x-fg.scores.lead)),'後方の積極型を無条件に待たせる候補を減点');
   reasonsForWait(hold,new Set());
@@ -97,8 +155,17 @@ function create(env){
     const t=clone(s);t.id=allocate();t.positioning_goals=Object.fromEntries(s.order.map(id=>[id,goal(id)]));
     const before=[...t.order],fh=lines[front].head,ah=lines[mover].head;
     t.burden[mover]=(t.burden[mover]||0)+1;
+    if(standardThree(s)){
+     const rear=s.order[2],exception=middleFirstReason(s);
+     if(mover===rear){
+      term(t,'rationality',.72,'自力三分戦の後方ラインは、後方不利を解消するため赤板で先に上昇する基本形',mg.sources);
+     }else{
+      term(t,'rationality',exception?.20:-.82,exception?'中団が先に動く例外的な判断：'+exception:'後方の自力ラインが動かず、中団だけが先に斬るには特別な根拠が不足',[...mg.sources,...goal(rear).sources]);
+      t.assumptions.push(exception||'中団の先動きを選ぶには、後方ラインが動かない事情が必要');
+     }
+    }
     intentTerm(t,mover,intent);intentTerm(t,front,response);
-    event(t,mover,intent,named(mover)+'は'+(intent==='cut'?'一度前を斬って中団を取り直す':'主導権を取って後方を回避する')+'ため、位置'+(startIndex+1)+'から外を上昇');
+    event(t,mover,intent,named(mover)+'は'+(intent==='cut'?(startIndex>=2?'後方不利を解消し、次の位置取りの選択肢を得るため一度前を斬る':'一度前を斬って中団を取り直す'):'主導権を取って後方を回避する')+'ため、位置'+(startIndex+1)+'から外を上昇');
     if(response==='resist'){
       t.burden[front]=(t.burden[front]||0)+2;
       t.burden[mover]++;
@@ -117,14 +184,14 @@ function create(env){
        t.assumptions.push(named(mover)+'は先斬り後、他線を出させて中団を取り直す必要がある');
       }
     }
-    step(t,{stage:'赤板付近',actor:mover,action:intent,response,target:front,before,goal:intent==='cut'?'middle':'lead',reason:response==='resist'?'前受けが突っ張り、上昇失敗':'前受けが出させる'});
-    term(t,'rationality',intent==='cut'?mg.scores.middle:mg.scores.lead,'上昇側が本当に必要とする位置に対する戦術の合理性',mg.sources);
+    step(t,{stage:'赤板付近',actor:mover,action:intent,response,target:front,before,goal:intent==='cut'?(startIndex>=2?'rear_escape':'middle'):'lead',reason:response==='resist'?'前受けが突っ張り、上昇失敗':'前受けが出させる'});
+    term(t,'rationality',intent==='cut'?(startIndex>=2?mg.scores.lead*.55+mg.scores.middle*.45:mg.scores.middle):mg.scores.lead,'上昇側が本当に必要とする位置に対する戦術の合理性',mg.sources);
     term(t,'interaction',.35,'最初の上昇、前受けの反応、残りのラインの選択を順番に検討');
     term(t,'evidence',0,'位置取りの根拠は発走前特徴量と実戦記事。計算値は校正済みの確率ではない',mg.sources);
     const baseline=clone(t);reasonsForWait(baseline,new Set([mover,front]));result.push(baseline);
     if(response==='yield'){
       for(const third of addThird(t,mover,front,intent)){
-        reasonsForWait(third,new Set([mover,front,third.positioning_steps.at(-1).actor]));
+        reasonsForWait(third,new Set([front,...third.positioning_steps.map(x=>x.actor)]));
         result.push(third);
       }
     }
