@@ -329,7 +329,8 @@ function build(raw,packs={},options={}){
   // Compare physically established finishers, rather than assuming a protected marker wins.
   // Historical kimarite shares are a diagnostic reference, not calibrated coefficients.
   const corner=state.scenes[4],positions=corner.positions||{};
-  const blockCount=(state.defenses||[]).filter(d=>d.action==='block').length+(state.defense?.action==='block'?1:0);
+  const blockHistory=(state.defenses||[]).filter(d=>d.action==='block');
+  const blockCount=blockHistory.length||(state.defense?.action==='block'?1:0);
   const leaderStrength=f(head,'ability')*.48+f(head,'endurance')*.34+f(head,'sprint')*.18
    -burden*.07-Effort.fatigue(state,lead)*.085-environment.lead_cost*Math.min(2,burden/3);
   const followStrength=second&&!state.detached.includes(second)?
