@@ -36,6 +36,15 @@ equal(withoutOutside.some(t=>t.trio[0]===2&&t.trio[1]===4),false);
 const withoutThirdRoute=T.variations({...vv,defenses:[]},vInput);
 equal(withoutThirdRoute.some(t=>t.trio[0]===3&&t.trio[1]===2),false);
 equal(vCandidates.every(t=>t.reason&&t.variation.source_hypothesis===vv.id),true);
+const withInside=structuredClone(vv),insideInput=structuredClone(vInput);
+insideInput.race.lineup=[[1,2,3],[4,5],[6,7]];
+withInside.innerRoute={no:3,target:'A'};
+withInside.defenses=[];
+withInside.scenes[4].groups[0].members=[1,2];
+withInside.scenes[4].groups.push({id:'内3',lane:2,members:[3],inside:true});
+withInside.scenes[4].positions[3]={band:'inside',lane:2,ordinal:2};
+equal(T.variations(withInside,insideInput).some(t=>t.trio[0]===3&&t.trio[1]===2),true);
+
 const vOutput=T.generate(vv,[],vInput);
 equal(vOutput.tickets.length<=12,true);equal(vOutput.tickets.some(t=>t.group==='variation'),true);
 equal(vOutput.tickets.every(t=>new Set(t.trio).size===3),true);
