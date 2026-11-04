@@ -1,0 +1,36 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),crypto=require('node:crypto');
+const E=require('../../js/line/engine.js'),P=require('../../js/model-provenance.js'),Audit=require('../../js/line/positioning-evaluation.js'),Script=require('../../scripts/line-positioning-evaluate.cjs'),sample=require('../../race_sample.json');
+let checks=0;const ok=(condition,msg)=>{assert.ok(condition,msg);checks++};
+const raw=structuredClone(sample),cutoff=Date.parse(raw.date+'T'+raw.start+':00+09:00');
+const output=E.build(raw,{},{asOf:cutoff-86400000,width:48});
+output.generated_at=new Date(cutoff-60000).toISOString();
+ok(output.mode==='pre-race','pre-race-only provenance');
+const record={schema:'tk-keirin-line-frozen/v1',race_id:[raw.date,raw.venue,raw.race_no].join(':'),saved_at:new Date(cutoff-30000).toISOString(),out:output,output_sha256:P.sha256(output)};
+const head=id=>output.topology.lines.find(l=>l.id===id).head;
+const order=phase=>output.main.scenes[phase].groups.filter(g=>g.lane===0).map(g=>head(g.id));
+const obs={race_id:record.race_id,verified:true,source_url:'https://example.org/recording',published_at:new Date(cutoff+60000).toISOString(),collected_at:new Date(cutoff+120000).toISOString(),initial_order:order(0),redboard_order:order(1),actor_sequence:(output.main.scenes[1].positioning_steps||[]).map(s=>({actor_no:head(s.actor),action:s.action}))};
+const now=cutoff+180000,r=Audit.compare(record,obs,now);
+ok(r.status==='compared'&&r.compared===3&&r.matched===3,'all three positional audit dimensions compare');
+const badOrder=structuredClone(obs);badOrder.redboard_order=badOrder.redboard_order.slice().reverse();
+ok(Audit.compare(record,badOrder,now).matched===2,'independent positional observations can disconfirm prediction');
+ok(Audit.compare(record,{...obs,verified:false},now).status==='excluded','unverified observation excluded');
+ok(Audit.compare(record,{...obs,source_url:'http://bad'},now).status==='excluded','source must be https');
+ok(Audit.compare(record,{...obs,collected_at:new Date(now+60000).toISOString()},now).status==='excluded','future collection excluded');
+ok(Audit.compare({...record,output_sha256:'fake'},obs,now).status==='excluded','tampering excluded');
+ok(Audit.compare({...record,saved_at:new Date(cutoff+1000).toISOString()},obs,now).status==='excluded','postrace saved forecasts excluded');
+ok(Audit.compare(record,{...obs,actor_sequence:[{actor_no:100,action:'press'}]},now).status==='excluded','unknown line actors excluded');
+ok(Audit.summarize([]).exact_rate===null,'zero evidence never becomes a perfect score');
+const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'line-positioning-'));
+try{
+ const frozen=path.join(tmp,'frozen',raw.date);fs.mkdirSync(frozen,{recursive:true});
+ const file=crypto.createHash('sha256').update(record.race_id+'|'+output.provenance.model.model_id).digest('hex')+'.json';
+ fs.writeFileSync(path.join(frozen,file),JSON.stringify(record));
+ const observed=path.join(tmp,'observed.json');fs.writeFileSync(observed,JSON.stringify({schema:'tk-line-positioning-observations/v1',observations:[obs]}));
+ const report=Script.report(path.join(tmp,'frozen'),observed,now);
+ ok(report.summary.records_compared===1&&report.summary.checks_matched===3,'independent report compares frozen data');
+ fs.writeFileSync(observed,JSON.stringify({schema:'tk-line-positioning-observations/v1',observations:[]}));
+ const empty=Script.report(path.join(tmp,'frozen'),observed,now);
+ ok(empty.summary.records_compared===0&&empty.summary.exact_rate===null,'no observations means no validation');
+}finally{fs.rmSync(tmp,{recursive:true,force:true});}
+console.log('PASS positioning evidence audit '+checks+' checks');
