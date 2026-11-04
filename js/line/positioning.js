@@ -25,7 +25,7 @@ function initialOrders(topology,front,max=4){
  return orders.slice(0,max);
 }
 function create(env){
- const {r,lines,topology,f,ev,term,event,move,who,intentTerm,allocate,lineSupport,power}=env;
+ const {r,lines,topology,f,ev,term,event,move,who,intentTerm,allocate,lineSupport,power,effortCharge}=env;
  const active=new Set(topology.active);
  const named=(id)=>who(id);
  function goal(id){
@@ -45,6 +45,7 @@ function create(env){
   const pattern=PATTERNS.find(p=>p.id===name);
   const label=x.response==='second_yields'?'前受けラインの再上昇・主導権奪回':pattern?.label||'好位奪取の個別反応';
   s.positioning_steps.push({...x,sequence:s.positioning_steps.length+1,after:[...s.order],pattern_id:pattern?.id||null,pattern_label:label,failure_condition:pattern?.failure||'相手との位置取り争いに敗れる',measured_time:false});
+  if(effortCharge)effortCharge(s,x.actor,x.action,{phase:x.stage});
  }
  function reasonsForWait(s,acted){
   for(const id of s.order)if(!acted.has(id)){
@@ -199,7 +200,39 @@ function create(env){
   }
   return result;
  }
- return {early,goal};
+ function slipstreamCounter(s){
+  // Only after a genuine final-home attack from the REAR, and only when the middle line can react.
+  const attack=s.outside;
+  if(!attack||s.secondary||attack.from<2||s.order.length!==3||!active.has(attack.id))return [];
+  const rear=s.order[2],middle=s.order[1],front=s.order[0];
+  if(attack.id!==rear||!active.has(middle)||s.used.includes(middle))return [];
+  const rearNo=lines[rear].head,middleNo=lines[middle].head;
+  const tracking=f(middleNo,'track'),kamashi=f(middleNo,'kamashi'),rearBurst=f(rearNo,'sprint');
+  if(tracking<.30||kamashi<.36||rearBurst<.35)return [];
+  const t=clone(s);t.id=allocate();t.cut_resolution='draft_counter';t.used.push(middle);
+  // First A reaches and passes C on the outside. It does not acquire the lead by a teleport.
+  t.outside={...t.outside,from:1,anchor:front,progress:'後方Aが外から中団Cを交わし、前団外へ接近'};
+  event(t,rear,'pass_middle',named(rear)+'は最終ホームからの加速で'+named(middle)+'の外へ上昇し、中団を交わした。先頭ラインはまだ越えていない');
+  if(effortCharge)effortCharge(t,rear,'pace',{phase:'最終バック'});
+  // C follows A's wheel at reduced effort, then uses the gained speed to launch once.
+  event(t,middle,'draft',named(middle)+'は中団からむやみに前へ斬らず、'+named(rear)+'の加速を見てその後ろに入り、外の風圧負担を抑えて追走する');
+  if(effortCharge)effortCharge(t,middle,'follow',{phase:'最終バック',drafted:true});
+  const before=t.effort?.[middle]?.spent||0;
+  const burst=effortCharge?effortCharge(t,middle,'kamashi',{phase:'最終バック',drafted:true}):{repeat:0};
+  t.secondary={id:middle,anchor:front,target_line:front,kind:'kamashi',from:1,started:s.scenes.length,progress:'後方Aの上昇を利用し、追走後に外からカマシ',followers:[]};
+  t.attacks.push({id:middle,kind:'kamashi',from:1,phase:s.scenes.length,trigger:rear,transition:'draft_then_counter'});
+  t.burden[middle]=(t.burden[middle]||0)+1;
+  event(t,middle,'kamashi',named(middle)+'は'+named(rear)+'の動きで得た速度を利用してカマシ気味に加速。先行意欲と追走適性を満たし、独力の二度踏みより脚を抑えることを狙う');
+  const preference=goal(middle),effort=t.effort?.[middle]?.spent||0;
+  term(t,'rationality',preference.scores.lead*.50+kamashi*.35+tracking*.15-preference.scores.middle*.35-effort*.12,'好位を捨てるのは、自力の二度踏みではなく後方Aの加速を利用できる時に限る',[ev(middleNo,'initiative'),ev(middleNo,'kamashi'),ev(middleNo,'track')]);
+  term(t,'feasibility',kamashi*.4+tracking*.3+rearBurst*.2-power(front)*.18-effort*.16,'AがCを追い越す→Cがその後ろを追走→Cが再加速して前団外へ、の順序を必要とする',[ev(middleNo,'kamashi'),ev(middleNo,'track'),ev(rearNo,'sprint')]);
+  term(t,'interaction',.5,'後方ラインの実際の加速を契機とする中団ラインの追走とカウンター');
+  term(t,'robustness',burst.repeat?-.08*burst.repeat:.06,'再加速の消耗・追走距離の不足を反証として残す');
+  t.assumptions.push(named(rear)+'が最終ホームで動き、'+named(middle)+'の外を実際に交わしてから中団ラインが追走を開始できる必要');
+  t.assumptions.push(named(middle)+'には追走後に加速するための間隔と残存脚が必要。Aが動かなければ本仮説は成立しない');
+  return [t];
+ }
+ return {early,goal,slipstreamCounter};
 }
 const api={PATTERNS,initialOrders,create};
 if(typeof module!=='undefined')module.exports=api;
