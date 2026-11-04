@@ -1,0 +1,14 @@
+'use strict';
+const assert=require('node:assert/strict');
+const E=require('../../js/line/engine.js');
+const sample=require('../../race_sample.json');
+const race=structuredClone(sample);
+race.riders=race.riders.filter(r=>r.no<=7);
+race.lineup=[[1,5,6],[2,7],[3,4]];
+const out=E.build(race,{},{width:256,traceCandidates:true});
+const events=out.candidate_evaluations.flatMap(s=>s.scenes?.[2]?.events||[]);
+assert(events.some(e=>e.action==='press'&&e.reason.includes('想定外に先頭を引き受ける')));
+assert(events.some(e=>e.action==='press'&&e.reason.includes('中団維持・捲り')));
+assert(events.some(e=>e.action==='wait'&&e.reason.includes('中団・捲り志向')));
+assert(events.some(e=>e.action==='kamashi'||e.action==='long'));
+console.log('PASS cut handover alternatives');
