@@ -50,7 +50,7 @@ ok(fullCycle.pendingCut===null,'front A lead retake resolves the pending middle 
 assert.deepEqual(fullCycle.positioning_steps.map(x=>x.after),[['C','A','B'],['B','C','A'],['A','B','C']]);checks++;
 ok(fullCycle.positioning_steps.every(x=>x.reason&&x.pattern_label),'three-cut cycle records each action with a rationale');
 const rearResists=candidates.find(x=>x.positioning_steps?.length===2&&x.positioning_steps?.map(st=>st.actor).join('-')==='C-B'&&x.positioning_steps?.[1]?.response==='rear_resists');
-ok(rearResists&&rearResists.order.join('-')==='C-A-B','rear C can resist B's counter-cut; B does not acquire good position');
+ok(rearResists&&rearResists.order.join('-')==='C-A-B','rear C can resist the middle recut; B does not acquire good position');
 const middleFirst=candidates.filter(x=>x.positioning_steps?.[0]?.actor==='B');
 ok(middleFirst.length>0&&middleFirst.every(x=>x.terms.some(t=>t.reason.includes('中団')&&t.reason.includes('後方')&&t.value<0)),'unexplained middle-first paths are retained only as penalized alternatives');
 const resisted=candidates.filter(x=>x.positioning_steps?.[0]?.response==='resist');
