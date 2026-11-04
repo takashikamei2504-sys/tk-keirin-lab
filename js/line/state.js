@@ -30,6 +30,18 @@ function audit(s,r,lines){
   const scene=s.scenes[i];if(scene.order.slice().sort((a,b)=>a-b).join()!==ids)failures.push(i+'局面の重複・選手消失');
   if(i<5&&scene.groups.flatMap(g=>g.members).slice().sort((a,b)=>a-b).join()!==ids)failures.push(i+'局面の図と全選手状態が不一致');
   if(i>0&&i<5&&scene.control!==s.scenes[i-1].control&&!scene.events.some(e=>['press','pass','resist','yield','counter_pass'].includes(e.action)))failures.push(i+'局面の主導権変化に説明がない');
+  // Following another line's move requires an earlier burst and an actual middle pass.
+  for(let j=0;j<scene.events.length;j++)if(scene.events[j].action==='draft'){
+   const before=scene.events.slice(0,j);
+   const mover=before.find(e=>e.action==='pass_middle'&&e.actor!==scene.events[j].actor);
+   const prior=i>0?s.scenes[i-1].events.some(e=>e.actor===mover?.actor&&['kamashi','long','short','counter'].includes(e.action)):false;
+   const after=scene.events.slice(j+1).some(e=>e.actor===scene.events[j].actor&&['kamashi','counter'].includes(e.action));
+   if(!mover||!prior||!after)failures.push(i+'局面で他線利用カマシの因果順序が不成立');
+  }
+  if(i>0&&scene.effort&&s.scenes[i-1].effort)for(const [id,v] of Object.entries(scene.effort)){
+   const previous=s.scenes[i-1].effort[id];
+   if(previous&&(v.spent+1e-6<previous.spent||v.surges<previous.surges||v.usedDraft<previous.usedDraft))failures.push(i+'局面で有限努力の履歴が逆行');
+  }
  }
  if(s.pendingCut)failures.push('斬りの後の主導権引受けが未解決');
  const winner=s.finish.pair[0],corner=s.scenes[4];
