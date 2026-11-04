@@ -22,6 +22,7 @@ jobs:
       - run: node tests/line/physical.test.cjs
       - run: node tests/line/solo-positioning.test.cjs
       - run: node tests/line/formation.test.cjs
+      - run: node tests/line/finish-stats.test.cjs
       - run: node tests/line/positioning-evaluation.test.cjs
       - run: node tests/line/interactions.test.cjs
       - run: node tests/line/audit.test.cjs
