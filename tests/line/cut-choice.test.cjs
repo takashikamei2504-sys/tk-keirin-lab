@@ -7,6 +7,7 @@ race.riders=race.riders.filter(r=>r.no<=7);
 race.lineup=[[1,5,6],[2,7],[3,4]];
 const out=E.build(race,{},{width:256,traceCandidates:true});
 const events=out.candidate_evaluations.flatMap(s=>s.scenes?.[2]?.events||[]);
+console.log('cut choices',JSON.stringify(out.search.cut_choices),'retained',JSON.stringify(Object.fromEntries(['hold_lead','take_lead','outer_counter'].map(k=>[k,out.candidate_evaluations.filter(x=>x.cut_resolution===k).length]))));
 assert(events.some(e=>e.action==='press'&&e.reason.includes('想定外に先頭を引き受ける')));
 assert(events.some(e=>e.action==='press'&&e.reason.includes('中団維持・捲り')));
 assert(events.some(e=>e.action==='wait'&&e.reason.includes('中団・捲り志向')));
