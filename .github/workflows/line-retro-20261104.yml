@@ -1,0 +1,20 @@
+name: One-off retrospective LINE S-class 2026-11-04
+on:
+  push:
+    branches: ['feat/lab-line-retro-20261104']
+    paths: ['scripts/line-retro-20261104.cjs', '.github/workflows/line-retro-20261104.yml']
+  workflow_dispatch:
+jobs:
+  retrospective:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/line-retro-20261104.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: line-retro-20261104-sclass
+          path: reports/line/retro-20261104.json
