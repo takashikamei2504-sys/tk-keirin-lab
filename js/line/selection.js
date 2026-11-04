@@ -4,7 +4,9 @@ const AXES={rationality:'戦術的合理性',feasibility:'成立可能性',evide
 const keys=Object.keys(AXES),mean=(s,k)=>{const terms=s.terms.filter(t=>t.axis===k);return terms.length?terms.reduce((n,t)=>n+t.value,0)/terms.length:0;};
 function family(s){return JSON.stringify([s.finish.pair,s.scenes.slice(1,5).map(x=>x.events.filter(e=>!['wait','front','finish'].includes(e.action)).map(e=>[e.actor,e.action,e.outcome])),s.detached,s.switches]);}
 function select(candidates){
- const rows=candidates.map(s=>({...s,axes:Object.fromEntries(keys.map(k=>[k,mean(s,k)]))}));
+ const eligible=candidates.filter(s=>s.audit?.passed!==false&&s.audit?.physical?.passed!==false);
+ if(!eligible.length)throw Error('物理・論理整合性を満たす本線候補がない');
+ const rows=eligible.map(s=>({...s,axes:Object.fromEntries(keys.map(k=>[k,mean(s,k)]))}));
  const pareto=rows.filter(a=>!rows.some(b=>b!==a&&keys.every(k=>b.axes[k]>=a.axes[k]-1e-10)&&keys.some(k=>b.axes[k]>a.axes[k]+1e-10)));
  const base=s=>keys.reduce((n,k)=>n+s.axes[k],0),ordered=[...pareto].sort((a,b)=>Math.abs(base(b)-base(a))<1e-10?a.id-b.id:base(b)-base(a)),best=base(ordered[0]);
  // Initial S-only variants must not create artificial importance.

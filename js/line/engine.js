@@ -6,12 +6,13 @@ const State=typeof module!=='undefined'?require('./state.js'):root.LineState;
 const Interactions=typeof module!=='undefined'?require('./interactions.js'):root.LineInteractions;
 const Positioning=typeof module!=='undefined'?require('./positioning.js'):root.LinePositioning;
 const Effort=typeof module!=='undefined'?require('./effort.js'):root.LineEffort;
+ const Physical=typeof module!=='undefined'?require('./physical.js'):root.LinePhysical;
 const Conditions=typeof module!=='undefined'?require('./conditions.js'):root.LineConditions;
 const Selection=typeof module!=='undefined'?require('./selection.js'):root.LineSelection;
 const Tickets=typeof module!=='undefined'?require('./tickets.js'):root.LineTickets;
 const Sensitivity=typeof module!=='undefined'?require('./sensitivity.js'):root.LineSensitivity;
 const Build=typeof module!=='undefined'?require('./build.js'):root.LineBuild;
-const VERSION='LAB_LINE_ENGINE_V1.3.3',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
+const VERSION='LAB_LINE_ENGINE_V1.3.4',PHASES=['周回・初手の並び','赤板〜打鐘','最終ホーム','最終バック','最終3〜4コーナー','直線・ゴール'];
 const AXES={rationality:'戦術的合理性',feasibility:'成立可能性',evidence:'実績の裏付け',interaction:'他ラインとの相互作用',robustness:'頑健性・反証'};
 const TACTICS={press:'押さえ先行',cut:'斬って中団',resist:'突っ張り',yield:'出させて脚を温存',withdraw:'引いて立て直す',position:'中団を奪う',kamashi:'カマシ',long:'早めの捲り',short:'短い捲り',wait:'待機・位置維持',use:'別線の仕掛けを利用',seat:'番手飛びつき',block:'牽制',vertical:'縦に踏む',continue:'外進行の継続',counter:'別線の外から反撃',recover:'不発後の立て直し',relaunch:'仕掛け直し',reconnect:'離れから追走回復',inside:'内の進路',seat_won:'番手確保',seat_held:'番手防衛',seat_partial:'番手競り継続'};
 const copy=x=>JSON.parse(JSON.stringify(x)),clamp=x=>Math.max(0,Math.min(1,x));
@@ -77,21 +78,23 @@ function build(raw,packs={},options={}){
  const lineSupport=(s,id)=>{const followers=State.members(s,id,lines).slice(1);return followers.length?followers.reduce((sum,no)=>sum+f(no,'track')*(.6+f(no,'finish')*.4),0)/followers.length:0;};
  function initial(front,order){return {id:++serial,order:order||[front,...topology.lines.map(l=>l.id).filter(id=>id!==front)],outside:null,secondary:null,failedAttacks:[],riderBurden:{},rearJoins:[],contestHistory:[],defenses:[],burden:Object.fromEntries(topology.lines.map(l=>[l.id,0])),effort:Effort.initial(topology.lines.map(l=>l.id)),detached:[],switches:{},events:[],scenes:[],terms:[],assumptions:[],failures:[],used:[],attacks:[],defense:null};}
  function term(s,axis,value,reason,features=[]){s.terms.push({phase:s.scenes.length,axis,value,reason,features});}
- function charge(s,id,action,opts={}){
-  const v=Effort.charge(s,id,action,opts),capacity=1+f(lines[id].head,'endurance')*.9;
-  term(s,'robustness',-(v.cost/capacity)*.16-v.repeat*.10,`${who(id)}の${action}で負担${v.cost.toFixed(3)}、累積${v.spent.toFixed(3)}。加減速の繰返し${v.surges}回。脚は有限で、後半の仕掛け余力に反映（未校正の相対負担）`,[ev(lines[id].head,'endurance')]);
-  return v;
- }
  function intentTerm(s,id,action){
   const no=lines[id].head,rows=input.records.filter(e=>e.no===no&&e.kind==='race_intention'&&e.declaration_complete!==false).sort((a,b)=>Date.parse(b.collected_at)-Date.parse(a.collected_at)),row=rows[0];if(!row)return;
   const text=row.declaration||row.excerpt||'';if(/しない|ません|ではない|なら|れば|かもしれ|相談|昨日|前回/.test(text))return;
   const supports=/先行|積極|突っ張/.test(text)&&['press','resist','kamashi'].includes(action)||/捲り|まくり/.test(text)&&['long','short','counter'].includes(action)||/自在|位置|流れ/.test(text)&&['cut','wait','use'].includes(action);
   if(supports)term(s,'rationality',.06,`${who(id)}の今回の意思表示「${text}」を候補生成の材料にする。実行証拠とは別`,[{no,key:'race_intention',value:.06,basis:'当該レースの本人コメント。確定した戦術ではない',sources:[row]}]);
  }
- function event(s,actor,action,reason,extra={}){s.events.push({actor,action,reason,...extra});}
+ function event(s,actor,action,reason,extra={}){
+  const id=Object.hasOwn(lines,actor)?actor:(Number.isInteger(actor)&&by[actor]?idOf(actor):null);
+  if(id&&Object.hasOwn(Effort.BASE,extra.effort_action||action)&&!['front','finish'].includes(action)){
+   const drafted=action==='draft'||action==='use'||(action==='kamashi'&&s.events.some(e=>e.actor===actor&&e.action==='draft'));
+   Effort.charge(s,id,extra.effort_action||action,{drafted,phase:PHASES[Math.min(5,s.scenes.length)]});
+  }
+  s.events.push({actor,action,reason,...extra});
+ }
  function snap(s,stage){
-  const p=State.project(s,lines),inside=p.groups.filter(g=>g.lane===0&&g.members.length);
-  s.scenes.push({phase:PHASES[stage],groups:p.groups,positions:p.positions,order:p.order,control:p.control,middle:inside[1]?.id||null,rear:inside.at(-1)?.id||null,outside:copy(s.outside),outside_groups:copy(State.active(s)),burden:copy(s.burden),effort:copy(s.effort),rider_burden:copy(s.riderBurden),contest:s.contest?copy(s.contest):null,connected:Object.fromEntries(r.riders.map(x=>[x.no,!s.detached.includes(x.no)&&s.innerRoute?.no!==x.no&&s.contest?.challenger!==x.no])),events:s.events.splice(0),positioning_steps:copy(s.positioning_steps||[]),positioning_goals:copy(s.positioning_goals||{}),opportunities:s.order.filter(id=>id!==p.control&&State.members(s,id,lines).length).map(id=>({line:id,options:State.active(s).some(a=>a.id===id)?['捲り継続','不発から立て直し']:['待機','位置取り','反撃']}))});
+  const p=State.project(s,lines),inside=p.groups.filter(g=>g.lane===0&&g.members.length),physical=Physical.phase({events:s.events,positioning_steps:s.positioning_steps,outside:s.outside},s.scenes.at(-1),stage);
+  s.scenes.push({phase:PHASES[stage],groups:p.groups,positions:p.positions,order:p.order,control:p.control,middle:inside[1]?.id||null,rear:inside.at(-1)?.id||null,outside:copy(s.outside),outside_groups:copy(State.active(s)),burden:copy(s.burden),effort:copy(s.effort),physical:copy(physical),rider_burden:copy(s.riderBurden),contest:s.contest?copy(s.contest):null,connected:Object.fromEntries(r.riders.map(x=>[x.no,!s.detached.includes(x.no)&&s.innerRoute?.no!==x.no&&s.contest?.challenger!==x.no])),events:s.events.splice(0),positioning_steps:copy(s.positioning_steps||[]),positioning_goals:copy(s.positioning_goals||{}),opportunities:s.order.filter(id=>id!==p.control&&State.members(s,id,lines).length).map(id=>({line:id,options:State.active(s).some(a=>a.id===id)?['捲り継続','不発から立て直し']:['待機','位置取り','反撃']}))});
  }
 
  function move(s,id,to){s.order=s.order.filter(x=>x!==id);s.order.splice(to,0,id);}
@@ -101,7 +104,7 @@ function build(raw,packs={},options={}){
   if(index===0||s.outside)return [];
   const needs=kind==='long'?'long_makuri':kind==='kamashi'?'kamashi':'makuri',support=f(h,needs),supportSources=input.features[h][needs].sources;
   if(kind==='long'&&support<.5){rejected.push({phase:s.scenes.length,line:id,tactic:kind,reason:'長く踏む裏付けが弱く、後方からの早い捲りを本線候補に置けない',features:[ev(h,'long_makuri'),ev(h,'endurance')]});return [];}
-  const t=copy(s);t.id=++serial;t.used.push(id);t.attacks.push({id,kind,from:index,phase:s.scenes.length});t.burden[id]+=kind==='long'?2:1;charge(t,id,kind,{phase:PHASES[s.scenes.length]});
+  const t=copy(s);t.id=++serial;t.used.push(id);t.attacks.push({id,kind,from:index,phase:s.scenes.length});t.burden[id]+=kind==='long'?2:1;
   intentTerm(t,id,kind);
   const contact=kind==='short'&&index>1?s.order.filter(x=>State.members(s,x,lines).length)[index-1]:lead;
   t.outside={id,anchor:contact,target_line:lead,progress:index===1?'前団に接近':'中団外から進行',kind,from:index,started:s.scenes.length};
@@ -115,13 +118,13 @@ function build(raw,packs={},options={}){
   // A distant late attack must not jump directly to the lead.
   if(kind==='short'&&index>1){term(t,'robustness',-.5,'後方から短い捲りは前団まで届く前提が厳しい');t.assumptions.push(`${who(id)}の短い捲りは届かず外で止まる可能性`);}
   const following=s.order[index+1];
-  if(following){const ride=copy(t);ride.id=++serial;ride.outside.followers=[following];ride.burden[following]++;charge(ride,following,'follow',{drafted:true,phase:PHASES[s.scenes.length]});
+  if(following){const ride=copy(t);ride.id=++serial;ride.outside.followers=[following];ride.burden[following]++;
    ride.events=ride.events.filter(e=>e.actor!==following);event(ride,following,'use',`${who(following)}は直前の${who(id)}の仕掛けに乗り、自ら外を踏み上げる負担を抑えて位置を上げる`);
    term(ride,'rationality',f(lines[following].head,'position')*.45,'別線利用は仕掛けの直後にいるラインだけに許す',[ev(lines[following].head,'position')]);
    ride.assumptions.push(`${who(following)}は利用する別線の仕掛けが止まれば一緒に進路を失う`);return [t,ride];
   }return [t];
  }
- const positioning=Positioning.create({r,lines,topology,f,ev,term,event,move,who,intentTerm,allocate:()=>++serial,lineSupport,power,effortCharge:charge});
+ const positioning=Positioning.create({r,lines,topology,f,ev,term,event,move,who,intentTerm,allocate:()=>++serial,lineSupport,power});
  function early(s){setContext(s);return positioning.early(s);}
  function launch(s,stage){
   setContext(s);
@@ -129,8 +132,8 @@ function build(raw,packs={},options={}){
    // A cut is an opportunity, not a command to force another line to the lead.
    const cut=s.pendingCut,cutGoal=positioning.goal(cut);
    const eligible=s.order.filter(id=>id!==cut&&topology.active.includes(id)&&State.members(s,id,lines)[0]===lines[id].head);
-   const base=copy(s);base.id=++serial;base.pendingCut=null;base.cut_resolution='hold_lead';base.burden[cut]++;charge(base,cut,'pace',{phase:PHASES[stage]});
-   event(base,cut,'press',`${who(cut)}は中団を取り直すつもりで斬ったが、別線が前へ出ないため想定外に先頭を引き受ける`);
+   const base=copy(s);base.id=++serial;base.pendingCut=null;base.cut_resolution='hold_lead';base.burden[cut]++;
+   event(base,cut,'press',`${who(cut)}は中団を取り直すつもりで斬ったが、別線が前へ出ないため想定外に先頭を引き受ける`,{effort_action:'pace'});
    term(base,'rationality',cutGoal.scores.lead-cutGoal.scores.middle-.2,'先斬り側が前に残る場合、先行の利益と中団を望む利益を比較',cutGoal.sources);
    term(base,'robustness',-.15,'別線が主導権を引き受けないため当初の好位確保目的は未達');
    base.assumptions.push(`${who(cut)}の先斬り後、他線が先頭を引き受けず、自らペースを作る必要がある`);
@@ -147,7 +150,7 @@ function build(raw,packs={},options={}){
     // A rear line must attack through an outside lane; it cannot jump directly into the lead.
     if(from>1)continue;
     const leadUtility=g.scores.lead-g.scores.middle+Math.min(.12,(lines[id].length-1)*.06)-from*.08;
-    const t=copy(s);t.id=++serial;t.pendingCut=null;t.cut_resolution='take_lead';move(t,id,0);t.burden[id]++;charge(t,id,'press',{phase:PHASES[stage]});
+    const t=copy(s);t.id=++serial;t.pendingCut=null;t.cut_resolution='take_lead';move(t,id,0);t.burden[id]++;
     event(t,id,'press',`${who(id)}は中団維持・捲り（${g.scores.middle.toFixed(2)}）より主導権確保（${g.scores.lead.toFixed(2)}）を選択し、${from+1}番目の位置から上昇する。ラインは${lines[id].length}車`);
     event(t,cut,'yield',`${who(cut)}は先斬り後に${who(id)}を通し、その後ろの好位を狙う。位置確保は別線との関係次第`);
     term(t,'rationality',leadUtility,'中団を捨てて主導権を取る利益を先行志向・捲り志向・ライン長・現位置から比較',g.sources);
@@ -162,13 +165,13 @@ function build(raw,packs={},options={}){
    return release;
   }
   const result=[];
-  const waiting=copy(s),lead=State.project(s,lines).control;waiting.burden[lead]++;charge(waiting,lead,'pace',{phase:PHASES[stage]});
+  const waiting=copy(s),lead=State.project(s,lines).control;waiting.burden[lead]++;
   for(const id of s.order){
    if(!State.members(s,id,lines).length)continue;
    const at=s.order.indexOf(id),line=lines[id],ongoing=State.active(s).some(a=>a.id===id);
    const reason=id===lead?`${who(id)}は${line.length}車の連係を保ってペースを作り、別線への踏み直しを残す`:ongoing?`${who(id)}は前局面からの外進行を続け、途中で内へ戻るより仕掛けをつなぐ`:line.length===1?`${who(id)}は先行争いに加わるより、前のラインの後ろと空く進路を待って直線の脚を残す`:at===1?`${who(id)}は中団を手放して外を踏む負担と、前の仕掛けを利用する利益を比べ、現在位置を維持する`:`${who(id)}は後方から早く外を追加する負担を避け、前の仕掛けと進路の変化を待つ。強い反撃が成立する別候補とも比較する`;
    intentTerm(waiting,id,'wait');
-   event(waiting,id,ongoing?'continue':'wait',reason);
+   event(waiting,id,ongoing?'continue':'wait',reason,id===lead?{effort_action:'pace'}:{});
   }
   term(waiting,'rationality',.25,'待機は無駄な踏み合いを避ける選択');
   const unused=s.order.slice(1).filter(id=>topology.active.includes(id)&&!s.used.includes(id)&&State.members(s,id,lines)[0]===lines[id].head);
@@ -267,13 +270,13 @@ function build(raw,packs={},options={}){
 
  function subtotal(s,axis){const ts=s.terms.filter(t=>t.axis===axis);return ts.length?ts.reduce((a,t)=>a+t.value,0)/ts.length:0;}
  // Cheap exploration rank only. Final selection below chooses a race-dependent axis.
- function rank(s){return Object.keys(AXES).reduce((a,k)=>a+subtotal(s,k),0);}
+ function rank(s){const spent=Object.values(s.effort||{}).reduce((a,x)=>a+(x.spent||0),0);return Object.keys(AXES).reduce((a,k)=>a+subtotal(s,k),0)-spent*.035/Math.max(1,topology.lines.length);}
  function trim(states){counts.generated+=states.length;const buckets=new Map();
-  for(const s of states){const key=[s.order.join(''),s.pendingCut||'',s.cut_resolution||'',JSON.stringify(s.burden),s.events.map(e=>e.actor+':'+e.action+':'+(e.outcome||'')).join(','),s.outside?.id,s.outside?.kind,s.secondary?.id,s.secondary?.kind,s.innerRoute?.no,s.contest?.challenger,s.contest?.outcome,JSON.stringify(s.contestHistory),JSON.stringify(s.failedAttacks),s.defense?.action,s.defense?.outcome,s.detached.join(),JSON.stringify(s.switches),JSON.stringify(s.rearJoins),JSON.stringify(s.riderBurden),s.attacks.map(a=>a.kind).join()].join('|');if(!buckets.has(key)||rank(s)>rank(buckets.get(key)))buckets.set(key,s);}
+  for(const s of states){const key=[s.order.join(''),s.pendingCut||'',s.cut_resolution||'',JSON.stringify(s.burden),Object.entries(s.effort||{}).map(([id,e])=>id+':'+Math.round(e.spent*10)+':'+e.surges+':'+e.usedDraft).join(','),s.events.map(e=>e.actor+':'+e.action+':'+(e.outcome||'')).join(','),s.outside?.id,s.outside?.kind,s.secondary?.id,s.secondary?.kind,s.innerRoute?.no,s.contest?.challenger,s.contest?.outcome,JSON.stringify(s.contestHistory),JSON.stringify(s.failedAttacks),s.defense?.action,s.defense?.outcome,s.detached.join(),JSON.stringify(s.switches),JSON.stringify(s.rearJoins),JSON.stringify(s.riderBurden),s.attacks.map(a=>a.kind).join()].join('|');if(!buckets.has(key)||rank(s)>rank(buckets.get(key)))buckets.set(key,s);}
   const sorted=[...buckets.values()].sort((a,b)=>rank(b)-rank(a)||a.id-b.id),selected=[],families=new Map();
   // Round-robin across state families, so failure/recovery never vanishes merely
   // because many initial S-order variants of a successful move rank ahead.
-  for(const s of sorted){const earlyEvents=s.scenes[1]?.events||s.events,earlyTactic=earlyEvents.find(e=>['cut','press'].includes(e.action))?.action||'hold',earlyResponse=earlyEvents.find(e=>['resist','yield'].includes(e.action))?.action||'wait';const key=[earlyTactic,earlyResponse,s.cut_resolution||'none',s.outside?.kind||'none',s.secondary?.kind||'none',s.failedAttacks.some(a=>a.status==='failed')?'failed':'',s.retry?'retry':'',s.innerRoute?'inside':'',s.recoveredLines?.length?'reset':'',s.recoveredRiders?.length?'rejoined':'',s.detached.length?'detached':'',s.contestHistory.at(-1)?.outcome||s.contest?.outcome||'',s.defense?.action||'',s.defense?.outcome||''].join('|');if(!families.has(key))families.set(key,[]);families.get(key).push(s);}
+  for(const s of sorted){const earlyEvents=s.scenes[1]?.events||s.events,earlyTactic=earlyEvents.find(e=>['cut','press'].includes(e.action))?.action||'hold',earlyResponse=earlyEvents.find(e=>['resist','yield'].includes(e.action))?.action||'wait';const effortBand=Math.round(Object.values(s.effort||{}).reduce((n,v)=>n+(v.spent||0),0)*2);const key=[earlyTactic,earlyResponse,s.cut_resolution||'none',effortBand,s.outside?.kind||'none',s.secondary?.kind||'none',s.failedAttacks.some(a=>a.status==='failed')?'failed':'',s.retry?'retry':'',s.innerRoute?'inside':'',s.recoveredLines?.length?'reset':'',s.recoveredRiders?.length?'rejoined':'',s.detached.length?'detached':'',s.contestHistory.at(-1)?.outcome||s.contest?.outcome||'',s.defense?.action||'',s.defense?.outcome||''].join('|');if(!families.has(key))families.set(key,[]);families.get(key).push(s);}
   let round=0;while(selected.length<width){let added=0;for(const bucket of families.values()){if(bucket[round]&&selected.length<width){selected.push(bucket[round]);added++;}}if(!added)break;round++;}
   counts.pruned+=states.length-selected.length;return selected;
 
@@ -317,6 +320,9 @@ function build(raw,packs={},options={}){
    if(fin.mode==='内進路からの直線')term(s,'rationality',f(fin.pair[0],'inside')-.3,'実際に開いた内の進路を直線の勝ち筋につなぐ',[ev(fin.pair[0],'inside'),ev(fin.pair[0],'finish')]);
    if(environment.features.length)term(s,'feasibility',fin.mode==='番手差し'?environment.lead_cost+environment.finish_allowance:-environment.lead_cost,'出典付きのバンク・風の観測による小幅な条件比較',environment.features);
    s.finish={...fin,leaderStrength,followStrength,thirds};
+   const resource=Object.entries(s.effort||{}).map(([id,e])=>({id,used:e.spent,budget:Effort.budget(f(lines[id].head,'endurance'))}));
+   const worst=Math.max(0,...resource.map(x=>x.used/x.budget));
+   term(s,'robustness',.28-worst*.29,'位置取り・仕掛け・牽制の全行動を一回ずつ積算し、有限な脚の余力を評価（ワット・実測疲労ではない）',resource.map(x=>ev(lines[x.id].head,'endurance')));
    term(s,'feasibility',.3-Effort.fatigue(s,lead)*.12,'先行側の累積努力と加速回数が残存脚に影響する（実測の残存エネルギーではない）',[ev(head,'endurance')]);
    const favorable=s.scenes.flatMap(x=>x.events).filter(e=>['pass','seat_won','relaunch','reconnect','inside'].includes(e.action)).length;
    if(favorable>1)term(s,'robustness',-.12*(favorable-1),'複数の都合のよい成功が続く前提は頑健性を下げる');
@@ -328,13 +334,14 @@ function build(raw,packs={},options={}){
  }
  if(!finishHypotheses.length)throw Error('成立する決着候補がありません');
  // Hard constraints cannot be rescued by an axis weight.
- const valid=finishHypotheses.filter(s=>{s.audit=State.audit(s,r,lines);if(!s.audit.passed)rejected.push({id:s.id,reason:s.audit.failures.join('。')});return s.audit.passed;});
+ const valid=finishHypotheses.filter(s=>{const logical=State.audit(s,r,lines),physical=Physical.audit(s,topology,input.features);s.audit={...logical,physical,passed:logical.passed&&physical.passed,failures:[...logical.failures,...physical.failures]};if(!s.audit.passed)rejected.push({id:s.id,reason:s.audit.failures.join('。')});return s.audit.passed;});
  if(!valid.length)throw Error('局面状態の整合性を満たす候補なし');
  const selected=Selection.select(valid),{main,rival,decision,rated,alternatives}=selected,{gap}=decision,weight=decision.weights;
+ decision.physical_gate={generated:finishHypotheses.length,eligible:valid.length,excluded:finishHypotheses.length-valid.length,measured:false,limitations:'相対移動容量と努力消費。秒数や実測速度での成立保証ではない'};
  decision.sensitivity=Sensitivity.review(main,rated,weight);
  const {tickets,policy:ticket_policy}=Tickets.generate(main,alternatives,input);
 
- return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,search_settings:{width,trace_candidates:!!options.traceCandidates},input_as_of:input.as_of,cutoff:input.cutoff},input,environment,topology,main,decision,rival,alternatives,candidate_evaluations:valid.map(s=>({id:s.id,score:Object.keys(AXES).reduce((sum,k)=>sum+subtotal(s,k)*weight[k],0),axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),audit:s.audit,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,defenses:s.defenses,detached:s.detached,recovered_lines:s.recoveredLines||[],recovered_riders:s.recoveredRiders||[],inside:s.innerRoute||null,contest:s.contest||null,contest_history:s.contestHistory,effort:s.effort,cut_resolution:s.cut_resolution||null,...(options.traceCandidates?{terms:s.terms,scenes:s.scenes.map(x=>({phase:x.phase,control:x.control,order:x.order,positions:x.positions,groups:x.groups,events:x.events,positioning_steps:x.positioning_steps,positioning_goals:x.positioning_goals}))}:{})})),tickets,ticket_policy,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,...(options.traceCandidates?{cut_choices}:{}),audit_passed:valid.length,pareto:selected.pareto,finalists:selected.finalists,retained:rated.length,method:'ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
+ return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,search_settings:{width,trace_candidates:!!options.traceCandidates},input_as_of:input.as_of,cutoff:input.cutoff},input,environment,topology,main,decision,rival,alternatives,candidate_evaluations:valid.map(s=>({id:s.id,score:Object.keys(AXES).reduce((sum,k)=>sum+subtotal(s,k)*weight[k],0),axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),audit:s.audit,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,defenses:s.defenses,detached:s.detached,recovered_lines:s.recoveredLines||[],recovered_riders:s.recoveredRiders||[],inside:s.innerRoute||null,contest:s.contest||null,contest_history:s.contestHistory,effort:s.effort,physical:s.audit.physical,cut_resolution:s.cut_resolution||null,...(options.traceCandidates?{terms:s.terms,scenes:s.scenes.map(x=>({phase:x.phase,control:x.control,order:x.order,positions:x.positions,groups:x.groups,events:x.events,positioning_steps:x.positioning_steps,positioning_goals:x.positioning_goals}))}:{})})),tickets,ticket_policy,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,...(options.traceCandidates?{cut_choices}:{}),audit_passed:valid.length,pareto:selected.pareto,finalists:selected.finalists,retained:rated.length,method:'ライン戦術別の候補保持→局面・脚の消費を統一管理→物理・論理矛盾を先に棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
 }
 function compress(tickets){const groups=new Map();for(const t of tickets){const k=t.trio.slice(0,2).join('-');if(!groups.has(k))groups.set(k,new Set());groups.get(k).add(t.trio[2]);}return [...groups].map(([k,thirds])=>({text:k+'-'+[...thirds].sort((a,b)=>a-b).join(''),count:thirds.size}));}
 const api={VERSION,PHASES,AXES,TACTICS,structure,frontChoices,build,compress};if(typeof module!=='undefined')module.exports=api;root.LineEngine=api;

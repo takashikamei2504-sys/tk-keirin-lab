@@ -19,6 +19,7 @@ jobs:
       - run: node tests/line/positioning.test.cjs
       - run: node tests/line/cut-choice.test.cjs
       - run: node tests/line/effort.test.cjs
+      - run: node tests/line/physical.test.cjs
       - run: node tests/line/positioning-evaluation.test.cjs
       - run: node tests/line/interactions.test.cjs
       - run: node tests/line/audit.test.cjs
