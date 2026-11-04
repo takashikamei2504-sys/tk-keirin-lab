@@ -29,6 +29,7 @@ jobs:
       - run: node scripts/line-evaluate.cjs
       - run: node scripts/line-positioning-evaluate.cjs
       - run: node scripts/line-checks.cjs
+      - run: node scripts/line-cognition-audit.cjs
       - run: node scripts/line-examples.cjs
       - run: npx playwright install --with-deps chromium
       - run: |
