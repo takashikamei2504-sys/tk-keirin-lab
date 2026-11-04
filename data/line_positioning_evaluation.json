@@ -1,13 +1,13 @@
 {
   "schema": "tk-line-positioning-evaluation/v1",
-  "generated_at": "2026-11-04T02:46:36.364Z",
+  "generated_at": "2026-11-04T07:29:23.203Z",
   "summary": {
-    "frozen_records": 115,
+    "frozen_records": 130,
     "records_compared": 0,
     "checks_compared": 0,
     "checks_matched": 0,
     "exact_rate": null,
-    "excluded": 115,
+    "excluded": 130,
     "warning": "実戦の位置取り観測がなく、一致率は算出できない"
   },
   "rows": [
@@ -236,6 +236,14 @@
       "matched": 0
     },
     {
+      "race_id": "2026-11-04:豊橋:3",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
       "race_id": "2026-11-04:大宮:8",
       "model_id": "LAB_LINE_ENGINE_V1@e334ebd377c219aa",
       "status": "excluded",
@@ -332,6 +340,22 @@
       "matched": 0
     },
     {
+      "race_id": "2026-11-04:別府:9",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-04:豊橋:9",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
       "race_id": "2026-11-04:大宮:6",
       "model_id": "LAB_LINE_ENGINE_V1@8f593f3b286d67ba",
       "status": "excluded",
@@ -358,6 +382,14 @@
     {
       "race_id": "2026-11-04:大宮:2",
       "model_id": "LAB_LINE_ENGINE_V1@e334ebd377c219aa",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-04:豊橋:10",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
       "status": "excluded",
       "reason": "検証済みの位置取り観測なし",
       "compared": 0,
@@ -412,6 +444,14 @@
       "matched": 0
     },
     {
+      "race_id": "2026-11-04:別府:10",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
       "race_id": "2026-11-04:青森:6",
       "model_id": "LAB_LINE_ENGINE_V1@e334ebd377c219aa",
       "status": "excluded",
@@ -436,6 +476,14 @@
       "matched": 0
     },
     {
+      "race_id": "2026-11-04:別府:8",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
       "race_id": "2026-11-04:別府:1",
       "model_id": "LAB_LINE_ENGINE_V1@e334ebd377c219aa",
       "status": "excluded",
@@ -454,6 +502,14 @@
     {
       "race_id": "2026-11-04:別府:11",
       "model_id": "LAB_LINE_ENGINE_V1@8f593f3b286d67ba",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-04:豊橋:7",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
       "status": "excluded",
       "reason": "検証済みの位置取り観測なし",
       "compared": 0,
@@ -524,6 +580,14 @@
       "matched": 0
     },
     {
+      "race_id": "2026-11-04:別府:4",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
       "race_id": "2026-11-04:大宮:2",
       "model_id": "LAB_LINE_ENGINE_V1@8f593f3b286d67ba",
       "status": "excluded",
@@ -582,6 +646,14 @@
     {
       "race_id": "2026-11-04:青森:6",
       "model_id": "LAB_LINE_ENGINE_V1@8f593f3b286d67ba",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-04:豊橋:8",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
       "status": "excluded",
       "reason": "検証済みの位置取り観測なし",
       "compared": 0,
@@ -660,6 +732,14 @@
       "matched": 0
     },
     {
+      "race_id": "2026-11-04:別府:7",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
       "race_id": "2026-11-04:豊橋:1",
       "model_id": "LAB_LINE_ENGINE_V1@8f593f3b286d67ba",
       "status": "excluded",
@@ -684,6 +764,14 @@
       "matched": 0
     },
     {
+      "race_id": "2026-11-04:別府:3",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
       "race_id": "2026-11-04:豊橋:9",
       "model_id": "LAB_LINE_ENGINE_V1@8f593f3b286d67ba",
       "status": "excluded",
@@ -694,6 +782,14 @@
     {
       "race_id": "2026-11-04:豊橋:8",
       "model_id": "LAB_LINE_ENGINE_V1@e334ebd377c219aa",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-04:豊橋:6",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
       "status": "excluded",
       "reason": "検証済みの位置取り観測なし",
       "compared": 0,
@@ -756,6 +852,14 @@
       "matched": 0
     },
     {
+      "race_id": "2026-11-04:豊橋:12",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
       "race_id": "2026-11-04:別府:4",
       "model_id": "LAB_LINE_ENGINE_V1@8f593f3b286d67ba",
       "status": "excluded",
@@ -782,6 +886,14 @@
     {
       "race_id": "2026-11-04:大宮:5",
       "model_id": "LAB_LINE_ENGINE_V1@8f593f3b286d67ba",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-04:豊橋:4",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
       "status": "excluded",
       "reason": "検証済みの位置取り観測なし",
       "compared": 0,
@@ -854,6 +966,14 @@
     {
       "race_id": "2026-11-04:別府:9",
       "model_id": "LAB_LINE_ENGINE_V1@e334ebd377c219aa",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-04:別府:11",
+      "model_id": "LAB_LINE_ENGINE_V1@9f2e53ca1de9c29d",
       "status": "excluded",
       "reason": "検証済みの位置取り観測なし",
       "compared": 0,
