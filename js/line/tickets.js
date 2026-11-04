@@ -24,22 +24,32 @@ function variations(main,input){
  const suggestions=[];
  function add(pair,mode,reason,signals=[],priority=.5){
   if(!pair.every(connected)||pair[0]===pair[1])return;
-  const thirdCandidates=new Set([leader,second,third,...(main.finish?.thirds||[]).map(t=>t.no)]);
+  const thirdCandidates=new Set([leader,second,third,...(main.finish?.thirds||[]).map(t=>t.no),...(input.race.riders||[]).map(x=>x.no)]);
   for(const a of active){
    if(a.id===control)continue;
    const g=corner.groups.find(x=>x.id===a.id&&x.attack);
    if(g?.members?.[0])thirdCandidates.add(g.members[0]);
   }
   const ranked=[...thirdCandidates].filter(no=>connected(no)&&!pair.includes(no)).map(no=>{
-   const loc=posit[no],near=(loc.ordinal??99)<=4||['outside','inside'].includes(loc.band);
+   const loc=posit[no],near=(loc.ordinal??99)<=4&&['inner','inside','outside'].includes(loc.band);
    if(!near)return null;
    const relevance=baseScore(no)-(loc.ordinal??5)*.04+(loc.band==='inside'?.07:0);
    return {no,relative:relevance,reason:no+'番は4角の'+(loc.band==='outside'?'外並走':loc.band==='inside'?'内進路':(loc.ordinal+1)+'番手')+'から3着を争う。'+grounds(no)};
   }).filter(Boolean).sort((a,b)=>b.relative-a.relative||a.no-b.no);
-  for(const t of ranked.slice(0,2)){
+  const bestRelative=ranked[0]?.relative??-Infinity;
+  for(const t of ranked.filter(x=>x.relative>=bestRelative-.24).slice(0,4)){
    const trio=[...pair,t.no];
    if(!validTrio(trio))continue;
    suggestions.push({trio,key:key(trio),group:'variation',hypothesis:main.id,supporting_hypotheses:[main.id],variation:{pair,mode,signals,corner_phase:corner.phase,source_hypothesis:main.id,kind:'same-corner'},score:round(priority+Math.min(.12,t.relative*.08)),reason:mode+'。'+reason+'。'+t.reason});
+  }
+ }
+ // Third place may change by a tyre width even when the primary 1-2 pair holds.
+ // Expand only to riders already within range at the final corner, and compare
+ // the actual feature-based finish evidence instead of filling 12 slots.
+ if(main.finish?.pair?.length===2){
+  const [first,runner]=main.finish.pair;
+  if(connected(first)&&connected(runner)){
+   add([first,runner],'同じ1・2着の3着僅差争い','本線の主導権・仕掛けを変えず、4角で射程にいる選手の脚色・力量・位置差から3着争いを再評価。実測着差や確率ではない',['third-place-close-finish'],.69);
   }
  }
  // No forced swap: both original line members must remain connected and
