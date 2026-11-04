@@ -31,6 +31,8 @@ const vInput={race:{riders:Array.from({length:7},(_,i)=>({no:i+1}))},
 const vCandidates=T.variations(vv,vInput);
 equal(vCandidates.some(t=>t.trio[0]===2&&t.trio[1]===4&&t.variation.kind==='same-corner'),true);
 equal(vCandidates.some(t=>t.trio[0]===3&&t.trio[1]===2),true);
+equal(vCandidates.some(t=>t.trio.join('-')==='2-1-5'),true);
+equal(vCandidates.some(t=>t.trio[2]===6),false);
 const withoutOutside=T.variations({...vv,outside:null},vInput);
 equal(withoutOutside.some(t=>t.trio[0]===2&&t.trio[1]===4),false);
 const withoutThirdRoute=T.variations({...vv,defenses:[]},vInput);
