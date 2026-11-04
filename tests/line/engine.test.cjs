@@ -45,4 +45,22 @@ const Legacy=require('../../js/story-brain.js');const older=Legacy.build(first.i
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'line-store-')),live=E.build({...sample,date:'2098-10-31'},{},{asOf:Date.parse('2098-10-30T00:00:00Z')});
 live.generated_at='2098-10-30T00:00:00.500Z';const now=Date.parse('2098-10-30T00:00:01Z'),a=Store.freeze(live,temp,now);ok(a.saved,'save pre-race');const text=fs.readFileSync(a.file,'utf8');live.tickets=[];ok(!Store.freeze(live,temp,now+1).saved,'first forecast immutable');assert.equal(fs.readFileSync(a.file,'utf8'),text);checks++;
 ok(!Store.freeze({...live,mode:'historical-replay'},temp,now).saved,'never freeze replay');ok(!Store.freeze(live,temp,Date.parse(live.input.cutoff)).saved,'never freeze after cutoff');fs.rmSync(temp,{recursive:true});
+
+// I: S-taking is not identical to a receiving line's starting position.
+// In mixed formations, solos require source-grounded tactical intent or solo-specific observation.
+const startTopology=E.structure(sample),starts=E.frontChoices(sample,startTopology,[]);
+ok(starts.choices.every(x=>x.line.length>1),'I ungrounded solos are not initial S-taking candidates');
+ok(starts.excluded.length===2,'I both ungrounded solos are flagged with reasons');
+const boostedSolo=structuredClone(sample);boostedSolo.riders.find(x=>x.no===9).s=40;
+ok(E.frontChoices(boostedSolo,E.structure(boostedSolo),[]).excluded.length===2,'I high S count alone never proves a solo S-taking plan');
+const withIntent=structuredClone(sample);withIntent.race_material={comments:[{rider:'山口拳矢',declaration:'単騎でSを取って前受けする',declaration_complete:true}]};
+ok(E.frontChoices(withIntent,E.structure(withIntent),[]).choices.some(x=>x.line.head===9),'I explicit solo front-taking intent is eligible');
+withIntent.race_material.comments[0].declaration='今日はSを取らない';
+ok(!E.frontChoices(withIntent,E.structure(withIntent),[]).choices.some(x=>x.line.head===9),'I a negated intention cannot support solo S-taking');
+ok(E.frontChoices(sample,startTopology,[{no:3,trait:'front',numeric:true,value:.9,context:{role:'solo'}}]).choices.some(x=>x.line.head===3),'I condition-specific observed solo S-taking can be eligible');
+ok(!E.frontChoices(sample,startTopology,[{no:3,trait:'front',numeric:true,value:.9,context:{}}]).choices.some(x=>x.line.head===3),'I generic front record cannot be treated as solo evidence');
+const startOutput=E.build(sample);
+ok([startOutput.main,...startOutput.alternatives].every(x=>x.scenes[0].start_plan&&sample.lineup.find(l=>l[0]===x.scenes[0].groups.find(g=>g.id===x.scenes[0].start_plan.front_line)?.members?.[0])!==undefined),'I initial scene records grounded front line and role');
+ok(startOutput.rejected.some(x=>x.tactic==='solo_s_start'),'I excluded solo starts retain explanations');
+
 console.log(`PASS LAB LINE: ${checks} checks across A–H, 7/9 riders, 2/3/4-car lines, fragmented, timestamp boundary, independent core and immutable storage`);

@@ -19,6 +19,37 @@ function structure(r,features={}){
  const lone=active.length===1||aggressive.length===1&&active.filter(l=>!aggressive.includes(l)).every(l=>(features[l.head]?.initiative.value??.5)<.45);
  return {lines,kind:lone?'先行一車':lines.filter(l=>l.length>1).length===2?'二分戦':lines.filter(l=>l.length>1).length===3?'三分戦':'細切れ',multiple_aggressive:aggressive.length>1,multiple_sprinters:active.filter(l=>!aggressive.includes(l)).length>1,active:active.map(l=>l.id),aggressive:aggressive.map(l=>l.id),solos:lines.filter(l=>l.length===1).map(l=>l.id),patterns:lines.map(l=>({line:l.id,roles:l.members.map((no,i)=>({no,role:i===0?'先頭':i===1?'番手':i===2?'3番手':`${i+1}番手`})),options:l.length===1?['wait','use','seat',...(active.includes(l)?['short']:[])]:active.includes(l)?['press','cut','resist','yield','kamashi','long','short','wait','use']:['wait','use']}))};
 }
+
+/* A front-receiving line is not automatically the rider who takes S.
+ * For solo S-taking, require solo-specific, pre-race evidence rather than
+ * treating an S count accumulated in other line configurations as intent.
+ */
+function frontChoices(r,topology,records=[]){
+ const by=new Map(r.riders.map(x=>[x.no,x])),comments=r.race_material?.comments||[];
+ const soloReason=no=>{
+  const rider=by.get(no),normal=x=>String(x||'').replace(/\s/g,'');
+  const stated=comments.some(c=>{
+   if(normal(c.rider)!==normal(rider.name)||c.declaration_complete===false)return false;
+   const declaration=String(c.declaration||c.excerpt||'');
+   return /(?:[ＳS]を?取(?:る|り|って)|[ＳS]を?狙|スタート(?:を)?取|初手.*(?:前受け|先頭)|前受け)/.test(declaration)&&
+    !/(?:しない|しません|取らない|狙わない|ではない|かもしれない|できれば)/.test(declaration);
+  });
+  const observed=records.some(e=>{
+   const ctx=e.context||{};
+   return e.no===no&&e.numeric&&e.trait==='front'&&e.value>=.7&&
+    (ctx.solo===true||ctx.line_size===1||ctx.line_length===1||ctx.role==='solo'||ctx.lineup==='solo');
+  });
+  return stated?'今回の本人コメントが単騎の前受け意向を明示':observed?'単騎でSを取りに行った条件付き実戦観察あり':null;
+ };
+ const allSolo=topology.lines.every(l=>l.length===1),choices=[],excluded=[];
+ for(const line of topology.lines){
+  if(line.length>1){choices.push({line,solo_reason:null});continue;}
+  const reason=soloReason(line.head);
+  if(reason||allSolo)choices.push({line,solo_reason:reason||(allSolo?'全員単騎のため初手の前受け候補を限定できない':null)});
+  else excluded.push({line:line.id,rider:line.head,reason:'単騎の積極的なS取りを支持する発走前の意思・単騎条件の実戦観察がない。過去のS本数だけでは判断しない'});
+ }
+ return {choices,excluded};
+}
 function build(raw,packs={},options={}){
  const input=Input.prepare(raw,packs,options.asOf??Date.now()),r=input.race,topology=structure(r,input.features),by=Object.fromEntries(r.riders.map(x=>[x.no,x])),lines=Object.fromEntries(topology.lines.map(l=>[l.id,l])),width=options.width??96;
  const environment=Conditions.evaluate(r.conditions);
@@ -242,7 +273,19 @@ function build(raw,packs={},options={}){
 
  }
  const advanced=Interactions.create({r,lines,topology,f,ev,event,term,move,who,allocate:()=>++serial,setContext});
- let states=topology.lines.map(line=>{const s=initial(line.id);term(s,'rationality',f(line.head,'front'),`${who(line.id)}が初手の前を求めるS傾向`,[ev(line.head,'front')]);event(s,line.id,'front','ライン単位で初手の前受けを選ぶ。他線は後方から上昇する選択肢を残す');snap(s,0);return s;});
+ const starts=frontChoices(r,topology,input.records);
+ rejected.push(...starts.excluded.map(x=>({phase:0,line:x.line,tactic:'solo_s_start',reason:x.reason})));
+ let states=starts.choices.map(({line,solo_reason})=>{
+  const s=initial(line.id),eligible=line.members.filter(no=>Number.isFinite(by[no].s)&&by[no].s>0&&!by[no].meta?.absent_fields?.includes('s'));
+  eligible.sort((a,b)=>by[b].s-by[a].s||a-b);
+  const sTaker=line.length===1?line.head:(eligible[0]||null);
+  const sBasis=line.length===1?(solo_reason||'単騎のS担当は未確定'):sTaker===null?'S本数の取得不足により担当候補は未確定':sTaker+'番はライン内でS本数が最も多い担当候補（確定ではない）';
+  s.startPlan={front_line:line.id,s_taker_no:sTaker,s_taker_basis:sBasis,solo_front_reason:solo_reason||null};
+  const sStrength=sTaker===null ? .4 : f(sTaker,'front'),lineCoordination=line.length>1 ? .06*Math.min(3,line.length-1) : 0;
+  term(s,'rationality',.25+sStrength*.35+lineCoordination,who(line.id)+'の初手前受けとSを取る担当者を分けて評価。'+sBasis,[ev(sTaker||line.head,'front')]);
+  event(s,line.id,'front',who(line.id)+'が初手の前受け候補。'+sBasis+'。他線と単騎は別に位置取りを考える');
+  snap(s,0);s.scenes[0].start_plan=copy(s.startPlan);return s;
+ });
  evaluationStage=1;states=trim(states.flatMap(early).flatMap(s=>advanced.contest(s,1)));states.forEach(s=>snap(s,1));
  evaluationStage=2;states=trim(states.flatMap(s=>launch(s,2)).flatMap(advanced.homeFailure).flatMap(followers));states.forEach(s=>snap(s,2));
  // Existing external attacks first continue; new attacks at the back cannot jump to the front.
@@ -287,5 +330,5 @@ function build(raw,packs={},options={}){
  return {schema:'tk-keirin-line/v1',version:VERSION,generated_at:new Date().toISOString(),mode:!options.replay&&Date.parse(input.as_of)<Date.parse(input.cutoff)?'pre-race':'historical-replay',provenance:{input_sha256:Provenance.sha256(input),model:Build,search_settings:{width,trace_candidates:!!options.traceCandidates},input_as_of:input.as_of,cutoff:input.cutoff},input,environment,topology,main,decision,rival,alternatives,candidate_evaluations:valid.map(s=>({id:s.id,score:Object.keys(AXES).reduce((sum,k)=>sum+subtotal(s,k)*weight[k],0),axes:Object.fromEntries(Object.keys(AXES).map(k=>[k,subtotal(s,k)])),audit:s.audit,pair:s.finish.pair,mode:s.finish.mode,attacks:s.attacks,defense:s.defense,defenses:s.defenses,detached:s.detached,recovered_lines:s.recoveredLines||[],recovered_riders:s.recoveredRiders||[],inside:s.innerRoute||null,contest:s.contest||null,contest_history:s.contestHistory,...(options.traceCandidates?{terms:s.terms,scenes:s.scenes.map(x=>({phase:x.phase,control:x.control,order:x.order,positions:x.positions,groups:x.groups,events:x.events}))}:{})})),tickets,ticket_policy,compressed:compress(tickets),rejected,uncertainty:input.uncertainty,search:{...counts,width,audit_passed:valid.length,pareto:selected.pareto,finalists:selected.finalists,retained:rated.length,method:'ライン戦術別の候補保持→局面更新→矛盾棄却→動的判断軸比較',limited:true},value_assessment:'オッズ未評価。比較評価は確率・成功率・購入価値ではない。'};
 }
 function compress(tickets){const groups=new Map();for(const t of tickets){const k=t.trio.slice(0,2).join('-');if(!groups.has(k))groups.set(k,new Set());groups.get(k).add(t.trio[2]);}return [...groups].map(([k,thirds])=>({text:k+'-'+[...thirds].sort((a,b)=>a-b).join(''),count:thirds.size}));}
-const api={VERSION,PHASES,AXES,TACTICS,structure,build,compress};if(typeof module!=='undefined')module.exports=api;root.LineEngine=api;
+const api={VERSION,PHASES,AXES,TACTICS,structure,frontChoices,build,compress};if(typeof module!=='undefined')module.exports=api;root.LineEngine=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
