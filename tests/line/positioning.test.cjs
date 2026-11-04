@@ -34,6 +34,7 @@ const candidates=create.early(base);
 ok(candidates.length>5,'multiple first-move paths evaluated');
 ok(candidates.some(x=>x.positioning_goals?.A?.scores?.lead>=0),'line intent scores are recorded');
 ok(candidates.some(x=>x.positioning_steps?.length===2),'third-line sequential decision is possible');
+ok(candidates.filter(x=>x.positioning_steps?.length).every(x=>x.positioning_steps.every(st=>st.pattern_label&&st.failure_condition)),'actions are associated with meaningful pattern knowledge');
 const cut=candidates.find(x=>x.positioning_steps?.[0]?.actor==='B'&&x.positioning_steps?.[0]?.action==='cut'&&x.positioning_steps?.[0]?.response==='yield'&&x.positioning_steps?.length===2&&x.positioning_steps?.[1]?.actor==='C');
 ok(cut,'a third line can take over following an initial cut');
 assert.deepEqual(cut.order,['C','B','A']);checks++;
