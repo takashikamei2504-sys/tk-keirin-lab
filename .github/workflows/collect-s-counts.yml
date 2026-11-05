@@ -1,0 +1,34 @@
+name: Collect measured pre-race S counts
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/collect_s_counts.py', 'tests/test_s_counts.py', '.github/workflows/collect-s-counts.yml']
+  schedule:
+    - cron: '5,35 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: measured-s-counts
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p 'test_s_counts.py'
+      - run: python -u scripts/collect_s_counts.py --max-races 50 --budget-seconds 240
+      - name: Save race S snapshots
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/s_counts.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update measured race S snapshots'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
