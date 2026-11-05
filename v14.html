@@ -306,7 +306,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <section class="panel" id="brain-panel">
 <h2>展開推理エンジン <span class="pill">v0.6・新しい頭脳</span></h2>
 <p class="details">「前受け → 突っ張る／引く／カマす → 追走・千切れ → 番手はまり → 捲り・差し・大外強襲」を<strong>選手の個性仮説から分岐</strong>させます。未来の結果は入力しません。</p>
-<div class="brain-doc"><strong>推理の前提：</strong>選手の習性は取材コメント・出走表をもとにした暫定推測です。実際の選手の心理を断定するものではありません。<br>独立した展開仮説を生成しますが、AI言語モデルによるウェブ自動調査、動画解析、実データ学習は未実装です。</div>
+<div class="brain-doc"><strong>展開仮説：</strong>出走表・選手データ・取材コメントをもとに戦術とライン間の相互作用を分析します。</div>
 <div class="entry-grid" style="margin-top:12px">
 <label class="entry-field">３連単の買い目点数<input id="brain-points" type="number" min="1" max="100" value="20"></label>
 <label class="entry-field">意外な展開を優先する枠<input id="brain-rare" type="number" min="0" max="20" value="4"></label>
@@ -478,7 +478,7 @@ function format(){const count=Math.max(1,Math.min(100,Number($('count').value)||
 function render(){validate(data);$('header').innerHTML=`<div class="eyebrow">${esc(data.date)} / ${esc(data.venue)} / ${esc(data.race_no)}R</div><h2 style="font-size:21px;margin:4px 0">${esc(data.venue)} ${esc(data.race_no)}R　${esc(data.class)}</h2><div class="row"><span class="pill">${esc(data.grade)}</span><span class="pill">${data.riders.length}車立て</span><span class="pill">発走 ${esc(data.start)}</span><span class="pill">${esc(data.source?.mode==='manual'?'手入力・未検証':data.source?.mode==='bundled'?'事前収録・要照合':data.source?.mode==='same-origin'?'登録データ・要照合':'サンプル分析')}</span></div>`;
 let players=new Map(data.riders.map(r=>[r.no,r]));$('lines').innerHTML=data.lineup.map((line,i)=>`<div class="rail"><span class="railname">${line.length===1?'単騎':i===0?'ライン '+(i+1):'ライン '+(i+1)}</span>${line.map((n,j)=>`${j?'<span class="dash">—</span>':''}<span class="chip ${i===0?'main':''}" title="${esc(players.get(n).name)}">${n}</span>`).join('')}<span class="small">${line.map(n=>esc(players.get(n).name)).join(' / ')}</span></div>`).join('');
 $('players').innerHTML=`<div class="player" style="color:var(--muted)"><span>車番</span><span>選手名</span><span class="val">得点</span><span class="val">B / 勝率</span></div>`+[...data.riders].sort((a,b)=>a.no-b.no).map(r=>`<div class="player"><span class="num">${r.no}</span><span>${esc(r.name)} <span class="small">${esc(r.style)}</span></span><span class="val">${r.score.toFixed(2)}</span><span class="val">${data.source?.missing_fields?.includes('b_s_recent')?'— / —':r.b+' / '+(info(r).win*100).toFixed(1)+'%'}</span></div>`).join('');
-const strong=[...data.riders].sort((a,b)=>strength(b)-strength(a));const important=data.lineup.filter(l=>l.length>=2).sort((a,b)=>strength(players.get(b[0]))-strength(players.get(a[0])))[0];const lead=players.get(important[0]),second=important.length>1?players.get(important[1]):null,third=important.length>2?players.get(important[2]):null;const peakB=[...data.riders].sort((a,b)=>b.b-a.b).slice(0,2);let text=`【分析対象】${data.venue} ${data.race_no}R ${data.class}\n`+`【暫定個人評価】${strong.slice(0,4).map((r,i)=>['◎','○','▲','△'][i]+r.no+' '+r.name).join(' / ')}\n\n`+`【ライン】${data.lineup.map(l=>l.join('-')).join(' / ')}\n\n`+`【展開を考える手掛かり】\n`+`競走得点と直近成績を平滑化した暫定スコアでは${strong[0].no}番${strong[0].name}が上位。得点${strong[0].score.toFixed(2)}、直近${info(strong[0]).n}走の1着率${(info(strong[0]).win*100).toFixed(1)}%。\n`+`B本数が多いのは${peakB.map(r=>r.no+'番'+r.name+'（'+r.b+'本）').join('、')}。ただしB本数は主導権獲得確率ではありません。\n`+`${lead.no}番${lead.name}が前を回る${important.join('-')}の連係では、${second?second.no+'番'+second.name+'の番手からの抜け出し':'先頭'}${third?'、'+third.no+'番'+third.name+'の3番手残り':''}が検討対象になります。先行争いの強度や別線の巻き返しは過去レース単位の学習なしには評価できません。\n\n`+`【買い目】下欄に3連単を相対順位で出力。これは買い目候補の生成テストであり、的中確率・期待値・回収率の保証はありません。`;
+const strong=[...data.riders].sort((a,b)=>strength(b)-strength(a));const important=data.lineup.filter(l=>l.length>=2).sort((a,b)=>strength(players.get(b[0]))-strength(players.get(a[0])))[0];const lead=players.get(important[0]),second=important.length>1?players.get(important[1]):null,third=important.length>2?players.get(important[2]):null;const peakB=[...data.riders].sort((a,b)=>b.b-a.b).slice(0,2);let text=`【分析対象】${data.venue} ${data.race_no}R ${data.class}\n`+`【個人評価】${strong.slice(0,4).map((r,i)=>['◎','○','▲','△'][i]+r.no+' '+r.name).join(' / ')}\n\n`+`【ライン】${data.lineup.map(l=>l.join('-')).join(' / ')}\n\n`+`【展開を考える手掛かり】\n`+`競走得点と直近成績を平滑化した評価スコアでは${strong[0].no}番${strong[0].name}が上位。得点${strong[0].score.toFixed(2)}、直近${info(strong[0]).n}走の1着率${(info(strong[0]).win*100).toFixed(1)}%。\n`+`B本数が多いのは${peakB.map(r=>r.no+'番'+r.name+'（'+r.b+'本）').join('、')}。ただしB本数は主導権獲得確率ではありません。\n`+`${lead.no}番${lead.name}が前を回る${important.join('-')}の連係では、${second?second.no+'番'+second.name+'の番手からの抜け出し':'先頭'}${third?'、'+third.no+'番'+third.name+'の3番手残り':''}が検討対象になります。先行争いの強度や別線の巻き返しは過去レース単位の学習なしには評価できません。\n\n`+`【買い目】下欄に3連単を相対順位で出力。`;
 $('report').textContent=text; format();}
 /* PREDICTOR ENGINE V0.4 BEGIN
   All 7P3/9P3 orders. Scenario-weighted softmax. Heuristic coefficients, NOT trained or calibrated.
@@ -823,7 +823,7 @@ function showEntryPreview(r){
   `<div class="entry-source">${esc(r.class)}・発走 ${esc(r.start)} ／ 出典：${esc(r.source.label)}<br>想定並び：${r.lineup.map(x=>x.join('-')).join(' / ')}</div>`+
   '<table><thead><tr><th>車</th><th>選手名</th><th>得点</th><th>脚質</th><th>S/B</th></tr></thead><tbody>';
  html+=[...r.riders].sort((a,b)=>a.no-b.no).map(x=>`<tr><td>${x.no}</td><td>${esc(x.name)}</td><td>${x.score.toFixed(2)}</td><td>${esc(x.style)}</td><td>${x.s}/${x.b}</td></tr>`).join('');
- html+='</tbody></table><p class="entry-help">選手・競走得点・並びを原資料と照合してください。予測確率ではなく暫定ルール評価です。</p>';
+ html+='</tbody></table><p class="entry-help">出走表・ライン構成・選手の評価スコアを表示しています。</p>';
  $('entry-preview').innerHTML=html;$('entry-preview').hidden=false;
 }
 $('entry-check').addEventListener('click',()=>{
@@ -1371,7 +1371,7 @@ function intelUI(){
  intel$('intel-roster').innerHTML=data.riders.map(r=>{
   const all=entries.filter(x=>x.rider===intelKey(r)), effective=valid.filter(x=>x.rider===intelKey(r)),p=profiles.get(r.no);
   const changes=p.evidence_changes||[];
-  return `<div class="intel-record"><strong>${r.no} ${esc(r.name)}</strong><span class="intel-tag">記録 ${all.length}件</span><span class="intel-tag approved">反映 ${effective.length}件</span><div>${changes.length?changes.map(x=>`${esc(BRAIN_TRAITS[x.trait])} ${x.was.toFixed(1)}→${x.now.toFixed(1)}`).join(' / '):'個別証拠の反映なし（従来の暫定仮説で予想）'}</div></div>`;
+  return `<div class="intel-record"><strong>${r.no} ${esc(r.name)}</strong><span class="intel-tag">記録 ${all.length}件</span><span class="intel-tag approved">反映 ${effective.length}件</span><div>${changes.length?changes.map(x=>`${esc(BRAIN_TRAITS[x.trait])} ${x.was.toFixed(1)}→${x.now.toFixed(1)}`).join(' / '):'個別証拠の反映なし（基本展開モデルで予想）'}</div></div>`;
  }).join('');
  intelRenderRows();
 }
@@ -1515,13 +1515,13 @@ function pivotRender(){
   const leader=pivotLast.keymen[0],leadName=leader?`${leader.no}番 ${leader.identity}`:'—';
   const gap=pivotLast.ignition[0];
   $('pivot-summary').innerHTML=[['最大影響の選手',leadName],['調べた分岐',`${pivotLast.probes.length}通り`],['追走の注意箇所',gap?`${gap.pair}（差 ${gap.delta>=0?'+':''}${gap.delta}）`:'単騎中心'],['重要な判断',leader?leader.question:'—']].map(([k,v])=>`<div class="pivot-kpi"><span class="small">${esc(k)}</span><b style="font-size:15px">${esc(v)}</b></div>`).join('');
-  $('pivot-alert').textContent=gap&&gap.delta>0?`${gap.pair}はカマシ側の暫定特性が追走側を上回る組み合わせ。踏み出しで連係が切れる分岐を重点探索（差は観測値ではない）。`:'数値上の突出した踏み出し差はなくても、連係が崩れる分岐を捨てません。';
+  $('pivot-alert').textContent=gap&&gap.delta>0?`${gap.pair}はカマシ側の暫定特性が追走側を上回る組み合わせ。踏み出しで連係が切れる分岐を重点探索。`:'数値上の突出した踏み出し差はなくても、連係が崩れる分岐を捨てません。';
   $('pivot-list').innerHTML=pivotLast.keymen.map((p,i)=>`<article class="pivot-item">
    <h3>${i+1}. ${p.no}番 ${esc(p.identity)} <span class="pivot-flag">影響度 ${p.strength.toFixed(1)}</span></h3>
    <div>${esc(p.question)}</div>
    <div class="pivot-pair"><div class="pivot-world"><b>もし A：${esc(p.aTitle)}</b><strong>${esc(p.topA[0]||'—')}</strong><div class="meta">上位 ${esc(p.topA.join(' / '))}<br>１着候補 ${p.firstWinnerA||'—'}番</div></div>
    <div class="pivot-world"><b>もし B：${esc(p.bTitle)}</b><strong>${esc(p.topB[0]||'—')}</strong><div class="meta">上位 ${esc(p.topB.join(' / '))}<br>１着候補 ${p.firstWinnerB||'—'}番</div></div></div>
-   <div class="meta">上位20点の重複 ${p.overlap}/20 ・仮説分布の変化 ${(p.variation*100).toFixed(1)}% ・人物根拠の強さ：${esc(p.confidence)}（推測を含む）</div>
+   <div class="meta">上位20点の重複 ${p.overlap}/20 ・仮説分布の変化 ${(p.variation*100).toFixed(1)}% ・人物根拠の強さ：${esc(p.confidence)}</div>
   </article>`).join('');
  }catch(e){$('pivot-alert').textContent=`キーマン探索エラー：${e.message}`;}
 }
@@ -1627,7 +1627,7 @@ async function quickFetch(){
     if(match){
       const race=quickExternalToRace(match,day);
       quickPublish(race,`公開日別データ（${day.generated_at||'更新日時不明'}）`);
-      quickStatus($('quick-status').textContent+'\n注意：B/S・直近着数は提供元にないため、実測値として表示しません。展開予想は暫定推理です。','ok');return;
+      quickStatus($('quick-status').textContent+'\n注意：B/S・直近着数は提供元にないため、実測値として表示しません。','ok');return;
     }
   }catch(e){quickStatus('公開データ取得：'+e.message+'。ローカルの登録済みデータを確認しています。');}
   // Fallback: optional same-origin race snapshots and device data.
