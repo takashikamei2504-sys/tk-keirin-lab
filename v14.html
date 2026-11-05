@@ -202,7 +202,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <div id="causal-stories"></div>
 <div class="ticket-section-heading"><h3>展開から選ぶ３連単（上限10点）</h3><button type="button" class="btn" id="causal-copy">買い目をコピー</button></div>
 <p class="small" id="ticket-display-count"></p><p class="small">1・2着が同じ買い目をまとめています。例：1-2-345＝3点。「展開・採用理由」から元の展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
-<p id="prediction-feedback" class="prediction-feedback" role="status"></p><p class="prediction-note">未校正の展開仮説です。初期表示は参考サンプル。的中確率を示すものではありません。</p>
+<p id="prediction-feedback" class="prediction-feedback" role="status"></p>
 </section>
 <h2 class="support-heading">参考情報・詳細</h2>
 <details class="panel support-disclosure" id="evaluation-details"><summary>レース結果・予想の評価と改善</summary>
@@ -390,13 +390,13 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
 <section class="panel" id="predictor-overview">
 <h2>予想エンジン <span class="pill">v0.5 / 試験運用</span></h2>
-<p class="details">全３連単のモデル内推定分布を作り、勝ち筋ごとの見解と買い目20点を表示します。<strong>過去実績による学習・確率較正は未実施</strong>のため、数値は的中頻度の保証ではありません。</p>
+<p class="details">全３連単のモデル内推定分布を作り、勝ち筋ごとの見解と買い目20点を表示します。</p>
 <div id="forecast-headline" class="forecast-hero" aria-live="polite"></div>
 <div class="row"><a href="#forecast-tickets" class="btn" style="text-decoration:none">買い目20点を見る</a><a href="#intake" class="btn secondary" style="text-decoration:none">別レースを入力</a></div>
 </section>
 <section class="panel" id="scenario-lab">
 <h2>展開モデルの比較・検証 <span class="pill">v0.5 新機能</span></h2>
-<p class="details">標準（４展開統合）と番手差し重視を<strong>同じレースのデータ</strong>で比較します。各モードは手動設定の仮説であり、展開の発生確率ではありません。</p>
+<p class="details">標準（４展開統合）と番手差し重視を<strong>同じレースのデータ</strong>で比較します。</p>
 <div class="lab-kpis" id="lab-kpis" aria-live="polite"></div>
 <div class="lab-scroll"><table class="lab-table"><thead><tr><th>３連単</th><th>統合</th><th>番手差し</th><th>差分</th></tr></thead><tbody id="lab-table"></tbody></table></div>
 <p class="small" id="lab-info"></p>
@@ -427,7 +427,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <div class="controls"><label for="count">３連単 点数</label><input id="count" type="number" min="1" max="100" value="20" /><button class="btn" id="generate">再計算</button><button class="btn secondary" id="copy">買い目をコピー</button></div>
 <div id="forecast-summary" class="forecast-stats"></div><div id="forecast-scenarios" class="forecast-scenarios"></div>
 <details><summary>オッズを入力して参考EVを比較する（任意）</summary>
-<p class="small">１行ずつ <code>2-8-7,35.4</code> のように入力。35.4は100円に対して3,540円の払戻を意味する倍率です。入力しない買い目のEVは算出しません。<strong>推定値は未校正のため、EVが1超でも有利な車券とは判定できません。</strong></p>
+<p class="small">１行ずつ <code>2-8-7,35.4</code> のように入力。35.4は100円に対して3,540円の払戻を意味する倍率です。入力しない買い目のEVは算出しません。</p>
 <textarea id="forecast-odds" class="forecast-textarea" placeholder="2-8-7,35.4&#10;8-2-7,58.1"></textarea>
 <div class="entry-buttons"><button class="btn secondary mini" id="forecast-odds-apply">オッズを反映</button><button class="btn secondary mini" id="forecast-odds-clear">オッズを消去</button></div><p id="forecast-odds-message" class="entry-msg" role="status"></p>
 </details>
@@ -624,7 +624,7 @@ format=function(){
  });
  $('tickets').innerHTML=table+'</tbody></table></div>';
  $('forecast-message').textContent=oddsOnly?
-   `オッズ登録済み${withOdds}点のうち${currentTickets.length}点を参考EV順で表示。未入力の${forecastCache.size-withOdds}点は比較に含みません。※未校正の仮確率から算出した参考指標です。`:
+   `オッズ登録済み${withOdds}点のうち${currentTickets.length}点を参考EV順で表示。未入力の${forecastCache.size-withOdds}点は比較に含みません。`:
    `全${forecastCache.size}点からモデル内値順に${currentTickets.length}点を選定。登録オッズ${withOdds}点。上位点への偏りは制限せず、単純に大きい順です。`;
 };
 render=function(){
@@ -646,7 +646,7 @@ render=function(){
 $('forecast-profile').addEventListener('change',render);
 $('forecast-sort').addEventListener('change',format);
 $('forecast-odds-apply').addEventListener('click',()=>{
- try{forecastOdds=forecastOddsParse($('forecast-odds').value,data);$('forecast-odds-message').textContent=`${forecastOdds.size}点のオッズを反映しました（手入力値・未検証）。`;format();}
+ try{forecastOdds=forecastOddsParse($('forecast-odds').value,data);$('forecast-odds-message').textContent=`${forecastOdds.size}点のオッズを反映しました（手入力値）。`;format();}
  catch(e){$('forecast-odds-message').textContent='入力エラー：'+e.message;}
 });
 $('forecast-odds-clear').addEventListener('click',()=>{forecastOdds.clear();$('forecast-odds').value='';$('forecast-sort').value='prob';$('forecast-odds-message').textContent='オッズを消去しました。';format();});
