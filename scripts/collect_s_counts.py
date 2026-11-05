@@ -12,6 +12,7 @@ import time
 import unicodedata
 import urllib.parse
 import urllib.request
+from urllib.robotparser import RobotFileParser
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -105,6 +106,8 @@ def race_sources(date,now):
 
 def collect(fetch=read_url,now=None,max_races=50,budget_seconds=240,delay=1.4):
  now=now or dt.datetime.now(UTC)
+ robots=RobotFileParser();robots.parse(fetch('https://keirin.netkeiba.com/robots.txt').splitlines())
+ if not robots.can_fetch(AGENT,'https://keirin.netkeiba.com/race/entry/'):raise ValueError('source access not permitted by robots')
  path=ROOT/'data/s_counts.json'
  old=json.loads(path.read_text()) if path.exists() else {'snapshots':[]}
  snaps={str(s['race_id']):s for s in old.get('snapshots',[]) if s.get('complete') and s.get('race_id') and dt.date.fromisoformat(s['date'])>=now.astimezone(JST).date()-dt.timedelta(days=2)}
@@ -133,7 +136,7 @@ def collect(fetch=read_url,now=None,max_races=50,budget_seconds=240,delay=1.4):
   try:
    source=fetch(url)
    riders=parse_s_table(source,r['entries'])
-   stamp=dt.datetime.now(UTC) if now is None else now
+   stamp=dt.datetime.now(UTC)
    if stamp>=cutoff:continue
    snaps[rid]={'date':date,'venue':r['venue'],'race_no':int(r['race_number']),'race_id':rid,
     'complete':True,'source_url':url,'collected_at':stamp.isoformat(),'riders':riders}
