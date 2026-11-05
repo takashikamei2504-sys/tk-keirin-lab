@@ -1,5 +1,5 @@
 (function(root){'use strict';
-const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc=x=>String(x??'').replace(/S本数の取得不足により担当候補は未確定/g,'初手はライン戦術から評価').replace(/単騎のS担当は未確定/g,'単騎の初手は戦術から評価').replace(/（確定ではない）/g,'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const colors=['#315b93','#bf5c33','#53836a','#9b6aa1','#ab8424','#3f8e9c','#806c62'];
 function diagram(scene,out){
  const by=Object.fromEntries(out.input.race.riders.map(x=>[x.no,x])),color=id=>colors[Math.max(0,out.topology.lines.findIndex(l=>l.id===id))%colors.length];
