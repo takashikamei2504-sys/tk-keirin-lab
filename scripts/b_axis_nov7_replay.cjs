@@ -115,6 +115,12 @@ async function main(){
     oldOracle5:obKeys.slice(0,5).includes(actual),oldNormal5:oKeys.slice(0,5).includes(actual),
     newTop5:nKeys.slice(0,5),oldTop5:oKeys.slice(0,5),newOracleTop5:onKeys.slice(0,5),oldOracleTop5:obKeys.slice(0,5),
     pairNewOracle5:onKeys.slice(0,5).some(k=>k.startsWith(expectedPair+'-')),
+    debug:venue==='四日市'?[2,7,9,11,12].includes(raceNo)?{
+      normalPath:nn.tickets.slice(0,10).map(t=>({key:t.key,path:t.path,score:t.score})),
+      oraclePath:on.tickets.slice(0,10).map(t=>({key:t.key,path:t.path,score:t.score})),
+      states:on.b.states.map(s=>({no:s.no,role:s.role,gap:s.gap,followTarget:s.followTarget,track:s.track,remaining:s.remaining,ability:s.ability})),
+      phases:on.b.phases.map(s=>({id:s.id,leader:s.leader,events:(s.events||[]).slice(0,3)}))
+     }:undefined:undefined,
     storedAt:stored.saved_at,source_url:source.url,
     diagnostic:actual.split('-').map(Number).map((no,i)=>({no,name:historical.race.riders.find(r=>r.no===no)?.name,place:i+1}))
    });
