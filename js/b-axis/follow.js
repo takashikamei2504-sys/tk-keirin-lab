@@ -8,7 +8,7 @@ function value(features,no,name,d=.5){
 }
 function history(data,rider,raceDate){
  if(!data||!data.training_end||!raceDate||raceDate<=data.training_end||data.provenance?.actual_b_available)return null;
- const id=String(rider.meta?.rider_id||'');
+ const id=String(rider.meta?.rider_id||'').replace(/^0+(?=\d)/,'');
  const result=data.rider_roles?.[id]||null;
  return result?.n>=6?result:null;
 }
