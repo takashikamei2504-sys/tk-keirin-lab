@@ -6,6 +6,8 @@ const {summary,ticketCapture,validate}=require('../scripts/b_axis_oracle_backtes
 const data=JSON.parse(fs.readFileSync(path.join(__dirname,'..','research','b-axis','pilot_2026_11_06.json'),'utf8'));
 const x=summary(data.races);
 assert.equal(x.all.n,26);
+assert.equal(x.all.b_line_head,25);
+assert.equal(x.all.b_line_nonhead,1);
 assert.deepEqual([x.all.b_first,x.all.b_top2,x.all.b_top3,x.all.line_wins,x.all.line_pair,x.all.line_sweep],[13,18,21,19,13,6]);
 assert.deepEqual([x.seven.n,x.seven.b_first,x.seven.b_top3],[14,10,12]);
 assert.deepEqual([x.nine.n,x.nine.b_first,x.nine.b_top3],[12,3,9]);
