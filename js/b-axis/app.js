@@ -44,11 +44,23 @@ function compress(tickets){
  }
  return [...map].map(([k,thirds])=>k+'-'+thirds.join('')+' ('+thirds.length+'点)');
 }
+function renderPhases(scenes){
+ return scenes.map((s,i)=>{
+  const entries=s.positions.slice().sort((a,b)=>a.ordinal-b.ordinal);
+  const parts=s.lineOrder?.map(l=>l.join('-')).join(' / ')||entries.map(p=>p.no).join('-');
+  const cards=entries.map(p=>'<span class="phase-rider'+(p.no===scenes[3].leader?' phase-b':'')+(p.lane>0?' phase-outer':'')+'">'+p.no+(p.lane>0?' 外':'')+'</span>').join('');
+  const events=(s.events||[]).slice(0,6).map(e=>'<li>'+escape(e.reason)+'</li>').join('');
+  const head=s.leader===undefined?'':s.leader+'番が先頭';
+  return '<details class="phase-card"'+([2,3,4].includes(i)?' open':'')+'><summary><strong>'+escape(s.label)+'</strong><span>'+escape(head)+'</span></summary>'+
+  '<p class="phase-lines">'+escape(parts)+'</p><div class="phase-riders">'+cards+'</div><ul>'+events+'</ul></details>';
+ }).join('');
+}
 function show(){
  const r=loadedInput.race,chosen=output.b,tickets=output.tickets,lead=output.bCandidates.find(x=>x.no===chosen.bNo),allB= tickets.some(t=>t.leaderIsWinner),outsiders=tickets.filter(t=>!t.leaderIsWinner).length;
  $('context').innerHTML='<small>'+escape(r.date+' '+r.venue+r.race_no+'R / '+r.grade+' '+r.class)+'</small><h2>'+escape(lineText(loadedInput))+'</h2><p class="muted">B予想 '+output.bCandidates.slice(0,3).map(x=>x.no+'番 '+x.support.toFixed(1)+'pt').join(' ／ ')+'。予測確率ではなく相対比較です。</p>';
  $('b-headline').textContent='B：'+chosen.bNo+'番 '+chosen.tacticLabel;
  $('scenario').innerHTML='<p>'+escape(chosen.logic[0])+'。'+escape(chosen.logic[1])+'。</p><p>最終B時点の全選手の位置と脚の状態から着順を生成。Bライン以外の1着・2着・3着、別線による上位独占も除外しません。</p><p class="muted">B支持度：'+lead.support.toFixed(1)+'pt ／ B選手の消耗 '+chosen.leadingCost.toFixed(2)+'（0〜1のモデル指標）</p>';
+ $('phases').innerHTML=renderPhases(chosen.phases||[]);
  $('positions').innerHTML=chosen.states.map(s=>'<div class="place"><strong>'+s.no+' '+escape(s.name)+'</strong><span>'+escape(s.role)+'</span><span>'+escape(s.atB)+'・残脚'+s.remaining.toFixed(2)+'</span></div>').join('');
  $('ticket-count').textContent=tickets.length+'点';
  $('tickets').innerHTML=tickets.length?tickets.map((t,i)=>'<div class="ticket"><div class="ticket-head"><span class="rank">'+(i+1)+'</span><strong>'+t.key+'</strong><span class="tiny">'+scoreLabel()+' '+t.score.toFixed(3)+'</span></div><div class="ticket-reason">'+escape(t.reason)+'</div></div>').join(''):'<p>成立条件を満たす候補がありません。戦法を変更してください。</p>';
