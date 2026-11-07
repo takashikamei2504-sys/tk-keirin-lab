@@ -47,5 +47,8 @@ assert.equal(Follow.history(archive,fakeRider,'2026-11-06'),null,'prevent lookah
 assert.equal(Follow.history(archive,fakeRider,'2026-11-08')?.n>=6,row.n>=6);
 const withArchive=structuredClone(input);
 withArchive.bAxisHistory=archive;
-assert(B.build(withArchive,{bNo:3,tactic:'surge'}).b.states.every(s=>Number.isFinite(s.gap)));
+const future=B.build(withArchive,{bNo:3,tactic:'surge'});
+assert(future.b.states.every(s=>Number.isFinite(s.gap)));
+assert.deepEqual(future.b.states.find(s=>s.no===5).historyAssociation,{n:6,top3:4},'Kosei actual rider ID links to prior-date follower-role results');
+assert.equal(future.b.states.find(s=>s.no===5).followTarget,3);
 console.log('B-AXIS follow ability: Yokkaichi 8-3-5, marker launch, no bogus Kosei detachment, archive cutoff and 7/9 role data passed');
