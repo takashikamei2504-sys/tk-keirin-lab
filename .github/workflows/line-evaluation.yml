@@ -7,7 +7,7 @@ on:
     branches: [main]
   push:
     branches: [main]
-    paths: ['scripts/line-evaluate.cjs', 'js/line/evaluation.js', 'scripts/line-positioning-evaluate.cjs', 'js/line/positioning-evaluation.js', 'data/line_positioning_observations.json', '.github/workflows/line-evaluation.yml']
+    paths: ['scripts/roi-audit.cjs', 'js/roi/audit.cjs', 'scripts/line-evaluate.cjs', 'js/line/evaluation.js', 'scripts/line-positioning-evaluate.cjs', 'js/line/positioning-evaluation.js', 'data/line_positioning_observations.json', '.github/workflows/line-evaluation.yml']
 permissions:
   contents: write
 concurrency:
@@ -32,11 +32,13 @@ jobs:
       - run: node tests/line/positioning-evaluation.test.cjs
       - run: node scripts/line-evaluate.cjs
       - run: node scripts/line-positioning-evaluate.cjs
-      - name: Save LINE summary only
+      - run: node tests/roi-audit.test.cjs
+      - run: node scripts/roi-audit.cjs
+      - name: Save LINE and ROI summaries
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/line_evaluation.json data/line_positioning_evaluation.json
+          git add data/line_evaluation.json data/line_positioning_evaluation.json data/roi/audit.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update frozen LAB LINE evaluation summary'
             git pull --rebase origin main

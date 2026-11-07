@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const Audit=require('../js/results-audit.js'),Feed=require('../js/race-feed.js');
 const Legacy=require('../baselines/story-v4-23e9205/js/story-brain.js'),Brain=require('../js/story-brain.js'),Form=require('../js/recent-form.js');
-const Material=require('../js/race-material.js'),Build=require('../js/model-build.js');
+const Material=require('../js/race-material.js'),Build=require('../js/model-build.js'),SCounts=require('../js/s-counts.js');
 const History=require('./history-store.cjs');
 const root=path.join(__dirname,'..');
 const read=(file,fallback)=>fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):fallback;
@@ -11,6 +11,7 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
  const liveClock=now===undefined;now=now||new Date().toISOString();
  const epoch=Date.parse(now);if(!Number.isFinite(epoch))throw Error('Invalid collection clock');
  const form=read(path.join(root,'data/recent_form.json'),{}),intel=read(path.join(root,'data/intelligence.json'),{}),materials=read(path.join(root,'data/race_material.json'),{});
+ const sCounts=read(path.join(root,'data/s_counts.json'),{});
  const historyDir=path.join(outputDir,'lab_history');fs.mkdirSync(historyDir,{recursive:true});
  const collection=read(path.join(feedDir,'collection.json'),{errors:[]});
  const previous=read(path.join(outputDir,'lab_evaluation.json'),{}).collection||{};
@@ -39,13 +40,13 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
     const start=Date.parse(`${feed.date}T${source.start_time}:00+09:00`),published=Date.parse(feed.generated_at);
     const id=`${feed.date}:${source.venue}:${Number(source.race_number)}`;
     const generationStarted=liveClock?Date.now():epoch;
-    if(!(generationStarted<start&&published<start&&published<=generationStarted)||saved.has(id+'|'+Build.model_id))continue;
-    const race=Material.attach(Form.attach(Feed.convert(source,feed),form),materials),inputPack={...intel,observations:[...(intel.observations||[]),...(race.race_material?.comments||[])]},out=Brain.build(race,inputPack),base=Legacy.build(race,inputPack);
+    if(observed||!(generationStarted<start&&published<start&&published<=generationStarted)||saved.has(id+'|'+Build.model_id))continue;
+    const race=Material.attach(Form.attach(SCounts.attach(Feed.convert(source,feed),sCounts,generationStarted),form),materials),inputPack={...intel,observations:[...(intel.observations||[]),...(race.race_material?.comments||[])]},out=Brain.build(race,inputPack),base=Legacy.build(race,inputPack);
     const evidence=Object.values(out.profiles).flatMap(p=>p.memory||[]);
     const savedAt=liveClock?new Date().toISOString():now;
     if(!(Date.parse(savedAt)<start))continue;
     const prediction=Audit.snapshot(race,out,savedAt,{origin:process.env.GITHUB_ACTIONS==='true'?'github_actions':'development_automation',evidence,baseline:{model_id:'story-first-v4.0.0@23e9205',input_sha256:out.reproducibility.input_sha256,version:Legacy.VERSION,chosen:base.chosen.slice(0,out.chosen.length).map(t=>t.key)}});
-    prediction.code_hashes=Object.fromEntries(['story-brain.js','decision-reasons.js','tactical-deliberation.js','cross-line-tactics.js','race-reality.js','line-reactions.js','rider-context.js','race-material.js','race-brain.js','brain-memory.js','branch-weights.js','recent-form.js','race-feed.js'].map(file=>['js/'+file,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'js',file))).digest('hex')]));
+    prediction.code_hashes=Object.fromEntries(['story-brain.js','decision-reasons.js','tactical-deliberation.js','cross-line-tactics.js','race-reality.js','line-reactions.js','rider-context.js','race-material.js','race-brain.js','brain-memory.js','branch-weights.js','recent-form.js','race-feed.js','s-counts.js'].map(file=>['js/'+file,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'js',file))).digest('hex')]));
     prediction.input_sha256=crypto.createHash('sha256').update(JSON.stringify({race:prediction.input,evidence})).digest('hex');
     if(!prediction.pre_race)throw Error('Prediction was not pre-race');
     history.predictions.push(prediction);saved.add(id+'|'+Build.model_id);generated++;
@@ -72,5 +73,5 @@ function update(feedDir,outputDir=path.join(root,'data'),now){
  save(path.join(outputDir,'lab_evaluation.json'),report);
  console.log(JSON.stringify({new_predictions:generated,reported_results:rows.filter(r=>r.result).length,evaluated:report.summary.evaluated,errors:errors.length}));return report;
 }
-if(require.main===module){const index=process.argv.indexOf('--feed-dir');if(index<0||!process.argv[index+1])throw Error('--feed-dir required');update(process.argv[index+1]);}
+if(require.main===module){const index=process.argv.indexOf('--feed-dir');if(index<0||!process.argv[index+1])throw Error('--feed-dir required');update(process.argv[index+1]);require('./roi-audit.cjs').saveMeetingDays(process.argv[index+1],path.join(root,'data'));}
 module.exports={update};
