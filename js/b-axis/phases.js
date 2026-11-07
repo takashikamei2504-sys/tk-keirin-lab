@@ -200,7 +200,7 @@ function simulate(race,features,bNo,mode,tacticLabel,historyModel=null,exInput=n
    else if(isOwner){
     const shifted=originalIndex<ownerIndex;
     const preceding=riders.get(g.members[i-1]);
-    following=Follow.profile(features,r,preceding,{fast:fastMove||['surge','relaunch'].includes(mode),switched:shifted,date:race.date,history:historyModel,exInput,asOf:exInput?.as_of});
+    following=Follow.profile(features,r,preceding,{fast:fastMove||['surge','relaunch'].includes(mode),switched:shifted,date:race.date,history:historyModel,exInput,asOf:exInput?.as_of,lineHead:riders.get(bNo)});
     localGap+=following.wheelGap;
     gap=localGap;
     role=shifted?'元ライン前方・切替':i===1?'B番手':'Bライン追走';
@@ -212,7 +212,7 @@ function simulate(race,features,bNo,mode,tacticLabel,historyModel=null,exInput=n
     if(first)gap=headGap.get(g.id);
     else {
      const preceding=riders.get(g.members[i-1]);
-     following=Follow.profile(features,r,preceding,{fast:force>.6,date:race.date,history:historyModel,exInput,asOf:exInput?.as_of});
+     following=Follow.profile(features,r,preceding,{fast:force>.6,date:race.date,history:historyModel,exInput,asOf:exInput?.as_of,lineHead:riders.get(g.members[0])});
      localGap+=following.wheelGap;
      gap=headGap.get(g.id)+localGap;
     }
