@@ -71,7 +71,9 @@ function finishRanking(input,snap,limit=10){
  const rivals=states.filter(s=>s.no!==b.no&&s.reachable&&s.role!=='B番手');
  const coverage=states.filter(s=>s.no!==b.no&&s.gap<5.0);
  function strength(s){
-  return s.ability*.34+s.speed*.19+s.finish*.20+s.remaining*.22+s.closing*.18;
+  const h=s.historyAssociation;
+  const prior=h&&h.n>=6?((h.top3+3)/(h.n+6)-.5)*.10:0;
+  return s.ability*.34+s.speed*.19+s.finish*.20+s.remaining*.22+s.closing*.18+prior;
  }
  function pace(s){
   return strength(s)+s.closing*.25-s.gap*.075;
