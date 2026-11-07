@@ -56,6 +56,12 @@ const follow=B.build(sample9,{bNo:follower,tactic:'surge'});
 assert.equal(follow.b.phases[2].leader,lead,'original front drives before rear rider takes final B');
 assert.equal(follow.b.phases[3].leader,follower);
 assert.ok(follow.b.phases[3].events.some(x=>x.action==='reorder'));
+assert.equal(follow.b.phases[2].positions.find(x=>x.no===follower).lane,1,'B follower bursts outside at home');
+assert.equal(follow.b.phases[2].positions.find(x=>x.no===lead).lane,0,'original lead remains inside');
+const third=sample9.race.lineup[0][2],fromThird=B.build(sample9,{bNo:third,tactic:'relaunch'});
+assert.equal(fromThird.b.phases[2].positions.find(x=>x.no===third).lane,1);
+assert.equal(fromThird.b.phases[2].positions.find(x=>x.no===lead).lane,0);
+
 const tamper=structuredClone(a.b);
 tamper.phases[3].positions.find(p=>p.no===lead).spent=0;
 assert.equal(B.Phases.audit(tamper).passed,false,'detect effort history reversal');
