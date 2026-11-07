@@ -25,8 +25,8 @@ async function awaitPublicFeed(){
  const data=await response.json();
  const one=data.races?.find(r=>r.venue==='四日市'&&r.race_number===10);
  return {fileDate:data.date,totalRaces:data.races?.length,raceFields:Object.keys(one||{}),entryKeys:Object.keys(one?.entries?.[0]||{}),resultFields:{
-  top3:one?.result_top3,combos:one?.result_combos,spec:one?.result_detail,result:one?.results,bMarker:one?.b
- }};
+  top3:one?.result_top3,combos:one?.result_combos,formation:one?.formation,linePower:one?.line_power,rank:one?.round_name,grade:one?.grade,spec:one?.result_detail,result:one?.results,bMarker:one?.b
+ },entries:one?.entries?.map(e=>({no:e.car_number,name:e.rider_full_name,rank:e.class_rank,score:e.competition_score,line_position:e.line_position,seri_with:e.seri_with}))};
 }
 external.then(x=>console.log('B_AXIS_FEED_SCHEMA '+JSON.stringify(x)));
 
