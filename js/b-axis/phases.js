@@ -5,6 +5,7 @@
 (function(root){'use strict';
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const round=v=>Math.round(v*1000)/1000;
+const Follow=typeof module!=='undefined'?require('./follow.js'):root.BAxisFollow;
 const STAGES=[
  {id:'initial',label:'① 初手・前受け',index:0},
  {id:'red_bell',label:'② 赤板〜打鐘',index:1},
@@ -23,7 +24,7 @@ function checkRaw(race,bNo,mode){
  if(!ids.includes(bNo))throw Error('B-AXIS: B選手は出走選手のみ');
  if(!['press','hold','kamashi','makuri','surge','relaunch','solo_shift'].includes(mode))throw Error('B-AXIS: 未対応の獲得戦法');
 }
-function simulate(race,features,bNo,mode,tacticLabel){
+function simulate(race,features,bNo,mode,tacticLabel,historyModel=null){
  checkRaw(race,bNo,mode);
  const riders=new Map(race.riders.map(r=>[r.no,r]));
  const groups=race.lineup.map((members,id)=>({id,members:members.slice(),head:members[0]}));
@@ -81,7 +82,7 @@ function simulate(race,features,bNo,mode,tacticLabel){
   if(g!==owner)return g.members;
   if(ownerIndex===0)return g.members;
   // A follower's B lead requires explicit switch: original head may lose contact.
-  return [bNo,...g.members.filter(n=>n!==bNo)];
+  return [bNo,...g.members.slice(ownerIndex+1),...g.members.slice(0,ownerIndex)];
  };
  const startHead=initial[0].head;
  function simplePositions(order,phase){
@@ -194,36 +195,42 @@ function simulate(race,features,bNo,mode,tacticLabel){
    const isOwner=g.id===owner.id,one=n===bNo;
    const tracking=track(n),endurance=feat(n,'endurance'),abilityVal=ability(n),
          sprint=power(n),finish=feat(n,'finish'),makuri=feat(n,'makuri');
-   let gap=0,role='',trackLabel='追走',attack=false,entry='';
+   let gap=0,role='',trackLabel='追走',attack=false,entry='',following=null;
    if(one){role='B先頭';trackLabel='先頭';entry='Bを先頭通過する固定条件';}
    else if(isOwner){
-    const behind=i,step=.68+trackGap(n)*1.4+(fastMove?.25:0);
-    localGap+=step;
-    gap=localGap+(originalIndex<ownerIndex?.6:.0);
     const shifted=originalIndex<ownerIndex;
-    role=shifted?'元ライン前方・切替':'Bライン追走';
-    if(i===1&&!shifted)role='B番手';
-    trackLabel=gap>2.45?'追走離れ気味':shifted?'切替追走':'追走';
-    entry=shifted?'先行中だった元ライン先頭・後位がB前に切り替える':'B獲得の踏み出しを追走する';
+    const preceding=riders.get(g.members[i-1]);
+    following=Follow.profile(features,r,preceding,{fast:fastMove||['surge','relaunch'].includes(mode),switched:shifted,date:race.date,history:historyModel});
+    localGap+=following.wheelGap;
+    gap=localGap;
+    role=shifted?'元ライン前方・切替':i===1?'B番手':'Bライン追走';
+    trackLabel=following.status==='detached'?'追走離れ気味':following.status==='gap_opened'?'追走車間あり':shifted?'切替追走':'追走';
+    entry=shifted?'前を走っていた選手が後方へ切替。連結は自動保証しない':following.basis+'。直前の'+preceding.no+'番の踏み出しを追走する';
    }else{
     const force=rivalForce(g),self=riders.get(g.head).style!=='追';
-    const first=i===0,paceGap=.80+trackGap(n)*1.9;
+    const first=i===0;
     if(first)gap=headGap.get(g.id);
-    else {localGap+=paceGap;gap=headGap.get(g.id)+localGap;}
+    else {
+     const preceding=riders.get(g.members[i-1]);
+     following=Follow.profile(features,r,preceding,{fast:force>.6,date:race.date,history:historyModel});
+     localGap+=following.wheelGap;
+     gap=headGap.get(g.id)+localGap;
+    }
     attack=first&&self&&force>.38&&gap<=4.0;
     role=first?(self?'別線自力・仕掛け候補':'単騎／別線追込・切替待ち'):'別線追走';
     trackLabel=first?(attack?'外並走・追撃可能':self?'後方待機':'位置取り・切替待ち'):
-      gap-headGap.get(g.id)>2.15?'追走離れ気味':'追走';
-    entry=first?(attack?'主導権側を外から追撃':'先頭側を見ながら切替待ち'):'別線自力の追走を維持';
+      following.status==='detached'?'追走離れ気味':following.status==='gap_opened'?'追走車間あり':'追走';
+    entry=first?(attack?'主導権側を外から追撃':'先頭側を見ながら切替待ち'):following.basis+'。直前の車輪との追走状態で判定';
    }
    const spent=effort[n],remaining=clamp(.96-spent+endurance*.11,.07,.99),
        closing=clamp(.16+sprint*.33+abilityVal*.23+finish*.13+makuri*.09+remaining*.10);
    const reachable=gap<=2.4||attack&&gap<=4.05&&closing>=.49;
-   states.push({no:n,name:r.name,line:lookup.get(n).group.members.slice(),lineIndex:originalIndex,riderStyle:r.style,role,track:trackLabel,entry,attack,spent:round(spent),gap:round(gap),remaining:round(remaining),closing:round(closing),ability:round(abilityVal),finish:round(finish),speed:round(sprint),initiative:round(initiative(n)),reachable,atB:one?'先頭':gap<1.5?'直後':gap<3?'射程内':'後方'});
+   states.push({no:n,name:r.name,line:lookup.get(n).group.members.slice(),lineIndex:originalIndex,riderStyle:r.style,role,track:trackLabel,entry,attack,followTarget:following?.followTarget??null,wheelGap:following?.wheelGap??null,trackingStrength:following?.tracking??null,followBasis:following?.basis??null,historyAssociation:following?.historyTop3Association??null,spent:round(spent),gap:round(gap),remaining:round(remaining),closing:round(closing),ability:round(abilityVal),finish:round(finish),speed:round(sprint),initiative:round(initiative(n)),reachable,atB:one?'先頭':gap<1.5?'直後':gap<3?'射程内':'後方'});
   }
  }
  states.sort((a,b)=>a.gap-b.gap||a.no-b.no);
- for(const s of states.filter(x=>x.track==='追走離れ気味'))passageEvents.push({actor:s.no,action:'detached',reason:s.no+'番は踏み出しに追走が遅れ、B時点で車間が開く'});
+ for(const s of states.filter(x=>x.track==='追走離れ気味'))passageEvents.push({actor:s.no,action:'detached',reason:s.no+'番は直前の'+s.followTarget+'番への追走に失敗するシナリオ（推定）'});
+ for(const s of states.filter(x=>x.track==='追走車間あり'))passageEvents.push({actor:s.no,action:'gap_opened',reason:s.no+'番は直前の'+s.followTarget+'番と車間が開いたが、千切れではなく復帰・追走を維持できる状態'});
  for(const s of states.filter(x=>x.attack&&x.reachable))passageEvents.push({actor:s.no,action:'outside',reason:s.no+'番はBではまだ先頭でないが、外から追い上げを継続できる位置'});
  const backPositions=states.map((s,i)=>({no:s.no,ordinal:i,lane:s.attack?1:0,gap:s.gap,spent:s.spent,remaining:s.remaining}));
  scenes.push({id:'back',label:STAGES[3].label,leader:bNo,order:states.map(s=>s.no),lineOrder:orderedGroups.map(g=>g.members.slice()),positions:backPositions,events:passageEvents});
@@ -316,6 +323,6 @@ function audit(snap,opts={}){
  });
  return {passed:failures.length===0,failures:[...new Set(failures)],checks:['全選手の保存','6局面と戦術イベント','ホーム〜Bの主導権交替','累積脚消耗の単調性','B先頭条件'],relative:true};
 }
-const api={STAGES,value,simulate,complete,audit};if(typeof module!=='undefined')module.exports=api;
+const api={STAGES,value,simulate,complete,audit,Follow};if(typeof module!=='undefined')module.exports=api;
 root.BAxisPhases=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
