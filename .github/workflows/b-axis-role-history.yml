@@ -1,7 +1,7 @@
 name: B-AXIS public line-role history
 on:
   push:
-    branches: ['feature/b-axis-follow-power-history-20261108']
+    branches: ['feature/b-axis-follow-power-history-20261108', 'feature/b-axis-ex-tactics-20261108']
     paths: ['scripts/b_axis_aggregate_role_history.cjs','.github/workflows/b-axis-role-history.yml']
   workflow_dispatch:
 permissions:
