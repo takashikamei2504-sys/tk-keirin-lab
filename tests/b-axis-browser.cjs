@@ -10,7 +10,7 @@ async function main(){
   assert.match(await page.locator('h1').innerText(),/B-AXIS/);
   await page.locator('summary').first().click();
   await page.locator('#example7').click();
-  await page.locator('#b-choice option').first().waitFor({timeout:20000});
+  await page.locator('#b-choice option').first().waitFor({state:'attached',timeout:20000});
   assert.equal(await page.locator('#selector').isVisible(),true);
   assert.equal(await page.locator('#positions .place').count(),7,'7-rider B state');
   const firstB=await page.locator('#b-choice').inputValue();
