@@ -14,4 +14,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: npm run test:b-axis
+      - run: node scripts/b_axis_mechanism_audit.cjs
       - run: node scripts/b_axis_empirical_pilot.cjs
