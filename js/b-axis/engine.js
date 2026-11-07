@@ -4,7 +4,7 @@
  */
 (function(root){'use strict';
 const VERSION='LAB_B_AXIS_V0.1.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
-const TACTICS={press:'突っ張り',hold:'押さえ先行',kamashi:'カマシ',makuri:'早めの捲り',surge:'番手発進',relaunch:'3番手以降からの追上げ'};
+const TACTICS={press:'突っ張り',hold:'押さえ先行',kamashi:'カマシ',makuri:'早めの捲り',surge:'番手発進',relaunch:'3番手以降からの追上げ',solo_shift:'単騎の位置取りからの先頭進出'};
 const prefecture={
  '函館':'北海道','青森':'青森','いわき平':'福島','弥彦':'新潟','前橋':'群馬','取手':'茨城','宇都宮':'栃木','大宮':'埼玉','西武園':'埼玉','京王閣':'東京','立川':'東京','松戸':'千葉','川崎':'神奈川','平塚':'神奈川','小田原':'神奈川','伊東':'静岡','静岡':'静岡','名古屋':'愛知','岐阜':'岐阜','大垣':'岐阜','豊橋':'愛知','富山':'富山','松阪':'三重','四日市':'三重','福井':'福井','奈良':'奈良','向日町':'京都','和歌山':'和歌山','岸和田':'大阪','玉野':'岡山','広島':'広島','防府':'山口','高松':'香川','小松島':'徳島','高知':'高知','松山':'愛媛','小倉':'福岡','久留米':'福岡','武雄':'佐賀','佐世保':'長崎','別府':'大分','熊本':'熊本'};
 function verify(input){
@@ -28,7 +28,7 @@ function candidates(input){
   const line=race.lineup.find(l=>l.includes(r.no)),index=line.indexOf(r.no),c=context(input,r),initiative=feature(input,r.no,'initiative',r.style==='逃'?.68:.33),endurance=feature(input,r.no,'endurance'),sprint=feature(input,r.no,'sprint'),ability=feature(input,r.no,'ability'),front=feature(input,r.no,'front');
   const stage=String(race.class||''),championship=/決勝|特選|特別選抜/.test(stage),qualifying=/準決|予選/.test(stage),loserRound=/一般|特一般|敗者|負け戦|選抜/.test(stage)&&!/特別選抜/.test(stage),linePower=(line.length-1)*.12+(championship&&line.length>=3?.08:0);
   const leadTerm=Number(r.meta?.term),seniorBehind=Number.isInteger(leadTerm)&&leadTerm>0&&line.slice(index+1).some(n=>{const other=race.riders.find(x=>x.no===n),term=Number(other?.meta?.term);return Number.isInteger(term)&&term>0&&term<leadTerm;});
-  const score=.24+initiative*.98+endurance*.28+sprint*.21+front*.12+ability*.14+linePower+(c.clearIntent?.19+(loserRound?.04:0):c.neutralIntent?.06:0)+(c.locale?.08:0)+(seniorBehind?.035:0)+(qualifying?.02:0)-(index>0?.51+.11*(index-1):0)-(line.length===1?.14:0);
+  const score=.24+initiative*.98+endurance*.28+sprint*.21+front*.12+ability*.14+linePower+(c.clearIntent?.19+(loserRound?.04:0):c.neutralIntent?.06:0)+(c.locale?.08:0)+(seniorBehind?.035:0)+(qualifying?.02:0)-(index>0?.51+.11*(index-1):0)-(line.length===1?.14:0)-(r.style==='追'&&index===0?.42:0);
   return {no:r.no,name:r.name,line:line.slice(),lineIndex:index,weight:max(.035,score),basis:[
     '先行傾向 '+initiative.toFixed(2),'ライン'+line.length+'車',index===0?'ライン先頭':'ライン'+(index+1)+'番手',c.clearIntent?'本人コメントの先行意向':c.commentUsed?'本人コメント参照':'先行意向コメント未取得',c.locale?'地元':null,seniorBehind?'ライン後位に上位期の先輩（期別比較・関係性は未断定）':null,championship?'特選・決勝':qualifying?'予選・準決勝':loserRound?'負け戦・選抜（本人の主導権意向を重視）':null
    ].filter(Boolean),commentSources:c.commentSources};
@@ -38,13 +38,15 @@ function candidates(input){
 }
 function tacticsFor(input,no){
  const r=verify(input),line=r.lineup.find(l=>l.includes(no));
- const index=line.indexOf(no);
+ const index=line.indexOf(no),rider=r.riders.find(x=>x.no===no);
+ if(index===0&&rider.style==='追')return ['solo_shift'];
  return index===0?['press','hold','kamashi','makuri']:index===1?['surge','makuri','kamashi']:['relaunch','makuri'];
 }
 function chooseTactic(input,no){
  const allowed=tacticsFor(input,no),front=feature(input,no,'front'),kamashi=feature(input,no,'kamashi'),initiative=feature(input,no,'initiative');
  if(allowed.includes('surge'))return 'surge';
  if(allowed.includes('relaunch'))return 'relaunch';
+ if(allowed.includes('solo_shift'))return 'solo_shift';
  if(front>.64&&initiative>.52)return 'press';
  if(kamashi>.63)return 'kamashi';
  return 'hold';
@@ -66,7 +68,7 @@ function snapshot(input,no,tactic){
  const threatMap=new Map(otherLines.map(l=>[l[0],threat(l)]));
  const sorted=otherLines.slice().sort((a,b)=>threat(b)-threat(a)||a[0]-b[0]);
  const mainThreat=sorted.length?threat(sorted[0]):0;
- const baseCost={press:.43,hold:.33,kamashi:.47,makuri:.47,surge:.39,relaunch:.53}[mode];
+ const baseCost={press:.43,hold:.33,kamashi:.47,makuri:.47,surge:.39,relaunch:.53,solo_shift:.64}[mode];
  const effort=clamp(baseCost+mainThreat*.18+max(0,sorted.length-1)*.025+(mode==='press'?.05:0),.27,.79);
  const states=[];
  for(const line of race.lineup)for(let i=0;i<line.length;i++){
