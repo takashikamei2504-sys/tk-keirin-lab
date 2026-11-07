@@ -89,7 +89,7 @@ function simulate(race,features,bNo,mode,tacticLabel,historyModel=null){
   const outside=phase==='home'&&(fastMove||mode==='surge')?owner.id:null;
   const rows=[];let ordinal=0;
   for(const g of order){
-   const members=phase==='home'&&surgeMove?followerGroup(g):g.members;
+   const members=g.members; // B-side follower launches later; original line stays intact through final home
    for(const n of members){
     rows.push({no:n,ordinal:ordinal++,lane:g.id===outside&&(!['surge','relaunch'].includes(mode)||n===bNo)?1:0,gap:round((ordinal-1)*.75),spent:round(effort[n]),remaining:round(clamp(.96-effort[n]+feat(n,'endurance')*.10))});
    }
