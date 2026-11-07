@@ -20,3 +20,9 @@ article{padding:12px 0;border-top:1px solid #344951}
 li{margin-bottom:6px;line-height:1.55}
 output{display:block;font-variant-numeric:tabular-nums}
 [hidden]{display:none}
+.page-nav{gap:8px}
+.page-nav a{padding:0 10px;border:1px solid #4e666c;border-radius:8px;text-decoration:none}
+.verdict{margin:0;padding:12px;border:1px solid #8b784a;border-radius:8px;background:#302a1e;color:#fff0ba;font-weight:700}
+#race details{margin-top:10px}
+#today button{margin-top:8px}
+#trial-summary p{color:#b8ccc9;line-height:1.55}

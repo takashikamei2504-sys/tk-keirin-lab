@@ -64,13 +64,22 @@ async function audit() {
   dimension.addEventListener('change', render);
   render();
   const paired = data.comparison;
-  element('comparison').replaceChildren(node('h3','LAB・LINEの共通 ' + paired.races + 'R（各レース最新保存）'),
+  element('comparison').prepend(node('h3','LAB・LINEの共通 ' + paired.races + 'R（各レース最新保存）'),
     list([['LAB回収率',pct(paired.base.roi)],['LINE回収率',pct(paired.candidate.roi)],
       ['LAB上位1件除外',pct(paired.base_trimmed[1])],['LINE上位1件除外',pct(paired.candidate_trimmed[1])],
       ['LAB損益',yen(paired.base.net)],['LINE損益',yen(paired.candidate.net)]]));
 }
 
-audit().then(() => Promise.allSettled([research(),validation()])).catch(error => {element('performance').textContent = error.message;});
+audit().catch(error => {element('performance').textContent = error.message;});
+research().catch(() => {});
+const prospectiveReport = fetch('data/roi/prospective.json',{cache:'no-cache'})
+  .then(response => response.ok ? response.json() : null).catch(() => null);
+prospectiveReport.then(showTrials).catch(() => {
+  element('trial-summary').textContent = '検証結果を読み込めませんでした。';
+});
+validation(prospectiveReport).catch(() => {
+  element('validation').textContent = '検証の詳細を読み込めませんでした。';
+});
 
 const todayJst = () => new Date(Date.now()+9*3600000).toISOString().slice(0,10);
 const raceLabel = race => race.date + '　' + race.venue + race.number + 'R　' + race.start;
@@ -79,23 +88,22 @@ async function live() {
   const date = todayJst();
   const dir = 'data/roi/forecasts/' + date + '/';
   const response = await fetch(dir + 'index.json', {cache:'no-cache'});
-  if (response.status === 404) return;
+  if (response.status === 404) return noRaces();
   if (!response.ok) throw Error('本日の予想を読み込めませんでした。');
   const data = await response.json();
   const rows = data.rows.filter(r => r.model === data.model && Date.parse(r.cutoff) > Date.now());
-  if (!rows.length) {
-    element('today').textContent = '本日の発走前の配信はありません。';
-    return;
-  }
+  if (!rows.length) return noRaces();
   const selector = node('select');
-  selector.setAttribute('aria-label','展開を確認するレース');
+  selector.id = 'race-select';
   rows.forEach((r,i) => {
     const option = node('option',raceLabel(r.race));
     option.value = String(i);
     selector.append(option);
   });
-  const detail = node('div'), stories = element('stories');
-  element('today').replaceChildren(selector, detail);
+  const status = node('div'), detail = node('div'), stories = element('stories');
+  const label = node('label','レースを選ぶ');
+  label.htmlFor = selector.id;
+  element('today').replaceChildren(status, label, selector, detail);
   let revision = 0;
   async function render() {
     const current = ++revision;
@@ -103,10 +111,18 @@ async function live() {
     const purchase = row.decision.tickets || [];
     const buyKeys = purchase.map(t=>t.key);
     const keys = buyKeys.length ? buyKeys : row.candidates;
-    detail.replaceChildren(node('p',buyKeys.length ? '期待値の研究候補' : '購入判断　見送り'));
+    const verdict = node('p',buyKeys.length ? '期待値の研究候補あり' : '購入判断　見送り');
+    verdict.className = 'verdict';
+    verdict.setAttribute('role','status');
+    const reason = {calibration:'的中確率を検証中です。',odds:'発走前オッズの取得待ちです。',
+      uncertainty:'確率のばらつきを検証中です。',no_edge:'購入基準を満たす候補がありません。'};
+    status.replaceChildren(verdict);
+    detail.replaceChildren();
+    if (!buyKeys.length) status.append(node('p',reason[row.decision.reason] || '購入条件を確認中です。'));
+    const research = node('details');
     if (keys.length) {
-      detail.append(node('p',buyKeys.length ? '選別した買い目' : '展開に基づく研究候補'),node('output',keys.join('、')));
-      const copy = node('button','買い目をコピー');
+      research.append(node('summary','研究候補の買い目を見る'),node('output',keys.join('、')));
+      const copy = node('button','研究候補をコピー');
       copy.type = 'button';
       copy.onclick = async () => {
         try {
@@ -116,11 +132,12 @@ async function live() {
           const input = node('textarea');
           input.value = keys.join('\n');
           input.readOnly = true;
-          detail.append(input);
+          research.append(input);
           input.select();
         }
       };
-      detail.append(copy);
+      research.append(copy);
+      detail.append(research);
     }
     for (const t of purchase) {
       if (Number.isFinite(t.probability) && Number.isFinite(t.odds) && Number.isFinite(t.ev)) {
@@ -135,11 +152,11 @@ async function live() {
     if (current !== revision) return;
     if (forecast.shadow) {
       const trial = node('details');
-      trial.append(node('summary','追加1点の並走研究'),list([
+      trial.append(node('summary','このレースの追加1点を見る'),list([
         ['基準の上位4点',forecast.shadow.core.join('、')],
-        ['本線の追加1点',forecast.shadow.main || '該当なし'],
-        ['混合決着・展開条件あり',forecast.shadow.mixed.ticket || '該当なし'],
-        ['混合決着・並びと得点のみ',forecast.shadow.mixed.reference || '該当なし']
+        ['本線の追加1点',forecast.shadow.main || '候補なし'],
+        ['別線2着・展開の裏づけあり',forecast.shadow.mixed.ticket || '候補なし'],
+        ['別線2着・並びと得点から',forecast.shadow.mixed.reference || '候補なし']
       ]));
       detail.append(trial);
     }
@@ -187,7 +204,11 @@ async function research() {
   element('comparison').append(panel);
 }
 
-live().catch(error=>{element('today').textContent=error.message;});
+function noRaces(message = '本日の発走前の配信はありません。') {
+  element('today').textContent = message;
+  element('race-stories').hidden = true;
+}
+live().catch(error=>noRaces(error.message));
 
 function shadowReport(model, report) {
   const panel = node('details');
@@ -224,13 +245,42 @@ function shadowReport(model, report) {
   return panel;
 }
 
-async function validation() {
+function showTrials(prospective) {
+  const summary = element('trial-summary');
+  if (!prospective) {
+    summary.textContent = '検証結果を読み込めませんでした。';
+    return;
+  }
+  const models = Object.entries(prospective.shadow || {}).sort(([a],[b])=>b.localeCompare(a,'en',{numeric:true}));
+  if (!models.length) {
+    summary.textContent = '追加1点の検証データを準備中です。';
+    return;
+  }
+  const latest = models[0][1];
+  summary.replaceChildren(list([
+    ['集計済み',latest.all.core.races+'レース'],
+    ['結果待ち',latest.pending+'レース'],
+    ['同じレースで比較できた件数',latest.paired.core.races+'レース']
+  ]));
+  if (!latest.all.core.races) summary.append(node('p','発走前の予想を保存済みです。結果が届くと成績が表示されます。'));
+  if (latest.paired.core.races) summary.append(list([
+    ['本線を1点追加した分の回収率',pct(latest.paired.main.roi)],
+    ['別線2着を1点追加した分の回収率',pct(latest.paired.mixed.roi)]
+  ]));
+  else if (latest.all.core.races) summary.append(node('p','両方式を同じレースで比べられる結果はまだありません。'));
+  for (const [i,[model,report]] of models.entries()) {
+    const panel = shadowReport(model,report);
+    panel.querySelector('summary').textContent = i === 0 ? '最新の詳しい内訳を見る' : '過去の検証版を見る｜'+model;
+    element('trial-details').append(panel);
+  }
+}
+
+async function validation(prospectiveReport) {
   const panel = node('details');
   panel.append(node('summary','確率校正と発走前の並走評価'));
-  const [calibration, prospective] = await Promise.all(['calibration','prospective'].map(async name=>{
-    const response = await fetch('data/roi/'+name+'.json',{cache:'no-cache'});
-    return response.ok ? response.json() : null;
-  }));
+  const calibrationResponse = await fetch('data/roi/calibration.json',{cache:'no-cache'});
+  const calibration = calibrationResponse.ok ? await calibrationResponse.json() : null;
+  const prospective = await prospectiveReport;
   if (calibration?.holdout) {
     const h = calibration.holdout;
     panel.append(list([['校正の学習',calibration.training_races+'R'],['時系列検証',h.races+'R'],
@@ -244,7 +294,6 @@ async function validation() {
     panel.append(reliability);
   }
   if (prospective) {
-    for (const [model,report] of Object.entries(prospective.shadow || {})) panel.append(shadowReport(model,report));
     const rows=Object.entries(prospective.models);
     if (!rows.length) panel.append(node('p','発走前に保存した予想の結果待ち '+prospective.status.pending+'R'));
     for (const [id,strategies] of rows) {
@@ -255,6 +304,5 @@ async function validation() {
       }
     }
   }
-  panel.append(node('p','発走前オッズの自動取得は保留。購入判断は見送りです。'));
-  element('comparison').append(panel);
+  element('validation').append(panel);
 }
