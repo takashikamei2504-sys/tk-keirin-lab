@@ -1,6 +1,6 @@
 'use strict';
 
-const VERSION = 'roi-fifth-ticket-v1';
+const VERSION = 'roi-fifth-ticket-v1.1';
 
 function mixedTicket(lab, line, core) {
   const {riders, lineup} = lab.input;
@@ -18,11 +18,11 @@ function mixedTicket(lab, line, core) {
   if (!['逃','両'].includes(rival.style) || rival.score < ridersByNo.get(leader).score - 2) {
     return {reason:'rival_below_gate'};
   }
-  if (!core.some(t => [leader,marker].every(no => t.trio.slice(0,2).includes(no)))) {
-    return {reason:'lab_core_differs'};
-  }
   const ticket = [marker,rival.no,leader].join('-');
   if (core.some(t => t.key === ticket)) return {reason:'already_in_core'};
+  if (!core.some(t => [leader,marker].every(no => t.trio.slice(0,2).includes(no)))) {
+    return {reference:ticket,reason:'lab_core_differs'};
+  }
   const out = line.out;
   for (const h of [out.main, ...(out.alternatives || [])]) {
     if (!h?.audit?.passed || h.audit.physical?.passed !== true || h.scenes?.length !== 6 ||
@@ -34,10 +34,10 @@ function mixedTicket(lab, line, core) {
     const inReach = p => Number.isInteger(p?.ordinal) && p.ordinal >= 0 && p.ordinal <= 3 &&
       ['inner','outside','inside'].includes(p.band);
     if (!inReach(back) || !inReach(corner) || h.scenes[4].connected?.[leader] !== true) continue;
-    return {ticket,reason:'supported',evidence:{hypothesis:h.id,back_position:back.ordinal+1,
+    return {ticket,reference:ticket,reason:'supported',evidence:{hypothesis:h.id,back_position:back.ordinal+1,
       leader_corner_position:corner.ordinal+1}};
   }
-  return {reason:'no_supported_path'};
+  return {reference:ticket,reason:'no_supported_path'};
 }
 
 function build(lab, line) {

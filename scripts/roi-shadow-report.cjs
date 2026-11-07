@@ -13,13 +13,16 @@ function add(group, shadow, prediction, result) {
   const mixed = shadow.mixed.ticket ? settle([shadow.mixed.ticket]) : null;
   if (main?.points === 1) group.main.push(main);
   if (mixed?.points === 1) group.mixed.push(mixed);
-  if (core.points !== 4 || main?.points !== 1 || mixed?.points !== 1) return;
-  group.paired.push({core,main,mixed,
+  if (core.points !== 4 || main?.points !== 1) return;
+  const pair = other => ({core,main,mixed:other,
     coreMain:{...core,points:5,wins:[...core.wins,...main.wins]},
-    coreMixed:{...core,points:5,wins:[...core.wins,...mixed.wins]}});
+    coreMixed:{...core,points:5,wins:[...core.wins,...other.wins]}});
+  if (mixed?.points === 1) group.paired.push(pair(mixed));
+  const reference = shadow.mixed.reference ? settle([shadow.mixed.reference]) : null;
+  if (reference?.points === 1) group.reference.push(pair(reference));
 }
 
-const create = () => ({all:[],main:[],mixed:[],paired:[],gates:{},pending:0});
+const create = () => ({all:[],main:[],mixed:[],paired:[],reference:[],gates:{},pending:0});
 
 function compact(rows) {
   const s = Audit.summarize(rows);
@@ -41,7 +44,7 @@ function report(group) {
   }
   return {pending:group.pending,gates:group.gates,all:{full:compact(group.all.map(r=>r.full)),
     core:compact(group.all.map(r=>r.core)),main:compact(group.main),mixed:compact(group.mixed)},
-    paired:paired(group.paired),by_grade:breakdown(r=>r.grade),by_month:breakdown(r=>r.date.slice(0,7))};
+    paired:paired(group.paired),reference_paired:paired(group.reference),by_grade:breakdown(r=>r.grade),by_month:breakdown(r=>r.date.slice(0,7))};
 }
 
 module.exports = {add,create,report};

@@ -138,7 +138,8 @@ async function live() {
       trial.append(node('summary','追加1点の並走研究'),list([
         ['基準の上位4点',forecast.shadow.core.join('、')],
         ['本線の追加1点',forecast.shadow.main || '該当なし'],
-        ['混合決着の追加1点',forecast.shadow.mixed.ticket || '該当なし']
+        ['混合決着・展開条件あり',forecast.shadow.mixed.ticket || '該当なし'],
+        ['混合決着・並びと得点のみ',forecast.shadow.mixed.reference || '該当なし']
       ]));
       detail.append(trial);
     }
@@ -203,6 +204,13 @@ function shadowReport(model, report) {
   if (paired.core.races) {
     panel.append(stats('上位4点＋本線',paired.coreMain),stats('上位4点＋混合',paired.coreMixed),
       stats('本線の追加分のみ',paired.main),stats('混合の追加分のみ',paired.mixed));
+  }
+  const reference = report.reference_paired;
+  if (reference) {
+    panel.append(node('h3','並びと得点のみの参考比較｜共通 '+reference.core.races+'R'));
+    if (reference.core.races) panel.append(stats('上位4点＋本線',reference.coreMain),
+      stats('上位4点＋参考混合',reference.coreMixed),stats('本線の追加分のみ',reference.main),
+      stats('参考混合の追加分のみ',reference.mixed));
   }
   for (const [label,groups] of [['級班別',report.by_grade],['月別',report.by_month]]) {
     const breakdown = node('details');
