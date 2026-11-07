@@ -3,8 +3,8 @@ const urls=[
  'https://www.winticket.jp/keirin/yokkaichi/racecard/2026110548/races',
  'https://www.winticket.jp/keirin/cyclist/014838',
  'https://www.winticket.jp/keirin/column/ex_data',
- 'https://www.winticket.jp/keirin/yokkaichi/racecard/2026110548/races/12',
- 'https://www.winticket.jp/keirin/yokkaichi/racecard/2026110548/races/12/exdata'
+ 'https://www.winticket.jp/keirin/yokkaichi/racecard/2026110548/4/12',
+ 'https://www.winticket.jp/keirin/yokkaichi/racecard/2026110548/4/12?tab=exdata'
 ];
 (async()=>{
  for(const url of urls){
