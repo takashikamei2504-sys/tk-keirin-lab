@@ -36,3 +36,4 @@ jobs:
           node tests/results-browser.cjs
           ROI_BROWSER=chromium node tests/roi-browser.cjs
           node tests/roi-browser.cjs
+          node tests/b-axis-browser.cjs
