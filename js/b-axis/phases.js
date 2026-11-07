@@ -63,8 +63,11 @@ function simulate(race,features,bNo,mode,tacticLabel){
   const other=order.filter(g=>g.id!==id);
   return other.length?[other[0],target,...other.slice(1)]:[target];
  }
+ const makuriPosition=Math.max(1,initial.findIndex(g=>g.id===owner.id)-2);
+ const toIndex=(order,id,index)=>{const target=order.find(g=>g.id===id),rest=order.filter(g=>g.id!==id);rest.splice(Math.min(index,rest.length),0,target);return rest;};
  const bell=['hold'].includes(mode)?toFront(initial,owner.id):
-   ['kamashi','makuri'].includes(mode)?toSecond(initial,owner.id):
+   mode==='makuri'?toIndex(initial,owner.id,makuriPosition):
+   mode==='kamashi'?toSecond(initial,owner.id):
    ['solo_shift'].includes(mode)?toSecond(initial,owner.id):
    initial.slice();
  const home=['kamashi','makuri','solo_shift'].includes(mode)?toSecond(bell,owner.id):bell.slice();
@@ -126,10 +129,15 @@ function simulate(race,features,bNo,mode,tacticLabel){
   redEvents.push({actor:owner.head,action:'cut',target:initial[0].head,reason:owner.head+'番のラインが赤板〜打鐘で前へ押さえ、初手先頭'+initial[0].head+'番が後ろへ回る'});
  }else if(mode==='press'){
   redEvents.push({actor:owner.head,action:'resist',target:starter!==owner?starter.head:null,reason:'前受けのまま別線の押さえに抵抗し、先行権を守る'});
- }else if(mode==='makuri'||mode==='kamashi'){
-  redEvents.push({actor:bNo,action:'wait',reason:'赤板〜打鐘では無理に前を取り切らず、最終ホームの仕掛けに備える'});
+ }else if(mode==='makuri'){
+  const moves=initial.findIndex(g=>g.id===owner.id)-bell.findIndex(g=>g.id===owner.id);
+  redEvents.push({actor:bNo,action:moves?'advance':'wait',reason:moves?'赤板〜打鐘で後方から中団へ'+moves+'ライン分進出し、最終ホームの捲りに備える':'中団で仕掛けの機会を待ち、最終ホームの捲りに備える'});
+ }else if(mode==='kamashi'){
+  redEvents.push({actor:bNo,action:'wait',reason:'赤板〜打鐘では先頭を取り切らず、中団からカマシの機会をうかがう'});
  }else if(mode==='surge'||mode==='relaunch'){
   redEvents.push({actor:owner.head,action:'pace',reason:'元ライン先頭が主導権を保持し、後位'+bNo+'番の発進機会を残す'});
+ }else if(mode==='hold'){
+  redEvents.push({actor:bNo,action:'pace',reason:'前受けから先行ペースを作り、他線の押さえを受け止める'});
  }else{
   redEvents.push({actor:bNo,action:'position',reason:'単騎の中団位置を確保し、前の仕掛けに反応する'});
  }
@@ -286,6 +294,14 @@ function audit(snap,opts={}){
    if(!Number.isFinite(p.spent)||!Number.isFinite(p.gap)||p.gap<0||p.spent<0||p.spent>1)failures.push(phase.id+' 状態値が不正');
    if(before.has(p.no)&&p.spent+.001<before.get(p.no))failures.push(phase.id+' 脚の消耗が逆行');
    before.set(p.no,p.spent);
+  }
+  if(i>0&&i<=3&&phases[i-1].lineOrder&&phase.lineOrder){
+   const sign=l=>l.slice().sort((a,b)=>a-b).join(',');
+   const previous=phases[i-1].lineOrder.map(sign),current=phase.lineOrder.map(sign);
+   for(const id of previous){
+    const movement=Math.abs(previous.indexOf(id)-current.indexOf(id));
+    if(movement>2)failures.push(phase.id+'：1局面でラインが3つ以上飛び越える');
+   }
   }
   if(i===3){
    if(phase.leader!==b||phase.positions.find(p=>p.no===b)?.gap!==0)failures.push('B時点の先頭が指定Bと不一致');
