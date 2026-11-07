@@ -1,0 +1,35 @@
+'use strict';
+const assert=require('node:assert/strict');
+const B=require('../js/b-axis/engine.js');
+function seven(){
+ const power={1:[.12,.3,.2,.2,.3,.2,.4,.4,.15],2:[.42,.25,.37,.2,.33,.34,.3,.8,.55],3:[.48,.21,.3,.2,.2,.34,.2,.9,.6],4:[.98,.72,.9,.62,.86,.73,.94,.8,.9],5:[.75,.23,.7,.35,.55,.62,.68,.85,.92],6:[.71,.56,.88,.4,.8,.61,.8,.8,.82],7:[.63,.24,.55,.22,.4,.58,.42,.88,.86]};
+ const names=['ability','initiative','sprint','front','kamashi','endurance','makuri','track','finish'];
+ const riders=Object.keys(power).map(v=>({no:Number(v),name:'選手'+v,style:Number(v)===1?'逃':'両',score:70+Number(v)*5,meta:{term:110+Number(v),prefecture:'愛知'}}));
+ const features=Object.fromEntries(Object.entries(power).map(([n,values])=>[n,Object.fromEntries(names.map((k,i)=>[k,{value:values[i],basis:'test fixture'}]))]));
+ return {race:{date:'2026-11-09',venue:'豊橋',race_no:8,start:'15:00',class:'A級準決勝',grade:'FII',lineup:[[1,2,3],[4,5],[6,7]],riders,race_material:{comments:[]}},features,as_of:'2026-11-09T01:00:00Z'};
+}
+const s=seven(),b=B.build(s,{bNo:1,tactic:'press',limit:10});
+assert.equal(b.b.bNo,1);
+assert.equal(b.b.states.length,7);
+assert.equal(new Set(b.b.states.map(x=>x.no)).size,7);
+assert.ok(b.tickets.length>0&&b.tickets.length<=10);
+assert.ok(b.tickets.every(x=>new Set(x.trio).size===3));
+assert.ok(b.tickets.some(t=>t.trio[0]!==1),'B rider is NOT a mandatory winner');
+assert.ok(b.tickets.some(t=>t.trio[0]!==1&&![1,2,3].includes(t.trio[0])),'non-B line winner possible');
+assert.ok(b.tickets.some(t=>t.leaderIsWinner)===false||b.tickets.some(t=>!t.leaderIsWinner));
+const hold=B.build(s,{bNo:1,tactic:'hold'});
+assert.notEqual(b.b.leadingCost,hold.b.leadingCost,'tactics change effort');
+assert.notDeepEqual(b.b.states,hold.b.states,'tactics change physical B state');
+const revised=B.build(s,{bNo:4,tactic:'kamashi'});
+assert.equal(revised.b.bNo,4);
+assert.ok(revised.b.states.find(x=>x.no===4).gap===0);
+assert.notDeepEqual(revised.b.states,b.b.states,'manual B change rebuilds all rider states');
+assert.deepEqual(B.tacticsFor(s,2),['surge','makuri','kamashi']);
+assert.equal(B.build(s,{bNo:2,tactic:'surge'}).b.tactic,'surge','a following rider may take B');
+assert.throws(()=>B.build(s,{bNo:2,tactic:'press'}),/戦法/);
+assert.throws(()=>B.build({...s,race:{...s.race,finish:[1,2,3]}}),/着順/);
+assert.throws(()=>B.build({...s,race:{...s.race,lineup:[[1,2,3],[4,5],[6,6]]}}),/並び/);
+const mini=B.build(s,{bNo:1,limit:3});
+assert.ok(mini.tickets.length<=3);
+assert.deepEqual(mini.tickets.map(x=>x.key),b.tickets.slice(0,3).map(x=>x.key),'top-N stable');
+console.log('B-AXIS engine: 7-rider scenarios, rider/tactic switching, winner independence and guardrails passed');

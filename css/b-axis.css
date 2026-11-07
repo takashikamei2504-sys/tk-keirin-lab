@@ -1,0 +1,35 @@
+/* Mobile-first B-AXIS, designed for iPhone Safari. Extends line.css without changing LINE. */
+header em{color:#8bd3bc}
+#selector[hidden],#extras[hidden]{display:none}
+#context h2{font-size:19px;margin:4px 0}
+.control-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.control-grid strong{display:block;font-size:13px;line-height:1.55;margin-bottom:6px}
+.control-grid label{font-size:14px}
+.control-grid select{font-size:15px;padding:6px 9px}
+.buy-limit{display:block;margin-top:15px}
+.buy-limit select{max-width:210px;margin-top:5px}
+.main-summary{background:#132a39;color:#fff}
+.main-summary h2{font-size:25px;color:#94e4c5}
+.main-summary .muted{color:#c4d8df}
+.main-summary p{line-height:1.8}
+#positions{display:flex;flex-direction:column;gap:6px}
+.place{display:grid;grid-template-columns:minmax(0,1fr) 1.4fr 1.4fr;align-items:center;gap:7px;background:#f1f5f3;border-radius:8px;padding:9px 10px;font-size:12px;line-height:1.5}
+.place strong{font-size:15px;word-break:keep-all}
+.place span:last-child{text-align:right}
+.ticket-title{display:flex;align-items:center;justify-content:space-between}
+.count{font-size:16px;background:#e5f0eb;color:#17634e;border-radius:12px;padding:4px 12px}
+.b-tickets{display:flex;flex-direction:column;gap:10px}
+.ticket{border:1px solid #e0e8e5;border-radius:10px;padding:12px;background:#fafcfa}
+.ticket-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ticket-head strong{color:#b2552f;font-size:25px;font-variant-numeric:tabular-nums;letter-spacing:.025em}
+.ticket-head .tiny{font-size:11px;color:#667981;margin-left:auto}
+.ticket-head .rank{display:inline-flex;align-items:center;justify-content:center;background:#e3ece8;color:#304f4d;width:24px;height:24px;border-radius:50%;font-size:12px}
+.ticket-reason{font-size:12px;color:#586f79;line-height:1.7;margin-top:7px}
+.compact{font-size:12px;color:#294b56;border-top:1px solid #dde5e4;padding-top:14px}
+.b-actions{display:flex;flex-wrap:wrap;gap:8px}
+.b-actions button{flex:1;min-width:145px}
+#copy{background:#17634e}
+#export{background:#283f52}
+#example7,#example9{background:#dfece7;color:#173244;font-size:12px}
+footer{padding-bottom:40px}
+@media(max-width:375px){.control-grid{grid-template-columns:1fr}.place{grid-template-columns:1fr 1fr}.place span:last-child{grid-column:2;grid-row:1 / span 2}.ticket-head .tiny{font-size:10px}}
