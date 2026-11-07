@@ -4,12 +4,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const Audit = require('../js/roi/audit.cjs');
 const History = require('./history-store.cjs');
+const Shadow = require('./roi-shadow-report.cjs');
 const {save} = require('./roi-audit.cjs');
 
 function monitor(data) {
   const dir = path.join(data,'roi','forecasts');
   const lab = path.join(data,'lab_history');
-  const summaries = {};
+  const summaries = {}, shadowGroups = {};
   const status = {pending:0,unmatched:0};
   const days = fs.existsSync(dir) ? fs.readdirSync(dir).filter(n=>/^\d{4}-\d{2}-\d{2}$/.test(n)) : [];
   for (const day of days) {
@@ -20,11 +21,17 @@ function monitor(data) {
     for (const name of fs.readdirSync(forecastDir).filter(n=>/^[a-f0-9]{64}\.json$/.test(n))) {
       const frozen = JSON.parse(fs.readFileSync(path.join(forecastDir,name),'utf8'));
       if (!(Date.parse(frozen.saved_at)<Date.parse(frozen.cutoff)) || !frozen.model?.configuration_hash) continue;
+      const shadow = frozen.shadow && (shadowGroups[frozen.model.model_id] ||= Shadow.create());
+      if (shadow) {
+        const reason = frozen.shadow.mixed.reason;
+        shadow.gates[reason] = (shadow.gates[reason] || 0) + 1;
+      }
       const result = results.get(frozen.race_id);
-      if (!result) { status.pending++; continue; }
+      if (!result) { status.pending++; if (shadow) shadow.pending++; continue; }
       const p = baseline.get(frozen.race_id+'|'+frozen.evidence.lab.model);
       if (!p || p.saved_at!==frozen.evidence.lab.saved_at ||
           p.input_sha256!==frozen.evidence.lab.hash || p.cutoff!==frozen.cutoff) { status.unmatched++; continue; }
+      if (shadow) Shadow.add(shadow,frozen.shadow,p,result);
       const group = summaries[frozen.model.model_id] ||= {};
       const trials = {...frozen.comparison, probability_order:frozen.decision.probability_order,
         policy:frozen.decision.tickets.map(t=>t.key)};
@@ -44,7 +51,8 @@ function monitor(data) {
         first_capture:stats.first_capture,pair_capture:stats.pair_capture,
         max_drawdown:stats.max_drawdown,trimmed:stats.trimmed}];
     }))]));
-  return {schema:'tk-keirin-roi-prospective/v1',status,models};
+  return {schema:'tk-keirin-roi-prospective/v1',status,models,
+    shadow:Object.fromEntries(Object.entries(shadowGroups).map(([id,group])=>[id,Shadow.report(group)]))};
 }
 
 if (require.main===module) {

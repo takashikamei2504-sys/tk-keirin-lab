@@ -133,6 +133,15 @@ async function live() {
     if (!result.ok) throw Error('展開を読み込めませんでした。');
     const forecast = await result.json();
     if (current !== revision) return;
+    if (forecast.shadow) {
+      const trial = node('details');
+      trial.append(node('summary','追加1点の並走研究'),list([
+        ['基準の上位4点',forecast.shadow.core.join('、')],
+        ['本線の追加1点',forecast.shadow.main || '該当なし'],
+        ['混合決着の追加1点',forecast.shadow.mixed.ticket || '該当なし']
+      ]));
+      detail.append(trial);
+    }
     const panels = [];
     const labBack = forecast.stories.LAB.main?.scenes[3]?.order;
     const lineBack = forecast.stories.LINE.main?.scenes[3]?.order;
@@ -179,6 +188,34 @@ async function research() {
 
 live().catch(error=>{element('today').textContent=error.message;});
 
+function shadowReport(model, report) {
+  const panel = node('details');
+  panel.append(node('summary','追加1点の比較｜'+model),
+    node('p','結果待ち '+report.pending+'R／混合の展開条件に該当 '+(report.gates.supported || 0)+'R'));
+  const stats = (title,row) => list([[title,row.races+'R'],['的中',row.hits],['回収率',pct(row.roi)],
+    ['購入額',yen(row.stake)],['払戻額',yen(row.payout)],['収支',yen(row.net)],
+    ['最高払戻除外',pct(row.trimmed[1])],['上位5件除外',pct(row.trimmed[5])],
+    ['最大ドローダウン',yen(row.max_drawdown)]]);
+  panel.append(node('h3','全対象と追加1点単独'),stats('現行LAB全点',report.all.full),
+    stats('LAB上位4点',report.all.core),stats('本線追加1点',report.all.main),stats('混合追加1点',report.all.mixed));
+  const paired = report.paired;
+  panel.append(node('h3','両方の追加1点が揃った共通 '+paired.core.races+'R'));
+  if (paired.core.races) {
+    panel.append(stats('上位4点＋本線',paired.coreMain),stats('上位4点＋混合',paired.coreMixed),
+      stats('本線の追加分のみ',paired.main),stats('混合の追加分のみ',paired.mixed));
+  }
+  for (const [label,groups] of [['級班別',report.by_grade],['月別',report.by_month]]) {
+    const breakdown = node('details');
+    breakdown.append(node('summary',label+'・共通レース'));
+    for (const [name,row] of Object.entries(groups)) {
+      breakdown.append(list([[name,row.core.races+'R'],['本線追加1点',pct(row.main.roi)],
+        ['混合追加1点',pct(row.mixed.roi)]]));
+    }
+    if (Object.keys(groups).length) panel.append(breakdown);
+  }
+  return panel;
+}
+
 async function validation() {
   const panel = node('details');
   panel.append(node('summary','確率校正と発走前の並走評価'));
@@ -199,6 +236,7 @@ async function validation() {
     panel.append(reliability);
   }
   if (prospective) {
+    for (const [model,report] of Object.entries(prospective.shadow || {})) panel.append(shadowReport(model,report));
     const rows=Object.entries(prospective.models);
     if (!rows.length) panel.append(node('p','発走前に保存した予想の結果待ち '+prospective.status.pending+'R'));
     for (const [id,strategies] of rows) {

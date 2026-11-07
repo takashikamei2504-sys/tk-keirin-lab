@@ -7,7 +7,7 @@ on:
     branches: [main]
   push:
     branches: [main]
-    paths: ['scripts/roi-audit.cjs', 'js/roi/audit.cjs', 'js/roi/engine.cjs', 'scripts/roi-freeze.cjs', 'js/roi/policy.cjs', 'js/roi/calibration.cjs', 'js/roi/value.cjs', 'data/roi/calibration.json', 'scripts/line-evaluate.cjs', 'js/line/evaluation.js', 'scripts/line-positioning-evaluate.cjs', 'js/line/positioning-evaluation.js', 'data/line_positioning_observations.json', '.github/workflows/line-evaluation.yml']
+    paths: ['scripts/roi-audit.cjs', 'js/roi/audit.cjs', 'js/roi/engine.cjs', 'scripts/roi-freeze.cjs', 'js/roi/policy.cjs', 'js/roi/shadow.cjs', 'scripts/roi-shadow-report.cjs', 'scripts/roi-monitor.cjs', 'js/roi/calibration.cjs', 'js/roi/value.cjs', 'data/roi/calibration.json', 'scripts/line-evaluate.cjs', 'js/line/evaluation.js', 'scripts/line-positioning-evaluate.cjs', 'js/line/positioning-evaluation.js', 'data/line_positioning_observations.json', '.github/workflows/line-evaluation.yml']
 permissions:
   contents: write
 concurrency:
@@ -35,6 +35,7 @@ jobs:
       - run: node tests/roi-audit.test.cjs
       - run: node tests/roi-engine.test.cjs
       - run: node tests/roi-policy.test.cjs
+      - run: node tests/roi-shadow.test.cjs
       - run: node scripts/roi-freeze.cjs
       - run: node scripts/roi-monitor.cjs
       - run: node scripts/roi-audit.cjs

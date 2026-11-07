@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const Audit = require('../js/results-audit.js');
 const Policy = require('../js/roi/policy.cjs');
+const Shadow = require('../js/roi/shadow.cjs');
 const Provenance = require('../js/model-provenance.js');
 const {readHistory, save} = require('./roi-audit.cjs');
 const {pairs} = require('./roi-research.cjs');
@@ -19,22 +20,27 @@ function freeze(data, clock = Date.now) {
   const calibration = fs.existsSync(calibrationFile) ? JSON.parse(fs.readFileSync(calibrationFile,'utf8')) : null;
   const model = Policy.model(calibration);
   let frozen = 0;
-  for (const {lab,out} of pairs(history,start)) {
+  for (const {lab,line,out} of pairs(history,start)) {
     const now = clock();
     const cutoff = Audit.startAt(lab.input);
     if (!(Date.parse(out.evidence.lab.saved_at)<=now && Date.parse(out.evidence.line.saved_at)<=now && now<cutoff)) continue;
     const file = path.join(output,lab.input.date,
       require('node:crypto').createHash('sha256').update(lab.race_id+'|'+model.model_id).digest('hex')+'.json');
+    if (fs.existsSync(file)) continue;
     fs.mkdirSync(path.dirname(file),{recursive:true});
     const asOf = new Date(now).toISOString();
     const decision = Policy.build(out,lab.input,calibration,null,asOf,lab.cutoff);
+    const shadow = Shadow.build(lab,line);
+    const savedAt = clock();
+    if (!(savedAt<cutoff)) continue;
     const record = {schema:'tk-keirin-roi-frozen/v1',race_id:lab.race_id,
-      saved_at:new Date(now).toISOString(), cutoff:lab.cutoff,
+      saved_at:new Date(savedAt).toISOString(), cutoff:lab.cutoff,
       race:{date:lab.input.date,venue:lab.input.venue,number:lab.input.race_no,start:lab.input.start},
-      ...out, model, decision, input_sha256:Provenance.sha256({hypotheses:out.input_sha256,
+      ...out, model, decision, shadow, input_sha256:Provenance.sha256({hypotheses:out.input_sha256,shadow,
         configuration:model.configuration_hash,asOf,odds:null})};
     const content = JSON.stringify(record)+'\n';
     if (Buffer.byteLength(content)>65536) throw Error('ROI forecast exceeds 64 KiB');
+    if (!(clock()<cutoff)) continue;
     try {
       fs.writeFileSync(file,content,{flag:'wx'});
       frozen++;

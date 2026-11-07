@@ -25,9 +25,9 @@ function build(out, race, calibration, snapshot, asOf, cutoff) {
 }
 
 function model(calibration) {
-  const version = 'roi-policy-v1.0.0';
+  const version = 'roi-policy-v1.1.0';
   const hash = crypto.createHash('sha256').update(Engine.model.code_hash);
-  for (const file of ['policy.cjs','calibration.cjs','value.cjs']) {
+  for (const file of ['policy.cjs','calibration.cjs','value.cjs','shadow.cjs']) {
     hash.update(fs.readFileSync(path.join(__dirname,file)));
   }
   const code_hash = hash.digest('hex');
