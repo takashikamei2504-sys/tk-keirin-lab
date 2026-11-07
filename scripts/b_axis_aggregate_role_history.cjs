@@ -48,7 +48,7 @@ function add(o,type,score){
 }
 function empty(){
  return {races:0,eligible:0,skipGirls:0,skipOtherSize:0,skipNoResult:0,skipNoLineRole:0,
-  runners:{7:0,9:0},lineSize:{},oneTwoSameLine:0,topThreeSameLine:0,oneThreeSameLine:0,
+  runners:{7:0,9:0},byCarCount:{7:{races:0,leadersFirst:0,sameLine12:0,sameLine123:0},9:{races:0,leadersFirst:0,sameLine12:0,sameLine123:0}},lineSize:{},oneTwoSameLine:0,topThreeSameLine:0,oneThreeSameLine:0,
   thirdPlaceFromWinnerLine:0,leaderWins:0,rolePosition:{},followScoreGap:{},rider_roles:{},scoreRanks:{},
   firstTwoRelation:{sameLine:0,differentLine:0},observedBLeaderRows:0};
 }
@@ -64,6 +64,7 @@ function observe(data,race){
  const ids=new Map();for(const line of lines)for(let i=0;i<line.length;i++)ids.set(line[i].car_number,{line,linePosition:i+1,rider:line[i]});
  if(trio.some(n=>!ids.has(n))){data.eligible--;data.skipNoResult++;return;}
  const w=trio.map(no=>ids.get(no)),same=(a,b)=>w[a].line===w[b].line;
+ const car=data.byCarCount[sz];car.races++;if(w[0].linePosition===1)car.leadersFirst++;if(same(0,1))car.sameLine12++;if(same(0,1)&&same(1,2))car.sameLine123++;
  if(same(0,1)){data.oneTwoSameLine++;data.firstTwoRelation.sameLine++;}
  else data.firstTwoRelation.differentLine++;
  if(same(0,2)){data.oneThreeSameLine++;data.thirdPlaceFromWinnerLine++;}
@@ -130,7 +131,7 @@ async function main(){
  fs.writeFileSync(out,JSON.stringify(result,null,2)+'\n');
  const brief={schema:result.schema,period:[dates[0],dates.at(-1)],days:dates.length,n:total.eligible,rows7:total.runners[7],rows9:total.runners[9],
   skipped:[total.skipGirls,total.skipNoResult,total.skipNoLineRole],lineBySize:total.lineSize,
-  oneTwoSameLine:total.oneTwoSameLine,threeSameLine:total.topThreeSameLine,leaderWins:total.leaderWins,riderCount:Object.keys(minimal).length,
+  oneTwoSameLine:total.oneTwoSameLine,threeSameLine:total.topThreeSameLine,leaderWins:total.leaderWins,byCarCount:total.byCarCount,riderCount:Object.keys(minimal).length,
   train:summaries.train.eligible,holdout:summaries.holdout.eligible,
   followBins:total.followScoreGap,errors:fail};
  console.log('B_AXIS_ROLE_ARCHIVE '+JSON.stringify(brief));
