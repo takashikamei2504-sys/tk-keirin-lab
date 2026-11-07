@@ -21,7 +21,7 @@ function profile(features,follower,leader,options={}){
  const riderHistory=history(options.history,follower,options.date);
  const empirical=riderHistory?clip((riderHistory.top3+4)/(riderHistory.n+8),.04,.96):null;
  // Avoid treating top-three finishes as actual wheel tracking. Tiny adjustment only.
- const exRisk=options.exInput?Ex.followerRisk(options.exInput,leader,follower,options.asOf):null;
+ const exRisk=options.exInput?Ex.followerRisk(options.exInput,options.lineHead||leader,follower,options.asOf):null;
  const exAdjustment=exRisk?(exRisk.risk-.22)*Math.min(.20,exRisk.weight*.30):0;
  const track=clip(raw*.40+a*.33+s*.14+relative*.13+(empirical!==null?(empirical-.47)*.06:0)-exAdjustment,.18,.95);
  const accelerationMismatch=Math.max(0,pre-s);
