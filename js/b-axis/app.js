@@ -12,7 +12,7 @@ function status(message){$('status').textContent=message;}
 async function json(url){const c=new AbortController(),timer=setTimeout(()=>c.abort(),14000);try{const response=await fetch(url,{signal:c.signal,cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);return await response.json();}finally{clearTimeout(timer);}}
 async function fetchDay(date){let err;for(const base of ['https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/','https://kurinaka12-afk.github.io/keirin-app-data/'])try{const p=await json(base+date+'.json');if(p.date!==date||!Array.isArray(p.races)||p.races.length>250)throw Error('日付かデータ形式が不正');return p;}catch(e){err=e;}throw err||Error('日別データ未取得');}
 async function fetchPacks(){
- const sources={intelligence:'data/intelligence.json',recent:'data/recent_form.json',material:'data/race_material.json',s:'data/s_counts.json',bAxisHistory:'data/b_axis_role_history.json'};
+ const sources={intelligence:'data/intelligence.json',recent:'data/recent_form.json',material:'data/race_material.json',s:'data/s_counts.json',bAxisHistory:'data/b_axis_role_history.json',bAxisEx:'data/b_axis_ex_observations.json'};
  const result=await Promise.allSettled(Object.entries(sources).map(async ([name,url])=>[name,await json(url)]));
  for(const r of result)if(r.status==='fulfilled')packs[r.value[0]]=r.value[1];
  return result.filter(r=>r.status!=='fulfilled').length;
@@ -68,7 +68,22 @@ function show(){
   const followers=chosen.states.filter(s=>s.followTarget!==null&&s.wheelGap!==null&&s.track!=='追走離れ気味').length;
   $('scenario').innerHTML+='<p class="muted">B後の攻防仮説：別線反撃 '+post.attackers.length+'候補、牽制が成立し得る攻防 '+available.length+'組、追走離れ想定 '+(drops||'なし')+'、追走維持想定 '+followers+'人。すべてモデルの相対値で、実測回数ではありません。</p>';
  }
- $('positions').innerHTML=chosen.states.map(s=>'<div class="place"><strong>'+s.no+' '+escape(s.name)+'</strong><span>'+escape(s.role)+(s.followTarget?'｜'+s.followTarget+'番を追走':'')+'</span><span>'+escape(s.track)+(s.wheelGap!==null&&s.wheelGap!==undefined?'・車間指標'+s.wheelGap.toFixed(2):'')+'・残脚'+s.remaining.toFixed(2)+'</span></div>').join('');
+ const exRows=loadedInput.race.riders.reduce((sum,r)=>sum+BAxisEx.METRICS.filter(k=>BAxisEx.evidence(loadedInput,r,k,{asOf:loadedInput.as_of})).length,0);
+ $('scenario').innerHTML+='<p class="muted">EX戦術実測：'+(exRows?exRows+'項目を参照':'選手別の数値はまだ取得できていません。公開資料から数値を推測しません')+'。</p>';
+ function historyLine(state){
+  const r=loadedInput.race.riders.find(x=>x.no===state.no);
+  const stats=loadedInput.bAxisHistory,group=state.line.length===1?'solo':state.lineIndex===0?'leader':state.lineIndex===1?'second':'thirdPlus';
+  const history=stats?.training_end<loadedInput.race.date&&stats?.provenance?.actual_b_available===false?stats?.rider_positions?.[BAxisEx.identity(r)]?.[group]:null;
+  return history?.n>=3?'｜過去'+(group==='solo'?'単騎':group==='leader'?'ライン先頭':group==='second'?'番手':'3番手以降')+history.n+'走・3連対'+history.top3+'回':'';
+ }
+ function directEx(state){
+  const r=loadedInput.race.riders.find(x=>x.no===state.no);
+  return ['chigiri','chigirarare','tsuppari','kamashi','solo_win'].map(k=>{
+   const x=BAxisEx.evidence(loadedInput,r,k,{asOf:loadedInput.as_of});
+   return x?k+' '+x.events+'/'+x.opportunities:'';
+  }).filter(Boolean).join('、');
+ }
+ $('positions').innerHTML=chosen.states.map(s=>'<div class="place"><strong>'+s.no+' '+escape(s.name)+'</strong><span>'+escape(s.role)+(s.followTarget?'｜'+s.followTarget+'番を追走':'')+'</span><span>'+escape(s.track)+(s.wheelGap!==null&&s.wheelGap!==undefined?'・車間指標'+s.wheelGap.toFixed(2):'')+'・残脚'+s.remaining.toFixed(2)+escape(historyLine(s))+'</span>'+(directEx(s)?'<span>EX実測：'+escape(directEx(s))+'</span>':'')+'</div>').join('');
  $('ticket-count').textContent=tickets.length+'点';
  $('tickets').innerHTML=tickets.length?tickets.map((t,i)=>'<div class="ticket"><div class="ticket-head"><span class="rank">'+(i+1)+'</span><strong>'+t.key+'</strong><span class="tiny">'+scoreLabel()+' '+t.score.toFixed(3)+'</span></div><div class="ticket-reason">'+escape(t.reason)+'</div></div>').join(''):'<p>成立条件を満たす候補がありません。戦法を変更してください。</p>';
  $('compressed').textContent=compress(tickets).join(' ／ ');
@@ -88,7 +103,7 @@ async function prepareExample(n){
  const token=++requestId;status('保存入力を取得しています');try{
  const record=await json('reports/line/example-'+n+'.json');if(token!==requestId)return;
  const input=LineInput.prepare(record.input.race,{intelligence:record.input.replay_pack},Date.parse(record.input.as_of));
- input.replay=true;loadedInput=input;
+ input.replay=true;loadedInput=input;loadedInput.bAxisHistory=packs.bAxisHistory||null;loadedInput.bAxisEx=packs.bAxisEx||null;
  $('selector').hidden=false;chooseB();status('保存された発走前の材料を使った動作例です（当時のB-AXIS予測ではありません）');
  }catch(e){status('動作例を開けません：'+e.message);}
 }
@@ -97,7 +112,7 @@ $('load').onclick=async()=>{
  try{const p=await fetchDay(date),source=p.races.find(r=>r.venue===venue&&Number(r.race_number)===no);if(!source)throw Error('指定レースが日別データにありません');
  await fetchPacks();if(token!==requestId)return;
  const raw=SCounts.attach(RaceFeed.convert(source,p),packs.s);
- loadedInput=LineInput.prepare(raw,packs);loadedInput.bAxisHistory=packs.bAxisHistory||null;$('selector').hidden=false;chooseB();status(venue+no+'RのB-AXIS予想を生成しました');
+ loadedInput=LineInput.prepare(raw,packs);loadedInput.bAxisHistory=packs.bAxisHistory||null;loadedInput.bAxisEx=packs.bAxisEx||null;$('selector').hidden=false;chooseB();status(venue+no+'RのB-AXIS予想を生成しました');
  }catch(e){if(token===requestId){status('予想できません：'+e.message);$('selector').hidden=true;$('extras').hidden=true;loadedInput=null;}}
  finally{$('load').disabled=false;}
 };
