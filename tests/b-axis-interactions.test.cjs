@@ -40,6 +40,7 @@ for(const r of s9.race.riders){
 assert(tested>0,'fixture must exercise an attached marker that can become detached');
 const official=require('../scripts/b_axis_mechanism_audit.cjs');
 assert.equal(official.counts.explicitBlocks,4);
-assert.equal(official.counts.confirmedDetachment,2);
+assert.equal(official.counts.confirmedDetachment,1);
+assert.equal(official.counts.gapOpened,1);
 assert.equal(official.counts.followed,1);
 console.log('B-AXIS interaction tests passed: 7/9 rider scenario grid, attached marker, no fictitious block/detachment rates');
