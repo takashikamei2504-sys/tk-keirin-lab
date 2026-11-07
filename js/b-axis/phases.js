@@ -276,7 +276,7 @@ function complete(snapshot,tickets){
  const cornerPhase=post('corner',corner[0],corner,cornerEvents,.055);
  const finalEvents=[{actor:finish[0],action:'finish',target:snapshot.bNo,reason:'本線三連単'+best.key+'。'+(best.reason||'B後の決着経路を比較')}];
  for(const n of finish.slice(1))finalEvents.push({actor:n,action:'place',reason:n+'番が直線で着位を争い、上位'+(finish.indexOf(n)+1)+'着を確保する展開'});
- const finishPhase=post('finish',finish[0],last,finalEvents,.080);
+ const finishPhase=post('finish',finish[0],last,finalEvents,.125);
  const result=stages.concat([cornerPhase,finishPhase]),check=audit({...snapshot,phases:result},{complete:true});
  if(!check.passed)throw Error('B-AXIS 終盤局面監査: '+check.failures.join(' / '));
  return result;
