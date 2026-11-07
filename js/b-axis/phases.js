@@ -103,7 +103,7 @@ function simulate(race,features,bNo,mode,tacticLabel){
     if(isB)cost+=({press:.075,hold:.15,kamashi:.035,makuri:.025,surge:.035,relaunch:.028,solo_shift:.040})[mode];
     if(at.group===starter&&starter!==owner&&at.originalIndex===0)cost+=.025;
    }else if(stage==='home'){
-    if(isB)cost+=({press:.105,hold:.08,kamashi:.23,makuri:.235,surge:.20,relaunch:.265,solo_shift:.26})[mode];
+    if(isB)cost+=({press:.165,hold:.08,kamashi:.23,makuri:.235,surge:.20,relaunch:.265,solo_shift:.26})[mode];
     if(at.group===starter&&starter!==owner&&at.originalIndex===0)cost+=.065;
     if(isOwner&&!isB&&at.originalIndex>ownerIndex)cost+=fastMove?.070:.028;
     if(isOwner&&!isB&&at.originalIndex<ownerIndex)cost+=.125;
