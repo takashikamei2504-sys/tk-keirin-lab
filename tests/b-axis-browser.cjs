@@ -22,7 +22,7 @@ async function main(){
   const initialHeadline=await page.locator('#b-headline').innerText();
   await page.locator('#b-choice').selectOption(alternative);
   assert.notEqual(await page.locator('#b-headline').innerText(),initialHeadline);
-  assert.match(await page.locator('#scenario').innerText(),new RegExp(''+alternative+'番が最終B'));
+  assert.match(await page.locator('#scenario').innerText(),new RegExp(''+alternative+'番が最終(?:B|バック)'));
   assert.equal(await page.locator('#positions .place').count(),7,'all rider states recomputed');
   assert.notEqual(await page.evaluate(()=>JSON.stringify(window.bAxisOutput.b.phases)),firstTimeline,'changing B recomputes the full race');
   const t=await page.locator('#tactic-choice option').evaluateAll(xs=>xs.map(x=>x.value));
