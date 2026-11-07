@@ -48,7 +48,7 @@ for(const observed of fixture.races){
   const lineSet=new Set(line),f=observed.finish;
   observations.push({runners:observed.runners,bPlace:f.indexOf(observed.b_no)+1||4,bLineWins:lineSet.has(f[0]),bLinePair:lineSet.has(f[0])&&lineSet.has(f[1]),aiBHit:n.b.bNo===observed.b_no});
   examples.push({id:observed.race_id,runners:observed.runners,b:observed.b_no,actual,aiB:n.b.bNo,
-    top3:oPicks.slice(0,3),top5:oPicks.slice(0,5),top10:oPicks,leaderWinPicks:o.tickets.filter(t=>t.trio[0]===observed.b_no).length,oldTop5:oOld.tickets.slice(0,5).map(t=>t.key),
+    top3:oPicks.slice(0,3),top5:oPicks.slice(0,5),top10:oPicks,leaderWinPicks:o.tickets.filter(t=>t.trio[0]===observed.b_no).length,oldTop5:oOld.tickets.slice(0,5).map(t=>t.key),oldTop10:oOld.tickets.map(t=>t.key),
     distinctPair:new Set(o.tickets.map(t=>t.key.slice(0,3))).size,observedPayout:pay||null});
  }catch(e){errors.push({id:observed.race_id,reason:String(e.message||e)});}
 }
