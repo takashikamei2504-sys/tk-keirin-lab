@@ -1,0 +1,20 @@
+name: B-AXIS EX source and empirical audit
+on:
+  push:
+    branches: ['feature/b-axis-ex-tactics-20261108']
+    paths: ['js/b-axis/**','tests/b-axis-ex.test.cjs','data/b_axis_ex_observations.json','.github/workflows/b-axis-ex-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run test:b-axis
+      - run: node scripts/b_axis_role_history_validate.cjs
+      - run: node scripts/b_axis_empirical_pilot.cjs

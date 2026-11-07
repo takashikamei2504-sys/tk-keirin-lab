@@ -30,7 +30,7 @@ async function main(){
   await page.locator('#model-choice').selectOption('baseline');
   assert.equal(await page.evaluate(()=>window.bAxisOutput.version),'LAB_B_AXIS_V0.2.0');
   await page.locator('#model-choice').selectOption('interaction');
-  assert.equal(await page.evaluate(()=>window.bAxisOutput.version),'LAB_B_AXIS_V0.4.0');
+  assert.equal(await page.evaluate(()=>window.bAxisOutput.version),'LAB_B_AXIS_V0.5.0');
   const i=await page.evaluate(()=>window.bAxisOutput.b.interactions);
   assert.equal(i.estimatedPopulationBlockSuccessRate,null);
   await page.locator('#limit').selectOption('3');

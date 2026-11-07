@@ -5,7 +5,8 @@
 (function(root){'use strict';
 const Phases=typeof module!=='undefined'?require('./phases.js'):root.BAxisPhases;
 const Interactions=typeof module!=='undefined'?require('./interactions.js'):root.BAxisInteractions;
-const VERSION='LAB_B_AXIS_V0.4.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
+const Ex=typeof module!=='undefined'?require('./ex-data.js'):root.BAxisEx;
+const VERSION='LAB_B_AXIS_V0.5.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
 const TACTICS={press:'突っ張り',hold:'押さえ先行',kamashi:'カマシ',makuri:'早めの捲り',surge:'番手発進',relaunch:'3番手以降からの追上げ',solo_shift:'単騎の位置取りからの先頭進出'};
 const prefecture={
  '函館':'北海道','青森':'青森','いわき平':'福島','弥彦':'新潟','前橋':'群馬','取手':'茨城','宇都宮':'栃木','大宮':'埼玉','西武園':'埼玉','京王閣':'東京','立川':'東京','松戸':'千葉','川崎':'神奈川','平塚':'神奈川','小田原':'神奈川','伊東':'静岡','静岡':'静岡','名古屋':'愛知','岐阜':'岐阜','大垣':'岐阜','豊橋':'愛知','富山':'富山','松阪':'三重','四日市':'三重','福井':'福井','奈良':'奈良','向日町':'京都','和歌山':'和歌山','岸和田':'大阪','玉野':'岡山','広島':'広島','防府':'山口','高松':'香川','小松島':'徳島','高知':'高知','松山':'愛媛','小倉':'福岡','久留米':'福岡','武雄':'佐賀','佐世保':'長崎','別府':'大分','熊本':'熊本'};
@@ -30,9 +31,15 @@ function candidates(input){
   const line=race.lineup.find(l=>l.includes(r.no)),index=line.indexOf(r.no),c=context(input,r),initiative=feature(input,r.no,'initiative',r.style==='逃'?.68:.33),endurance=feature(input,r.no,'endurance'),sprint=feature(input,r.no,'sprint'),ability=feature(input,r.no,'ability'),front=feature(input,r.no,'front');
   const stage=String(race.class||''),championship=/決勝|特選|特別選抜/.test(stage),qualifying=/準決|予選/.test(stage),loserRound=/一般|特一般|敗者|負け戦|選抜/.test(stage)&&!/特別選抜/.test(stage),linePower=(line.length-1)*.12+(championship&&line.length>=3?.08:0);
   const leadTerm=Number(r.meta?.term),seniorBehind=Number.isInteger(leadTerm)&&leadTerm>0&&line.slice(index+1).some(n=>{const other=race.riders.find(x=>x.no===n),term=Number(other?.meta?.term);return Number.isInteger(term)&&term>0&&term<leadTerm;});
-  const score=.24+initiative*.98+endurance*.28+sprint*.21+front*.12+ability*.14+linePower+(c.clearIntent?.19+(loserRound?.04:0):c.neutralIntent?.06:0)+(c.locale?.08:0)+(seniorBehind?.035:0)+(qualifying?.02:0)-(index>0?.51+.11*(index-1):0)-(line.length===1?.14:0)-(r.style==='追'&&index===0?.42:0);
+  let score=.24+initiative*.98+endurance*.28+sprint*.21+front*.12+ability*.14+linePower+(c.clearIntent?.19+(loserRound?.04:0):c.neutralIntent?.06:0)+(c.locale?.08:0)+(seniorBehind?.035:0)+(qualifying?.02:0)-(index>0?.51+.11*(index-1):0)-(line.length===1?.14:0)-(r.style==='追'&&index===0?.42:0);
+  const measured=Ex.tactics(input,r,input.as_of);
+  const available=line[0]===r.no?[measured.press,measured.kamashi].filter(e=>e?.opportunities>=12):[];
+  if(available.length){
+   const confidence=available.reduce((s,m)=>s+(m.smoothed-.5)*m.weight,0)/available.length;
+   score+=clamp(confidence,-.5,.5)*.07;
+  }
   return {no:r.no,name:r.name,line:line.slice(),lineIndex:index,weight:max(.035,score),basis:[
-    '先行傾向 '+initiative.toFixed(2),'ライン'+line.length+'車',index===0?'ライン先頭':'ライン'+(index+1)+'番手',c.clearIntent?'本人コメントの先行意向':c.commentUsed?'本人コメント参照':'先行意向コメント未取得',c.locale?'地元':null,seniorBehind?'ライン後位に上位期の先輩（期別比較・関係性は未断定）':null,championship?'特選・決勝':qualifying?'予選・準決勝':loserRound?'負け戦・選抜（本人の主導権意向を重視）':null
+    '先行傾向 '+initiative.toFixed(2),'ライン'+line.length+'車',available.length?'EX戦法成功率 '+available.map(e=>e.metric+' '+e.events+'/'+e.opportunities).join('・'):null,index===0?'ライン先頭':'ライン'+(index+1)+'番手',c.clearIntent?'本人コメントの先行意向':c.commentUsed?'本人コメント参照':'先行意向コメント未取得',c.locale?'地元':null,seniorBehind?'ライン後位に上位期の先輩（期別比較・関係性は未断定）':null,championship?'特選・決勝':qualifying?'予選・準決勝':loserRound?'負け戦・選抜（本人の主導権意向を重視）':null
    ].filter(Boolean),commentSources:c.commentSources};
  });
  const total=arr.reduce((x,y)=>x+y.weight,0);
@@ -58,7 +65,7 @@ function snapshot(input,no,tactic){
  if(!selected)throw Error('B指定選手が出走表にいません');
  const allowed=tacticsFor(input,no),mode=tactic==='auto'||!tactic?chooseTactic(input,no):tactic;
  if(!allowed.includes(mode))throw Error('B通過選手の並びと戦法が整合しません');
- return Phases.simulate(race,input.features||{},no,mode,TACTICS[mode],input.bAxisHistory||null);
+ return Phases.simulate(race,input.features||{},no,mode,TACTICS[mode],input.bAxisHistory||null,input);
 }
 function finishRanking(input,snap,limit=10){
  const states=snap.states,byNo=new Map(states.map(s=>[s.no,s])),b=byNo.get(snap.bNo);
@@ -73,7 +80,14 @@ function finishRanking(input,snap,limit=10){
  function strength(s){
   const h=s.historyAssociation;
   const prior=h&&h.n>=6?((h.top3+3)/(h.n+6)-.5)*.10:0;
-  return s.ability*.34+s.speed*.19+s.finish*.20+s.remaining*.22+s.closing*.18+prior;
+  const rider=input.race.riders.find(x=>x.no===s.no);
+  const solo=s.line.length===1?Ex.smoothed(input,rider,'solo_top3',.38,18,input.as_of):null;
+  const archive=input.bAxisHistory,role=s.line.length===1?'solo':s.lineIndex===0?'leader':s.lineIndex===1?'second':'thirdPlus';
+  const row=archive?.rider_positions?.[Ex.identity(rider)]?.[role];
+  const historySafe=archive?.training_end&&input.race.date>archive.training_end&&archive.provenance?.actual_b_available===false;
+  const measuredSolo=solo&&solo.opportunities>=5?(solo.smoothed-.38)*solo.weight*.10:0;
+  const rolePrior=historySafe&&row?.n>=6?((row.top3+3)/(row.n+8)-.39)*.05:0;
+  return s.ability*.34+s.speed*.19+s.finish*.20+s.remaining*.22+s.closing*.18+prior+measuredSolo+rolePrior;
  }
  function pace(s){
   return strength(s)+s.closing*.25-s.gap*.075;
@@ -233,7 +247,7 @@ function build(input,opts={}){
  snap.phases=Phases.complete(snap,tickets);
  return {version:VERSION,race:{date:races.date,venue:races.venue,race_no:races.race_no,start:races.start,grade:races.grade,class:races.class,lineup:races.lineup,riders:races.riders.map(r=>({no:r.no,name:r.name,score:r.score,style:r.style}))},bCandidates,b:snap,tickets,provenance:{input_time:input.as_of||null,mode:opts.bNo===undefined?'AI B推奨':'手動B指定',tactic_selection:tactic},caveat:'B通過を条件にする未校正の展開・着順ランキング。Bの相対支持度と三連単スコアは的中確率ではない。着順やオッズは入力に使わない。'};
 }
-const api={VERSION,TACTICS,candidates,tacticsFor,chooseTactic,snapshot,finishRanking,build,verify,Phases,Interactions};
+const api={VERSION,TACTICS,candidates,tacticsFor,chooseTactic,snapshot,finishRanking,build,verify,Phases,Interactions,Ex};
 if(typeof module!=='undefined')module.exports=api;
 root.BAxisEngine=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

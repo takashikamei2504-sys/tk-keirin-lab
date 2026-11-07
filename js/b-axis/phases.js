@@ -24,7 +24,7 @@ function checkRaw(race,bNo,mode){
  if(!ids.includes(bNo))throw Error('B-AXIS: B選手は出走選手のみ');
  if(!['press','hold','kamashi','makuri','surge','relaunch','solo_shift'].includes(mode))throw Error('B-AXIS: 未対応の獲得戦法');
 }
-function simulate(race,features,bNo,mode,tacticLabel,historyModel=null){
+function simulate(race,features,bNo,mode,tacticLabel,historyModel=null,exInput=null){
  checkRaw(race,bNo,mode);
  const riders=new Map(race.riders.map(r=>[r.no,r]));
  const groups=race.lineup.map((members,id)=>({id,members:members.slice(),head:members[0]}));
@@ -200,7 +200,7 @@ function simulate(race,features,bNo,mode,tacticLabel,historyModel=null){
    else if(isOwner){
     const shifted=originalIndex<ownerIndex;
     const preceding=riders.get(g.members[i-1]);
-    following=Follow.profile(features,r,preceding,{fast:fastMove||['surge','relaunch'].includes(mode),switched:shifted,date:race.date,history:historyModel});
+    following=Follow.profile(features,r,preceding,{fast:fastMove||['surge','relaunch'].includes(mode),switched:shifted,date:race.date,history:historyModel,exInput,asOf:exInput?.as_of,lineHead:riders.get(bNo)});
     localGap+=following.wheelGap;
     gap=localGap;
     role=shifted?'元ライン前方・切替':i===1?'B番手':'Bライン追走';
@@ -212,7 +212,7 @@ function simulate(race,features,bNo,mode,tacticLabel,historyModel=null){
     if(first)gap=headGap.get(g.id);
     else {
      const preceding=riders.get(g.members[i-1]);
-     following=Follow.profile(features,r,preceding,{fast:force>.6,date:race.date,history:historyModel});
+     following=Follow.profile(features,r,preceding,{fast:force>.6,date:race.date,history:historyModel,exInput,asOf:exInput?.as_of,lineHead:riders.get(g.members[0])});
      localGap+=following.wheelGap;
      gap=headGap.get(g.id)+localGap;
     }
@@ -225,7 +225,7 @@ function simulate(race,features,bNo,mode,tacticLabel,historyModel=null){
    const spent=effort[n],remaining=clamp(.96-spent+endurance*.11,.07,.99),
        closing=clamp(.16+sprint*.33+abilityVal*.23+finish*.13+makuri*.09+remaining*.10);
    const reachable=gap<=2.4||attack&&gap<=4.05&&closing>=.49;
-   states.push({no:n,name:r.name,line:lookup.get(n).group.members.slice(),lineIndex:originalIndex,riderStyle:r.style,role,track:trackLabel,entry,attack,followTarget:following?.followTarget??null,wheelGap:following?.wheelGap??null,trackingStrength:following?.tracking??null,followBasis:following?.basis??null,historyAssociation:following?.historyTop3Association??null,spent:round(spent),gap:round(gap),remaining:round(remaining),closing:round(closing),ability:round(abilityVal),finish:round(finish),speed:round(sprint),initiative:round(initiative(n)),reachable,atB:one?'先頭':gap<1.5?'直後':gap<3?'射程内':'後方'});
+   states.push({no:n,name:r.name,line:lookup.get(n).group.members.slice(),lineIndex:originalIndex,riderStyle:r.style,role,track:trackLabel,entry,attack,followTarget:following?.followTarget??null,wheelGap:following?.wheelGap??null,trackingStrength:following?.tracking??null,followBasis:following?.basis??null,historyAssociation:following?.historyTop3Association??null,exObservation:following?.measuredEx??null,spent:round(spent),gap:round(gap),remaining:round(remaining),closing:round(closing),ability:round(abilityVal),finish:round(finish),speed:round(sprint),initiative:round(initiative(n)),reachable,atB:one?'先頭':gap<1.5?'直後':gap<3?'射程内':'後方'});
   }
  }
  states.sort((a,b)=>a.gap-b.gap||a.no-b.no);

@@ -1,0 +1,16 @@
+name: B-AXIS public EX access probe
+on:
+  push:
+    branches: ['feature/b-axis-ex-tactics-20261108']
+    paths: ['scripts/b_axis_ex_access_probe.cjs','.github/workflows/b-axis-ex-probe.yml']
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node scripts/b_axis_ex_access_probe.cjs

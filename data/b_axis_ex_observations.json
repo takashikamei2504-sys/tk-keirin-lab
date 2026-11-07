@@ -1,0 +1,18 @@
+{
+  "schema": "tk-b-axis-ex-observations/v1",
+  "generated_at": "2026-11-08",
+  "description": "Source-linked rider-level EX observation store. No numerical EX records are included until a public, dated original is verified. Absent is not 0%.",
+  "metric_definitions": {
+    "chigiri": "Line leader separates one or more riders in the line, numerator/eligible line-leader starts",
+    "chigirarare": "Line follower is dropped by the leader, numerator/eligible following starts",
+    "kamashi": "Successful kamashi attempts / observed kamashi attempts per source definition",
+    "tsuppari": "Successful tsuppari attempts / observed tsuppari attempts per source definition",
+    "tobitsuki": "Successful jump-onto-marker attempts / observed attempts",
+    "seri": "Marker position kept in head-to-head contest / observed contest starts",
+    "solo_win": "Wins while racing solo / solo starts",
+    "solo_top3": "Top 3 finishes while racing solo / solo starts"
+  },
+  "metric_source": "https://www.winticket.jp/keirin/column/ex_data",
+  "riders": {},
+  "note": "Absence of a value means NOT_OBSERVED. This document is deliberately empty: public article defines EX metrics but does not enumerate each rider's actual counts. The adapter is active when valid official source-linked, date-bounded EX observations become available."
+}
