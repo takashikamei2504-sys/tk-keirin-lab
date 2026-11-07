@@ -10,14 +10,15 @@ const prefecture={
 function verify(input){
  const race=input?.race,ids=race?.riders?.map(r=>r.no)||[],lineup=race?.lineup||[];
  if(![7,9].includes(ids.length)||new Set(ids).size!==ids.length||ids.some(n=>!Number.isInteger(n)||n<1||n>9)||lineup.flat().length!==ids.length||new Set(lineup.flat()).size!==ids.length||!ids.every(n=>lineup.flat().includes(n))||!lineup.every(l=>l.length))throw Error('7/9車の全選手と並びが必要です');
- if(race.results||race.finish||race.combos)throw Error('着順情報の混入を検知しました');
+ if(race.results||race.finish||race.combos||input.results||input.finish||input.combos||input.payouts)throw Error('着順情報の混入を検知しました');
  return race;
 }
 function feature(input,no,name,fallback=.45){const v=input.features?.[no]?.[name]?.value;return Number.isFinite(v)?clamp(v):fallback;}
 function context(input,rider){
  const race=input.race,comments=(race.race_material?.comments||[]).filter(c=>c.rider?.replace(/\s/g,'')===rider.name.replace(/\s/g,'')&&c.body_verified===true);
  const body=comments.map(c=>String(c.comment||c.text||c.body||c.excerpt||'')).join(' ').slice(0,350);
- const clearIntent=/主導権|先行|前で|積極的|駆ける|突っ張|カマシ/.test(body);
+ const denied=/先行(?:しない|しません|できない|無理)|無理に(?:駆け|先行)|主導権.{0,4}(?:狙わない|取らない)/.test(body);
+ const clearIntent=!denied&&/主導権|先行|前で|積極的|駆ける|突っ張|カマシ/.test(body);
  const neutralIntent=/自在|位置|流れ|自力/.test(body);
  const locale=Boolean(prefecture[race.venue]&&prefecture[race.venue]===rider.meta?.prefecture);
  return {locale,clearIntent,neutralIntent,commentSources:comments.map(x=>x.url).filter(Boolean).slice(0,3),commentUsed:body.length>0};
@@ -25,10 +26,11 @@ function context(input,rider){
 function candidates(input){
  const race=verify(input),arr=race.riders.map(r=>{
   const line=race.lineup.find(l=>l.includes(r.no)),index=line.indexOf(r.no),c=context(input,r),initiative=feature(input,r.no,'initiative',r.style==='逃'?.68:.33),endurance=feature(input,r.no,'endurance'),sprint=feature(input,r.no,'sprint'),ability=feature(input,r.no,'ability'),front=feature(input,r.no,'front');
-  const championship=/決勝|特選/.test(race.class||''),linePower=(line.length-1)*.12+(championship&&line.length>=3?.08:0);
-  const score=.24+initiative*.98+endurance*.28+sprint*.21+front*.12+ability*.14+linePower+(c.clearIntent?.19:c.neutralIntent?.06:0)+(c.locale?.08:0)-(index>0?.51+.11*(index-1):0)-(line.length===1?.14:0);
+  const championship=/決勝|特選/.test(race.class||''),qualifying=/準決|予選/.test(race.class||''),linePower=(line.length-1)*.12+(championship&&line.length>=3?.08:0);
+  const leadTerm=Number(r.meta?.term),seniorBehind=Number.isInteger(leadTerm)&&leadTerm>0&&line.slice(index+1).some(n=>{const other=race.riders.find(x=>x.no===n),term=Number(other?.meta?.term);return Number.isInteger(term)&&term>0&&term<leadTerm;});
+  const score=.24+initiative*.98+endurance*.28+sprint*.21+front*.12+ability*.14+linePower+(c.clearIntent?.19:c.neutralIntent?.06:0)+(c.locale?.08:0)+(seniorBehind?.035:0)+(qualifying?.02:0)-(index>0?.51+.11*(index-1):0)-(line.length===1?.14:0);
   return {no:r.no,name:r.name,line:line.slice(),lineIndex:index,weight:max(.035,score),basis:[
-    '先行傾向 '+initiative.toFixed(2),'ライン'+line.length+'車',index===0?'ライン先頭':'ライン'+(index+1)+'番手',c.clearIntent?'本人コメントの先行意向':c.commentUsed?'本人コメント参照':'先行意向コメント未取得',c.locale?'地元':null,championship?'特選・決勝':null
+    '先行傾向 '+initiative.toFixed(2),'ライン'+line.length+'車',index===0?'ライン先頭':'ライン'+(index+1)+'番手',c.clearIntent?'本人コメントの先行意向':c.commentUsed?'本人コメント参照':'先行意向コメント未取得',c.locale?'地元':null,seniorBehind?'ライン後位に上位期の先輩（期別比較・関係性は未断定）':null,championship?'特選・決勝':qualifying?'予選・準決勝':null
    ].filter(Boolean),commentSources:c.commentSources};
  });
  const total=arr.reduce((x,y)=>x+y.weight,0);
