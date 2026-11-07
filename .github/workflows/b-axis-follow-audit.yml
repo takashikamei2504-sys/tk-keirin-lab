@@ -1,0 +1,20 @@
+name: B-AXIS follower and outcome audit
+on:
+  push:
+    branches: ['feature/b-axis-follow-power-history-20261108']
+    paths: ['js/b-axis/**','tests/b-axis-follow.test.cjs','scripts/b_axis_empirical_pilot.cjs','.github/workflows/b-axis-follow-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run test:b-axis
+      - run: node scripts/b_axis_empirical_pilot.cjs
+      - run: node scripts/b_axis_yokkaichi_diagnose.cjs
