@@ -6,7 +6,7 @@ const key=p=>p.race_id+'|'+Audit.modelId(p);
 function day(date){if(!dayPattern.test(date))throw Error('Invalid history date');return date;}
 function filename(p){return 'p-'+crypto.createHash('sha256').update(key(p)).digest('hex')+'.json';}
 function read(file,fallback){return fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):fallback;}
-function load(dir,date){
+function load(dir,date,{withResults=true}={}){
  day(date);const legacy=read(path.join(dir,date+'.json'),{schema:Audit.SCHEMA,date,predictions:[],results:[]});
  const predictions=[...legacy.predictions],seen=new Map(predictions.map(p=>[key(p),p])),folder=path.join(dir,date),locations=new Map(predictions.map(p=>[key(p),date+'.json']));
  if(fs.existsSync(folder))for(const file of fs.readdirSync(folder).filter(n=>/^p-[a-f0-9]{64}\.json$/.test(n)).sort()){
@@ -14,8 +14,8 @@ function load(dir,date){
   if(seen.has(key(p)))throw Error('Duplicate immutable forecast: '+key(p));
   seen.set(key(p),p);predictions.push(p);locations.set(key(p),date+'/'+file);
  }
- const results=new Map(legacy.results.map(r=>[r.race_id,r]));
- for(const r of read(path.join(folder,'results.json'),{results:[]}).results){if(!r.race_id?.startsWith(date+':'))throw Error('Invalid result date');results.set(r.race_id,r);}
+ const results=new Map(withResults?legacy.results.map(r=>[r.race_id,r]):[]);
+ if(withResults)for(const r of read(path.join(folder,'results.json'),{results:[]}).results){if(!r.race_id?.startsWith(date+':'))throw Error('Invalid result date');results.set(r.race_id,r);}
  return {schema:legacy.schema,date,predictions,results:[...results.values()],locations};
 }
 function dates(dir){return [...new Set(fs.readdirSync(dir).flatMap(n=>{const d=n.replace(/\.json$/,'');return dayPattern.test(d)?[d]:[];}))].sort();}

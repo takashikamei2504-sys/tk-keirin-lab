@@ -14,20 +14,20 @@ const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const dateName = /^\d{4}-\d{2}-\d{2}$/;
 const fields = ['date', 'grade', 'cars', 'venue', 'day', 'topology', 'length', 'settlement'];
 
-function readHistory(data) {
+function readHistory(data, {withResults = true, from = ''} = {}) {
   const labDir = path.join(data, 'lab_history');
   const lineDir = path.join(data, 'line_history');
   const results = new Map();
   const lab = [], line = [], exclusions = {lab: 0, line: 0};
-  for (const date of History.dates(labDir)) {
-    const history = History.load(labDir, date);
+  for (const date of History.dates(labDir).filter(d => d >= from)) {
+    const history = History.load(labDir, date, {withResults});
     for (const result of history.results) results.set(result.race_id, result);
     for (const p of history.predictions) {
       if (Audit.validForecast(p)) lab.push({...p, model_id: Legacy.modelId(p)});
       else exclusions.lab++;
     }
   }
-  for (const date of fs.readdirSync(lineDir).filter(n => dateName.test(n)).sort()) {
+  for (const date of fs.readdirSync(lineDir).filter(n => dateName.test(n) && n >= from).sort()) {
     const directory = path.join(lineDir, date);
     for (const file of fs.readdirSync(directory).filter(n => /^[a-f0-9]{64}\.json$/.test(n)).sort()) {
       const record = read(path.join(directory, file));

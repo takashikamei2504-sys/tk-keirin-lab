@@ -1,0 +1,22 @@
+'use strict';
+const assert = require('node:assert/strict');
+const Engine = require('../js/roi/engine.cjs');
+const scenes = Array.from({length:6},(_,i)=>({phase:String(i),order:[1,2,3,4,5,6,7],action:'保持'}));
+const record = {race_id:'2026-11-07:試験:1',input:{lineup:[[1,2,3],[4,5],[6,7]]},
+  cutoff:'2026-11-07T10:00:00Z',saved_at:'2026-11-07T09:00:00Z',identity:[[1]],model_id:'source'};
+const story = {id:'s',scenes,reading:'先行',audit:{passed:true}};
+const main = {id:7,scenes,audit:{passed:true},finish:{pair:[2,1],mode:'番手差し',thirds:[{no:3,reason:'追走'}]},score:1};
+const outside = {id:8,scenes,audit:{passed:true},finish:{pair:[4,2],mode:'別線捲り',thirds:[{no:1,reason:'残り脚'}]},score:.9};
+const t = {key:'1-2-3',trio:[1,2,3],reason:'先行',mode:'lead',explanation:'先行',story_id:'s',hypothesis:7};
+const lab = {...record,story:{main:story,alternatives:[]},chosen:[t]};
+const line = {...record,out:{main,alternatives:[outside],decision:{axis:'位置'},provenance:{input_sha256:'hash'}},chosen:[t]};
+const out = Engine.build(lab,line);
+assert.equal(out.chosen.find(x=>x.key===t.key).support,1);
+assert.equal(out.chosen.find(x=>x.key===t.key).evidence.length,2);
+assert(out.chosen.find(x=>x.key==='4-2-1'));
+assert.equal(out.stories.LINE.main.scenes.length,6);
+assert.equal(out.input_sha256,Engine.build(lab,line).input_sha256);
+assert.equal(Engine.build(lab,{...line,input:{lineup:[[1,2],[3,4]]}}),null);
+assert.equal(Engine.build(lab,{...line,out:{...line.out,alternatives:[{...outside,audit:{passed:false}}]}}).scores.some(([k])=>k==='4-2-1'),false);
+assert.equal(Engine.select([{key:'1-2-3',trio:[1,2,3],support:.01}],10).length,0);
+console.log('ROI hypotheses: six phases, independent first-place grounds, physical rejection and no double counting OK');
