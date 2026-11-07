@@ -42,8 +42,9 @@ function simulate(race,features,bNo,mode,tacticLabel){
  const rivals=groups.filter(g=>g!==owner).sort((a,b)=>rivalForce(b)-rivalForce(a)||a.id-b.id);
  const sortedByFront=rivals.slice().sort((a,b)=>(front(b.head)*.63+initiative(b.head)*.37)-(front(a.head)*.63+initiative(a.head)*.37)||a.id-b.id);
  const starter=sortedByFront[0]||owner,baseOpp=rivals[0]||null,pressure=baseOpp?rivalForce(baseOpp):0;
- const ownerFirst=['press','surge','relaunch'].includes(mode)||starter===owner;
- const firstLine=ownerFirst?owner:starter;
+ const tacticalAttack=['kamashi','makuri','solo_shift'].includes(mode);
+ const ownerFirst=['press','surge','relaunch'].includes(mode)||(starter===owner&&!tacticalAttack);
+ const firstLine=ownerFirst?owner:(starter===owner&&rivals.length?rivals[0]:starter);
  const rest=groups.filter(g=>g!==firstLine).sort((a,b)=>{
    const aOw=a===owner,bOw=b===owner;
    if(aOw||bOw){
@@ -63,7 +64,7 @@ function simulate(race,features,bNo,mode,tacticLabel){
   return other.length?[other[0],target,...other.slice(1)]:[target];
  }
  const bell=['hold'].includes(mode)?toFront(initial,owner.id):
-   ['kamashi'].includes(mode)?toSecond(initial,owner.id):
+   ['kamashi','makuri'].includes(mode)?toSecond(initial,owner.id):
    ['solo_shift'].includes(mode)?toSecond(initial,owner.id):
    initial.slice();
  const home=['kamashi','makuri','solo_shift'].includes(mode)?toSecond(bell,owner.id):bell.slice();
@@ -251,7 +252,7 @@ function complete(snapshot,tickets){
  }
  const finish=best.trio,rest=back.order.filter(n=>!finish.includes(n)),last=finish.concat(rest);
  // Only promote the chosen winner if a finish route explicitly describes its path.
- const corner=best.path==='hold'?back.order.slice():[finish[0],...back.order.filter(n=>n!==finish[0])];
+ const corner=['hold','marker','inside','third_rush','outside_marker'].includes(best.path)?back.order.slice():[finish[0],...back.order.filter(n=>n!==finish[0])];
  const attack=best.path==='outside'||best.path==='outside_marker',pass=best.path!=='hold';
  const reasons={
   hold:'最終Bの主導権を維持。番手と別線の仕掛けに耐えて直線に入る',
@@ -262,9 +263,11 @@ function complete(snapshot,tickets){
   inside:'切替えた追込が空いた内進路に入る'
  };
  const cornerEvents=[{actor:finish[0],action:pass?'challenge':'retain',target:snapshot.bNo,reason:reasons[best.path]||'4角で直線の進路を選択'}];
+ for(const n of finish.slice(1))cornerEvents.push({actor:n,action:'chase',reason:n+'番は最終Bの位置関係から3〜4角で上位進出を狙う'});
  if(attack)cornerEvents.push({actor:snapshot.bNo,action:'respond',target:finish[0],reason:'B選手は外からの反撃に対応、消耗と追走状況が着順に影響'});
  const cornerPhase=post('corner',corner[0],corner,cornerEvents,.055);
  const finalEvents=[{actor:finish[0],action:'finish',target:snapshot.bNo,reason:'本線三連単'+best.key+'。'+(best.reason||'B後の決着経路を比較')}];
+ for(const n of finish.slice(1))finalEvents.push({actor:n,action:'place',reason:n+'番が直線で着位を争い、上位'+(finish.indexOf(n)+1)+'着を確保する展開'});
  const finishPhase=post('finish',finish[0],last,finalEvents,.080);
  const result=stages.concat([cornerPhase,finishPhase]),check=audit({...snapshot,phases:result},{complete:true});
  if(!check.passed)throw Error('B-AXIS 終盤局面監査: '+check.failures.join(' / '));
@@ -286,7 +289,7 @@ function audit(snap,opts={}){
   }
   if(i===3){
    if(phase.leader!==b||phase.positions.find(p=>p.no===b)?.gap!==0)failures.push('B時点の先頭が指定Bと不一致');
-   if(phases[2]?.leader!==b&&phase.events.every(e=>e.action!=='pass'))failures.push('ホームからBの主導権交替に原因がない');
+   if(phases[2]?.leader!==b&&phase.events.every(e=>!['pass','reorder'].includes(e.action)))failures.push('ホームからBの主導権交替に原因がない');
   }
  });
  return {passed:failures.length===0,failures:[...new Set(failures)],checks:['全選手の保存','6局面と戦術イベント','ホーム〜Bの主導権交替','累積脚消耗の単調性','B先頭条件'],relative:true};
