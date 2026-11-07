@@ -18,7 +18,7 @@ function validate(r){
 }
 function flags(r){
  const [one,two]=r.finish, b=r.b_no, line=new Set(r.published_b_line);
- return {b_first:bool(one===b),b_top2:bool(one===b||two===b),b_top3:bool(r.finish.includes(b)),line_wins:bool(line.has(one)),line_member_top2:bool(line.has(one)||line.has(two)),line_pair:bool(line.has(one)&&line.has(two)),line_2_in_trio:bool(r.finish.filter(n=>line.has(n)).length>=2),line_sweep:bool(r.finish.every(n=>line.has(n)))};
+ return {b_line_head:bool(r.published_b_line[0]===b),b_line_nonhead:bool(r.published_b_line[0]!==b),b_first:bool(one===b),b_top2:bool(one===b||two===b),b_top3:bool(r.finish.includes(b)),line_wins:bool(line.has(one)),line_member_top2:bool(line.has(one)||line.has(two)),line_pair:bool(line.has(one)&&line.has(two)),line_2_in_trio:bool(r.finish.filter(n=>line.has(n)).length>=2),line_sweep:bool(r.finish.every(n=>line.has(n)))};
 }
 function summary(rows){
  const validated=rows.map(validate);
