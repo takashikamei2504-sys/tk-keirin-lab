@@ -8,10 +8,13 @@ const venues={四日市:48,熊本:87,高知:74,京王閣:27,小倉:81,福井:51,
    const html=await r.text();
    const pos=html.indexOf('第1レース'),apos=html.indexOf('S/B'),bpos=html.indexOf('>B<');
    const event=html.match(/第[0-9０-９]+レース/g)?.length||0;
+   const raceHeaders=[...html.matchAll(/第[0-9０-９]+レース/g)].map(m=>({offset:m.index,preview:html.slice(Math.max(0,m.index-220),m.index+300)}));
+   const firstSection=pos>0?html.slice(pos,pos+5500):null;
+   const bCell=html.match(/<td[^>]*>\s*B\s*<\/td>/i);
    const rows=[...html.matchAll(/<tr\b[^>]*>[\s\S]{0,3000}?<\/tr>/g)].slice(0,45).map(x=>x[0]);
    const bRows=rows.filter(x=>/>\s*B\s*</.test(x)||/>\s*S\s*B\s*</.test(x));
    console.log('B_AXIS_NOV7_SOURCE '+JSON.stringify({venue,url,status:r.status,size:html.length,events:event,first:html.slice(0,155),pos,apos,bpos,context:apos>=0?html.slice(apos-100,apos+175):null,
-     firstB:bRows[0]?.slice(0,1600)||null,oneResultRow:rows.find(x=>/>5</.test(x))?.slice(0,1100)||null}));
+     firstB:bRows[0]?.slice(0,2000)||null,oneResultRow:rows.find(x=>/>5</.test(x))?.slice(0,1100)||null,headers:raceHeaders.slice(0,4),firstSection:firstSection?.slice(0,5500),bCell:bCell?.[0]}));
   }catch(e){console.log('B_AXIS_NOV7_SOURCE '+JSON.stringify({venue,url,error:String(e.message||e)}));}
  }
 })();
