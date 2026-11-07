@@ -61,6 +61,12 @@ function show(){
  $('b-headline').textContent='B：'+chosen.bNo+'番 '+chosen.tacticLabel;
  $('scenario').innerHTML='<p>'+escape(chosen.logic[0])+'。'+escape(chosen.logic[1])+'。</p><p>最終B時点の全選手の位置と脚の状態から着順を生成。Bライン以外の1着・2着・3着、別線による上位独占も除外しません。</p><p class="muted">B支持度：'+lead.support.toFixed(1)+'pt ／ B選手の消耗 '+chosen.leadingCost.toFixed(2)+'（0〜1のモデル指標）</p>';
  $('phases').innerHTML=renderPhases(chosen.phases||[]);
+ const post=chosen.interactions;
+ if(post){
+  const available=post.attackers.filter(x=>x.blockable);
+  const drops=post.detachment.map(x=>x.no+'番').join('・');
+  $('scenario').innerHTML+='<p class="muted">B後の攻防仮説：別線反撃 '+post.attackers.length+'候補、牽制が成立し得る攻防 '+available.length+'組、追走離れ想定 '+(drops||'なし')+'。いずれも実測回数ではありません。</p>';
+ }
  $('positions').innerHTML=chosen.states.map(s=>'<div class="place"><strong>'+s.no+' '+escape(s.name)+'</strong><span>'+escape(s.role)+'</span><span>'+escape(s.atB)+'・残脚'+s.remaining.toFixed(2)+'</span></div>').join('');
  $('ticket-count').textContent=tickets.length+'点';
  $('tickets').innerHTML=tickets.length?tickets.map((t,i)=>'<div class="ticket"><div class="ticket-head"><span class="rank">'+(i+1)+'</span><strong>'+t.key+'</strong><span class="tiny">'+scoreLabel()+' '+t.score.toFixed(3)+'</span></div><div class="ticket-reason">'+escape(t.reason)+'</div></div>').join(''):'<p>成立条件を満たす候補がありません。戦法を変更してください。</p>';
@@ -74,7 +80,7 @@ function show(){
 }
 function render(){
  if(!loadedInput)return;
- try{output=BAxisEngine.build(loadedInput,{bNo:manualB?Number($('b-choice').value):undefined,tactic:$('tactic-choice').value,limit:Number($('limit').value)});window.bAxisOutput=output;show();status('B通過選手・戦法に応じて決着を再計算しました');}
+ try{output=($('model-choice').value==='baseline'?BAxisBaseline:BAxisEngine).build(loadedInput,{bNo:manualB?Number($('b-choice').value):undefined,tactic:$('tactic-choice').value,limit:Number($('limit').value)});window.bAxisOutput=output;show();status('B通過選手・戦法に応じて決着を再計算しました');}
  catch(e){status('再計算できません：'+e.message);$('extras').hidden=true;}
 }
 async function prepareExample(n){
@@ -97,6 +103,7 @@ $('load').onclick=async()=>{
 $('b-choice').addEventListener('change',()=>{manualB=true;$('tactic-choice').value='auto';tacticOptions();render();});
 $('tactic-choice').addEventListener('change',render);
 $('limit').addEventListener('change',render);
+$('model-choice').addEventListener('change',render);
 $('example7').onclick=()=>prepareExample(7);$('example9').onclick=()=>prepareExample(9);
 $('venue').onchange=races;$('date').onchange=refresh;
 $('copy').onclick=async()=>{

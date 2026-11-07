@@ -1,0 +1,98 @@
+{
+  "schema": "tk-baxis-official-event-annotation/v1",
+  "description": "JKA official race-reporter text annotations selected as mechanism checks, NOT a systematic census of all block attempts. No population success rate inferred. Not the Nov 6 oracle B sample.",
+  "collection_method": "selected_official_report_passages",
+  "denominator": "NOT_OBSERVED",
+  "blocks_rate": null,
+  "coverage": "selected July 17-18 GII published race reports",
+  "events": [
+    {
+      "race_id": "2026-07-17:高知:2",
+      "type": "block_attempt",
+      "defender": "浅井康太",
+      "attacker": "五十嵐綾",
+      "outcome": "disrupted",
+      "phase": "final_1c_2c",
+      "note": "浅井のけん制で五十嵐は3番手へ戻った",
+      "source_url": "https://keirin.jp/pc/dfw/portal/guest/report/graderace/summer/2026/report_1.html",
+      "source_section": "２Ｒ"
+    },
+    {
+      "race_id": "2026-07-17:高知:2",
+      "type": "block_attempt",
+      "defender": "浅井康太",
+      "attacker": "森田優弥",
+      "outcome": "temporary_only",
+      "phase": "final_corner",
+      "note": "浅井の牽制に森田はいったん浮いたが、その後に捲り切って1着",
+      "source_url": "https://keirin.jp/pc/dfw/portal/guest/report/graderace/summer/2026/report_1.html",
+      "source_section": "２Ｒ"
+    },
+    {
+      "race_id": "2026-07-17:高知:3",
+      "type": "block_attempt",
+      "defender": "成田和也",
+      "attacker": "篠田幸希",
+      "outcome": "disrupted",
+      "phase": "final_3c",
+      "note": "成田の外けん制を受け、後位の金子が内の空いた進路を突いて1着",
+      "source_url": "https://keirin.jp/pc/dfw/portal/guest/report/graderace/summer/2026/report_1.html",
+      "source_section": "３Ｒ"
+    },
+    {
+      "race_id": "2026-07-17:高知:11",
+      "type": "block_attempt",
+      "defender": "松浦悠士",
+      "attacker": "眞杉匠",
+      "outcome": "disrupted",
+      "phase": "final_2center",
+      "note": "松浦のブロックで眞杉と競り合い、別線の吉田が外を追い込んで1着",
+      "source_url": "https://keirin.jp/pc/dfw/portal/guest/report/graderace/summer/2026/report_1.html",
+      "source_section": "１１Ｒ"
+    },
+    {
+      "race_id": "2026-07-17:高知:9",
+      "type": "follow_gap",
+      "rider": "大洞翔平",
+      "followed": "平野想真",
+      "outcome": "detached",
+      "phase": "bell_final_home",
+      "note": "平野の仕掛けからライン3番手の大洞が遅れ、後続の位置取りが変化",
+      "source_url": "https://keirin.jp/pc/dfw/portal/guest/report/graderace/summer/2026/report_1.html",
+      "source_section": "９Ｒ"
+    },
+    {
+      "race_id": "2026-07-17:高知:8",
+      "type": "follow_gap",
+      "rider": "渡部幸訓",
+      "followed": "中野慎詞",
+      "outcome": "gap_opened",
+      "phase": "final_1c_to_finish",
+      "note": "中野の強い先行に番手渡部と3番手和田の車間が開くが、渡部は直線で追い込んだ",
+      "source_url": "https://keirin.jp/pc/dfw/portal/guest/report/graderace/summer/2026/report_1.html",
+      "source_section": "８Ｒ"
+    },
+    {
+      "race_id": "2026-07-18:高知:6",
+      "type": "follow_gap",
+      "rider": "田尾駿介",
+      "followed": "松本貴治",
+      "outcome": "followed",
+      "phase": "final_back_to_finish",
+      "note": "松本の捲りに田尾が続き、ゴール前で松本を交わして2着",
+      "source_url": "https://keirin.jp/pc/dfw/portal/guest/report/graderace/summer/2026/report_2.html",
+      "source_section": "６Ｒ"
+    },
+    {
+      "race_id": "2026-07-18:高知:6",
+      "type": "inside_pass",
+      "rider": "園田匠",
+      "attacker": "田尾駿介",
+      "outcome": "inside_won",
+      "phase": "final_straight",
+      "note": "園田が四国勢の間を突いて1着。田尾の追走は維持されていた",
+      "source_url": "https://keirin.jp/pc/dfw/portal/guest/report/graderace/summer/2026/report_2.html",
+      "source_section": "６Ｒ"
+    }
+  ]
+}

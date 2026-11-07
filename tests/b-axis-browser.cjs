@@ -27,6 +27,12 @@ async function main(){
   assert.notEqual(await page.evaluate(()=>JSON.stringify(window.bAxisOutput.b.phases)),firstTimeline,'changing B recomputes the full race');
   const t=await page.locator('#tactic-choice option').evaluateAll(xs=>xs.map(x=>x.value));
   if(t.length>2)await page.locator('#tactic-choice').selectOption(t[2]);
+  await page.locator('#model-choice').selectOption('baseline');
+  assert.equal(await page.evaluate(()=>window.bAxisOutput.version),'LAB_B_AXIS_V0.2.0');
+  await page.locator('#model-choice').selectOption('interaction');
+  assert.equal(await page.evaluate(()=>window.bAxisOutput.version),'LAB_B_AXIS_V0.3.0');
+  const i=await page.evaluate(()=>window.bAxisOutput.b.interactions);
+  assert.equal(i.estimatedPopulationBlockSuccessRate,null);
   await page.locator('#limit').selectOption('3');
   assert(await page.locator('.ticket').count()<=3,'max 3 tickets');
   assert.equal(await page.locator('#extras').isVisible(),true);

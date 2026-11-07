@@ -1,0 +1,19 @@
+name: B-AXIS empirical pilot
+on:
+  push:
+    branches: ['feature/b-axis-empirical-finish-20261108']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  empirical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run test:b-axis
+      - run: node scripts/b_axis_mechanism_audit.cjs
+      - run: node scripts/b_axis_empirical_pilot.cjs
