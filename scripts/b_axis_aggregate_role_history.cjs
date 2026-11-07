@@ -49,7 +49,7 @@ function add(o,type,score){
 function empty(){
  return {races:0,eligible:0,skipGirls:0,skipOtherSize:0,skipNoResult:0,skipNoLineRole:0,
   runners:{7:0,9:0},byCarCount:{7:{races:0,leadersFirst:0,sameLine12:0,sameLine123:0},9:{races:0,leadersFirst:0,sameLine12:0,sameLine123:0}},lineSize:{},oneTwoSameLine:0,topThreeSameLine:0,oneThreeSameLine:0,
-  thirdPlaceFromWinnerLine:0,leaderWins:0,rolePosition:{},followScoreGap:{},rider_roles:{},scoreRanks:{},
+  thirdPlaceFromWinnerLine:0,leaderWins:0,rolePosition:{},followScoreGap:{},rider_roles:{},rider_positions:{},scoreRanks:{},
   firstTwoRelation:{sameLine:0,differentLine:0},observedBLeaderRows:0};
 }
 function observe(data,race){
@@ -83,6 +83,13 @@ function observe(data,race){
    const grade=sz+'-'+(race.grade||'unknown');
    const key=grade+'|'+role;
    data.rolePosition[key]??=init();add(data.rolePosition[key],type,Number(rider.competition_score));
+   const player=String(rider.rider_id||'').replace(/^0+(?=\d)/,'');
+   const positionRole=line.length===1?'solo':role;
+   if(player){
+    const profile=data.rider_positions[player]??={};
+    const z=profile[positionRole]??=init();
+    add(z,type,Number(rider.competition_score));
+   }
    if(i>0){
     const b=sz+'|'+role+'|'+roleBin(rel),v=data.followScoreGap[b]??=init();
     add(v,type,Number(rider.competition_score));
@@ -114,6 +121,7 @@ async function main(){
  if(fail.length)throw Error('archive files not loaded: '+JSON.stringify(fail.slice(0,5))+' and '+fail.length+' total');
  const total=summaries.all;
  const minimal=Object.fromEntries(Object.entries(total.rider_roles).filter(([id,r])=>r.n>=5).map(([id,r])=>[id,{n:r.n,top3:r.top3,first:r.first,second:r.second,third:r.third,avgScore:Math.round(100*r.scoreTotal/r.n)/100}]));
+ const positionProfiles=Object.fromEntries(Object.entries(total.rider_positions).map(([id,roles])=>[id,Object.fromEntries(Object.entries(roles).filter(([,stat])=>stat.n>=3).map(([role,stat])=>[role,{n:stat.n,first:stat.first,second:stat.second,third:stat.third,top3:stat.top3}]))]).filter(([,roles])=>Object.keys(roles).length));
  const result={
   schema:'tk-b-axis-role-history/v1',
   training_start:dates[0],training_end:dates.at(-1),
@@ -123,15 +131,16 @@ async function main(){
     line_role_vs_result_only:true,top3_does_not_measure_following:true,raw_records_not_saved:true,
     public_results_not_independently_official_verified:true,coverage_not_one_year:true,
     timestamp_reconstruction_not_proven:true},
-  train:{...summaries.train,rider_roles:undefined},holdout:{...summaries.holdout,rider_roles:undefined},
-  all:{...total,rider_roles:undefined},
-  rider_roles:minimal,errors:fail
+  train:{...summaries.train,rider_roles:undefined,rider_positions:undefined},holdout:{...summaries.holdout,rider_roles:undefined,rider_positions:undefined},
+  all:{...total,rider_roles:undefined,rider_positions:undefined},
+  rider_roles:minimal,rider_positions:positionProfiles,errors:fail
  };
  const out=path.join(__dirname,'..','data/b_axis_role_history.json');
  fs.writeFileSync(out,JSON.stringify(result,null,2)+'\n');
  const brief={schema:result.schema,period:[dates[0],dates.at(-1)],days:dates.length,n:total.eligible,rows7:total.runners[7],rows9:total.runners[9],
   skipped:[total.skipGirls,total.skipNoResult,total.skipNoLineRole],lineBySize:total.lineSize,
-  oneTwoSameLine:total.oneTwoSameLine,threeSameLine:total.topThreeSameLine,leaderWins:total.leaderWins,byCarCount:total.byCarCount,riderCount:Object.keys(minimal).length,
+  oneTwoSameLine:total.oneTwoSameLine,threeSameLine:total.topThreeSameLine,leaderWins:total.leaderWins,byCarCount:total.byCarCount,riderCount:Object.keys(minimal).length,positionRiderCount:Object.keys(positionProfiles).length,
+  soloStats:total.rolePosition,
   train:summaries.train.eligible,holdout:summaries.holdout.eligible,
   followBins:total.followScoreGap,errors:fail};
  console.log('B_AXIS_ROLE_ARCHIVE '+JSON.stringify(brief));
