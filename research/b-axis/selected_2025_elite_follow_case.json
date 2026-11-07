@@ -1,0 +1,36 @@
+{
+  "schema": "tk-b-axis-follower-case-evidence/v1",
+  "scope": "selected documented race; not a failure/success rate",
+  "cases": [
+    {
+      "race_id": "2025-08-17:函館:11",
+      "grade": "GI オールスター競輪 決勝",
+      "pre_race_line": [
+        9,
+        7,
+        1,
+        4
+      ],
+      "riders": {
+        "1": "古性優作",
+        "4": "南修二",
+        "7": "寺崎浩平",
+        "9": "脇本雄太"
+      },
+      "causal_story": "脇本雄太が突っ張り先行。寺崎が番手から最終バック付近で捲り発進し、古性が追走して直線で2着、南が3着。",
+      "top3": [
+        7,
+        1,
+        4
+      ],
+      "winner": 7,
+      "bypass_line_winner_not_assumed": true,
+      "supported_by": [
+        "https://keirin.netkeiba.com/news/news_detail.html?id=37176",
+        "https://www.oddspark.com/keirin/blog/graderace/2025/08/index_2.html",
+        "https://www.keirin.jp/pc/dfw/portal/guest/data/winner_gpg1g2/winner_allstar.html"
+      ],
+      "inference_limit": "This is a single documented elite combination and cannot establish a numeric tracking success rate. Riders and state differ from 2026-11-08 Yokkaichi."
+    }
+  ]
+}
