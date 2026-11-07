@@ -1,0 +1,43 @@
+{
+  "schema": "tk-b-axis-follower-case-evidence/v1",
+  "scope": "selected documented race; not a failure/success rate",
+  "cases": [
+    {
+      "race_id": "2025-08-17:函館:11",
+      "grade": "GI オールスター競輪 決勝",
+      "pre_race_line": [
+        9,
+        7,
+        1,
+        4
+      ],
+      "riders": {
+        "1": "古性優作",
+        "4": "南修二",
+        "7": "寺崎浩平",
+        "9": "脇本雄太"
+      },
+      "causal_story": "脇本雄太が突っ張り先行し実際のB通過選手は脇本9番。寺崎7番が番手から踏み出して1着、古性1番が追走して2着、南4番が3着。Bを取った脇本は9着。",
+      "top3": [
+        7,
+        1,
+        4
+      ],
+      "winner": 7,
+      "bypass_line_winner_not_assumed": true,
+      "supported_by": [
+        "https://keirin.netkeiba.com/news/news_detail.html?id=37176",
+        "https://www.oddspark.com/keirin/blog/graderace/2025/08/index_2.html",
+        "https://www.keirin.jp/pc/dfw/portal/guest/data/winner_gpg1g2/winner_allstar.html",
+        "https://keirin.kdreams.jp/hakodate/racedetail/1120250812060011/?pageType=result"
+      ],
+      "inference_limit": "This is a single documented elite combination and cannot establish a numeric tracking success rate. Riders and state differ from 2026-11-08 Yokkaichi.",
+      "observed_b": {
+        "rider_no": 9,
+        "rider_name": "脇本雄太",
+        "source": "https://keirin.kdreams.jp/hakodate/racedetail/1120250812060011/?pageType=result",
+        "evidence": "Official result table marks B at 9; Terasaki win was an overtake after Waki's B"
+      }
+    }
+  ]
+}
