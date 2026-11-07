@@ -273,12 +273,12 @@ function complete(snapshot,tickets){
  };
  const cornerEvents=[{actor:finish[0],action:pass?'challenge':'retain',target:snapshot.bNo,reason:reasons[best.path]||'4角で直線の進路を選択'}];
  for(const n of finish.slice(1))cornerEvents.push({actor:n,action:'chase',reason:n+'番は最終Bの位置関係から3〜4角で上位進出を狙う'});
- const marker=snapshot.states.find(x=>x.role==='B番手');
- const attackers=snapshot.states.filter(x=>x.attack&&x.reachable);
- if(best.path==='third_rush'&&marker&&attackers.length)cornerEvents.push({actor:marker.no,action:'block',target:attackers[0].no,reason:marker.no+'番が外を踏む'+attackers[0].no+'番を牽制。B側3番手が内を突く進路が生まれる'});
- if(best.path==='outside'&&marker)cornerEvents.push({actor:marker.no,action:'block_failed',target:finish[0],reason:marker.no+'番が'+finish[0]+'番の外捲りを止め切れず、別線が前に出る'});
- if(best.path==='marker'&&attackers.length&&marker)cornerEvents.push({actor:marker.no,action:'block',target:attackers[0].no,reason:marker.no+'番が外の仕掛けを牽制しながら直線の差しへ移る'});
- if(attack)cornerEvents.push({actor:snapshot.bNo,action:'respond',target:finish[0],reason:'B選手は外からの反撃に対応、消耗と追走状況が着順に影響'});
+ const marked=(snapshot.interactions?.attackers||[]).filter(x=>x.blockable);
+ const marker=snapshot.interactions?.defender?.connected?snapshot.states.find(x=>x.no===snapshot.interactions.defender.no):null;
+ if(best.path==='third_rush'&&marker&&marked.length)cornerEvents.push({actor:marker.no,action:'block',target:marked[0].no,reason:marker.no+'番が外の'+marked[0].no+'番へ牽制可能な位置にあり、B側3番手が内へ進路を得る仮説'});
+ if(best.path==='outside'&&marker&&marked.some(x=>x.no===finish[0]))cornerEvents.push({actor:marker.no,action:'block_failed',target:finish[0],reason:marker.no+'番が'+finish[0]+'番を牽制できる位置にいたが、この決着分岐では止め切れない'});
+ if(best.path==='marker'&&marked.length&&marker)cornerEvents.push({actor:marker.no,action:'block',target:marked[0].no,reason:marker.no+'番が'+marked[0].no+'番への牽制を選び、直線の差しへ移る仮説'});
+ if(attack)cornerEvents.push({actor:snapshot.bNo,action:'respond',target:finish[0],reason:'B選手は別線の反撃に対応。B通過時の消耗・追走関係を引き継ぐ'});
  const cornerPhase=post('corner',corner[0],corner,cornerEvents,.055);
  const finalEvents=[{actor:finish[0],action:'finish',target:snapshot.bNo,reason:'本線三連単'+best.key+'。'+(best.reason||'B後の決着経路を比較')}];
  for(const n of finish.slice(1))finalEvents.push({actor:n,action:'place',reason:n+'番が直線で着位を争い、上位'+(finish.indexOf(n)+1)+'着を確保する展開'});
