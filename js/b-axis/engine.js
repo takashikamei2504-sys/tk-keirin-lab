@@ -5,7 +5,7 @@
 (function(root){'use strict';
 const Phases=typeof module!=='undefined'?require('./phases.js'):root.BAxisPhases;
 const Interactions=typeof module!=='undefined'?require('./interactions.js'):root.BAxisInteractions;
-const VERSION='LAB_B_AXIS_V0.3.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
+const VERSION='LAB_B_AXIS_V0.4.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
 const TACTICS={press:'突っ張り',hold:'押さえ先行',kamashi:'カマシ',makuri:'早めの捲り',surge:'番手発進',relaunch:'3番手以降からの追上げ',solo_shift:'単騎の位置取りからの先頭進出'};
 const prefecture={
  '函館':'北海道','青森':'青森','いわき平':'福島','弥彦':'新潟','前橋':'群馬','取手':'茨城','宇都宮':'栃木','大宮':'埼玉','西武園':'埼玉','京王閣':'東京','立川':'東京','松戸':'千葉','川崎':'神奈川','平塚':'神奈川','小田原':'神奈川','伊東':'静岡','静岡':'静岡','名古屋':'愛知','岐阜':'岐阜','大垣':'岐阜','豊橋':'愛知','富山':'富山','松阪':'三重','四日市':'三重','福井':'福井','奈良':'奈良','向日町':'京都','和歌山':'和歌山','岸和田':'大阪','玉野':'岡山','広島':'広島','防府':'山口','高松':'香川','小松島':'徳島','高知':'高知','松山':'愛媛','小倉':'福岡','久留米':'福岡','武雄':'佐賀','佐世保':'長崎','別府':'大分','熊本':'熊本'};
@@ -58,7 +58,7 @@ function snapshot(input,no,tactic){
  if(!selected)throw Error('B指定選手が出走表にいません');
  const allowed=tacticsFor(input,no),mode=tactic==='auto'||!tactic?chooseTactic(input,no):tactic;
  if(!allowed.includes(mode))throw Error('B通過選手の並びと戦法が整合しません');
- return Phases.simulate(race,input.features||{},no,mode,TACTICS[mode]);
+ return Phases.simulate(race,input.features||{},no,mode,TACTICS[mode],input.bAxisHistory||null);
 }
 function finishRanking(input,snap,limit=10){
  const states=snap.states,byNo=new Map(states.map(s=>[s.no,s])),b=byNo.get(snap.bNo);
