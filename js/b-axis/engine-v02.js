@@ -3,7 +3,7 @@
  * Scores are relative heuristics, not calibrated probabilities. No results or odds input.
  */
 (function(root){'use strict';
-const Phases=typeof module!=='undefined'?require('./phases.js'):root.BAxisPhases;
+const Phases=typeof module!=='undefined'?require('./phases-v02.js'):root.BAxisPhasesV02;
 const VERSION='LAB_B_AXIS_V0.2.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
 const TACTICS={press:'突っ張り',hold:'押さえ先行',kamashi:'カマシ',makuri:'早めの捲り',surge:'番手発進',relaunch:'3番手以降からの追上げ',solo_shift:'単騎の位置取りからの先頭進出'};
 const prefecture={
