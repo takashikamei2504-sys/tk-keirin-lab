@@ -3,6 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const Audit = require('../js/results-audit.js');
+const Calibration = require('../js/roi/calibration.cjs');
 const Policy = require('../js/roi/policy.cjs');
 const Shadow = require('../js/roi/shadow.cjs');
 const Provenance = require('../js/model-provenance.js');
@@ -36,7 +37,12 @@ function freeze(data, clock = Date.now) {
     const record = {schema:'tk-keirin-roi-frozen/v1',race_id:lab.race_id,
       saved_at:new Date(savedAt).toISOString(), cutoff:lab.cutoff,
       race:{date:lab.input.date,venue:lab.input.venue,number:lab.input.race_no,start:lab.input.start},
-      ...out, model, decision, shadow, input_sha256:Provenance.sha256({hypotheses:out.input_sha256,shadow,
+      ...out, model, decision, shadow, identity:lab.identity, calibration,
+      probability_validation:calibration?.beta ? {hypothesis_model:out.model.model_id,
+        trained_through:calibration.trained_through,qualified:calibration.research_qualified===true,
+        cars:lab.input.riders.length,probabilities:[...Calibration.predict(
+          Calibration.design(lab.input.riders.map(r=>r.no),out.scores),calibration.beta)]} : null,
+      input_sha256:Provenance.sha256({hypotheses:out.input_sha256,shadow,
         configuration:model.configuration_hash,asOf,odds:null})};
     const content = JSON.stringify(record)+'\n';
     if (Buffer.byteLength(content)>65536) throw Error('ROI forecast exceeds 64 KiB');

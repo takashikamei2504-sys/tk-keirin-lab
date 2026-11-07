@@ -1,0 +1,36 @@
+name: Freeze ROI purchase decisions
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 0-14,21-23 * * *'
+  push:
+    branches: [main]
+    paths: ['scripts/roi-decide.cjs', 'js/roi/odds.cjs', '.github/workflows/roi-decisions.yml']
+permissions:
+  contents: write
+concurrency:
+  group: roi-decisions
+  cancel-in-progress: false
+jobs:
+  decide:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/roi-decide.cjs
+      - name: Save immutable decisions
+        run: |
+          if ! test -d data/roi/decisions; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/roi/decisions
+          if ! git diff --cached --quiet; then
+            git commit -m 'Freeze pre-close ROI decisions'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

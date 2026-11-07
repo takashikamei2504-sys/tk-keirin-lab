@@ -33,8 +33,17 @@ function monitor(data) {
           p.input_sha256!==frozen.evidence.lab.hash || p.cutoff!==frozen.cutoff) { status.unmatched++; continue; }
       if (shadow) Shadow.add(shadow,frozen.shadow,p,result);
       const group = summaries[frozen.model.model_id] ||= {};
+      let decision=frozen.decision;
+      const decisionFile=path.join(data,'roi','decisions',day,name);
+      if(fs.existsSync(decisionFile)) {
+        const record=JSON.parse(fs.readFileSync(decisionFile,'utf8'));
+        const hash=require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(forecastDir,name))).digest('hex');
+        if(record.forecast_sha256===hash && record.race_id===frozen.race_id &&
+           Date.parse(record.saved_at)<Date.parse(record.snapshot.sales_close_at) &&
+           Date.parse(record.snapshot.sales_close_at)<=Date.parse(frozen.cutoff))decision=record.decision;
+      }
       const trials = {...frozen.comparison, probability_order:frozen.decision.probability_order,
-        policy:frozen.decision.tickets.map(t=>t.key)};
+        policy:decision.tickets.map(t=>t.key),...Object.fromEntries(Object.entries(decision.ev_thresholds||{}).map(([t,keys])=>['ev_'+t,keys]))};
       for (const [name,keys] of Object.entries(trials)) {
         if (!keys?.length && name!=='policy') continue;
         const chosen = keys.map(key=>({key,trio:key.split('-').map(Number)}));

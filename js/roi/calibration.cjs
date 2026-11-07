@@ -2,6 +2,7 @@
 
 // Temperatures are fitted for each conditional stage independently.
 // Uniform mass keeps the full 7P3 / 9P3 support, including unretained hypotheses.
+const {RULES} = require('./readiness.cjs');
 const GRID = [0, .25, .5, 1, 2, 4, 8];
 const ratio = (x,y) => y ? x/y : null;
 
@@ -83,8 +84,10 @@ function train(rows, boundary) {
   const holdout = beta && assess(test,beta);
   const uniform = assess(test,[0,0,0]);
   // Operational evaluation is separate and must accumulate fixed prospective predictions.
-  return {training_races:train.length,beta,holdout,uniform,eligible:false,
-    stage:train.length>=300 && test.length>=200 && holdout.log_loss<uniform.log_loss && holdout.brier<uniform.brier ?
+  const qualified = train.length>=RULES.training && test.length>=RULES.holdout &&
+    holdout.log_loss<uniform.log_loss && holdout.brier<uniform.brier;
+  return {training_races:train.length,beta,holdout,uniform,eligible:false,research_qualified:qualified,
+    stage:qualified ?
       'prospective_validation_required':'research_only'};
 }
 

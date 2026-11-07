@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b141c">
 <title>TK KEIRIN LAB ROI ENGINE</title>
-<link rel="stylesheet" href="css/roi.css?v=guide-1">
-<script src="js/roi/app.js?v=guide-1" defer></script>
+<link rel="stylesheet" href="css/roi.css?v=decision-2">
+<script src="js/roi/app.js?v=decision-2" defer></script>
 </head>
 <body><main>
 <p class="eyebrow">TK KEIRIN LAB</p>
@@ -16,9 +16,10 @@
 <a href="#race">今日の判断</a><a href="#trial-results">追加1点の結果</a><a href="#history">過去の成績</a>
 </nav>
 <section id="race"><h2>今日の購入判断</h2>
-<div id="today">本日の配信を読み込んでいます。</div>
+<div id="purchases" aria-live="polite"></div><div id="today">本日の配信を読み込んでいます。</div>
 <details id="race-stories"><summary>レース展開を見る</summary><div id="stories">展開を読み込んでいます。</div></details>
 </section>
+<section id="eligibility"><h2>購入対象になる条件</h2><div id="readiness">検証の進捗を読み込んでいます。</div><p>確率検証を通過した車立て・確率帯で、更新から5分以内の実オッズがあり、誤差とオッズ下落10%を差し引いた期待値が1.20以上の買い目を抽出します。各100円、最大10点です。</p><p class="muted">オッズ取得は5分間隔の起動を予定しています。配信時刻によっては購入対象が出ない場合があります。</p></section>
 <section id="trial-results"><h2>追加1点の検証結果</h2>
 <p class="muted">上位4点に「本線の1点」か「別線を2着に入れる1点」を足し、同じレースで各100円として比較します。</p>
 <div id="trial-summary" role="status">検証結果を読み込んでいます。</div>

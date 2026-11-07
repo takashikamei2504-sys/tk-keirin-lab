@@ -82,15 +82,28 @@ validation(prospectiveReport).catch(() => {
 });
 
 const todayJst = () => new Date(Date.now()+9*3600000).toISOString().slice(0,10);
+let expiryTimer;
 const raceLabel = race => race.date + '　' + race.venue + race.number + 'R　' + race.start;
 
 async function live() {
   const date = todayJst();
+  const decisionResponse=await fetch('data/roi/decisions/'+date+'/index.json',{cache:'no-cache'}).catch(()=>null);
+  const decisionData=decisionResponse?.ok ? await decisionResponse.json() : null;
   const dir = 'data/roi/forecasts/' + date + '/';
   const response = await fetch(dir + 'index.json', {cache:'no-cache'});
   if (response.status === 404) return noRaces();
   if (!response.ok) throw Error('本日の予想を読み込めませんでした。');
   const data = await response.json();
+  const decisions=new Map((decisionData?.rows||[]).filter(r=>r.model===data.model && Date.parse(r.saved_at)<=Date.now() && Date.parse(r.expires_at)>Date.now()).map(r=>[r.race_id,r]));
+  clearTimeout(expiryTimer);
+  if(decisions.size) expiryTimer=setTimeout(()=>{element('purchases').textContent='現在の購入対象を更新しています。';element('today').textContent='購入判断を更新しています。';refreshLive();},Math.max(1,Math.min(...[...decisions.values()].map(r=>Date.parse(r.expires_at)))-Date.now()+10));
+  const buys=[...decisions.values()].filter(r=>r.decision.status==='buy'&&r.decision.tickets.length);
+  const purchasePanel=element('purchases');
+  purchasePanel.replaceChildren(node('p',buys.length ? '本日の購入対象 '+buys.length+'レース' : '現在の購入対象　0レース'));
+  for(const row of buys) {
+    const card=node('article');card.append(node('h3',raceLabel(row.race)),node('output',row.decision.tickets.map(t=>t.key).join('、')),node('p','各100円／合計'+yen(row.decision.tickets.length*100)));
+    const copy=node('button','購入買い目をコピー');copy.onclick=async()=>{if(Date.parse(row.expires_at)<=Date.now())return live();try {await navigator.clipboard.writeText(row.decision.tickets.map(t=>t.key).join('\n'));copy.textContent='コピーしました';} catch {const input=node('textarea');input.value=row.decision.tickets.map(t=>t.key).join('\n');input.readOnly=true;card.append(input);input.select();}};card.append(copy);purchasePanel.append(card);
+  }
   const rows = data.rows.filter(r => r.model === data.model && Date.parse(r.cutoff) > Date.now());
   if (!rows.length) return noRaces();
   const selector = node('select');
@@ -108,17 +121,19 @@ async function live() {
   async function render() {
     const current = ++revision;
     const row = rows[Number(selector.value)];
-    const purchase = row.decision.tickets || [];
+    const active=decisions.get(row.race_id);
+    const decision=active?.decision || row.decision;
+    const purchase = active?.decision.status==='buy' ? active.decision.tickets : [];
     const buyKeys = purchase.map(t=>t.key);
     const keys = buyKeys.length ? buyKeys : row.candidates;
-    const verdict = node('p',buyKeys.length ? '期待値の研究候補あり' : '購入判断　見送り');
+    const verdict = node('p',buyKeys.length ? '購入対象　各100円' : '購入判断　見送り');
     verdict.className = 'verdict';
     verdict.setAttribute('role','status');
     const reason = {calibration:'的中確率を検証中です。',odds:'発走前オッズの取得待ちです。',
       uncertainty:'確率のばらつきを検証中です。',no_edge:'購入基準を満たす候補がありません。'};
     status.replaceChildren(verdict);
     detail.replaceChildren();
-    if (!buyKeys.length) status.append(node('p',reason[row.decision.reason] || '購入条件を確認中です。'));
+    if (!buyKeys.length) status.append(node('p',reason[decision.reason] || '購入条件を確認中です。'));
     const research = node('details');
     if (keys.length) {
       research.append(node('summary','研究候補の買い目を見る'),node('output',keys.join('、')));
@@ -206,9 +221,13 @@ async function research() {
 
 function noRaces(message = '本日の発走前の配信はありません。') {
   element('today').textContent = message;
+  element('purchases').textContent='現在の購入対象　0レース';
   element('race-stories').hidden = true;
 }
-live().catch(error=>noRaces(error.message));
+const refreshLive=()=>live().catch(error=>noRaces(error.message));
+refreshLive();
+setInterval(refreshLive,30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshLive();});
 
 function shadowReport(model, report) {
   const panel = node('details');
@@ -306,3 +325,17 @@ async function validation(prospectiveReport) {
   }
   element('validation').append(panel);
 }
+
+async function readiness() {
+  const response=await fetch('data/roi/calibration.json',{cache:'no-cache'});
+  if(!response.ok)throw Error('load');
+  const c=await response.json(),rules=c.readiness?.rules||{training:300,holdout:200,prospective:200,days:14};
+  const panel=element('readiness');
+  panel.replaceChildren(list([['校正の学習',c.training_races+'／'+rules.training+'R'],['時系列検証',(c.holdout?.races||0)+'／'+rules.holdout+'R']]));
+  for(const cars of [7,9]) {
+    const g=c.readiness?.groups?.[cars];
+    panel.append(list([[cars+'車の発走前検証',(g?.races||0)+'／'+rules.prospective+'R'],['検証日数',(g?.days||0)+'／'+rules.days+'日'],['確率検証',c.eligible&&g?.qualified?'通過':'蓄積中']]));
+  }
+  panel.append(node('p','件数に加えて、発走前に固定した確率が一様予測を上回ることと、確率帯ごとの誤差を検証します。'));
+}
+readiness().catch(()=>{element('readiness').textContent='検証の進捗を読み込めませんでした。';});

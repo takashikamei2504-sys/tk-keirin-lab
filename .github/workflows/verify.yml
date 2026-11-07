@@ -22,6 +22,8 @@ jobs:
       - run: node scripts/model_identity.cjs
       - run: git diff --exit-code -- js/model-build.js
       - run: npm test
+      - run: node tests/roi-policy.test.cjs
+      - run: node tests/roi-operation.test.cjs
       - run: node tests/s-counts.test.cjs
       - run: node tests/recent-form.test.js
       - run: python -m unittest discover -s tests -p 'test_*.py'
