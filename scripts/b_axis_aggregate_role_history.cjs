@@ -49,7 +49,7 @@ function add(o,type,score){
 function empty(){
  return {races:0,eligible:0,skipGirls:0,skipOtherSize:0,skipNoResult:0,skipNoLineRole:0,
   runners:{7:0,9:0},byCarCount:{7:{races:0,leadersFirst:0,sameLine12:0,sameLine123:0},9:{races:0,leadersFirst:0,sameLine12:0,sameLine123:0}},lineSize:{},oneTwoSameLine:0,topThreeSameLine:0,oneThreeSameLine:0,
-  thirdPlaceFromWinnerLine:0,leaderWins:0,rolePosition:{},followScoreGap:{},rider_roles:{},rider_positions:{},scoreRanks:{},
+  thirdPlaceFromWinnerLine:0,leaderWins:0,rolePosition:{},followScoreGap:{},rider_roles:{},rider_positions:{},soloOutcomes:{n:0,first:0,second:0,third:0,top3:0},scoreRanks:{},
   firstTwoRelation:{sameLine:0,differentLine:0},observedBLeaderRows:0};
 }
 function observe(data,race){
@@ -85,6 +85,7 @@ function observe(data,race){
    data.rolePosition[key]??=init();add(data.rolePosition[key],type,Number(rider.competition_score));
    const player=String(rider.rider_id||'').replace(/^0+(?=\d)/,'');
    const positionRole=line.length===1?'solo':role;
+   if(line.length===1){const solo=data.soloOutcomes;solo.n++;if(place>=0){solo.top3++;solo[type]++;}}
    if(player){
     const profile=data.rider_positions[player]??={};
     const z=profile[positionRole]??=init();
@@ -140,7 +141,7 @@ async function main(){
  const brief={schema:result.schema,period:[dates[0],dates.at(-1)],days:dates.length,n:total.eligible,rows7:total.runners[7],rows9:total.runners[9],
   skipped:[total.skipGirls,total.skipNoResult,total.skipNoLineRole],lineBySize:total.lineSize,
   oneTwoSameLine:total.oneTwoSameLine,threeSameLine:total.topThreeSameLine,leaderWins:total.leaderWins,byCarCount:total.byCarCount,riderCount:Object.keys(minimal).length,positionRiderCount:Object.keys(positionProfiles).length,
-  soloStats:total.rolePosition,
+  soloStats:total.rolePosition,soloOutcomes:total.soloOutcomes,
   train:summaries.train.eligible,holdout:summaries.holdout.eligible,
   followBins:total.followScoreGap,errors:fail};
  console.log('B_AXIS_ROLE_ARCHIVE '+JSON.stringify(brief));
