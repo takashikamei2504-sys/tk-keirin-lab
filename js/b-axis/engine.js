@@ -88,8 +88,8 @@ function snapshot(input,no,tactic){
     entry='B取得戦法に応じた踏み出しと追走を評価';
    }
   }else{
-   const head=line[0],rank=sorted.indexOf(line),self=head.style!=='追';
-   const force=threatMap.get(head.no);
+   const head=riders.get(line[0]),rank=sorted.indexOf(line),self=head.style!=='追';
+   const force=threatMap.get(head.no)??0;
    const competitive=self&&(force>=.42||makuri>=.62&&i===0);
    const outside=competitive&&force>=.54;
    const headGap=outside?max(1.1,2.75-(force-.54)*5.6):competitive?2.45+rank*.50:3.15+rank*.60;
