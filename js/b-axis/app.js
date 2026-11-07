@@ -4,7 +4,7 @@
 (function(){'use strict';
 const $=id=>document.getElementById(id),escape=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const venues=['函館','青森','いわき平','弥彦','前橋','取手','宇都宮','大宮','西武園','京王閣','立川','松戸','川崎','平塚','小田原','伊東','静岡','名古屋','岐阜','大垣','豊橋','富山','松阪','四日市','福井','奈良','向日町','和歌山','岸和田','玉野','広島','防府','高松','小松島','高知','松山','小倉','久留米','武雄','佐世保','別府','熊本'];
-let day=null,loadedInput=null,output=null,requestId=0,packs={};
+let day=null,loadedInput=null,output=null,requestId=0,packs={},manualB=false;
 $('venue').replaceChildren(...venues.map(v=>new Option(v,v)));$('venue').value='防府';
 $('race').replaceChildren(...Array.from({length:12},(_,i)=>new Option((i+1)+'R',i+1)));$('race').value='12';
 $('date').value=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
@@ -24,10 +24,11 @@ async function refresh(){
 function lineText(input){return input.race.lineup.map(l=>l.join('-')).join(' / ');}
 function chooseB(no){
  if(!loadedInput)return;
+ manualB=false;
  const prev=$('b-choice').value;const bs=BAxisEngine.candidates(loadedInput);
  $('b-choice').replaceChildren(...bs.map(b=>new Option(b.no+'番 '+b.name+' ｜ '+b.support.toFixed(1)+'pt',b.no)));
  $('b-choice').value=String(no??bs[0].no);
- if(prev!==$('b-choice').value)$('tactic-choice').value='auto';
+ $('tactic-choice').value='auto';
  tacticOptions();render();
 }
 function tacticOptions(){
@@ -61,7 +62,7 @@ function show(){
 }
 function render(){
  if(!loadedInput)return;
- try{output=BAxisEngine.build(loadedInput,{bNo:Number($('b-choice').value),tactic:$('tactic-choice').value,limit:Number($('limit').value)});window.bAxisOutput=output;show();status('B通過選手・戦法に応じて決着を再計算しました');}
+ try{output=BAxisEngine.build(loadedInput,{bNo:manualB?Number($('b-choice').value):undefined,tactic:$('tactic-choice').value,limit:Number($('limit').value)});window.bAxisOutput=output;show();status('B通過選手・戦法に応じて決着を再計算しました');}
  catch(e){status('再計算できません：'+e.message);$('extras').hidden=true;}
 }
 async function prepareExample(n){
@@ -81,7 +82,7 @@ $('load').onclick=async()=>{
  }catch(e){if(token===requestId){status('予想できません：'+e.message);$('selector').hidden=true;$('extras').hidden=true;loadedInput=null;}}
  finally{$('load').disabled=false;}
 };
-$('b-choice').addEventListener('change',()=>{tacticOptions();render();});
+$('b-choice').addEventListener('change',()=>{manualB=true;$('tactic-choice').value='auto';tacticOptions();render();});
 $('tactic-choice').addEventListener('change',render);
 $('limit').addEventListener('change',render);
 $('example7').onclick=()=>prepareExample(7);$('example9').onclick=()=>prepareExample(9);
