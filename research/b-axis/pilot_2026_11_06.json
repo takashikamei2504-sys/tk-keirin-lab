@@ -1,0 +1,521 @@
+{
+  "schema": "tk-b-axis-oracle-b-pilot/v1",
+  "description": "2026-11-06 men's race pilot. B and finish are post-race observed; published_b_line is the pre-race proposed grouping, NOT measured race formation. Seven-car sample is selected and non-exhaustive; nine-car Yokkaichi GIII includes all 12 races. Third-party result source pending independent official verification.",
+  "date": "2026-11-06",
+  "races": [
+    {
+      "race_id": "2026-11-06:別府:2",
+      "date": "2026-11-06",
+      "venue": "別府",
+      "race_no": 2,
+      "runners": 7,
+      "grade": "F2",
+      "b_no": 4,
+      "published_b_line": [
+        4,
+        1,
+        3,
+        7
+      ],
+      "finish": [
+        4,
+        1,
+        3
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/028620261106/"
+    },
+    {
+      "race_id": "2026-11-06:別府:3",
+      "date": "2026-11-06",
+      "venue": "別府",
+      "race_no": 3,
+      "runners": 7,
+      "grade": "F2",
+      "b_no": 1,
+      "published_b_line": [
+        1,
+        6,
+        4
+      ],
+      "finish": [
+        1,
+        2,
+        6
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/038620261106/"
+    },
+    {
+      "race_id": "2026-11-06:別府:6",
+      "date": "2026-11-06",
+      "venue": "別府",
+      "race_no": 6,
+      "runners": 7,
+      "grade": "F2",
+      "b_no": 4,
+      "published_b_line": [
+        4,
+        1,
+        6
+      ],
+      "finish": [
+        5,
+        2,
+        1
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/068620261106/"
+    },
+    {
+      "race_id": "2026-11-06:別府:7",
+      "date": "2026-11-06",
+      "venue": "別府",
+      "race_no": 7,
+      "runners": 7,
+      "grade": "F2",
+      "b_no": 4,
+      "published_b_line": [
+        4,
+        5,
+        1,
+        3
+      ],
+      "finish": [
+        4,
+        3,
+        5
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/078620261106/"
+    },
+    {
+      "race_id": "2026-11-06:別府:8",
+      "date": "2026-11-06",
+      "venue": "別府",
+      "race_no": 8,
+      "runners": 7,
+      "grade": "F2",
+      "b_no": 7,
+      "published_b_line": [
+        7,
+        1,
+        4
+      ],
+      "finish": [
+        7,
+        1,
+        4
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/088620261106/"
+    },
+    {
+      "race_id": "2026-11-06:別府:9",
+      "date": "2026-11-06",
+      "venue": "別府",
+      "race_no": 9,
+      "runners": 7,
+      "grade": "F2",
+      "b_no": 1,
+      "published_b_line": [
+        1,
+        4
+      ],
+      "finish": [
+        1,
+        4,
+        7
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/098620261106/"
+    },
+    {
+      "race_id": "2026-11-06:別府:11",
+      "date": "2026-11-06",
+      "venue": "別府",
+      "race_no": 11,
+      "runners": 7,
+      "grade": "F2",
+      "b_no": 1,
+      "published_b_line": [
+        7,
+        1,
+        4
+      ],
+      "finish": [
+        1,
+        5,
+        4
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/118620261106/"
+    },
+    {
+      "race_id": "2026-11-06:熊本:6",
+      "date": "2026-11-06",
+      "venue": "熊本",
+      "race_no": 6,
+      "runners": 7,
+      "grade": "F1",
+      "b_no": 7,
+      "published_b_line": [
+        7,
+        2,
+        6
+      ],
+      "finish": [
+        7,
+        2,
+        3
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/068720261106/"
+    },
+    {
+      "race_id": "2026-11-06:熊本:7",
+      "date": "2026-11-06",
+      "venue": "熊本",
+      "race_no": 7,
+      "runners": 7,
+      "grade": "F1",
+      "b_no": 1,
+      "published_b_line": [
+        1,
+        5
+      ],
+      "finish": [
+        1,
+        4,
+        5
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/078720261106/"
+    },
+    {
+      "race_id": "2026-11-06:熊本:8",
+      "date": "2026-11-06",
+      "venue": "熊本",
+      "race_no": 8,
+      "runners": 7,
+      "grade": "F1",
+      "b_no": 4,
+      "published_b_line": [
+        4,
+        3
+      ],
+      "finish": [
+        2,
+        3,
+        4
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/088720261106/"
+    },
+    {
+      "race_id": "2026-11-06:熊本:9",
+      "date": "2026-11-06",
+      "venue": "熊本",
+      "race_no": 9,
+      "runners": 7,
+      "grade": "F1",
+      "b_no": 7,
+      "published_b_line": [
+        7,
+        5,
+        1
+      ],
+      "finish": [
+        7,
+        5,
+        1
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/098720261106/"
+    },
+    {
+      "race_id": "2026-11-06:熊本:10",
+      "date": "2026-11-06",
+      "venue": "熊本",
+      "race_no": 10,
+      "runners": 7,
+      "grade": "F1",
+      "b_no": 4,
+      "published_b_line": [
+        4,
+        2
+      ],
+      "finish": [
+        1,
+        7,
+        3
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/108720261106/"
+    },
+    {
+      "race_id": "2026-11-06:熊本:11",
+      "date": "2026-11-06",
+      "venue": "熊本",
+      "race_no": 11,
+      "runners": 7,
+      "grade": "F1",
+      "b_no": 7,
+      "published_b_line": [
+        7,
+        2,
+        3
+      ],
+      "finish": [
+        2,
+        7,
+        1
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/118720261106/"
+    },
+    {
+      "race_id": "2026-11-06:熊本:12",
+      "date": "2026-11-06",
+      "venue": "熊本",
+      "race_no": 12,
+      "runners": 7,
+      "grade": "F1",
+      "b_no": 6,
+      "published_b_line": [
+        6,
+        1
+      ],
+      "finish": [
+        6,
+        5,
+        3
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/128720261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:1",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 1,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 9,
+      "published_b_line": [
+        9,
+        2
+      ],
+      "finish": [
+        1,
+        9,
+        2
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/014820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:2",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 2,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 2,
+      "published_b_line": [
+        2,
+        7,
+        4
+      ],
+      "finish": [
+        5,
+        7,
+        9
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/024820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:3",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 3,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 1,
+      "published_b_line": [
+        1,
+        9,
+        6
+      ],
+      "finish": [
+        1,
+        9,
+        2
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/034820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:4",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 4,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 9,
+      "published_b_line": [
+        9,
+        3,
+        4
+      ],
+      "finish": [
+        3,
+        1,
+        9
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/044820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:5",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 5,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 8,
+      "published_b_line": [
+        8,
+        1,
+        7
+      ],
+      "finish": [
+        1,
+        8,
+        3
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/054820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:6",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 6,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 9,
+      "published_b_line": [
+        9,
+        1,
+        4
+      ],
+      "finish": [
+        9,
+        1,
+        7
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/064820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:7",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 7,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 1,
+      "published_b_line": [
+        1,
+        5,
+        6
+      ],
+      "finish": [
+        2,
+        3,
+        1
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/074820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:8",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 8,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 7,
+      "published_b_line": [
+        7
+      ],
+      "finish": [
+        7,
+        8,
+        1
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/084820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:9",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 9,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 5,
+      "published_b_line": [
+        5,
+        2,
+        7
+      ],
+      "finish": [
+        2,
+        5,
+        7
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/094820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:10",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 10,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 3,
+      "published_b_line": [
+        3,
+        5,
+        6
+      ],
+      "finish": [
+        2,
+        9,
+        1
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/104820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:11",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 11,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 5,
+      "published_b_line": [
+        5,
+        1,
+        8
+      ],
+      "finish": [
+        1,
+        5,
+        8
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/114820261106/"
+    },
+    {
+      "race_id": "2026-11-06:四日市:12",
+      "date": "2026-11-06",
+      "venue": "四日市",
+      "race_no": 12,
+      "runners": 9,
+      "grade": "GIII",
+      "b_no": 3,
+      "published_b_line": [
+        3,
+        5,
+        8
+      ],
+      "finish": [
+        5,
+        8,
+        1
+      ],
+      "source_url": "https://keirinhex.jp/races/20261106/124820261106/"
+    }
+  ]
+}
