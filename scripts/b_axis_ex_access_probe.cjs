@@ -17,7 +17,8 @@ const urls=[
     const i=html.toLowerCase().indexOf(k.toLowerCase());return [k,{index:i,snippet:i<0?null:html.slice(Math.max(0,i-80),i+155)}];
    }));
    const links=[...html.matchAll(/https?:\/\/[^"'<> ]{5,150}/g)].slice(0,6).map(x=>x[0]);
-   console.log('B_AXIS_EX_ACCESS '+JSON.stringify({url,status:r.status,size:html.length,contentType:r.headers.get('content-type'),title:html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1]||null,snippets,links}));
+   const raceLinks=[...new Set([...html.matchAll(/href="([^"]*\/yokkaichi\/racecard\/2026110548[^"]*)"/g)].map(x=>x[1]))].slice(0,24);
+   console.log('B_AXIS_EX_ACCESS '+JSON.stringify({url,status:r.status,size:html.length,contentType:r.headers.get('content-type'),title:html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1]||null,snippets,links,raceLinks}));
   }catch(e){console.log('B_AXIS_EX_ACCESS '+JSON.stringify({url,error:String(e.message||e)}));}
  }
 })();
