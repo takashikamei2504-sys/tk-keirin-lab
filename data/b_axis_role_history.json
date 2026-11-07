@@ -1,0 +1,8739 @@
+{
+  "schema": "tk-b-axis-role-history/v1",
+  "training_start": "2026-06-22",
+  "training_end": "2026-11-07",
+  "number_of_days": 139,
+  "train_end_exclusive": "2026-10-16",
+  "source": "public keirin-app-data daily race cards: https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/",
+  "provenance": {
+    "actual_b_available": false,
+    "pre_race_line_roles_only": true,
+    "b_data_source": "none for broad archive",
+    "line_role_vs_result_only": true,
+    "top3_does_not_measure_following": true,
+    "raw_records_not_saved": true,
+    "public_results_not_independently_official_verified": true,
+    "coverage_not_one_year": true,
+    "timestamp_reconstruction_not_proven": true
+  },
+  "train": {
+    "races": 8776,
+    "eligible": 617,
+    "skipGirls": 776,
+    "skipOtherSize": 433,
+    "skipNoResult": 6942,
+    "skipNoLineRole": 8,
+    "runners": {
+      "7": 570,
+      "9": 47
+    },
+    "lineSize": {
+      "1": {
+        "lines": 382,
+        "winningLine": 27,
+        "top2SameLine": 0,
+        "allTop3SameLine": 0
+      },
+      "2": {
+        "lines": 930,
+        "winningLine": 227,
+        "top2SameLine": 109,
+        "allTop3SameLine": 0
+      },
+      "3": {
+        "lines": 656,
+        "winningLine": 329,
+        "top2SameLine": 218,
+        "allTop3SameLine": 103
+      },
+      "4": {
+        "lines": 47,
+        "winningLine": 31,
+        "top2SameLine": 23,
+        "allTop3SameLine": 17
+      },
+      "5": {
+        "lines": 3,
+        "winningLine": 3,
+        "top2SameLine": 3,
+        "allTop3SameLine": 0
+      }
+    },
+    "oneTwoSameLine": 353,
+    "topThreeSameLine": 120,
+    "oneThreeSameLine": 196,
+    "thirdPlaceFromWinnerLine": 196,
+    "leaderWins": 364,
+    "rolePosition": {
+      "7-F2|leader": {
+        "n": 936,
+        "first": 188,
+        "second": 126,
+        "third": 122,
+        "top3": 436,
+        "plusScore": 936,
+        "scoreSum": 74115.35999999986,
+        "out": null
+      },
+      "7-F2|second": {
+        "n": 754,
+        "first": 106,
+        "second": 148,
+        "third": 98,
+        "top3": 352,
+        "plusScore": 754,
+        "scoreSum": 60762.619999999944,
+        "out": null
+      },
+      "7-F2|thirdPlus": {
+        "n": 431,
+        "first": 9,
+        "second": 29,
+        "third": 83,
+        "top3": 121,
+        "plusScore": 431,
+        "scoreSum": 33246.11999999999,
+        "out": null
+      },
+      "9-G1|leader": {
+        "n": 190,
+        "first": 20,
+        "second": 20,
+        "third": 18,
+        "top3": 58,
+        "plusScore": 190,
+        "scoreSum": 20645.23,
+        "out": null
+      },
+      "9-G1|second": {
+        "n": 175,
+        "first": 25,
+        "second": 23,
+        "third": 22,
+        "top3": 70,
+        "plusScore": 175,
+        "scoreSum": 19441.319999999996,
+        "out": null
+      },
+      "9-G1|thirdPlus": {
+        "n": 58,
+        "first": 2,
+        "second": 4,
+        "third": 7,
+        "top3": 13,
+        "plusScore": 58,
+        "scoreSum": 6254.51,
+        "out": null
+      },
+      "7-F1|leader": {
+        "n": 892,
+        "first": 156,
+        "second": 114,
+        "third": 109,
+        "top3": 379,
+        "plusScore": 892,
+        "scoreSum": 83636.13,
+        "out": null
+      },
+      "7-F1|second": {
+        "n": 707,
+        "first": 102,
+        "second": 136,
+        "third": 104,
+        "top3": 342,
+        "plusScore": 707,
+        "scoreSum": 66419.20999999992,
+        "out": null
+      },
+      "7-F1|thirdPlus": {
+        "n": 270,
+        "first": 9,
+        "second": 17,
+        "third": 54,
+        "top3": 80,
+        "plusScore": 270,
+        "scoreSum": 24512.780000000006,
+        "out": null
+      }
+    },
+    "followScoreGap": {
+      "7|second|minus4": {
+        "n": 525,
+        "first": 66,
+        "second": 110,
+        "third": 60,
+        "top3": 236,
+        "plusScore": 525,
+        "scoreSum": 45204.68999999996,
+        "out": null
+      },
+      "7|thirdPlus|minus8": {
+        "n": 226,
+        "first": 5,
+        "second": 15,
+        "third": 42,
+        "top3": 62,
+        "plusScore": 226,
+        "scoreSum": 18595.429999999997,
+        "out": null
+      },
+      "7|thirdPlus|plus0": {
+        "n": 83,
+        "first": 5,
+        "second": 5,
+        "third": 20,
+        "top3": 30,
+        "plusScore": 83,
+        "scoreSum": 6864.700000000001,
+        "out": null
+      },
+      "7|second|plus0": {
+        "n": 445,
+        "first": 76,
+        "second": 67,
+        "third": 72,
+        "top3": 215,
+        "plusScore": 445,
+        "scoreSum": 39346.44000000002,
+        "out": null
+      },
+      "7|thirdPlus|minus4": {
+        "n": 311,
+        "first": 8,
+        "second": 25,
+        "third": 59,
+        "top3": 92,
+        "plusScore": 311,
+        "scoreSum": 25857.390000000018,
+        "out": null
+      },
+      "7|second|minus8": {
+        "n": 242,
+        "first": 20,
+        "second": 53,
+        "third": 29,
+        "top3": 102,
+        "plusScore": 242,
+        "scoreSum": 20459.749999999985,
+        "out": null
+      },
+      "7|thirdPlus|belowMinus8": {
+        "n": 67,
+        "first": 0,
+        "second": 0,
+        "third": 13,
+        "top3": 13,
+        "plusScore": 67,
+        "scoreSum": 5216.71,
+        "out": null
+      },
+      "9|second|plus4": {
+        "n": 37,
+        "first": 3,
+        "second": 5,
+        "third": 6,
+        "top3": 14,
+        "plusScore": 37,
+        "scoreSum": 4122.81,
+        "out": null
+      },
+      "9|thirdPlus|minus8": {
+        "n": 19,
+        "first": 1,
+        "second": 1,
+        "third": 1,
+        "top3": 3,
+        "plusScore": 19,
+        "scoreSum": 2031.2800000000002,
+        "out": null
+      },
+      "9|second|plus0": {
+        "n": 54,
+        "first": 9,
+        "second": 6,
+        "third": 6,
+        "top3": 21,
+        "plusScore": 54,
+        "scoreSum": 5982.750000000001,
+        "out": null
+      },
+      "9|second|minus4": {
+        "n": 40,
+        "first": 7,
+        "second": 6,
+        "third": 6,
+        "top3": 19,
+        "plusScore": 40,
+        "scoreSum": 4430.48,
+        "out": null
+      },
+      "9|second|plus8": {
+        "n": 26,
+        "first": 4,
+        "second": 3,
+        "third": 4,
+        "top3": 11,
+        "plusScore": 26,
+        "scoreSum": 2938.06,
+        "out": null
+      },
+      "9|thirdPlus|minus4": {
+        "n": 25,
+        "first": 1,
+        "second": 2,
+        "third": 3,
+        "top3": 6,
+        "plusScore": 25,
+        "scoreSum": 2731.85,
+        "out": null
+      },
+      "7|second|plus4": {
+        "n": 170,
+        "first": 31,
+        "second": 37,
+        "third": 33,
+        "top3": 101,
+        "plusScore": 170,
+        "scoreSum": 15448.749999999995,
+        "out": null
+      },
+      "9|thirdPlus|belowMinus8": {
+        "n": 7,
+        "first": 0,
+        "second": 0,
+        "third": 0,
+        "top3": 0,
+        "plusScore": 7,
+        "scoreSum": 705.4399999999999,
+        "out": null
+      },
+      "9|second|minus8": {
+        "n": 16,
+        "first": 2,
+        "second": 3,
+        "third": 0,
+        "top3": 5,
+        "plusScore": 16,
+        "scoreSum": 1769.33,
+        "out": null
+      },
+      "7|thirdPlus|plus4": {
+        "n": 13,
+        "first": 0,
+        "second": 1,
+        "third": 3,
+        "top3": 4,
+        "plusScore": 13,
+        "scoreSum": 1132.88,
+        "out": null
+      },
+      "9|thirdPlus|plus8": {
+        "n": 1,
+        "first": 0,
+        "second": 0,
+        "third": 1,
+        "top3": 1,
+        "plusScore": 1,
+        "scoreSum": 114.41
+      },
+      "9|thirdPlus|plus4": {
+        "n": 2,
+        "first": 0,
+        "second": 0,
+        "third": 1,
+        "top3": 1,
+        "plusScore": 2,
+        "scoreSum": 228.86,
+        "out": null
+      },
+      "7|second|belowMinus8": {
+        "n": 50,
+        "first": 6,
+        "second": 11,
+        "third": 5,
+        "top3": 22,
+        "plusScore": 50,
+        "scoreSum": 3963.5,
+        "out": null
+      },
+      "7|second|plus8": {
+        "n": 29,
+        "first": 9,
+        "second": 6,
+        "third": 3,
+        "top3": 18,
+        "plusScore": 29,
+        "scoreSum": 2758.7,
+        "out": null
+      },
+      "9|thirdPlus|plus0": {
+        "n": 4,
+        "first": 0,
+        "second": 1,
+        "third": 1,
+        "top3": 2,
+        "plusScore": 4,
+        "scoreSum": 442.66999999999996,
+        "out": null
+      },
+      "9|second|belowMinus8": {
+        "n": 2,
+        "first": 0,
+        "second": 0,
+        "third": 0,
+        "top3": 0,
+        "plusScore": 2,
+        "scoreSum": 197.89,
+        "out": null
+      },
+      "7|thirdPlus|plus8": {
+        "n": 1,
+        "first": 0,
+        "second": 0,
+        "third": 0,
+        "top3": 0,
+        "plusScore": 1,
+        "scoreSum": 91.79,
+        "out": null
+      }
+    },
+    "scoreRanks": {},
+    "firstTwoRelation": {
+      "sameLine": 353,
+      "differentLine": 264
+    },
+    "observedBLeaderRows": 0
+  },
+  "holdout": {
+    "races": 1708,
+    "eligible": 1474,
+    "skipGirls": 142,
+    "skipOtherSize": 71,
+    "skipNoResult": 0,
+    "skipNoLineRole": 21,
+    "runners": {
+      "7": 1319,
+      "9": 155
+    },
+    "lineSize": {
+      "1": {
+        "lines": 1040,
+        "winningLine": 82,
+        "top2SameLine": 0,
+        "allTop3SameLine": 0
+      },
+      "2": {
+        "lines": 2032,
+        "winningLine": 471,
+        "top2SameLine": 200,
+        "allTop3SameLine": 0
+      },
+      "3": {
+        "lines": 1643,
+        "winningLine": 798,
+        "top2SameLine": 546,
+        "allTop3SameLine": 272
+      },
+      "4": {
+        "lines": 140,
+        "winningLine": 116,
+        "top2SameLine": 92,
+        "allTop3SameLine": 70
+      },
+      "5": {
+        "lines": 7,
+        "winningLine": 7,
+        "top2SameLine": 7,
+        "allTop3SameLine": 7
+      }
+    },
+    "oneTwoSameLine": 845,
+    "topThreeSameLine": 349,
+    "oneThreeSameLine": 571,
+    "thirdPlaceFromWinnerLine": 571,
+    "leaderWins": 851,
+    "rolePosition": {
+      "7-F2|leader": {
+        "n": 2534,
+        "first": 495,
+        "second": 326,
+        "third": 315,
+        "top3": 1136,
+        "plusScore": 2534,
+        "scoreSum": 203150.11,
+        "out": null
+      },
+      "7-F2|second": {
+        "n": 1944,
+        "first": 263,
+        "second": 383,
+        "third": 250,
+        "top3": 896,
+        "plusScore": 1944,
+        "scoreSum": 157007.1700000002,
+        "out": null
+      },
+      "7-F2|thirdPlus": {
+        "n": 1080,
+        "first": 36,
+        "second": 85,
+        "third": 229,
+        "top3": 350,
+        "plusScore": 1080,
+        "scoreSum": 83651.56999999996,
+        "out": null
+      },
+      "7-F1|leader": {
+        "n": 1707,
+        "first": 266,
+        "second": 234,
+        "third": 212,
+        "top3": 712,
+        "plusScore": 1707,
+        "scoreSum": 161535.15999999995,
+        "out": null
+      },
+      "7-F1|second": {
+        "n": 1337,
+        "first": 241,
+        "second": 227,
+        "third": 179,
+        "top3": 647,
+        "plusScore": 1337,
+        "scoreSum": 127432.88999999978,
+        "out": null
+      },
+      "7-F1|thirdPlus": {
+        "n": 589,
+        "first": 12,
+        "second": 58,
+        "third": 128,
+        "top3": 198,
+        "plusScore": 589,
+        "scoreSum": 54023.73999999998,
+        "out": null
+      },
+      "9-G3|leader": {
+        "n": 602,
+        "first": 87,
+        "second": 66,
+        "third": 64,
+        "top3": 217,
+        "plusScore": 602,
+        "scoreSum": 62495.24000000003,
+        "out": null
+      },
+      "9-G3|second": {
+        "n": 526,
+        "first": 64,
+        "second": 76,
+        "third": 50,
+        "top3": 190,
+        "plusScore": 526,
+        "scoreSum": 54823.47,
+        "out": null
+      },
+      "9-G3|thirdPlus": {
+        "n": 267,
+        "first": 4,
+        "second": 13,
+        "third": 41,
+        "top3": 58,
+        "plusScore": 267,
+        "scoreSum": 26429.380000000016,
+        "out": null
+      },
+      "7-G3|leader": {
+        "n": 19,
+        "first": 3,
+        "second": 3,
+        "third": 1,
+        "top3": 7,
+        "plusScore": 19,
+        "scoreSum": 1849.3800000000003,
+        "out": null
+      },
+      "7-G3|second": {
+        "n": 15,
+        "first": 3,
+        "second": 3,
+        "third": 2,
+        "top3": 8,
+        "plusScore": 15,
+        "scoreSum": 1465.75,
+        "out": null
+      },
+      "7-G3|thirdPlus": {
+        "n": 8,
+        "first": 0,
+        "second": 0,
+        "third": 3,
+        "top3": 3,
+        "plusScore": 8,
+        "scoreSum": 766.1299999999999,
+        "out": null
+      }
+    },
+    "followScoreGap": {
+      "7|second|minus4": {
+        "n": 1101,
+        "first": 171,
+        "second": 208,
+        "third": 147,
+        "top3": 526,
+        "plusScore": 1101,
+        "scoreSum": 93892.9499999998,
+        "out": null
+      },
+      "7|thirdPlus|minus8": {
+        "n": 506,
+        "first": 10,
+        "second": 36,
+        "third": 113,
+        "top3": 159,
+        "plusScore": 506,
+        "scoreSum": 41417.36999999997,
+        "out": null
+      },
+      "7|second|plus0": {
+        "n": 1012,
+        "first": 150,
+        "second": 177,
+        "third": 149,
+        "top3": 476,
+        "plusScore": 1012,
+        "scoreSum": 89489.71999999999,
+        "out": null
+      },
+      "7|second|minus8": {
+        "n": 521,
+        "first": 63,
+        "second": 113,
+        "third": 46,
+        "top3": 222,
+        "plusScore": 521,
+        "scoreSum": 43199.43000000001,
+        "out": null
+      },
+      "7|thirdPlus|minus4": {
+        "n": 756,
+        "first": 24,
+        "second": 63,
+        "third": 168,
+        "top3": 255,
+        "plusScore": 756,
+        "scoreSum": 62505.899999999914,
+        "out": null
+      },
+      "7|second|plus8": {
+        "n": 93,
+        "first": 25,
+        "second": 23,
+        "third": 16,
+        "top3": 64,
+        "plusScore": 93,
+        "scoreSum": 8904.36,
+        "out": null
+      },
+      "7|second|plus4": {
+        "n": 431,
+        "first": 89,
+        "second": 71,
+        "third": 58,
+        "top3": 218,
+        "plusScore": 431,
+        "scoreSum": 39465.69999999999,
+        "out": null
+      },
+      "7|thirdPlus|plus0": {
+        "n": 186,
+        "first": 10,
+        "second": 27,
+        "third": 42,
+        "top3": 79,
+        "plusScore": 186,
+        "scoreSum": 15524.79,
+        "out": null
+      },
+      "7|thirdPlus|belowMinus8": {
+        "n": 190,
+        "first": 2,
+        "second": 11,
+        "third": 30,
+        "top3": 43,
+        "plusScore": 190,
+        "scoreSum": 15606.570000000009,
+        "out": null
+      },
+      "9|second|minus8": {
+        "n": 76,
+        "first": 5,
+        "second": 15,
+        "third": 6,
+        "top3": 26,
+        "plusScore": 76,
+        "scoreSum": 7835.380000000004,
+        "out": null
+      },
+      "9|second|plus8": {
+        "n": 31,
+        "first": 7,
+        "second": 7,
+        "third": 3,
+        "top3": 17,
+        "plusScore": 31,
+        "scoreSum": 3517.65,
+        "out": null
+      },
+      "9|thirdPlus|belowMinus8": {
+        "n": 84,
+        "first": 0,
+        "second": 3,
+        "third": 19,
+        "top3": 22,
+        "plusScore": 84,
+        "scoreSum": 8228.65,
+        "out": null
+      },
+      "9|second|plus0": {
+        "n": 173,
+        "first": 27,
+        "second": 18,
+        "third": 12,
+        "top3": 57,
+        "plusScore": 173,
+        "scoreSum": 17946.17,
+        "out": null
+      },
+      "9|second|minus4": {
+        "n": 150,
+        "first": 12,
+        "second": 22,
+        "third": 13,
+        "top3": 47,
+        "plusScore": 150,
+        "scoreSum": 15398.809999999998,
+        "out": null
+      },
+      "9|thirdPlus|minus4": {
+        "n": 71,
+        "first": 2,
+        "second": 4,
+        "third": 12,
+        "top3": 18,
+        "plusScore": 71,
+        "scoreSum": 7081.850000000001,
+        "out": null
+      },
+      "9|second|plus4": {
+        "n": 74,
+        "first": 13,
+        "second": 10,
+        "third": 14,
+        "top3": 37,
+        "plusScore": 74,
+        "scoreSum": 7865.750000000001,
+        "out": null
+      },
+      "9|thirdPlus|minus8": {
+        "n": 94,
+        "first": 1,
+        "second": 5,
+        "third": 8,
+        "top3": 14,
+        "plusScore": 94,
+        "scoreSum": 9276.32,
+        "out": null
+      },
+      "7|thirdPlus|plus8": {
+        "n": 6,
+        "first": 1,
+        "second": 1,
+        "third": 1,
+        "top3": 3,
+        "plusScore": 6,
+        "scoreSum": 531.53,
+        "out": null
+      },
+      "7|second|belowMinus8": {
+        "n": 138,
+        "first": 9,
+        "second": 21,
+        "third": 15,
+        "top3": 45,
+        "plusScore": 138,
+        "scoreSum": 10953.65,
+        "out": null
+      },
+      "9|second|belowMinus8": {
+        "n": 22,
+        "first": 0,
+        "second": 4,
+        "third": 2,
+        "top3": 6,
+        "plusScore": 22,
+        "scoreSum": 2259.71,
+        "out": null
+      },
+      "9|thirdPlus|plus0": {
+        "n": 17,
+        "first": 1,
+        "second": 1,
+        "third": 2,
+        "top3": 4,
+        "plusScore": 17,
+        "scoreSum": 1741.1299999999999,
+        "out": null
+      },
+      "7|thirdPlus|plus4": {
+        "n": 33,
+        "first": 1,
+        "second": 5,
+        "third": 6,
+        "top3": 12,
+        "plusScore": 33,
+        "scoreSum": 2855.2799999999993,
+        "out": null
+      },
+      "9|thirdPlus|plus4": {
+        "n": 1,
+        "first": 0,
+        "second": 0,
+        "third": 0,
+        "top3": 0,
+        "plusScore": 1,
+        "scoreSum": 101.43,
+        "out": null
+      }
+    },
+    "scoreRanks": {},
+    "firstTwoRelation": {
+      "sameLine": 845,
+      "differentLine": 629
+    },
+    "observedBLeaderRows": 0
+  },
+  "all": {
+    "races": 10484,
+    "eligible": 2091,
+    "skipGirls": 918,
+    "skipOtherSize": 504,
+    "skipNoResult": 6942,
+    "skipNoLineRole": 29,
+    "runners": {
+      "7": 1889,
+      "9": 202
+    },
+    "lineSize": {
+      "1": {
+        "lines": 1422,
+        "winningLine": 109,
+        "top2SameLine": 0,
+        "allTop3SameLine": 0
+      },
+      "2": {
+        "lines": 2962,
+        "winningLine": 698,
+        "top2SameLine": 309,
+        "allTop3SameLine": 0
+      },
+      "3": {
+        "lines": 2299,
+        "winningLine": 1127,
+        "top2SameLine": 764,
+        "allTop3SameLine": 375
+      },
+      "4": {
+        "lines": 187,
+        "winningLine": 147,
+        "top2SameLine": 115,
+        "allTop3SameLine": 87
+      },
+      "5": {
+        "lines": 10,
+        "winningLine": 10,
+        "top2SameLine": 10,
+        "allTop3SameLine": 7
+      }
+    },
+    "oneTwoSameLine": 1198,
+    "topThreeSameLine": 469,
+    "oneThreeSameLine": 767,
+    "thirdPlaceFromWinnerLine": 767,
+    "leaderWins": 1215,
+    "rolePosition": {
+      "7-F2|leader": {
+        "n": 3470,
+        "first": 683,
+        "second": 452,
+        "third": 437,
+        "top3": 1572,
+        "plusScore": 3470,
+        "scoreSum": 277265.46999999986,
+        "out": null
+      },
+      "7-F2|second": {
+        "n": 2698,
+        "first": 369,
+        "second": 531,
+        "third": 348,
+        "top3": 1248,
+        "plusScore": 2698,
+        "scoreSum": 217769.79000000082,
+        "out": null
+      },
+      "7-F2|thirdPlus": {
+        "n": 1511,
+        "first": 45,
+        "second": 114,
+        "third": 312,
+        "top3": 471,
+        "plusScore": 1511,
+        "scoreSum": 116897.69000000012,
+        "out": null
+      },
+      "9-G1|leader": {
+        "n": 190,
+        "first": 20,
+        "second": 20,
+        "third": 18,
+        "top3": 58,
+        "plusScore": 190,
+        "scoreSum": 20645.23,
+        "out": null
+      },
+      "9-G1|second": {
+        "n": 175,
+        "first": 25,
+        "second": 23,
+        "third": 22,
+        "top3": 70,
+        "plusScore": 175,
+        "scoreSum": 19441.319999999996,
+        "out": null
+      },
+      "9-G1|thirdPlus": {
+        "n": 58,
+        "first": 2,
+        "second": 4,
+        "third": 7,
+        "top3": 13,
+        "plusScore": 58,
+        "scoreSum": 6254.51,
+        "out": null
+      },
+      "7-F1|leader": {
+        "n": 2599,
+        "first": 422,
+        "second": 348,
+        "third": 321,
+        "top3": 1091,
+        "plusScore": 2599,
+        "scoreSum": 245171.29000000012,
+        "out": null
+      },
+      "7-F1|second": {
+        "n": 2044,
+        "first": 343,
+        "second": 363,
+        "third": 283,
+        "top3": 989,
+        "plusScore": 2044,
+        "scoreSum": 193852.1000000003,
+        "out": null
+      },
+      "7-F1|thirdPlus": {
+        "n": 859,
+        "first": 21,
+        "second": 75,
+        "third": 182,
+        "top3": 278,
+        "plusScore": 859,
+        "scoreSum": 78536.5199999999,
+        "out": null
+      },
+      "9-G3|leader": {
+        "n": 602,
+        "first": 87,
+        "second": 66,
+        "third": 64,
+        "top3": 217,
+        "plusScore": 602,
+        "scoreSum": 62495.24000000003,
+        "out": null
+      },
+      "9-G3|second": {
+        "n": 526,
+        "first": 64,
+        "second": 76,
+        "third": 50,
+        "top3": 190,
+        "plusScore": 526,
+        "scoreSum": 54823.47,
+        "out": null
+      },
+      "9-G3|thirdPlus": {
+        "n": 267,
+        "first": 4,
+        "second": 13,
+        "third": 41,
+        "top3": 58,
+        "plusScore": 267,
+        "scoreSum": 26429.380000000016,
+        "out": null
+      },
+      "7-G3|leader": {
+        "n": 19,
+        "first": 3,
+        "second": 3,
+        "third": 1,
+        "top3": 7,
+        "plusScore": 19,
+        "scoreSum": 1849.3800000000003,
+        "out": null
+      },
+      "7-G3|second": {
+        "n": 15,
+        "first": 3,
+        "second": 3,
+        "third": 2,
+        "top3": 8,
+        "plusScore": 15,
+        "scoreSum": 1465.75,
+        "out": null
+      },
+      "7-G3|thirdPlus": {
+        "n": 8,
+        "first": 0,
+        "second": 0,
+        "third": 3,
+        "top3": 3,
+        "plusScore": 8,
+        "scoreSum": 766.1299999999999,
+        "out": null
+      }
+    },
+    "followScoreGap": {
+      "7|second|minus4": {
+        "n": 1626,
+        "first": 237,
+        "second": 318,
+        "third": 207,
+        "top3": 762,
+        "plusScore": 1626,
+        "scoreSum": 139097.6399999999,
+        "out": null
+      },
+      "7|thirdPlus|minus8": {
+        "n": 732,
+        "first": 15,
+        "second": 51,
+        "third": 155,
+        "top3": 221,
+        "plusScore": 732,
+        "scoreSum": 60012.799999999945,
+        "out": null
+      },
+      "7|thirdPlus|plus0": {
+        "n": 269,
+        "first": 15,
+        "second": 32,
+        "third": 62,
+        "top3": 109,
+        "plusScore": 269,
+        "scoreSum": 22389.490000000013,
+        "out": null
+      },
+      "7|second|plus0": {
+        "n": 1457,
+        "first": 226,
+        "second": 244,
+        "third": 221,
+        "top3": 691,
+        "plusScore": 1457,
+        "scoreSum": 128836.15999999987,
+        "out": null
+      },
+      "7|thirdPlus|minus4": {
+        "n": 1067,
+        "first": 32,
+        "second": 88,
+        "third": 227,
+        "top3": 347,
+        "plusScore": 1067,
+        "scoreSum": 88363.28999999996,
+        "out": null
+      },
+      "7|second|minus8": {
+        "n": 763,
+        "first": 83,
+        "second": 166,
+        "third": 75,
+        "top3": 324,
+        "plusScore": 763,
+        "scoreSum": 63659.17999999995,
+        "out": null
+      },
+      "7|thirdPlus|belowMinus8": {
+        "n": 257,
+        "first": 2,
+        "second": 11,
+        "third": 43,
+        "top3": 56,
+        "plusScore": 257,
+        "scoreSum": 20823.279999999995,
+        "out": null
+      },
+      "9|second|plus4": {
+        "n": 111,
+        "first": 16,
+        "second": 15,
+        "third": 20,
+        "top3": 51,
+        "plusScore": 111,
+        "scoreSum": 11988.56,
+        "out": null
+      },
+      "9|thirdPlus|minus8": {
+        "n": 113,
+        "first": 2,
+        "second": 6,
+        "third": 9,
+        "top3": 17,
+        "plusScore": 113,
+        "scoreSum": 11307.599999999995,
+        "out": null
+      },
+      "9|second|plus0": {
+        "n": 227,
+        "first": 36,
+        "second": 24,
+        "third": 18,
+        "top3": 78,
+        "plusScore": 227,
+        "scoreSum": 23928.92,
+        "out": null
+      },
+      "9|second|minus4": {
+        "n": 190,
+        "first": 19,
+        "second": 28,
+        "third": 19,
+        "top3": 66,
+        "plusScore": 190,
+        "scoreSum": 19829.289999999994,
+        "out": null
+      },
+      "9|second|plus8": {
+        "n": 57,
+        "first": 11,
+        "second": 10,
+        "third": 7,
+        "top3": 28,
+        "plusScore": 57,
+        "scoreSum": 6455.710000000002,
+        "out": null
+      },
+      "9|thirdPlus|minus4": {
+        "n": 96,
+        "first": 3,
+        "second": 6,
+        "third": 15,
+        "top3": 24,
+        "plusScore": 96,
+        "scoreSum": 9813.7,
+        "out": null
+      },
+      "7|second|plus4": {
+        "n": 601,
+        "first": 120,
+        "second": 108,
+        "third": 91,
+        "top3": 319,
+        "plusScore": 601,
+        "scoreSum": 54914.44999999991,
+        "out": null
+      },
+      "9|thirdPlus|belowMinus8": {
+        "n": 91,
+        "first": 0,
+        "second": 3,
+        "third": 19,
+        "top3": 22,
+        "plusScore": 91,
+        "scoreSum": 8934.089999999998,
+        "out": null
+      },
+      "9|second|minus8": {
+        "n": 92,
+        "first": 7,
+        "second": 18,
+        "third": 6,
+        "top3": 31,
+        "plusScore": 92,
+        "scoreSum": 9604.710000000003,
+        "out": null
+      },
+      "7|thirdPlus|plus4": {
+        "n": 46,
+        "first": 1,
+        "second": 6,
+        "third": 9,
+        "top3": 16,
+        "plusScore": 46,
+        "scoreSum": 3988.159999999999,
+        "out": null
+      },
+      "9|thirdPlus|plus8": {
+        "n": 1,
+        "first": 0,
+        "second": 0,
+        "third": 1,
+        "top3": 1,
+        "plusScore": 1,
+        "scoreSum": 114.41
+      },
+      "9|thirdPlus|plus4": {
+        "n": 3,
+        "first": 0,
+        "second": 0,
+        "third": 1,
+        "top3": 1,
+        "plusScore": 3,
+        "scoreSum": 330.29,
+        "out": null
+      },
+      "7|second|belowMinus8": {
+        "n": 188,
+        "first": 15,
+        "second": 32,
+        "third": 20,
+        "top3": 67,
+        "plusScore": 188,
+        "scoreSum": 14917.150000000009,
+        "out": null
+      },
+      "7|second|plus8": {
+        "n": 122,
+        "first": 34,
+        "second": 29,
+        "third": 19,
+        "top3": 82,
+        "plusScore": 122,
+        "scoreSum": 11663.060000000001,
+        "out": null
+      },
+      "7|thirdPlus|plus8": {
+        "n": 7,
+        "first": 1,
+        "second": 1,
+        "third": 1,
+        "top3": 3,
+        "plusScore": 7,
+        "scoreSum": 623.32,
+        "out": null
+      },
+      "9|thirdPlus|plus0": {
+        "n": 21,
+        "first": 1,
+        "second": 2,
+        "third": 3,
+        "top3": 6,
+        "plusScore": 21,
+        "scoreSum": 2183.8,
+        "out": null
+      },
+      "9|second|belowMinus8": {
+        "n": 24,
+        "first": 0,
+        "second": 4,
+        "third": 2,
+        "top3": 6,
+        "plusScore": 24,
+        "scoreSum": 2457.6,
+        "out": null
+      }
+    },
+    "scoreRanks": {},
+    "firstTwoRelation": {
+      "sameLine": 1198,
+      "differentLine": 893
+    },
+    "observedBLeaderRows": 0
+  },
+  "rider_roles": {
+    "11142": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 67.62
+    },
+    "11328": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 65.9
+    },
+    "11341": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 71
+    },
+    "11372": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 76.57
+    },
+    "11382": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 62.73
+    },
+    "11417": {
+      "n": 9,
+      "top3": 5,
+      "first": 0,
+      "second": 3,
+      "third": 2,
+      "avgScore": 73.81
+    },
+    "11427": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 66.98
+    },
+    "11431": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 62.46
+    },
+    "11451": {
+      "n": 8,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 67.44
+    },
+    "11454": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 78.91
+    },
+    "11477": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 91.32
+    },
+    "11487": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 82.08
+    },
+    "11574": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 75.98
+    },
+    "11619": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 84.6
+    },
+    "11622": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 71.69
+    },
+    "11634": {
+      "n": 6,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 83.65
+    },
+    "11712": {
+      "n": 11,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 70.15
+    },
+    "11790": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 65.8
+    },
+    "11800": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 82.94
+    },
+    "11817": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 78.89
+    },
+    "11821": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 68.51
+    },
+    "11907": {
+      "n": 9,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 84.57
+    },
+    "11935": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 69.91
+    },
+    "11993": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 71.02
+    },
+    "11994": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 65.56
+    },
+    "12005": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 69.22
+    },
+    "12042": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 81.52
+    },
+    "12092": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 71.23
+    },
+    "12112": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 81.2
+    },
+    "12128": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 81.1
+    },
+    "12132": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 77.94
+    },
+    "12157": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 68.18
+    },
+    "12164": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 83.2
+    },
+    "12193": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 81.2
+    },
+    "12197": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 67.11
+    },
+    "12208": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 72.93
+    },
+    "12216": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 79.7
+    },
+    "12234": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 88.18
+    },
+    "12242": {
+      "n": 8,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 76.75
+    },
+    "12261": {
+      "n": 9,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 87.43
+    },
+    "12277": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 63.7
+    },
+    "12283": {
+      "n": 9,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 88.07
+    },
+    "12287": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 71.82
+    },
+    "12290": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 0,
+      "third": 3,
+      "avgScore": 65.97
+    },
+    "12298": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 79.99
+    },
+    "12319": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 69.26
+    },
+    "12339": {
+      "n": 9,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 106.48
+    },
+    "12379": {
+      "n": 10,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 81.97
+    },
+    "12380": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 87.27
+    },
+    "12383": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 70.05
+    },
+    "12406": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 67.28
+    },
+    "12417": {
+      "n": 10,
+      "top3": 3,
+      "first": 3,
+      "second": 0,
+      "third": 0,
+      "avgScore": 82.27
+    },
+    "12421": {
+      "n": 6,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 86.83
+    },
+    "12439": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 70.72
+    },
+    "12450": {
+      "n": 6,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 106.8
+    },
+    "12452": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 85.16
+    },
+    "12466": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 81.02
+    },
+    "12478": {
+      "n": 10,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 92.96
+    },
+    "12479": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 74.3
+    },
+    "12487": {
+      "n": 9,
+      "top3": 5,
+      "first": 2,
+      "second": 2,
+      "third": 1,
+      "avgScore": 100.53
+    },
+    "12501": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 88.88
+    },
+    "12507": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 69.89
+    },
+    "12509": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 68.32
+    },
+    "12512": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 68.48
+    },
+    "12519": {
+      "n": 12,
+      "top3": 6,
+      "first": 4,
+      "second": 2,
+      "third": 0,
+      "avgScore": 92.44
+    },
+    "12530": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 68.28
+    },
+    "12537": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 67.12
+    },
+    "12541": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 98.56
+    },
+    "12544": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 84.45
+    },
+    "12547": {
+      "n": 9,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 68.43
+    },
+    "12550": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 70.19
+    },
+    "12559": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 68.71
+    },
+    "12586": {
+      "n": 7,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 77.48
+    },
+    "12590": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 86.68
+    },
+    "12592": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 95.97
+    },
+    "12593": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 72.18
+    },
+    "12596": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 107.28
+    },
+    "12597": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 69.44
+    },
+    "12598": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 85.22
+    },
+    "12602": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 77.97
+    },
+    "12626": {
+      "n": 7,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 68.91
+    },
+    "12628": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 79.16
+    },
+    "12649": {
+      "n": 9,
+      "top3": 8,
+      "first": 1,
+      "second": 4,
+      "third": 3,
+      "avgScore": 77.19
+    },
+    "12656": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 71.22
+    },
+    "12669": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 101.41
+    },
+    "12678": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 84.8
+    },
+    "12679": {
+      "n": 7,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 86.75
+    },
+    "12681": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 80.09
+    },
+    "12684": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 0,
+      "third": 3,
+      "avgScore": 82.51
+    },
+    "12688": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 94.22
+    },
+    "12689": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 86.43
+    },
+    "12705": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 91.15
+    },
+    "12708": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 82.72
+    },
+    "12710": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 76.84
+    },
+    "12717": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 79.34
+    },
+    "12718": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 85.4
+    },
+    "12719": {
+      "n": 10,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 78.17
+    },
+    "12721": {
+      "n": 9,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 86.97
+    },
+    "12728": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 91.75
+    },
+    "12738": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 82.41
+    },
+    "12747": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 86.08
+    },
+    "12757": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 87.95
+    },
+    "12760": {
+      "n": 8,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 86.74
+    },
+    "12763": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 85.69
+    },
+    "12766": {
+      "n": 10,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 83.64
+    },
+    "12779": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 80.69
+    },
+    "12783": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 69.56
+    },
+    "12785": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 93.79
+    },
+    "12786": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 94.07
+    },
+    "12794": {
+      "n": 6,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 81.7
+    },
+    "12795": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 71.5
+    },
+    "12809": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 85.7
+    },
+    "12813": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 97.58
+    },
+    "12819": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 92.57
+    },
+    "12823": {
+      "n": 8,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 83.81
+    },
+    "12826": {
+      "n": 6,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 90.34
+    },
+    "12827": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 71.44
+    },
+    "12832": {
+      "n": 8,
+      "top3": 5,
+      "first": 1,
+      "second": 4,
+      "third": 0,
+      "avgScore": 72.24
+    },
+    "12834": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 98.03
+    },
+    "12847": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 69.28
+    },
+    "12850": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 78.08
+    },
+    "12858": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 67.76
+    },
+    "12861": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 81.15
+    },
+    "12875": {
+      "n": 8,
+      "top3": 5,
+      "first": 0,
+      "second": 1,
+      "third": 4,
+      "avgScore": 81.55
+    },
+    "12876": {
+      "n": 6,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 71.64
+    },
+    "12878": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 73.63
+    },
+    "12879": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 81.58
+    },
+    "12881": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 95.84
+    },
+    "12885": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 68.9
+    },
+    "12886": {
+      "n": 11,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 88.51
+    },
+    "12889": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 97.02
+    },
+    "12891": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 81.42
+    },
+    "12910": {
+      "n": 5,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 75.67
+    },
+    "12920": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 84.43
+    },
+    "12924": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 86.19
+    },
+    "12930": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 69.6
+    },
+    "12937": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 0,
+      "third": 3,
+      "avgScore": 83.96
+    },
+    "12938": {
+      "n": 9,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 69
+    },
+    "12940": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 80.84
+    },
+    "12944": {
+      "n": 11,
+      "top3": 5,
+      "first": 0,
+      "second": 1,
+      "third": 4,
+      "avgScore": 80.62
+    },
+    "12948": {
+      "n": 8,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 98.91
+    },
+    "12953": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 80.83
+    },
+    "12955": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 80.7
+    },
+    "12960": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 84.42
+    },
+    "12963": {
+      "n": 10,
+      "top3": 5,
+      "first": 0,
+      "second": 0,
+      "third": 5,
+      "avgScore": 84.89
+    },
+    "12966": {
+      "n": 9,
+      "top3": 5,
+      "first": 0,
+      "second": 1,
+      "third": 4,
+      "avgScore": 71.28
+    },
+    "12971": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 82.74
+    },
+    "12972": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 88.84
+    },
+    "12981": {
+      "n": 11,
+      "top3": 5,
+      "first": 3,
+      "second": 2,
+      "third": 0,
+      "avgScore": 89.41
+    },
+    "12982": {
+      "n": 11,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 67.79
+    },
+    "12987": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 101.28
+    },
+    "12989": {
+      "n": 7,
+      "top3": 5,
+      "first": 0,
+      "second": 1,
+      "third": 4,
+      "avgScore": 84.58
+    },
+    "12992": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 78.62
+    },
+    "12997": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 69.4
+    },
+    "13006": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 81.4
+    },
+    "13023": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 68.84
+    },
+    "13036": {
+      "n": 8,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 80.19
+    },
+    "13037": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 67.34
+    },
+    "13041": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 83.96
+    },
+    "13042": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 86.61
+    },
+    "13045": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 97.37
+    },
+    "13047": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 85.77
+    },
+    "13049": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 4,
+      "third": 0,
+      "avgScore": 72.89
+    },
+    "13054": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 90.25
+    },
+    "13056": {
+      "n": 9,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 80.23
+    },
+    "13058": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 90.37
+    },
+    "13059": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 105.06
+    },
+    "13060": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 45.5
+    },
+    "13062": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 65.82
+    },
+    "13063": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 73.58
+    },
+    "13074": {
+      "n": 11,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 92.76
+    },
+    "13075": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 0,
+      "third": 3,
+      "avgScore": 83.77
+    },
+    "13080": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 71.6
+    },
+    "13106": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 82.27
+    },
+    "13112": {
+      "n": 12,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 81.63
+    },
+    "13115": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 98.33
+    },
+    "13118": {
+      "n": 11,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 101.8
+    },
+    "13119": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 78.84
+    },
+    "13127": {
+      "n": 9,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 77.13
+    },
+    "13128": {
+      "n": 7,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 69.59
+    },
+    "13131": {
+      "n": 8,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 77.05
+    },
+    "13140": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 109.64
+    },
+    "13142": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 80.19
+    },
+    "13143": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 78.63
+    },
+    "13145": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 71.35
+    },
+    "13155": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 84.58
+    },
+    "13161": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 68.18
+    },
+    "13162": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 110.98
+    },
+    "13171": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 80
+    },
+    "13172": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 80.48
+    },
+    "13176": {
+      "n": 6,
+      "top3": 6,
+      "first": 1,
+      "second": 3,
+      "third": 2,
+      "avgScore": 72.79
+    },
+    "13179": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 79.86
+    },
+    "13184": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 69.58
+    },
+    "13188": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 87.7
+    },
+    "13196": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 83.23
+    },
+    "13197": {
+      "n": 9,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 85.21
+    },
+    "13199": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 94.06
+    },
+    "13204": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 90.81
+    },
+    "13206": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 71.86
+    },
+    "13209": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 85.38
+    },
+    "13210": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 72.16
+    },
+    "13214": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 74.75
+    },
+    "13233": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 83.33
+    },
+    "13240": {
+      "n": 10,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 98.21
+    },
+    "13242": {
+      "n": 9,
+      "top3": 6,
+      "first": 0,
+      "second": 5,
+      "third": 1,
+      "avgScore": 93.1
+    },
+    "13244": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 67.47
+    },
+    "13246": {
+      "n": 9,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 83.91
+    },
+    "13252": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 100.86
+    },
+    "13255": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 70.69
+    },
+    "13259": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 87.04
+    },
+    "13261": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 69.4
+    },
+    "13263": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 82.49
+    },
+    "13264": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 71.68
+    },
+    "13267": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 89.37
+    },
+    "13270": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 81.92
+    },
+    "13271": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 83.66
+    },
+    "13273": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 83.95
+    },
+    "13274": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 96.56
+    },
+    "13275": {
+      "n": 10,
+      "top3": 7,
+      "first": 2,
+      "second": 2,
+      "third": 3,
+      "avgScore": 85.91
+    },
+    "13283": {
+      "n": 6,
+      "top3": 5,
+      "first": 0,
+      "second": 4,
+      "third": 1,
+      "avgScore": 88.41
+    },
+    "13285": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 83.24
+    },
+    "13291": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 104.67
+    },
+    "13294": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 81.97
+    },
+    "13295": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 100.26
+    },
+    "13296": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 87.1
+    },
+    "13298": {
+      "n": 9,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 80.34
+    },
+    "13303": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 69.57
+    },
+    "13306": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 97.13
+    },
+    "13308": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 88.66
+    },
+    "13311": {
+      "n": 9,
+      "top3": 6,
+      "first": 0,
+      "second": 4,
+      "third": 2,
+      "avgScore": 87.01
+    },
+    "13320": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 66.32
+    },
+    "13331": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 72.66
+    },
+    "13332": {
+      "n": 7,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 89.01
+    },
+    "13333": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 81.92
+    },
+    "13348": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 82.05
+    },
+    "13349": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 83.72
+    },
+    "13352": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 84.31
+    },
+    "13354": {
+      "n": 9,
+      "top3": 6,
+      "first": 2,
+      "second": 1,
+      "third": 3,
+      "avgScore": 86.94
+    },
+    "13357": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 96.18
+    },
+    "13359": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 71.64
+    },
+    "13363": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 84.13
+    },
+    "13366": {
+      "n": 9,
+      "top3": 5,
+      "first": 2,
+      "second": 2,
+      "third": 1,
+      "avgScore": 73.54
+    },
+    "13368": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 98.88
+    },
+    "13370": {
+      "n": 8,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 81.51
+    },
+    "13371": {
+      "n": 10,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 81.01
+    },
+    "13378": {
+      "n": 8,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 70.79
+    },
+    "13382": {
+      "n": 9,
+      "top3": 6,
+      "first": 0,
+      "second": 2,
+      "third": 4,
+      "avgScore": 88.08
+    },
+    "13384": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 81.18
+    },
+    "13387": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 108.06
+    },
+    "13394": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 93.93
+    },
+    "13398": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 71.14
+    },
+    "13400": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 86.59
+    },
+    "13407": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 97.37
+    },
+    "13408": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 75.2
+    },
+    "13410": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 99.89
+    },
+    "13416": {
+      "n": 9,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 84.31
+    },
+    "13417": {
+      "n": 10,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 83.27
+    },
+    "13421": {
+      "n": 9,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 71.24
+    },
+    "13426": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 84.11
+    },
+    "13435": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 89.23
+    },
+    "13438": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 96.28
+    },
+    "13439": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 91.9
+    },
+    "13442": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 104.38
+    },
+    "13443": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 98.03
+    },
+    "13445": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 92.87
+    },
+    "13446": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 69.41
+    },
+    "13447": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 87.91
+    },
+    "13448": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 97.52
+    },
+    "13451": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 76.41
+    },
+    "13454": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 67.03
+    },
+    "13456": {
+      "n": 8,
+      "top3": 4,
+      "first": 3,
+      "second": 1,
+      "third": 0,
+      "avgScore": 74.26
+    },
+    "13465": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 87.28
+    },
+    "13470": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 68.38
+    },
+    "13471": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 87.47
+    },
+    "13473": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 88.65
+    },
+    "13477": {
+      "n": 9,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 86.91
+    },
+    "13480": {
+      "n": 9,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 71.08
+    },
+    "13482": {
+      "n": 10,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 86.55
+    },
+    "13483": {
+      "n": 9,
+      "top3": 5,
+      "first": 2,
+      "second": 3,
+      "third": 0,
+      "avgScore": 90.36
+    },
+    "13484": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 82.79
+    },
+    "13489": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 72.4
+    },
+    "13491": {
+      "n": 8,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 85.77
+    },
+    "13493": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 0,
+      "third": 3,
+      "avgScore": 84.52
+    },
+    "13494": {
+      "n": 7,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 81.77
+    },
+    "13495": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 101.71
+    },
+    "13498": {
+      "n": 10,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 98.28
+    },
+    "13505": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 67.65
+    },
+    "13506": {
+      "n": 7,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 81.21
+    },
+    "13507": {
+      "n": 8,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 83.72
+    },
+    "13512": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 81.68
+    },
+    "13513": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 65.74
+    },
+    "13514": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 100.29
+    },
+    "13516": {
+      "n": 5,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 115.09
+    },
+    "13521": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 4,
+      "third": 0,
+      "avgScore": 72.5
+    },
+    "13526": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 71.94
+    },
+    "13532": {
+      "n": 10,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 106.48
+    },
+    "13533": {
+      "n": 8,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 99.85
+    },
+    "13535": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 87.64
+    },
+    "13537": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 94.87
+    },
+    "13543": {
+      "n": 8,
+      "top3": 5,
+      "first": 0,
+      "second": 1,
+      "third": 4,
+      "avgScore": 72.07
+    },
+    "13546": {
+      "n": 9,
+      "top3": 6,
+      "first": 0,
+      "second": 0,
+      "third": 6,
+      "avgScore": 86.85
+    },
+    "13547": {
+      "n": 9,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 83.69
+    },
+    "13548": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 80.98
+    },
+    "13549": {
+      "n": 9,
+      "top3": 6,
+      "first": 1,
+      "second": 2,
+      "third": 3,
+      "avgScore": 74.36
+    },
+    "13550": {
+      "n": 10,
+      "top3": 5,
+      "first": 4,
+      "second": 1,
+      "third": 0,
+      "avgScore": 86.55
+    },
+    "13551": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 71.81
+    },
+    "13555": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 88.79
+    },
+    "13556": {
+      "n": 9,
+      "top3": 6,
+      "first": 1,
+      "second": 1,
+      "third": 4,
+      "avgScore": 81.39
+    },
+    "13568": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 89.56
+    },
+    "13570": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 88.93
+    },
+    "13571": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 90.59
+    },
+    "13575": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 81.11
+    },
+    "13576": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 84.62
+    },
+    "13580": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 81.39
+    },
+    "13581": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 80
+    },
+    "13584": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 80.34
+    },
+    "13589": {
+      "n": 11,
+      "top3": 7,
+      "first": 2,
+      "second": 2,
+      "third": 3,
+      "avgScore": 88.18
+    },
+    "13594": {
+      "n": 9,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 78.95
+    },
+    "13601": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 84.99
+    },
+    "13604": {
+      "n": 9,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 98.99
+    },
+    "13608": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 82.38
+    },
+    "13610": {
+      "n": 9,
+      "top3": 5,
+      "first": 1,
+      "second": 2,
+      "third": 2,
+      "avgScore": 88.22
+    },
+    "13616": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 85.56
+    },
+    "13618": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 97.59
+    },
+    "13619": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 104.22
+    },
+    "13622": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 95.61
+    },
+    "13628": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 105.82
+    },
+    "13632": {
+      "n": 6,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 92.23
+    },
+    "13638": {
+      "n": 6,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 86.45
+    },
+    "13640": {
+      "n": 9,
+      "top3": 6,
+      "first": 1,
+      "second": 3,
+      "third": 2,
+      "avgScore": 90.58
+    },
+    "13641": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 84.31
+    },
+    "13645": {
+      "n": 8,
+      "top3": 5,
+      "first": 1,
+      "second": 2,
+      "third": 2,
+      "avgScore": 86.92
+    },
+    "13646": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 78.18
+    },
+    "13651": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 66.67
+    },
+    "13653": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 92.74
+    },
+    "13654": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 80.89
+    },
+    "13656": {
+      "n": 6,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 105.15
+    },
+    "13659": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 82.87
+    },
+    "13660": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 83.85
+    },
+    "13663": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 69.38
+    },
+    "13667": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 85.76
+    },
+    "13669": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 102.4
+    },
+    "13670": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 93.66
+    },
+    "13673": {
+      "n": 13,
+      "top3": 5,
+      "first": 0,
+      "second": 4,
+      "third": 1,
+      "avgScore": 109.75
+    },
+    "13679": {
+      "n": 10,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 96.54
+    },
+    "13684": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 68.81
+    },
+    "13685": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 0,
+      "third": 3,
+      "avgScore": 101.26
+    },
+    "13690": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 82.03
+    },
+    "13693": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 0,
+      "third": 3,
+      "avgScore": 94.6
+    },
+    "13695": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 86.8
+    },
+    "13705": {
+      "n": 9,
+      "top3": 5,
+      "first": 1,
+      "second": 2,
+      "third": 2,
+      "avgScore": 72.46
+    },
+    "13716": {
+      "n": 5,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 91.67
+    },
+    "13719": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 100.73
+    },
+    "13722": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 93.31
+    },
+    "13723": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 81.42
+    },
+    "13724": {
+      "n": 6,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 100.58
+    },
+    "13728": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 69.16
+    },
+    "13730": {
+      "n": 7,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 110.05
+    },
+    "13735": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 71.29
+    },
+    "13737": {
+      "n": 10,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 104.81
+    },
+    "13743": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 73.95
+    },
+    "13744": {
+      "n": 10,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 99.52
+    },
+    "13745": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 106.18
+    },
+    "13747": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 93.61
+    },
+    "13748": {
+      "n": 10,
+      "top3": 4,
+      "first": 0,
+      "second": 4,
+      "third": 0,
+      "avgScore": 91.8
+    },
+    "13749": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 73.84
+    },
+    "13761": {
+      "n": 9,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 80.2
+    },
+    "13762": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 95.17
+    },
+    "13763": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 71.81
+    },
+    "13765": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 100.96
+    },
+    "13766": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 89.62
+    },
+    "13767": {
+      "n": 8,
+      "top3": 5,
+      "first": 2,
+      "second": 3,
+      "third": 0,
+      "avgScore": 73.27
+    },
+    "13768": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 69.81
+    },
+    "13772": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 106.67
+    },
+    "13775": {
+      "n": 9,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 85.26
+    },
+    "13776": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 68.6
+    },
+    "13781": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 68.97
+    },
+    "13782": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 88.06
+    },
+    "13783": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 95.92
+    },
+    "13784": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 78.26
+    },
+    "13788": {
+      "n": 8,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 67.9
+    },
+    "13790": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 98.26
+    },
+    "13791": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 111.27
+    },
+    "13792": {
+      "n": 7,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 86.48
+    },
+    "13798": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 97.96
+    },
+    "13799": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 85.41
+    },
+    "13802": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 72.61
+    },
+    "13803": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 94.04
+    },
+    "13804": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 102.14
+    },
+    "13808": {
+      "n": 13,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 102.81
+    },
+    "13809": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 82.31
+    },
+    "13811": {
+      "n": 9,
+      "top3": 6,
+      "first": 1,
+      "second": 1,
+      "third": 4,
+      "avgScore": 85.53
+    },
+    "13815": {
+      "n": 9,
+      "top3": 7,
+      "first": 4,
+      "second": 1,
+      "third": 2,
+      "avgScore": 105.35
+    },
+    "13817": {
+      "n": 12,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 86.79
+    },
+    "13818": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 65.8
+    },
+    "13821": {
+      "n": 7,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 104.89
+    },
+    "13822": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 80.76
+    },
+    "13824": {
+      "n": 9,
+      "top3": 6,
+      "first": 2,
+      "second": 0,
+      "third": 4,
+      "avgScore": 90.22
+    },
+    "13826": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 0,
+      "third": 3,
+      "avgScore": 84.85
+    },
+    "13827": {
+      "n": 11,
+      "top3": 5,
+      "first": 2,
+      "second": 3,
+      "third": 0,
+      "avgScore": 89.2
+    },
+    "13830": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 68.57
+    },
+    "13834": {
+      "n": 9,
+      "top3": 7,
+      "first": 2,
+      "second": 3,
+      "third": 2,
+      "avgScore": 89.26
+    },
+    "13838": {
+      "n": 8,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 79.13
+    },
+    "13851": {
+      "n": 6,
+      "top3": 5,
+      "first": 1,
+      "second": 2,
+      "third": 2,
+      "avgScore": 113.08
+    },
+    "13852": {
+      "n": 9,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 93.4
+    },
+    "13853": {
+      "n": 9,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 92.66
+    },
+    "13855": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 99.43
+    },
+    "13857": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 82.65
+    },
+    "13859": {
+      "n": 9,
+      "top3": 6,
+      "first": 2,
+      "second": 1,
+      "third": 3,
+      "avgScore": 86.71
+    },
+    "13860": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 78.84
+    },
+    "13861": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 68.42
+    },
+    "13862": {
+      "n": 6,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 98.6
+    },
+    "13864": {
+      "n": 11,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 94.71
+    },
+    "13867": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 69.22
+    },
+    "13879": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 61.67
+    },
+    "13880": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 111.67
+    },
+    "13883": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 99.41
+    },
+    "13884": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 93.38
+    },
+    "13885": {
+      "n": 5,
+      "top3": 3,
+      "first": 3,
+      "second": 0,
+      "third": 0,
+      "avgScore": 91.95
+    },
+    "13886": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 103.83
+    },
+    "13887": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 70.27
+    },
+    "13888": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 83.66
+    },
+    "13890": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 89.54
+    },
+    "13892": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 82.67
+    },
+    "13894": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 109.02
+    },
+    "13895": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 83.37
+    },
+    "13896": {
+      "n": 7,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 82.78
+    },
+    "13897": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 73.49
+    },
+    "13899": {
+      "n": 11,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 84.4
+    },
+    "13900": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 106.15
+    },
+    "13901": {
+      "n": 9,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 95.12
+    },
+    "13903": {
+      "n": 6,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 89.16
+    },
+    "13904": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 109.29
+    },
+    "13907": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 82.14
+    },
+    "13910": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 85.49
+    },
+    "13912": {
+      "n": 10,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 94.96
+    },
+    "13915": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 87.06
+    },
+    "13916": {
+      "n": 10,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 86.02
+    },
+    "13917": {
+      "n": 11,
+      "top3": 6,
+      "first": 1,
+      "second": 2,
+      "third": 3,
+      "avgScore": 108.47
+    },
+    "13920": {
+      "n": 7,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 107.23
+    },
+    "13923": {
+      "n": 9,
+      "top3": 4,
+      "first": 4,
+      "second": 0,
+      "third": 0,
+      "avgScore": 102.98
+    },
+    "13925": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 80.32
+    },
+    "13926": {
+      "n": 12,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 71.22
+    },
+    "13929": {
+      "n": 8,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 89.53
+    },
+    "13932": {
+      "n": 9,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 82.94
+    },
+    "13933": {
+      "n": 7,
+      "top3": 6,
+      "first": 3,
+      "second": 2,
+      "third": 1,
+      "avgScore": 86.76
+    },
+    "13936": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 91.13
+    },
+    "13942": {
+      "n": 11,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 85.25
+    },
+    "13944": {
+      "n": 9,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 98.92
+    },
+    "13945": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 99.51
+    },
+    "13947": {
+      "n": 6,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 94.38
+    },
+    "13951": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 79.77
+    },
+    "13955": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 92.34
+    },
+    "13959": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 93.23
+    },
+    "13961": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 101.83
+    },
+    "13963": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 108.53
+    },
+    "13964": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 72.32
+    },
+    "13965": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 70.38
+    },
+    "13966": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 98.84
+    },
+    "13968": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 83.36
+    },
+    "13969": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 82.34
+    },
+    "13971": {
+      "n": 7,
+      "top3": 5,
+      "first": 4,
+      "second": 0,
+      "third": 1,
+      "avgScore": 86.26
+    },
+    "13972": {
+      "n": 8,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 69.21
+    },
+    "13976": {
+      "n": 8,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 96.32
+    },
+    "13982": {
+      "n": 5,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 107.82
+    },
+    "13983": {
+      "n": 10,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 81.8
+    },
+    "13984": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 81
+    },
+    "13985": {
+      "n": 9,
+      "top3": 6,
+      "first": 0,
+      "second": 2,
+      "third": 4,
+      "avgScore": 86
+    },
+    "13988": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 82.84
+    },
+    "13989": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 79.42
+    },
+    "13990": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 98.23
+    },
+    "13993": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 92.22
+    },
+    "13994": {
+      "n": 8,
+      "top3": 6,
+      "first": 2,
+      "second": 4,
+      "third": 0,
+      "avgScore": 94.65
+    },
+    "13996": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 94.25
+    },
+    "14002": {
+      "n": 11,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 114.62
+    },
+    "14003": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 85.64
+    },
+    "14004": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 99.44
+    },
+    "14005": {
+      "n": 6,
+      "top3": 5,
+      "first": 0,
+      "second": 3,
+      "third": 2,
+      "avgScore": 91.92
+    },
+    "14006": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 67.89
+    },
+    "14008": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 83.36
+    },
+    "14010": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 66.1
+    },
+    "14014": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 66.78
+    },
+    "14017": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 98.4
+    },
+    "14018": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 103.6
+    },
+    "14019": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 67.03
+    },
+    "14020": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 106.7
+    },
+    "14021": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 77.66
+    },
+    "14024": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 86.79
+    },
+    "14026": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 91.5
+    },
+    "14027": {
+      "n": 6,
+      "top3": 3,
+      "first": 3,
+      "second": 0,
+      "third": 0,
+      "avgScore": 71.67
+    },
+    "14029": {
+      "n": 5,
+      "top3": 4,
+      "first": 3,
+      "second": 0,
+      "third": 1,
+      "avgScore": 106.35
+    },
+    "14031": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 90.86
+    },
+    "14033": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 70.87
+    },
+    "14035": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 89.64
+    },
+    "14036": {
+      "n": 5,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 91.33
+    },
+    "14037": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 81.91
+    },
+    "14038": {
+      "n": 11,
+      "top3": 5,
+      "first": 3,
+      "second": 1,
+      "third": 1,
+      "avgScore": 109.76
+    },
+    "14040": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 83.52
+    },
+    "14041": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 102.91
+    },
+    "14042": {
+      "n": 8,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 69.15
+    },
+    "14043": {
+      "n": 7,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 96.06
+    },
+    "14045": {
+      "n": 13,
+      "top3": 7,
+      "first": 4,
+      "second": 3,
+      "third": 0,
+      "avgScore": 102.47
+    },
+    "14046": {
+      "n": 6,
+      "top3": 5,
+      "first": 2,
+      "second": 2,
+      "third": 1,
+      "avgScore": 75.3
+    },
+    "14048": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 85.64
+    },
+    "14055": {
+      "n": 10,
+      "top3": 7,
+      "first": 5,
+      "second": 1,
+      "third": 1,
+      "avgScore": 105.44
+    },
+    "14058": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 85.82
+    },
+    "14061": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 85.22
+    },
+    "14062": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 81.26
+    },
+    "14065": {
+      "n": 12,
+      "top3": 7,
+      "first": 1,
+      "second": 3,
+      "third": 3,
+      "avgScore": 97.46
+    },
+    "14066": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 92.36
+    },
+    "14067": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 70.83
+    },
+    "14069": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 0,
+      "third": 3,
+      "avgScore": 69.41
+    },
+    "14070": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 83.94
+    },
+    "14071": {
+      "n": 10,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 98.56
+    },
+    "14072": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 70.81
+    },
+    "14075": {
+      "n": 9,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 80.79
+    },
+    "14076": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 99.04
+    },
+    "14078": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 85.61
+    },
+    "14079": {
+      "n": 12,
+      "top3": 7,
+      "first": 3,
+      "second": 2,
+      "third": 2,
+      "avgScore": 81.99
+    },
+    "14081": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 102.85
+    },
+    "14082": {
+      "n": 9,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 93.15
+    },
+    "14083": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 80.59
+    },
+    "14084": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 90.36
+    },
+    "14087": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 81.25
+    },
+    "14089": {
+      "n": 5,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 115.25
+    },
+    "14091": {
+      "n": 10,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 84.54
+    },
+    "14092": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 81.34
+    },
+    "14094": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 80.57
+    },
+    "14098": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 87.97
+    },
+    "14099": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 67.51
+    },
+    "14102": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 83.93
+    },
+    "14103": {
+      "n": 7,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 109.02
+    },
+    "14104": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 92.31
+    },
+    "14108": {
+      "n": 9,
+      "top3": 5,
+      "first": 0,
+      "second": 3,
+      "third": 2,
+      "avgScore": 98.74
+    },
+    "14109": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 96.8
+    },
+    "14112": {
+      "n": 13,
+      "top3": 7,
+      "first": 2,
+      "second": 4,
+      "third": 1,
+      "avgScore": 108.26
+    },
+    "14114": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 98.95
+    },
+    "14115": {
+      "n": 5,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 84.66
+    },
+    "14120": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 72.62
+    },
+    "14122": {
+      "n": 5,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 103.76
+    },
+    "14125": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 82.31
+    },
+    "14129": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 115.68
+    },
+    "14132": {
+      "n": 9,
+      "top3": 7,
+      "first": 1,
+      "second": 4,
+      "third": 2,
+      "avgScore": 91.87
+    },
+    "14133": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 82.79
+    },
+    "14134": {
+      "n": 10,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 99.13
+    },
+    "14135": {
+      "n": 6,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 94.19
+    },
+    "14136": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 93.26
+    },
+    "14137": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 94.68
+    },
+    "14138": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 100.88
+    },
+    "14141": {
+      "n": 10,
+      "top3": 7,
+      "first": 2,
+      "second": 3,
+      "third": 2,
+      "avgScore": 101.41
+    },
+    "14143": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 96.92
+    },
+    "14144": {
+      "n": 6,
+      "top3": 3,
+      "first": 3,
+      "second": 0,
+      "third": 0,
+      "avgScore": 89.61
+    },
+    "14145": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 91.36
+    },
+    "14147": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 96.59
+    },
+    "14148": {
+      "n": 9,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 99.51
+    },
+    "14151": {
+      "n": 11,
+      "top3": 6,
+      "first": 1,
+      "second": 0,
+      "third": 5,
+      "avgScore": 100.79
+    },
+    "14152": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 107.34
+    },
+    "14153": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 85.85
+    },
+    "14154": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 66.92
+    },
+    "14155": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 82.49
+    },
+    "14161": {
+      "n": 9,
+      "top3": 4,
+      "first": 3,
+      "second": 0,
+      "third": 1,
+      "avgScore": 85.7
+    },
+    "14163": {
+      "n": 9,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 96.87
+    },
+    "14164": {
+      "n": 8,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 87.62
+    },
+    "14169": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 81.7
+    },
+    "14175": {
+      "n": 9,
+      "top3": 5,
+      "first": 0,
+      "second": 0,
+      "third": 5,
+      "avgScore": 101
+    },
+    "14176": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 94.65
+    },
+    "14180": {
+      "n": 9,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 88.32
+    },
+    "14183": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 70.22
+    },
+    "14184": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 103.36
+    },
+    "14185": {
+      "n": 10,
+      "top3": 6,
+      "first": 1,
+      "second": 2,
+      "third": 3,
+      "avgScore": 88.04
+    },
+    "14186": {
+      "n": 11,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 96.2
+    },
+    "14188": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 103.02
+    },
+    "14190": {
+      "n": 10,
+      "top3": 7,
+      "first": 1,
+      "second": 2,
+      "third": 4,
+      "avgScore": 108.26
+    },
+    "14192": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 82.82
+    },
+    "14194": {
+      "n": 7,
+      "top3": 6,
+      "first": 2,
+      "second": 1,
+      "third": 3,
+      "avgScore": 92.29
+    },
+    "14195": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 79.71
+    },
+    "14196": {
+      "n": 12,
+      "top3": 6,
+      "first": 0,
+      "second": 6,
+      "third": 0,
+      "avgScore": 101.96
+    },
+    "14199": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 98.44
+    },
+    "14204": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 86.31
+    },
+    "14208": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 95.56
+    },
+    "14210": {
+      "n": 11,
+      "top3": 7,
+      "first": 3,
+      "second": 3,
+      "third": 1,
+      "avgScore": 110.5
+    },
+    "14211": {
+      "n": 5,
+      "top3": 4,
+      "first": 3,
+      "second": 1,
+      "third": 0,
+      "avgScore": 103.82
+    },
+    "14212": {
+      "n": 10,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 102.16
+    },
+    "14213": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 66.91
+    },
+    "14218": {
+      "n": 8,
+      "top3": 5,
+      "first": 2,
+      "second": 2,
+      "third": 1,
+      "avgScore": 71.61
+    },
+    "14220": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 83.28
+    },
+    "14221": {
+      "n": 7,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 96.15
+    },
+    "14222": {
+      "n": 10,
+      "top3": 7,
+      "first": 3,
+      "second": 2,
+      "third": 2,
+      "avgScore": 102.6
+    },
+    "14224": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 81.94
+    },
+    "14225": {
+      "n": 9,
+      "top3": 6,
+      "first": 3,
+      "second": 0,
+      "third": 3,
+      "avgScore": 89.54
+    },
+    "14231": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 104.63
+    },
+    "14232": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 96.67
+    },
+    "14233": {
+      "n": 10,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 97.24
+    },
+    "14235": {
+      "n": 6,
+      "top3": 6,
+      "first": 4,
+      "second": 2,
+      "third": 0,
+      "avgScore": 93.43
+    },
+    "14239": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 99.07
+    },
+    "14240": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 81.03
+    },
+    "14242": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 78.91
+    },
+    "14245": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 85.36
+    },
+    "14246": {
+      "n": 9,
+      "top3": 5,
+      "first": 2,
+      "second": 3,
+      "third": 0,
+      "avgScore": 103.82
+    },
+    "14249": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 96.4
+    },
+    "14252": {
+      "n": 10,
+      "top3": 6,
+      "first": 2,
+      "second": 1,
+      "third": 3,
+      "avgScore": 109.62
+    },
+    "14258": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 89.51
+    },
+    "14259": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 100.3
+    },
+    "14261": {
+      "n": 6,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 76.54
+    },
+    "14263": {
+      "n": 9,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 94.3
+    },
+    "14264": {
+      "n": 8,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 95.38
+    },
+    "14265": {
+      "n": 12,
+      "top3": 9,
+      "first": 3,
+      "second": 5,
+      "third": 1,
+      "avgScore": 77.66
+    },
+    "14266": {
+      "n": 9,
+      "top3": 5,
+      "first": 1,
+      "second": 2,
+      "third": 2,
+      "avgScore": 72.96
+    },
+    "14268": {
+      "n": 10,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 99.06
+    },
+    "14269": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 84.05
+    },
+    "14270": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 86.01
+    },
+    "14272": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 70.64
+    },
+    "14277": {
+      "n": 9,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 85.89
+    },
+    "14281": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 86.11
+    },
+    "14282": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 0,
+      "third": 3,
+      "avgScore": 80.9
+    },
+    "14287": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 69.24
+    },
+    "14300": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 87.33
+    },
+    "14301": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 68.59
+    },
+    "14302": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 86.53
+    },
+    "14304": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 84.66
+    },
+    "14307": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 94.2
+    },
+    "14310": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 98.26
+    },
+    "14313": {
+      "n": 13,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 94.08
+    },
+    "14315": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 82.55
+    },
+    "14316": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 72.62
+    },
+    "14317": {
+      "n": 9,
+      "top3": 6,
+      "first": 3,
+      "second": 2,
+      "third": 1,
+      "avgScore": 109.88
+    },
+    "14318": {
+      "n": 7,
+      "top3": 5,
+      "first": 2,
+      "second": 3,
+      "third": 0,
+      "avgScore": 105.62
+    },
+    "14319": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 66.12
+    },
+    "14322": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 105.94
+    },
+    "14324": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 80.83
+    },
+    "14325": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 94.13
+    },
+    "14327": {
+      "n": 11,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 100.52
+    },
+    "14328": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 80.74
+    },
+    "14329": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 81.25
+    },
+    "14331": {
+      "n": 7,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 88.13
+    },
+    "14332": {
+      "n": 9,
+      "top3": 5,
+      "first": 0,
+      "second": 1,
+      "third": 4,
+      "avgScore": 84.62
+    },
+    "14333": {
+      "n": 6,
+      "top3": 5,
+      "first": 0,
+      "second": 3,
+      "third": 2,
+      "avgScore": 87.53
+    },
+    "14337": {
+      "n": 8,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 97.8
+    },
+    "14342": {
+      "n": 6,
+      "top3": 5,
+      "first": 2,
+      "second": 2,
+      "third": 1,
+      "avgScore": 74.81
+    },
+    "14344": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 82.42
+    },
+    "14347": {
+      "n": 12,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 86.28
+    },
+    "14349": {
+      "n": 7,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 70.86
+    },
+    "14350": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 97.74
+    },
+    "14351": {
+      "n": 6,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 77.9
+    },
+    "14359": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 83.97
+    },
+    "14360": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 71.23
+    },
+    "14362": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 80.58
+    },
+    "14363": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 70.31
+    },
+    "14364": {
+      "n": 5,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 83.44
+    },
+    "14365": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 66.68
+    },
+    "14369": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 75.93
+    },
+    "14370": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 98
+    },
+    "14371": {
+      "n": 8,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 96.62
+    },
+    "14372": {
+      "n": 10,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 96.26
+    },
+    "14374": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 0,
+      "third": 3,
+      "avgScore": 80.45
+    },
+    "14381": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 68.92
+    },
+    "14383": {
+      "n": 10,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 82.91
+    },
+    "14387": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 83.47
+    },
+    "14388": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 69.4
+    },
+    "14389": {
+      "n": 9,
+      "top3": 6,
+      "first": 0,
+      "second": 4,
+      "third": 2,
+      "avgScore": 76.85
+    },
+    "14390": {
+      "n": 9,
+      "top3": 5,
+      "first": 2,
+      "second": 2,
+      "third": 1,
+      "avgScore": 88.89
+    },
+    "14392": {
+      "n": 9,
+      "top3": 8,
+      "first": 3,
+      "second": 4,
+      "third": 1,
+      "avgScore": 76.04
+    },
+    "14393": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 80.2
+    },
+    "14394": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 98.33
+    },
+    "14398": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 104.72
+    },
+    "14399": {
+      "n": 6,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 94.62
+    },
+    "14400": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 86.07
+    },
+    "14402": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 85.4
+    },
+    "14403": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 86.34
+    },
+    "14404": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 89.96
+    },
+    "14408": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 83.33
+    },
+    "14409": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 101.21
+    },
+    "14410": {
+      "n": 5,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 84.02
+    },
+    "14414": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 86.17
+    },
+    "14417": {
+      "n": 9,
+      "top3": 7,
+      "first": 1,
+      "second": 3,
+      "third": 3,
+      "avgScore": 111.92
+    },
+    "14418": {
+      "n": 6,
+      "top3": 5,
+      "first": 0,
+      "second": 4,
+      "third": 1,
+      "avgScore": 76.24
+    },
+    "14421": {
+      "n": 8,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 104.57
+    },
+    "14424": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 68.72
+    },
+    "14427": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 105.23
+    },
+    "14430": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 72.72
+    },
+    "14432": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 70.58
+    },
+    "14433": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 67.97
+    },
+    "14434": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 74.44
+    },
+    "14439": {
+      "n": 9,
+      "top3": 6,
+      "first": 1,
+      "second": 3,
+      "third": 2,
+      "avgScore": 87.42
+    },
+    "14440": {
+      "n": 10,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 97.93
+    },
+    "14443": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 67.51
+    },
+    "14444": {
+      "n": 8,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 90.37
+    },
+    "14446": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 70.23
+    },
+    "14447": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 71.39
+    },
+    "14448": {
+      "n": 9,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 95.25
+    },
+    "14451": {
+      "n": 8,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 100.12
+    },
+    "14452": {
+      "n": 6,
+      "top3": 6,
+      "first": 3,
+      "second": 0,
+      "third": 3,
+      "avgScore": 88.6
+    },
+    "14454": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 92.22
+    },
+    "14455": {
+      "n": 9,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 90.68
+    },
+    "14456": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 80.99
+    },
+    "14458": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 101.81
+    },
+    "14462": {
+      "n": 10,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 112.81
+    },
+    "14464": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 83.14
+    },
+    "14466": {
+      "n": 7,
+      "top3": 4,
+      "first": 3,
+      "second": 1,
+      "third": 0,
+      "avgScore": 92.41
+    },
+    "14472": {
+      "n": 10,
+      "top3": 6,
+      "first": 1,
+      "second": 2,
+      "third": 3,
+      "avgScore": 105.14
+    },
+    "14475": {
+      "n": 8,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 91.91
+    },
+    "14477": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 91.57
+    },
+    "14478": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 94.36
+    },
+    "14481": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 94.19
+    },
+    "14483": {
+      "n": 8,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 68.68
+    },
+    "14485": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 106.16
+    },
+    "14486": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 89.41
+    },
+    "14496": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 69.04
+    },
+    "14497": {
+      "n": 9,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 106.89
+    },
+    "14499": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 102.86
+    },
+    "14500": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 103.66
+    },
+    "14501": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 115.4
+    },
+    "14504": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 103.7
+    },
+    "14505": {
+      "n": 10,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 109.88
+    },
+    "14507": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 108.73
+    },
+    "14512": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 98.58
+    },
+    "14513": {
+      "n": 6,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 80.98
+    },
+    "14516": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 70.47
+    },
+    "14522": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 81.99
+    },
+    "14523": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 106.44
+    },
+    "14524": {
+      "n": 10,
+      "top3": 7,
+      "first": 1,
+      "second": 3,
+      "third": 3,
+      "avgScore": 111.69
+    },
+    "14528": {
+      "n": 12,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 86.74
+    },
+    "14530": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 83.45
+    },
+    "14532": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 81.64
+    },
+    "14533": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 79.69
+    },
+    "14537": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 105.1
+    },
+    "14549": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 83.33
+    },
+    "14550": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 71.62
+    },
+    "14551": {
+      "n": 10,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 97.08
+    },
+    "14552": {
+      "n": 9,
+      "top3": 4,
+      "first": 3,
+      "second": 0,
+      "third": 1,
+      "avgScore": 103.98
+    },
+    "14554": {
+      "n": 10,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 107.54
+    },
+    "14558": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 99.96
+    },
+    "14561": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 89.58
+    },
+    "14563": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 79.89
+    },
+    "14565": {
+      "n": 5,
+      "top3": 5,
+      "first": 0,
+      "second": 1,
+      "third": 4,
+      "avgScore": 95.09
+    },
+    "14566": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 82.07
+    },
+    "14570": {
+      "n": 5,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 94.91
+    },
+    "14574": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 100.48
+    },
+    "14575": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 83.98
+    },
+    "14576": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 100.54
+    },
+    "14578": {
+      "n": 14,
+      "top3": 7,
+      "first": 0,
+      "second": 3,
+      "third": 4,
+      "avgScore": 73.76
+    },
+    "14580": {
+      "n": 10,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 100.34
+    },
+    "14581": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 86.09
+    },
+    "14582": {
+      "n": 11,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 97.57
+    },
+    "14583": {
+      "n": 7,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 72.63
+    },
+    "14584": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 77.43
+    },
+    "14586": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 85.3
+    },
+    "14587": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 83.55
+    },
+    "14589": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 71.44
+    },
+    "14592": {
+      "n": 11,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 100.17
+    },
+    "14594": {
+      "n": 7,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 91.66
+    },
+    "14596": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 79.7
+    },
+    "14597": {
+      "n": 10,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 85.25
+    },
+    "14598": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 81.41
+    },
+    "14601": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 86.02
+    },
+    "14603": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 78.75
+    },
+    "14605": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 106.99
+    },
+    "14610": {
+      "n": 6,
+      "top3": 5,
+      "first": 0,
+      "second": 4,
+      "third": 1,
+      "avgScore": 76.36
+    },
+    "14613": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 98.95
+    },
+    "14614": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 86.29
+    },
+    "14617": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 99.6
+    },
+    "14620": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 85.25
+    },
+    "14622": {
+      "n": 12,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 97.42
+    },
+    "14623": {
+      "n": 7,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 87.64
+    },
+    "14625": {
+      "n": 9,
+      "top3": 5,
+      "first": 0,
+      "second": 5,
+      "third": 0,
+      "avgScore": 82.61
+    },
+    "14633": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 98.28
+    },
+    "14635": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 99.94
+    },
+    "14637": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 81.86
+    },
+    "14641": {
+      "n": 5,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 102.67
+    },
+    "14646": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 93.67
+    },
+    "14651": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 83.5
+    },
+    "14652": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 0,
+      "third": 3,
+      "avgScore": 70.74
+    },
+    "14657": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 92.14
+    },
+    "14659": {
+      "n": 7,
+      "top3": 5,
+      "first": 3,
+      "second": 2,
+      "third": 0,
+      "avgScore": 113.56
+    },
+    "14664": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 101.76
+    },
+    "14671": {
+      "n": 6,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 87.85
+    },
+    "14672": {
+      "n": 5,
+      "top3": 5,
+      "first": 2,
+      "second": 2,
+      "third": 1,
+      "avgScore": 92.52
+    },
+    "14676": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 84.58
+    },
+    "14677": {
+      "n": 9,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 102.53
+    },
+    "14679": {
+      "n": 6,
+      "top3": 5,
+      "first": 5,
+      "second": 0,
+      "third": 0,
+      "avgScore": 96.95
+    },
+    "14683": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 96.89
+    },
+    "14685": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 103.45
+    },
+    "14686": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 71.06
+    },
+    "14688": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 89.41
+    },
+    "14690": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 87.26
+    },
+    "14699": {
+      "n": 10,
+      "top3": 6,
+      "first": 1,
+      "second": 4,
+      "third": 1,
+      "avgScore": 76.11
+    },
+    "14700": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 103.51
+    },
+    "14703": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 79.17
+    },
+    "14704": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 84.45
+    },
+    "14707": {
+      "n": 6,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 81.66
+    },
+    "14710": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 95.41
+    },
+    "14711": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 90.93
+    },
+    "14713": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 77.81
+    },
+    "14718": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 105.54
+    },
+    "14719": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 67.8
+    },
+    "14720": {
+      "n": 9,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 99.04
+    },
+    "14723": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 95.77
+    },
+    "14729": {
+      "n": 8,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 98.99
+    },
+    "14730": {
+      "n": 11,
+      "top3": 8,
+      "first": 1,
+      "second": 3,
+      "third": 4,
+      "avgScore": 104.1
+    },
+    "14735": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 71.55
+    },
+    "14737": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 82.56
+    },
+    "14738": {
+      "n": 6,
+      "top3": 3,
+      "first": 3,
+      "second": 0,
+      "third": 0,
+      "avgScore": 72.43
+    },
+    "14744": {
+      "n": 8,
+      "top3": 5,
+      "first": 3,
+      "second": 1,
+      "third": 1,
+      "avgScore": 110.59
+    },
+    "14747": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 84.5
+    },
+    "14754": {
+      "n": 8,
+      "top3": 6,
+      "first": 3,
+      "second": 0,
+      "third": 3,
+      "avgScore": 100.78
+    },
+    "14758": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 82.74
+    },
+    "14765": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 0,
+      "third": 3,
+      "avgScore": 69.71
+    },
+    "14767": {
+      "n": 7,
+      "top3": 6,
+      "first": 2,
+      "second": 4,
+      "third": 0,
+      "avgScore": 102.94
+    },
+    "14769": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 99.36
+    },
+    "14772": {
+      "n": 7,
+      "top3": 4,
+      "first": 0,
+      "second": 0,
+      "third": 4,
+      "avgScore": 72.89
+    },
+    "14774": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 70.97
+    },
+    "14775": {
+      "n": 5,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 94.23
+    },
+    "14776": {
+      "n": 8,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 73.72
+    },
+    "14778": {
+      "n": 9,
+      "top3": 7,
+      "first": 4,
+      "second": 2,
+      "third": 1,
+      "avgScore": 76.93
+    },
+    "14779": {
+      "n": 8,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 89.88
+    },
+    "14782": {
+      "n": 10,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 80.43
+    },
+    "14784": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 83.35
+    },
+    "14786": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 100.41
+    },
+    "14789": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 80.93
+    },
+    "14794": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 113.27
+    },
+    "14795": {
+      "n": 8,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 104.16
+    },
+    "14796": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 90.87
+    },
+    "14804": {
+      "n": 8,
+      "top3": 7,
+      "first": 4,
+      "second": 1,
+      "third": 2,
+      "avgScore": 106.07
+    },
+    "14805": {
+      "n": 5,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 89.25
+    },
+    "14806": {
+      "n": 11,
+      "top3": 5,
+      "first": 1,
+      "second": 0,
+      "third": 4,
+      "avgScore": 97.46
+    },
+    "14809": {
+      "n": 9,
+      "top3": 7,
+      "first": 4,
+      "second": 3,
+      "third": 0,
+      "avgScore": 107.38
+    },
+    "14817": {
+      "n": 8,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 70.88
+    },
+    "14818": {
+      "n": 9,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 88.36
+    },
+    "14819": {
+      "n": 9,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 91.2
+    },
+    "14821": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 87.59
+    },
+    "14825": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 97.71
+    },
+    "14826": {
+      "n": 9,
+      "top3": 9,
+      "first": 2,
+      "second": 5,
+      "third": 2,
+      "avgScore": 95.99
+    },
+    "14830": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 98.05
+    },
+    "14832": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 79.96
+    },
+    "14833": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 102.58
+    },
+    "14837": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 108.73
+    },
+    "14838": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 1,
+      "third": 3,
+      "avgScore": 119.82
+    },
+    "14839": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 97.3
+    },
+    "14850": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 87.95
+    },
+    "14854": {
+      "n": 8,
+      "top3": 4,
+      "first": 3,
+      "second": 0,
+      "third": 1,
+      "avgScore": 104.27
+    },
+    "14860": {
+      "n": 10,
+      "top3": 6,
+      "first": 4,
+      "second": 2,
+      "third": 0,
+      "avgScore": 112.01
+    },
+    "14862": {
+      "n": 9,
+      "top3": 6,
+      "first": 1,
+      "second": 2,
+      "third": 3,
+      "avgScore": 87.65
+    },
+    "14864": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 0,
+      "third": 1,
+      "avgScore": 102.75
+    },
+    "14867": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 84.29
+    },
+    "14873": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 109.27
+    },
+    "14878": {
+      "n": 7,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 100.56
+    },
+    "14881": {
+      "n": 8,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 95.95
+    },
+    "14886": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 3,
+      "third": 1,
+      "avgScore": 105.65
+    },
+    "14890": {
+      "n": 7,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 105.3
+    },
+    "14929": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 95.78
+    },
+    "14932": {
+      "n": 8,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 67.86
+    },
+    "14935": {
+      "n": 11,
+      "top3": 5,
+      "first": 1,
+      "second": 2,
+      "third": 2,
+      "avgScore": 111.57
+    },
+    "14939": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 0,
+      "third": 2,
+      "avgScore": 106.56
+    },
+    "14942": {
+      "n": 6,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 103.07
+    },
+    "14946": {
+      "n": 10,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 98.62
+    },
+    "14978": {
+      "n": 7,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 94.12
+    },
+    "14979": {
+      "n": 7,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 70.97
+    },
+    "14991": {
+      "n": 10,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 92.05
+    },
+    "14994": {
+      "n": 5,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 73.54
+    },
+    "14996": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 106.88
+    },
+    "15003": {
+      "n": 8,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 91.12
+    },
+    "15004": {
+      "n": 8,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 102.67
+    },
+    "15009": {
+      "n": 6,
+      "top3": 4,
+      "first": 4,
+      "second": 0,
+      "third": 0,
+      "avgScore": 115.27
+    },
+    "15010": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 88.54
+    },
+    "15015": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 91.25
+    },
+    "15035": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 114.79
+    },
+    "15036": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 0,
+      "third": 3,
+      "avgScore": 101.67
+    },
+    "15038": {
+      "n": 7,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 105.62
+    },
+    "15042": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 92.37
+    },
+    "15043": {
+      "n": 9,
+      "top3": 6,
+      "first": 2,
+      "second": 1,
+      "third": 3,
+      "avgScore": 106.13
+    },
+    "15046": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 97.39
+    },
+    "15051": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 112.49
+    },
+    "15056": {
+      "n": 9,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 83.66
+    },
+    "15060": {
+      "n": 7,
+      "top3": 6,
+      "first": 1,
+      "second": 4,
+      "third": 1,
+      "avgScore": 92.96
+    },
+    "15061": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 113.31
+    },
+    "15067": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 98.68
+    },
+    "15087": {
+      "n": 8,
+      "top3": 4,
+      "first": 2,
+      "second": 2,
+      "third": 0,
+      "avgScore": 75.94
+    },
+    "15091": {
+      "n": 6,
+      "top3": 0,
+      "first": 0,
+      "second": 0,
+      "third": 0,
+      "avgScore": 84.19
+    },
+    "15094": {
+      "n": 10,
+      "top3": 6,
+      "first": 3,
+      "second": 1,
+      "third": 2,
+      "avgScore": 111.69
+    },
+    "15097": {
+      "n": 5,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 98.09
+    },
+    "15105": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 73.18
+    },
+    "15106": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 0,
+      "third": 1,
+      "avgScore": 101.71
+    },
+    "15117": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 97.16
+    },
+    "15118": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 97.09
+    },
+    "15123": {
+      "n": 7,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 103.36
+    },
+    "15124": {
+      "n": 9,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 100.04
+    },
+    "15125": {
+      "n": 6,
+      "top3": 4,
+      "first": 0,
+      "second": 3,
+      "third": 1,
+      "avgScore": 113.7
+    },
+    "15127": {
+      "n": 7,
+      "top3": 1,
+      "first": 0,
+      "second": 1,
+      "third": 0,
+      "avgScore": 94.79
+    },
+    "15128": {
+      "n": 7,
+      "top3": 3,
+      "first": 0,
+      "second": 3,
+      "third": 0,
+      "avgScore": 100.17
+    },
+    "15132": {
+      "n": 8,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 101.25
+    },
+    "15156": {
+      "n": 5,
+      "top3": 1,
+      "first": 1,
+      "second": 0,
+      "third": 0,
+      "avgScore": 80.76
+    },
+    "15165": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 89.49
+    },
+    "15172": {
+      "n": 6,
+      "top3": 4,
+      "first": 3,
+      "second": 0,
+      "third": 1,
+      "avgScore": 94.67
+    },
+    "15189": {
+      "n": 9,
+      "top3": 6,
+      "first": 2,
+      "second": 2,
+      "third": 2,
+      "avgScore": 89.47
+    },
+    "15193": {
+      "n": 5,
+      "top3": 4,
+      "first": 1,
+      "second": 1,
+      "third": 2,
+      "avgScore": 90.93
+    },
+    "15200": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 0,
+      "third": 2,
+      "avgScore": 84.15
+    },
+    "15202": {
+      "n": 6,
+      "top3": 6,
+      "first": 2,
+      "second": 3,
+      "third": 1,
+      "avgScore": 95.39
+    },
+    "15203": {
+      "n": 5,
+      "top3": 4,
+      "first": 3,
+      "second": 1,
+      "third": 0,
+      "avgScore": 118.16
+    },
+    "15215": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 74.54
+    },
+    "15236": {
+      "n": 6,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 99.24
+    },
+    "15240": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 93.33
+    },
+    "15250": {
+      "n": 8,
+      "top3": 3,
+      "first": 1,
+      "second": 1,
+      "third": 1,
+      "avgScore": 98.24
+    },
+    "15254": {
+      "n": 7,
+      "top3": 7,
+      "first": 0,
+      "second": 5,
+      "third": 2,
+      "avgScore": 92.84
+    },
+    "15269": {
+      "n": 9,
+      "top3": 3,
+      "first": 0,
+      "second": 1,
+      "third": 2,
+      "avgScore": 99.57
+    },
+    "15270": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 2,
+      "third": 0,
+      "avgScore": 71.93
+    },
+    "15280": {
+      "n": 5,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 92.37
+    },
+    "15282": {
+      "n": 5,
+      "top3": 4,
+      "first": 3,
+      "second": 0,
+      "third": 1,
+      "avgScore": 101.64
+    },
+    "15291": {
+      "n": 6,
+      "top3": 1,
+      "first": 0,
+      "second": 0,
+      "third": 1,
+      "avgScore": 101.26
+    },
+    "15294": {
+      "n": 9,
+      "top3": 6,
+      "first": 1,
+      "second": 3,
+      "third": 2,
+      "avgScore": 87.67
+    },
+    "15297": {
+      "n": 8,
+      "top3": 4,
+      "first": 2,
+      "second": 0,
+      "third": 2,
+      "avgScore": 108.8
+    },
+    "15323": {
+      "n": 6,
+      "top3": 3,
+      "first": 3,
+      "second": 0,
+      "third": 0,
+      "avgScore": 103.22
+    },
+    "15328": {
+      "n": 7,
+      "top3": 5,
+      "first": 1,
+      "second": 1,
+      "third": 3,
+      "avgScore": 105.58
+    },
+    "15330": {
+      "n": 5,
+      "top3": 3,
+      "first": 3,
+      "second": 0,
+      "third": 0,
+      "avgScore": 85.87
+    },
+    "15337": {
+      "n": 7,
+      "top3": 5,
+      "first": 0,
+      "second": 4,
+      "third": 1,
+      "avgScore": 108.91
+    },
+    "15341": {
+      "n": 7,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 114.44
+    },
+    "15342": {
+      "n": 9,
+      "top3": 4,
+      "first": 0,
+      "second": 2,
+      "third": 2,
+      "avgScore": 97.97
+    },
+    "15348": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 91.21
+    },
+    "15358": {
+      "n": 5,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 97.87
+    },
+    "15365": {
+      "n": 5,
+      "top3": 4,
+      "first": 1,
+      "second": 3,
+      "third": 0,
+      "avgScore": 96.54
+    },
+    "15381": {
+      "n": 5,
+      "top3": 2,
+      "first": 2,
+      "second": 0,
+      "third": 0,
+      "avgScore": 106.6
+    },
+    "15383": {
+      "n": 6,
+      "top3": 4,
+      "first": 1,
+      "second": 2,
+      "third": 1,
+      "avgScore": 108.49
+    },
+    "15386": {
+      "n": 7,
+      "top3": 5,
+      "first": 0,
+      "second": 2,
+      "third": 3,
+      "avgScore": 103.53
+    },
+    "15419": {
+      "n": 6,
+      "top3": 4,
+      "first": 2,
+      "second": 1,
+      "third": 1,
+      "avgScore": 85.16
+    },
+    "15423": {
+      "n": 5,
+      "top3": 2,
+      "first": 0,
+      "second": 1,
+      "third": 1,
+      "avgScore": 91.76
+    },
+    "15425": {
+      "n": 10,
+      "top3": 6,
+      "first": 1,
+      "second": 2,
+      "third": 3,
+      "avgScore": 72.9
+    },
+    "15438": {
+      "n": 10,
+      "top3": 5,
+      "first": 1,
+      "second": 2,
+      "third": 2,
+      "avgScore": 102.98
+    },
+    "15439": {
+      "n": 5,
+      "top3": 2,
+      "first": 1,
+      "second": 1,
+      "third": 0,
+      "avgScore": 111.15
+    },
+    "15471": {
+      "n": 6,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 87.75
+    },
+    "15520": {
+      "n": 7,
+      "top3": 5,
+      "first": 2,
+      "second": 1,
+      "third": 2,
+      "avgScore": 104.61
+    },
+    "15547": {
+      "n": 8,
+      "top3": 6,
+      "first": 0,
+      "second": 3,
+      "third": 3,
+      "avgScore": 94.49
+    },
+    "15559": {
+      "n": 5,
+      "top3": 3,
+      "first": 1,
+      "second": 2,
+      "third": 0,
+      "avgScore": 92.58
+    },
+    "15622": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 84.89
+    },
+    "15657": {
+      "n": 5,
+      "top3": 3,
+      "first": 2,
+      "second": 1,
+      "third": 0,
+      "avgScore": 87.92
+    },
+    "15733": {
+      "n": 6,
+      "top3": 3,
+      "first": 0,
+      "second": 2,
+      "third": 1,
+      "avgScore": 97.37
+    }
+  },
+  "errors": []
+}
