@@ -1,0 +1,20 @@
+name: B-AXIS fast tactical checks
+on:
+  push:
+    branches: [main, 'feature/b-axis-*']
+    paths: ['js/b-axis/**', 'tests/b-axis-*.cjs', '.github/workflows/b-axis-fast.yml']
+  pull_request:
+    paths: ['js/b-axis/**', 'tests/b-axis-*.cjs', 'b-axis.html', 'css/b-axis.css']
+permissions:
+  contents: read
+jobs:
+  tactical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run test:b-axis
+      - run: node scripts/b_axis_tactical_review.cjs
