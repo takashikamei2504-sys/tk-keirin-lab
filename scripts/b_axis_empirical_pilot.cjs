@@ -63,8 +63,21 @@ const byRunners=Object.fromEntries([7,9].map(n=>{
  return [n,{n:a.length,bFirst:a.filter(o=>o.bPlace===1).length,bTop3:a.filter(o=>o.bPlace<=3).length,
  bLineWins:a.filter(o=>o.bLineWins).length,bLinePair:a.filter(o=>o.bLinePair).length,bPredicted:a.filter(o=>o.aiBHit).length}];
 }));
+function classify(top,actual){
+ if(top.includes(actual))return 'exact';
+ const p=actual.split('-'),sameFirst=top.some(k=>k.split('-')[0]===p[0]);
+ const samePair=top.some(k=>{const a=k.split('-');return a[0]===p[0]&&a[1]===p[1];});
+ return samePair?'third_missing':sameFirst?'second_missing':'winner_missing';
+}
+const categories={baseline:{},interaction:{}};
+for(const example of examples){
+ for(const [name,picks] of [['baseline',example.oldTop10],['interaction',example.top10]]){
+  const category=classify(picks,example.actual);
+  categories[name][category]=(categories[name][category]||0)+1;
+ }
+}
 const summary={schema:'tk-baxis-retrospective/v1',model:B.VERSION,date:fixture.date,count,sourceUnverified,lineupMismatch,
- bCorrect,bRate:count?Math.round(1000*bCorrect/count)/10:null,byRunners,oracle,normal,legacy,baselineOracle,baselineNormal,
+ bCorrect,bRate:count?Math.round(1000*bCorrect/count)/10:null,byRunners,oracle,normal,legacy,baselineOracle,baselineNormal,categories,
  warning:'Retrospective replay; model developed after the races. Oracle B is hindsight-only and cannot justify live ROI. Published result feed not independently verified, n=26 one date; block/detach rates are not observed.',examples,errors};
 process.stdout.write('B_AXIS_EMPIRICAL '+JSON.stringify(summary)+'\n');
 if(process.env.B_AXIS_REPORT_PATH){fs.mkdirSync(path.dirname(process.env.B_AXIS_REPORT_PATH),{recursive:true});fs.writeFileSync(process.env.B_AXIS_REPORT_PATH,JSON.stringify(summary,null,2)+'\n');}
