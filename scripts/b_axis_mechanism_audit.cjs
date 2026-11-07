@@ -8,7 +8,7 @@ assert.equal(data.denominator,'NOT_OBSERVED');
 assert.equal(data.blocks_rate,null);
 const events=data.events;
 assert(Array.isArray(events)&&events.length>=6);
-const counts={total:events.length,explicitBlocks:0,affectedOrDisrupted:0,temporaryBlock:0,confirmedDetachment:0,followed:0,insideWin:0,unmeasured:true};
+const counts={total:events.length,explicitBlocks:0,affectedOrDisrupted:0,temporaryBlock:0,confirmedDetachment:0,gapOpened:0,followed:0,insideWin:0,unmeasured:true};
 for(const e of events){
  assert.match(e.race_id,/^2026-07-1[78]:高知:\d+$/);
  assert(e.note?.length>=10&&e.note.length<150);
@@ -24,6 +24,7 @@ for(const e of events){
  if(e.type==='follow_gap'){
   assert(e.rider);
   if(e.outcome==='detached')counts.confirmedDetachment++;
+  else if(e.outcome==='gap_opened')counts.gapOpened++;
   else if(e.outcome==='followed')counts.followed++;
   else throw Error('unexpected follow outcome');
  }
