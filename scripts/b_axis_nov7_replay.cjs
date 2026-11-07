@@ -111,7 +111,7 @@ async function main(){
    examples.push({
     id:identity,venue,raceNo,field:historical.race.riders.length,category:gKey,lines:historical.race.lineup.map(l=>l.join('-')),
     actualB:observed.b,bLine:bLine.join('-'),actual,payout:pay,modelB:nn.b.bNo,oldB:oo.b.bNo,
-    modelBHit:nn.b.bNo===observed.b,oracle5:onKeys.slice(0,5).includes(actual),normal5:nKeys.slice(0,5).includes(actual),
+    modelBHit:nn.b.bNo===observed.b,oracle5:onKeys.slice(0,5).includes(actual),normal5:nKeys.slice(0,5).includes(actual),normal10:nKeys.slice(0,10).includes(actual),oracle10:onKeys.slice(0,10).includes(actual),
     oldOracle5:obKeys.slice(0,5).includes(actual),oldNormal5:oKeys.slice(0,5).includes(actual),
     newTop5:nKeys.slice(0,5),oldTop5:oKeys.slice(0,5),newOracleTop5:onKeys.slice(0,5),oldOracleTop5:obKeys.slice(0,5),
     pairNewOracle5:onKeys.slice(0,5).some(k=>k.startsWith(expectedPair+'-')),
