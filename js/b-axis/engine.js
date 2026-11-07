@@ -81,7 +81,8 @@ function finishRanking(input,snap,limit=10){
   outside:'別線の自力選手がBではまだ先頭でないが、外並走・捲りを4角まで継続して逆転',
   inside:'内の進路を待った追込選手がコースを拾い差す',
   outside_marker:'Bを取らなかった別線の自力選手が外から迫り、その番手が4角で差し伸びる',
-  third_rush:'Bライン3番手が追走を保ち、番手の牽制で生じた内の進路を突く'
+  third_rush:'Bライン3番手が追走を保ち、番手の牽制で生じた内の進路を突く',
+  recovery:'Bを先に取った後位選手に対し元の前方選手が切替えて直線で抜け出す'
  };
  const same=(x,y)=>x.line[0]===y.line[0];
  const fitSecond=(a,s)=>{
@@ -95,7 +96,8 @@ function finishRanking(input,snap,limit=10){
   outside:'別線の自力がB直後から外を踏み、最終3〜4角で先頭を捕える',
   inside:'前で競り合う間に内の進路へ切り替えて直線を伸びる',
   outside_marker:'外の自力がB通過後に迫り、その番手がコースを得て直線で抜け出す',
-  third_rush:'Bの3番手が追走を保ち、外の仕掛けへの番手牽制で開いた内進路を進む'
+  third_rush:'Bの3番手が追走を保ち、外の仕掛けへの番手牽制で開いた内進路を進む',
+  recovery:'Bを取った後位選手の元先導役が踏み直し、直線で切替え差しを狙う'
  };
  function add(pair,mode,thirds,extra=0){
   const a=byNo.get(pair[0]),d=byNo.get(pair[1]);
@@ -113,6 +115,7 @@ function finishRanking(input,snap,limit=10){
     const leader=states.find(x=>x.line[0]===a.line[0]&&x.lineIndex===0);
     if(!leader?.attack||!leader.reachable||a.lineIndex!==1||a.gap-leader.gap>1.4||a.gap>4.45)continue;
    }
+   if(mode==='recovery'&&(a.role!=='元ライン前方・切替'||a.gap>2.6))continue;
    if(mode==='third_rush'&&(a.role!=='Bライン追走'||a.lineIndex!==snap.line.indexOf(snap.bNo)+2||a.track==='追走離れ気味'||a.gap>2.0||attackers.length===0))continue;
    const scoreBase=pace(a)*1.10+strength(d)*.76+strength(c)*.55-.031*d.gap-.022*c.gap;
    const paired=same(a,d)? .035:0,attached=same(d,c)? .025:0;
@@ -124,6 +127,7 @@ function finishRanking(input,snap,limit=10){
       .15+(a.closing-b.closing)*.66+(b.spent-.38)*.36-a.gap*.022:
       mode==='outside_marker'? .12+(b.spent-.36)*.30+(a.finish-b.finish)*.33-a.gap*.035:
       mode==='third_rush'? .075+(b.spent-.39)*.26+(a.finish-b.finish)*.37:
+      mode==='recovery'? .025+(a.remaining-b.remaining)*.32+(a.finish-b.finish)*.25:
       .015+(b.spent-.40)*.28;
    if(mode==='outside'&&a.closing<b.closing-.20)physical-=.18;
    if(mode==='hold'&&b.spent>.64)physical-=.14;
@@ -150,7 +154,16 @@ function finishRanking(input,snap,limit=10){
    add([third.no,mark.no],'third_rush',[b.no,...others]);
    add([third.no,b.no],'third_rush',[mark.no,...others]);
   }
- }else for(const o of attackers)add([b.no,o.no],'hold',[...others]);
+ }else {
+  const possibleSeconds=coverage.filter(s=>s.gap<=4.7);
+  for(const o of possibleSeconds){
+   add([b.no,o.no],'hold',others);
+  }
+  const returning=states.filter(s=>s.role==='元ライン前方・切替'&&s.gap<=2.6);
+  for(const o of returning){
+   add([o.no,b.no],'recovery',others);
+  }
+ }
  for(const o of attackers){
   const follower=states.find(s=>same(s,o)&&s.lineIndex===o.lineIndex+1&&s.track!=='追走離れ気味');
   const candidateSeconds=[b.no,mark?.no,follower?.no,...attackers.filter(x=>x.no!==o.no).map(x=>x.no)].filter(Boolean);
