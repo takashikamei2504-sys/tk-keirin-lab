@@ -28,4 +28,5 @@ async function awaitPublicFeed(){
   top3:one?.result_top3,combos:one?.result_combos,spec:one?.result_detail,result:one?.results,bMarker:one?.b
  }};
 }
-console.log('B_AXIS_FEED_SCHEMA '+JSON.stringify(await external));
+external.then(x=>console.log('B_AXIS_FEED_SCHEMA '+JSON.stringify(x)));
+
