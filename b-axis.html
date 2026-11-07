@@ -6,10 +6,11 @@
 <label for="tactic-choice"><strong>Bを取る戦法</strong><select id="tactic-choice" aria-label="最終バックの獲得戦法"></select></label></div><label class="buy-limit" for="limit">三連単の上限点数（固定点数ではない）<select id="limit"><option value="3">最大3点</option><option value="5">最大5点</option><option value="8">最大8点</option><option value="10" selected>最大10点</option></select></label><p class="muted">B選手や戦法を変えると、各選手のバック時点の状態から三連単をすべて作り直します。</p></section>
 <div id="extras" hidden>
 <section class="main-summary"><small>SELECTED FINAL BACK</small><h2 id="b-headline"></h2><div id="scenario"></div></section>
+<section><h2>6局面の展開仮説</h2><p class="muted">初手から直線まで、最終バックを軸に選手位置と他ラインの反応を示します。局面をタップすると戦術の理由が表示されます。</p><div id="phases" class="phases"></div></section>
 <section><h2>最終バックの想定位置・脚</h2><p class="muted">全選手の相対位置。先頭を基準に車間・消耗をモデル化したものです。</p><div id="positions"></div></section>
 <section><div class="ticket-title"><h2>決着予想｜三連単</h2><span id="ticket-count" class="count"></span></div><div id="tickets" class="b-tickets"></div><p id="compressed" class="compact"></p><p class="muted" id="model-remark"></p><div class="b-actions"><button id="copy" type="button">買い目をコピー</button><button id="export" type="button">予想・根拠をJSON保存</button></div><p id="save-status" role="status"></p></section>
 </div>
-<footer>B-AXIS v0.1｜Bを当てることと、Bから勝者を予想することは別の判断です。既存LAB・LAB LINEを上書きしません。</footer></main>
+<footer>B-AXIS v0.2｜Bを当てることと、Bから勝者を予想することは別の判断です。既存LAB・LAB LINEを上書きしません。</footer></main>
 <script src="js/race-feed.js"></script><script src="js/s-counts.js"></script>
 <script src="js/brain-memory.js"></script><script src="js/recent-form.js"></script><script src="js/race-material.js"></script>
 <script src="js/line/input.js"></script>
