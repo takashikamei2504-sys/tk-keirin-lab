@@ -32,4 +32,26 @@ assert.throws(()=>B.build({...s,race:{...s.race,lineup:[[1,2,3],[4,5],[6,6]]}}),
 const mini=B.build(s,{bNo:1,limit:3});
 assert.ok(mini.tickets.length<=3);
 assert.deepEqual(mini.tickets.map(x=>x.key),b.tickets.slice(0,3).map(x=>x.key),'top-N stable');
-console.log('B-AXIS engine: 7-rider scenarios, rider/tactic switching, winner independence and guardrails passed');
+const sample9=require('../race_sample.json');
+const LineInput=require('../js/line/input.js');
+const s9=LineInput.prepare(sample9,{},Date.parse('2026-10-31T04:00:00.000Z'));
+const scenario9=B.build(s9,{bNo:2,limit:10});
+assert.equal(scenario9.b.states.length,9);
+assert.ok(scenario9.tickets.some(t=>t.path==='marker'),'nine-rider case needs an explicit marker-pass path');
+assert.ok(scenario9.tickets.some(t=>t.path==='outside'),'nine-rider case needs an explicit outside-attack path');
+for(const candidate of [b,hold,revised,scenario9]){
+ for(const state of candidate.b.states){
+  for(const key of ['gap','remaining','closing','spent','initiative','ability']){
+   assert(Number.isFinite(state[key]),'finite B-state '+key+' for '+state.no);
+  }
+ }
+ for(const t of candidate.tickets){assert(Number.isFinite(t.score));assert(t.path&&t.corner);assert(t.trio.every(n=>candidate.race.riders.some(x=>x.no===n)));}
+}
+assert.deepEqual(B.tacticsFor(s,3),['relaunch','makuri'],'third man must not be described as taking off from second wheel');
+assert.equal(B.build(s,{bNo:3}).b.tactic,'relaunch');
+const solo=seven();
+solo.race.lineup=[[1,2,3],[4,5],[6],[7]];
+solo.race.riders.find(x=>x.no===6).style='追';
+assert.deepEqual(B.tacticsFor(solo,6),['solo_shift'],'solo chaser cannot be assigned press/kamashi');
+assert.equal(B.build(solo,{bNo:6}).b.tactic,'solo_shift');
+console.log('B-AXIS engine: 7/9 rider tactical branches, all finite states, solo chaser, third-rider B and outcomes OK');

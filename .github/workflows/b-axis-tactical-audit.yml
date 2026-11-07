@@ -1,0 +1,19 @@
+name: B-AXIS tactical audit
+on:
+  push:
+    branches: [review/b-axis-tactical-audit-20261107]
+    paths: ['scripts/b_axis_tactical_review.cjs', 'js/b-axis/engine.js', 'tests/b-axis-engine.test.cjs', '.github/workflows/b-axis-tactical-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/b_axis_tactical_review.cjs
+      - run: npm run test:b-axis
