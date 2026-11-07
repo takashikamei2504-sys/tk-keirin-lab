@@ -260,7 +260,7 @@ function complete(snapshot,tickets){
  }
  const finish=best.trio,rest=back.order.filter(n=>!finish.includes(n)),last=finish.concat(rest);
  // Only promote the chosen winner if a finish route explicitly describes its path.
- const corner=['hold','marker','inside','third_rush','outside_marker'].includes(best.path)?back.order.slice():[finish[0],...back.order.filter(n=>n!==finish[0])];
+ const corner=['hold','marker','inside','third_rush','outside_marker','recovery'].includes(best.path)?back.order.slice():[finish[0],...back.order.filter(n=>n!==finish[0])];
  const attack=best.path==='outside'||best.path==='outside_marker',pass=best.path!=='hold';
  const reasons={
   hold:'最終Bの主導権を維持。番手と別線の仕掛けに耐えて直線に入る',
@@ -268,10 +268,16 @@ function complete(snapshot,tickets){
   outside:'別線の自力がB後も外を踏み、3〜4角で捲り追い込む',
   outside_marker:'外を攻めた別線自力の後位が追走から抜け出す',
   third_rush:'Bライン3番手が内へ進路を取り、番手の牽制の隙を狙う',
-  inside:'切替えた追込が空いた内進路に入る'
+  inside:'切替えた追込が空いた内進路に入る',
+  recovery:'後位選手がBを取ったのち、元ライン先頭が切替え・踏み直しで直線勝負へ入る'
  };
  const cornerEvents=[{actor:finish[0],action:pass?'challenge':'retain',target:snapshot.bNo,reason:reasons[best.path]||'4角で直線の進路を選択'}];
  for(const n of finish.slice(1))cornerEvents.push({actor:n,action:'chase',reason:n+'番は最終Bの位置関係から3〜4角で上位進出を狙う'});
+ const marker=snapshot.states.find(x=>x.role==='B番手');
+ const attackers=snapshot.states.filter(x=>x.attack&&x.reachable);
+ if(best.path==='third_rush'&&marker&&attackers.length)cornerEvents.push({actor:marker.no,action:'block',target:attackers[0].no,reason:marker.no+'番が外を踏む'+attackers[0].no+'番を牽制。B側3番手が内を突く進路が生まれる'});
+ if(best.path==='outside'&&marker)cornerEvents.push({actor:marker.no,action:'block_failed',target:finish[0],reason:marker.no+'番が'+finish[0]+'番の外捲りを止め切れず、別線が前に出る'});
+ if(best.path==='marker'&&attackers.length&&marker)cornerEvents.push({actor:marker.no,action:'block',target:attackers[0].no,reason:marker.no+'番が外の仕掛けを牽制しながら直線の差しへ移る'});
  if(attack)cornerEvents.push({actor:snapshot.bNo,action:'respond',target:finish[0],reason:'B選手は外からの反撃に対応、消耗と追走状況が着順に影響'});
  const cornerPhase=post('corner',corner[0],corner,cornerEvents,.055);
  const finalEvents=[{actor:finish[0],action:'finish',target:snapshot.bNo,reason:'本線三連単'+best.key+'。'+(best.reason||'B後の決着経路を比較')}];
