@@ -4,7 +4,7 @@
  */
 (function(root){'use strict';
 const VERSION='LAB_B_AXIS_V0.1.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
-const TACTICS={press:'突っ張り',hold:'押さえ先行',kamashi:'カマシ',makuri:'早めの捲り',surge:'番手発進'};
+const TACTICS={press:'突っ張り',hold:'押さえ先行',kamashi:'カマシ',makuri:'早めの捲り',surge:'番手発進',relaunch:'3番手以降からの追上げ'};
 const prefecture={
  '函館':'北海道','青森':'青森','いわき平':'福島','弥彦':'新潟','前橋':'群馬','取手':'茨城','宇都宮':'栃木','大宮':'埼玉','西武園':'埼玉','京王閣':'東京','立川':'東京','松戸':'千葉','川崎':'神奈川','平塚':'神奈川','小田原':'神奈川','伊東':'静岡','静岡':'静岡','名古屋':'愛知','岐阜':'岐阜','大垣':'岐阜','豊橋':'愛知','富山':'富山','松阪':'三重','四日市':'三重','福井':'福井','奈良':'奈良','向日町':'京都','和歌山':'和歌山','岸和田':'大阪','玉野':'岡山','広島':'広島','防府':'山口','高松':'香川','小松島':'徳島','高知':'高知','松山':'愛媛','小倉':'福岡','久留米':'福岡','武雄':'佐賀','佐世保':'長崎','別府':'大分','熊本':'熊本'};
 function verify(input){
@@ -38,11 +38,13 @@ function candidates(input){
 }
 function tacticsFor(input,no){
  const r=verify(input),line=r.lineup.find(l=>l.includes(no));
- return line[0]===no?['press','hold','kamashi','makuri']:['surge','makuri','kamashi'];
+ const index=line.indexOf(no);
+ return index===0?['press','hold','kamashi','makuri']:index===1?['surge','makuri','kamashi']:['relaunch','makuri'];
 }
 function chooseTactic(input,no){
  const allowed=tacticsFor(input,no),front=feature(input,no,'front'),kamashi=feature(input,no,'kamashi'),initiative=feature(input,no,'initiative');
  if(allowed.includes('surge'))return 'surge';
+ if(allowed.includes('relaunch'))return 'relaunch';
  if(front>.64&&initiative>.52)return 'press';
  if(kamashi>.63)return 'kamashi';
  return 'hold';
@@ -64,7 +66,7 @@ function snapshot(input,no,tactic){
  const threatMap=new Map(otherLines.map(l=>[l[0],threat(l)]));
  const sorted=otherLines.slice().sort((a,b)=>threat(b)-threat(a)||a[0]-b[0]);
  const mainThreat=sorted.length?threat(sorted[0]):0;
- const baseCost={press:.43,hold:.33,kamashi:.47,makuri:.47,surge:.39}[mode];
+ const baseCost={press:.43,hold:.33,kamashi:.47,makuri:.47,surge:.39,relaunch:.53}[mode];
  const effort=clamp(baseCost+mainThreat*.18+max(0,sorted.length-1)*.025+(mode==='press'?.05:0),.27,.79);
  const states=[];
  for(const line of race.lineup)for(let i=0;i<line.length;i++){
@@ -134,7 +136,9 @@ function finishRanking(input,snap,limit=10){
   hold:'B選手がバックで主導権を維持。別線の仕掛けをしのぎ、直線で踏み直す',
   marker:'Bの番手が連結を維持。牽制・直線の伸びでB選手を差す',
   outside:'別線の自力選手がBではまだ先頭でないが、外並走・捲りを4角まで継続して逆転',
-  inside:'内の進路を待った追込選手がコースを拾い差す'
+  inside:'内の進路を待った追込選手がコースを拾い差す',
+  outside_marker:'Bを取らなかった別線の自力選手が外から迫り、その番手が4角で差し伸びる',
+  third_rush:'Bライン3番手が追走を保ち、番手の牽制で生じた内の進路を突く'
  };
  const same=(x,y)=>x.line[0]===y.line[0];
  const fitSecond=(a,s)=>{
@@ -146,7 +150,9 @@ function finishRanking(input,snap,limit=10){
   hold:snap.tacticLabel+'からBを獲得、B選手が踏み直す',
   marker:'B番手が連結を維持し、最終3〜4角から直線で差す',
   outside:'別線の自力がB直後から外を踏み、最終3〜4角で先頭を捕える',
-  inside:'前で競り合う間に内の進路へ切り替えて直線を伸びる'
+  inside:'前で競り合う間に内の進路へ切り替えて直線を伸びる',
+  outside_marker:'外の自力がB通過後に迫り、その番手がコースを得て直線で抜け出す',
+  third_rush:'Bの3番手が追走を保ち、外の仕掛けへの番手牽制で開いた内進路を進む'
  };
  function add(pair,mode,thirds,extra=0){
   const a=byNo.get(pair[0]),d=byNo.get(pair[1]);
@@ -160,6 +166,11 @@ function finishRanking(input,snap,limit=10){
    if(mode==='marker'&&a.role!=='B番手')continue;
    if(mode==='hold'&&a.no!==b.no)continue;
    if(mode==='inside'&&(a.riderStyle!=='追'||a.gap>2.3||a.attack))continue;
+   if(mode==='outside_marker'){
+    const leader=states.find(x=>x.line[0]===a.line[0]&&x.lineIndex===0);
+    if(!leader?.attack||!leader.reachable||a.lineIndex!==1||a.gap-leader.gap>1.4||a.gap>4.45)continue;
+   }
+   if(mode==='third_rush'&&(a.role!=='Bライン追走'||a.lineIndex!==snap.line.indexOf(snap.bNo)+2||a.track==='追走離れ気味'||a.gap>2.0||attackers.length===0))continue;
    const scoreBase=pace(a)*1.10+strength(d)*.76+strength(c)*.55-.031*d.gap-.022*c.gap;
    const paired=same(a,d)? .035:0,attached=same(d,c)? .025:0;
    const approach=mode==='hold'?
@@ -168,6 +179,8 @@ function finishRanking(input,snap,limit=10){
       .18+(b.spent-.36)*.48+(a.finish-b.finish)*.42:
       mode==='outside'?
       .15+(a.closing-b.closing)*.66+(b.spent-.38)*.36-a.gap*.022:
+      mode==='outside_marker'? .12+(b.spent-.36)*.30+(a.finish-b.finish)*.33-a.gap*.035:
+      mode==='third_rush'? .075+(b.spent-.39)*.26+(a.finish-b.finish)*.37:
       .015+(b.spent-.40)*.28;
    if(mode==='outside'&&a.closing<b.closing-.20)physical-=.18;
    if(mode==='hold'&&b.spent>.64)physical-=.14;
@@ -190,12 +203,23 @@ function finishRanking(input,snap,limit=10){
   if(third){
    add([mark.no,third.no],'marker',[b.no,...others]);
   }
+  if(third&&attackers.length&&third.gap<=2.0){
+   add([third.no,mark.no],'third_rush',[b.no,...others]);
+   add([third.no,b.no],'third_rush',[mark.no,...others]);
+  }
  }else for(const o of attackers)add([b.no,o.no],'hold',[...others]);
  for(const o of attackers){
   const follower=states.find(s=>same(s,o)&&s.lineIndex===o.lineIndex+1&&s.track!=='追走離れ気味');
   const candidateSeconds=[b.no,mark?.no,follower?.no,...attackers.filter(x=>x.no!==o.no).map(x=>x.no)].filter(Boolean);
   for(const n of new Set(candidateSeconds)){
    add([o.no,n],'outside',[b.no,mark?.no,third?.no,follower?.no,...others].filter(Boolean));
+  }
+  if(follower&&follower.gap-o.gap<=1.4&&follower.gap<=4.45){
+   const followerThird=states.find(s=>same(s,o)&&s.lineIndex===o.lineIndex+2&&s.track!=='追走離れ気味'&&s.gap<=5.1);
+   const peers=[o.no,b.no,mark?.no,followerThird?.no,...attackers.filter(x=>x.no!==o.no).map(x=>x.no)].filter(Boolean);
+   for(const n of new Set(peers)){
+    add([follower.no,n],'outside_marker',[o.no,b.no,mark?.no,third?.no,followerThird?.no,...others].filter(Boolean));
+   }
   }
  }
  // Pure chase-only riders can finish first via an already reachable inner lane,
