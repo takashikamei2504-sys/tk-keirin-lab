@@ -15,5 +15,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm run test:b-axis
       - run: node scripts/b_axis_tactical_review.cjs
+      - run: npm run test:b-axis
