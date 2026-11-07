@@ -1,0 +1,30 @@
+name: B-AXIS public line-role history
+on:
+  push:
+    branches: ['feature/b-axis-follow-power-history-20261108']
+    paths: ['scripts/b_axis_aggregate_role_history.cjs','.github/workflows/b-axis-role-history.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Aggregate available public daily line and result records
+        run: node scripts/b_axis_aggregate_role_history.cjs
+      - name: Save reproducible research summary to this branch
+        run: |
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add data/b_axis_role_history.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data(b-axis): aggregate available public 2026 line roles and results'
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
