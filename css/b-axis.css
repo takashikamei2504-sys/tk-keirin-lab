@@ -33,3 +33,17 @@ header em{color:#8bd3bc}
 #example7,#example9{background:#dfece7;color:#173244;font-size:12px}
 footer{padding-bottom:40px}
 @media(max-width:375px){.control-grid{grid-template-columns:1fr}.place{grid-template-columns:1fr 1fr}.place span:last-child{grid-column:2;grid-row:1 / span 2}.ticket-head .tiny{font-size:10px}}
+
+/* Six-stage tactic viewer */
+.phases{display:grid;gap:8px}
+.phase-card{border:1px solid #dce4e2;border-radius:10px;padding:8px 11px;background:#fafcfb}
+.phase-card summary{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.phase-card summary strong{font-size:14px}
+.phase-card summary span{font-size:11px;color:#48677a;white-space:nowrap}
+.phase-card ul{margin:7px 0 2px;padding-left:18px;font-size:12px;color:#435d69}
+.phase-card li{padding:3px 0}
+.phase-riders{display:flex;flex-wrap:wrap;gap:5px}
+.phase-rider{display:inline-flex;align-items:center;justify-content:center;min-width:29px;min-height:29px;background:#e7eded;border-radius:7px;font-size:13px;font-weight:700}
+.phase-b{background:#d0ece2;color:#105340}
+.phase-outer{border:1px solid #b86b42}
+.phase-lines{font-size:12px;color:#566e79}
