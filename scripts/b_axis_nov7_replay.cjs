@@ -96,7 +96,7 @@ async function main(){
    const nKeys=nn.tickets.map(t=>t.key),oKeys=oo.tickets.map(t=>t.key),onKeys=on.tickets.map(t=>t.key),obKeys=ob.tickets.map(t=>t.key);
    score(stats.new,nKeys,actual,pay);score(stats.old,oKeys,actual,pay);score(stats.newOracle,onKeys,actual,pay);score(stats.oldOracle,obKeys,actual,pay);
    score(stats.legacy,(stored.chosen||[]).map(t=>t.key),actual,pay);
-   const gKey=historical.race.riders.length+'車/'+classR(raw);
+   const gKey=historical.race.riders.length+'車';
    group[gKey]??=one();const g=group[gKey];g.n++;
    for(const [mode,picks] of [['new',nKeys],['old',oKeys],['newOracle',onKeys],['oldOracle',obKeys]])score(g[mode],picks,actual,pay);
    if(nn.b.bNo===observed.b){correctB++;g.bHits++;}
