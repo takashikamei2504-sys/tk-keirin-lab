@@ -14,7 +14,7 @@ const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const dateName = /^\d{4}-\d{2}-\d{2}$/;
 const fields = ['date', 'grade', 'cars', 'venue', 'day', 'topology', 'length', 'settlement'];
 
-function readHistory(data, {withResults = true, from = ''} = {}) {
+function readHistory(data, {withResults = true, withLineDetails = true, from = ''} = {}) {
   const labDir = path.join(data, 'lab_history');
   const lineDir = path.join(data, 'line_history');
   const results = new Map();
@@ -42,7 +42,7 @@ function readHistory(data, {withResults = true, from = ''} = {}) {
         cutoff: out.input.cutoff, pre_race: true, model_id: out.provenance.model.model_id,
         input: out.input.race, identity: Legacy.identity(out.input.race), chosen: out.tickets,
         mainLine: out.main.scenes[3]?.groups.find(g => g.id === out.main.scenes[3]?.control && g.lane === 0)?.members,
-        out});
+        ...(withLineDetails ? {out} : {})});
     }
   }
   return {lab, line, results, exclusions};
@@ -119,7 +119,7 @@ function saveMeetingDays(feedDir, data) {
 if (require.main === module) {
   const data = process.argv[2] || path.join(root, 'data');
   const metadata = path.join(data, 'roi', 'meeting-days.json');
-  const result = report(readHistory(data), fs.existsSync(metadata) ? read(metadata) : {});
+  const result = report(readHistory(data, {withLineDetails:false}), fs.existsSync(metadata) ? read(metadata) : {});
   save(process.argv[3] || path.join(data, 'roi', 'audit.json'), publicReport(result));
   for (const row of [result.lab.by_model[LAB.model_id], result.line.latest]) {
     console.log(JSON.stringify(Object.fromEntries(['evaluated','hits','stake','payout','roi','first_misses','trimmed'].map(k=>[k,row?.[k]]))));

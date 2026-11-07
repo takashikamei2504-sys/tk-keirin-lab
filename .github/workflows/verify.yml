@@ -32,3 +32,4 @@ jobs:
           node tests/formation-browser.cjs
           node tests/s-riders-browser.cjs
           node tests/results-browser.cjs
+          ROI_BROWSER=chromium node tests/roi-browser.cjs

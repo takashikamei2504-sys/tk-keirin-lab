@@ -70,7 +70,7 @@ async function audit() {
       ['LAB損益',yen(paired.base.net)],['LINE損益',yen(paired.candidate.net)]]));
 }
 
-audit().then(research).catch(error => {element('performance').textContent = error.message;});
+audit().then(() => Promise.allSettled([research(),validation()])).catch(error => {element('performance').textContent = error.message;});
 
 const todayJst = () => new Date(Date.now()+9*3600000).toISOString().slice(0,10);
 const raceLabel = race => race.date + '　' + race.venue + race.number + 'R　' + race.start;
@@ -178,3 +178,37 @@ async function research() {
 }
 
 live().catch(error=>{element('today').textContent=error.message;});
+
+async function validation() {
+  const panel = node('details');
+  panel.append(node('summary','確率校正と発走前の並走評価'));
+  const [calibration, prospective] = await Promise.all(['calibration','prospective'].map(async name=>{
+    const response = await fetch('data/roi/'+name+'.json',{cache:'no-cache'});
+    return response.ok ? response.json() : null;
+  }));
+  if (calibration?.holdout) {
+    const h = calibration.holdout;
+    panel.append(list([['校正の学習',calibration.training_races+'R'],['時系列検証',h.races+'R'],
+      ['Log Loss',h.log_loss?.toFixed(3) ?? '—'],['Brier Score',h.brier?.toFixed(3) ?? '—']]));
+    const reliability = node('details');
+    reliability.append(node('summary','検証期間の校正曲線の集計'));
+    for (const bin of h.reliability.filter(b=>b.count)) {
+      reliability.append(list([['確率帯',pct(bin.min)+'〜'+pct(bin.max)],['組合せ数',bin.count],
+        ['予測平均',pct(bin.predicted)],['観測頻度',pct(bin.observed)]]));
+    }
+    panel.append(reliability);
+  }
+  if (prospective) {
+    const rows=Object.entries(prospective.models);
+    if (!rows.length) panel.append(node('p','発走前に保存した予想の結果待ち '+prospective.status.pending+'R'));
+    for (const [id,strategies] of rows) {
+      panel.append(node('h3',id));
+      for (const [name,stats] of Object.entries(strategies)) {
+        panel.append(list([[name,stats.evaluated+'R'],['購入レース',stats.purchased],['回収率',pct(stats.roi)],
+          ['総損益',yen(stats.net)],['最大ドローダウン',yen(stats.max_drawdown)]]));
+      }
+    }
+  }
+  panel.append(node('p','発走前オッズの自動取得は保留。購入判断は見送りです。'));
+  element('comparison').append(panel);
+}

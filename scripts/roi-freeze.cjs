@@ -3,7 +3,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const Audit = require('../js/results-audit.js');
-const Engine = require('../js/roi/engine.cjs');
+const Policy = require('../js/roi/policy.cjs');
+const Provenance = require('../js/model-provenance.js');
 const {readHistory, save} = require('./roi-audit.cjs');
 const {pairs} = require('./roi-research.cjs');
 
@@ -14,19 +15,24 @@ function freeze(data, clock = Date.now) {
   const start = clock(), date = jst(start);
   const history = readHistory(data,{withResults:false,from:date});
   const output = path.join(data,'roi','forecasts');
+  const calibrationFile = path.join(data,'roi','calibration.json');
+  const calibration = fs.existsSync(calibrationFile) ? JSON.parse(fs.readFileSync(calibrationFile,'utf8')) : null;
+  const model = Policy.model(calibration);
   let frozen = 0;
   for (const {lab,out} of pairs(history,start)) {
     const now = clock();
     const cutoff = Audit.startAt(lab.input);
     if (!(Date.parse(out.evidence.lab.saved_at)<=now && Date.parse(out.evidence.line.saved_at)<=now && now<cutoff)) continue;
     const file = path.join(output,lab.input.date,
-      require('node:crypto').createHash('sha256').update(lab.race_id+'|'+out.model.model_id).digest('hex')+'.json');
+      require('node:crypto').createHash('sha256').update(lab.race_id+'|'+model.model_id).digest('hex')+'.json');
     fs.mkdirSync(path.dirname(file),{recursive:true});
+    const asOf = new Date(now).toISOString();
+    const decision = Policy.build(out,lab.input,calibration,null,asOf,lab.cutoff);
     const record = {schema:'tk-keirin-roi-frozen/v1',race_id:lab.race_id,
       saved_at:new Date(now).toISOString(), cutoff:lab.cutoff,
       race:{date:lab.input.date,venue:lab.input.venue,number:lab.input.race_no,start:lab.input.start},
-      decision:{status:'pass',reason:'pre-race odds and prospective validation required',tickets:[]},
-      ...out};
+      ...out, model, decision, input_sha256:Provenance.sha256({hypotheses:out.input_sha256,
+        configuration:model.configuration_hash,asOf,odds:null})};
     const content = JSON.stringify(record)+'\n';
     if (Buffer.byteLength(content)>65536) throw Error('ROI forecast exceeds 64 KiB');
     try {
@@ -46,7 +52,7 @@ function freeze(data, clock = Date.now) {
         candidates:chosen.map(t=>t.key)};
     }).sort((a,b)=>Date.parse(a.cutoff)-Date.parse(b.cutoff) || a.race_id.localeCompare(b.race_id));
     // Regeneration leaves a stable per-day index. Immutable forecasts are never replaced.
-    save(path.join(dir,'index.json'),{date:day,model:Engine.model.model_id,rows});
+    save(path.join(dir,'index.json'),{date:day,model:model.model_id,rows});
   }
   return frozen;
 }
