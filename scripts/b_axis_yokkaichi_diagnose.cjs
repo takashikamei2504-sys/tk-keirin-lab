@@ -30,3 +30,14 @@ async function awaitPublicFeed(){
 }
 external.then(x=>console.log('B_AXIS_FEED_SCHEMA '+JSON.stringify(x)));
 
+
+async function inspectYearCsv(){
+ for(const month of ['2025_11','2026_10']){
+  const url='https://raw.githubusercontent.com/Kenseimk/keirin-data/main/keirin_data/'+month+'_keirin.csv';
+  try{const r=await fetch(url,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('HTTP '+r.status);
+   const s=await r.text();const lines=s.split(/\r?\n/).filter(Boolean);
+   console.log('B_AXIS_YEAR_CSV '+JSON.stringify({month,bytes:s.length,lines:lines.length,head:lines.slice(0,3)}));
+  }catch(e){console.log('B_AXIS_YEAR_CSV_ERROR '+String(e));}
+ }
+}
+inspectYearCsv();
