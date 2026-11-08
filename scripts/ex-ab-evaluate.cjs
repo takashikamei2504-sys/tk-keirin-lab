@@ -38,8 +38,13 @@ function pairedRows(data){
     records.push({model_id:p.model_id,race_id:p.race_id,status:'excluded',reason:previous.status!=='evaluated'?previous.status:candidate.status});
     continue;
    }
+   const validPhysical=Array.isArray(p.physical)&&p.physical.length===Shadow.TICKETS&&
+     new Set(p.physical.map(t=>t.key)).size===Shadow.TICKETS&&
+     p.physical.every(t=>t.trio?.length===3&&t.key===t.trio.join('-'));
+   const physical=validPhysical?Audit.settle({...template,chosen:p.physical},result):null;
    records.push({model_id:p.model_id,race_id:p.race_id,status:'evaluated',
-     date:p.date,baseline:previous,ex:candidate,changed:!p.delta?.same,
+     date:p.date,baseline:previous,ex:candidate,physical:physical?.status==='evaluated'?physical:null,
+     changed:!p.delta?.same,
      ex_rider_count:p.applied.length,original_ex_metrics:p.observed_ex_metrics,
      paired_net_delta:candidate.wins.reduce((n,v)=>n+v,0)-previous.wins.reduce((n,v)=>n+v,0)});
   }
@@ -71,6 +76,17 @@ function summarize(records,currentModel){
    first_capture:baseline.first_capture===null||ex.first_capture===null?null:ex.first_capture-baseline.first_capture,
    pair_capture:baseline.pair_capture===null||ex.pair_capture===null?null:ex.pair_capture-baseline.pair_capture};
  const lower=lowerDailyDelta(evaluated);
+ const pairedPhysical=evaluated.filter(r=>r.physical);
+ const referencePhysical=Audit.summarize(pairedPhysical.map(r=>r.ex));
+ const physical=Audit.summarize(pairedPhysical.map(r=>r.physical));
+ const physicalDeltaRows=pairedPhysical.map(r=>({...r,paired_net_delta:
+   r.physical.wins.reduce((a,b)=>a+b,0)-r.ex.wins.reduce((a,b)=>a+b,0)}));
+ const physicalConfidence=lowerDailyDelta(physicalDeltaRows);
+ const physicalReady=pairedPhysical.length>=200&&physicalConfidence.days>=14&&
+   physicalConfidence.lower_per_race_yen>0&&
+   (physical.pair_capture??0)>=(referencePhysical.pair_capture??0)&&
+   (physical.trimmed?.[1]??0)>=(referencePhysical.trimmed?.[1]??0)&&
+   physical.net>referencePhysical.net;
  const ready=n>=200&&lower.days>=14&&lower.lower_per_race_yen>0&&
    delta.pair_capture>=0&&ex.trimmed?.[1]>=baseline.trimmed?.[1]&&ex.net>baseline.net;
  const reduce=a=>({evaluated:a.evaluated,purchased:a.purchased,stake:a.stake,payout:a.payout,
@@ -86,6 +102,15 @@ function summarize(records,currentModel){
    same_stake_per_arm_per_race_yen:Shadow.TICKETS*100,
    first_record_at:relevant.map(x=>x.as_of).filter(Boolean).sort()[0]||null,
    baseline:reduce(baseline),ex:reduce(ex),delta,confidence:lower,
+   physical_comparison:{matched:pairedPhysical.length,
+      ex:reduce(referencePhysical),physical:reduce(physical),
+      delta:{roi:pairedPhysical.length?physical.roi-referencePhysical.roi:null,
+       pair_capture:pairedPhysical.length?physical.pair_capture-referencePhysical.pair_capture:null,
+       first_capture:pairedPhysical.length?physical.first_capture-referencePhysical.first_capture:null,
+       hit_rate:pairedPhysical.length?physical.hit_rate-referencePhysical.hit_rate:null,
+       net_yen:physical.net-referencePhysical.net},
+      confidence:physicalConfidence,ready_for_review:physicalReady,
+      auto_buy_enabled:false},
    segments:Object.fromEntries(['grade','cars'].map(field=>[field,
      Object.fromEntries([...new Set(evaluated.map(r=>String(r.baseline[field]||'')))].filter(Boolean)
        .map(key=>{const group=evaluated.filter(r=>String(r.baseline[field])===key);
