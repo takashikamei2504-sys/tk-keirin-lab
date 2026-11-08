@@ -35,7 +35,7 @@ for(const day of dates){
    const newSeats=physical.narratives.filter(n=>n.mode==='seat').length;
    const newVacants=physical.narratives.filter(n=>n.gap==='breaks'&&!n.seat).length;
    const checks=physical.narratives.filter(n=>n.gap==='breaks').length;
-   if(physical.narratives.some(n=>n.mode==='seat'&&n.seat_state!=='attempted_takeover')||
+   if(physical.narratives.some(n=>n.mode==='seat'&&n.seat_state!=='seat_taken')||
      physical.narratives.some(n=>n.gap==='breaks'&&n.snapshots?.[2]?.wheel_links?.[0]?.status!=='breaks'))throw Error('PHYSICAL_INVARIANT_BROKEN');
    all.legacy_seat_hypotheses+=oldSeats;all.v2_seat_hypotheses+=newSeats;all.v2_vacant_hypotheses+=newVacants;all.physical_gap_checks+=checks;
    const same=Shadow.diff(picksA,picksB).same;
