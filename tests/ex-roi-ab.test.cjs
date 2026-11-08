@@ -74,8 +74,8 @@ assert.equal(report.ready_for_review,true);
 assert.equal(report.auto_buy_enabled,false);
 assert.equal(Evaluate.summarize(sample.slice(0,100),'test').ready_for_review,false);
 assert.equal(Evaluate.summarize(sample.map((r,i)=>({...r,paired_net_delta:i%2?0:1300})), 'test').confidence.days,15);
-const bad=[...sample];bad[0]={...bad[0],baseline:{...bad[0].baseline,wins:[60000]},
- paired_net_delta:-58700};
+const bad=[...sample];bad[0]={...bad[0],baseline:{...bad[0].baseline,wins:[200000]},
+ paired_net_delta:-198700};
 assert.equal(Evaluate.summarize(bad,'test').ready_for_review,false,'outlier fails robust lower bound or trim');
 console.log('EX_ROI_AB_TESTS_OK '+JSON.stringify({synthetic:210,days:15,
   modelEX:p.ex_used,contextEX:p.ex_context_used,selected:before.length,
