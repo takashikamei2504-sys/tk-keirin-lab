@@ -1705,8 +1705,9 @@ try{
 }catch(e){}
 
 
-const CAUSAL_V=RaceBrain.VERSION; let causalLast=null;let causalPhysicalPreview=false; const causalEsc=x=>esc(x); let autoIntelPack={};let raceMaterialPack={};let approvedExPack=null;
+const CAUSAL_V=RaceBrain.VERSION; let causalLast=null;let causalPhysicalPreview=false;let causalPreviewRaceId=null; const causalEsc=x=>esc(x); let autoIntelPack={};let raceMaterialPack={};let approvedExPack=null;
 function causalBuild(r){validate(r);
+ if(causalPhysicalPreview&&causalPreviewRaceId!==[r.date,r.venue,r.race_no].join(':')){causalPhysicalPreview=false;causalPreviewRaceId=null;}
  const contextual={...(r.ex_context||{})};
  const key=r.date+':'+r.venue+':'+r.race_no,obs=approvedExPack?.race_contexts?.[key];
  const cutoff=Date.parse(r.date+'T'+r.start+':00+09:00');
@@ -1732,7 +1733,7 @@ function causalRun(){
  }catch(e){$('prediction-feedback').textContent='展開予想を生成できませんでした：'+e.message;$('causal-stories').innerHTML='';$('causal-tickets').innerHTML='';$('causal-state').textContent='展開推理のエラー：'+e.message;causalLast=null;return null;}
 }
 $('causal-run').addEventListener('click',causalRun);
-$('causal-physical-toggle').addEventListener('click',()=>{causalPhysicalPreview=!causalPhysicalPreview;causalRun();});
+$('causal-physical-toggle').addEventListener('click',()=>{causalPhysicalPreview=!causalPhysicalPreview;causalPreviewRaceId=causalPhysicalPreview?[data.date,data.venue,data.race_no].join(':'):null;causalRun();});
 $('causal-copy').addEventListener('click',async()=>{
  if(!causalLast)causalRun();if(!causalLast)return;
  const s=PredictionView.copyText(causalLast);
@@ -1814,6 +1815,10 @@ async function exABReportLoad(){
     '／三連単的中率 '+pct(base.hit_rate)+' → '+pct(ex.hit_rate)+
     '／回収率 '+pct(base.roi)+' → '+pct(ex.roi)+
     (report.ready_for_review?'。改善候補として昇格審査へ。':'。継続検証中、購入判定は変更しません。');
+  const physical=report.physical_comparison;
+  if(physical?.matched>0){
+   node.textContent+='／物理v2対EX '+physical.matched+'レース：1・2着捕捉 '+pct(physical.ex.pair_capture)+' → '+pct(physical.physical.pair_capture)+'、回収率 '+pct(physical.ex.roi)+' → '+pct(physical.physical.roi)+'（購入には未反映）';
+  }
  }catch(e){node.textContent='EX改善効果：前向きA/Bの集計開始待ち。従来の購入判定を維持。';}
 }
 autoIntelLoad();recentFormLoad();raceMaterialLoad();exApprovedLoad();exABReportLoad();
