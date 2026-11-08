@@ -16,7 +16,7 @@ const base=path.join(__dirname,'../data/lab_history');
 const minDate='2026-10-27',maxDate='2026-11-07';
 const max=Number(process.argv[2]||160);
 if(!(Number.isInteger(max)&&max>0&&max<=1000))throw Error('invalid max');
-if(x.training_end>='2026-10-27' && x.splits?.train?.end!=='2026-10-15')throw Error('training is not prior to holdout');
+if(x.train_end_exclusive!=='2026-10-16'||x.training_start>'2026-10-15'||minDate<'2026-10-16'||x.provenance?.winticket_ex_metrics!==false)throw Error('training is not prior to holdout');
 const population=x.splits?.train?.population||{},riders=x.splits?.train?.riders||{};
 const clip=(a,mn=-1,mx=1)=>Math.max(mn,Math.min(mx,a));
 let usedAxes={position:0,race_type:0},usedRiders=0,modelChanged=0,unmatched=0,processed=0,errors=0;
