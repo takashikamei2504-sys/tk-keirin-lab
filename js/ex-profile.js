@@ -5,7 +5,7 @@
 (function(root){'use strict';
 const clamp=(x,a=-1,b=1)=>Math.max(a,Math.min(b,x));
 const APPROVAL='approved-for-model-and-publication';
-const keys=['kamashi','tsuppari','chigiri','chigirarare','tobitsuki'];
+const keys=['kamashi','tsuppari','chigiri','chigirarare','tobitsuki','seri'];
 function cutoffOf(race){
  const t=Date.parse(String(race?.date||'')+'T'+String(race?.start||'')+':00+09:00');
  return Number.isFinite(t)?t:null;
@@ -73,7 +73,7 @@ function attach(profile,rider,race,pack,asOf){
  const p=profile;
  const row=record(pack,rider,race,asOf);
  if(!row)return p;
- const labels={kamashi:'カマシ',tsuppari:'突っ張り',chigiri:'ちぎり',chigirarare:'ちぎられ',tobitsuki:'飛びつき'};
+ const labels={kamashi:'カマシ',tsuppari:'突っ張り',chigiri:'ちぎり',chigirarare:'ちぎられ',tobitsuki:'飛びつき',seri:'競り'};
  let count=0;
  for(const metric of keys){
   const m=validatedCount(row.metrics?.[metric]);
