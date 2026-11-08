@@ -13,7 +13,7 @@ const ROOT=path.join(__dirname,'..');
 const jst=ts=>new Date(ts+9*3600000).toISOString().slice(0,10);
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 function model(){
- const files=['js/ex-profile.js','js/race-brain.js','js/ex-roi/shadow.cjs','scripts/ex-ab-freeze.cjs'];
+ const files=['js/ex-profile.js','js/tactical-transitions.js','js/race-brain.js','js/ex-roi/shadow.cjs','scripts/ex-ab-freeze.cjs'];
  const h=crypto.createHash('sha256');
  for(const file of files)h.update(file).update(fs.readFileSync(path.join(ROOT,file)));
  return Shadow.VERSION+'@'+h.digest('hex').slice(0,16);
@@ -32,8 +32,9 @@ function eligible(p,asOf){
 function versions(race,pack,asOf){
  const first=Brain.build(race,{exAsOf:asOf});
  const second=Brain.build(race,{exPack:pack,exAsOf:asOf});
- const baseline=Shadow.select(first),withEx=Shadow.select(second);
- if(baseline.length!==Shadow.TICKETS||withEx.length!==Shadow.TICKETS)return null;
+ const third=Brain.build(race,{exPack:pack,exAsOf:asOf,transitionMode:'physical_v2'});
+ const baseline=Shadow.select(first),withEx=Shadow.select(second),withPhysical=Shadow.select(third);
+ if(baseline.length!==Shadow.TICKETS||withEx.length!==Shadow.TICKETS||withPhysical.length!==Shadow.TICKETS)return null;
  const applied=Object.entries(second.profiles)
    .filter(([,p])=>p.ex_used>0||p.ex_context_used>0)
    .map(([no,p])=>({no:Number(no),source_url:p.ex_source_url,
@@ -41,7 +42,7 @@ function versions(race,pack,asOf){
      contexts:p.ex_context_used||0,comparisons:p.ex_context_comparisons||[]}))
    .sort((a,b)=>a.no-b.no);
  if(!applied.length)return null;
- return {baseline,ex:withEx,delta:Shadow.diff(baseline,withEx),
+ return {baseline,ex:withEx,physical:withPhysical,delta:Shadow.diff(baseline,withEx),physical_delta:Shadow.diff(withEx,withPhysical),
     applied,ex_count:applied.reduce((n,x)=>n+x.metrics,0),
     rank_heads:{baseline:first.tickets.slice(0,5).map(t=>t.trio[0]),
       ex:second.tickets.slice(0,5).map(t=>t.trio[0])}};
@@ -95,9 +96,9 @@ function freeze(data=path.join(ROOT,'data'),asOf=Date.now(),opts={}){
       input:p.input, // frozen public racecard, not results
       tickets_per_arm:Shadow.TICKETS,
       applied:forecast.applied,observed_ex_metrics:forecast.ex_count,
-      baseline:forecast.baseline,ex:forecast.ex,
-      delta:forecast.delta,
-      policy:'research-only; two equal-stake eight-ticket simulations, no automatic wagering'};
+      baseline:forecast.baseline,ex:forecast.ex,physical:forecast.physical,
+      delta:forecast.delta,physical_delta:forecast.physical_delta,
+      policy:'research-only; three equal-stake eight-ticket simulations, no automatic wagering'};
     fs.mkdirSync(folder,{recursive:true});
     fs.writeFileSync(file,JSON.stringify(record)+'\n',{flag:'wx'});
     saved++;
