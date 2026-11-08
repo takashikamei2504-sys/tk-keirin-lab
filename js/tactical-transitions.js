@@ -65,9 +65,12 @@ function seatOpportunity(order,lineup,controller,opponent,ctx={}){
  if(!ctx.accelerationApproach)return {allowed:false,why:'no continuous approach scenario'};
  if(!Number.isFinite(ctx.seatTrait)||ctx.seatTrait<.40)return {allowed:false,why:'no defensible approach tendency'};
  // Even an adjacent rival's ability to pass is only a possible attempt.
- const raw=clamp(.06+ctx.seatTrait*.12+(ctx.tobitsukiDelta||0),.04,.24);
- return {allowed:true,candidate:opponent,attemptWeight:raw,
-  why:'adjacent opposing leader with a continuous approach; seat takeover is only one branch'};
+ // An EX tobitsuki success count is CONDITIONAL on an attempt.
+ // It must never be interpreted as the propensity to initiate a challenge.
+ const attemptWeight=clamp(.06+ctx.seatTrait*.12,.04,.24);
+ const successConditional=clamp(.5+(Number.isFinite(ctx.tobitsukiDelta)?ctx.tobitsukiDelta:0),.35,.65);
+ return {allowed:true,candidate:opponent,attemptWeight,successConditional,
+  why:'adjacent opposing leader: approach is possible, but attempt and success are separate events'};
 }
 function gapBranches({order,lineup,controller,gap,profile,tactic,controllerIsAttacker}){
  const line=lineup.find(l=>l[0]===controller);
@@ -88,12 +91,16 @@ function gapBranches({order,lineup,controller,gap,profile,tactic,controllerIsAtt
    reason:candidateAllowed.why}];
  }
  const without={order:reordered.slice(),seat:null,seatState:'vacant',weight:1-candidateAllowed.attemptWeight,links};
+ const failed={order:reordered.slice(),seat:null,seatState:'failed_entry',
+  weight:candidateAllowed.attemptWeight*(1-candidateAllowed.successConditional),links,
+  reason:'approach attempt fails to take the wheel'};
  const seatOrder=reordered.filter(n=>n!==candidate);
  const ix=seatOrder.indexOf(controller);
  seatOrder.splice(ix+1,0,candidate);
- const withSeat={order:seatOrder,seat:candidate,seatState:'attempted_takeover',weight:candidateAllowed.attemptWeight,links,
+ const withSeat={order:seatOrder,seat:candidate,seatState:'seat_taken',
+  weight:candidateAllowed.attemptWeight*candidateAllowed.successConditional,links,
   reason:candidateAllowed.why};
- return [without,withSeat];
+ return [without,failed,withSeat];
 }
 const api={VERSION,combinedBreakEvidence,followerOutcome,splitLine,gapReorder,seatOpportunity,gapBranches};
 if(typeof module!=='undefined')module.exports=api;
