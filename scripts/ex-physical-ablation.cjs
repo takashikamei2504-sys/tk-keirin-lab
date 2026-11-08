@@ -26,7 +26,7 @@ for(const day of days){
     const report=Audit.settle({...p,chosen:tickets},result);
     if(report.status!=='evaluated')throw Error('SETTLEMENT_'+mode+':'+report.status);
     const taken=built.narratives.filter(n=>n.mode==='seat').length;
-    if(mode==='physical_v2'&&built.narratives.some(n=>n.mode==='seat'&&n.seat_state!=='attempted_takeover'))throw Error('UNSAFE_SEAT');
+    if(mode==='physical_v2'&&built.narratives.some(n=>n.mode==='seat'&&n.seat_state!=='seat_taken'))throw Error('UNSAFE_SEAT');
     outcomes[mode]={report,tickets,seatPaths:taken};
    }
    rows.push({race:p.race_id,date:day,cars:p.identity.length,grade:outcomes.legacy.report.grade,outcomes});
