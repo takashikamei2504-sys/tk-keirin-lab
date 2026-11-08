@@ -48,9 +48,10 @@ function gapReorder(order,line,controller){
  const followers=line.slice(1);
  if(!followers.length)return order.slice();
  if(followers.some(no=>!order.includes(no)))throw Error('MISSING_FOLLOWERS');
- // The follower's line tail stays together. A third rider cannot teleport
- // into the lead's wheel when the second rider is dropped.
- return [...order.filter(no=>!followers.includes(no)),...followers];
+ // A wheel gap is a DISTANCE, not an automatic positional overtake.
+ // Leave the lineup order unchanged until a separate physical passing event occurs.
+ // In particular, never promote an outsider to the leader's wheel just by losing contact.
+ return order.slice();
 }
 function seatOpportunity(order,lineup,controller,opponent,ctx={}){
  if(!Array.isArray(order)||!Array.isArray(lineup)||new Set(order).size!==order.length||!lineup.every(x=>Array.isArray(x)&&new Set(x).size===x.length))throw Error('INVALID_SEAT_INPUT');
