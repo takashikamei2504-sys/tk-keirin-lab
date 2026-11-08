@@ -29,6 +29,11 @@ node scripts/winticket_ex_collect.cjs https://www.winticket.jp/keirin/yokkaichi/
 
 One-shot only; no cookies, login, retries, protected API, crawl loop, bot mitigation bypass or redirects. The output is local-only and must not be committed to a public repository. Stop on HTTP 403 and other access restrictions. Check the site's applicable conditions before wider use.
 
+## Optional B-AXIS schema export (private, pre-race only)
+node scripts/winticket_ex_bridge.cjs ./private/winticket-ex-snapshot.json 2026-11-08T12:00:00+09:00 ./private/b-axis-ex-observations.json
+
+Supply the ACTUAL race start time in ISO-8601. The exporter rejects any snapshot captured at or after this time, excludes all rows with zero/unknown/mismatched denominators, and excludes the unverified exCompete field. It creates a private observation object compatible with js/b-axis/ex-data.js and does not change the existing public data file or live prediction screen by itself.
+
 ## Data trust rules
 - The EX percentage is stored in native 0–100 units; absent remains null; an actual 0 remains zero.
 - A denominator is considered available only if source succeeded and total are explicit integers with 0 <= succeeded <= total and total > 0; the displayed percentage must agree with the observed ratio within rounding tolerance.
