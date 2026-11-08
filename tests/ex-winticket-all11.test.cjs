@@ -73,7 +73,7 @@ const riderForUse={no:3,meta:{rider_id:'14838'}};
 const profile={finish:.52,measurements:[],basis:'基礎',evidence:[]};
 ExProfile.attach(profile,riderForUse,raceForUse,ingested.latest,Date.parse(at)+1000);
 assert.equal(profile.ex_context_used,5);
-assert.equal(profile.ex_used,5);
+assert.equal(profile.ex_used,6);
 assert.equal(profile.ex_source_url,'https://www.winticket.jp'+sourcePath);
 const contextEvidence=EXData.contextual({race:raceForUse,as_of:at,bAxisEx:ingested.latest},
  riderForUse,'weather','sun',{asOf:at});
