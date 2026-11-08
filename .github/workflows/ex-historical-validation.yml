@@ -1,0 +1,35 @@
+name: Historical EX proxy controlled evaluation
+on:
+  workflow_dispatch:
+  push:
+    branches: ['research/ex-historical-validation-20261108']
+    paths:
+      - 'scripts/ex_historical_compare.cjs'
+      - '.github/workflows/ex-historical-validation.yml'
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: 'research/ex-historical-validation-20261108'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Historical five-axis public result time-split sanity check
+        run: node scripts/b_axis_ex_context_validate.cjs
+      - name: Eight-ticket historical out-of-time test
+        env:
+          EX_HISTORICAL_REPORT_PATH: research/ex_historical_proxy_report_20261108.json
+        run: node scripts/ex_historical_compare.cjs 160
+      - name: Save research result without touching production main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/ex_historical_proxy_report_20261108.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Research: historical proxy versus frozen baseline'
+            git pull --rebase origin research/ex-historical-validation-20261108
+            git push origin HEAD:research/ex-historical-validation-20261108
+          fi
