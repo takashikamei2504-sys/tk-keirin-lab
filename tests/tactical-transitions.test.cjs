@@ -17,13 +17,22 @@ const shortLine=[[1,2],[5,6],[7],[8,9],[3,4]];
 const shortOrder=[1,2,5,6,7,8,9,3,4];
 const opts={order:shortOrder,lineup:shortLine,controller:1,gap:'breaks',profile:p,tactic:'kamashi',controllerIsAttacker:true};
 const two=T.gapBranches(opts);
-assert.equal(two.length,2);
+assert.equal(two.length,3);
 assert.equal(two[0].seat,null);
 assert.deepEqual(two[0].order,shortOrder);
-assert.equal(two[1].seat,5);
-assert.deepEqual(two[1].order.slice(0,4),[1,5,2,6]);
-assert.equal(two[1].seatState,'attempted_takeover');
-assert(Math.abs(two[0].weight+two[1].weight-1)<1e-10);
+assert.equal(two[1].seat,null);
+assert.equal(two[1].seatState,'failed_entry');
+assert.equal(two[2].seat,5);
+assert.deepEqual(two[2].order.slice(0,4),[1,5,2,6]);
+assert.equal(two[2].seatState,'seat_taken');
+assert(Math.abs(two[0].weight+two[1].weight+two[2].weight-1)<1e-10);
+const opposite=T.seatOpportunity(shortOrder,shortLine,1,5,{
+ accelerationApproach:true,seatTrait:.95,tobitsukiDelta:-.07});
+const better=T.seatOpportunity(shortOrder,shortLine,1,5,{
+ accelerationApproach:true,seatTrait:.95,tobitsukiDelta:.07});
+assert.equal(opposite.attemptWeight,better.attemptWeight,'success rate must not change tactical attempt propensity');
+assert(better.successConditional>opposite.successConditional);
+
 assert.equal(T.gapBranches({...opts,tactic:'makuri'}).length,1);
 assert.equal(T.gapBranches({...opts,controllerIsAttacker:false}).length,1);
 assert.equal(T.gapBranches({...opts,order:[1,2,6,5,7,8,9,3,4]}).length,1,'second-line rider is not automatic seat challenger');
@@ -46,7 +55,7 @@ const modern=Brain.build(sample,{transitionMode:'physical_v2'});
 assert.equal(modern.chosen.length,20);
 assert(modern.narratives.length>0);
 assert(modern.narratives.every(n=>n.snapshots.length===5&&new Set(n.trio).size===3));
-assert(modern.narratives.every(n=>n.mode!=='seat'||n.seat_state==='attempted_takeover'),'no unverified seat filling');
+assert(modern.narratives.every(n=>n.mode!=='seat'||n.seat_state==='seat_taken'),'no unverified seat filling');
 assert(modern.narratives.every(n=>n.snapshots[2].wheel_links&&Array.isArray(n.snapshots[2].wheel_links)));
 assert(modern.narratives.every(n=>n.mode!=='recovery'),'third does not automatically lose its own wheel when marker loses leader');
 const allSeats=modern.narratives.filter(n=>n.mode==='seat');
