@@ -8,6 +8,7 @@ on:
       - 'js/ex-profile.js'
       - 'tests/tactical-transitions.test.cjs'
       - 'scripts/ex-physical-historical-pilot.cjs'
+      - 'scripts/ex-physical-ablation.cjs'
       - '.github/workflows/ex-physical-v2.yml'
   pull_request:
     paths:
@@ -36,6 +37,11 @@ jobs:
         env:
           EX_PHYSICAL_REPORT_PATH: research/ex_physical_pilot_20261108.json
         run: node scripts/ex-physical-historical-pilot.cjs 500
+      - name: Four-arm physics ablation on frozen results
+        if: github.event_name == 'push'
+        env:
+          EX_PHYSICAL_ABLATION_PATH: research/ex_physical_ablation_20261108.json
+        run: node scripts/ex-physical-ablation.cjs 500
       - name: Generate model source identity for EX transition dependency
         if: github.event_name == 'push'
         run: node scripts/model_identity.cjs
@@ -44,7 +50,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add js/model-build.js research/ex_physical_pilot_20261108.json
+          git add js/model-build.js research/ex_physical_pilot_20261108.json research/ex_physical_ablation_20261108.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update model provenance and 7/9-car physical-pilot comparison'
             git pull --rebase origin feature/ex-physical-transitions-v2-20261108
