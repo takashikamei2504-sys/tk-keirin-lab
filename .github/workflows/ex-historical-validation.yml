@@ -22,7 +22,7 @@ jobs:
       - name: Eight-ticket historical out-of-time test
         env:
           EX_HISTORICAL_REPORT_PATH: research/ex_historical_proxy_report_20261108.json
-        run: node scripts/ex_historical_compare.cjs 160
+        run: node scripts/ex_historical_compare.cjs 500
       - name: Save research result without touching production main
         run: |
           git config user.name 'github-actions[bot]'
