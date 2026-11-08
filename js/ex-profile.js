@@ -49,26 +49,58 @@ function selectionKeys(race,rider){
  const time_band=race?.ex_context?.time_band_source_verified===true?race.ex_context.time_band:null;
  return {position,race_type,bank_length,weather,time_band};
 }
+function validContextBucket(m){
+ if(!m||!Number.isInteger(m.opportunities)||m.opportunities<1||
+    !Number.isInteger(m.wins)||m.wins<0||m.wins>m.opportunities||
+    !Number.isInteger(m.top3)||m.top3<m.wins||m.top3>m.opportunities)return null;
+ return {n:m.opportunities,wins:m.wins,top3:m.top3};
+}
+function contextResidual(row,axis,key){
+ // Conditional EX domains refer to overlapping races. Compare each rider to
+ // their OWN other buckets of the same axis, not an arbitrary 42% global prior.
+ const all=row.contextual?.[axis]||{},active=validContextBucket(all[key]);
+ if(!active||active.n<5)return null;
+ const others=Object.entries(all).filter(([k])=>k!==key).map(([,v])=>validContextBucket(v)).filter(Boolean);
+ const n=others.reduce((sum,v)=>sum+v.n,0);
+ if(n<12)return null;
+ const otherTop3=others.reduce((sum,v)=>sum+v.top3,0);
+ const otherWins=others.reduce((sum,v)=>sum+v.wins,0);
+ const p0=(otherTop3+10*.42)/(n+10),w0=(otherWins+10*.14)/(n+10);
+ const shrunk=(active.top3+p0*25)/(active.n+25);
+ const winShrunk=(active.wins+w0*30)/(active.n+30);
+ // Confidence is bounded by independent observed attempts within that domain.
+ // Never multiply apparent sample size by the five overlapping categories.
+ const confidence=Math.min(1,active.n/25)*Math.min(1,n/35);
+ return {axis,key,n:active.n,top3:active.top3,wins:active.wins,
+  difference:(shrunk-p0)*confidence,winDifference:(winShrunk-w0)*confidence,
+  confidence};
+}
 function applyContexts(p,row,race,rider){
- const keys=selectionKeys(race,rider);
+ const chosen=selectionKeys(race,rider);
  const labels={position:'ライン位置',race_type:'レース種別',bank_length:'周長',weather:'天候',time_band:'時間帯'};
- let impact=0,covered=0;
- for(const [axis,key] of Object.entries(keys)){
-  const m=key&&row.contextual?.[axis]?.[key];
-  if(!m||!Number.isInteger(m.opportunities)||m.opportunities<1||!Number.isInteger(m.wins)||
-     !Number.isInteger(m.top3)||m.top3<m.wins||m.top3>m.opportunities)continue;
-  const n=m.opportunities,prior=.42;
-  const shrunk=(m.top3+prior*24)/(n+24);
-  const delta=clamp((shrunk-prior)*Math.min(1,n/15)*.11,-.03,.03);
-  impact+=delta;covered++;
-  p.measurements.push('公式EX条件別 '+labels[axis]+'('+key+') '+m.top3+'/'+n+'連対');
+ const adjusted=[];
+ let covered=0;
+ for(const [axis,key] of Object.entries(chosen)){
+  if(!key)continue;
+  const m=validContextBucket(row.contextual?.[axis]?.[key]);
+  if(!m)continue;
+  covered++;
+  p.measurements.push('公式EX条件別 '+labels[axis]+'('+key+') '+m.top3+'/'+m.n+'３着以内');
+  const relative=contextResidual(row,axis,key);
+  if(relative)adjusted.push(relative);
  }
- if(covered){
-  p.finish=clamp(p.finish+clamp(impact,-.07,.07),.08,.92);
-  p.ex_context_used=covered;
+ if(covered)p.ex_context_used=covered;
+ // Use a confidence-weighted mean, NOT a sum of five heavily correlated axes.
+ if(adjusted.length){
+  const weight=adjusted.reduce((sum,x)=>sum+x.confidence,0);
+  const top3=adjusted.reduce((sum,x)=>sum+x.difference*x.confidence,0)/weight;
+  const wins=adjusted.reduce((sum,x)=>sum+x.winDifference*x.confidence,0)/weight;
+  p.ex_context_residual=clamp(top3*.19,-.035,.035);
+  p.ex_win_residual=clamp(wins*.12,-.025,.025);
+  p.finish=clamp(p.finish+p.ex_context_residual,.08,.92);
+  p.ex_context_comparisons=adjusted.map(x=>x.axis);
  }
 }
-
 function attach(profile,rider,race,pack,asOf){
  const p=profile;
  const row=record(pack,rider,race,asOf);
@@ -91,11 +123,14 @@ function attach(profile,rider,race,pack,asOf){
   p.ex_used=count;
   p.basis+='＋EX実測';
  }
+ // The EX lost-contact rate also informs baseline wheel tracking, but NOT
+ // the rider's propensity to choose a tactic.
+ if(Number.isFinite(p.ex_chigirarare_delta))p.track=clamp(p.track-.7*p.ex_chigirarare_delta,.12,.95);
  applyContexts(p,row,race,rider);
  if(p.ex_context_used&&!p.ex_used){p.ex_source_url=row.source_url;p.basis+='＋EX条件別実測';}
  return p;
 }
-const api={attach,record,validatedCount,selectionKeys,applyContexts,cutoffOf,APPROVAL};
+const api={attach,record,validatedCount,validContextBucket,contextResidual,selectionKeys,applyContexts,cutoffOf,APPROVAL};
 if(typeof module!=='undefined')module.exports=api;
 root.LabExProfile=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
