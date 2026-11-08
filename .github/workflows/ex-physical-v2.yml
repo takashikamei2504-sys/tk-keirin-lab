@@ -1,0 +1,32 @@
+name: LAB EX physical transitions v2 regression
+on:
+  push:
+    branches: ['feature/ex-physical-transitions-v2-20261108']
+    paths:
+      - 'js/tactical-transitions.js'
+      - 'js/race-brain.js'
+      - 'js/ex-profile.js'
+      - 'tests/tactical-transitions.test.cjs'
+      - '.github/workflows/ex-physical-v2.yml'
+  pull_request:
+    paths:
+      - 'js/tactical-transitions.js'
+      - 'js/race-brain.js'
+      - 'js/ex-profile.js'
+      - 'tests/tactical-transitions.test.cjs'
+      - '.github/workflows/ex-physical-v2.yml'
+permissions: {contents: read}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node --check js/tactical-transitions.js
+      - run: node --check js/race-brain.js
+      - run: node tests/tactical-transitions.test.cjs
+      - run: node tests/ex-approved.test.cjs
+      - run: node tests/ex-roi-ab.test.cjs
+      - run: node tests/brain.test.js
