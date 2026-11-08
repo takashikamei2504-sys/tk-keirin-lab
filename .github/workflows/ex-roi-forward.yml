@@ -1,0 +1,64 @@
+name: EX prospective A-B forecast and ROI verification
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '45 0,3,6,9,14 * * *'
+  workflow_run:
+    workflows: ['WINTICKET EX 11-category scheduled source and model feed']
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'js/ex-profile.js'
+      - 'js/ex-roi/**'
+      - 'scripts/ex-ab-*.cjs'
+      - 'tests/ex-roi-ab.test.cjs'
+      - '.github/workflows/ex-roi-forward.yml'
+  pull_request:
+    paths:
+      - 'js/ex-profile.js'
+      - 'js/ex-roi/**'
+      - 'scripts/ex-ab-*.cjs'
+      - 'tests/ex-roi-ab.test.cjs'
+      - '.github/workflows/ex-roi-forward.yml'
+permissions:
+  contents: write
+concurrency:
+  group: ex-roi-forward
+  cancel-in-progress: false
+jobs:
+  forecast:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+        if: github.event_name != 'pull_request'
+      - uses: actions/checkout@v4
+        if: github.event_name == 'pull_request'
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Test shadow A-B and historical guards
+        run: node tests/ex-roi-ab.test.cjs
+      - name: Freeze today's EX-on and EX-off candidate ranks
+        if: github.event_name != 'pull_request'
+        run: node scripts/ex-ab-freeze.cjs 12
+      - name: Compare only race-finished, source-verified paired predictions
+        if: github.event_name != 'pull_request'
+        run: node scripts/ex-ab-evaluate.cjs
+      - name: Publish aggregate performance and immutable evidence
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- data/ex_roi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Freeze EX-on/off paired rankings and prospective audit'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
