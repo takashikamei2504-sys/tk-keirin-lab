@@ -16,7 +16,7 @@
     "ex:ab:freeze": "node scripts/ex-ab-freeze.cjs 12",
     "ex:ab:evaluate": "node scripts/ex-ab-evaluate.cjs",
     "test:tactics:physical-v2": "node tests/tactical-transitions.test.cjs",
-    "test:routing": "node tests/race-routing.test.cjs && node tests/roi-engine.test.cjs"
+    "test:routing": "node tests/race-routing.test.cjs && node tests/roi-engine.test.cjs && node tests/routed-daily.test.cjs"
   },
   "devDependencies": {
     "playwright": "1.64.1"

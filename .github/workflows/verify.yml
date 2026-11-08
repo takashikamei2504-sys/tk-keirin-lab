@@ -42,3 +42,5 @@ jobs:
           node tests/b-axis-browser.cjs
           node tests/race-routing-browser.cjs
           ROUTING_BROWSER=webkit node tests/race-routing-browser.cjs
+          node tests/routed-results-browser.cjs
+          ROUTING_BROWSER=webkit node tests/routed-results-browser.cjs
