@@ -77,6 +77,7 @@ function ingest(feed,previous={},permit){
   generated_at:new Date().toISOString(),
   source_type:'rights-approved-original-winticket-ex-records',
   rights_reference:permit.reference,
+  license_expires_at:feed.license.expires_at||null,
   summary:{covered_venues:venues.size,covered_races:races.size,unique_riders:Object.keys(sorted).length,
     valid_metrics:count,skipped,observed_venues:[...venues].sort()},
   riders:sorted
