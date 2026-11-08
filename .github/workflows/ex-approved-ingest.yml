@@ -1,0 +1,37 @@
+name: EX licensed feed ingestion (all scheduled venues)
+on:
+  schedule:
+    - cron: '25 */3 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/ex_approved_*.cjs', 'scripts/ex_authorized_pull.cjs', 'js/ex-profile.js', 'tests/ex-approved.test.cjs', '.github/workflows/ex-approved-ingest.yml']
+permissions: {contents: write}
+concurrency: {group: ex-approved-ingest, cancel-in-progress: false}
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node tests/ex-approved.test.cjs
+      - name: Pull from approved feed only; skip when rights are absent
+        run: node scripts/ex_authorized_pull.cjs
+        env:
+          EX_BULK_RIGHTS_APPROVED: ${{ vars.EX_BULK_RIGHTS_APPROVED }}
+          EX_PUBLICATION_RIGHTS_APPROVED: ${{ vars.EX_PUBLICATION_RIGHTS_APPROVED }}
+          EX_RIGHTS_REFERENCE: ${{ secrets.EX_RIGHTS_REFERENCE }}
+          EX_FEED_URL: ${{ secrets.EX_FEED_URL }}
+          EX_FEED_HOST: ${{ vars.EX_FEED_HOST }}
+      - name: Persist source-linked history and publish for LAB
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ex_approved/latest.json data/ex_approved/status.json data/ex_approved/history/
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update licensed EX rider snapshots and dated history'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
