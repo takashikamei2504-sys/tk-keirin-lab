@@ -73,6 +73,26 @@ function show(){
  const axisNames={'position':'位置','race_type':'レース種別','bank_length':'バンク周長','weather':'天候','time_band':'時間帯'};
  $('scenario').innerHTML+='<p class="muted">EX条件別5項目：'+contextRows+'件の選手別×条件を参照。'+(contextRows?'公開結果からの独自集計を使用（公式EX数値とは別）':'発走前に利用可能な条件実績なし')+'。</p>';
  $('scenario').innerHTML+='<p class="muted">EX戦術実測：'+(exRows?exRows+'項目を参照':'選手別の数値はまだ取得できていません。公開資料から数値を推測しません')+'。</p>';
+
+ const metricNames={kamashi:'カマシ',tsuppari:'突っ張り',chigiri:'千切り',chigirarare:'千切られ',tobitsuki:'飛び付き',seri:'競り'};
+ const contextNames={position:'位置別',race_type:'レース種別',bank_length:'バンク周長別',weather:'天候別',time_band:'時間帯別'};
+ const racers=loadedInput.race.riders,coverage=[];
+ for(const [metric,label] of Object.entries(metricNames)){
+  const n=racers.filter(r=>BAxisEx.evidence(loadedInput,r,metric,{asOf:loadedInput.as_of})).length;
+  coverage.push([label,n?('EX実測 '+n+'人'):'EX数値未取得']);
+ }
+ for(const [axis,label] of Object.entries(contextNames)){
+  let official=0,derived=0;
+  for(const rider of racers){
+   const row=BAxisExContext.snapshot(loadedInput,rider);
+   official+=row.official.includes(axis)?1:0;
+   derived+=row.historical.includes(axis)?1:0;
+  }
+  coverage.push([label,official?('EX元値 '+official+'人')+(derived?' ／ 独自集計 '+derived+'人':''):derived?('独自集計 '+derived+'人'):'未取得']);
+ }
+ $('ex-coverage').innerHTML='<ul>'+coverage.map(([label,state])=>'<li>'+escape(label)+'：'+escape(state)+'</li>').join('')+'</ul>'+
+ '<p>戦術6項目はWINTICKET元値、条件別5項目はEX元値または独自に蓄積した着順データです。空欄をゼロ実績とは扱いません。</p>';
+
  function historyLine(state){
   const r=loadedInput.race.riders.find(x=>x.no===state.no);
   const stats=loadedInput.bAxisHistory,group=state.line.length===1?'solo':state.lineIndex===0?'leader':state.lineIndex===1?'second':'thirdPlus';
