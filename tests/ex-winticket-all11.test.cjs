@@ -85,6 +85,15 @@ const found=C.discover('<a href="'+sourcePath+'"></a><a href="'+sourcePath+'"></
 assert.equal(found.length,2);
 assert.equal(found[0].venue==='四日市'||found[1].venue==='四日市',true);
 assert.equal(Object.keys(C.VENUES).length,43);
+const sixteen=Array.from({length:4},(_,index)=>[
+ {venue:'四日市',no:index+1,pathname:'/test/yokkaichi/'+index},
+ {venue:'防府',no:index+1,pathname:'/test/hofu/'+index},
+ {venue:'熊本',no:index+1,pathname:'/test/kumamoto/'+index}
+]).flat();
+const distributed=C.coverVenuesFirst(sixteen,3);
+assert.equal(new Set(distributed.map(x=>x.venue)).size,3,'venue-fair selection even on page ceiling');
+assert.equal(distributed.length,3);
+
 assert.equal(C.approved({EX_BULK_RIGHTS_APPROVED:'true',EX_PUBLICATION_RIGHTS_APPROVED:'true',EX_MODEL_RIGHTS_APPROVED:'true',EX_RIGHTS_REFERENCE:ref}),true);
 assert.equal(C.approved({EX_BULK_RIGHTS_APPROVED:'true'}),false);
 console.log('WT_EX_ALL11_TESTS_OK '+JSON.stringify({
