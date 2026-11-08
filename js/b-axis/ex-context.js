@@ -47,9 +47,14 @@ function keys(race,rider){
  return {position:position(race,rider),race_type:roundType(race?.class||race?.round_name),
  bank_length:bankLength(ex.track_length),weather:w,time_band:timeBand(race?.start||race?.start_time)};
 }
-function allowed(archive,race){
+function asOfJapanDate(input){
+ const ts=Date.parse(input?.as_of);
+ return Number.isFinite(ts)?new Date(ts+9*3600000).toISOString().slice(0,10):null;
+}
+function allowed(archive,race,input){
  return archive?.schema==='tk-b-axis-ex-context-history/v1'&&
  archive.training_end&&race?.date&&archive.training_end<race.date&&
+ asOfJapanDate(input)>archive.training_end&&
  archive.provenance?.actual_b_available===false&&archive.provenance?.winticket_ex_metrics===false;
 }
 function stats(archive,subject,axis,key){
@@ -58,7 +63,7 @@ function stats(archive,subject,axis,key){
 }
 function snapshot(input,rider){
  const archive=input?.bAxisExContext,race=input?.race;
- const liveArchive=allowed(archive,race),id=idOf(rider),k=keys(race,rider);
+ const liveArchive=allowed(archive,race,input),id=idOf(rider),k=keys(race,rider);
  const contributions=[],official=[],historical=[];
  for(const axis of AXES){
   const key=k[axis];if(!key)continue;
@@ -83,7 +88,7 @@ function snapshot(input,rider){
   contributions,official,historical,missing:AXES.filter(axis=>!contributions.some(x=>x.axis===axis)),
   basis:'原典付きEXの条件別成績を優先。未取得時は時点制限済み公開結果による自前の条件別3連対を参照'};
 }
-const api={AXES,idOf,roundType,timeBand,bankLength,weather,position,keys,allowed,snapshot};
+const api={AXES,idOf,roundType,timeBand,bankLength,weather,position,keys,asOfJapanDate,allowed,snapshot};
 if(typeof module!=='undefined')module.exports=api;
 root.BAxisExContext=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
