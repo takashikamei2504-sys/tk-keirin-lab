@@ -77,7 +77,7 @@ function extract(html, options={}) {
   const state = extractPreloadedState(html), data = getRaceData(state);
   const entries = new Map((data.entries || []).map(e => [String(e.playerId), e]));
   const players = new Map((data.players || []).map(p => [String(p.id), p]));
-  const rows = [], present = {}, otherKeys = new Set();
+  const rows = [], present = {}, shapes = {}, otherKeys = new Set();
   for (const rec of data.records) {
     const playerId = rec && rec.playerId;
     if (playerId === null || playerId === undefined) continue;
@@ -87,6 +87,8 @@ function extract(html, options={}) {
                 (rec.ex && Object.hasOwn(rec.ex,field) ? rec.ex[field] : undefined);
       if (v === undefined || v === null) continue;
       raw[field] = v;
+      const shape = typeof v === 'object' ? Object.keys(v).sort().join(',') : typeof v;
+      (shapes[field] ||= new Set()).add(shape);
       percent[name] = percentage(v);
       const c = knownCounts(v);
       if (c) counts[name] = c;
@@ -117,7 +119,8 @@ function extract(html, options={}) {
       candidate_only:['exCompete'],
       additional_record_ex_keys:[...otherKeys].sort()
     },
-    summary:{players_with_ex:rows.length, fields_seen:present},
+    summary:{players_with_ex:rows.length, fields_seen:present,
+      field_shapes:Object.fromEntries(Object.entries(shapes).map(([key,types])=>[key,[...types]]))},
     riders:rows
   };
 }
