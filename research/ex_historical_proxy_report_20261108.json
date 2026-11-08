@@ -1,0 +1,330 @@
+{
+  "schema": "tk-ex-historical-public-proxy/v1",
+  "training_limit": "2026-10-15",
+  "eval_start": "2026-10-27",
+  "eval_end": "2026-11-07",
+  "examined": 160,
+  "unmatched": 1,
+  "errors": 0,
+  "training_races": 617,
+  "holdout_reference_races": 1474,
+  "source_ex_valid_historical_count": 0,
+  "source_ex_historical_roi": null,
+  "axes": {
+    "position": 14,
+    "race_type": 1
+  },
+  "used_riders": 15,
+  "methodology": "Pre-2026-10-15 population/rider top-3 conditional statistics, comparison on frozen dated racecards after 2026-10-27; 8 uniform 100-yen tickets; ONLY research public-results proxies. No pre-Nov8 original WINTICKET EX source images available.",
+  "groups": {
+    "all": {
+      "n": 160,
+      "changed": 1,
+      "baseline": {
+        "roi": 0.3665625,
+        "hit": 0.15625,
+        "first": 0.48125,
+        "pair": 0.25,
+        "net": -81080,
+        "stake": 128000,
+        "trim1": 0.315390625,
+        "drawdown": 81080
+      },
+      "proxy": {
+        "roi": 0.3665625,
+        "hit": 0.15625,
+        "first": 0.48125,
+        "pair": 0.25,
+        "net": -81080,
+        "stake": 128000,
+        "trim1": 0.315390625,
+        "drawdown": 81080
+      },
+      "deltas": {
+        "roi": 0,
+        "pair": 0,
+        "hit": 0,
+        "net": 0
+      }
+    },
+    "cars": {
+      "7": {
+        "n": 144,
+        "changed": 1,
+        "baseline": {
+          "roi": 0.38350694444444444,
+          "hit": 0.16666666666666666,
+          "first": 0.5138888888888888,
+          "pair": 0.2708333333333333,
+          "net": -71020,
+          "stake": 115200,
+          "trim1": 0.32664930555555555,
+          "drawdown": 71020
+        },
+        "proxy": {
+          "roi": 0.38350694444444444,
+          "hit": 0.16666666666666666,
+          "first": 0.5138888888888888,
+          "pair": 0.2708333333333333,
+          "net": -71020,
+          "stake": 115200,
+          "trim1": 0.32664930555555555,
+          "drawdown": 71020
+        },
+        "deltas": {
+          "roi": 0,
+          "pair": 0,
+          "hit": 0,
+          "net": 0
+        }
+      },
+      "9": {
+        "n": 16,
+        "changed": 0,
+        "baseline": {
+          "roi": 0.2140625,
+          "hit": 0.0625,
+          "first": 0.1875,
+          "pair": 0.0625,
+          "net": -10060,
+          "stake": 12800,
+          "trim1": 0,
+          "drawdown": 11200
+        },
+        "proxy": {
+          "roi": 0.2140625,
+          "hit": 0.0625,
+          "first": 0.1875,
+          "pair": 0.0625,
+          "net": -10060,
+          "stake": 12800,
+          "trim1": 0,
+          "drawdown": 11200
+        },
+        "deltas": {
+          "roi": 0,
+          "pair": 0,
+          "hit": 0,
+          "net": 0
+        }
+      }
+    },
+    "grade": {
+      "S級": {
+        "n": 51,
+        "changed": 0,
+        "baseline": {
+          "roi": 0.42769607843137253,
+          "hit": 0.17647058823529413,
+          "first": 0.37254901960784315,
+          "pair": 0.21568627450980393,
+          "net": -23350,
+          "stake": 40800,
+          "trim1": 0.3034313725490196,
+          "drawdown": 23350
+        },
+        "proxy": {
+          "roi": 0.42769607843137253,
+          "hit": 0.17647058823529413,
+          "first": 0.37254901960784315,
+          "pair": 0.21568627450980393,
+          "net": -23350,
+          "stake": 40800,
+          "trim1": 0.3034313725490196,
+          "drawdown": 23350
+        },
+        "deltas": {
+          "roi": 0,
+          "pair": 0,
+          "hit": 0,
+          "net": 0
+        }
+      },
+      "A級": {
+        "n": 60,
+        "changed": 0,
+        "baseline": {
+          "roi": 0.28458333333333335,
+          "hit": 0.11666666666666667,
+          "first": 0.5166666666666667,
+          "pair": 0.25,
+          "net": -34340,
+          "stake": 48000,
+          "trim1": 0.198125,
+          "drawdown": 34340
+        },
+        "proxy": {
+          "roi": 0.28458333333333335,
+          "hit": 0.11666666666666667,
+          "first": 0.5166666666666667,
+          "pair": 0.25,
+          "net": -34340,
+          "stake": 48000,
+          "trim1": 0.198125,
+          "drawdown": 34340
+        },
+        "deltas": {
+          "roi": 0,
+          "pair": 0,
+          "hit": 0,
+          "net": 0
+        }
+      },
+      "チャレンジ": {
+        "n": 49,
+        "changed": 1,
+        "baseline": {
+          "roi": 0.4033163265306122,
+          "hit": 0.1836734693877551,
+          "first": 0.5510204081632653,
+          "pair": 0.2857142857142857,
+          "net": -23390,
+          "stake": 39200,
+          "trim1": 0.23622448979591837,
+          "drawdown": 23390
+        },
+        "proxy": {
+          "roi": 0.4033163265306122,
+          "hit": 0.1836734693877551,
+          "first": 0.5510204081632653,
+          "pair": 0.2857142857142857,
+          "net": -23390,
+          "stake": 39200,
+          "trim1": 0.23622448979591837,
+          "drawdown": 23390
+        },
+        "deltas": {
+          "roi": 0,
+          "pair": 0,
+          "hit": 0,
+          "net": 0
+        }
+      }
+    }
+  },
+  "dateStats": {
+    "2026-11-01": {
+      "n": 37,
+      "changed": 0,
+      "baseline": {
+        "roi": 0.35033783783783784,
+        "hit": 0.13513513513513514,
+        "first": 0.40540540540540543,
+        "pair": 0.21621621621621623,
+        "net": -19230,
+        "stake": 29600,
+        "trim1": 0.2152027027027027,
+        "drawdown": 19230
+      },
+      "proxy": {
+        "roi": 0.35033783783783784,
+        "hit": 0.13513513513513514,
+        "first": 0.40540540540540543,
+        "pair": 0.21621621621621623,
+        "net": -19230,
+        "stake": 29600,
+        "trim1": 0.2152027027027027,
+        "drawdown": 19230
+      },
+      "deltas": {
+        "roi": 0,
+        "pair": 0,
+        "hit": 0,
+        "net": 0
+      }
+    },
+    "2026-11-02": {
+      "n": 56,
+      "changed": 1,
+      "baseline": {
+        "roi": 0.4642857142857143,
+        "hit": 0.19642857142857142,
+        "first": 0.5178571428571429,
+        "pair": 0.32142857142857145,
+        "net": -24000,
+        "stake": 44800,
+        "trim1": 0.31808035714285715,
+        "drawdown": 24000
+      },
+      "proxy": {
+        "roi": 0.4642857142857143,
+        "hit": 0.19642857142857142,
+        "first": 0.5178571428571429,
+        "pair": 0.32142857142857145,
+        "net": -24000,
+        "stake": 44800,
+        "trim1": 0.31808035714285715,
+        "drawdown": 24000
+      },
+      "deltas": {
+        "roi": 0,
+        "pair": 0,
+        "hit": 0,
+        "net": 0
+      }
+    },
+    "2026-11-03": {
+      "n": 60,
+      "changed": 0,
+      "baseline": {
+        "roi": 0.2866666666666667,
+        "hit": 0.13333333333333333,
+        "first": 0.48333333333333334,
+        "pair": 0.18333333333333332,
+        "net": -34240,
+        "stake": 48000,
+        "trim1": 0.20020833333333332,
+        "drawdown": 34490
+      },
+      "proxy": {
+        "roi": 0.2866666666666667,
+        "hit": 0.13333333333333333,
+        "first": 0.48333333333333334,
+        "pair": 0.18333333333333332,
+        "net": -34240,
+        "stake": 48000,
+        "trim1": 0.20020833333333332,
+        "drawdown": 34490
+      },
+      "deltas": {
+        "roi": 0,
+        "pair": 0,
+        "hit": 0,
+        "net": 0
+      }
+    },
+    "2026-11-04": {
+      "n": 7,
+      "changed": 0,
+      "baseline": {
+        "roi": 0.35535714285714287,
+        "hit": 0.14285714285714285,
+        "first": 0.5714285714285714,
+        "pair": 0.42857142857142855,
+        "net": -3610,
+        "stake": 5600,
+        "trim1": 0,
+        "drawdown": 3610
+      },
+      "proxy": {
+        "roi": 0.35535714285714287,
+        "hit": 0.14285714285714285,
+        "first": 0.5714285714285714,
+        "pair": 0.42857142857142855,
+        "net": -3610,
+        "stake": 5600,
+        "trim1": 0,
+        "drawdown": 3610
+      },
+      "deltas": {
+        "roi": 0,
+        "pair": 0,
+        "hit": 0,
+        "net": 0
+      }
+    }
+  },
+  "abs_profit_proven": false,
+  "official_ex_adoption_verified": false,
+  "code_retained_for_research": true
+}
