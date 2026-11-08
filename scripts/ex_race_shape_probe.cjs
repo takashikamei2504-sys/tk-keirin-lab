@@ -16,6 +16,9 @@ console.log('WT_SHAPE '+JSON.stringify({
   player:brief(race?.players?.[0]),entry:brief(race?.entries?.[0]),
   race_schedule:brief(q.find(x=>JSON.stringify(x.q).includes('FETCH_KEIRIN_CUP_RACES'))?.d?.schedules?.[0]),
   date_keys:Object.keys(race?.race||{}).filter(k=>/date|time|start|close|at/i.test(k)),
+ time_sample:race?.race?.startAt > 1e12?'milliseconds':race?.race?.startAt>1e9?'seconds':'other',
+ start_jst:race?.race?.startAt?new Date(race.race.startAt*(race.race.startAt<1e12?1000:1)).toLocaleString('sv-SE',{timeZone:'Asia/Tokyo'}):null,
+ index_date_sample: (q.find(x=>JSON.stringify(x.q).includes('FETCH_KEIRIN_CUP_RACES'))?.d?.schedules||[]).map(x=>x.date),
   ex_keys:Object.keys(first||{}).filter(k=>/^ex[A-Z]/.test(k)),
   context_candidates: Object.keys(race||{}).filter(k=>/condition|context|ex|stat|track|weather|race/i.test(k))
 }));
