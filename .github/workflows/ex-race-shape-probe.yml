@@ -1,0 +1,17 @@
+name: EX source shape one request
+on:
+  push:
+    branches: ['feature/ex-authorized-live-collector-20261108']
+    paths:
+      - 'scripts/ex_race_shape_probe.cjs'
+      - '.github/workflows/ex-race-shape-probe.yml'
+permissions: {contents: read}
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node scripts/ex_race_shape_probe.cjs
