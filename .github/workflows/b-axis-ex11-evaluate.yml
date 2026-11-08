@@ -1,0 +1,23 @@
+name: B-AXIS EX11 verified evaluation
+on:
+  push:
+    branches: ['feature/b-axis-ex-all11-context-20261108']
+    paths: ['js/b-axis/**','tests/b-axis-ex11.test.cjs','scripts/b_axis_ex_context_validate.cjs','.github/workflows/b-axis-ex11-evaluate.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Test all EX domains and existing B-AXIS tactical constraints
+        run: npm run test:b-axis
+      - name: Five-category dated holdout Brier analysis
+        run: node scripts/b_axis_ex_context_validate.cjs
+      - name: Reproducible B-true Nov6 retrospective sanity check
+        run: node scripts/b_axis_empirical_pilot.cjs
+      - name: B-true Nov7 retrospective sanity check
+        run: node scripts/b_axis_nov7_replay.cjs
