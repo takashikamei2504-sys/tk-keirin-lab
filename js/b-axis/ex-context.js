@@ -4,6 +4,7 @@
  */
 (function(root){'use strict';
 const AXES=['position','race_type','bank_length','weather','time_band'];
+const Ex=typeof module!=='undefined'?require('./ex-data.js'):root.BAxisEx;
 const clamp=(v,a=-1,b=1)=>Math.max(a,Math.min(b,v));
 function idOf(r){return String(r?.meta?.rider_id||r?.rider_id||'').replace(/^0+(?=\d)/,'');}
 function timeBand(t){
@@ -56,25 +57,31 @@ function stats(archive,subject,axis,key){
  return archive?.[subject]?.[axis]?.[key]||null;
 }
 function snapshot(input,rider){
- const a=input?.bAxisExContext,race=input?.race;
- if(!allowed(a,race))return {valid:false,keys:keys(race,rider),basis:'履歴欠損または日付制限'};
- const id=idOf(rider),k=keys(race,rider),contributions=[],available=[];
+ const archive=input?.bAxisExContext,race=input?.race;
+ const liveArchive=allowed(archive,race),id=idOf(rider),k=keys(race,rider);
+ const contributions=[],official=[],historical=[];
  for(const axis of AXES){
   const key=k[axis];if(!key)continue;
-  const global=stats(a,'population',axis,key);
-  const personal=a?.riders?.[id]?.[axis]?.[key];
-  if(!global||global.n<15||!personal||personal.n<3)continue;
-  const baseline=(global.top3+3)/(global.n+6);
-  const shrink=24;
-  const personalRate=(personal.top3+baseline*shrink)/(personal.n+shrink);
-  const weighted=(personalRate-baseline)*Math.min(1,personal.n/12);
-  contributions.push({axis,key,n:personal.n,top3:personal.top3,globalN:global.n,globalTop3:global.top3,
-    deviation:Math.round(weighted*10000)/10000});
-  available.push(axis);
+  const published=Ex.contextual(input,rider,axis,key,{asOf:input.as_of});
+  const global=liveArchive?stats(archive,'population',axis,key):null;
+  const raw=liveArchive?archive?.riders?.[id]?.[axis]?.[key]:null;
+  let n,top3,baseline,origin;
+  if(published){
+   n=published.opportunities;top3=published.top3;
+   baseline=global?.n>=15?(global.top3+3)/(global.n+6):.38;
+   origin='WINTICKET_EX';official.push(axis);
+  }else if(global?.n>=15&&raw?.n>=3){
+   n=raw.n;top3=raw.top3;
+   baseline=(global.top3+3)/(global.n+6);
+   origin='PUBLIC_RESULT_DERIVED';historical.push(axis);
+  }else continue;
+  const shrink=24,rate=(top3+baseline*shrink)/(n+shrink),weighted=(rate-baseline)*Math.min(1,n/12);
+  contributions.push({axis,key,n,top3,origin,deviation:Math.round(weighted*10000)/10000});
  }
- const influence=clamp(contributions.reduce((s,x)=>s+x.deviation,0),-.15,.15);
- return {valid:true,keys:k,support:Math.round(influence*10000)/10000,contributions,
-  missing:AXES.filter(axis=>!available.includes(axis)),basis:'公式EX数値ではなく、公開出走表の条件×確定着順による自前実績（時点制限適用）'};
+ const support=clamp(contributions.reduce((s,x)=>s+x.deviation,0),-.15,.15);
+ return {valid:contributions.length>0,keys:k,support:Math.round(support*10000)/10000,
+  contributions,official,historical,missing:AXES.filter(axis=>!contributions.some(x=>x.axis===axis)),
+  basis:'原典付きEXの条件別成績を優先。未取得時は時点制限済み公開結果による自前の条件別3連対を参照'};
 }
 const api={AXES,idOf,roundType,timeBand,bankLength,weather,position,keys,allowed,snapshot};
 if(typeof module!=='undefined')module.exports=api;
