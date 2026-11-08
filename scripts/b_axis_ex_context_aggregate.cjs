@@ -94,7 +94,11 @@ async function main(){
     riderCount:Object.keys(compact(all).riders).length,missingDates:missing.length}
  };
  const dest=path.join(root,'data/b_axis_ex_context.json');
- fs.writeFileSync(dest,JSON.stringify(d,null,2)+'\n');
+ const research=path.join(root,'research/b-axis/ex_context_train_holdout_2026.json');
+ fs.mkdirSync(path.dirname(research),{recursive:true});
+ fs.writeFileSync(research,JSON.stringify(d)+'\n');
+ const deploy={...d,splits:undefined};
+ fs.writeFileSync(dest,JSON.stringify(deploy)+'\n');
  console.log('B_AXIS_EX_CONTEXT '+JSON.stringify({schema:d.schema,days:d.days,summary:d.summary,
   population:d.population,train:{nRaces:train.nRaces,riderCount:Object.keys(compact(train).riders).length},
   holdout:{nRaces:holdout.nRaces,riderCount:Object.keys(compact(holdout).riders).length}}));
