@@ -185,7 +185,7 @@ function build(r,pack={},forced=null){
  }
  const best=new Map();for(const x of pivots)if(!best.has(x.no)||best.get(x.no).score<x.score)best.set(x.no,x);
  const keymen=[...best.values()].sort((a,b)=>b.score-a.score||a.no-b.no).slice(0,3);
- return {version:VERSION,race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles:Object.fromEntries(p),missing:r.riders.some(x=>x.meta?.absent_fields?.length)||r.source?.missing_fields?.includes('b_s_recent')||false,narratives,hypotheses,tickets,chosen,keymen,front:narratives[0].front,dataSource:r.source?.label||'入力出走表',intelligence:{generated_at:pack.generated_at||null,evidence_count:[...p.values()].reduce((s,x)=>s+x.evidence.length,0),cutoff_policy:'published_at AND collected_at < race start (JST)'},rating:'未校正の仮説スコア（的中確率ではありません）'};
+ return {version:VERSION,transition_mode:physical?'physical_v2':'legacy',race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles:Object.fromEntries(p),missing:r.riders.some(x=>x.meta?.absent_fields?.length)||r.source?.missing_fields?.includes('b_s_recent')||false,narratives,hypotheses,tickets,chosen,keymen,front:narratives[0].front,dataSource:r.source?.label||'入力出走表',intelligence:{generated_at:pack.generated_at||null,evidence_count:[...p.values()].reduce((s,x)=>s+x.evidence.length,0),cutoff_policy:'published_at AND collected_at < race start (JST)'},rating:'未校正の仮説スコア（的中確率ではありません）'};
 }
 const api={VERSION,MODES,profiles,build};if(typeof module!=='undefined')module.exports=api;root.RaceBrain=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
