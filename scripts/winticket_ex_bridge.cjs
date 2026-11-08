@@ -4,7 +4,7 @@
 const fs=require('node:fs');
 const path=require('node:path');
 const {FIELD_MAP,knownCounts}=require('./winticket_ex_extract.cjs');
-const CONFIRMED=new Set(['exSpurt','exThrust','exSplitLine','exLeftBehind','exSnatch']);
+const CONFIRMED=new Set(['exSpurt','exThrust','exSplitLine','exLeftBehind','exSnatch','exCompete']);
 
 function bridge(snapshot, raceStart) {
   if(snapshot?.schema!=='tk-winticket-ex-raw-snapshot/v1' || !snapshot?.source_url ||
@@ -24,13 +24,23 @@ function bridge(snapshot, raceStart) {
       const c=knownCounts(v);
       if(c) metrics[m]=c;
     }
-    if(Object.keys(metrics).length)
+    const contextual={};
+    for(const axis of ['position','race_type','bank_length','weather','time_band']){
+      const fields=rider.contextual?.[axis]||{};
+      for(const [key,c] of Object.entries(fields)){
+        if(!Number.isInteger(c.opportunities)||c.opportunities<=0||
+           !Number.isInteger(c.wins)||c.wins<0||c.wins>c.opportunities||
+           !Number.isInteger(c.top3)||c.top3<c.wins||c.top3>c.opportunities)continue;
+        (contextual[axis] ||= {})[key]={opportunities:c.opportunities,wins:c.wins,top3:c.top3};
+      }
+    }
+    if(Object.keys(metrics).length||Object.keys(contextual).length)
       riders[id]={
         source_url:snapshot.source_url,
         // First visible by this observation time; no independent publication-time claim.
         published_at:snapshot.captured_at,
         collected_at:snapshot.captured_at,
-        metrics
+        metrics,contextual
       };
   }
   return {
