@@ -46,6 +46,21 @@ function discover(html){
  }
  return [...found.values()].sort((a,b)=>a.venue.localeCompare(b.venue,'ja')||a.no-b.no);
 }
+function coverVenuesFirst(entries,limit){
+ const byVenue=new Map();
+ for(const e of entries){if(!byVenue.has(e.venue))byVenue.set(e.venue,[]);byVenue.get(e.venue).push(e);}
+ const groups=[...byVenue].sort(([a],[b])=>a.localeCompare(b,'ja')).map(([,v])=>v.sort((a,b)=>a.no-b.no));
+ const result=[];
+ while(result.length<limit){
+   let used=0;
+   for(const group of groups){if(result.length>=limit)break;
+     if(group.length){result.push(group.shift());used++;}
+   }
+   if(!used)break;
+ }
+ return result;
+}
+
 async function getHTML(pathname,timeoutMs=15000){
  if(!(/^\/keirin\/racecard\/?$/.test(pathname)||
      /^\/keirin\/[a-z]+\/racecard\/\d{10}\/[1-7]\/(?:[1-9]|1[0-2])$/.test(pathname)))throw Error('SOURCE_PATH_INVALID');
@@ -94,7 +109,7 @@ async function collect(opts={}){
  const maxRuntimeMs=Math.max(30000,Math.min(500000,Number(env.EX_MAX_RUNTIME_MS)||420000));
  const start=Date.now();
  const index=await (opts.getHTML||getHTML)('/keirin/racecard/');
- const entries=discover(index),selected=entries.slice(0,maxPages);
+ const entries=discover(index),selected=coverVenuesFirst(entries,maxPages);
  const snapshots=[],stats={indexed:entries.length,selected:selected.length,
    eligible:0,observations:0,after_start:0,invalid:0,errors:0,
    active_venues:[...new Set(entries.map(x=>x.venue))].sort()};
@@ -137,4 +152,4 @@ async function main(){
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
 }
 if(require.main===module)main().catch(e=>{console.error('WT_EX_LIVE_ERROR '+e.message);process.exitCode=1;});
-module.exports={VENUES,discover,recordFromHTML,collect,approved,localDate};
+module.exports={VENUES,discover,coverVenuesFirst,recordFromHTML,collect,approved,localDate};
