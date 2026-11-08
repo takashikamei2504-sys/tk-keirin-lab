@@ -1,0 +1,27 @@
+name: B-AXIS 11-category public context aggregation
+on:
+  push:
+    branches: ['feature/b-axis-ex-all11-context-20261108']
+    paths: ['scripts/b_axis_ex_context_aggregate.cjs','.github/workflows/b-axis-ex11-aggregate.yml']
+  workflow_dispatch:
+permissions: {contents: write}
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: true}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Aggregate dated contextual racer finish history
+        run: node scripts/b_axis_ex_context_aggregate.cjs
+      - name: Freeze public data for reproducible evaluation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/b_axis_ex_context.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data(b-axis): freeze public EX-equivalent context summary'
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
