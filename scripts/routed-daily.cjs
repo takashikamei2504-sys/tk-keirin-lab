@@ -29,9 +29,10 @@ function ingest(day,dir,pack,{now=()=>Date.now(),build=predict,freeze=true}={}){
   if(seen.has(id))throw Error('配信内に同一レースが重複');seen.add(id);
   const row={...(previous.get(id)||{}),race_id:id,date:day.date,venue:s.venue,race_no:Number(s.race_number),start:s.start_time,cars:s.entries.length};
   try{
+   const selection=Policy.select({class:String(s.round_name||''),riders:s.entries.map(e=>({meta:{rank:e.class_rank}}))});row.engine=selection.engine;row.label=selection.label;row.category=selection.category.key;
    const holds=s.cancelled===true||s.is_cancelled===true||/^(cancelled|canceled|abandoned|中止|不成立)$/i.test(s.race_status||s.status||'')?'中止・不成立のため集計除外':s.refunds?.length||s.refunded_cars?.length||s.payouts?.refund?.length?'返還があるため精算対象外':null;
    if(holds)results[id]={accounting_hold:holds};else{try{const observed=Audit.result(s,day,new Date(now()).toISOString());if(observed)results[id]=observed;}catch(e){results[id]={accounting_hold:'結果の訂正内容を検証できない：'+e.message};throw e;}}
-   const r=Feed.convert(s,day),selection=Policy.select(r);row.engine=selection.engine;row.label=selection.label;row.category=selection.category.key;
+   const r=Feed.convert(s,day);
    const file=path.join(folder,name(id));
    if(fs.existsSync(file)){row.capture='saved';delete row.error;}
    else if(now()>=Audit.startAt(r)){row.capture='missed';delete row.error;}

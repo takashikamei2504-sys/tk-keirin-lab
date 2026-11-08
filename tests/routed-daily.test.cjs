@@ -27,6 +27,7 @@ try{
  const extra=F.source(F.race(7,'A3',2));resultDay.races.push(extra);D.ingest(resultDay,dir,{}, {now:after,build});rep=D.report(dir,after());assert.equal(rep.summary.missed,1);assert.equal(calls,1,'late races are never backfilled');
  resultDay.races[0].is_cancelled=true;D.ingest(resultDay,dir,{}, {now:after,build});assert.equal(D.report(dir,after()).summary.excluded,1);
  const bad=copy(day);bad.races.push(bad.races[0]);assert.throws(()=>D.ingest(bad,dir,{}, {now:before,build}),/重複/);
+ const missing=copy(day);missing.races[0].entries[0].line_position=null;D.ingest(missing,path.join(dir,'missing'),{}, {now:before,build});assert.equal(D.report(path.join(dir,'missing'),at).by_category['A級_7'].error,1,'missing lineup retains assigned engine and category');
  const failDir=path.join(dir,'fail');D.ingest(day,failDir,{}, {now:before,build:()=>{throw Error('test timeout');}});assert.equal(D.report(failDir,at).summary.error,1);
  D.ingest(day,failDir,{}, {now:before,build});assert.equal(D.report(failDir,at).summary.saved,1,'failed forecasts retried before start');
  assert.equal(D.jstDate(Date.parse('2039-12-31T15:00:00Z')),'2040-01-01');
