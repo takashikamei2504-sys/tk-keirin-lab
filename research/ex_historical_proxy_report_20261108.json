@@ -12,14 +12,16 @@
   "source_ex_historical_roi": null,
   "axes": {
     "position": 36,
-    "race_type": 1
+    "race_type": 1,
+    "time_band": 20,
+    "bank_length": 0
   },
-  "used_riders": 37,
+  "used_riders": 43,
   "methodology": "Pre-2026-10-15 population/rider top-3 conditional statistics, comparison on frozen dated racecards after 2026-10-27; 8 uniform 100-yen tickets; ONLY research public-results proxies. No pre-Nov8 original WINTICKET EX source images available.",
   "groups": {
     "all": {
       "n": 411,
-      "changed": 2,
+      "changed": 1,
       "baseline": {
         "roi": 0.6838503649635036,
         "hit": 0.1873479318734793,
@@ -50,7 +52,7 @@
     "cars": {
       "7": {
         "n": 360,
-        "changed": 2,
+        "changed": 1,
         "baseline": {
           "roi": 0.7078125,
           "hit": 0.19166666666666668,
@@ -172,7 +174,7 @@
       },
       "チャレンジ": {
         "n": 89,
-        "changed": 1,
+        "changed": 0,
         "baseline": {
           "roi": 0.48904494382022473,
           "hit": 0.20224719101123595,
@@ -235,7 +237,7 @@
     },
     "2026-11-02": {
       "n": 56,
-      "changed": 1,
+      "changed": 0,
       "baseline": {
         "roi": 0.4642857142857143,
         "hit": 0.19642857142857142,
