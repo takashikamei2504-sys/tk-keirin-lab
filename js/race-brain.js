@@ -43,7 +43,7 @@ function profiles(r,pack={}){
 function build(r,pack={},forced=null){
  const ids=r.riders.map(x=>x.no),valid=new Set(ids);
  if(![7,9].includes(ids.length)||valid.size!==ids.length||r.lineup.flat().length!==ids.length||new Set(r.lineup.flat()).size!==ids.length||r.lineup.some(l=>!l.length)||r.lineup.flat().some(n=>!valid.has(n)))throw Error('7車・9車の全選手を並びに一度ずつ指定してください');
- const p=profiles(r,pack),physical=pack.transitionMode==='physical_v2'&&!!Transitions,by=new Map(r.riders.map(x=>[x.no,x])),leaders=r.lineup.map(l=>l[0]),lineOf=new Map();
+ const p=profiles(r,pack),transitionMode=['physical_v2','physical_seat_only','physical_follow_only'].includes(pack.transitionMode)&&Transitions?pack.transitionMode:'legacy',physicalSeat=transitionMode==='physical_v2'||transitionMode==='physical_seat_only',physicalFollow=transitionMode==='physical_v2'||transitionMode==='physical_follow_only',by=new Map(r.riders.map(x=>[x.no,x])),leaders=r.lineup.map(l=>l[0]),lineOf=new Map();
  r.lineup.forEach(l=>l.forEach(n=>lineOf.set(n,l)));
  const ability=n=>{const x=by.get(n),form=x.recent_form?.stats;return clip(.55+(x.score-100)*.025+(form?.total>0?.12*(form.top3_rate/100-.5):0),.2,1.25);};
  const move=(order,ns,at=0)=>{const rest=order.filter(n=>!ns.includes(n));rest.splice(at,0,...ns);return rest;};
@@ -73,7 +73,7 @@ function build(r,pack={},forced=null){
       const base=[snapshot('周回',initial,Object.fromEntries(ids.map(n=>[n,0])),`${front}番が前受け。${attacker}番は${initial.indexOf(attacker)+1}番手から上昇`),snapshot('打鐘',stand==='yield'?move(initial,al):initial,energy,`${front}番は${stand==='resist'?'突っ張り':'引き'}を選択。${attacker}番は${tactic==='kamashi'?'カマシ':'脚をためて捲り'}を選択`)];
       // Acceleration stress depends on the actual current leader, speed and follower response.
       const acceleration=controller===attacker?(tactic==='kamashi'?.22:.1):.07;
-      const keep=follower?(physical?Transitions.followerOutcome({
+      const keep=follower?(physicalFollow?Transitions.followerOutcome({
        leader:p.get(controller),follower:p.get(follower),
        leaderAbility:ability(controller),followerAbility:ability(follower),
        acceleration,resist:stand==='resist'}).keep:
@@ -81,7 +81,7 @@ function build(r,pack={},forced=null){
        (p.get(controller).ex_chigiri_delta||0)-(p.get(follower).ex_chigirarare_delta||0),.18,.9)):1;
       const gaps=follower?choices(follower,'gap',[['holds',keep],['breaks',1-keep]]):[['solo',1]];
       for(const [gap,gw] of gaps){
-       const routes=physical?Transitions.gapBranches({
+       const routes=physicalSeat?Transitions.gapBranches({
         order,lineup:r.lineup,controller,gap,profile:p,tactic,
         controllerIsAttacker:controller===attacker}):[null];
        for(const route of routes){
@@ -96,7 +96,7 @@ function build(r,pack={},forced=null){
         }
        }
        const homeSnap=snapshot('最終ホーム',home,en,`${controller}番が主導権。${gap==='breaks'?`${follower}番が先頭から離れ、${seat?`${seat}番が番手へ接近する分岐`:'空席への飛びつきは成立条件不足'}`:gap==='holds'?`${follower}番が追走を維持`:'単騎で進出'}`);
-       if(physical){
+       if(physicalSeat){
         homeSnap.seat_state=route.seatState;
         homeSnap.wheel_links=route.links?.edges||[];
         homeSnap.line_segments=route.links?.segments||[];
@@ -121,9 +121,9 @@ function build(r,pack={},forced=null){
        };
        emit('lead',controller,home,en,`${controller}番が先頭を維持`,.35+ability(controller)*.4-en[controller]*.25);
        if(gap==='holds')emit('sashi',follower,home,en,`${follower}番は番手で脚をため差しを狙う`,.25+p.get(follower).finish*.55);
-       if(gap==='breaks'&&seat)emit('seat',seat,home,en,`${seat}番が近接進入から番手奪取を試みる成立仮説`,physical?.15+p.get(seat).finish*.25:.15+p.get(seat).seat*.3+p.get(seat).finish*.25+(p.get(seat).ex_tobitsuki_delta||0)+.25*(p.get(seat).ex_seri_delta||0));
+       if(gap==='breaks'&&seat)emit('seat',seat,home,en,`${seat}番が近接進入から番手奪取を試みる成立仮説`,physicalSeat?.15+p.get(seat).finish*.25:.15+p.get(seat).seat*.3+p.get(seat).finish*.25+(p.get(seat).ex_tobitsuki_delta||0)+.25*(p.get(seat).ex_seri_delta||0));
        // The third rider first loses contact, then switches to an independent attack.
-       if(!physical&&third&&gap==='breaks'){
+       if(!physicalSeat&&third&&gap==='breaks'){
         let back=home.filter(n=>n!==third);back.push(third);const re={...en,[third]:(en[third]||0)+.26};
         emit('recovery',third,back,re,`${third}番が${gap==='breaks'?'前の離れで':'踏み直しで'}追走を失い後退。再自力に切り替えて外を捲る`,.06+p.get(third).recover*.25+p.get(third).makuri*.1);
        }
@@ -185,7 +185,7 @@ function build(r,pack={},forced=null){
  }
  const best=new Map();for(const x of pivots)if(!best.has(x.no)||best.get(x.no).score<x.score)best.set(x.no,x);
  const keymen=[...best.values()].sort((a,b)=>b.score-a.score||a.no-b.no).slice(0,3);
- return {version:VERSION,transition_mode:physical?'physical_v2':'legacy',race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles:Object.fromEntries(p),missing:r.riders.some(x=>x.meta?.absent_fields?.length)||r.source?.missing_fields?.includes('b_s_recent')||false,narratives,hypotheses,tickets,chosen,keymen,front:narratives[0].front,dataSource:r.source?.label||'入力出走表',intelligence:{generated_at:pack.generated_at||null,evidence_count:[...p.values()].reduce((s,x)=>s+x.evidence.length,0),cutoff_policy:'published_at AND collected_at < race start (JST)'},rating:'未校正の仮説スコア（的中確率ではありません）'};
+ return {version:VERSION,transition_mode:transitionMode,race:{date:r.date,venue:r.venue,race_no:r.race_no,start:r.start},profiles:Object.fromEntries(p),missing:r.riders.some(x=>x.meta?.absent_fields?.length)||r.source?.missing_fields?.includes('b_s_recent')||false,narratives,hypotheses,tickets,chosen,keymen,front:narratives[0].front,dataSource:r.source?.label||'入力出走表',intelligence:{generated_at:pack.generated_at||null,evidence_count:[...p.values()].reduce((s,x)=>s+x.evidence.length,0),cutoff_policy:'published_at AND collected_at < race start (JST)'},rating:'未校正の仮説スコア（的中確率ではありません）'};
 }
 const api={VERSION,MODES,profiles,build};if(typeof module!=='undefined')module.exports=api;root.RaceBrain=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
