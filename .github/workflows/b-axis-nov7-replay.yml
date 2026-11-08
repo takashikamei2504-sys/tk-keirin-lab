@@ -1,0 +1,18 @@
+name: B-AXIS Nov7 source & replay
+on:
+  push:
+    branches: ['research/b-axis-nov7-replay-20261108']
+    paths: ['scripts/b_axis_nov7_source_probe.cjs','scripts/b_axis_nov7_replay.cjs','.github/workflows/b-axis-nov7-replay.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node scripts/b_axis_nov7_source_probe.cjs
+      - run: node scripts/b_axis_nov7_replay.cjs
+        if: hashFiles('scripts/b_axis_nov7_replay.cjs') != ''

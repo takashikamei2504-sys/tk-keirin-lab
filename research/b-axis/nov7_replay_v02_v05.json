@@ -1,0 +1,6614 @@
+{
+  "schema": "tk-baxis-2026-11-07-replay/v1",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T23:59:31.188Z",
+  "comparison": "B-AXIS v0.5 versus B-AXIS v0.2; both built after 2026-11-07",
+  "rows": 58,
+  "sourceVenues": [
+    {
+      "name": "小倉",
+      "url": "https://www.chariloto.com/keirin/results/81/2026-11-07",
+      "races": 9,
+      "error": null
+    },
+    {
+      "name": "京王閣",
+      "url": "https://www.chariloto.com/keirin/results/27/2026-11-07",
+      "races": 9,
+      "error": null
+    },
+    {
+      "name": "福井",
+      "url": "https://www.chariloto.com/keirin/results/51/2026-11-07",
+      "races": 7,
+      "error": null
+    },
+    {
+      "name": "熊本",
+      "url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "races": 12,
+      "error": null
+    },
+    {
+      "name": "四日市",
+      "url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "races": 12,
+      "error": null
+    },
+    {
+      "name": "弥彦",
+      "url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "races": 11,
+      "error": null
+    },
+    {
+      "name": "高知",
+      "url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "races": 12,
+      "error": null
+    }
+  ],
+  "matched": 58,
+  "exclusions": {},
+  "errors": [],
+  "correctB": 34,
+  "oldCorrectB": 34,
+  "bLeaderWins": 16,
+  "bLeaderTop3": 31,
+  "bLineWins": 30,
+  "bLineFirstTwo": 20,
+  "stats": {
+    "new": {
+      "3": {
+        "n": 58,
+        "hit": 7,
+        "first": 24,
+        "pair": 17,
+        "ticketCount": 174,
+        "spent100": 17400,
+        "returned100": 21880,
+        "hitRate": 12.1,
+        "pairRate": 29.3,
+        "firstRate": 41.4,
+        "avgTickets": 3,
+        "roi": 125.7
+      },
+      "5": {
+        "n": 58,
+        "hit": 13,
+        "first": 32,
+        "pair": 25,
+        "ticketCount": 290,
+        "spent100": 29000,
+        "returned100": 26930,
+        "hitRate": 22.4,
+        "pairRate": 43.1,
+        "firstRate": 55.2,
+        "avgTickets": 5,
+        "roi": 92.9
+      },
+      "8": {
+        "n": 58,
+        "hit": 17,
+        "first": 39,
+        "pair": 28,
+        "ticketCount": 464,
+        "spent100": 46400,
+        "returned100": 36450,
+        "hitRate": 29.3,
+        "pairRate": 48.3,
+        "firstRate": 67.2,
+        "avgTickets": 8,
+        "roi": 78.6
+      },
+      "10": {
+        "n": 58,
+        "hit": 20,
+        "first": 39,
+        "pair": 29,
+        "ticketCount": 580,
+        "spent100": 58000,
+        "returned100": 40100,
+        "hitRate": 34.5,
+        "pairRate": 50,
+        "firstRate": 67.2,
+        "avgTickets": 10,
+        "roi": 69.1
+      }
+    },
+    "old": {
+      "3": {
+        "n": 58,
+        "hit": 7,
+        "first": 25,
+        "pair": 18,
+        "ticketCount": 174,
+        "spent100": 17400,
+        "returned100": 21880,
+        "hitRate": 12.1,
+        "pairRate": 31,
+        "firstRate": 43.1,
+        "avgTickets": 3,
+        "roi": 125.7
+      },
+      "5": {
+        "n": 58,
+        "hit": 12,
+        "first": 35,
+        "pair": 25,
+        "ticketCount": 290,
+        "spent100": 29000,
+        "returned100": 26220,
+        "hitRate": 20.7,
+        "pairRate": 43.1,
+        "firstRate": 60.3,
+        "avgTickets": 5,
+        "roi": 90.4
+      },
+      "8": {
+        "n": 58,
+        "hit": 17,
+        "first": 39,
+        "pair": 29,
+        "ticketCount": 464,
+        "spent100": 46400,
+        "returned100": 35230,
+        "hitRate": 29.3,
+        "pairRate": 50,
+        "firstRate": 67.2,
+        "avgTickets": 8,
+        "roi": 75.9
+      },
+      "10": {
+        "n": 58,
+        "hit": 19,
+        "first": 40,
+        "pair": 29,
+        "ticketCount": 580,
+        "spent100": 58000,
+        "returned100": 37440,
+        "hitRate": 32.8,
+        "pairRate": 50,
+        "firstRate": 69,
+        "avgTickets": 10,
+        "roi": 64.6
+      }
+    },
+    "legacy": {
+      "3": {
+        "n": 58,
+        "hit": 6,
+        "first": 20,
+        "pair": 12,
+        "ticketCount": 174,
+        "spent100": 17400,
+        "returned100": 10590,
+        "hitRate": 10.3,
+        "pairRate": 20.7,
+        "firstRate": 34.5,
+        "avgTickets": 3,
+        "roi": 60.9
+      },
+      "5": {
+        "n": 58,
+        "hit": 8,
+        "first": 26,
+        "pair": 14,
+        "ticketCount": 290,
+        "spent100": 29000,
+        "returned100": 19900,
+        "hitRate": 13.8,
+        "pairRate": 24.1,
+        "firstRate": 44.8,
+        "avgTickets": 5,
+        "roi": 68.6
+      },
+      "8": {
+        "n": 58,
+        "hit": 10,
+        "first": 36,
+        "pair": 18,
+        "ticketCount": 460,
+        "spent100": 46000,
+        "returned100": 24130,
+        "hitRate": 17.2,
+        "pairRate": 31,
+        "firstRate": 62.1,
+        "avgTickets": 7.93,
+        "roi": 52.5
+      },
+      "10": {
+        "n": 58,
+        "hit": 12,
+        "first": 36,
+        "pair": 19,
+        "ticketCount": 523,
+        "spent100": 52300,
+        "returned100": 29800,
+        "hitRate": 20.7,
+        "pairRate": 32.8,
+        "firstRate": 62.1,
+        "avgTickets": 9.02,
+        "roi": 57
+      }
+    },
+    "newOracle": {
+      "3": {
+        "n": 58,
+        "hit": 7,
+        "first": 19,
+        "pair": 14,
+        "ticketCount": 174,
+        "spent100": 17400,
+        "returned100": 67840,
+        "hitRate": 12.1,
+        "pairRate": 24.1,
+        "firstRate": 32.8,
+        "avgTickets": 3,
+        "roi": 389.9
+      },
+      "5": {
+        "n": 58,
+        "hit": 13,
+        "first": 27,
+        "pair": 19,
+        "ticketCount": 290,
+        "spent100": 29000,
+        "returned100": 76370,
+        "hitRate": 22.4,
+        "pairRate": 32.8,
+        "firstRate": 46.6,
+        "avgTickets": 5,
+        "roi": 263.3
+      },
+      "8": {
+        "n": 58,
+        "hit": 18,
+        "first": 34,
+        "pair": 24,
+        "ticketCount": 464,
+        "spent100": 46400,
+        "returned100": 87240,
+        "hitRate": 31,
+        "pairRate": 41.4,
+        "firstRate": 58.6,
+        "avgTickets": 8,
+        "roi": 188
+      },
+      "10": {
+        "n": 58,
+        "hit": 20,
+        "first": 37,
+        "pair": 25,
+        "ticketCount": 577,
+        "spent100": 57700,
+        "returned100": 89540,
+        "hitRate": 34.5,
+        "pairRate": 43.1,
+        "firstRate": 63.8,
+        "avgTickets": 9.95,
+        "roi": 155.2
+      }
+    },
+    "oldOracle": {
+      "3": {
+        "n": 58,
+        "hit": 7,
+        "first": 22,
+        "pair": 14,
+        "ticketCount": 174,
+        "spent100": 17400,
+        "returned100": 67840,
+        "hitRate": 12.1,
+        "pairRate": 24.1,
+        "firstRate": 37.9,
+        "avgTickets": 3,
+        "roi": 389.9
+      },
+      "5": {
+        "n": 58,
+        "hit": 12,
+        "first": 28,
+        "pair": 18,
+        "ticketCount": 290,
+        "spent100": 29000,
+        "returned100": 75660,
+        "hitRate": 20.7,
+        "pairRate": 31,
+        "firstRate": 48.3,
+        "avgTickets": 5,
+        "roi": 260.9
+      },
+      "8": {
+        "n": 58,
+        "hit": 18,
+        "first": 38,
+        "pair": 27,
+        "ticketCount": 464,
+        "spent100": 46400,
+        "returned100": 86020,
+        "hitRate": 31,
+        "pairRate": 46.6,
+        "firstRate": 65.5,
+        "avgTickets": 8,
+        "roi": 185.4
+      },
+      "10": {
+        "n": 58,
+        "hit": 19,
+        "first": 39,
+        "pair": 28,
+        "ticketCount": 576,
+        "spent100": 57600,
+        "returned100": 86880,
+        "hitRate": 32.8,
+        "pairRate": 48.3,
+        "firstRate": 67.2,
+        "avgTickets": 9.93,
+        "roi": 150.8
+      }
+    }
+  },
+  "groups": {
+    "7車": {
+      "n": 47,
+      "bHits": 30,
+      "oldBHits": 30,
+      "new": {
+        "3": {
+          "n": 47,
+          "hit": 6,
+          "first": 18,
+          "pair": 15,
+          "ticketCount": 141,
+          "spent100": 14100,
+          "returned100": 20790,
+          "hitRate": 12.8,
+          "pairRate": 31.9,
+          "firstRate": 38.3,
+          "avgTickets": 3,
+          "roi": 147.4
+        },
+        "5": {
+          "n": 47,
+          "hit": 12,
+          "first": 26,
+          "pair": 20,
+          "ticketCount": 235,
+          "spent100": 23500,
+          "returned100": 25840,
+          "hitRate": 25.5,
+          "pairRate": 42.6,
+          "firstRate": 55.3,
+          "avgTickets": 5,
+          "roi": 110
+        },
+        "8": {
+          "n": 47,
+          "hit": 16,
+          "first": 32,
+          "pair": 23,
+          "ticketCount": 376,
+          "spent100": 37600,
+          "returned100": 35360,
+          "hitRate": 34,
+          "pairRate": 48.9,
+          "firstRate": 68.1,
+          "avgTickets": 8,
+          "roi": 94
+        },
+        "10": {
+          "n": 47,
+          "hit": 19,
+          "first": 32,
+          "pair": 24,
+          "ticketCount": 470,
+          "spent100": 47000,
+          "returned100": 39010,
+          "hitRate": 40.4,
+          "pairRate": 51.1,
+          "firstRate": 68.1,
+          "avgTickets": 10,
+          "roi": 83
+        }
+      },
+      "old": {
+        "3": {
+          "n": 47,
+          "hit": 6,
+          "first": 19,
+          "pair": 15,
+          "ticketCount": 141,
+          "spent100": 14100,
+          "returned100": 20790,
+          "hitRate": 12.8,
+          "pairRate": 31.9,
+          "firstRate": 40.4,
+          "avgTickets": 3,
+          "roi": 147.4
+        },
+        "5": {
+          "n": 47,
+          "hit": 11,
+          "first": 28,
+          "pair": 20,
+          "ticketCount": 235,
+          "spent100": 23500,
+          "returned100": 25130,
+          "hitRate": 23.4,
+          "pairRate": 42.6,
+          "firstRate": 59.6,
+          "avgTickets": 5,
+          "roi": 106.9
+        },
+        "8": {
+          "n": 47,
+          "hit": 16,
+          "first": 32,
+          "pair": 24,
+          "ticketCount": 376,
+          "spent100": 37600,
+          "returned100": 34140,
+          "hitRate": 34,
+          "pairRate": 51.1,
+          "firstRate": 68.1,
+          "avgTickets": 8,
+          "roi": 90.8
+        },
+        "10": {
+          "n": 47,
+          "hit": 18,
+          "first": 33,
+          "pair": 24,
+          "ticketCount": 470,
+          "spent100": 47000,
+          "returned100": 36350,
+          "hitRate": 38.3,
+          "pairRate": 51.1,
+          "firstRate": 70.2,
+          "avgTickets": 10,
+          "roi": 77.3
+        }
+      },
+      "newOracle": {
+        "3": {
+          "n": 47,
+          "hit": 7,
+          "first": 16,
+          "pair": 13,
+          "ticketCount": 141,
+          "spent100": 14100,
+          "returned100": 67840,
+          "hitRate": 14.9,
+          "pairRate": 27.7,
+          "firstRate": 34,
+          "avgTickets": 3,
+          "roi": 481.1
+        },
+        "5": {
+          "n": 47,
+          "hit": 13,
+          "first": 24,
+          "pair": 18,
+          "ticketCount": 235,
+          "spent100": 23500,
+          "returned100": 76370,
+          "hitRate": 27.7,
+          "pairRate": 38.3,
+          "firstRate": 51.1,
+          "avgTickets": 5,
+          "roi": 325
+        },
+        "8": {
+          "n": 47,
+          "hit": 18,
+          "first": 28,
+          "pair": 23,
+          "ticketCount": 376,
+          "spent100": 37600,
+          "returned100": 87240,
+          "hitRate": 38.3,
+          "pairRate": 48.9,
+          "firstRate": 59.6,
+          "avgTickets": 8,
+          "roi": 232
+        },
+        "10": {
+          "n": 47,
+          "hit": 20,
+          "first": 30,
+          "pair": 24,
+          "ticketCount": 467,
+          "spent100": 46700,
+          "returned100": 89540,
+          "hitRate": 42.6,
+          "pairRate": 51.1,
+          "firstRate": 63.8,
+          "avgTickets": 9.94,
+          "roi": 191.7
+        }
+      },
+      "oldOracle": {
+        "3": {
+          "n": 47,
+          "hit": 7,
+          "first": 18,
+          "pair": 13,
+          "ticketCount": 141,
+          "spent100": 14100,
+          "returned100": 67840,
+          "hitRate": 14.9,
+          "pairRate": 27.7,
+          "firstRate": 38.3,
+          "avgTickets": 3,
+          "roi": 481.1
+        },
+        "5": {
+          "n": 47,
+          "hit": 12,
+          "first": 23,
+          "pair": 17,
+          "ticketCount": 235,
+          "spent100": 23500,
+          "returned100": 75660,
+          "hitRate": 25.5,
+          "pairRate": 36.2,
+          "firstRate": 48.9,
+          "avgTickets": 5,
+          "roi": 322
+        },
+        "8": {
+          "n": 47,
+          "hit": 18,
+          "first": 31,
+          "pair": 25,
+          "ticketCount": 376,
+          "spent100": 37600,
+          "returned100": 86020,
+          "hitRate": 38.3,
+          "pairRate": 53.2,
+          "firstRate": 66,
+          "avgTickets": 8,
+          "roi": 228.8
+        },
+        "10": {
+          "n": 47,
+          "hit": 19,
+          "first": 32,
+          "pair": 26,
+          "ticketCount": 466,
+          "spent100": 46600,
+          "returned100": 86880,
+          "hitRate": 40.4,
+          "pairRate": 55.3,
+          "firstRate": 68.1,
+          "avgTickets": 9.91,
+          "roi": 186.4
+        }
+      }
+    },
+    "9車": {
+      "n": 11,
+      "bHits": 4,
+      "oldBHits": 4,
+      "new": {
+        "3": {
+          "n": 11,
+          "hit": 1,
+          "first": 6,
+          "pair": 2,
+          "ticketCount": 33,
+          "spent100": 3300,
+          "returned100": 1090,
+          "hitRate": 9.1,
+          "pairRate": 18.2,
+          "firstRate": 54.5,
+          "avgTickets": 3,
+          "roi": 33
+        },
+        "5": {
+          "n": 11,
+          "hit": 1,
+          "first": 6,
+          "pair": 5,
+          "ticketCount": 55,
+          "spent100": 5500,
+          "returned100": 1090,
+          "hitRate": 9.1,
+          "pairRate": 45.5,
+          "firstRate": 54.5,
+          "avgTickets": 5,
+          "roi": 19.8
+        },
+        "8": {
+          "n": 11,
+          "hit": 1,
+          "first": 7,
+          "pair": 5,
+          "ticketCount": 88,
+          "spent100": 8800,
+          "returned100": 1090,
+          "hitRate": 9.1,
+          "pairRate": 45.5,
+          "firstRate": 63.6,
+          "avgTickets": 8,
+          "roi": 12.4
+        },
+        "10": {
+          "n": 11,
+          "hit": 1,
+          "first": 7,
+          "pair": 5,
+          "ticketCount": 110,
+          "spent100": 11000,
+          "returned100": 1090,
+          "hitRate": 9.1,
+          "pairRate": 45.5,
+          "firstRate": 63.6,
+          "avgTickets": 10,
+          "roi": 9.9
+        }
+      },
+      "old": {
+        "3": {
+          "n": 11,
+          "hit": 1,
+          "first": 6,
+          "pair": 3,
+          "ticketCount": 33,
+          "spent100": 3300,
+          "returned100": 1090,
+          "hitRate": 9.1,
+          "pairRate": 27.3,
+          "firstRate": 54.5,
+          "avgTickets": 3,
+          "roi": 33
+        },
+        "5": {
+          "n": 11,
+          "hit": 1,
+          "first": 7,
+          "pair": 5,
+          "ticketCount": 55,
+          "spent100": 5500,
+          "returned100": 1090,
+          "hitRate": 9.1,
+          "pairRate": 45.5,
+          "firstRate": 63.6,
+          "avgTickets": 5,
+          "roi": 19.8
+        },
+        "8": {
+          "n": 11,
+          "hit": 1,
+          "first": 7,
+          "pair": 5,
+          "ticketCount": 88,
+          "spent100": 8800,
+          "returned100": 1090,
+          "hitRate": 9.1,
+          "pairRate": 45.5,
+          "firstRate": 63.6,
+          "avgTickets": 8,
+          "roi": 12.4
+        },
+        "10": {
+          "n": 11,
+          "hit": 1,
+          "first": 7,
+          "pair": 5,
+          "ticketCount": 110,
+          "spent100": 11000,
+          "returned100": 1090,
+          "hitRate": 9.1,
+          "pairRate": 45.5,
+          "firstRate": 63.6,
+          "avgTickets": 10,
+          "roi": 9.9
+        }
+      },
+      "newOracle": {
+        "3": {
+          "n": 11,
+          "hit": 0,
+          "first": 3,
+          "pair": 1,
+          "ticketCount": 33,
+          "spent100": 3300,
+          "returned100": 0,
+          "hitRate": 0,
+          "pairRate": 9.1,
+          "firstRate": 27.3,
+          "avgTickets": 3,
+          "roi": 0
+        },
+        "5": {
+          "n": 11,
+          "hit": 0,
+          "first": 3,
+          "pair": 1,
+          "ticketCount": 55,
+          "spent100": 5500,
+          "returned100": 0,
+          "hitRate": 0,
+          "pairRate": 9.1,
+          "firstRate": 27.3,
+          "avgTickets": 5,
+          "roi": 0
+        },
+        "8": {
+          "n": 11,
+          "hit": 0,
+          "first": 6,
+          "pair": 1,
+          "ticketCount": 88,
+          "spent100": 8800,
+          "returned100": 0,
+          "hitRate": 0,
+          "pairRate": 9.1,
+          "firstRate": 54.5,
+          "avgTickets": 8,
+          "roi": 0
+        },
+        "10": {
+          "n": 11,
+          "hit": 0,
+          "first": 7,
+          "pair": 1,
+          "ticketCount": 110,
+          "spent100": 11000,
+          "returned100": 0,
+          "hitRate": 0,
+          "pairRate": 9.1,
+          "firstRate": 63.6,
+          "avgTickets": 10,
+          "roi": 0
+        }
+      },
+      "oldOracle": {
+        "3": {
+          "n": 11,
+          "hit": 0,
+          "first": 4,
+          "pair": 1,
+          "ticketCount": 33,
+          "spent100": 3300,
+          "returned100": 0,
+          "hitRate": 0,
+          "pairRate": 9.1,
+          "firstRate": 36.4,
+          "avgTickets": 3,
+          "roi": 0
+        },
+        "5": {
+          "n": 11,
+          "hit": 0,
+          "first": 5,
+          "pair": 1,
+          "ticketCount": 55,
+          "spent100": 5500,
+          "returned100": 0,
+          "hitRate": 0,
+          "pairRate": 9.1,
+          "firstRate": 45.5,
+          "avgTickets": 5,
+          "roi": 0
+        },
+        "8": {
+          "n": 11,
+          "hit": 0,
+          "first": 7,
+          "pair": 2,
+          "ticketCount": 88,
+          "spent100": 8800,
+          "returned100": 0,
+          "hitRate": 0,
+          "pairRate": 18.2,
+          "firstRate": 63.6,
+          "avgTickets": 8,
+          "roi": 0
+        },
+        "10": {
+          "n": 11,
+          "hit": 0,
+          "first": 7,
+          "pair": 2,
+          "ticketCount": 110,
+          "spent100": 11000,
+          "returned100": 0,
+          "hitRate": 0,
+          "pairRate": 18.2,
+          "firstRate": 63.6,
+          "avgTickets": 10,
+          "roi": 0
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "id": "2026-11-07:京王閣:9",
+      "venue": "京王閣",
+      "raceNo": 9,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "3-1",
+        "7-2",
+        "6",
+        "5-4"
+      ],
+      "actualB": 5,
+      "bLine": "5-4",
+      "actual": "3-1-6",
+      "payout": 3660,
+      "modelB": 7,
+      "oldB": 7,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "2-3-1",
+        "2-7-1",
+        "2-7-3",
+        "2-3-7",
+        "2-3-4"
+      ],
+      "oldTop5": [
+        "2-3-1",
+        "2-7-1",
+        "2-7-3",
+        "2-3-7",
+        "3-1-2"
+      ],
+      "newOracleTop5": [
+        "4-3-1",
+        "4-5-2",
+        "4-7-2",
+        "4-3-2",
+        "4-5-3"
+      ],
+      "oldOracleTop5": [
+        "4-3-1",
+        "4-5-2",
+        "4-7-2",
+        "4-3-2",
+        "4-5-3"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:48.959Z",
+      "source_url": "https://www.chariloto.com/keirin/results/27/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "蒔田英彦",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "菅原裕太",
+          "place": 2
+        },
+        {
+          "no": 6,
+          "name": "蒋野翔太",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:京王閣:7",
+      "venue": "京王閣",
+      "raceNo": 7,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-3-7",
+        "4-2",
+        "5-6"
+      ],
+      "actualB": 1,
+      "bLine": "1-3-7",
+      "actual": "3-7-1",
+      "payout": 2850,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "3-1-7",
+        "3-7-1",
+        "3-4-1",
+        "3-1-4",
+        "1-3-7"
+      ],
+      "oldTop5": [
+        "3-1-7",
+        "3-7-1",
+        "1-3-7",
+        "3-4-1",
+        "3-1-4"
+      ],
+      "newOracleTop5": [
+        "3-1-7",
+        "3-7-1",
+        "3-4-1",
+        "3-1-4",
+        "1-3-7"
+      ],
+      "oldOracleTop5": [
+        "3-1-7",
+        "3-7-1",
+        "1-3-7",
+        "3-4-1",
+        "3-1-4"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:48.528Z",
+      "source_url": "https://www.chariloto.com/keirin/results/27/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "白石大輔",
+          "place": 1
+        },
+        {
+          "no": 7,
+          "name": "鈴木誠",
+          "place": 2
+        },
+        {
+          "no": 1,
+          "name": "菊地圭",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:京王閣:6",
+      "venue": "京王閣",
+      "raceNo": 6,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "2-1-5",
+        "3-4",
+        "6-7"
+      ],
+      "actualB": 2,
+      "bLine": "2-1-5",
+      "actual": "1-3-4",
+      "payout": 4300,
+      "modelB": 2,
+      "oldB": 2,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-2-5",
+        "1-5-2",
+        "1-3-2",
+        "1-2-3",
+        "1-5-3"
+      ],
+      "oldTop5": [
+        "1-2-5",
+        "1-5-2",
+        "1-3-2",
+        "1-2-3",
+        "1-5-3"
+      ],
+      "newOracleTop5": [
+        "1-2-5",
+        "1-5-2",
+        "1-3-2",
+        "1-2-3",
+        "1-5-3"
+      ],
+      "oldOracleTop5": [
+        "1-2-5",
+        "1-5-2",
+        "1-3-2",
+        "1-2-3",
+        "1-5-3"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:48.223Z",
+      "source_url": "https://www.chariloto.com/keirin/results/27/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "守谷陽介",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "関根健太郎",
+          "place": 2
+        },
+        {
+          "no": 4,
+          "name": "落合達彦",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:京王閣:5",
+      "venue": "京王閣",
+      "raceNo": 5,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "2-1",
+        "5-3",
+        "7",
+        "6-4"
+      ],
+      "actualB": 2,
+      "bLine": "2-1",
+      "actual": "2-3-5",
+      "payout": 9720,
+      "modelB": 2,
+      "oldB": 2,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-2-6",
+        "1-6-2",
+        "1-2-3",
+        "1-5-2",
+        "2-1-6"
+      ],
+      "oldTop5": [
+        "1-2-6",
+        "1-6-2",
+        "1-2-3",
+        "2-1-6",
+        "1-5-2"
+      ],
+      "newOracleTop5": [
+        "1-2-6",
+        "1-6-2",
+        "1-2-3",
+        "1-5-2",
+        "2-1-6"
+      ],
+      "oldOracleTop5": [
+        "1-2-6",
+        "1-6-2",
+        "1-2-3",
+        "2-1-6",
+        "1-5-2"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:47.897Z",
+      "source_url": "https://www.chariloto.com/keirin/results/27/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "中島淳",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "小原亮哉",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "成海大聖",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:京王閣:4",
+      "venue": "京王閣",
+      "raceNo": 4,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-2-4",
+        "6",
+        "5-3-7"
+      ],
+      "actualB": 5,
+      "bLine": "5-3-7",
+      "actual": "2-1-7",
+      "payout": 5340,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "3-5-1",
+        "3-7-5",
+        "3-5-7",
+        "5-3-1",
+        "3-7-1"
+      ],
+      "oldTop5": [
+        "3-5-1",
+        "3-7-5",
+        "3-5-7",
+        "3-7-1",
+        "5-3-1"
+      ],
+      "newOracleTop5": [
+        "3-5-1",
+        "3-7-5",
+        "3-5-7",
+        "5-3-1",
+        "3-7-1"
+      ],
+      "oldOracleTop5": [
+        "3-5-1",
+        "3-7-5",
+        "3-5-7",
+        "3-7-1",
+        "5-3-1"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:47.493Z",
+      "source_url": "https://www.chariloto.com/keirin/results/27/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "川島勝",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "木村浩宣",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "岩橋則明",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:京王閣:3",
+      "venue": "京王閣",
+      "raceNo": 3,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "4-1-5",
+        "3",
+        "6-2",
+        "7"
+      ],
+      "actualB": 6,
+      "bLine": "6-2",
+      "actual": "4-1-5",
+      "payout": 1050,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": true,
+      "newTop5": [
+        "1-4-5",
+        "1-5-4",
+        "1-5-2",
+        "1-4-2",
+        "4-1-5"
+      ],
+      "oldTop5": [
+        "1-5-4",
+        "1-4-5",
+        "1-5-2",
+        "1-4-2",
+        "4-1-5"
+      ],
+      "newOracleTop5": [
+        "2-6-1",
+        "2-6-4",
+        "2-6-5",
+        "6-2-1",
+        "2-6-3"
+      ],
+      "oldOracleTop5": [
+        "2-6-1",
+        "2-6-4",
+        "2-6-3",
+        "6-2-1",
+        "2-6-7"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:47.061Z",
+      "source_url": "https://www.chariloto.com/keirin/results/27/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 4,
+          "name": "竹山慶太",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "山崎悟",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "飯島淳",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:京王閣:2",
+      "venue": "京王閣",
+      "raceNo": 2,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "3-2-4",
+        "7",
+        "6-1-5"
+      ],
+      "actualB": 3,
+      "bLine": "3-2-4",
+      "actual": "3-2-4",
+      "payout": 520,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "2-3-4",
+        "2-4-3",
+        "3-2-4",
+        "2-3-6",
+        "2-4-6"
+      ],
+      "oldTop5": [
+        "2-3-4",
+        "2-4-3",
+        "3-2-4",
+        "2-3-6",
+        "2-4-6"
+      ],
+      "newOracleTop5": [
+        "2-3-4",
+        "2-4-3",
+        "3-2-4",
+        "2-3-6",
+        "2-4-6"
+      ],
+      "oldOracleTop5": [
+        "2-3-4",
+        "2-4-3",
+        "3-2-4",
+        "2-3-6",
+        "2-4-6"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:46.777Z",
+      "source_url": "https://www.chariloto.com/keirin/results/27/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "相笠翔太",
+          "place": 1
+        },
+        {
+          "no": 2,
+          "name": "中西司",
+          "place": 2
+        },
+        {
+          "no": 4,
+          "name": "浅沼聖士",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:12",
+      "venue": "熊本",
+      "raceNo": 12,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-7-6",
+        "5-2-3",
+        "4"
+      ],
+      "actualB": 5,
+      "bLine": "5-2-3",
+      "actual": "1-2-3",
+      "payout": 2050,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "2-3-5",
+        "2-5-3",
+        "2-3-7",
+        "2-1-7",
+        "2-4-3"
+      ],
+      "oldTop5": [
+        "2-3-5",
+        "2-5-3",
+        "2-1-7",
+        "2-3-7",
+        "2-4-3"
+      ],
+      "newOracleTop5": [
+        "2-3-5",
+        "2-5-3",
+        "2-3-7",
+        "2-1-7",
+        "2-4-3"
+      ],
+      "oldOracleTop5": [
+        "2-3-5",
+        "2-5-3",
+        "2-1-7",
+        "2-3-7",
+        "2-4-3"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:42.928Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "松本秀之介",
+          "place": 1
+        },
+        {
+          "no": 2,
+          "name": "和田健太郎",
+          "place": 2
+        },
+        {
+          "no": 3,
+          "name": "横山尚則",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:11",
+      "venue": "熊本",
+      "raceNo": 11,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "7-1",
+        "4-2",
+        "5-3",
+        "6"
+      ],
+      "actualB": 7,
+      "bLine": "7-1",
+      "actual": "7-1-6",
+      "payout": 1290,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "2-7-1",
+        "2-4-1",
+        "7-1-2",
+        "7-2-1",
+        "2-4-7"
+      ],
+      "oldTop5": [
+        "7-1-2",
+        "2-7-1",
+        "7-2-1",
+        "2-4-1",
+        "7-4-2"
+      ],
+      "newOracleTop5": [
+        "1-7-4",
+        "1-7-2",
+        "1-4-7",
+        "7-1-4",
+        "1-5-7"
+      ],
+      "oldOracleTop5": [
+        "1-7-4",
+        "1-4-7",
+        "1-7-2",
+        "7-1-4",
+        "1-5-7"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:41.145Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "中石湊",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "守澤太志",
+          "place": 2
+        },
+        {
+          "no": 6,
+          "name": "塚本瑠羽",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:10",
+      "venue": "熊本",
+      "raceNo": 10,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-7-5",
+        "6-2",
+        "4-3"
+      ],
+      "actualB": 6,
+      "bLine": "6-2",
+      "actual": "1-7-2",
+      "payout": 1350,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-5-1",
+        "7-1-5",
+        "1-7-5",
+        "7-5-2",
+        "7-1-2"
+      ],
+      "oldTop5": [
+        "7-1-5",
+        "7-5-1",
+        "1-7-5",
+        "7-1-2",
+        "7-5-2"
+      ],
+      "newOracleTop5": [
+        "2-1-7",
+        "2-6-1",
+        "2-1-5",
+        "2-6-7",
+        "2-4-1"
+      ],
+      "oldOracleTop5": [
+        "2-1-7",
+        "2-6-1",
+        "2-1-5",
+        "2-6-7",
+        "2-4-1"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:39.974Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "松井宏佑",
+          "place": 1
+        },
+        {
+          "no": 7,
+          "name": "岡村潤",
+          "place": 2
+        },
+        {
+          "no": 2,
+          "name": "小岩大介",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:9",
+      "venue": "熊本",
+      "raceNo": 9,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-5",
+        "2",
+        "3-7-6",
+        "4"
+      ],
+      "actualB": 3,
+      "bLine": "3-7-6",
+      "actual": "1-5-7",
+      "payout": 1440,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-3-1",
+        "7-1-5",
+        "7-6-1",
+        "7-1-3",
+        "1-7-3"
+      ],
+      "oldTop5": [
+        "7-3-1",
+        "7-1-5",
+        "1-7-3",
+        "7-6-1",
+        "1-3-7"
+      ],
+      "newOracleTop5": [
+        "7-3-1",
+        "7-1-5",
+        "7-6-1",
+        "7-1-3",
+        "1-7-3"
+      ],
+      "oldOracleTop5": [
+        "7-3-1",
+        "7-1-5",
+        "1-7-3",
+        "7-6-1",
+        "1-3-7"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:39.034Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "宮本隼輔",
+          "place": 1
+        },
+        {
+          "no": 5,
+          "name": "大坪功一",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "大石崇晴",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:8",
+      "venue": "熊本",
+      "raceNo": 8,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-7-4",
+        "2",
+        "5-3",
+        "6"
+      ],
+      "actualB": 1,
+      "bLine": "1-7-4",
+      "actual": "5-3-7",
+      "payout": 3900,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-1-4",
+        "7-4-1",
+        "7-1-3",
+        "7-4-3",
+        "1-7-4"
+      ],
+      "oldTop5": [
+        "7-1-4",
+        "7-4-1",
+        "7-1-3",
+        "7-4-3",
+        "1-7-4"
+      ],
+      "newOracleTop5": [
+        "7-1-4",
+        "7-4-1",
+        "7-1-3",
+        "7-4-3",
+        "1-7-4"
+      ],
+      "oldOracleTop5": [
+        "7-1-4",
+        "7-4-1",
+        "7-1-3",
+        "7-4-3",
+        "1-7-4"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:37.983Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 5,
+          "name": "笠松将太",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "大森慶一",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "栗山俊介",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:7",
+      "venue": "熊本",
+      "raceNo": 7,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-7-5",
+        "4-2",
+        "6-3"
+      ],
+      "actualB": 1,
+      "bLine": "1-7-5",
+      "actual": "7-4-5",
+      "payout": 3940,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-4-2",
+        "7-1-2",
+        "7-5-1",
+        "7-1-5",
+        "7-5-2"
+      ],
+      "oldTop5": [
+        "7-4-2",
+        "7-1-2",
+        "7-5-1",
+        "7-1-4",
+        "7-5-2"
+      ],
+      "newOracleTop5": [
+        "7-4-2",
+        "7-1-2",
+        "7-5-1",
+        "7-1-5",
+        "7-5-2"
+      ],
+      "oldOracleTop5": [
+        "7-4-2",
+        "7-1-2",
+        "7-5-1",
+        "7-1-4",
+        "7-5-2"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:37.000Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "松本憲斗",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "水谷好宏",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "加倉正義",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:5",
+      "venue": "熊本",
+      "raceNo": 5,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "7-1-5",
+        "2-6",
+        "3-4"
+      ],
+      "actualB": 7,
+      "bLine": "7-1-5",
+      "actual": "7-1-5",
+      "payout": 550,
+      "modelB": 7,
+      "oldB": 7,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "1-7-5",
+        "1-5-7",
+        "1-7-3",
+        "1-3-7",
+        "7-1-5"
+      ],
+      "oldTop5": [
+        "1-7-5",
+        "1-5-7",
+        "1-7-3",
+        "1-3-7",
+        "7-1-5"
+      ],
+      "newOracleTop5": [
+        "1-7-5",
+        "1-5-7",
+        "1-7-3",
+        "1-3-7",
+        "7-1-5"
+      ],
+      "oldOracleTop5": [
+        "1-7-5",
+        "1-5-7",
+        "1-7-3",
+        "1-3-7",
+        "7-1-5"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:36.635Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "半田誠",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "中村健志",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "隅貴史",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:4",
+      "venue": "熊本",
+      "raceNo": 4,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "3-6",
+        "4-5-1",
+        "7-2"
+      ],
+      "actualB": 4,
+      "bLine": "4-5-1",
+      "actual": "7-5-2",
+      "payout": 860,
+      "modelB": 7,
+      "oldB": 7,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "2-7-5",
+        "7-2-5",
+        "2-7-4",
+        "2-4-7",
+        "7-2-4"
+      ],
+      "oldTop5": [
+        "2-7-5",
+        "7-2-5",
+        "2-7-4",
+        "2-4-7",
+        "7-2-4"
+      ],
+      "newOracleTop5": [
+        "5-7-2",
+        "5-4-7",
+        "5-1-7",
+        "5-4-2",
+        "5-1-2"
+      ],
+      "oldOracleTop5": [
+        "5-7-2",
+        "5-4-7",
+        "5-1-7",
+        "5-4-2",
+        "5-1-4"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:35.485Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "藤田楓",
+          "place": 1
+        },
+        {
+          "no": 5,
+          "name": "池野健太",
+          "place": 2
+        },
+        {
+          "no": 2,
+          "name": "篠原龍馬",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:3",
+      "venue": "熊本",
+      "raceNo": 3,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "7-3",
+        "5-1",
+        "2",
+        "4-6"
+      ],
+      "actualB": 5,
+      "bLine": "5-1",
+      "actual": "4-2-5",
+      "payout": 1320,
+      "modelB": 7,
+      "oldB": 7,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "3-7-5",
+        "3-4-5",
+        "3-7-4",
+        "3-4-7",
+        "3-7-2"
+      ],
+      "oldTop5": [
+        "3-7-5",
+        "3-4-5",
+        "3-7-4",
+        "3-4-7",
+        "4-3-7"
+      ],
+      "newOracleTop5": [
+        "1-5-3",
+        "5-1-3",
+        "1-4-5",
+        "1-5-4",
+        "5-4-3"
+      ],
+      "oldOracleTop5": [
+        "1-5-3",
+        "5-1-3",
+        "1-4-5",
+        "1-5-4",
+        "5-4-3"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:34.298Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 4,
+          "name": "伊藤京介",
+          "place": 1
+        },
+        {
+          "no": 2,
+          "name": "堀川敬太郎",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "鈴木庸之",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:2",
+      "venue": "熊本",
+      "raceNo": 2,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "7-2-3",
+        "4-1-5",
+        "6"
+      ],
+      "actualB": 7,
+      "bLine": "7-2-3",
+      "actual": "1-4-7",
+      "payout": 5320,
+      "modelB": 7,
+      "oldB": 7,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-2-3",
+        "2-7-3",
+        "2-3-7",
+        "7-2-1",
+        "2-7-1"
+      ],
+      "oldTop5": [
+        "2-7-3",
+        "7-2-3",
+        "2-3-7",
+        "7-2-1",
+        "2-7-1"
+      ],
+      "newOracleTop5": [
+        "7-2-3",
+        "2-7-3",
+        "2-3-7",
+        "7-2-1",
+        "2-7-1"
+      ],
+      "oldOracleTop5": [
+        "2-7-3",
+        "7-2-3",
+        "2-3-7",
+        "7-2-1",
+        "2-7-1"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:33.050Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "平総一",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "池田伍功羽",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "福田健太",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:熊本:1",
+      "venue": "熊本",
+      "raceNo": 1,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "4-3-1-7",
+        "2-5-6"
+      ],
+      "actualB": 2,
+      "bLine": "2-5-6",
+      "actual": "3-4-5",
+      "payout": 1720,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "3-4-1",
+        "3-1-4",
+        "3-2-4",
+        "4-3-1",
+        "3-4-7"
+      ],
+      "oldTop5": [
+        "3-4-1",
+        "3-1-4",
+        "4-3-1",
+        "3-2-4",
+        "3-4-7"
+      ],
+      "newOracleTop5": [
+        "5-2-4",
+        "5-6-2",
+        "5-4-2",
+        "5-2-6",
+        "2-5-4"
+      ],
+      "oldOracleTop5": [
+        "5-2-4",
+        "5-6-2",
+        "5-4-2",
+        "5-2-6",
+        "2-5-4"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:31.929Z",
+      "source_url": "https://www.chariloto.com/keirin/results/87/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "近藤範昌",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "山崎航",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "安東英博",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:12",
+      "venue": "高知",
+      "raceNo": 12,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "7-3",
+        "2",
+        "5",
+        "1-4",
+        "6"
+      ],
+      "actualB": 1,
+      "bLine": "1-4",
+      "actual": "4-5-1",
+      "payout": 8860,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "4-1-2",
+        "4-2-1",
+        "4-5-1",
+        "4-1-5",
+        "4-7-1"
+      ],
+      "oldTop5": [
+        "4-1-2",
+        "4-2-1",
+        "4-5-1",
+        "1-4-2",
+        "4-1-5"
+      ],
+      "newOracleTop5": [
+        "4-1-2",
+        "4-2-1",
+        "4-5-1",
+        "4-1-5",
+        "4-7-1"
+      ],
+      "oldOracleTop5": [
+        "4-1-2",
+        "4-2-1",
+        "4-5-1",
+        "1-4-2",
+        "4-1-5"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:42.137Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 4,
+          "name": "嶋津拓弥",
+          "place": 1
+        },
+        {
+          "no": 5,
+          "name": "川口聖二",
+          "place": 2
+        },
+        {
+          "no": 1,
+          "name": "根田空史",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:11",
+      "venue": "高知",
+      "raceNo": 11,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "5-7-1",
+        "4-2",
+        "6-3"
+      ],
+      "actualB": 5,
+      "bLine": "5-7-1",
+      "actual": "7-5-2",
+      "payout": 1800,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "7-5-1",
+        "7-1-5",
+        "5-7-1",
+        "7-5-2",
+        "1-5-7"
+      ],
+      "oldTop5": [
+        "7-5-1",
+        "7-1-5",
+        "5-7-1",
+        "7-5-2",
+        "1-5-7"
+      ],
+      "newOracleTop5": [
+        "7-5-1",
+        "7-1-5",
+        "5-7-1",
+        "7-5-2",
+        "1-5-7"
+      ],
+      "oldOracleTop5": [
+        "7-5-1",
+        "7-1-5",
+        "5-7-1",
+        "7-5-2",
+        "1-5-7"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:40.713Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "山本拳也",
+          "place": 1
+        },
+        {
+          "no": 5,
+          "name": "林大悟",
+          "place": 2
+        },
+        {
+          "no": 2,
+          "name": "山内卓也",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:10",
+      "venue": "高知",
+      "raceNo": 10,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "4-1-7",
+        "6-2",
+        "3-5"
+      ],
+      "actualB": 6,
+      "bLine": "6-2",
+      "actual": "2-4-1",
+      "payout": 46250,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": false,
+      "oracle5": true,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": false,
+      "newTop5": [
+        "5-4-1",
+        "5-3-1",
+        "5-6-1",
+        "5-3-4",
+        "5-4-7"
+      ],
+      "oldTop5": [
+        "5-4-1",
+        "5-3-1",
+        "5-3-4",
+        "5-6-1",
+        "5-4-3"
+      ],
+      "newOracleTop5": [
+        "2-4-1",
+        "2-6-1",
+        "2-6-4",
+        "2-3-1",
+        "4-1-2"
+      ],
+      "oldOracleTop5": [
+        "2-4-1",
+        "2-6-1",
+        "4-1-2",
+        "2-6-4",
+        "4-2-1"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:39.684Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "戸田洋平",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "東矢圭吾",
+          "place": 2
+        },
+        {
+          "no": 1,
+          "name": "松川高大",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:9",
+      "venue": "高知",
+      "raceNo": 9,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "2-7",
+        "1-4",
+        "5-3-6"
+      ],
+      "actualB": 5,
+      "bLine": "5-3-6",
+      "actual": "5-3-7",
+      "payout": 2660,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "3-5-7",
+        "3-6-5",
+        "3-2-7",
+        "3-5-6",
+        "3-6-7"
+      ],
+      "oldTop5": [
+        "3-5-6",
+        "3-6-5",
+        "3-2-7",
+        "3-5-7",
+        "2-7-3"
+      ],
+      "newOracleTop5": [
+        "3-5-7",
+        "3-6-5",
+        "3-2-7",
+        "3-5-6",
+        "3-6-7"
+      ],
+      "oldOracleTop5": [
+        "3-5-6",
+        "3-6-5",
+        "3-2-7",
+        "3-5-7",
+        "2-7-3"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:38.727Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 5,
+          "name": "野口裕史",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "中田雄喜",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "窓場千加頼",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:8",
+      "venue": "高知",
+      "raceNo": 8,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "2-5",
+        "4-7-1",
+        "3-6"
+      ],
+      "actualB": 2,
+      "bLine": "2-5",
+      "actual": "4-1-7",
+      "payout": 3960,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-4-1",
+        "7-1-4",
+        "7-2-4",
+        "7-3-4",
+        "7-4-2"
+      ],
+      "oldTop5": [
+        "7-4-1",
+        "7-1-4",
+        "7-2-4",
+        "7-3-4",
+        "7-4-2"
+      ],
+      "newOracleTop5": [
+        "5-2-4",
+        "5-4-2",
+        "5-3-2",
+        "2-5-4",
+        "5-2-3"
+      ],
+      "oldOracleTop5": [
+        "5-2-4",
+        "5-4-2",
+        "2-5-4",
+        "5-3-2",
+        "5-2-3"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:37.695Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 4,
+          "name": "佐藤壮志",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "西田雅志",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "北村信明",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:5",
+      "venue": "高知",
+      "raceNo": 5,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "5-2-7",
+        "1",
+        "3",
+        "4-6"
+      ],
+      "actualB": 5,
+      "bLine": "5-2-7",
+      "actual": "5-2-4",
+      "payout": 27080,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "2-7-5",
+        "2-5-7",
+        "2-4-7",
+        "2-1-4",
+        "2-7-4"
+      ],
+      "oldTop5": [
+        "2-7-5",
+        "2-5-7",
+        "2-4-7",
+        "2-1-4",
+        "2-3-4"
+      ],
+      "newOracleTop5": [
+        "2-7-5",
+        "2-5-7",
+        "2-4-7",
+        "2-1-4",
+        "2-7-4"
+      ],
+      "oldOracleTop5": [
+        "2-7-5",
+        "2-5-7",
+        "2-4-7",
+        "2-1-4",
+        "2-3-4"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:36.116Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 5,
+          "name": "日野博幸",
+          "place": 1
+        },
+        {
+          "no": 2,
+          "name": "小原周祐",
+          "place": 2
+        },
+        {
+          "no": 4,
+          "name": "土生敦弘",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:4",
+      "venue": "高知",
+      "raceNo": 4,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-5-6",
+        "2-7",
+        "4-3"
+      ],
+      "actualB": 1,
+      "bLine": "1-5-6",
+      "actual": "1-5-6",
+      "payout": 860,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "5-1-2",
+        "5-6-1",
+        "5-2-1",
+        "5-1-6",
+        "1-5-2"
+      ],
+      "oldTop5": [
+        "5-1-2",
+        "5-6-1",
+        "5-2-1",
+        "1-5-2",
+        "5-1-6"
+      ],
+      "newOracleTop5": [
+        "5-1-2",
+        "5-6-1",
+        "5-2-1",
+        "5-1-6",
+        "1-5-2"
+      ],
+      "oldOracleTop5": [
+        "5-1-2",
+        "5-6-1",
+        "5-2-1",
+        "1-5-2",
+        "5-1-6"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:35.154Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "安達光伸",
+          "place": 1
+        },
+        {
+          "no": 5,
+          "name": "坂上忠克",
+          "place": 2
+        },
+        {
+          "no": 6,
+          "name": "峠祐介",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:3",
+      "venue": "高知",
+      "raceNo": 3,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "4-1-6",
+        "7-2",
+        "5-3"
+      ],
+      "actualB": 4,
+      "bLine": "4-1-6",
+      "actual": "7-1-2",
+      "payout": 14110,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-4-3",
+        "1-6-4",
+        "1-4-6",
+        "4-1-3",
+        "1-4-5"
+      ],
+      "oldTop5": [
+        "1-4-6",
+        "1-6-4",
+        "1-4-3",
+        "4-1-6",
+        "1-4-5"
+      ],
+      "newOracleTop5": [
+        "1-4-3",
+        "1-6-4",
+        "1-4-6",
+        "4-1-3",
+        "1-4-5"
+      ],
+      "oldOracleTop5": [
+        "1-4-6",
+        "1-6-4",
+        "1-4-3",
+        "4-1-6",
+        "1-4-5"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:33.670Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "三浦生誠",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "飯田裕次",
+          "place": 2
+        },
+        {
+          "no": 2,
+          "name": "三住博昭",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:2",
+      "venue": "高知",
+      "raceNo": 2,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "7-3-1",
+        "5-2-4",
+        "6"
+      ],
+      "actualB": 7,
+      "bLine": "7-3-1",
+      "actual": "7-3-1",
+      "payout": 1770,
+      "modelB": 7,
+      "oldB": 7,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "3-7-1",
+        "3-1-7",
+        "3-5-7",
+        "3-7-5",
+        "3-1-5"
+      ],
+      "oldTop5": [
+        "3-7-1",
+        "3-1-7",
+        "3-5-7",
+        "3-7-5",
+        "3-1-5"
+      ],
+      "newOracleTop5": [
+        "3-7-1",
+        "3-1-7",
+        "3-5-7",
+        "3-7-5",
+        "3-1-5"
+      ],
+      "oldOracleTop5": [
+        "3-7-1",
+        "3-1-7",
+        "3-5-7",
+        "3-7-5",
+        "3-1-5"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:32.703Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "山本修平",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "山田義彦",
+          "place": 2
+        },
+        {
+          "no": 1,
+          "name": "河野要",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:高知:1",
+      "venue": "高知",
+      "raceNo": 1,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "6-2",
+        "3-4",
+        "5-1-7"
+      ],
+      "actualB": 6,
+      "bLine": "6-2",
+      "actual": "4-2-5",
+      "payout": 25260,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-5-7",
+        "1-7-5",
+        "1-3-4",
+        "1-7-3",
+        "1-5-3"
+      ],
+      "oldTop5": [
+        "1-5-7",
+        "1-7-5",
+        "1-3-4",
+        "1-7-3",
+        "1-5-3"
+      ],
+      "newOracleTop5": [
+        "2-6-1",
+        "2-5-1",
+        "2-3-4",
+        "2-6-5",
+        "2-3-1"
+      ],
+      "oldOracleTop5": [
+        "2-6-1",
+        "2-5-1",
+        "2-3-4",
+        "2-6-5",
+        "2-3-1"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:31.576Z",
+      "source_url": "https://www.chariloto.com/keirin/results/74/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 4,
+          "name": "伊藤奎",
+          "place": 1
+        },
+        {
+          "no": 2,
+          "name": "太田黒大心",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "藤原夏志",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:12",
+      "venue": "四日市",
+      "raceNo": 12,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "1-7",
+        "4-2",
+        "9",
+        "3-6",
+        "5-8"
+      ],
+      "actualB": 1,
+      "bLine": "1-7",
+      "actual": "1-2-4",
+      "payout": 16990,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-3-2",
+        "7-1-3",
+        "7-5-3",
+        "7-3-5",
+        "7-1-2"
+      ],
+      "oldTop5": [
+        "7-3-2",
+        "7-1-3",
+        "7-5-3",
+        "3-7-2",
+        "7-3-5"
+      ],
+      "newOracleTop5": [
+        "7-3-2",
+        "7-1-3",
+        "7-5-3",
+        "7-3-5",
+        "7-1-2"
+      ],
+      "oldOracleTop5": [
+        "7-3-2",
+        "7-1-3",
+        "7-5-3",
+        "3-7-2",
+        "7-3-5"
+      ],
+      "pairNewOracle5": false,
+      "debug": {
+        "normalPath": [
+          {
+            "key": "7-3-2",
+            "path": "marker",
+            "score": 2.2503
+          },
+          {
+            "key": "7-1-3",
+            "path": "marker",
+            "score": 2.2231
+          },
+          {
+            "key": "7-5-3",
+            "path": "marker",
+            "score": 2.2041
+          },
+          {
+            "key": "7-3-5",
+            "path": "marker",
+            "score": 2.1438
+          },
+          {
+            "key": "7-1-2",
+            "path": "marker",
+            "score": 2.131
+          },
+          {
+            "key": "7-5-2",
+            "path": "marker",
+            "score": 2.112
+          },
+          {
+            "key": "3-7-2",
+            "path": "outside",
+            "score": 2.0901
+          },
+          {
+            "key": "3-5-2",
+            "path": "outside",
+            "score": 2.0609
+          },
+          {
+            "key": "7-4-2",
+            "path": "marker",
+            "score": 2.0528
+          },
+          {
+            "key": "3-1-7",
+            "path": "outside",
+            "score": 2.0419
+          }
+        ],
+        "oraclePath": [
+          {
+            "key": "7-3-2",
+            "path": "marker",
+            "score": 2.2503
+          },
+          {
+            "key": "7-1-3",
+            "path": "marker",
+            "score": 2.2231
+          },
+          {
+            "key": "7-5-3",
+            "path": "marker",
+            "score": 2.2041
+          },
+          {
+            "key": "7-3-5",
+            "path": "marker",
+            "score": 2.1438
+          },
+          {
+            "key": "7-1-2",
+            "path": "marker",
+            "score": 2.131
+          },
+          {
+            "key": "7-5-2",
+            "path": "marker",
+            "score": 2.112
+          },
+          {
+            "key": "3-7-2",
+            "path": "outside",
+            "score": 2.0901
+          },
+          {
+            "key": "3-5-2",
+            "path": "outside",
+            "score": 2.0609
+          },
+          {
+            "key": "7-4-2",
+            "path": "marker",
+            "score": 2.0528
+          },
+          {
+            "key": "3-1-7",
+            "path": "outside",
+            "score": 2.0419
+          }
+        ],
+        "states": [
+          {
+            "no": 1,
+            "role": "B先頭",
+            "gap": 0,
+            "followTarget": null,
+            "track": "先頭",
+            "remaining": 0.488,
+            "ability": 0.695
+          },
+          {
+            "no": 7,
+            "role": "B番手",
+            "gap": 0.576,
+            "followTarget": 1,
+            "track": "追走",
+            "remaining": 0.796,
+            "ability": 0.669
+          },
+          {
+            "no": 3,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.3,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.786,
+            "ability": 0.733
+          },
+          {
+            "no": 5,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.871,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.79,
+            "ability": 0.708
+          },
+          {
+            "no": 6,
+            "role": "別線追走",
+            "gap": 3.05,
+            "followTarget": 3,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.558
+          },
+          {
+            "no": 4,
+            "role": "別線自力・仕掛け候補",
+            "gap": 3.423,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.711,
+            "ability": 0.636
+          },
+          {
+            "no": 8,
+            "role": "別線追走",
+            "gap": 3.566,
+            "followTarget": 5,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.603
+          },
+          {
+            "no": 2,
+            "role": "別線追走",
+            "gap": 3.973,
+            "followTarget": 4,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.835
+          },
+          {
+            "no": 9,
+            "role": "単騎／別線追込・切替待ち",
+            "gap": 5.06,
+            "followTarget": null,
+            "track": "位置取り・切替待ち",
+            "remaining": 0.873,
+            "ability": 0.699
+          }
+        ],
+        "phases": [
+          {
+            "id": "initial",
+            "leader": 4,
+            "events": [
+              {
+                "actor": 4,
+                "action": "front",
+                "reason": "4番の前受けを初手の基準に設定（出走表からの戦術仮説）"
+              }
+            ]
+          },
+          {
+            "id": "red_bell",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 1,
+                "action": "cut",
+                "target": 4,
+                "reason": "1番のラインが赤板〜打鐘で前へ押さえ、初手先頭4番が後ろへ回る"
+              }
+            ]
+          },
+          {
+            "id": "home",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 1,
+                "action": "pace",
+                "reason": "押さえ先行からペースを上げ、外の反撃を封じにかかる"
+              },
+              {
+                "actor": 3,
+                "action": "counter",
+                "target": 1,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              },
+              {
+                "actor": 5,
+                "action": "counter",
+                "target": 1,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              }
+            ]
+          },
+          {
+            "id": "back",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 1,
+                "action": "retain",
+                "reason": "選択Bの1番が最終バックで先頭を維持"
+              },
+              {
+                "actor": 3,
+                "action": "outside",
+                "reason": "3番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              },
+              {
+                "actor": 5,
+                "action": "outside",
+                "reason": "5番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              }
+            ]
+          },
+          {
+            "id": "corner",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 7,
+                "action": "challenge",
+                "target": 1,
+                "reason": "B番手が前を見ながら最終3〜4角で差し構え"
+              },
+              {
+                "actor": 3,
+                "action": "chase",
+                "reason": "3番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              },
+              {
+                "actor": 2,
+                "action": "chase",
+                "reason": "2番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              }
+            ]
+          },
+          {
+            "id": "finish",
+            "leader": 7,
+            "events": [
+              {
+                "actor": 7,
+                "action": "finish",
+                "target": 1,
+                "reason": "本線三連単7-3-2。B番手が連結を維持し、最終3〜4角から直線で差す。3番は別線自力・仕掛け候補、2番は別線追走の位置から上位を争う。B位置・前半消耗・直線脚色を評価（勝者をB側に固定しない）"
+              },
+              {
+                "actor": 3,
+                "action": "place",
+                "reason": "3番が直線で着位を争い、上位2着を確保する展開"
+              },
+              {
+                "actor": 2,
+                "action": "place",
+                "reason": "2番が直線で着位を争い、上位3着を確保する展開"
+              }
+            ]
+          }
+        ]
+      },
+      "storedAt": "2026-11-06T20:57:46.517Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "中野慎詞",
+          "place": 1
+        },
+        {
+          "no": 2,
+          "name": "古性優作",
+          "place": 2
+        },
+        {
+          "no": 4,
+          "name": "脇本勇希",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:11",
+      "venue": "四日市",
+      "raceNo": 11,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "4-1-6",
+        "2-9",
+        "3-7",
+        "8-5"
+      ],
+      "actualB": 4,
+      "bLine": "4-1-6",
+      "actual": "1-7-3",
+      "payout": 9310,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-3-5",
+        "1-4-5",
+        "1-6-5",
+        "1-8-5",
+        "1-3-7"
+      ],
+      "oldTop5": [
+        "1-3-5",
+        "1-4-5",
+        "1-6-5",
+        "1-3-7",
+        "1-8-5"
+      ],
+      "newOracleTop5": [
+        "1-3-5",
+        "1-4-5",
+        "1-6-5",
+        "1-8-5",
+        "1-3-7"
+      ],
+      "oldOracleTop5": [
+        "1-3-5",
+        "1-4-5",
+        "1-6-5",
+        "1-3-7",
+        "1-8-5"
+      ],
+      "pairNewOracle5": false,
+      "debug": {
+        "normalPath": [
+          {
+            "key": "1-3-5",
+            "path": "marker",
+            "score": 2.3077
+          },
+          {
+            "key": "1-4-5",
+            "path": "marker",
+            "score": 2.2922
+          },
+          {
+            "key": "1-6-5",
+            "path": "marker",
+            "score": 2.2518
+          },
+          {
+            "key": "1-8-5",
+            "path": "marker",
+            "score": 2.2146
+          },
+          {
+            "key": "1-3-7",
+            "path": "marker",
+            "score": 2.2021
+          },
+          {
+            "key": "1-4-3",
+            "path": "marker",
+            "score": 2.1797
+          },
+          {
+            "key": "1-2-5",
+            "path": "marker",
+            "score": 2.1574
+          },
+          {
+            "key": "1-6-3",
+            "path": "marker",
+            "score": 2.1273
+          },
+          {
+            "key": "1-4-7",
+            "path": "marker",
+            "score": 2.0707
+          },
+          {
+            "key": "1-2-3",
+            "path": "marker",
+            "score": 2.0569
+          }
+        ],
+        "oraclePath": [
+          {
+            "key": "1-3-5",
+            "path": "marker",
+            "score": 2.3077
+          },
+          {
+            "key": "1-4-5",
+            "path": "marker",
+            "score": 2.2922
+          },
+          {
+            "key": "1-6-5",
+            "path": "marker",
+            "score": 2.2518
+          },
+          {
+            "key": "1-8-5",
+            "path": "marker",
+            "score": 2.2146
+          },
+          {
+            "key": "1-3-7",
+            "path": "marker",
+            "score": 2.2021
+          },
+          {
+            "key": "1-4-3",
+            "path": "marker",
+            "score": 2.1797
+          },
+          {
+            "key": "1-2-5",
+            "path": "marker",
+            "score": 2.1574
+          },
+          {
+            "key": "1-6-3",
+            "path": "marker",
+            "score": 2.1273
+          },
+          {
+            "key": "1-4-7",
+            "path": "marker",
+            "score": 2.0707
+          },
+          {
+            "key": "1-2-3",
+            "path": "marker",
+            "score": 2.0569
+          }
+        ],
+        "states": [
+          {
+            "no": 4,
+            "role": "B先頭",
+            "gap": 0,
+            "followTarget": null,
+            "track": "先頭",
+            "remaining": 0.482,
+            "ability": 0.639
+          },
+          {
+            "no": 1,
+            "role": "B番手",
+            "gap": 0.55,
+            "followTarget": 4,
+            "track": "追走",
+            "remaining": 0.796,
+            "ability": 0.778
+          },
+          {
+            "no": 6,
+            "role": "Bライン追走",
+            "gap": 1.343,
+            "followTarget": 1,
+            "track": "追走",
+            "remaining": 0.796,
+            "ability": 0.508
+          },
+          {
+            "no": 3,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.3,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.787,
+            "ability": 0.72
+          },
+          {
+            "no": 8,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.888,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.715,
+            "ability": 0.591
+          },
+          {
+            "no": 7,
+            "role": "別線追走",
+            "gap": 2.919,
+            "followTarget": 3,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.693
+          },
+          {
+            "no": 5,
+            "role": "別線追走",
+            "gap": 3.438,
+            "followTarget": 8,
+            "track": "追走",
+            "remaining": 0.879,
+            "ability": 0.732
+          },
+          {
+            "no": 2,
+            "role": "別線自力・仕掛け候補",
+            "gap": 3.465,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.802,
+            "ability": 0.647
+          },
+          {
+            "no": 9,
+            "role": "別線追走",
+            "gap": 4.033,
+            "followTarget": 2,
+            "track": "追走",
+            "remaining": 0.874,
+            "ability": 0.652
+          }
+        ],
+        "phases": [
+          {
+            "id": "initial",
+            "leader": 8,
+            "events": [
+              {
+                "actor": 8,
+                "action": "front",
+                "reason": "8番の前受けを初手の基準に設定（出走表からの戦術仮説）"
+              }
+            ]
+          },
+          {
+            "id": "red_bell",
+            "leader": 4,
+            "events": [
+              {
+                "actor": 4,
+                "action": "cut",
+                "target": 8,
+                "reason": "4番のラインが赤板〜打鐘で前へ押さえ、初手先頭8番が後ろへ回る"
+              }
+            ]
+          },
+          {
+            "id": "home",
+            "leader": 4,
+            "events": [
+              {
+                "actor": 4,
+                "action": "pace",
+                "reason": "押さえ先行からペースを上げ、外の反撃を封じにかかる"
+              },
+              {
+                "actor": 3,
+                "action": "counter",
+                "target": 4,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              },
+              {
+                "actor": 8,
+                "action": "counter",
+                "target": 4,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              }
+            ]
+          },
+          {
+            "id": "back",
+            "leader": 4,
+            "events": [
+              {
+                "actor": 4,
+                "action": "retain",
+                "reason": "選択Bの4番が最終バックで先頭を維持"
+              },
+              {
+                "actor": 3,
+                "action": "outside",
+                "reason": "3番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              },
+              {
+                "actor": 8,
+                "action": "outside",
+                "reason": "8番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              }
+            ]
+          },
+          {
+            "id": "corner",
+            "leader": 4,
+            "events": [
+              {
+                "actor": 1,
+                "action": "challenge",
+                "target": 4,
+                "reason": "B番手が前を見ながら最終3〜4角で差し構え"
+              },
+              {
+                "actor": 3,
+                "action": "chase",
+                "reason": "3番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              },
+              {
+                "actor": 5,
+                "action": "chase",
+                "reason": "5番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              }
+            ]
+          },
+          {
+            "id": "finish",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 1,
+                "action": "finish",
+                "target": 4,
+                "reason": "本線三連単1-3-5。B番手が連結を維持し、最終3〜4角から直線で差す。3番は別線自力・仕掛け候補、5番は別線追走の位置から上位を争う。B位置・前半消耗・直線脚色を評価（勝者をB側に固定しない）"
+              },
+              {
+                "actor": 3,
+                "action": "place",
+                "reason": "3番が直線で着位を争い、上位2着を確保する展開"
+              },
+              {
+                "actor": 5,
+                "action": "place",
+                "reason": "5番が直線で着位を争い、上位3着を確保する展開"
+              }
+            ]
+          }
+        ]
+      },
+      "storedAt": "2026-11-06T20:57:46.086Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "浅井康太",
+          "place": 1
+        },
+        {
+          "no": 7,
+          "name": "松谷秀幸",
+          "place": 2
+        },
+        {
+          "no": 3,
+          "name": "新田祐大",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:10",
+      "venue": "四日市",
+      "raceNo": 10,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "8-2",
+        "1-7",
+        "3-4-6",
+        "9-5"
+      ],
+      "actualB": 9,
+      "bLine": "9-5",
+      "actual": "3-1-4",
+      "payout": 5820,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "4-3-2",
+        "3-4-2",
+        "4-6-3",
+        "4-1-2",
+        "3-1-2"
+      ],
+      "oldTop5": [
+        "4-3-2",
+        "3-4-2",
+        "4-6-3",
+        "3-1-2",
+        "4-1-3"
+      ],
+      "newOracleTop5": [
+        "5-9-2",
+        "5-3-2",
+        "5-1-2",
+        "5-9-3",
+        "9-5-2"
+      ],
+      "oldOracleTop5": [
+        "5-9-2",
+        "5-3-2",
+        "5-1-2",
+        "3-5-9",
+        "3-9-5"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:45.710Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "森田優弥",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "寺崎浩平",
+          "place": 2
+        },
+        {
+          "no": 4,
+          "name": "桑名僚也",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:9",
+      "venue": "四日市",
+      "raceNo": 9,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "1-7-4",
+        "9-2",
+        "5-3",
+        "8-6"
+      ],
+      "actualB": 1,
+      "bLine": "1-7-4",
+      "actual": "7-1-5",
+      "payout": 4040,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-4-1",
+        "7-1-4",
+        "7-9-4",
+        "7-4-9",
+        "7-5-4"
+      ],
+      "oldTop5": [
+        "7-4-1",
+        "7-1-4",
+        "7-9-4",
+        "7-4-9",
+        "7-1-9"
+      ],
+      "newOracleTop5": [
+        "7-4-1",
+        "7-1-4",
+        "7-9-4",
+        "7-4-9",
+        "7-5-4"
+      ],
+      "oldOracleTop5": [
+        "7-4-1",
+        "7-1-4",
+        "7-9-4",
+        "7-4-9",
+        "7-1-9"
+      ],
+      "pairNewOracle5": true,
+      "debug": {
+        "normalPath": [
+          {
+            "key": "7-4-1",
+            "path": "marker",
+            "score": 2.1194
+          },
+          {
+            "key": "7-1-4",
+            "path": "marker",
+            "score": 2.1042
+          },
+          {
+            "key": "7-9-4",
+            "path": "marker",
+            "score": 2.0128
+          },
+          {
+            "key": "7-4-9",
+            "path": "marker",
+            "score": 1.9906
+          },
+          {
+            "key": "7-5-4",
+            "path": "marker",
+            "score": 1.9656
+          },
+          {
+            "key": "7-1-9",
+            "path": "marker",
+            "score": 1.953
+          },
+          {
+            "key": "4-7-1",
+            "path": "third_rush",
+            "score": 1.9268
+          },
+          {
+            "key": "4-1-7",
+            "path": "third_rush",
+            "score": 1.9035
+          },
+          {
+            "key": "7-9-1",
+            "path": "marker",
+            "score": 1.8994
+          },
+          {
+            "key": "1-7-4",
+            "path": "hold",
+            "score": 1.8938
+          }
+        ],
+        "oraclePath": [
+          {
+            "key": "7-4-1",
+            "path": "marker",
+            "score": 2.1194
+          },
+          {
+            "key": "7-1-4",
+            "path": "marker",
+            "score": 2.1042
+          },
+          {
+            "key": "7-9-4",
+            "path": "marker",
+            "score": 2.0128
+          },
+          {
+            "key": "7-4-9",
+            "path": "marker",
+            "score": 1.9906
+          },
+          {
+            "key": "7-5-4",
+            "path": "marker",
+            "score": 1.9656
+          },
+          {
+            "key": "7-1-9",
+            "path": "marker",
+            "score": 1.953
+          },
+          {
+            "key": "4-7-1",
+            "path": "third_rush",
+            "score": 1.9268
+          },
+          {
+            "key": "4-1-7",
+            "path": "third_rush",
+            "score": 1.9035
+          },
+          {
+            "key": "7-9-1",
+            "path": "marker",
+            "score": 1.8994
+          },
+          {
+            "key": "1-7-4",
+            "path": "hold",
+            "score": 1.8938
+          }
+        ],
+        "states": [
+          {
+            "no": 1,
+            "role": "B先頭",
+            "gap": 0,
+            "followTarget": null,
+            "track": "先頭",
+            "remaining": 0.49,
+            "ability": 0.637
+          },
+          {
+            "no": 7,
+            "role": "B番手",
+            "gap": 0.606,
+            "followTarget": 1,
+            "track": "追走",
+            "remaining": 0.796,
+            "ability": 0.605
+          },
+          {
+            "no": 4,
+            "role": "Bライン追走",
+            "gap": 1.244,
+            "followTarget": 7,
+            "track": "追走",
+            "remaining": 0.801,
+            "ability": 0.515
+          },
+          {
+            "no": 5,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.334,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.716,
+            "ability": 0.555
+          },
+          {
+            "no": 9,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.904,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.8,
+            "ability": 0.535
+          },
+          {
+            "no": 3,
+            "role": "別線追走",
+            "gap": 2.938,
+            "followTarget": 5,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.564
+          },
+          {
+            "no": 2,
+            "role": "別線追走",
+            "gap": 3.511,
+            "followTarget": 9,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.606
+          },
+          {
+            "no": 8,
+            "role": "単騎／別線追込・切替待ち",
+            "gap": 4.531,
+            "followTarget": null,
+            "track": "位置取り・切替待ち",
+            "remaining": 0.876,
+            "ability": 0.493
+          },
+          {
+            "no": 6,
+            "role": "別線追走",
+            "gap": 5.208,
+            "followTarget": 8,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.451
+          }
+        ],
+        "phases": [
+          {
+            "id": "initial",
+            "leader": 5,
+            "events": [
+              {
+                "actor": 5,
+                "action": "front",
+                "reason": "5番の前受けを初手の基準に設定（出走表からの戦術仮説）"
+              }
+            ]
+          },
+          {
+            "id": "red_bell",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 1,
+                "action": "cut",
+                "target": 5,
+                "reason": "1番のラインが赤板〜打鐘で前へ押さえ、初手先頭5番が後ろへ回る"
+              }
+            ]
+          },
+          {
+            "id": "home",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 1,
+                "action": "pace",
+                "reason": "押さえ先行からペースを上げ、外の反撃を封じにかかる"
+              },
+              {
+                "actor": 5,
+                "action": "counter",
+                "target": 1,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              },
+              {
+                "actor": 9,
+                "action": "counter",
+                "target": 1,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              }
+            ]
+          },
+          {
+            "id": "back",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 1,
+                "action": "retain",
+                "reason": "選択Bの1番が最終バックで先頭を維持"
+              },
+              {
+                "actor": 5,
+                "action": "outside",
+                "reason": "5番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              },
+              {
+                "actor": 9,
+                "action": "outside",
+                "reason": "9番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              }
+            ]
+          },
+          {
+            "id": "corner",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 7,
+                "action": "challenge",
+                "target": 1,
+                "reason": "B番手が前を見ながら最終3〜4角で差し構え"
+              },
+              {
+                "actor": 4,
+                "action": "chase",
+                "reason": "4番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              },
+              {
+                "actor": 1,
+                "action": "chase",
+                "reason": "1番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              }
+            ]
+          },
+          {
+            "id": "finish",
+            "leader": 7,
+            "events": [
+              {
+                "actor": 7,
+                "action": "finish",
+                "target": 1,
+                "reason": "本線三連単7-4-1。B番手が連結を維持し、最終3〜4角から直線で差す。4番はBライン追走、1番はB先頭の位置から上位を争う。B位置・前半消耗・直線脚色を評価（勝者をB側に固定しない）"
+              },
+              {
+                "actor": 4,
+                "action": "place",
+                "reason": "4番が直線で着位を争い、上位2着を確保する展開"
+              },
+              {
+                "actor": 1,
+                "action": "place",
+                "reason": "1番が直線で着位を争い、上位3着を確保する展開"
+              }
+            ]
+          }
+        ]
+      },
+      "storedAt": "2026-11-06T20:57:45.301Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "上田国広",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "谷口遼平",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "昼田達哉",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:8",
+      "venue": "四日市",
+      "raceNo": 8,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "1-8",
+        "2-9-6",
+        "3-5",
+        "7-4"
+      ],
+      "actualB": 7,
+      "bLine": "7-4",
+      "actual": "2-3-1",
+      "payout": 27940,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "5-3-2",
+        "5-2-9",
+        "2-5-3",
+        "5-2-3",
+        "2-3-5"
+      ],
+      "oldTop5": [
+        "5-3-2",
+        "2-5-3",
+        "5-2-9",
+        "2-3-5",
+        "2-9-5"
+      ],
+      "newOracleTop5": [
+        "4-7-2",
+        "4-2-9",
+        "4-3-2",
+        "4-2-7",
+        "4-7-5"
+      ],
+      "oldOracleTop5": [
+        "4-7-2",
+        "4-2-9",
+        "2-4-7",
+        "4-3-2",
+        "2-7-4"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:44.920Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "金子幸央",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "平野想真",
+          "place": 2
+        },
+        {
+          "no": 1,
+          "name": "真鍋智寛",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:7",
+      "venue": "四日市",
+      "raceNo": 7,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "2-9",
+        "5-3-8-6",
+        "1-7",
+        "4"
+      ],
+      "actualB": 2,
+      "bLine": "2-9",
+      "actual": "3-5-8",
+      "payout": 1090,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": true,
+      "newTop5": [
+        "3-5-8",
+        "3-8-5",
+        "5-3-8",
+        "3-1-5",
+        "3-5-9"
+      ],
+      "oldTop5": [
+        "3-5-8",
+        "3-8-5",
+        "5-3-8",
+        "3-1-5",
+        "3-5-1"
+      ],
+      "newOracleTop5": [
+        "9-2-5",
+        "9-5-3",
+        "9-1-5",
+        "9-2-3",
+        "9-5-2"
+      ],
+      "oldOracleTop5": [
+        "9-2-5",
+        "9-5-3",
+        "9-1-5",
+        "9-2-3",
+        "9-5-2"
+      ],
+      "pairNewOracle5": false,
+      "debug": {
+        "normalPath": [
+          {
+            "key": "3-5-8",
+            "path": "marker",
+            "score": 2.0726
+          },
+          {
+            "key": "3-8-5",
+            "path": "marker",
+            "score": 2.051
+          },
+          {
+            "key": "5-3-8",
+            "path": "hold",
+            "score": 1.9601
+          },
+          {
+            "key": "3-1-5",
+            "path": "marker",
+            "score": 1.9512
+          },
+          {
+            "key": "3-5-9",
+            "path": "marker",
+            "score": 1.9381
+          },
+          {
+            "key": "3-2-5",
+            "path": "marker",
+            "score": 1.9091
+          },
+          {
+            "key": "3-8-9",
+            "path": "marker",
+            "score": 1.8811
+          },
+          {
+            "key": "5-3-9",
+            "path": "hold",
+            "score": 1.8496
+          },
+          {
+            "key": "3-5-1",
+            "path": "marker",
+            "score": 1.846
+          },
+          {
+            "key": "8-3-5",
+            "path": "third_rush",
+            "score": 1.8441
+          }
+        ],
+        "oraclePath": [
+          {
+            "key": "9-2-5",
+            "path": "marker",
+            "score": 2.0341
+          },
+          {
+            "key": "9-5-3",
+            "path": "marker",
+            "score": 2.0201
+          },
+          {
+            "key": "9-1-5",
+            "path": "marker",
+            "score": 1.9608
+          },
+          {
+            "key": "9-2-3",
+            "path": "marker",
+            "score": 1.9374
+          },
+          {
+            "key": "9-5-2",
+            "path": "marker",
+            "score": 1.8987
+          },
+          {
+            "key": "9-1-7",
+            "path": "marker",
+            "score": 1.8641
+          },
+          {
+            "key": "9-2-1",
+            "path": "marker",
+            "score": 1.8316
+          },
+          {
+            "key": "2-9-5",
+            "path": "hold",
+            "score": 1.8146
+          },
+          {
+            "key": "9-5-1",
+            "path": "marker",
+            "score": 1.7983
+          },
+          {
+            "key": "5-9-2",
+            "path": "outside",
+            "score": 1.7813
+          }
+        ],
+        "states": [
+          {
+            "no": 2,
+            "role": "B先頭",
+            "gap": 0,
+            "followTarget": null,
+            "track": "先頭",
+            "remaining": 0.486,
+            "ability": 0.565
+          },
+          {
+            "no": 9,
+            "role": "B番手",
+            "gap": 0.593,
+            "followTarget": 2,
+            "track": "追走",
+            "remaining": 0.799,
+            "ability": 0.553
+          },
+          {
+            "no": 1,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.3,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.714,
+            "ability": 0.56
+          },
+          {
+            "no": 5,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.85,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.793,
+            "ability": 0.621
+          },
+          {
+            "no": 7,
+            "role": "別線追走",
+            "gap": 2.914,
+            "followTarget": 1,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.555
+          },
+          {
+            "no": 3,
+            "role": "別線追走",
+            "gap": 3.4,
+            "followTarget": 5,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.668
+          },
+          {
+            "no": 8,
+            "role": "別線追走",
+            "gap": 4.079,
+            "followTarget": 3,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.49
+          },
+          {
+            "no": 4,
+            "role": "単騎／別線追込・切替待ち",
+            "gap": 4.528,
+            "followTarget": null,
+            "track": "位置取り・切替待ち",
+            "remaining": 0.873,
+            "ability": 0.523
+          },
+          {
+            "no": 6,
+            "role": "別線追走",
+            "gap": 4.802,
+            "followTarget": 8,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.455
+          }
+        ],
+        "phases": [
+          {
+            "id": "initial",
+            "leader": 1,
+            "events": [
+              {
+                "actor": 1,
+                "action": "front",
+                "reason": "1番の前受けを初手の基準に設定（出走表からの戦術仮説）"
+              }
+            ]
+          },
+          {
+            "id": "red_bell",
+            "leader": 2,
+            "events": [
+              {
+                "actor": 2,
+                "action": "cut",
+                "target": 1,
+                "reason": "2番のラインが赤板〜打鐘で前へ押さえ、初手先頭1番が後ろへ回る"
+              }
+            ]
+          },
+          {
+            "id": "home",
+            "leader": 2,
+            "events": [
+              {
+                "actor": 2,
+                "action": "pace",
+                "reason": "押さえ先行からペースを上げ、外の反撃を封じにかかる"
+              },
+              {
+                "actor": 1,
+                "action": "counter",
+                "target": 2,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              },
+              {
+                "actor": 5,
+                "action": "counter",
+                "target": 2,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              }
+            ]
+          },
+          {
+            "id": "back",
+            "leader": 2,
+            "events": [
+              {
+                "actor": 2,
+                "action": "retain",
+                "reason": "選択Bの2番が最終バックで先頭を維持"
+              },
+              {
+                "actor": 1,
+                "action": "outside",
+                "reason": "1番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              },
+              {
+                "actor": 5,
+                "action": "outside",
+                "reason": "5番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              }
+            ]
+          },
+          {
+            "id": "corner",
+            "leader": 2,
+            "events": [
+              {
+                "actor": 9,
+                "action": "challenge",
+                "target": 2,
+                "reason": "B番手が前を見ながら最終3〜4角で差し構え"
+              },
+              {
+                "actor": 2,
+                "action": "chase",
+                "reason": "2番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              },
+              {
+                "actor": 5,
+                "action": "chase",
+                "reason": "5番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              }
+            ]
+          },
+          {
+            "id": "finish",
+            "leader": 9,
+            "events": [
+              {
+                "actor": 9,
+                "action": "finish",
+                "target": 2,
+                "reason": "本線三連単9-2-5。B番手が連結を維持し、最終3〜4角から直線で差す。2番はB先頭、5番は別線自力・仕掛け候補の位置から上位を争う。B位置・前半消耗・直線脚色を評価（勝者をB側に固定しない）"
+              },
+              {
+                "actor": 2,
+                "action": "place",
+                "reason": "2番が直線で着位を争い、上位2着を確保する展開"
+              },
+              {
+                "actor": 5,
+                "action": "place",
+                "reason": "5番が直線で着位を争い、上位3着を確保する展開"
+              }
+            ]
+          }
+        ]
+      },
+      "storedAt": "2026-11-06T20:57:44.450Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "橋本強",
+          "place": 1
+        },
+        {
+          "no": 5,
+          "name": "晝田宗一郎",
+          "place": 2
+        },
+        {
+          "no": 8,
+          "name": "鈴木裕",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:6",
+      "venue": "四日市",
+      "raceNo": 6,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "9-1-6",
+        "7-2",
+        "4",
+        "5-3-8"
+      ],
+      "actualB": 7,
+      "bLine": "7-2",
+      "actual": "7-4-5",
+      "payout": 69290,
+      "modelB": 9,
+      "oldB": 9,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-9-2",
+        "1-7-2",
+        "1-6-2",
+        "9-1-2",
+        "1-5-2"
+      ],
+      "oldTop5": [
+        "1-9-2",
+        "1-7-2",
+        "9-1-2",
+        "7-2-9",
+        "9-7-2"
+      ],
+      "newOracleTop5": [
+        "2-7-9",
+        "2-9-7",
+        "2-5-7",
+        "2-7-5",
+        "2-4-7"
+      ],
+      "oldOracleTop5": [
+        "2-7-9",
+        "2-9-7",
+        "2-5-7",
+        "2-7-5",
+        "2-4-7"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:44.121Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "三神遼矢",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "三浦貴大",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "加藤将武",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:5",
+      "venue": "四日市",
+      "raceNo": 5,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "1-5-6",
+        "9-2",
+        "3-8",
+        "7-4"
+      ],
+      "actualB": 7,
+      "bLine": "7-4",
+      "actual": "1-3-5",
+      "payout": 9220,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "8-1-5",
+        "1-5-3",
+        "8-3-1",
+        "1-3-8",
+        "8-7-1"
+      ],
+      "oldTop5": [
+        "1-5-3",
+        "8-1-5",
+        "1-3-8",
+        "1-8-3",
+        "8-3-1"
+      ],
+      "newOracleTop5": [
+        "4-7-1",
+        "4-1-5",
+        "1-5-7",
+        "1-7-4",
+        "4-7-5"
+      ],
+      "oldOracleTop5": [
+        "4-7-1",
+        "1-7-4",
+        "4-1-5",
+        "1-5-7",
+        "1-4-7"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:43.752Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "福永大智",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "高橋晋也",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "吉田敏洋",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:4",
+      "venue": "四日市",
+      "raceNo": 4,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "1-9",
+        "5-2-7",
+        "3-4",
+        "8-6"
+      ],
+      "actualB": 1,
+      "bLine": "1-9",
+      "actual": "2-5-8",
+      "payout": 7320,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "4-5-2",
+        "4-3-2",
+        "5-2-3",
+        "4-1-2",
+        "3-5-2"
+      ],
+      "oldTop5": [
+        "4-5-2",
+        "5-2-3",
+        "4-3-2",
+        "3-5-2",
+        "5-3-2"
+      ],
+      "newOracleTop5": [
+        "9-1-2",
+        "9-5-2",
+        "1-5-2",
+        "1-9-2",
+        "9-1-5"
+      ],
+      "oldOracleTop5": [
+        "9-1-2",
+        "1-5-2",
+        "9-5-2",
+        "1-9-2",
+        "5-2-1"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:43.334Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "大西貴晃",
+          "place": 1
+        },
+        {
+          "no": 5,
+          "name": "久田裕也",
+          "place": 2
+        },
+        {
+          "no": 8,
+          "name": "高田修汰",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:3",
+      "venue": "四日市",
+      "raceNo": 3,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "2-9",
+        "1-4-6",
+        "7",
+        "3-5-8"
+      ],
+      "actualB": 3,
+      "bLine": "3-5-8",
+      "actual": "2-3-9",
+      "payout": 13130,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "5-3-8",
+        "5-8-3",
+        "5-1-3",
+        "5-3-1",
+        "5-7-3"
+      ],
+      "oldTop5": [
+        "5-3-1",
+        "5-8-3",
+        "5-1-3",
+        "5-3-8",
+        "3-5-1"
+      ],
+      "newOracleTop5": [
+        "5-3-8",
+        "5-8-3",
+        "5-1-3",
+        "5-3-1",
+        "5-7-3"
+      ],
+      "oldOracleTop5": [
+        "5-3-1",
+        "5-8-3",
+        "5-1-3",
+        "5-3-8",
+        "3-5-1"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:42.483Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "小笠原光",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "齋藤雄行",
+          "place": 2
+        },
+        {
+          "no": 9,
+          "name": "菅原晃",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:四日市:2",
+      "venue": "四日市",
+      "raceNo": 2,
+      "field": 9,
+      "category": "9車",
+      "lines": [
+        "1-5",
+        "2-4-6",
+        "7-3-8",
+        "9"
+      ],
+      "actualB": 7,
+      "bLine": "7-3-8",
+      "actual": "7-8-2",
+      "payout": 212400,
+      "modelB": 2,
+      "oldB": 2,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "4-2-1",
+        "4-1-3",
+        "4-7-3",
+        "4-2-3",
+        "4-6-2"
+      ],
+      "oldTop5": [
+        "4-2-1",
+        "4-1-2",
+        "4-7-3",
+        "4-6-2",
+        "2-4-1"
+      ],
+      "newOracleTop5": [
+        "3-7-1",
+        "3-8-7",
+        "3-1-7",
+        "3-7-8",
+        "3-2-1"
+      ],
+      "oldOracleTop5": [
+        "3-7-1",
+        "3-8-7",
+        "3-1-7",
+        "3-7-8",
+        "3-2-1"
+      ],
+      "pairNewOracle5": false,
+      "debug": {
+        "normalPath": [
+          {
+            "key": "4-2-1",
+            "path": "marker",
+            "score": 1.7635
+          },
+          {
+            "key": "4-1-3",
+            "path": "marker",
+            "score": 1.7184
+          },
+          {
+            "key": "4-7-3",
+            "path": "marker",
+            "score": 1.6934
+          },
+          {
+            "key": "4-2-3",
+            "path": "marker",
+            "score": 1.6724
+          },
+          {
+            "key": "4-6-2",
+            "path": "marker",
+            "score": 1.6586
+          },
+          {
+            "key": "2-4-1",
+            "path": "hold",
+            "score": 1.6397
+          },
+          {
+            "key": "4-1-2",
+            "path": "marker",
+            "score": 1.6128
+          },
+          {
+            "key": "2-1-3",
+            "path": "hold",
+            "score": 1.6008
+          },
+          {
+            "key": "2-7-3",
+            "path": "hold",
+            "score": 1.5758
+          },
+          {
+            "key": "1-2-4",
+            "path": "outside",
+            "score": 1.5728
+          }
+        ],
+        "oraclePath": [
+          {
+            "key": "3-7-1",
+            "path": "marker",
+            "score": 1.8978
+          },
+          {
+            "key": "3-8-7",
+            "path": "marker",
+            "score": 1.8701
+          },
+          {
+            "key": "3-1-7",
+            "path": "marker",
+            "score": 1.8391
+          },
+          {
+            "key": "3-7-8",
+            "path": "marker",
+            "score": 1.8014
+          },
+          {
+            "key": "3-2-1",
+            "path": "marker",
+            "score": 1.7857
+          },
+          {
+            "key": "3-8-1",
+            "path": "marker",
+            "score": 1.7476
+          },
+          {
+            "key": "3-1-2",
+            "path": "marker",
+            "score": 1.7161
+          },
+          {
+            "key": "3-2-7",
+            "path": "marker",
+            "score": 1.6891
+          },
+          {
+            "key": "7-3-1",
+            "path": "hold",
+            "score": 1.6844
+          },
+          {
+            "key": "3-7-2",
+            "path": "marker",
+            "score": 1.6662
+          }
+        ],
+        "states": [
+          {
+            "no": 7,
+            "role": "B先頭",
+            "gap": 0,
+            "followTarget": null,
+            "track": "先頭",
+            "remaining": 0.486,
+            "ability": 0.479
+          },
+          {
+            "no": 3,
+            "role": "B番手",
+            "gap": 0.619,
+            "followTarget": 7,
+            "track": "追走",
+            "remaining": 0.796,
+            "ability": 0.481
+          },
+          {
+            "no": 8,
+            "role": "Bライン追走",
+            "gap": 1.383,
+            "followTarget": 3,
+            "track": "追走",
+            "remaining": 0.796,
+            "ability": 0.406
+          },
+          {
+            "no": 2,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.313,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.707,
+            "ability": 0.428
+          },
+          {
+            "no": 1,
+            "role": "別線自力・仕掛け候補",
+            "gap": 2.951,
+            "followTarget": null,
+            "track": "外並走・追撃可能",
+            "remaining": 0.802,
+            "ability": 0.491
+          },
+          {
+            "no": 4,
+            "role": "別線追走",
+            "gap": 3.036,
+            "followTarget": 2,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.422
+          },
+          {
+            "no": 5,
+            "role": "別線追走",
+            "gap": 3.7,
+            "followTarget": 1,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.429
+          },
+          {
+            "no": 6,
+            "role": "別線追走",
+            "gap": 3.77,
+            "followTarget": 4,
+            "track": "追走",
+            "remaining": 0.873,
+            "ability": 0.35
+          },
+          {
+            "no": 9,
+            "role": "単騎／別線追込・切替待ち",
+            "gap": 4.536,
+            "followTarget": null,
+            "track": "位置取り・切替待ち",
+            "remaining": 0.873,
+            "ability": 0.435
+          }
+        ],
+        "phases": [
+          {
+            "id": "initial",
+            "leader": 2,
+            "events": [
+              {
+                "actor": 2,
+                "action": "front",
+                "reason": "2番の前受けを初手の基準に設定（出走表からの戦術仮説）"
+              }
+            ]
+          },
+          {
+            "id": "red_bell",
+            "leader": 7,
+            "events": [
+              {
+                "actor": 7,
+                "action": "cut",
+                "target": 2,
+                "reason": "7番のラインが赤板〜打鐘で前へ押さえ、初手先頭2番が後ろへ回る"
+              }
+            ]
+          },
+          {
+            "id": "home",
+            "leader": 7,
+            "events": [
+              {
+                "actor": 7,
+                "action": "pace",
+                "reason": "押さえ先行からペースを上げ、外の反撃を封じにかかる"
+              },
+              {
+                "actor": 2,
+                "action": "counter",
+                "target": 7,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              },
+              {
+                "actor": 1,
+                "action": "counter",
+                "target": 7,
+                "reason": "中団・後方からの反撃を検討し、最終B直後の射程を争う"
+              }
+            ]
+          },
+          {
+            "id": "back",
+            "leader": 7,
+            "events": [
+              {
+                "actor": 7,
+                "action": "retain",
+                "reason": "選択Bの7番が最終バックで先頭を維持"
+              },
+              {
+                "actor": 2,
+                "action": "outside",
+                "reason": "2番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              },
+              {
+                "actor": 1,
+                "action": "outside",
+                "reason": "1番はBではまだ先頭でないが、外から追い上げを継続できる位置"
+              }
+            ]
+          },
+          {
+            "id": "corner",
+            "leader": 7,
+            "events": [
+              {
+                "actor": 3,
+                "action": "challenge",
+                "target": 7,
+                "reason": "B番手が前を見ながら最終3〜4角で差し構え"
+              },
+              {
+                "actor": 7,
+                "action": "chase",
+                "reason": "7番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              },
+              {
+                "actor": 1,
+                "action": "chase",
+                "reason": "1番は最終Bの位置関係から3〜4角で上位進出を狙う"
+              }
+            ]
+          },
+          {
+            "id": "finish",
+            "leader": 3,
+            "events": [
+              {
+                "actor": 3,
+                "action": "finish",
+                "target": 7,
+                "reason": "本線三連単3-7-1。B番手が連結を維持し、最終3〜4角から直線で差す。7番はB先頭、1番は別線自力・仕掛け候補の位置から上位を争う。B位置・前半消耗・直線脚色を評価（勝者をB側に固定しない）"
+              },
+              {
+                "actor": 7,
+                "action": "place",
+                "reason": "7番が直線で着位を争い、上位2着を確保する展開"
+              },
+              {
+                "actor": 1,
+                "action": "place",
+                "reason": "1番が直線で着位を争い、上位3着を確保する展開"
+              }
+            ]
+          }
+        ]
+      },
+      "storedAt": "2026-11-06T20:57:41.503Z",
+      "source_url": "https://www.chariloto.com/keirin/results/48/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "稲毛健太",
+          "place": 1
+        },
+        {
+          "no": 8,
+          "name": "徳丸泰教",
+          "place": 2
+        },
+        {
+          "no": 2,
+          "name": "藤田昌宏",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:小倉:9",
+      "venue": "小倉",
+      "raceNo": 9,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "7-1",
+        "2",
+        "4",
+        "6-3-5"
+      ],
+      "actualB": 6,
+      "bLine": "6-3-5",
+      "actual": "3-6-5",
+      "payout": 7870,
+      "modelB": 6,
+      "oldB": 6,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "3-5-6",
+        "3-6-5",
+        "3-5-1",
+        "3-6-1",
+        "6-3-5"
+      ],
+      "oldTop5": [
+        "3-5-6",
+        "3-6-5",
+        "3-5-2",
+        "3-6-2",
+        "6-3-5"
+      ],
+      "newOracleTop5": [
+        "3-5-6",
+        "3-6-5",
+        "3-5-1",
+        "3-6-1",
+        "6-3-5"
+      ],
+      "oldOracleTop5": [
+        "3-5-6",
+        "3-6-5",
+        "3-5-2",
+        "3-6-2",
+        "6-3-5"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-07T10:21:07.700Z",
+      "source_url": "https://www.chariloto.com/keirin/results/81/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "上吹越直樹",
+          "place": 1
+        },
+        {
+          "no": 6,
+          "name": "中山遼太郎",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "是永幸寛",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:小倉:8",
+      "venue": "小倉",
+      "raceNo": 8,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-2",
+        "5-3-4",
+        "6",
+        "7"
+      ],
+      "actualB": 1,
+      "bLine": "1-2",
+      "actual": "2-1-3",
+      "payout": 4530,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": false,
+      "oracle5": true,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": false,
+      "newTop5": [
+        "3-4-5",
+        "3-5-4",
+        "5-3-4",
+        "3-4-1",
+        "3-5-1"
+      ],
+      "oldTop5": [
+        "3-4-5",
+        "3-5-4",
+        "5-3-4",
+        "3-4-1",
+        "3-5-1"
+      ],
+      "newOracleTop5": [
+        "2-1-5",
+        "1-2-5",
+        "2-1-4",
+        "1-2-4",
+        "2-1-3"
+      ],
+      "oldOracleTop5": [
+        "2-1-5",
+        "1-2-5",
+        "2-1-4",
+        "1-2-4",
+        "2-1-3"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-07T10:21:07.189Z",
+      "source_url": "https://www.chariloto.com/keirin/results/81/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "北村篤",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "西澤優聖",
+          "place": 2
+        },
+        {
+          "no": 3,
+          "name": "小川大地",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:小倉:7",
+      "venue": "小倉",
+      "raceNo": 7,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-3",
+        "2-6",
+        "7-4-5"
+      ],
+      "actualB": 7,
+      "bLine": "7-4-5",
+      "actual": "1-3-4",
+      "payout": 710,
+      "modelB": 2,
+      "oldB": 2,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "6-2-1",
+        "2-6-1",
+        "6-2-4",
+        "2-6-4",
+        "6-7-2"
+      ],
+      "oldTop5": [
+        "6-2-1",
+        "2-6-1",
+        "6-2-4",
+        "2-6-4",
+        "6-7-2"
+      ],
+      "newOracleTop5": [
+        "4-5-1",
+        "4-7-5",
+        "4-2-1",
+        "4-5-7",
+        "4-7-1"
+      ],
+      "oldOracleTop5": [
+        "4-5-1",
+        "4-7-5",
+        "4-2-1",
+        "4-5-7",
+        "4-7-1"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-07T10:21:06.572Z",
+      "source_url": "https://www.chariloto.com/keirin/results/81/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "近藤翔馬",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "坂本匡洋",
+          "place": 2
+        },
+        {
+          "no": 4,
+          "name": "宮司周郎",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:小倉:6",
+      "venue": "小倉",
+      "raceNo": 6,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "4-1",
+        "2-6",
+        "3-5-7"
+      ],
+      "actualB": 3,
+      "bLine": "3-5-7",
+      "actual": "3-1-5",
+      "payout": 7960,
+      "modelB": 2,
+      "oldB": 2,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "2-6-3",
+        "6-2-3",
+        "2-3-6",
+        "6-3-2",
+        "2-6-4"
+      ],
+      "oldTop5": [
+        "2-6-3",
+        "2-3-6",
+        "6-2-3",
+        "3-2-6",
+        "2-6-4"
+      ],
+      "newOracleTop5": [
+        "3-5-2",
+        "5-3-2",
+        "3-2-5",
+        "2-3-5",
+        "5-2-3"
+      ],
+      "oldOracleTop5": [
+        "3-5-2",
+        "2-3-5",
+        "5-3-2",
+        "2-5-3",
+        "3-2-5"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-07T10:21:06.091Z",
+      "source_url": "https://www.chariloto.com/keirin/results/81/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "谷口力也",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "西村豊",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "高比良豪",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:小倉:5",
+      "venue": "小倉",
+      "raceNo": 5,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-7-2",
+        "3",
+        "4",
+        "6-5"
+      ],
+      "actualB": 6,
+      "bLine": "6-5",
+      "actual": "1-7-2",
+      "payout": 330,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": true,
+      "newTop5": [
+        "1-7-2",
+        "7-1-2",
+        "7-2-1",
+        "1-7-4",
+        "1-7-5"
+      ],
+      "oldTop5": [
+        "1-7-2",
+        "7-1-2",
+        "7-2-1",
+        "1-7-4",
+        "7-1-4"
+      ],
+      "newOracleTop5": [
+        "5-1-7",
+        "5-6-1",
+        "5-1-2",
+        "1-5-6",
+        "5-6-7"
+      ],
+      "oldOracleTop5": [
+        "5-6-1",
+        "5-1-7",
+        "1-5-6",
+        "1-6-5",
+        "5-1-2"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-07T10:21:05.567Z",
+      "source_url": "https://www.chariloto.com/keirin/results/81/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "前田義和",
+          "place": 1
+        },
+        {
+          "no": 7,
+          "name": "高田真幸",
+          "place": 2
+        },
+        {
+          "no": 2,
+          "name": "武田良太",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:小倉:4",
+      "venue": "小倉",
+      "raceNo": 4,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "4-1-6",
+        "2-3",
+        "5",
+        "7"
+      ],
+      "actualB": 2,
+      "bLine": "2-3",
+      "actual": "4-3-6",
+      "payout": 94090,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-4-6",
+        "1-6-4",
+        "1-4-2",
+        "1-4-5",
+        "4-1-6"
+      ],
+      "oldTop5": [
+        "1-4-6",
+        "1-6-4",
+        "1-4-2",
+        "1-4-5",
+        "4-1-6"
+      ],
+      "newOracleTop5": [
+        "3-2-1",
+        "3-4-1",
+        "3-2-4",
+        "2-3-1",
+        "3-4-2"
+      ],
+      "oldOracleTop5": [
+        "3-2-1",
+        "3-4-1",
+        "2-3-1",
+        "3-2-4",
+        "2-4-1"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-07T10:21:05.050Z",
+      "source_url": "https://www.chariloto.com/keirin/results/81/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 4,
+          "name": "瀧川幸広",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "戸伏康夫",
+          "place": 2
+        },
+        {
+          "no": 6,
+          "name": "武田哲二",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:小倉:3",
+      "venue": "小倉",
+      "raceNo": 3,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "4-1-6",
+        "2-7",
+        "3-5"
+      ],
+      "actualB": 4,
+      "bLine": "4-1-6",
+      "actual": "1-4-2",
+      "payout": 790,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-6-4",
+        "1-4-6",
+        "1-6-3",
+        "1-4-3",
+        "4-1-6"
+      ],
+      "oldTop5": [
+        "1-6-4",
+        "1-4-6",
+        "1-6-3",
+        "1-4-3",
+        "4-1-6"
+      ],
+      "newOracleTop5": [
+        "1-6-4",
+        "1-4-6",
+        "1-6-3",
+        "1-4-3",
+        "4-1-6"
+      ],
+      "oldOracleTop5": [
+        "1-6-4",
+        "1-4-6",
+        "1-6-3",
+        "1-4-3",
+        "4-1-6"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-07T10:21:04.469Z",
+      "source_url": "https://www.chariloto.com/keirin/results/81/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "松永真太",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "駒壽直人",
+          "place": 2
+        },
+        {
+          "no": 2,
+          "name": "藤野一良",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:福井:7",
+      "venue": "福井",
+      "raceNo": 7,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-6",
+        "2",
+        "3-5",
+        "4",
+        "7"
+      ],
+      "actualB": 1,
+      "bLine": "1-6",
+      "actual": "7-3-4",
+      "payout": 2990,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "6-1-7",
+        "1-6-7",
+        "7-1-6",
+        "1-7-2",
+        "7-6-1"
+      ],
+      "oldTop5": [
+        "7-1-6",
+        "7-6-1",
+        "1-6-7",
+        "6-1-7",
+        "1-7-2"
+      ],
+      "newOracleTop5": [
+        "6-1-7",
+        "1-6-7",
+        "7-1-6",
+        "1-7-2",
+        "7-6-1"
+      ],
+      "oldOracleTop5": [
+        "7-1-6",
+        "7-6-1",
+        "1-6-7",
+        "6-1-7",
+        "1-7-2"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:31.109Z",
+      "source_url": "https://www.chariloto.com/keirin/results/51/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "中野楚樂",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "白井輝",
+          "place": 2
+        },
+        {
+          "no": 4,
+          "name": "秋山太洋",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:福井:5",
+      "venue": "福井",
+      "raceNo": 5,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "6-1-4-3",
+        "5-7-2"
+      ],
+      "actualB": 6,
+      "bLine": "6-1-4-3",
+      "actual": "5-1-7",
+      "payout": 2990,
+      "modelB": 6,
+      "oldB": 6,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-6-4",
+        "1-4-6",
+        "1-6-3",
+        "1-4-3",
+        "6-1-4"
+      ],
+      "oldTop5": [
+        "1-6-4",
+        "1-4-6",
+        "1-6-3",
+        "1-4-3",
+        "6-1-4"
+      ],
+      "newOracleTop5": [
+        "1-6-4",
+        "1-4-6",
+        "1-6-3",
+        "1-4-3",
+        "6-1-4"
+      ],
+      "oldOracleTop5": [
+        "1-6-4",
+        "1-4-6",
+        "1-6-3",
+        "1-4-3",
+        "6-1-4"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:30.567Z",
+      "source_url": "https://www.chariloto.com/keirin/results/51/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 5,
+          "name": "桜井雄太",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "伊藤翼",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "鰐渕正利",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:福井:4",
+      "venue": "福井",
+      "raceNo": 4,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-4",
+        "2-6",
+        "7-3",
+        "5"
+      ],
+      "actualB": 2,
+      "bLine": "2-6",
+      "actual": "3-4-2",
+      "payout": 82870,
+      "modelB": 2,
+      "oldB": 2,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "2-6-1",
+        "6-2-1",
+        "2-6-4",
+        "6-2-4",
+        "2-6-7"
+      ],
+      "oldTop5": [
+        "2-6-1",
+        "6-2-1",
+        "2-6-4",
+        "6-2-4",
+        "2-6-7"
+      ],
+      "newOracleTop5": [
+        "2-6-1",
+        "6-2-1",
+        "2-6-4",
+        "6-2-4",
+        "2-6-7"
+      ],
+      "oldOracleTop5": [
+        "2-6-1",
+        "6-2-1",
+        "2-6-4",
+        "6-2-4",
+        "2-6-7"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:30.187Z",
+      "source_url": "https://www.chariloto.com/keirin/results/51/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "櫻川雅彦",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "藤井準也",
+          "place": 2
+        },
+        {
+          "no": 2,
+          "name": "山田祐太",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:11",
+      "venue": "弥彦",
+      "raceNo": 11,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "3-5-7",
+        "1-4",
+        "2-6"
+      ],
+      "actualB": 3,
+      "bLine": "3-5-7",
+      "actual": "1-3-7",
+      "payout": 14350,
+      "modelB": 3,
+      "oldB": 3,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "5-7-3",
+        "5-3-7",
+        "5-1-7",
+        "5-2-7",
+        "5-7-1"
+      ],
+      "oldTop5": [
+        "5-7-3",
+        "5-3-7",
+        "5-1-7",
+        "3-5-7",
+        "5-2-7"
+      ],
+      "newOracleTop5": [
+        "5-7-3",
+        "5-3-7",
+        "5-1-7",
+        "5-2-7",
+        "5-7-1"
+      ],
+      "oldOracleTop5": [
+        "5-7-3",
+        "5-3-7",
+        "5-1-7",
+        "3-5-7",
+        "5-2-7"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:41.793Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "藏本徹二",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "中村隆生",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "丸山貴秀",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:10",
+      "venue": "弥彦",
+      "raceNo": 10,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "4-7-2",
+        "6-1",
+        "3-5"
+      ],
+      "actualB": 4,
+      "bLine": "4-7-2",
+      "actual": "2-4-7",
+      "payout": 3870,
+      "modelB": 4,
+      "oldB": 4,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-4-2",
+        "7-2-4",
+        "4-7-2",
+        "7-4-3",
+        "7-2-3"
+      ],
+      "oldTop5": [
+        "7-4-2",
+        "7-2-4",
+        "4-7-2",
+        "7-4-3",
+        "7-2-3"
+      ],
+      "newOracleTop5": [
+        "7-4-2",
+        "7-2-4",
+        "4-7-2",
+        "7-4-3",
+        "7-2-3"
+      ],
+      "oldOracleTop5": [
+        "7-4-2",
+        "7-2-4",
+        "4-7-2",
+        "7-4-3",
+        "7-2-3"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:40.262Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "藤田大輔",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "岩辺陸",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "荒木伸哉",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:9",
+      "venue": "弥彦",
+      "raceNo": 9,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-7",
+        "5-2-4",
+        "3-6"
+      ],
+      "actualB": 1,
+      "bLine": "1-7",
+      "actual": "1-7-5",
+      "payout": 710,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "7-1-5",
+        "7-5-2",
+        "7-1-2",
+        "7-5-1",
+        "1-7-5"
+      ],
+      "oldTop5": [
+        "7-1-5",
+        "7-5-2",
+        "7-1-2",
+        "5-7-1",
+        "7-5-1"
+      ],
+      "newOracleTop5": [
+        "7-1-5",
+        "7-5-2",
+        "7-1-2",
+        "7-5-1",
+        "1-7-5"
+      ],
+      "oldOracleTop5": [
+        "7-1-5",
+        "7-5-2",
+        "7-1-2",
+        "5-7-1",
+        "7-5-1"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:39.367Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "中釜健次",
+          "place": 1
+        },
+        {
+          "no": 7,
+          "name": "伊原弘幸",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "菅田謙仁",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:8",
+      "venue": "弥彦",
+      "raceNo": 8,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-5-3",
+        "2-4-7",
+        "6"
+      ],
+      "actualB": 1,
+      "bLine": "1-5-3",
+      "actual": "5-1-3",
+      "payout": 1130,
+      "modelB": 2,
+      "oldB": 2,
+      "modelBHit": false,
+      "oracle5": true,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": false,
+      "newTop5": [
+        "4-2-7",
+        "4-7-2",
+        "2-4-7",
+        "4-2-5",
+        "4-7-5"
+      ],
+      "oldTop5": [
+        "4-2-7",
+        "4-7-2",
+        "2-4-7",
+        "4-2-5",
+        "4-7-5"
+      ],
+      "newOracleTop5": [
+        "5-1-3",
+        "5-3-1",
+        "5-2-4",
+        "5-3-2",
+        "5-1-2"
+      ],
+      "oldOracleTop5": [
+        "5-1-3",
+        "5-3-1",
+        "5-2-4",
+        "5-3-2",
+        "5-1-2"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:38.224Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 5,
+          "name": "渡辺航平",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "宮下一歩",
+          "place": 2
+        },
+        {
+          "no": 3,
+          "name": "井手尚治",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:7",
+      "venue": "弥彦",
+      "raceNo": 7,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-3-5",
+        "7-2-4",
+        "6"
+      ],
+      "actualB": 1,
+      "bLine": "1-3-5",
+      "actual": "3-1-5",
+      "payout": 710,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "3-1-7",
+        "3-5-1",
+        "3-7-1",
+        "3-1-5",
+        "3-5-7"
+      ],
+      "oldTop5": [
+        "3-1-7",
+        "3-5-1",
+        "3-7-1",
+        "3-1-5",
+        "7-3-1"
+      ],
+      "newOracleTop5": [
+        "3-1-7",
+        "3-5-1",
+        "3-7-1",
+        "3-1-5",
+        "3-5-7"
+      ],
+      "oldOracleTop5": [
+        "3-1-7",
+        "3-5-1",
+        "3-7-1",
+        "3-1-5",
+        "7-3-1"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:37.374Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 3,
+          "name": "原田泰志",
+          "place": 1
+        },
+        {
+          "no": 1,
+          "name": "堀航輝",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "齋藤昌弘",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:4",
+      "venue": "弥彦",
+      "raceNo": 4,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "2-5-4",
+        "6-1",
+        "7-3"
+      ],
+      "actualB": 2,
+      "bLine": "2-5-4",
+      "actual": "2-3-7",
+      "payout": 9310,
+      "modelB": 2,
+      "oldB": 2,
+      "modelBHit": true,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "5-2-4",
+        "5-4-2",
+        "2-5-4",
+        "5-2-6",
+        "5-4-6"
+      ],
+      "oldTop5": [
+        "5-2-4",
+        "5-4-2",
+        "2-5-4",
+        "5-2-6",
+        "5-4-6"
+      ],
+      "newOracleTop5": [
+        "5-2-4",
+        "5-4-2",
+        "2-5-4",
+        "5-2-6",
+        "5-4-6"
+      ],
+      "oldOracleTop5": [
+        "5-2-4",
+        "5-4-2",
+        "2-5-4",
+        "5-2-6",
+        "5-4-6"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:35.782Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 2,
+          "name": "福田海響",
+          "place": 1
+        },
+        {
+          "no": 3,
+          "name": "齊藤紳一朗",
+          "place": 2
+        },
+        {
+          "no": 7,
+          "name": "中込健太",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:3",
+      "venue": "弥彦",
+      "raceNo": 3,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "1-4-5",
+        "7-2-6",
+        "3"
+      ],
+      "actualB": 1,
+      "bLine": "1-4-5",
+      "actual": "1-4-5",
+      "payout": 360,
+      "modelB": 1,
+      "oldB": 1,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "4-1-5",
+        "4-5-1",
+        "1-4-5",
+        "4-1-2",
+        "4-5-2"
+      ],
+      "oldTop5": [
+        "4-1-5",
+        "4-5-1",
+        "1-4-5",
+        "4-1-7",
+        "4-5-7"
+      ],
+      "newOracleTop5": [
+        "4-1-5",
+        "4-5-1",
+        "1-4-5",
+        "4-1-2",
+        "4-5-2"
+      ],
+      "oldOracleTop5": [
+        "4-1-5",
+        "4-5-1",
+        "1-4-5",
+        "4-1-7",
+        "4-5-7"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:34.699Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "大村涼兼",
+          "place": 1
+        },
+        {
+          "no": 4,
+          "name": "吉川誠",
+          "place": 2
+        },
+        {
+          "no": 5,
+          "name": "小林高志",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:2",
+      "venue": "弥彦",
+      "raceNo": 2,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "7-2-3-6",
+        "1-5-4"
+      ],
+      "actualB": 7,
+      "bLine": "7-2-3-6",
+      "actual": "7-2-3",
+      "payout": 230,
+      "modelB": 7,
+      "oldB": 7,
+      "modelBHit": true,
+      "oracle5": true,
+      "normal5": true,
+      "normal10": true,
+      "oracle10": true,
+      "oldOracle5": true,
+      "oldNormal5": true,
+      "newTop5": [
+        "2-3-6",
+        "2-7-3",
+        "2-3-7",
+        "7-2-3",
+        "2-7-6"
+      ],
+      "oldTop5": [
+        "2-3-6",
+        "2-7-3",
+        "2-3-7",
+        "7-2-3",
+        "2-7-6"
+      ],
+      "newOracleTop5": [
+        "2-3-6",
+        "2-7-3",
+        "2-3-7",
+        "7-2-3",
+        "2-7-6"
+      ],
+      "oldOracleTop5": [
+        "2-3-6",
+        "2-7-3",
+        "2-3-7",
+        "7-2-3",
+        "2-7-6"
+      ],
+      "pairNewOracle5": true,
+      "storedAt": "2026-11-06T20:57:33.329Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 7,
+          "name": "北宅柊麻",
+          "place": 1
+        },
+        {
+          "no": 2,
+          "name": "橋本大祐",
+          "place": 2
+        },
+        {
+          "no": 3,
+          "name": "倉松涼",
+          "place": 3
+        }
+      ]
+    },
+    {
+      "id": "2026-11-07:弥彦:1",
+      "venue": "弥彦",
+      "raceNo": 1,
+      "field": 7,
+      "category": "7車",
+      "lines": [
+        "5-1-7-3",
+        "2-4",
+        "6"
+      ],
+      "actualB": 2,
+      "bLine": "2-4",
+      "actual": "1-7-4",
+      "payout": 12190,
+      "modelB": 5,
+      "oldB": 5,
+      "modelBHit": false,
+      "oracle5": false,
+      "normal5": false,
+      "normal10": false,
+      "oracle10": false,
+      "oldOracle5": false,
+      "oldNormal5": false,
+      "newTop5": [
+        "1-5-7",
+        "1-7-5",
+        "1-7-3",
+        "5-1-7",
+        "1-5-3"
+      ],
+      "oldTop5": [
+        "1-7-5",
+        "1-5-7",
+        "1-7-3",
+        "5-1-7",
+        "1-5-3"
+      ],
+      "newOracleTop5": [
+        "4-2-6",
+        "4-2-1",
+        "2-4-6",
+        "4-2-5",
+        "2-4-1"
+      ],
+      "oldOracleTop5": [
+        "4-2-6",
+        "4-2-5",
+        "2-4-6",
+        "4-2-1",
+        "2-4-5"
+      ],
+      "pairNewOracle5": false,
+      "storedAt": "2026-11-06T20:57:32.364Z",
+      "source_url": "https://www.chariloto.com/keirin/results/21/2026-11-07",
+      "diagnostic": [
+        {
+          "no": 1,
+          "name": "宮本龍一",
+          "place": 1
+        },
+        {
+          "no": 7,
+          "name": "永田修一",
+          "place": 2
+        },
+        {
+          "no": 4,
+          "name": "藤野竜也",
+          "place": 3
+        }
+      ]
+    }
+  ],
+  "caveats": [
+    "Backtest replays the later-developed models on pre-race snapshots; not genuine historical live forecasts.",
+    "Actual B is loaded only in Oracle branch and is not fed to the model in normal branch.",
+    "Public Chariloto B markers and published trifecta independently joined; only rows with matching result and snapshot accepted.",
+    "Rider history snapshot through Nov7 is date-gated, therefore not used for Nov7 predictions.",
+    "ROI is hypothetical equal-stake if payouts are valid; model was developed after event and odds were not captured at that time."
+  ],
+  "provenance": {
+    "workflow_run": 42427672841,
+    "collection": "Chariloto result tables, B/S marks plus saved LAB pre-start snapshot",
+    "model_dates": "v0.2 and v0.5 postdate all target races",
+    "claims": "retrospective replay, not authentic before-start B-AXIS forecasts",
+    "ex": "zero observed EX values; nov7 rider role archive is excluded by cutoff"
+  }
+}
