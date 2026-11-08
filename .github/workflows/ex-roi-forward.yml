@@ -45,6 +45,9 @@ jobs:
         with: {node-version: '22'}
       - name: Test shadow A-B and historical guards
         run: node tests/ex-roi-ab.test.cjs
+      - name: Smoke-test current source timestamps without publishing
+        if: github.event_name == 'pull_request'
+        run: node scripts/ex-ab-freeze.cjs 1
       - name: Freeze today's EX-on and EX-off candidate ranks
         if: github.event_name != 'pull_request'
         run: node scripts/ex-ab-freeze.cjs 12
