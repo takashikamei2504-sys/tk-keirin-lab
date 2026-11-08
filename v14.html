@@ -197,10 +197,10 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <button class="btn quick-main" id="quick-fetch" type="button">このレースの展開を予想する</button><p id="quick-status" class="quick-message" role="status"></p>
 </section>
 <section class="panel causal-panel" id="causal-lab" aria-label="展開予想と買い目">
-<div class="prediction-head"><h2>展開予想</h2><button type="button" class="btn secondary" id="causal-run">再推理</button></div>
+<div class="prediction-head"><h2>展開予想</h2><button type="button" class="btn secondary" id="causal-run">再推理</button><button type="button" class="btn secondary" id="causal-physical-toggle" aria-pressed="false">物理v2で比較</button></div><p id="causal-physical-label" class="small" role="status">通常予想：現行の買い目選定</p>
 <p id="prediction-race" class="prediction-race"></p><p id="prediction-context" class="prediction-context"></p>
 <div id="causal-stories"></div>
-<div class="ticket-section-heading"><h3>展開から選ぶ３連単（上限10点）</h3><button type="button" class="btn" id="causal-copy">買い目をコピー</button></div>
+<div class="ticket-section-heading"><h3 id="causal-ticket-heading">展開から選ぶ３連単（上限10点）</h3><button type="button" class="btn" id="causal-copy">買い目をコピー</button></div>
 <p class="small" id="ticket-display-count"></p><p class="small">1・2着が同じ買い目をまとめています。例：1-2-345＝3点。「展開・採用理由」から元の展開へ戻れます。</p><div class="causal-tickets" id="causal-tickets"></div>
 <p id="prediction-feedback" class="prediction-feedback" role="status"></p>
 </section>
@@ -1705,7 +1705,7 @@ try{
 }catch(e){}
 
 
-const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};let raceMaterialPack={};let approvedExPack=null;
+const CAUSAL_V=RaceBrain.VERSION; let causalLast=null;let causalPhysicalPreview=false; const causalEsc=x=>esc(x); let autoIntelPack={};let raceMaterialPack={};let approvedExPack=null;
 function causalBuild(r){validate(r);
  const contextual={...(r.ex_context||{})};
  const key=r.date+':'+r.venue+':'+r.race_no,obs=approvedExPack?.race_contexts?.[key];
@@ -1713,7 +1713,7 @@ function causalBuild(r){validate(r);
  if(obs&&Date.parse(obs.collected_at)<cutoff&&Date.parse(obs.collected_at)<=Date.now()){
   contextual.weather=obs.weather;contextual.weather_source_verified=Boolean(obs.weather);
  }
- const enriched=RaceMaterial.attach(RecentForm.attach({...r,ex_context:contextual},recentFormPack),raceMaterialPack);const out=RaceBrain.build(enriched,{...autoIntelPack,transitionMode:'physical_v2',exPack:approvedExPack,exAsOf:Date.now(),observations:[...(autoIntelPack.observations||[]),...(enriched.race_material?.comments||[])]});out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,s:x.s,s_source:x.s_source,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}
+ const enriched=RaceMaterial.attach(RecentForm.attach({...r,ex_context:contextual},recentFormPack),raceMaterialPack);const out=RaceBrain.build(enriched,{...autoIntelPack,transitionMode:causalPhysicalPreview?'physical_v2':'legacy',exPack:approvedExPack,exAsOf:Date.now(),observations:[...(autoIntelPack.observations||[]),...(enriched.race_material?.comments||[])]});out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,s:x.s,s_source:x.s_source,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}
 function causalRun(){
  try{
   const out=causalBuild(data);causalLast=out;autoIntelRender(out);recentFormRender(out);
@@ -1721,11 +1721,18 @@ function causalRun(){
   $('causal-state').textContent=`${out.race.date} ${out.race.venue}${out.race.race_no}R｜${out.diagnostics?.terminalStates||out.narratives.length}展開経路、${out.tickets.length}買い目候補から${out.chosen.length}点選定。${out.missing?'一部データは未取得（近況の取得状況は上欄）':'選手データを反映'}。`;
   $('causal-top').innerHTML=top.map((x,i)=>`<div class="causal-k"><small>${i===0?'最重要キーマン':'変動要因'+(i+1)}</small><strong>${x.no}番 ${causalEsc(x.name)}</strong><span>${causalEsc(x.decisions.slice(0,3).join(' ／ '))}</span></div>`).join('');
   $('causal-keymen').innerHTML=top.map(x=>`<div class="line"><strong>${x.no}番 ${causalEsc(x.name)}</strong>：${causalEsc(x.decisions.filter(z=>z!=='直線の決着').slice(0,3).join('・'))}</div>`).join('');
-  PredictionView.render(out,data);ResultsUI.track(out,data);
+  PredictionView.render(out,data);
+  $('causal-physical-toggle').textContent=causalPhysicalPreview?'通常予想に戻す':'物理v2で比較';
+  $('causal-physical-toggle').setAttribute('aria-pressed',String(causalPhysicalPreview));
+  $('causal-physical-label').textContent=causalPhysicalPreview?'比較表示：追走・番手の物理成立判定v2（回収率検証中。購入判定には未使用）':'通常予想：従来の買い目選定';
+  $('causal-ticket-heading').textContent=causalPhysicalPreview?'物理v2の比較買い目（購入判定には未使用）':'展開から選ぶ３連単（上限10点）';
+  $('causal-copy').disabled=causalPhysicalPreview;
+  if(!causalPhysicalPreview)ResultsUI.track(out,data);
   return out;
  }catch(e){$('prediction-feedback').textContent='展開予想を生成できませんでした：'+e.message;$('causal-stories').innerHTML='';$('causal-tickets').innerHTML='';$('causal-state').textContent='展開推理のエラー：'+e.message;causalLast=null;return null;}
 }
 $('causal-run').addEventListener('click',causalRun);
+$('causal-physical-toggle').addEventListener('click',()=>{causalPhysicalPreview=!causalPhysicalPreview;causalRun();});
 $('causal-copy').addEventListener('click',async()=>{
  if(!causalLast)causalRun();if(!causalLast)return;
  const s=PredictionView.copyText(causalLast);
