@@ -76,7 +76,8 @@ function summarize(records,currentModel){
  const reduce=a=>({evaluated:a.evaluated,purchased:a.purchased,stake:a.stake,payout:a.payout,
    net:a.net,roi:a.roi,hits:a.hits,hit_rate:a.hit_rate,first_capture:a.first_capture,
    pair_capture:a.pair_capture,max_drawdown:a.max_drawdown,trimmed_top1_roi:a.trimmed?.[1],
-   without_top_race:a.without_top_race});
+   without_top_race:a.without_top_race,
+   payout_bands:a.payout_bands});
  return {schema:'tk-ex-roi-paired-report/v1',model_id:currentModel,
    generated_at:new Date().toISOString(),evaluated:n,
    pending:relevant.filter(r=>r.status==='pending').length,
@@ -85,6 +86,12 @@ function summarize(records,currentModel){
    same_stake_per_arm_per_race_yen:Shadow.TICKETS*100,
    first_record_at:relevant.map(x=>x.as_of).filter(Boolean).sort()[0]||null,
    baseline:reduce(baseline),ex:reduce(ex),delta,confidence:lower,
+   segments:Object.fromEntries(['grade','cars'].map(field=>[field,
+     Object.fromEntries([...new Set(evaluated.map(r=>String(r.baseline[field]||'')))].filter(Boolean)
+       .map(key=>{const group=evaluated.filter(r=>String(r.baseline[field])===key);
+         return [key,{races:group.length,baseline:reduce(Audit.summarize(group.map(r=>r.baseline))),
+           ex:reduce(Audit.summarize(group.map(r=>r.ex)))}];}))])),
+   average_ex_riders_per_race:n?evaluated.reduce((sum,r)=>sum+r.ex_rider_count,0)/n:null,
    ready_for_review:ready,auto_buy_enabled:false,
    policy:{minimum_races:200,minimum_independent_days:14,
      cluster_daily_lower_net_positive:true,no_pair_capture_regression:true,
