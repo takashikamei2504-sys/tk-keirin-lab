@@ -121,7 +121,7 @@ function build(r,pack={},forced=null){
        };
        emit('lead',controller,home,en,`${controller}番が先頭を維持`,.35+ability(controller)*.4-en[controller]*.25);
        if(gap==='holds')emit('sashi',follower,home,en,`${follower}番は番手で脚をため差しを狙う`,.25+p.get(follower).finish*.55);
-       if(gap==='breaks'&&seat)emit('seat',seat,home,en,`${seat}番が近接進入から番手奪取を試みる成立仮説`,.15+p.get(seat).seat*.3+p.get(seat).finish*.25+(p.get(seat).ex_tobitsuki_delta||0)+(physical?0:.25*(p.get(seat).ex_seri_delta||0)));
+       if(gap==='breaks'&&seat)emit('seat',seat,home,en,`${seat}番が近接進入から番手奪取を試みる成立仮説`,physical?.15+p.get(seat).finish*.25:.15+p.get(seat).seat*.3+p.get(seat).finish*.25+(p.get(seat).ex_tobitsuki_delta||0)+.25*(p.get(seat).ex_seri_delta||0));
        // The third rider first loses contact, then switches to an independent attack.
        if(!physical&&third&&gap==='breaks'){
         let back=home.filter(n=>n!==third);back.push(third);const re={...en,[third]:(en[third]||0)+.26};
