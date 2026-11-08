@@ -1,7 +1,8 @@
 /* Independent state-transition engine. No legacy picks, manual profiles or seed personalities. */
 (function(root){
 'use strict';
-const VERSION='independent-causal-v1.4.2-decisions';
+const VERSION='independent-causal-v1.4.3-ex-licensed';
+const Ex=typeof module!=='undefined'?require('./ex-profile.js'):root.LabExProfile;
 const MODES={lead:'先頭の押し切り',sashi:'番手差し',seat:'番手はまり',recovery:'追走喪失から再自力',outer:'大外強襲',counter:'引いて捲り返し',thirdline:'第三ラインの捲り',switch:'番手の切替',thirdsprint:'3番手の追込み',solo:'単騎の追上げ'};
 const clip=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const nameKey=s=>String(s).replace(/[\s\u3000]/g,'');
@@ -34,6 +35,7 @@ function profiles(r,pack={}){
    p[k]=clip(sum/total,.08,.92);
   }
   if(p.evidence.length)p.basis=`公開記事本文 ${new Set(p.evidence.map(e=>e.url)).size}件（自動抽出）`;
+  if(Ex)Ex.attach(p,x,r,pack.exPack,pack.exAsOf??Date.now());
   return [x.no,p];
  }));
 }
@@ -58,7 +60,9 @@ function build(r,pack={},forced=null){
    const al=lineOf.get(attacker),distance=initial.indexOf(attacker)/ids.length;
    for(const [stand,sw] of choices(front,'stand',[['resist',p.get(front).resist],['yield',p.get(front).withdraw]])){
     for(const [tactic,tw] of choices(attacker,'tactic',[['kamashi',p.get(attacker).kamashi],['makuri',p.get(attacker).makuri]])){
-     const takes=clip(.5+.3*(ability(attacker)-ability(front))+.2*p.get(attacker)[tactic]-(stand==='resist'?.22:0)-.08*distance,.12,.88);
+     const takes=clip(.5+.3*(ability(attacker)-ability(front))+.2*p.get(attacker)[tactic]-(stand==='resist'?.22:0)-.08*distance+
+       (tactic==='kamashi'?(p.get(attacker).ex_kamashi_delta||0):0)-
+       (stand==='resist'?(p.get(front).ex_tsuppari_delta||0):0),.12,.88);
      for(const [outcome,ow] of [['attacker-takes',takes],['front-holds',1-takes]]){
       const controller=outcome==='attacker-takes'?attacker:front,cl=lineOf.get(controller),follower=cl[1],third=cl[2];
       let order=outcome==='attacker-takes'?move(initial,al):[...initial];
@@ -68,7 +72,8 @@ function build(r,pack={},forced=null){
       const base=[snapshot('周回',initial,Object.fromEntries(ids.map(n=>[n,0])),`${front}番が前受け。${attacker}番は${initial.indexOf(attacker)+1}番手から上昇`),snapshot('打鐘',stand==='yield'?move(initial,al):initial,energy,`${front}番は${stand==='resist'?'突っ張り':'引き'}を選択。${attacker}番は${tactic==='kamashi'?'カマシ':'脚をためて捲り'}を選択`)];
       // Acceleration stress depends on the actual current leader, speed and follower response.
       const acceleration=controller===attacker?(tactic==='kamashi'?.22:.1):.07;
-      const keep=follower?clip(.48+.42*p.get(follower).track-acceleration-(stand==='resist'?.08:0)+.08*(ability(follower)-ability(controller)),.18,.9):1;
+      const keep=follower?clip(.48+.42*p.get(follower).track-acceleration-(stand==='resist'?.08:0)+.08*(ability(follower)-ability(controller))-
+       (p.get(controller).ex_chigiri_delta||0)-(p.get(follower).ex_chigirarare_delta||0),.18,.9):1;
       const gaps=follower?choices(follower,'gap',[['holds',keep],['breaks',1-keep]]):[['solo',1]];
       for(const [gap,gw] of gaps){
        let home=[...order],en={...energy},seat=null;
@@ -100,7 +105,7 @@ function build(r,pack={},forced=null){
        };
        emit('lead',controller,home,en,`${controller}番が先頭を維持`,.35+ability(controller)*.4-en[controller]*.25);
        if(gap==='holds')emit('sashi',follower,home,en,`${follower}番は番手で脚をため差しを狙う`,.25+p.get(follower).finish*.55);
-       if(gap==='breaks'&&seat)emit('seat',seat,home,en,`${seat}番が即席番手から差しを狙う`,.15+p.get(seat).seat*.3+p.get(seat).finish*.25);
+       if(gap==='breaks'&&seat)emit('seat',seat,home,en,`${seat}番が即席番手から差しを狙う`,.15+p.get(seat).seat*.3+p.get(seat).finish*.25+(p.get(seat).ex_tobitsuki_delta||0));
        // The third rider first loses contact, then switches to an independent attack.
        if(third&&gap==='breaks'){
         let back=home.filter(n=>n!==third);back.push(third);const re={...en,[third]:(en[third]||0)+.26};
