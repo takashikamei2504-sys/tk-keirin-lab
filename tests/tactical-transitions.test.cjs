@@ -49,6 +49,10 @@ const b=T.followerOutcome({leader:{},follower:baseline,leaderAbility:.7,follower
 assert(a.keep<b.keep,'source evidence changes only the relative wheel break, not direct finish');
 assert(a.keep>.18);
 assert.equal(T.combinedBreakEvidence({},{}).basis,'no_EX');
+const ui=fs.readFileSync('v14.html','utf8');
+assert(ui.includes("transitionMode:causalPhysicalPreview?'physical_v2':'legacy'"),'legacy pick policy is default');
+assert(ui.includes("if(!causalPhysicalPreview)ResultsUI.track(out,data)"),'EX preview must not enter device prediction history');
+assert(ui.includes('id="causal-physical-toggle"'),'mobile preview toggle exists');
 const sample=JSON.parse(fs.readFileSync('race_sample.json','utf8'));
 const old=Brain.build(sample);
 const modern=Brain.build(sample,{transitionMode:'physical_v2'});
