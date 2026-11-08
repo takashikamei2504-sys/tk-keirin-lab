@@ -14,6 +14,7 @@ function normalizeID(id){return String(id||'').replace(/^0+(?=\d)/,'');}
 function record(pack,rider,race,asOf=Date.now()){
  if(pack?.schema!=='tk-b-axis-ex-observations/v1'||pack?.license_status!==APPROVAL||
     pack?.redistribution_approved!==true||!pack?.riders)return null;
+ if(pack.license_expires_at&&(!Number.isFinite(Date.parse(pack.license_expires_at))||Date.now()>Date.parse(pack.license_expires_at)))return null;
  const cutoff=cutoffOf(race),now=Number(asOf),bound=Math.min(cutoff||-Infinity,Number.isFinite(now)?now:Date.now());
  const row=pack.riders[normalizeID(rider?.meta?.rider_id)]||pack.riders[normalizeID(rider?.rider_id)];
  if(!row||typeof row!=='object'||!Number.isFinite(bound))return null;
