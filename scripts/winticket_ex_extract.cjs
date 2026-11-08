@@ -53,10 +53,15 @@ function percentage(value) {
 
 function knownCounts(value) {
   if (!value || typeof value !== 'object') return null;
-  // Only accept explicit numerator / denominator, never reconstruct from a rate.
-  const a = value.events, b = value.opportunities;
-  return Number.isInteger(a) && Number.isInteger(b) && b > 0 &&
-    a >= 0 && a <= b ? {events:a, opportunities:b} : null;
+  // Source source key names confirmed in live WINTICKET HTML on 2026-11-08.
+  // Legacy events/opportunities are supported for explicit offline imports only.
+  const a = value.succeeded ?? value.events;
+  const b = value.total ?? value.opportunities;
+  if (!Number.isInteger(a) || !Number.isInteger(b) || b < 1 || a < 0 || a > b) return null;
+  const pct = percentage(value);
+  // WINTICKET may round percentages; reject material disagreement.
+  if (pct !== null && Math.abs(100*a/b-pct) > 1.01) return null;
+  return {events:a, opportunities:b};
 }
 
 function sourceURL(url) {
@@ -77,7 +82,7 @@ function extract(html, options={}) {
   const state = extractPreloadedState(html), data = getRaceData(state);
   const entries = new Map((data.entries || []).map(e => [String(e.playerId), e]));
   const players = new Map((data.players || []).map(p => [String(p.id), p]));
-  const rows = [], present = {}, shapes = {}, otherKeys = new Set();
+  const rows = [], present = {}, shapes = {}, pairs = {}, inconsistent = {}, otherKeys = new Set();
   for (const rec of data.records) {
     const playerId = rec && rec.playerId;
     if (playerId === null || playerId === undefined) continue;
@@ -91,7 +96,8 @@ function extract(html, options={}) {
       (shapes[field] ||= new Set()).add(shape);
       percent[name] = percentage(v);
       const c = knownCounts(v);
-      if (c) counts[name] = c;
+      if (c) {counts[name] = c; pairs[field] = (pairs[field] || 0) + 1;}
+      else if (v && typeof v === 'object' && Number.isInteger(v.succeeded) && Number.isInteger(v.total) && v.total > 0) inconsistent[field] = (inconsistent[field] || 0) + 1;
       present[field] = (present[field] || 0) + 1;
     }
     for (const key of Object.keys(rec || {})) {
@@ -120,6 +126,7 @@ function extract(html, options={}) {
       additional_record_ex_keys:[...otherKeys].sort()
     },
     summary:{players_with_ex:rows.length, fields_seen:present,
+      count_pairs_accepted:pairs, count_pairs_rejected:inconsistent,
       field_shapes:Object.fromEntries(Object.entries(shapes).map(([key,types])=>[key,[...types]]))},
     riders:rows
   };
