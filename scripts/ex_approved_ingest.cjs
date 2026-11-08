@@ -76,7 +76,6 @@ function ingest(feed,previous={},permit){
   license_status:APPROVAL,redistribution_approved:true,
   generated_at:new Date().toISOString(),
   source_type:'rights-approved-original-winticket-ex-records',
-  rights_reference:permit.reference,
   license_expires_at:feed.license.expires_at||null,
   summary:{covered_venues:venues.size,covered_races:races.size,unique_riders:Object.keys(sorted).length,
     valid_metrics:count,skipped,observed_venues:[...venues].sort()},
@@ -111,7 +110,7 @@ function main(argv,env=process.env){
   last_success_at:latest.generated_at,venues_collected:latest.summary.covered_venues,
   races_collected:latest.summary.covered_races,valid_metrics:latest.summary.valid_metrics,
   model_data_available:latest.summary.valid_metrics>0,
-  public_distribution_approved:true,rights_reference:permit.reference
+  public_distribution_approved:true
  },null,2)+'\n',{mode:0o600});
  console.log('EX_APPROVED_INGEST '+JSON.stringify({races:history.length,venues:latest.summary.covered_venues,
   riders:latest.summary.unique_riders,metrics:latest.summary.valid_metrics,
