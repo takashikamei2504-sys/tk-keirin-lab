@@ -87,7 +87,7 @@ function finishRanking(input,snap,limit=10){
   const solo=s.line.length===1?Ex.smoothed(input,rider,'solo_top3',.38,18,input.as_of):null;
   const archive=input.bAxisHistory,role=s.line.length===1?'solo':s.lineIndex===0?'leader':s.lineIndex===1?'second':'thirdPlus';
   const row=archive?.rider_positions?.[Ex.identity(rider)]?.[role];
-  const historySafe=archive?.training_end&&input.race.date>archive.training_end&&archive.provenance?.actual_b_available===false;
+  const historySafe=archive?.training_end&&input.race.date>archive.training_end&&ExContext.asOfJapanDate(input)>archive.training_end&&archive.provenance?.actual_b_available===false;
   const measuredSolo=solo&&solo.opportunities>=5?(solo.smoothed-.38)*solo.weight*.10:0;
   const rolePrior=historySafe&&row?.n>=6?((row.top3+3)/(row.n+8)-.39)*.05:0;
   const exContext=ExContext.snapshot(input,rider);
