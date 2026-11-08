@@ -12,7 +12,7 @@ const race=q.find(x=>JSON.stringify(x.q).includes('FETCH_KEIRIN_RACE')&&Array.is
 const first=race?.records?.[0];
 console.log('WT_SHAPE '+JSON.stringify({
   queries:q.map(x=>({key:x.q,fields:Object.keys(x.d||{}).slice(0,28)})).slice(0,40),
-  race:brief(race?.race),cup:brief(race?.cup),records:brief(first),
+  race:brief(race?.race),cup:brief(q.find(x=>JSON.stringify(x.q).includes('FETCH_KEIRIN_CUP_RACES'))?.d?.cup),records:brief(first),
   player:brief(race?.players?.[0]),entry:brief(race?.entries?.[0]),
   race_schedule:brief(q.find(x=>JSON.stringify(x.q).includes('FETCH_KEIRIN_CUP_RACES'))?.d?.schedules?.[0]),
   date_keys:Object.keys(race?.race||{}).filter(k=>/date|time|start|close|at/i.test(k)),
