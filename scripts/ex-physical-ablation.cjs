@@ -45,6 +45,7 @@ const summarize=group=>Object.fromEntries(modes.map(mode=>{
   pair:summary.pair_capture,first:summary.first_capture,trimmed1:summary.trimmed?.[1],
   dd:summary.max_drawdown,changed,pairChanged,seatPaths}];
 }));
+if(errors.length||rows.length<Math.min(cap,400))throw Error('ABLATION_INCOMPLETE: '+rows.length+' evaluated; '+errors.length+' invalid races');
 const overall=summarize(rows);
 const out={schema:'tk-ex-physical-mode-ablation/v1',source:'frozen 2026-11-01..07 public pre-race entries; NO WINTICKET EX historical backfill',
  date_start:days[0],date_end:days.at(-1),evaluated:rows.length,errors:errors.slice(0,10),
