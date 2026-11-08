@@ -127,7 +127,7 @@ function attach(profile,rider,race,pack,asOf){
  // the rider's propensity to choose a tactic.
  if(Number.isFinite(p.ex_chigirarare_delta))p.track=clamp(p.track-.7*p.ex_chigirarare_delta,.12,.95);
  applyContexts(p,row,race,rider);
- if(p.ex_context_used&&!p.ex_used){p.ex_source_url=row.source_url;p.basis+='＋EX条件別実測';}
+ if(p.ex_context_used&&!p.ex_used){p.ex_source_url=row.source_url;p.ex_collected_at=row.collected_at;p.basis+='＋EX条件別実測';}
  return p;
 }
 const api={attach,record,validatedCount,validContextBucket,contextResidual,selectionKeys,applyContexts,cutoffOf,APPROVAL};
