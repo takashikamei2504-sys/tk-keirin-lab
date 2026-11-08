@@ -1,0 +1,30 @@
+name: EX all-11 extraction regression
+on:
+  push:
+    branches: ['feature/ex-authorized-live-collector-20261108']
+    paths:
+      - 'scripts/winticket_ex_*.cjs'
+      - 'scripts/ex_*.cjs'
+      - 'tests/ex-*.test.cjs'
+      - '.github/workflows/ex-all11-ci.yml'
+  pull_request:
+    paths:
+      - 'scripts/winticket_ex_*.cjs'
+      - 'scripts/ex_*.cjs'
+      - 'tests/ex-*.test.cjs'
+      - '.github/workflows/ex-all11-ci.yml'
+permissions: {contents: read}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node tests/winticket-ex-extract.test.cjs
+      - run: node tests/ex-approved.test.cjs
+      - run: node tests/ex-winticket-all11.test.cjs
+      - name: One authorized source page smoke check (no data publication)
+        if: github.event_name == 'push'
+        run: node scripts/ex_all11_smoke.cjs
