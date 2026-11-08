@@ -85,7 +85,8 @@ function ingest(feed,previous={},permit){
   license_expires_at:feed.license.expires_at||null,
   summary:{covered_venues:venues.size,covered_races:races.size,unique_riders:Object.keys(sorted).length,
     valid_metrics:count,valid_context_buckets:contextCount,skipped,observed_venues:[...venues].sort()},
-  race_contexts:raceContexts,riders:sorted
+  race_contexts:Object.fromEntries(Object.entries(raceContexts).filter(([key])=>key.slice(0,10)>=new Date(Date.now()-14*86400000).toISOString().slice(0,10))),
+  riders:sorted
  };
  return {latest:result,history};
 }
