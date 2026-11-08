@@ -51,6 +51,8 @@ const freeze=Freeze.versions(race,pack,Date.parse(asOf));
 assert.equal(freeze.applied.length,1);
 assert.equal(freeze.baseline.length,8);
 assert.equal(freeze.ex.length,8);
+assert.equal(freeze.physical.length,8);
+assert.equal(freeze.physical_delta.same,Shadow.diff(freeze.ex,freeze.physical).same);
 assert.equal(freeze.applied[0].no,1);
 const winner=[{key:before[0].key,trio:before[0].trio}];
 assert.equal(Shadow.accuracy(before,winner).trifecta,true);
@@ -72,6 +74,12 @@ assert.equal(report.ex.roi,1300/800);
 assert.equal(report.delta.pair_capture,1);
 assert.equal(report.ready_for_review,true);
 assert.equal(report.auto_buy_enabled,false);
+const pairedThird=Evaluate.summarize(sample.map(r=>({...r,physical:r.ex})),'test');
+assert.equal(pairedThird.physical_comparison.matched,210);
+assert.equal(pairedThird.physical_comparison.delta.roi,0);
+assert.equal(pairedThird.physical_comparison.ready_for_review,false);
+assert.equal(pairedThird.physical_comparison.auto_buy_enabled,false);
+
 assert.equal(Evaluate.summarize(sample.slice(0,100),'test').ready_for_review,false);
 assert.equal(Evaluate.summarize(sample.map((r,i)=>({...r,paired_net_delta:i%2?0:1300})), 'test').confidence.days,15);
 const bad=[...sample];bad[0]={...bad[0],baseline:{...bad[0].baseline,wins:[200000]},

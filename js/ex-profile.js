@@ -113,6 +113,7 @@ function attach(profile,rider,race,pack,asOf){
   // Excessively rare actions carry almost no weight; success is conditional on trying.
   const prior=metric==='chigiri'||metric==='chigirarare'?.22:.5;
   const shrink=(m.events+prior*20)/(m.n+20),delta=(shrink-prior)*m.confidence*.22;
+  (p.ex_metric_counts ||= {})[metric]={events:m.events,opportunities:m.n};
   p['ex_'+metric+'_delta']=clamp(delta,-.085,.085);
   p.measurements.push('WINTICKET EX '+labels[metric]+' '+m.events+'/'+m.n+'（'+(m.rate*100).toFixed(1)+'%）');
   count++;
@@ -125,6 +126,7 @@ function attach(profile,rider,race,pack,asOf){
  }
  // The EX lost-contact rate also informs baseline wheel tracking, but NOT
  // the rider's propensity to choose a tactic.
+ p.ex_track_base=p.track;
  if(Number.isFinite(p.ex_chigirarare_delta))p.track=clamp(p.track-.7*p.ex_chigirarare_delta,.12,.95);
  applyContexts(p,row,race,rider);
  if(p.ex_context_used&&!p.ex_used){p.ex_source_url=row.source_url;p.ex_collected_at=row.collected_at;p.basis+='＋EX条件別実測';}

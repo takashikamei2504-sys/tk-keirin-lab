@@ -1,0 +1,57 @@
+name: LAB EX physical transitions v2 regression
+on:
+  push:
+    branches: ['feature/ex-physical-transitions-v2-20261108']
+    paths:
+      - 'js/tactical-transitions.js'
+      - 'js/race-brain.js'
+      - 'js/ex-profile.js'
+      - 'v14.html'
+      - 'tests/tactical-transitions.test.cjs'
+      - 'scripts/ex-physical-historical-pilot.cjs'
+      - 'scripts/ex-physical-ablation.cjs'
+      - '.github/workflows/ex-physical-v2.yml'
+  pull_request:
+    paths:
+      - 'js/tactical-transitions.js'
+      - 'js/race-brain.js'
+      - 'js/ex-profile.js'
+      - 'tests/tactical-transitions.test.cjs'
+      - '.github/workflows/ex-physical-v2.yml'
+permissions: {contents: write}
+concurrency:
+  group: lab-ex-physical-v2-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node --check js/tactical-transitions.js
+      - run: node --check js/race-brain.js
+      - run: node tests/tactical-transitions.test.cjs
+      - run: node tests/ex-approved.test.cjs
+      - run: node tests/ex-roi-ab.test.cjs
+      - run: node tests/brain.test.js
+      - name: Four-arm physics ablation on frozen results
+        if: github.event_name == 'push'
+        env:
+          EX_PHYSICAL_ABLATION_PATH: research/ex_physical_ablation_20261108.json
+        run: node scripts/ex-physical-ablation.cjs 500
+      - name: Generate model source identity for EX transition dependency
+        if: github.event_name == 'push'
+        run: node scripts/model_identity.cjs
+      - name: Save immutable model identity and pilot evidence in feature branch
+        if: github.event_name == 'push'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add js/model-build.js research/ex_physical_ablation_20261108.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update model provenance and 7/9-car physical-pilot comparison'
+            git pull --rebase origin feature/ex-physical-transitions-v2-20261108
+            git push origin HEAD:feature/ex-physical-transitions-v2-20261108
+          fi
