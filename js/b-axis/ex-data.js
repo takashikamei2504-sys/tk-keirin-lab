@@ -10,6 +10,8 @@ function identity(r){return String(r?.meta?.rider_id??r?.rider_id??'').replace(/
 function record(input,r,asOf){
  const set=input?.bAxisEx;
  if(set?.schema!=='tk-b-axis-ex-observations/v1'||!set.riders)return null;
+ // Published, scheduled data must carry explicit reuse and redistribution approval.
+ if('license_status' in set&&(set.license_status!=='approved-for-model-and-publication'||set.redistribution_approved!==true))return null;
  const v=set.riders[identity(r)]||set.riders[String(r?.meta?.rider_id||'')];
  if(!v||typeof v!=='object'||!allowed.test(v.source_url||''))return null;
  const date=Date.parse(v.collected_at),published=Date.parse(v.published_at||v.collected_at);
