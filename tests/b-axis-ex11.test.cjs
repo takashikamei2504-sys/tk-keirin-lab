@@ -44,7 +44,8 @@ const prevRace=structuredClone(input);
 prevRace.race.date='2026-11-07';
 assert.equal(Context.allowed(data,prevRace.race,prevRace),false);
 const official=structuredClone(input);
-official.race.ex_context={track_length:400,weather:'雨',weather_source_verified:true};
+official.race.ex_context={track_length:400,weather:'雨',weather_source_verified:true,
+ time_band:Context.timeBand(official.race.start),time_band_source_verified:true};
 const labels=Context.keys(official.race,k);
 const conditions=Object.fromEntries(Context.AXES.map(x=>[x,{[labels[x]]:{opportunities:20,wins:7,top3:12}}]));
 const profile=(id,values,contextual)=>({source_url:'https://www.winticket.jp/keirin/cyclist/0'+id,

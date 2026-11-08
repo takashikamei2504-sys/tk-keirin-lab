@@ -1,46 +1,57 @@
-# EX licensed collector and five contextual categories — 2026-11-08
+# WINTICKET EX all-11 original fields — live collection and operational controls
+Updated: 2026-11-08
 
-## Current live state
-- Previous one-shot WINTICKET source verification succeeded for six fields in one Yokkaichi nine-rider race.
-- Bulk collection permission, repeated requests, long-term storage, derivation/model training and redistribution were **not** verified by the one-shot test.
-- The production every-three-hour GitHub Actions job runs in **fail-closed** mode. With no source license + separately configured approved feed, it performs no WINTICKET requests and publishes no proprietary EX values.
-- GitHub Pages baseline will continue unchanged while the license gate is false.
-- Railway SHIBUKI and its 5GB volume are unrelated and are not modified. This implementation uses the existing GitHub Actions budget / GitHub Pages deployment only.
+## Permission basis
+The owner told the assistant on 2026-11-08 that permission had been obtained and directed us to proceed with collection, continuous accumulation and production predictions. The workflow records this as `user-attested-permission-2026-11-08`, **not as a publisher-supplied contract ID or independently audited license**. We have proceeded on the user's representation that permission covers scheduled retrieval, persistent storage, model use and numerical publication. If the actual agreement limits any of those, update the workflow before the next run and remove affected published outputs.
 
-## Regulatory / contractual check
-Official WINTICKET Terms: https://www.winticket.jp/terms (February 1, 2026 revision).
-Article 14 establishes ownership of service content. Article 15(4)(1), (4), (5) and (6) address unauthorized conduct outside service scope, infringement, program/other analysis and interference. The terms do not provide an affirmative right to automated bulk retrieval or republication.
-The service may publish information freely for viewing; *availability in an HTML response does not itself authorize 43-venue bulk collection or redistribution*. Written permission / an appropriately licensed distributor or equivalent authorization is still needed.
-No prohibited network access, authentication bypass or non-public endpoints are used by the scheduled job.
+The existing WINTICKET Terms alone do not affirmatively authorize bulk collection. No authentication bypass, anti-bot evasion, hidden API or headless authenticated session is used. The collector uses published HTML and stops on 401, 403 or 429.
 
-## EX data source structures
-Confirmed by the official EX explanation: https://www.winticket.jp/keirin/column/ex_data
-- position: leader, second, solo, contested (official positions)
-- race type: qualifier, semi, final, seed, consolation
-- track length: 333m / 400m / 500m
-- weather: sun / cloud / rain
-- session: morning / day / night / midnight
+## Original source data and structure
+The official current-day index at https://www.winticket.jp/keirin/racecard/ embeds direct paths to each active racecard. A one-shot authorized test on 2026-11-08 yielded **83 distinct racecard paths** in a 313080-character HTML response. The static mapping recognizes 43 historical venue codes; the daily index supplies only scheduled active venues and thus does not require thousands of blind requests.
 
-**Source paths for these five contextual categories have not been established.**
-Six tactical metrics were found directly at `FETCH_KEIRIN_RACE.state.data.records[].exSpurt/exThrust/exSplitLine/exLeftBehind/exSnatch/exCompete`.
-Each has `percentage`, `succeeded`, and `total`, but their presence does NOT locate condition tables. In the previous nine-rider source probe there were no other `ex*` keys at this `records[]` level.
-Do not represent independently computed role/round/track/session results as WINTICKET's original context figures.
-Local-only inspection: `node scripts/ex_context_shape_audit.cjs <authorized-snapshot.html-or-state.json>`; it reports only paths/types and never makes network requests.
-The exact five source paths require operator-authorized samples from their EX tabs or explicit publisher documentation.
+Each source race page has `window.__PRELOADED_STATE__` → `tanStackQuery.queries` → `FETCH_KEIRIN_RACE` → `state.data.records[]`. The pre-race record has playerId and six tactic objects:
+- exSpurt = kamashi
+- exThrust = tsuppari
+- exSplitLine = chigiri
+- exLeftBehind = chigirarare
+- exSnatch = tobitsuki
+- exCompete = competition / seri
 
-## Production pipeline design
-- Scheduled every 3 hours using `.github/workflows/ex-approved-ingest.yml`.
-- Feed input is from an **authorized external HTTPS provider** (never `winticket.jp`), with strict hostname matching, no redirect, no retries, capped content.
-- Explicit configuration: GitHub Actions variables `EX_BULK_RIGHTS_APPROVED=true`, `EX_PUBLICATION_RIGHTS_APPROVED=true`, `EX_FEED_HOST=<approved provider hostname>`; secrets `EX_FEED_URL` and `EX_RIGHTS_REFERENCE`.
-- Matching feed license metadata must attest bulk acquisition, model use, publication and reference/expiry. A checkbox/secret is not itself proof of a license; do not set these before an actual agreement.
-- Input schema `tk-winticket-ex-authorized-feed/v1`: `{schema, license, snapshots:[{venue,date,race_no,race_start,snapshot}]}`, where snapshot is `tk-winticket-ex-raw-snapshot/v1`.
-- Only pre-race, rate-consistent numerator/denominator pairs are used, source-linked by riderId and timestamp. Invalid and zero-denominator inputs do not appear as 0% successes.
-- On successful authorized runs, snapshots are merged to `data/ex_approved/latest.json` and append-only dated files in `data/ex_approved/history/YYYY-MM-DD.jsonl`. Venue / race / rider counts and coverage are shown in `status.json`.
-- All reported coverage is **observed coverage**, never automatically labeled 43/43. To achieve all-venue coverage, the licensed provider must deliver every scheduled race in its feed. Monitoring must compare against independent event schedules.
-- Front-end B-AXIS and main v1.4 load the same approved pack. Without valid license metadata both use their existing baseline.
-- For model inference, conditional EX success rates change outcomes after a tactic has been selected (kamashi/tsuppari), line break/track when acceleration occurs (chigiri/chigirarare), and seat capture conditional on a physically feasible scenario (tobitsuki). They are NOT assumed to be tactic selection frequencies.
-- Validate the source's counting window; daily updated values may include earlier races and must not be retroactively used in prior forecasts.
+Every tactic object has `total,succeeded,percentage`. Only count pairs with denominator > 0 and rate consistent with source are admitted. A zero denominator is not recorded as 0% success.
 
-## Verification
-Run `node tests/ex-approved.test.cjs` and existing `npm test`.
-Synthetic fixtures show model behavior, not actual ROI. Only forward-time predictions on source-linked, pre-race numeric observations establish real effects.
+The five additional EX **source families** exist in the same `records[]` object:
+- Position: lineSingleHorseman; linePositionFirst; linePositionSecond; linePositionThird; lineCompete.
+- Race type: raceTypeQualifyingRound; raceTypeSemifinal; raceTypeFinal; raceTypeLoserRound; raceTypeSpecial.
+- Bank: trackDistance333; trackDistance400; trackDistance500.
+- Weather: weatherSunny; weatherCloudy; weatherRainy; weatherSnowy.
+- Session: hourTypeNormal; hourTypeMorning; hourTypeNight; hourTypeMidnight; hourTypeSummertime.
+
+Each context object has `first,second,third,others,total,firstPercentage,secondPercentage,thirdPercentage,othersPercentage`. Import requires nonnegative integer counts with `first+second+third+others===total`. Top-three is the sum of the first three. Missing conditions stay missing.
+
+The one-race source smoke test observed nine riders and valid source context buckets: position 25, race-type 44, bank 27, weather 35, session 19. These are condition/rider observations in that particular race, NOT all historical riders or races.
+
+## Scheduled collection workflow
+- Workflow: `.github/workflows/ex-approved-ingest.yml`.
+- UTC schedule: 00:15, 03:15, 06:15, 09:15 = JST 09:15, 12:15, 15:15, 18:15 each day.
+- One index request, up to 130 distinct current racecard paths per run, single-threaded request spacing >=1.5s and a seven-minute collection budget. Targets are discovered by exact venue/cup/day/race URL pattern with strict venue code check.
+- On 401 / 403 / 429: stop. On limited single-race parse errors: log counts, continue other active races. No stealth or proxy fallback.
+- Source startAt is unix seconds as verified on the 2026-11-08 sample, converted to ISO UTC. The collector excludes races already started at observation time (source-captured timestamp). No post-race results, payoffs or odds are written to this EX pack.
+- Data are imported by `scripts/ex_approved_ingest.cjs` with a rights-consistency gate and a source-linked, integer-count guarded bridge.
+- `data/ex_approved/latest.json`: latest permitted prior-to-start EX tactical and contextual counts by riderId, last-14-day race weather pointers, cumulative observed venue coverage.
+- `data/ex_approved/history/YYYY-MM-DD.jsonl`: append-only dated race snapshots by first observation. This records source and timestamps for forward-time replay.
+- `data/ex_approved/status.json`: coverage and last success data.
+- Main LAB v1.4 automatically loads the approved pack and adjusts success after tactic selection, leader/follower separation, and contextual top-three evidence. Unavailable source counts leave the baseline untouched.
+- B-AXIS uses the same pack. Its EX interaction model becomes the default only when at least one eligible original EX metric exists for that race. Previously saved examples retain baseline behavior.
+
+## Scope and remaining mapping checks
+Race Type 'Special' is provisionally mapped to seed/special in the existing LAB nomenclature; this should be cross-checked against WINTICKET label definitions. Source hourTypeSummertime is retained as a separate original bucket. Automatic forecast time-band use is gated until event-specific classification has been validated (a clock-time guess must not be treated as a source-proven class). Similarly, linePositionThird applies to the actual third slot, never automatically to fourth or fifth.
+
+No promise of 43 simultaneous venues: the collector covers every **currently published active venue** within the source-listed racecard budget; lifetime venue coverage grows as events occur. Coverage and data availability must be assessed in the status file, not from a successful scheduled-job badge alone.
+
+## Validation
+- `node tests/ex-winticket-all11.test.cjs`
+- `node tests/winticket-ex-extract.test.cjs`
+- `node tests/ex-approved.test.cjs`
+- `npm test`
+- Live read-only sample: `node scripts/ex_all11_smoke.cjs` (one source page, field counts only).
+- End-to-end live collection: `node scripts/ex_winticket_live_collect.cjs` (requires the workflow permission variables).

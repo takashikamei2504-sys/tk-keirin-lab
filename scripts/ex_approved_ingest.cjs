@@ -39,7 +39,8 @@ function ingest(feed,previous={},permit){
  for(const [id,v] of Object.entries(old)){
    if(/^\d{3,10}$/.test(id)&&v&&Number.isFinite(Date.parse(v.collected_at)))riders[id]=v;
  }
- const history=[],venues=new Set(),races=new Set(),skipped={invalid:0,late:0,empty:0};
+ const history=[],venues=new Set(Array.isArray(previous?.summary?.observed_venues)?previous.summary.observed_venues:[]),races=new Set(),skipped={invalid:0,late:0,empty:0};
+ const raceContexts={...(previous?.race_contexts||{})};
  for(const row of feed.snapshots){
   try{
    validateRace(row);
@@ -48,6 +49,9 @@ function ingest(feed,previous={},permit){
    const key=[row.date,row.venue,row.race_no].join(':');
    if(races.has(key))throw Error('DUPLICATE_RACE');
    races.add(key);venues.add(row.venue);
+   if(row.source_context?.collected_at&&Date.parse(row.source_context.collected_at)<Date.parse(row.race_start))
+     raceContexts[key]={weather:row.source_context.weather||null,source_url:row.source_context.source_url,
+       collected_at:row.source_context.collected_at};
    let n=0;
    for(const [id,record] of Object.entries(bridged.riders)){
      if(!/^\d{3,10}$/.test(cleanID(id)))continue;
@@ -71,6 +75,8 @@ function ingest(feed,previous={},permit){
  const sorted=Object.fromEntries(Object.entries(riders)
    .sort(([a],[b])=>a.localeCompare(b,'en',{numeric:true})).slice(-MAX_HISTORY));
  const count=Object.values(sorted).reduce((s,r)=>s+Object.keys(r.metrics||{}).length,0);
+ const contextCount=Object.values(sorted).reduce((sum,r)=>sum+Object.values(r.contextual||{})
+    .reduce((n,axis)=>n+Object.keys(axis).length,0),0);
  const result={
   schema:'tk-b-axis-ex-observations/v1',
   license_status:APPROVAL,redistribution_approved:true,
@@ -78,7 +84,8 @@ function ingest(feed,previous={},permit){
   source_type:'rights-approved-original-winticket-ex-records',
   license_expires_at:feed.license.expires_at||null,
   summary:{covered_venues:venues.size,covered_races:races.size,unique_riders:Object.keys(sorted).length,
-    valid_metrics:count,skipped,observed_venues:[...venues].sort()},
+    valid_metrics:count,valid_context_buckets:contextCount,skipped,observed_venues:[...venues].sort()},
+  race_contexts:Object.fromEntries(Object.entries(raceContexts).filter(([key])=>key.slice(0,10)>=new Date(Date.now()-14*86400000).toISOString().slice(0,10))),
   riders:sorted
  };
  return {latest:result,history};
@@ -109,11 +116,12 @@ function main(argv,env=process.env){
   state:'licensed-feed-published',source:'authorized-ex-feed',
   last_success_at:latest.generated_at,venues_collected:latest.summary.covered_venues,
   races_collected:latest.summary.covered_races,valid_metrics:latest.summary.valid_metrics,
-  model_data_available:latest.summary.valid_metrics>0,
+  valid_context_buckets:latest.summary.valid_context_buckets,
+  model_data_available:latest.summary.valid_metrics>0||latest.summary.valid_context_buckets>0,
   public_distribution_approved:true
  },null,2)+'\n',{mode:0o600});
  console.log('EX_APPROVED_INGEST '+JSON.stringify({races:history.length,venues:latest.summary.covered_venues,
-  riders:latest.summary.unique_riders,metrics:latest.summary.valid_metrics,
+  riders:latest.summary.unique_riders,metrics:latest.summary.valid_metrics,context:latest.summary.valid_context_buckets,
   appended:append.length,skipped:latest.summary.skipped}));
 }
 if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error('EX_INGEST_ERROR '+e.message);process.exitCode=1;}}

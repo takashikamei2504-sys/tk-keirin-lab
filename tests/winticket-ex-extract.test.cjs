@@ -47,6 +47,6 @@ const bridged=Bridge.bridge(out,'2026-11-08T02:00:00.000Z');
 assert.equal(bridged.schema,'tk-b-axis-ex-observations/v1');
 assert.equal(Object.keys(bridged.riders).length,1);
 assert.deepEqual(bridged.riders['14838'].metrics.chigirarare,{events:1,opportunities:8});
-assert.equal(bridged.riders['14838'].metrics.seri,undefined,'unverified candidate must not enter B-AXIS');
+assert.equal(bridged.riders['14838'].metrics.seri,undefined,'source without numerator/denominator must not enter B-AXIS');
 assert.throws(()=>Bridge.bridge(out,'2026-11-08T00:59:59.000Z'),/PRE_RACE_SNAPSHOT_REQUIRED/);
 console.log('WIN_EX_EXTRACT_TESTS_OK '+JSON.stringify(out.summary));

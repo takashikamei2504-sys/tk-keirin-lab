@@ -1575,7 +1575,7 @@ async function quickDayFeed(date){
  }
  throw Error(lastError||'公開データを取得できませんでした');
 }
-function quickExternalToRace(source,day){const race=SCounts.attach(RaceFeed.convert(source,day),quickSCountPack);validate(race);return race;}
+function quickExternalToRace(source,day){const race=SCounts.attach(RaceFeed.convert(source,day),quickSCountPack);race.ex_context={track_length:Number(source.track_length)||null};validate(race);return race;}
 function quickShowCoverage(payload){
  const date=$('quick-date').value;
  const meet=[...new Set(payload.races.filter(r=>[7,9].includes(Number(r.n_cars))&&!r.is_girls).map(r=>String(r.venue||'')))].filter(v=>QUICK_VENUES.includes(v));
@@ -1706,7 +1706,14 @@ try{
 
 
 const CAUSAL_V=RaceBrain.VERSION; let causalLast=null; const causalEsc=x=>esc(x); let autoIntelPack={};let raceMaterialPack={};let approvedExPack=null;
-function causalBuild(r){validate(r);const enriched=RaceMaterial.attach(RecentForm.attach(r,recentFormPack),raceMaterialPack);const out=RaceBrain.build(enriched,{...autoIntelPack,exPack:approvedExPack,exAsOf:Date.now(),observations:[...(autoIntelPack.observations||[]),...(enriched.race_material?.comments||[])]});out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,s:x.s,s_source:x.s_source,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}
+function causalBuild(r){validate(r);
+ const contextual={...(r.ex_context||{})};
+ const key=r.date+':'+r.venue+':'+r.race_no,obs=approvedExPack?.race_contexts?.[key];
+ const cutoff=Date.parse(r.date+'T'+r.start+':00+09:00');
+ if(obs&&Date.parse(obs.collected_at)<cutoff&&Date.parse(obs.collected_at)<=Date.now()){
+  contextual.weather=obs.weather;contextual.weather_source_verified=Boolean(obs.weather);
+ }
+ const enriched=RaceMaterial.attach(RecentForm.attach({...r,ex_context:contextual},recentFormPack),raceMaterialPack);const out=RaceBrain.build(enriched,{...autoIntelPack,exPack:approvedExPack,exAsOf:Date.now(),observations:[...(autoIntelPack.observations||[]),...(enriched.race_material?.comments||[])]});out.form={riders:enriched.riders.map(x=>({no:x.no,name:x.name,s:x.s,s_source:x.s_source,recent_form:x.recent_form,form_status:x.form_status})),status:enriched.recent_form_status};return out;}
 function causalRun(){
  try{
   const out=causalBuild(data);causalLast=out;autoIntelRender(out);recentFormRender(out);

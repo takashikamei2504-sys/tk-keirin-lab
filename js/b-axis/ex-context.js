@@ -29,6 +29,7 @@ function bankLength(m){
 }
 function weather(v){
  const t=String(v||'');
+ if(/雪|snow/i.test(t))return 'snow';
  if(/雨|rain/i.test(t))return 'rain';
  if(/曇|くも|cloud/i.test(t))return 'cloud';
  if(/晴|sun/i.test(t))return 'sun';
@@ -67,7 +68,10 @@ function snapshot(input,rider){
  const contributions=[],official=[],historical=[];
  for(const axis of AXES){
   const key=k[axis];if(!key)continue;
-  const published=Ex.contextual(input,rider,axis,key,{asOf:input.as_of});
+  const slot=(race?.lineup||[]).find(l=>l.includes(rider.no))?.indexOf(rider.no);
+  const sourceTimeVerified=race?.ex_context?.time_band_source_verified===true&&race.ex_context.time_band===key;
+  const published=(axis==='position'&&slot>2)||(axis==='time_band'&&!sourceTimeVerified)?null:
+    Ex.contextual(input,rider,axis,key,{asOf:input.as_of});
   const global=liveArchive?stats(archive,'population',axis,key):null;
   const raw=liveArchive?archive?.riders?.[id]?.[axis]?.[key]:null;
   let n,top3,baseline,origin;

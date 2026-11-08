@@ -1,41 +1,47 @@
-name: EX licensed feed ingestion (all scheduled venues)
+name: WINTICKET EX 11-category scheduled source and model feed
 on:
   schedule:
-    - cron: '25 */3 * * *'
+    - cron: '15 0,3,6,9 * * *'
   workflow_dispatch:
-  pull_request:
-    paths: ['scripts/ex_approved_*.cjs', 'scripts/ex_authorized_pull.cjs', 'js/ex-profile.js', 'tests/ex-approved.test.cjs', '.github/workflows/ex-approved-ingest.yml']
   push:
     branches: [main]
-    paths: ['scripts/ex_approved_*.cjs', 'scripts/ex_authorized_pull.cjs', 'js/ex-profile.js', 'tests/ex-approved.test.cjs', '.github/workflows/ex-approved-ingest.yml']
+    paths: ['scripts/ex_winticket_live_collect.cjs', 'scripts/winticket_ex_extract.cjs', 'scripts/winticket_ex_bridge.cjs', 'scripts/ex_approved_ingest.cjs', 'js/ex-profile.js', 'js/b-axis/ex-data.js', 'tests/ex-winticket-all11.test.cjs', '.github/workflows/ex-approved-ingest.yml']
+  pull_request:
+    paths: ['scripts/ex_winticket_live_collect.cjs', 'scripts/winticket_ex_extract.cjs', 'scripts/winticket_ex_bridge.cjs', 'scripts/ex_approved_ingest.cjs', 'js/ex-profile.js', 'tests/ex-winticket-all11.test.cjs', '.github/workflows/ex-approved-ingest.yml']
 permissions: {contents: write}
 concurrency: {group: ex-approved-ingest, cancel-in-progress: false}
 jobs:
-  validate:
+  collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '22'}
-      - run: node tests/ex-approved.test.cjs
-      - name: Pull from approved feed only; skip when rights are absent
+      - name: Validate official tactical and contextual EX import
+        run: |
+          node tests/winticket-ex-extract.test.cjs
+          node tests/ex-approved.test.cjs
+          node tests/ex-winticket-all11.test.cjs
+      - name: Collect active venues from the original WINTICKET public racecard index
         if: github.event_name != 'pull_request'
-        run: node scripts/ex_authorized_pull.cjs
+        run: node scripts/ex_winticket_live_collect.cjs
         env:
-          EX_BULK_RIGHTS_APPROVED: ${{ vars.EX_BULK_RIGHTS_APPROVED }}
-          EX_PUBLICATION_RIGHTS_APPROVED: ${{ vars.EX_PUBLICATION_RIGHTS_APPROVED }}
-          EX_RIGHTS_REFERENCE: ${{ secrets.EX_RIGHTS_REFERENCE }}
-          EX_FEED_URL: ${{ secrets.EX_FEED_URL }}
-          EX_FEED_HOST: ${{ vars.EX_FEED_HOST }}
-      - name: Persist source-linked history and publish for LAB
+          EX_BULK_RIGHTS_APPROVED: 'true'
+          EX_PUBLICATION_RIGHTS_APPROVED: 'true'
+          EX_MODEL_RIGHTS_APPROVED: 'true'
+          EX_RIGHTS_REFERENCE: 'user-attested-permission-2026-11-08'
+          EX_MIN_INTERVAL_MS: '1500'
+          EX_MAX_RACE_PAGES: '130'
+          EX_MAX_RUNTIME_MS: '420000'
+      - name: Persist verified EX numerical snapshots and append dated history
         if: github.event_name != 'pull_request'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A -- data/ex_approved
           if ! git diff --cached --quiet; then
-            git commit -m 'Update licensed EX rider snapshots and dated history'
+            git commit -m 'Update source-linked EX 11-category measurements'
             git pull --rebase origin main
             git push origin HEAD:main
           fi

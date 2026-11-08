@@ -39,10 +39,10 @@ assert.equal(history.length,1);
 assert.equal(latest.license_status,'approved-for-model-and-publication');
 assert.equal(latest.summary.covered_venues,1);
 assert.equal(latest.summary.covered_races,1);
-assert.equal(latest.summary.valid_metrics,6);
+assert.equal(latest.summary.valid_metrics,7);
 assert.equal(latest.riders['14838'].metrics.kamashi.events,4);
 assert.equal(latest.riders['14838'].metrics.tobitsuki.events,0);
-assert.equal(latest.riders['14838'].metrics.seri,undefined);
+assert.deepEqual(latest.riders['14838'].metrics.seri,{events:2,opportunities:2});
 assert.equal(latest.riders['12000'].metrics.kamashi,undefined,'zero denominator must stay absent');
 const rider={no:3,name:'古性優作',style:'両',score:117,meta:{rider_id:'14838'}};
 const race={date:'2026-11-08',start:'12:00',lineup:[[3,1],[2,4],[5,6,7]],riders:[]};
@@ -57,7 +57,7 @@ assert.equal(Profile.record(latest,rider,{...race,date:'2026-11-07'},Date.now())
 const empty={front:.3,resist:.4,withdraw:.4,kamashi:.4,makuri:.5,track:.5,seat:.5,recover:.5,finish:.5,outer:.5,
  evidence:[],measurements:[],basis:'基礎'};
 Profile.attach(empty,rider,race,latest,Date.parse(before));
-assert.equal(empty.ex_used,5);
+assert.equal(empty.ex_used,6);
 assert(empty.ex_kamashi_delta>0);
 const races={...race,riders:[
  rider,...[1,2,4,5,6,7].map(no=>({no,name:'R'+no,score:100,style:'両',
@@ -66,7 +66,7 @@ const races={...race,riders:[
 const p0=Brain.profiles(races,{}).get(3);
 const p1=Brain.profiles(races,{exPack:latest,exAsOf:Date.parse(before)}).get(3);
 assert.equal(p0.ex_used,undefined);
-assert.equal(p1.ex_used,5);
+assert.equal(p1.ex_used,6);
 assert.equal(p1.ex_source_url,source);
 assert(p1.ex_chigiri_delta>0);
 assert(p1.ex_chigirarare_delta<0);
