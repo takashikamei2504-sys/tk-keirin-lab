@@ -53,11 +53,11 @@ function gapReorder(order,line,controller){
  return [...order.filter(no=>!followers.includes(no)),...followers];
 }
 function seatOpportunity(order,lineup,controller,opponent,ctx={}){
- if(!Array.isArray(order)||!Array.isArray(lineup)||!Array.isArray(opponent?lineup:[]))throw Error('INVALID_SEAT_INPUT');
+ if(!Array.isArray(order)||!Array.isArray(lineup)||new Set(order).size!==order.length||!lineup.every(x=>Array.isArray(x)&&new Set(x).size===x.length))throw Error('INVALID_SEAT_INPUT');
  if(opponent==null)return {allowed:false,why:'no nearby candidate'};
  const leaderLine=lineup.find(l=>l.includes(controller));
  const challengerLine=lineup.find(l=>l.includes(opponent));
- if(!leaderLine||!challengerLine||leaderLine===challengerLine||
+ if(!leaderLine||leaderLine[0]!==controller||!challengerLine||leaderLine===challengerLine||
     challengerLine[0]!==opponent)return {allowed:false,why:'candidate is not an opposing line head or solo'};
  const ci=order.indexOf(controller),fi=order.indexOf(leaderLine[1]),oi=order.indexOf(opponent);
  if(ci<0||fi!==ci+1||oi!==fi+1)return {allowed:false,why:'opponent is not immediately behind the separated marker'};
