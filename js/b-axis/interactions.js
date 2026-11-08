@@ -5,6 +5,7 @@
 (function(root){'use strict';
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const round=v=>Math.round(v*1000)/1000;
+const Ex=typeof module!=='undefined'?require('./ex-data.js'):root.BAxisEx;
 function value(input,no,key,fallback=.45){
  const x=input?.features?.[no]?.[key]?.value;
  return Number.isFinite(x)?clamp(x):fallback;
@@ -35,13 +36,28 @@ function review(input,snap){
     chaseFeasible:dist<=3.9&&att.closing>=.43,
     risk:dist>2.9?'コーナーまでに追撃距離を詰める必要':'コーナーまでの反撃は位置上可能'};
  }).sort((a,b)=>a.gap-b.gap||b.threat-a.threat);
+ // A front rider or solo racer may contest the B-line's marker. This is a
+ // possible route, not proof of a jump or block observed in the actual race.
+ const markerContests=defender?attackerStates.filter(s=>s.lineIndex===0&&
+   s.gap<=2.85&&s.gap>=.55&&Math.abs(s.gap-defender.gap)<=2.2&&s.closing>=.38).map(s=>{
+   const challenger=input.race.riders.find(r=>r.no===s.no);
+   const holder=input.race.riders.find(r=>r.no===defender.no);
+   const attackEx=Ex.smoothed(input,challenger,'tobitsuki',.3,20,input.as_of);
+   const defendEx=Ex.smoothed(input,holder,'seri',.5,20,input.as_of);
+   return {no:s.no,defenderNo:defender.no,gap:round(s.gap),
+    attackerMeasured:attackEx?{events:attackEx.events,opportunities:attackEx.opportunities,rate:attackEx.rate}:null,
+    defenderMeasured:defendEx?{events:defendEx.events,opportunities:defendEx.opportunities,rate:defendEx.rate}:null,
+    adjustment:round((attackEx?(attackEx.smoothed-.3)*attackEx.weight*.12:0)-
+     (defendEx?(defendEx.smoothed-.5)*defendEx.weight*.09:0)),
+    feasibility:'B時点の近接配置から番手奪取の試行が成立し得る。成功は未観測'};
+  }):[];
  const detachment=states.filter(s=>s.track==='追走離れ気味').map(s=>({
   no:s.no,relativeGap:round(s.gap),role:s.role,source:'B時点の相対位置・追走指数から導いた仮説（実測ではない）'
  }));
  const abilityRange=attackers.length?round(attackers[0].threat-(defender?value(input,defender.no,'block',.4):0)):null;
  return {version:'b-axis-interaction-v1',selectedB:snap.bNo,
   defender:marker?{no:marker.no,connected:attached,remaining:marker.remaining,gap:marker.gap,blockFeature:value(input,marker.no,'block',.4)}:null,
-  attackers,detachment,estimatedPopulationBlockSuccessRate:null,measuredBlockAttempts:0,
+  attackers,markerContests,detachment,estimatedPopulationBlockSuccessRate:null,measuredBlockAttempts:0,
   evidenceBasis:'Source-based block attempts are kept in an external observational dataset; this runtime does not treat hypothetical block outcomes as measurements.',
   responseStrength:abilityRange};
 }
