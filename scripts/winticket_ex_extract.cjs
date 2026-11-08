@@ -9,9 +9,30 @@ const FIELD_MAP = Object.freeze({
   exSplitLine: 'chigiri',
   exLeftBehind: 'chigirarare',
   exSnatch: 'tobitsuki',
-  exCompete: 'seri' // unverified candidate; retain raw data for inspection only
+  exCompete: 'seri' // WINTICKET EX contest success field
 });
-const CONFIRMED_KEYS = new Set(['exSpurt', 'exThrust', 'exSplitLine', 'exLeftBehind', 'exSnatch']);
+const CONFIRMED_KEYS = new Set(Object.keys(FIELD_MAP));
+const CONTEXT_KEYS=Object.freeze({
+  lineSingleHorseman:['position','solo'],linePositionFirst:['position','leader'],
+  linePositionSecond:['position','second'],linePositionThird:['position','thirdPlus'],
+  lineCompete:['position','compete'],
+  raceTypeQualifyingRound:['race_type','qualifying'],raceTypeSemifinal:['race_type','semifinal'],
+  raceTypeFinal:['race_type','final'],raceTypeLoserRound:['race_type','loser'],
+  raceTypeSpecial:['race_type','seed'],
+  trackDistance333:['bank_length','333'],trackDistance400:['bank_length','400'],trackDistance500:['bank_length','500'],
+  weatherSunny:['weather','sun'],weatherCloudy:['weather','cloud'],weatherRainy:['weather','rain'],weatherSnowy:['weather','snow'],
+  hourTypeNormal:['time_band','day'],hourTypeMorning:['time_band','morning'],
+  hourTypeNight:['time_band','night'],hourTypeMidnight:['time_band','midnight'],hourTypeSummertime:['time_band','summertime']
+});
+function contextCount(v){
+  if(!v||typeof v!=='object')return null;
+  const names=['first','second','third','others','total'];
+  if(names.some(k=>!Number.isInteger(v[k])||v[k]<0))return null;
+  const [first,second,third,others,n]=names.map(k=>v[k]);
+  if(n<=0||first+second+third+others!==n)return null;
+  return {opportunities:n,wins:first,top3:first+second+third,first,second,third,others};
+}
+
 
 function extractPreloadedState(html) {
   const match = /window\.__PRELOADED_STATE__\s*=\s*/.exec(html);
@@ -86,7 +107,7 @@ function extract(html, options={}) {
   for (const rec of data.records) {
     const playerId = rec && rec.playerId;
     if (playerId === null || playerId === undefined) continue;
-    const id = String(playerId), raw = {}, percent = {}, counts = {};
+    const id = String(playerId), raw = {}, percent = {}, counts = {}, contextual = {};
     for (const [field, name] of Object.entries(FIELD_MAP)) {
       const v = (rec && Object.hasOwn(rec,field)) ? rec[field] :
                 (rec.ex && Object.hasOwn(rec.ex,field) ? rec.ex[field] : undefined);
@@ -100,6 +121,15 @@ function extract(html, options={}) {
       else if (v && typeof v === 'object' && Number.isInteger(v.succeeded) && Number.isInteger(v.total) && v.total > 0) inconsistent[field] = (inconsistent[field] || 0) + 1;
       present[field] = (present[field] || 0) + 1;
     }
+    for(const [field,[axis,key]] of Object.entries(CONTEXT_KEYS)){
+      const v=rec[field] ?? rec.ex?.[field];
+      if(!v)continue;
+      const c=contextCount(v);
+      if(!c)continue;
+      if(!contextual[axis])contextual[axis]={};
+      contextual[axis][key]=c;
+      present[field]=(present[field]||0)+1;
+    }
     for (const key of Object.keys(rec || {})) {
       if (/^ex[A-Z]/.test(key) && !Object.hasOwn(FIELD_MAP,key)) otherKeys.add(key);
     }
@@ -109,7 +139,7 @@ function extract(html, options={}) {
       registration_number:players.get(id)?.registrationNumber ?? null,
       name:players.get(id)?.name ?? null,
       car_number:entries.get(id)?.number ?? null,
-      percentages:percent, explicitly_counted:counts, source_fields:raw
+      percentages:percent, explicitly_counted:counts, contextual, source_fields:raw
     });
   }
   return {
@@ -122,7 +152,7 @@ function extract(html, options={}) {
     note:'Raw WINTICKET record values, not independently validated opportunities. EX rates with no verified denominator must not be written to b_axis_ex_observations.',
     key_status:{
       confirmed_from_public_collectors:[...CONFIRMED_KEYS],
-      candidate_only:['exCompete'],
+      candidate_only:[],
       additional_record_ex_keys:[...otherKeys].sort()
     },
     summary:{players_with_ex:rows.length, fields_seen:present,
@@ -151,4 +181,4 @@ if (require.main === module) {
   try {main(process.argv.slice(2));}
   catch(e){console.error('WIN_EX_IMPORT_ERROR '+e.message);process.exitCode=1;}
 }
-module.exports={extractPreloadedState,getRaceData,extract,FIELD_MAP,percentage,knownCounts};
+module.exports={extractPreloadedState,getRaceData,extract,FIELD_MAP,CONTEXT_KEYS,contextCount,percentage,knownCounts};
