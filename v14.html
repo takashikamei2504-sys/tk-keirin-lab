@@ -215,7 +215,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <details class="panel support-disclosure" id="race-data-details"><summary>出走選手・想定並び・近況成績</summary><section class="panel"><h2>ライン構成</h2><div id="lines" class="lineup"></div></section><section class="panel"><h2>出走選手データ</h2><div id="players"></div><p class="small">競走得点・B本数・1着率。率は出走表の直近4か月成績。</p></section><section class="intel-box" id="recent-form-panel"><h3>自動収集した近況成績</h3><p class="causal-meta" role="status" id="recent-form-status">近況成績を自動取得中…</p><div id="recent-form-riders"></div></section></details>
 <details class="panel support-disclosure" id="keymen-details"><summary>レースを動かすキーマン</summary><div class="causal-grid" id="causal-top"></div><div id="causal-keymen"></div></details>
 <details class="panel support-disclosure" id="article-details"><summary>選手特性・記事の根拠</summary><div id="auto-intel-status" class="causal-meta" role="status">記事データを取得中…</div><div id="auto-intel-evidence"></div></details>
-<details class="panel support-disclosure" id="collection-details"><summary>取得状況・出典・予想の保存</summary><div id="causal-state" class="causal-meta" role="status"></div><p id="ex-live-status" class="causal-meta" role="status">EX実測：利用許諾・収集状況を確認しています。</p><p id="quick-status-detail" class="aux-status"></p><p id="quick-data-info" class="small"></p><p class="small">出走表配信元：<a href="https://github.com/kurinaka12-afk/keirin-app-data" target="_blank" rel="noopener noreferrer">keirin-app-data</a>。近況成績はKEIRIN.JPの公開プロフィールから取得。未取得項目や発走後に取得した情報は実績として補完しません。</p><button type="button" class="btn secondary" id="causal-export">展開と買い目をJSON保存</button><div class="support-links"><a href="riders.html">全S級の収集状況</a><a href="v12.html">従来のv1.2</a><a href="v13.html">元のv1.3</a></div></details>
+<details class="panel support-disclosure" id="collection-details"><summary>取得状況・出典・予想の保存</summary><div id="causal-state" class="causal-meta" role="status"></div><p id="ex-live-status" class="causal-meta" role="status">EX実測：読み込み中</p><p id="ex-ab-status" class="causal-meta" role="status">EX改善効果：発走前ペア検証を読み込み中</p><p id="quick-status-detail" class="aux-status"></p><p id="quick-data-info" class="small"></p><p class="small">出走表配信元：<a href="https://github.com/kurinaka12-afk/keirin-app-data" target="_blank" rel="noopener noreferrer">keirin-app-data</a>。近況成績はKEIRIN.JPの公開プロフィールから取得。未取得項目や発走後に取得した情報は実績として補完しません。</p><button type="button" class="btn secondary" id="causal-export">展開と買い目をJSON保存</button><div class="support-links"><a href="riders.html">全S級の収集状況</a><a href="v12.html">従来のv1.2</a><a href="v13.html">元のv1.3</a></div></details>
 <details class="panel support-disclosure" id="manual-input-details"><summary>出走表を手元のデータから取り込む</summary><details class="quick-help"><summary>出走表の文章をコピーして取り込む（JSON操作不要）</summary>
   <p class="quick-tip">出走表ページの選手情報をコピーして貼り付けます。選手名・得点・脚質・S・B・直近着数の10項目が必要です。自動で不足値を作りません。</p>
   <textarea id="quick-text" placeholder="例：
@@ -1784,9 +1784,30 @@ async function exApprovedLoad(){
     return;
   }
   approvedExPack=pack;causalRun();
-  const applied=Object.values(causalLast?.profiles||{}).filter(p=>p.ex_used>0).length;
+  const applied=Object.values(causalLast?.profiles||{}).filter(p=>p.ex_used>0||p.ex_context_used>0).length;
   node.textContent='EX実測：'+applied+'/'+data.riders.length+'選手に反映（公開許諾済みフィード）。蓄積'+(pack.summary?.unique_riders||0)+'選手・計'+(pack.summary?.valid_metrics||0)+'項目。最終更新 '+(pack.generated_at||'不明')+'。';
  }catch(e){approvedExPack=null;node.textContent='EX実測：公式EXフィード接続待ち。従来のモデルを使用。';}
 }
-autoIntelLoad();recentFormLoad();raceMaterialLoad();exApprovedLoad();
+async function exABReportLoad(){
+ const node=$('ex-ab-status');
+ try{
+  const response=await fetch('data/ex_roi/evaluation.json?ts='+Math.floor(Date.now()/900000),{cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const report=await response.json();
+  if(report.schema!=='tk-ex-roi-paired-report/v1'||!Number.isInteger(report.evaluated)||report.evaluated<0)
+    throw Error('形式不一致');
+  const n=report.evaluated;
+  if(!n){
+   node.textContent='EX改善効果：発走前の同条件A/B比較を収集中。回収率の差は評価対象0レース。';
+   return;
+  }
+  const pct=x=>Number.isFinite(x)?(100*x).toFixed(1)+'%':'集計待ち';
+  const base=report.baseline||{},ex=report.ex||{};
+  node.textContent='EX改善A/B '+n+'レース（各8点100円）：1・2着捕捉率 '+pct(base.pair_capture)+' → '+pct(ex.pair_capture)+
+    '／三連単的中率 '+pct(base.hit_rate)+' → '+pct(ex.hit_rate)+
+    '／回収率 '+pct(base.roi)+' → '+pct(ex.roi)+
+    (report.ready_for_review?'。改善候補として昇格審査へ。':'。継続検証中、購入判定は変更しません。');
+ }catch(e){node.textContent='EX改善効果：前向きA/Bの集計開始待ち。従来の購入判定を維持。';}
+}
+autoIntelLoad();recentFormLoad();raceMaterialLoad();exApprovedLoad();exABReportLoad();
 </script></body></html>
