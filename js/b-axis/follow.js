@@ -7,8 +7,10 @@ const Ex=typeof module!=='undefined'?require('./ex-data.js'):root.BAxisEx;
 function value(features,no,name,d=.5){
  const v=features?.[no]?.[name]?.value;return Number.isFinite(v)?clip(v):d;
 }
-function history(data,rider,raceDate){
- if(!data||!data.training_end||!raceDate||raceDate<=data.training_end||data.provenance?.actual_b_available)return null;
+function history(data,rider,raceDate,asOf){
+ const stamp=Date.parse(asOf||'');
+ const at=Number.isFinite(stamp)?new Date(stamp+9*3600000).toISOString().slice(0,10):null;
+ if(!data||!data.training_end||!raceDate||raceDate<=data.training_end||!at||at<=data.training_end||data.provenance?.actual_b_available)return null;
  const id=String(rider.meta?.rider_id||'').replace(/^0+(?=\d)/,'');
  const result=data.rider_roles?.[id]||null;
  return result?.n>=6?result:null;
@@ -18,7 +20,7 @@ function profile(features,follower,leader,options={}){
  const raw=value(features,follower.no,'track',.55),pre=value(features,leader.no,'sprint',.4);
  const scoreGap=Number(follower.score)-Number(leader.score);
  const relative=Number.isFinite(scoreGap)?clip((scoreGap+12)/24):.5;
- const riderHistory=history(options.history,follower,options.date);
+ const riderHistory=history(options.history,follower,options.date,options.asOf);
  const empirical=riderHistory?clip((riderHistory.top3+4)/(riderHistory.n+8),.04,.96):null;
  // Avoid treating top-three finishes as actual wheel tracking. Tiny adjustment only.
  const exRisk=options.exInput?Ex.followerRisk(options.exInput,options.lineHead||leader,follower,options.asOf):null;

@@ -12,7 +12,7 @@ function status(message){$('status').textContent=message;}
 async function json(url){const c=new AbortController(),timer=setTimeout(()=>c.abort(),14000);try{const response=await fetch(url,{signal:c.signal,cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);return await response.json();}finally{clearTimeout(timer);}}
 async function fetchDay(date){let err;for(const base of ['https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/','https://kurinaka12-afk.github.io/keirin-app-data/'])try{const p=await json(base+date+'.json');if(p.date!==date||!Array.isArray(p.races)||p.races.length>250)throw Error('日付かデータ形式が不正');return p;}catch(e){err=e;}throw err||Error('日別データ未取得');}
 async function fetchPacks(){
- const sources={intelligence:'data/intelligence.json',recent:'data/recent_form.json',material:'data/race_material.json',s:'data/s_counts.json',bAxisHistory:'data/b_axis_role_history.json',bAxisEx:'data/b_axis_ex_observations.json'};
+ const sources={intelligence:'data/intelligence.json',recent:'data/recent_form.json',material:'data/race_material.json',s:'data/s_counts.json',bAxisHistory:'data/b_axis_role_history.json',bAxisEx:'data/b_axis_ex_observations.json',bAxisExContext:'data/b_axis_ex_context.json'};
  const result=await Promise.allSettled(Object.entries(sources).map(async ([name,url])=>[name,await json(url)]));
  for(const r of result)if(r.status==='fulfilled')packs[r.value[0]]=r.value[1];
  return result.filter(r=>r.status!=='fulfilled').length;
@@ -69,12 +69,37 @@ function show(){
   $('scenario').innerHTML+='<p class="muted">B後の攻防仮説：別線反撃 '+post.attackers.length+'候補、牽制が成立し得る攻防 '+available.length+'組、追走離れ想定 '+(drops||'なし')+'、追走維持想定 '+followers+'人。すべてモデルの相対値で、実測回数ではありません。</p>';
  }
  const exRows=loadedInput.race.riders.reduce((sum,r)=>sum+BAxisEx.METRICS.filter(k=>BAxisEx.evidence(loadedInput,r,k,{asOf:loadedInput.as_of})).length,0);
+ const contextRows=loadedInput.race.riders.reduce((sum,r)=>sum+BAxisExContext.snapshot(loadedInput,r).contributions.length,0);
+ const axisNames={'position':'位置','race_type':'レース種別','bank_length':'バンク周長','weather':'天候','time_band':'時間帯'};
+ $('scenario').innerHTML+='<p class="muted">EX条件別5項目：'+contextRows+'件の選手別×条件を参照。'+(contextRows?'公開結果からの独自集計を使用（公式EX数値とは別）':'発走前に利用可能な条件実績なし')+'。</p>';
  $('scenario').innerHTML+='<p class="muted">EX戦術実測：'+(exRows?exRows+'項目を参照':'選手別の数値はまだ取得できていません。公開資料から数値を推測しません')+'。</p>';
+
+ const metricNames={kamashi:'カマシ',tsuppari:'突っ張り',chigiri:'千切り',chigirarare:'千切られ',tobitsuki:'飛び付き',seri:'競り'};
+ const contextNames={position:'位置別',race_type:'レース種別',bank_length:'バンク周長別',weather:'天候別',time_band:'時間帯別'};
+ const racers=loadedInput.race.riders,coverage=[];
+ for(const [metric,label] of Object.entries(metricNames)){
+  const n=racers.filter(r=>BAxisEx.evidence(loadedInput,r,metric,{asOf:loadedInput.as_of})).length;
+  coverage.push([label,n?('EX実測 '+n+'人'):'EX数値未取得']);
+ }
+ for(const [axis,label] of Object.entries(contextNames)){
+  let official=0,derived=0;
+  for(const rider of racers){
+   const row=BAxisExContext.snapshot(loadedInput,rider);
+   official+=row.official.includes(axis)?1:0;
+   derived+=row.historical.includes(axis)?1:0;
+  }
+  coverage.push([label,official?('EX元値 '+official+'人')+(derived?' ／ 独自集計 '+derived+'人':''):derived?('独自集計 '+derived+'人'):'未取得']);
+ }
+ $('ex-coverage').innerHTML='<ul>'+coverage.map(([label,state])=>'<li>'+escape(label)+'：'+escape(state)+'</li>').join('')+'</ul>'+
+ '<p>戦術6項目はWINTICKET元値、条件別5項目はEX元値または独自に蓄積した着順データです。空欄をゼロ実績とは扱いません。</p>';
+
  function historyLine(state){
   const r=loadedInput.race.riders.find(x=>x.no===state.no);
   const stats=loadedInput.bAxisHistory,group=state.line.length===1?'solo':state.lineIndex===0?'leader':state.lineIndex===1?'second':'thirdPlus';
-  const history=stats?.training_end<loadedInput.race.date&&stats?.provenance?.actual_b_available===false?stats?.rider_positions?.[BAxisEx.identity(r)]?.[group]:null;
-  return history?.n>=3?'｜過去'+(group==='solo'?'単騎':group==='leader'?'ライン先頭':group==='second'?'番手':'3番手以降')+history.n+'走・3連対'+history.top3+'回':'';
+  const history=stats?.training_end<loadedInput.race.date&&BAxisExContext.asOfJapanDate(loadedInput)>stats.training_end&&stats?.provenance?.actual_b_available===false?stats?.rider_positions?.[BAxisEx.identity(r)]?.[group]:null;
+  const detail=BAxisExContext.snapshot(loadedInput,r);
+  const tags=detail.contributions.map(e=>(axisNames[e.axis]||e.axis)+' '+e.key+' '+e.top3+'/'+e.n+' ('+(e.origin==='WINTICKET_EX'?'EX元値':'独自集計')+')').join('、');
+  return (history?.n>=3?'｜過去'+(group==='solo'?'単騎':group==='leader'?'ライン先頭':group==='second'?'番手':'3番手以降')+history.n+'走・3連対'+history.top3+'回':'')+(tags?'｜条件別：'+tags:'');
  }
  function directEx(state){
   const r=loadedInput.race.riders.find(x=>x.no===state.no);
@@ -103,7 +128,7 @@ async function prepareExample(n){
  const token=++requestId;status('保存入力を取得しています');try{
  const record=await json('reports/line/example-'+n+'.json');if(token!==requestId)return;
  const input=LineInput.prepare(record.input.race,{intelligence:record.input.replay_pack},Date.parse(record.input.as_of));
- input.replay=true;loadedInput=input;loadedInput.bAxisHistory=packs.bAxisHistory||null;loadedInput.bAxisEx=packs.bAxisEx||null;
+ input.replay=true;loadedInput=input;loadedInput.bAxisHistory=packs.bAxisHistory||null;loadedInput.bAxisEx=packs.bAxisEx||null;loadedInput.bAxisExContext=packs.bAxisExContext||null;
  $('selector').hidden=false;chooseB();status('保存された発走前の材料を使った動作例です（当時のB-AXIS予測ではありません）');
  }catch(e){status('動作例を開けません：'+e.message);}
 }
@@ -112,7 +137,7 @@ $('load').onclick=async()=>{
  try{const p=await fetchDay(date),source=p.races.find(r=>r.venue===venue&&Number(r.race_number)===no);if(!source)throw Error('指定レースが日別データにありません');
  await fetchPacks();if(token!==requestId)return;
  const raw=SCounts.attach(RaceFeed.convert(source,p),packs.s);
- loadedInput=LineInput.prepare(raw,packs);loadedInput.bAxisHistory=packs.bAxisHistory||null;loadedInput.bAxisEx=packs.bAxisEx||null;$('selector').hidden=false;chooseB();status(venue+no+'RのB-AXIS予想を生成しました');
+ loadedInput=LineInput.prepare(raw,packs);loadedInput.bAxisHistory=packs.bAxisHistory||null;loadedInput.bAxisEx=packs.bAxisEx||null;loadedInput.bAxisExContext=packs.bAxisExContext||null;loadedInput.race.ex_context={track_length:Number(source.track_length),weather:null,weather_source_verified:false};$('selector').hidden=false;chooseB();status(venue+no+'RのB-AXIS予想を生成しました');
  }catch(e){if(token===requestId){status('予想できません：'+e.message);$('selector').hidden=true;$('extras').hidden=true;loadedInput=null;}}
  finally{$('load').disabled=false;}
 };

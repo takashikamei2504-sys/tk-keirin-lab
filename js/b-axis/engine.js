@@ -6,7 +6,8 @@
 const Phases=typeof module!=='undefined'?require('./phases.js'):root.BAxisPhases;
 const Interactions=typeof module!=='undefined'?require('./interactions.js'):root.BAxisInteractions;
 const Ex=typeof module!=='undefined'?require('./ex-data.js'):root.BAxisEx;
-const VERSION='LAB_B_AXIS_V0.5.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
+const ExContext=typeof module!=='undefined'?require('./ex-context.js'):root.BAxisExContext;
+const VERSION='LAB_B_AXIS_V0.6.0',min=(a,b)=>Math.min(a,b),max=(a,b)=>Math.max(a,b),clamp=(x,a=0,b=1)=>max(a,min(b,x));
 const TACTICS={press:'突っ張り',hold:'押さえ先行',kamashi:'カマシ',makuri:'早めの捲り',surge:'番手発進',relaunch:'3番手以降からの追上げ',solo_shift:'単騎の位置取りからの先頭進出'};
 const prefecture={
  '函館':'北海道','青森':'青森','いわき平':'福島','弥彦':'新潟','前橋':'群馬','取手':'茨城','宇都宮':'栃木','大宮':'埼玉','西武園':'埼玉','京王閣':'東京','立川':'東京','松戸':'千葉','川崎':'神奈川','平塚':'神奈川','小田原':'神奈川','伊東':'静岡','静岡':'静岡','名古屋':'愛知','岐阜':'岐阜','大垣':'岐阜','豊橋':'愛知','富山':'富山','松阪':'三重','四日市':'三重','福井':'福井','奈良':'奈良','向日町':'京都','和歌山':'和歌山','岸和田':'大阪','玉野':'岡山','広島':'広島','防府':'山口','高松':'香川','小松島':'徳島','高知':'高知','松山':'愛媛','小倉':'福岡','久留米':'福岡','武雄':'佐賀','佐世保':'長崎','別府':'大分','熊本':'熊本'};
@@ -33,13 +34,15 @@ function candidates(input){
   const leadTerm=Number(r.meta?.term),seniorBehind=Number.isInteger(leadTerm)&&leadTerm>0&&line.slice(index+1).some(n=>{const other=race.riders.find(x=>x.no===n),term=Number(other?.meta?.term);return Number.isInteger(term)&&term>0&&term<leadTerm;});
   let score=.24+initiative*.98+endurance*.28+sprint*.21+front*.12+ability*.14+linePower+(c.clearIntent?.19+(loserRound?.04:0):c.neutralIntent?.06:0)+(c.locale?.08:0)+(seniorBehind?.035:0)+(qualifying?.02:0)-(index>0?.51+.11*(index-1):0)-(line.length===1?.14:0)-(r.style==='追'&&index===0?.42:0);
   const measured=Ex.tactics(input,r,input.as_of);
+  const contextEvidence=ExContext.snapshot(input,r);
   const available=line[0]===r.no?[measured.press,measured.kamashi].filter(e=>e?.opportunities>=12):[];
   if(available.length){
    const confidence=available.reduce((s,m)=>s+(m.smoothed-.5)*m.weight,0)/available.length;
    score+=clamp(confidence,-.5,.5)*.07;
   }
+  score+=contextEvidence.support*.085;
   return {no:r.no,name:r.name,line:line.slice(),lineIndex:index,weight:max(.035,score),basis:[
-    '先行傾向 '+initiative.toFixed(2),'ライン'+line.length+'車',available.length?'EX戦法成功率 '+available.map(e=>e.metric+' '+e.events+'/'+e.opportunities).join('・'):null,index===0?'ライン先頭':'ライン'+(index+1)+'番手',c.clearIntent?'本人コメントの先行意向':c.commentUsed?'本人コメント参照':'先行意向コメント未取得',c.locale?'地元':null,seniorBehind?'ライン後位に上位期の先輩（期別比較・関係性は未断定）':null,championship?'特選・決勝':qualifying?'予選・準決勝':loserRound?'負け戦・選抜（本人の主導権意向を重視）':null
+    '先行傾向 '+initiative.toFixed(2),'ライン'+line.length+'車',available.length?'EX戦法成功率 '+available.map(e=>e.metric+' '+e.events+'/'+e.opportunities).join('・'):null,contextEvidence.contributions.length?'条件別実績 '+contextEvidence.contributions.map(e=>e.axis+':'+e.key+'('+e.n+'走)').join('・'):null,index===0?'ライン先頭':'ライン'+(index+1)+'番手',c.clearIntent?'本人コメントの先行意向':c.commentUsed?'本人コメント参照':'先行意向コメント未取得',c.locale?'地元':null,seniorBehind?'ライン後位に上位期の先輩（期別比較・関係性は未断定）':null,championship?'特選・決勝':qualifying?'予選・準決勝':loserRound?'負け戦・選抜（本人の主導権意向を重視）':null
    ].filter(Boolean),commentSources:c.commentSources};
  });
  const total=arr.reduce((x,y)=>x+y.weight,0);
@@ -84,10 +87,12 @@ function finishRanking(input,snap,limit=10){
   const solo=s.line.length===1?Ex.smoothed(input,rider,'solo_top3',.38,18,input.as_of):null;
   const archive=input.bAxisHistory,role=s.line.length===1?'solo':s.lineIndex===0?'leader':s.lineIndex===1?'second':'thirdPlus';
   const row=archive?.rider_positions?.[Ex.identity(rider)]?.[role];
-  const historySafe=archive?.training_end&&input.race.date>archive.training_end&&archive.provenance?.actual_b_available===false;
+  const historySafe=archive?.training_end&&input.race.date>archive.training_end&&ExContext.asOfJapanDate(input)>archive.training_end&&archive.provenance?.actual_b_available===false;
   const measuredSolo=solo&&solo.opportunities>=5?(solo.smoothed-.38)*solo.weight*.10:0;
   const rolePrior=historySafe&&row?.n>=6?((row.top3+3)/(row.n+8)-.39)*.05:0;
-  return s.ability*.34+s.speed*.19+s.finish*.20+s.remaining*.22+s.closing*.18+prior+measuredSolo+rolePrior;
+  const exContext=ExContext.snapshot(input,rider);
+  return s.ability*.34+s.speed*.19+s.finish*.20+s.remaining*.22+s.closing*.18+
+    prior+measuredSolo+rolePrior+exContext.support*.18;
  }
  function pace(s){
   return strength(s)+s.closing*.25-s.gap*.075;
@@ -102,7 +107,8 @@ function finishRanking(input,snap,limit=10){
   inside:'内の進路を待った追込選手がコースを拾い差す',
   outside_marker:'Bを取らなかった別線の自力選手が外から迫り、その番手が4角で差し伸びる',
   third_rush:'Bライン3番手が追走を保ち、番手の牽制で生じた内の進路を突く',
-  recovery:'Bを先に取った後位選手に対し元の前方選手が切替えて直線で抜け出す'
+  recovery:'Bを先に取った後位選手に対し元の前方選手が切替えて直線で抜け出す',
+  tobitsuki:'別線の自力選手がB番手に飛びつき、元の番手の追走位置を奪う可能性'
  };
  const same=(x,y)=>x.line[0]===y.line[0];
  const fitSecond=(a,s)=>{
@@ -117,7 +123,8 @@ function finishRanking(input,snap,limit=10){
   inside:'前で競り合う間に内の進路へ切り替えて直線を伸びる',
   outside_marker:'外の自力がB通過後に迫り、その番手がコースを得て直線で抜け出す',
   third_rush:'Bの3番手が追走を保ち、外の仕掛けへの番手牽制で開いた内進路を進む',
-  recovery:'Bを取った後位選手の元先導役が踏み直し、直線で切替え差しを狙う'
+  recovery:'Bを取った後位選手の元先導役が踏み直し、直線で切替え差しを狙う',
+  tobitsuki:'Bの先頭に対して別線の自力選手が番手奪取を狙い、元番手との位置争いが起きる'
  };
  function add(pair,mode,thirds,extra=0){
   const a=byNo.get(pair[0]),d=byNo.get(pair[1]);
@@ -137,6 +144,8 @@ function finishRanking(input,snap,limit=10){
     if(!linked?.followed||linked.followerNo!==a.no||!leader?.attack||a.gap>4.75)continue;
    }
    if(mode==='recovery'&&(a.role!=='元ライン前方・切替'||a.gap>2.6))continue;
+   if(mode==='tobitsuki'&&(!interactions.markerContests?.some(x=>x.no===d.no&&a.no===b.no)||
+      d.gap>2.85))continue;
    if(mode==='third_rush'&&(a.role!=='Bライン追走'||a.lineIndex!==snap.line.indexOf(snap.bNo)+2||a.track==='追走離れ気味'||a.gap>2.0||!interactions.attackers.some(x=>x.blockable)))continue;
    const scoreBase=pace(a)*1.10+strength(d)*.76+strength(c)*.55-.031*d.gap-.022*c.gap;
    const paired=same(a,d)? .035:0,attached=same(d,c)? .025:0;
@@ -162,6 +171,10 @@ function finishRanking(input,snap,limit=10){
     if(report?.blockable)physical-=.055*(report.blockTension||0);
    }
    if(mode==='marker'&&interactions.attackers.some(x=>x.blockable))physical+=.025;
+   if(mode==='tobitsuki'){
+     const contest=interactions.markerContests?.find(x=>x.no===d.no);
+     physical-=.16-(contest?.adjustment||0);
+   }
    if(mode==='third_rush')physical+=.03;
    if(mode==='hold'&&b.spent>.64)physical-=.14;
    const score=scoreBase+approach+paired+attached+extra+physical;
@@ -182,6 +195,11 @@ function finishRanking(input,snap,limit=10){
   }
   if(third){
    add([mark.no,third.no],'marker',[b.no,...others]);
+  }
+  // A nearby challenger can seize the B marker's position and force an
+  // alternate outcome; the original defender may still counter or finish third.
+  for(const contest of (interactions.markerContests||[])){
+    add([b.no,contest.no],'tobitsuki',[mark.no,third?.no,...others].filter(Boolean));
   }
   if(third&&attackers.length&&third.gap<=2.0){
    add([third.no,mark.no],'third_rush',[b.no,...others]);
@@ -247,7 +265,7 @@ function build(input,opts={}){
  snap.phases=Phases.complete(snap,tickets);
  return {version:VERSION,race:{date:races.date,venue:races.venue,race_no:races.race_no,start:races.start,grade:races.grade,class:races.class,lineup:races.lineup,riders:races.riders.map(r=>({no:r.no,name:r.name,score:r.score,style:r.style}))},bCandidates,b:snap,tickets,provenance:{input_time:input.as_of||null,mode:opts.bNo===undefined?'AI B推奨':'手動B指定',tactic_selection:tactic},caveat:'B通過を条件にする未校正の展開・着順ランキング。Bの相対支持度と三連単スコアは的中確率ではない。着順やオッズは入力に使わない。'};
 }
-const api={VERSION,TACTICS,candidates,tacticsFor,chooseTactic,snapshot,finishRanking,build,verify,Phases,Interactions,Ex};
+const api={VERSION,TACTICS,candidates,tacticsFor,chooseTactic,snapshot,finishRanking,build,verify,Phases,Interactions,Ex,ExContext};
 if(typeof module!=='undefined')module.exports=api;
 root.BAxisEngine=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

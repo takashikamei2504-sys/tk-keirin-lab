@@ -50,7 +50,20 @@ function followerRisk(input,leader,follower,asOf){
  const rate=(separation?.smoothed??.22)*.45+(lost?.smoothed??.22)*.55;
  return {risk:clamp(rate),weight,leader:separation,follower:lost,source:'EX labelled rates, not direct pairwise history'};
 }
-const api={identity,record,evidence,smoothed,tactics,followerRisk,METRICS};
+const CONTEXT_AXES=['position','race_type','bank_length','weather','time_band'];
+function contextual(input,r,axis,key,opts={}){
+ if(!CONTEXT_AXES.includes(axis)||!key||typeof key!=='string')return null;
+ const source=record(input,r,opts.asOf);
+ const e=source?.contextual?.[axis]?.[key];
+ if(!e||typeof e!=='object')return null;
+ const n=e.opportunities,win=e.wins,top3=e.top3;
+ if(!Number.isInteger(n)||n<=0||!Number.isInteger(win)||win<0||win>n||
+    !Number.isInteger(top3)||top3<win||top3>n)return null;
+ return {axis,key,opportunities:n,wins:win,top3,
+  source_url:source.source_url,as_of:source.collected_at,period_end:source.period_end||null,
+  coverage:'source linked official EX context category'};
+}
+const api={identity,record,evidence,smoothed,tactics,followerRisk,contextual,CONTEXT_AXES,METRICS};
 if(typeof module!=='undefined')module.exports=api;
 root.BAxisEx=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
