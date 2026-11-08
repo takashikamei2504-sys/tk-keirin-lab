@@ -11,3 +11,5 @@ GitHub Actions `Save and evaluate race-routed forecasts` は毎時08・28・48�
 累積値は保存全件から再構成するため、再実行で二重計上しない。画面上の手動予想や更新後の再計算はこの評価とは別。モデルやルール変更後も1レース1保存で重複を防ぎ、モデル別集計で分ける。モデル係数や選択ルールの自動変更・自動購入は行わない。
 
 動作確認：`node tests/routed-daily.test.cjs`。手動実行：Actionsの当該ワークフロー → Run workflow。ソースの収集エラー・対象数は `data/routed_history/status.json`、評価データは `evaluation.json`。失敗したActions実行自体も確認すること。
+
+実績画面はGitHub上の最新データを優先取得するため、データ保存のたびにPagesの再配信を必要としない。取得できない場合は配信済みの同一サイトデータに切り替え、最終更新日時を表示する。
