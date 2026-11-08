@@ -1,0 +1,19 @@
+'use strict';const assert=require('assert/strict'),vm=require('vm'),fs=require('fs'),Policy=require('../js/routing/policy.js'),Router=require('../js/routing/router.js'),History=require('../js/routing/history.js'),C=require('../js/race-brain.js'),{race}=require('./race-routing-fixtures.cjs');
+const at=Date.parse('2040-01-01T00:00:00Z');
+for(const[cars,rank,engine]of[[7,'A1','physical'],[7,'S2','roi_coverage'],[9,'SS','physical'],[7,'A3','causal']])assert.equal(Policy.select(race(cars,rank)).engine,engine);
+assert.equal(Policy.select(race(9,'A1')).fallback,true);assert.equal(Policy.select(race(9,'A3')).engine,'physical');assert.equal(Policy.select(race(7,'S1'),'lab_v5').engine,'lab_v5');assert.throws(()=>Policy.select(race(7,'S1'),'fake'));
+const full=race(7,'A3');full.riders.forEach(r=>r.meta.rank='Ａ級３班');assert.equal(Policy.select(full).engine,'causal');
+const missing=race(7,'S1');missing.riders.forEach(r=>delete r.meta.rank);missing.class='Ｓ級予選';assert.equal(Policy.classify(missing).grade,'S級');missing.class='予選';assert.throws(()=>Policy.select(missing),/級班/);
+assert.throws(()=>Policy.select(race(7,'L1')),/ガールズ/);assert.throws(()=>Policy.select({...race(7,'S1'),class:'Ｌ級決勝'}),/ガールズ/);
+for(const[rank,mode]of[['A1','physical_v2'],['A3','legacy']]){const r=race(7,rank),out=Router.build(r,{}, {asOf:at}),native=C.build(r,{transitionMode:mode,exAsOf:at});assert.deepEqual(out.tickets.map(t=>t.key),native.chosen.slice(0,8).map(t=>t.key));assert.equal(out.sources[out.selection.engine].transition_mode,mode);assert(out.tickets.every(t=>t.paths.every(id=>out.paths.some(p=>p.id===id))));assert(out.paths.every(p=>p.scenes.every(s=>s.order.length===7)));}
+const integrated=Router.build(race(7,'S1'),{}, {asOf:at});assert.equal(integrated.selection.engine,'roi_coverage');assert(integrated.sources.LAB&&integrated.sources.LINE);assert(integrated.tickets.every(t=>t.paths.every(id=>integrated.paths.some(p=>p.id===id))));assert(integrated.paths.every(p=>p.scenes.length===6));
+const r=race(7,'A1'),out=Router.build(r,{}, {asOf:at});const data=new Map(),storage={getItem:k=>data.get(k),setItem:(k,v)=>data.set(k,v)};assert.equal(History.save(out,new Date(at+1000).toISOString(),storage).status,'saved');const old=storage.getItem(History.KEY);assert.equal(History.save({...out,tickets:out.tickets.slice().reverse()},new Date(at+2000).toISOString(),storage).status,'existing');assert.equal(storage.getItem(History.KEY),old);assert.equal(Router.snapshot(out,out.cutoff),null);assert.equal(Router.snapshot(out,new Date(at-1).toISOString()),null);
+const past=Router.build(r,{}, {asOf:Date.parse(out.cutoff)+1});assert.equal(past.mode,'replay');assert.equal(past.input.source.generated_at,r.source.generated_at);assert.equal(Router.snapshot(past,new Date(Date.parse(out.cutoff)+2).toISOString()),null);
+assert.throws(()=>Router.build({...r,source:{...r.source,generated_at:'2040-01-02T00:00:00Z'}},{},{asOf:at}),/生成日時/);
+// Browser and Node must use the same ROI selection algorithm.
+const context=vm.createContext({TextEncoder,Uint8Array,Uint32Array,DataView});for(const file of ['js/model-provenance.js','js/roi/hypotheses-build.js','js/roi/hypotheses.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
+assert.equal(context.ROIHypotheses.model.model_id,require('../js/roi/engine.cjs').model.model_id);
+assert.equal(context.ROIHypotheses.build.toString(),require('../js/roi/engine.cjs').build.toString());
+assert.equal(context.ROIHypotheses.select.toString(),require('../js/roi/engine.cjs').select.toString());
+const candidates=[{key:'1-2-3',trio:[1,2,3],support:1},{key:'1-2-4',trio:[1,2,4],support:.99},{key:'4-5-6',trio:[4,5,6],support:.9}];assert.equal(JSON.stringify(context.ROIHypotheses.select(candidates,2)),JSON.stringify(require('../js/roi/engine.cjs').select(candidates,2)));
+console.log('PASS race categories, actual physical/causal dispatch, prediction paths, first-save integrity, cutoff and shared ROI runtime');

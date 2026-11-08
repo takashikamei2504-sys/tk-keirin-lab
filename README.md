@@ -1,3 +1,20 @@
+## レース別エンジン自動選択
+
+[自動選択の予想画面を開く](https://takashikamei2504-sys.github.io/tk-keirin-lab/auto.html)
+
+開催日・競輪場・レースを選ぶと、級班と車立てからエンジンを切り替えて上位8点までを生成する。S級7車はROI分散選択、チャレンジ7車は因果展開・従来、A級7車とS級9車は成立条件修正版。選択基準は2026年5月8日〜11月7日の基本出走表比較における最大の的中払戻1件除外後の回収率。A級9車・チャレンジ9車の各1件からルールを作らず、全体首位の修正版を標準にする。級班不明とガールズは生成を止める。
+
+手動変更は現在のレースだけに適用し、レースを変えると自動選択に戻る。コピー・JSON・端末の初回発走前保存に適用エンジンとルール版を記録する。過去入力の再計算を発走前保存に混ぜない。処理中のレース変更はWeb Workerを停止して古い結果を破棄する。
+
+- `npm run test:routing`
+- `node scripts/roi-hypotheses-identity.cjs`：既存Node版ROIのアルゴリズムをブラウザ用へ生成。Node版とモデルID・関数本体を照合する。
+- `node scripts/race-router-identity.cjs`：ルーティングと参照エンジンのコード指紋を生成。
+- `node tests/race-routing-browser.cjs`、`ROUTING_BROWSER=webkit node tests/race-routing-browser.cjs`：390px幅、実Workerでの4区分切替、保存、素早い切替、存在しない深いリンクを確認。
+
+既存のv14・LAB LINE・B-AXIS・ROI購入判断のモデルや保存記録は変更しない。自動選択の端末保存は `tk-keirin-routed-history/v1` に分離する。
+
+---
+
 # TK KEIRIN LAB v1.4
 
 [独立展開推理を開く](https://takashikamei2504-sys.github.io/tk-keirin-lab/v14.html) · [従来v1.2](https://takashikamei2504-sys.github.io/tk-keirin-lab/v12.html) · [添付の元v1.3](v13.html)
