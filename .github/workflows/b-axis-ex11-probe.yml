@@ -1,0 +1,16 @@
+name: B-AXIS EX11 source schema check
+on:
+  push:
+    branches: ['feature/b-axis-ex-all11-context-20261108']
+    paths: ['scripts/b_axis_ex_all_source_probe.cjs','.github/workflows/b-axis-ex11-probe.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node scripts/b_axis_ex_all_source_probe.cjs
