@@ -96,7 +96,7 @@ function show(){
  function historyLine(state){
   const r=loadedInput.race.riders.find(x=>x.no===state.no);
   const stats=loadedInput.bAxisHistory,group=state.line.length===1?'solo':state.lineIndex===0?'leader':state.lineIndex===1?'second':'thirdPlus';
-  const history=stats?.training_end<loadedInput.race.date&&stats?.provenance?.actual_b_available===false?stats?.rider_positions?.[BAxisEx.identity(r)]?.[group]:null;
+  const history=stats?.training_end<loadedInput.race.date&&BAxisExContext.asOfJapanDate(loadedInput)>stats.training_end&&stats?.provenance?.actual_b_available===false?stats?.rider_positions?.[BAxisEx.identity(r)]?.[group]:null;
   const detail=BAxisExContext.snapshot(loadedInput,r);
   const tags=detail.contributions.map(e=>(axisNames[e.axis]||e.axis)+' '+e.key+' '+e.top3+'/'+e.n+' ('+(e.origin==='WINTICKET_EX'?'EX元値':'独自集計')+')').join('、');
   return (history?.n>=3?'｜過去'+(group==='solo'?'単騎':group==='leader'?'ライン先頭':group==='second'?'番手':'3番手以降')+history.n+'走・3連対'+history.top3+'回':'')+(tags?'｜条件別：'+tags:'');
