@@ -194,7 +194,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <header class="app-heading"><div><h1>TK KEIRIN LAB</h1><p class="sub">展開予想と、そこから選ぶ買い目</p></div><a href="riders.html">全S級データ</a></header>
 <section class="panel quick-panel" id="quick-race" aria-label="レース選択">
 <h2>レースを選ぶ</h2><div class="quick-grid"><label>開催日<input type="date" id="quick-date"></label><label>競輪場<select id="quick-venue"></select></label><label>レース<select id="quick-race-number"></select></label></div>
-<button class="btn quick-main" id="quick-fetch" type="button">このレースの展開を予想する</button><p id="quick-status" class="quick-message" role="status"></p>
+<a class="btn quick-main" id="auto-predict" href="auto.html">このレースに合うエンジンで予想</a><button class="btn secondary" id="quick-fetch" type="button">従来モデルでこのレースを予想</button><p id="quick-status" class="quick-message" role="status"></p>
 </section>
 <section class="panel causal-panel" id="causal-lab" aria-label="展開予想と買い目">
 <div class="prediction-head"><h2>展開予想</h2><button type="button" class="btn secondary" id="causal-run">再推理</button><button type="button" class="btn secondary" id="causal-physical-toggle" aria-pressed="false">物理v2で比較</button></div><p id="causal-physical-label" class="small" role="status">通常予想：現行の買い目選定</p>
@@ -1689,6 +1689,7 @@ $('quick-venue').replaceChildren(...QUICK_VENUES.map(x=>new Option(x,x)));
 $('quick-race-number').replaceChildren(...Array.from({length:12},(_,i)=>new Option(`${i+1}R`,String(i+1))));
 $('quick-date').value=quickDefault;$('quick-venue').value='防府';$('quick-race-number').value='12';
 quickRefreshDate().catch(e=>quickStatus(e.message,'error'));
+$('auto-predict').addEventListener('click',e=>{const u=new URL('auto.html',location.href);u.searchParams.set('date',$('quick-date').value);u.searchParams.set('venue',$('quick-venue').value);u.searchParams.set('r',$('quick-race-number').value);e.currentTarget.href=u.href;});
 $('quick-fetch').addEventListener('click',()=>quickFetch().catch(e=>quickStatus('取得エラー：'+e.message,'error')));
 $('quick-date').addEventListener('change',()=>quickRefreshDate());
 $('quick-venue').addEventListener('change',()=>{const d=quickDayCache.get($('quick-date').value);if(d)quickUpdateRaces(d);});

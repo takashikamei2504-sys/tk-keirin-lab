@@ -21,6 +21,9 @@ jobs:
       - run: npm install --ignore-scripts
       - run: node scripts/model_identity.cjs
       - run: git diff --exit-code -- js/model-build.js
+      - run: node scripts/roi-hypotheses-identity.cjs && node scripts/race-router-identity.cjs
+      - run: git diff --exit-code -- js/roi/hypotheses.js js/roi/hypotheses-build.js js/routing/build.js auto.html
+      - run: npm run test:routing
       - run: npm test
       - run: node tests/roi-policy.test.cjs
       - run: node tests/roi-operation.test.cjs
@@ -37,3 +40,5 @@ jobs:
           ROI_BROWSER=chromium node tests/roi-browser.cjs
           node tests/roi-browser.cjs
           node tests/b-axis-browser.cjs
+          node tests/race-routing-browser.cjs
+          ROUTING_BROWSER=webkit node tests/race-routing-browser.cjs
