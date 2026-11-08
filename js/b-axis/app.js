@@ -141,7 +141,10 @@ $('load').onclick=async()=>{
  const cutoff=Date.parse(date+'T'+loadedInput.race.start+':00+09:00');
  const useWeather=weatherObs&&Date.parse(weatherObs.collected_at)<cutoff&&Date.parse(weatherObs.collected_at)<=Date.parse(loadedInput.as_of);
  loadedInput.race.ex_context={track_length:Number(source.track_length),
-   weather:useWeather?weatherObs.weather:null,weather_source_verified:Boolean(useWeather&&weatherObs.weather)};$('selector').hidden=false;chooseB();status(venue+no+'RのB-AXIS予想を生成しました');
+   weather:useWeather?weatherObs.weather:null,weather_source_verified:Boolean(useWeather&&weatherObs.weather)};$('selector').hidden=false;
+ const hasOriginal=loadedInput.race.riders.some(r=>BAxisEx.METRICS.some(m=>BAxisEx.evidence(loadedInput,r,m,{asOf:loadedInput.as_of})));
+ $('model-choice').value=hasOriginal?'interaction':'baseline';
+ chooseB();status(venue+no+'RのB-AXIS予想を生成しました');
  }catch(e){if(token===requestId){status('予想できません：'+e.message);$('selector').hidden=true;$('extras').hidden=true;loadedInput=null;}}
  finally{$('load').disabled=false;}
 };
