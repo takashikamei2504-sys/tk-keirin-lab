@@ -87,7 +87,7 @@ function build(r,pack={},forced=null){
        const homeSnap=snapshot('最終ホーム',home,en,`${controller}番が主導権。${gap==='breaks'?`${follower}番が追走離れ、${seat}番が空いた番手にはまる`:gap==='holds'?`${follower}番が追走を維持`:'単騎で進出'}`);
        const weight=fw*(.2+ability(attacker))*sw*tw*ow*gw;
        const emit=(mode,finisher,back,backEnergy,action,factor)=>{
-        const rank=n=>ability(n)*.55+p.get(n).finish*.35-(backEnergy[n]||0)*.3-back.indexOf(n)*.025;
+        const rank=n=>ability(n)*.55+p.get(n).finish*.35+.25*(p.get(n).ex_win_residual||0)-(backEnergy[n]||0)*.3-back.indexOf(n)*.025;
          const decisions=[reason(front,['front','resist','withdraw'],`周回${initial.indexOf(front)+1}番手から${stand==='resist'?'突っ張りで主導権を守る':'引いて脚を温存する'}分岐。消耗${Math.round(en[front]*100)}`),reason(attacker,[tactic],`${initial.indexOf(attacker)+1}番手から${tactic==='kamashi'?'カマシ':'捲り'}。${outcome==='attacker-takes'?'主導権奪取':'前受け側が抵抗し不発'}の分岐`)];
          if(follower)decisions.push(reason(follower,['track'],`${controller}番の${controller===attacker&&tactic==='kamashi'?'急加速':'加速'}と踏み合いを受け、追走${gap==='breaks'?'離れ':'維持'}の分岐。B・3連対率は追走力の実測値には使わない`));
          if(mode==='seat')decisions.push(reason(seat,['seat','finish'],`${follower}番の離れで空いた番手を、隊列上で近い${seat}番が利用`));
