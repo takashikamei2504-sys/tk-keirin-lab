@@ -20,8 +20,8 @@ on:
       - '.github/workflows/ex-physical-v2.yml'
 permissions: {contents: write}
 concurrency:
-  group: lab-ex-physical-v2
-  cancel-in-progress: true
+  group: lab-ex-physical-v2-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   test:
     runs-on: ubuntu-latest
