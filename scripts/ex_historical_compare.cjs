@@ -7,6 +7,7 @@
 const fs=require('node:fs'),path=require('node:path');
 const Brain=require('../js/race-brain.js');
 const Ex=require('../js/ex-profile.js');
+const ExDerivedContext=require('../js/b-axis/ex-context.js');
 const Shadow=require('../js/ex-roi/shadow.cjs');
 const History=require('./history-store.cjs');
 const Audit=require('../js/roi/audit.cjs');
@@ -19,22 +20,24 @@ if(!(Number.isInteger(max)&&max>0&&max<=1000))throw Error('invalid max');
 if(x.train_end_exclusive!=='2026-10-16'||x.training_start>'2026-10-15'||minDate<'2026-10-16'||x.provenance?.winticket_ex_metrics!==false)throw Error('training is not prior to holdout');
 const population=x.splits?.train?.population||{},riders=x.splits?.train?.riders||{};
 const clip=(a,mn=-1,mx=1)=>Math.max(mn,Math.min(mx,a));
-let usedAxes={position:0,race_type:0},usedRiders=0,modelChanged=0,unmatched=0,processed=0,errors=0;
+let usedAxes={position:0,race_type:0,time_band:0,bank_length:0},usedRiders=0,modelChanged=0,unmatched=0,processed=0,errors=0;
 const days=History.dates(base).filter(d=>d>=minDate&&d<=maxDate);
 const results=[];
 function feature(p,r,race){
  const id=String(r?.meta?.rider_id||'').replace(/^0+(?=\d)/,'');
  const features=riders[id],keys=Ex.selectionKeys(race,r);
+ keys.time_band=ExDerivedContext.timeBand(race?.start);
+ keys.bank_length=ExDerivedContext.bankLength(race?.ex_context?.track_length);
  if(!features)return p;
  const delta=[];
- for(const axis of ['position','race_type']){
+ for(const axis of ['position','race_type','time_band','bank_length']){
   const key=keys[axis],global=population?.[axis]?.[key],stat=features?.[axis]?.[key];
   if(!key||!(global?.n>=30)||!(stat?.n>=5))continue;
   const p0=(global.top3+3)/(global.n+6);
   const p1=(stat.top3+p0*24)/(stat.n+24);
   const signal=(p1-p0)*Math.min(1,stat.n/12);
   delta.push(signal);
-  usedAxes[axis]++;p.measurements.push('過去着順由来の位置・種別 '+axis+':'+key+':'+stat.top3+'/'+stat.n);
+  usedAxes[axis]++;p.measurements.push('過去着順由来の条件別 '+axis+':'+key+':'+stat.top3+'/'+stat.n);
  }
  if(delta.length){
   usedRiders++;
