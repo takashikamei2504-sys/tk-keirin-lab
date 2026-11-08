@@ -4,6 +4,9 @@ const C=require('../scripts/ex_winticket_live_collect.cjs');
 const Extract=require('../scripts/winticket_ex_extract.cjs');
 const Bridge=require('../scripts/winticket_ex_bridge.cjs');
 const Ingest=require('../scripts/ex_approved_ingest.cjs');
+const ExProfile=require('../js/ex-profile.js');
+const EXData=require('../js/b-axis/ex-data.js');
+
 const sourcePath='/keirin/yokkaichi/racecard/2026110548/4/12';
 const at='2026-11-08T01:00:00.000Z';
 const start='2026-11-08T11:30:00.000Z';
@@ -63,6 +66,20 @@ assert.equal(ingested.latest.summary.valid_metrics,6);
 assert(ingested.latest.summary.valid_context_buckets>=6);
 assert.equal(ingested.latest.summary.covered_venues,1);
 assert.equal(ingested.latest.race_contexts['2026-11-08:四日市:12'].weather,'晴');
+const raceForUse={date:'2026-11-08',venue:'四日市',start:'20:30',class:'S級決勝',
+ lineup:[[3,2],[1,4],[5,6,7]],ex_context:{track_length:400,weather:'晴',
+ weather_source_verified:true,time_band:'night',time_band_source_verified:true}};
+const riderForUse={no:3,meta:{rider_id:'14838'}};
+const profile={finish:.52,measurements:[],basis:'基礎',evidence:[]};
+ExProfile.attach(profile,riderForUse,raceForUse,ingested.latest,Date.parse(at)+1000);
+assert.equal(profile.ex_context_used,5);
+assert.equal(profile.ex_used,5);
+assert.equal(profile.ex_source_url,'https://www.winticket.jp'+sourcePath);
+const contextEvidence=EXData.contextual({race:raceForUse,as_of:at,bAxisEx:ingested.latest},
+ riderForUse,'weather','sun',{asOf:at});
+assert.equal(contextEvidence.top3,4);
+assert.equal(contextEvidence.opportunities,10);
+
 const found=C.discover('<a href="'+sourcePath+'"></a><a href="'+sourcePath+'"></a>'+
   '<a href="/keirin/hofu/racecard/2026110763/2/1"></a><a href="/keirin/unknown/racecard/2026110500/1/1"></a>');
 assert.equal(found.length,2);
