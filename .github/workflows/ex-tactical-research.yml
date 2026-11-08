@@ -1,0 +1,20 @@
+name: EX tactical research guards
+on:
+  push:
+    branches: ['research/ex-tactical-transition-20261108']
+    paths:
+      - 'research/ex-tactical/**'
+      - '.github/workflows/ex-tactical-research.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node research/ex-tactical/transition-guards.test.cjs
