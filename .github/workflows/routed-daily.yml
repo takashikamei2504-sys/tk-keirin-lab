@@ -2,8 +2,6 @@ name: Save and evaluate race-routed forecasts
 on:
   schedule:
     - cron: '8,28,48 * * * *' # Forecast capture
-    - cron: '8 9 * * *' # 18:08 JST
-    - cron: '28 15,20 * * *' # 00:28 and 05:28 JST
   workflow_dispatch:
   push:
     branches: [main]
@@ -29,14 +27,11 @@ jobs:
       - name: Capture forecasts or check results
         env:
           EVENT: ${{ github.event_name }}
-          SCHEDULE: ${{ github.event.schedule }}
         run: |
           if [[ "$EVENT" == "workflow_dispatch" ]]; then
             node scripts/routed-daily.cjs
-          elif [[ "$EVENT" == "schedule" && "$SCHEDULE" != '8,28,48 * * * *' ]]; then
-            node scripts/routed-daily.cjs --results-only
           else
-            node scripts/routed-daily.cjs --forecasts-only
+            node scripts/routed-daily.cjs --scheduled
           fi
       - name: Persist forecasts and daily evaluation
         run: |

@@ -39,3 +39,27 @@ try{
  assert.equal(D.jstDate(Date.parse('2039-12-31T15:00:00Z')),'2040-01-01');
 }finally{fs.rmSync(dir,{recursive:true,force:true});}
 console.log('routed daily: immutable capture, missing coverage, strict settlement, payout correction and category summaries passed');
+
+(async()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'routed-schedule-'));
+ try{
+  const atNight=Date.parse('2040-01-01T15:35:00Z');
+  assert.equal(D.resultSlot(atNight).raceDate,'2040-01-01');
+  assert.equal(new Date(D.resultSlot(atNight).at).toISOString(),'2040-01-01T15:28:00.000Z');
+  D.save(rec,dir);
+  const now=()=>Date.parse('2040-01-01T12:00:00Z');
+  const feed={date:race.date,generated_at:'2040-01-01T08:00:00Z',races:[F.source(race)]};
+  const opts={dir,now,fetcher:async()=>feed,capture:false,scheduled:true};
+  const status=()=>JSON.parse(fs.readFileSync(path.join(dir,'status.json'),'utf8'));
+  await D.collect(opts);
+  assert.equal(status().last_result_slot,null,'stale source leaves the result window open');
+  feed.generated_at='2040-01-01T08:40:00Z';
+  feed.races[0].result_top3=rec.out.tickets[0].trio;
+  feed.races[0].payout_trifecta=12340;
+  const evaluated=await D.collect(opts);
+  assert.equal(evaluated.summary.evaluated,1,'a delayed regular run settles the missed evening window');
+  assert.equal(status().last_result_slot,'2040-01-01T09:08:00.000Z');
+  feed.races[0].payout_trifecta=13000;
+  assert.equal((await D.collect(opts)).summary.payout,12340,'completed window does not settle again');
+ }finally{fs.rmSync(dir,{recursive:true,force:true});}
+})().catch(e=>{console.error(e);process.exitCode=1;});
