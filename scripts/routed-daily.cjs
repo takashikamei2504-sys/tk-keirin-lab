@@ -19,6 +19,15 @@ function resultSlot(now){
   if(at<=now)return {at,raceDate};
  }
 }
+// Result checks are limited to one attempt per hour when the public feed is late.
+const RESULT_RETRY_MS=60*60000;
+function shouldSettle(now,status){
+ const slot=resultSlot(now),done=Date.parse(status.last_result_slot);
+ if(Number.isFinite(done)&&done>=slot.at)return false;
+ const attempted=Date.parse(status.last_result_attempt_at);
+ return !(status.last_result_attempt_slot===new Date(slot.at).toISOString()&&
+  Number.isFinite(attempted)&&now-attempted>=0&&now-attempted<RESULT_RETRY_MS);
+}
 function packs(){const out={};for(const [key,file] of Object.entries({intelligence:'intelligence.json',recent:'recent_form.json',material:'race_material.json',s:'s_counts.json',conditions:'line_conditions.json',ex:'ex_approved/latest.json'})){
  const p=read(path.join(root,'data',file),{});if(key!=='ex'||p.license_status==='approved-for-model-and-publication'&&p.redistribution_approved===true)out[key]=p;
  }return out;}
@@ -78,9 +87,14 @@ async function fetchDay(date){const url='https://raw.githubusercontent.com/kurin
 async function collect({dir=defaultDir,fetcher=fetchDay,now=()=>Date.now(),build=predict,capture=true,settle=true,scheduled=false,pack=capture?packs():{}}={}){
  const started=now(),statusFile=path.join(dir,'status.json');
  const previousStatus=read(statusFile,{});
- const slot=resultSlot(started);
+ const slot=resultSlot(started),slotStamp=new Date(slot.at).toISOString();
  let lastResultSlot=previousStatus.last_result_slot||null;
- if(scheduled)settle=!(Date.parse(lastResultSlot)>=slot.at);
+ let lastResultAttemptAt=previousStatus.last_result_attempt_at||null;
+ let lastResultAttemptSlot=previousStatus.last_result_attempt_slot||null;
+ let lastResultCompleteAt=previousStatus.last_result_complete_at||null;
+ let lastResultCheck=previousStatus.last_result_check||null;
+ if(scheduled)settle=shouldSettle(started,previousStatus);
+ if(settle){lastResultAttemptAt=new Date(started).toISOString();lastResultAttemptSlot=slotStamp;}
  const dates=new Set(Array.from({length:settle?8:1},(_,i)=>jstDate(started,-i))),errors=[],collections=[];
  // Retry older unsettled results as well; bound each run's network requests.
  if(settle){
@@ -88,15 +102,26 @@ async function collect({dir=defaultDir,fetcher=fetchDay,now=()=>Date.now(),build
  }
  const boundedBuild=(r,p)=>{if(now()-started>15*60000)throw Error('処理時間の上限に達したため次回に再試行');return build(r,p);};
  for(const date of [...dates].sort().reverse())try{if(date!==jstDate(started)&&!fs.existsSync(path.join(dir,date)))continue;const day=await fetcher(date);if(day)collections.push(ingest(day,dir,pack,{now,build:boundedBuild,freeze:date===jstDate(now()),capture,settle}));else collections.push({date,feed:'not_available'});}catch(e){errors.push({date,error:e.message});}
+ const evaluation=report(dir,now());
  if(settle){
-  const source=collections.find(c=>c.date===slot.raceDate);
-  // Do not mark a window complete when the expected provider update has not arrived.
-  if(Date.parse(source?.source_updated_at)>=slot.at-60*60000 ||
-     !source&&!errors.some(e=>e.date===slot.raceDate)&&!fs.existsSync(path.join(dir,slot.raceDate))){
-   lastResultSlot=new Date(slot.at).toISOString();
-  }
+  const source=collections.find(c=>c.date===slot.raceDate),sourceTime=Date.parse(source?.source_updated_at);
+  // A fresh feed timestamp alone does not mean that its race results were published.
+  // Only races that had enough time to finish at the checkpoint must be settled.
+  const mature=evaluation.rows.filter(r=>r.date===slot.raceDate&&r.saved_at&&
+   Date.parse(`${r.date}T${r.start}:00+09:00`)<=slot.at-45*60000);
+  const unresolved=mature.filter(r=>!['evaluated','excluded'].includes(r.evaluation.status));
+  const fresh=Number.isFinite(sourceTime)&&sourceTime>=slot.at-60*60000;
+  const failed=errors.some(e=>e.date===slot.raceDate);
+  const complete=fresh&&!failed&&unresolved.length===0;
+  if(complete){lastResultSlot=slotStamp;lastResultCompleteAt=new Date(now()).toISOString();}
+  lastResultCheck={slot:slotStamp,race_date:slot.raceDate,state:failed?'source_error':!source?'source_missing':!fresh?'source_stale':unresolved.length?'results_pending':'complete',
+   source_updated_at:source?.source_updated_at||null,mature:mature.length,unresolved:unresolved.length,
+   evaluated:evaluation.rows.filter(r=>r.date===slot.raceDate&&r.evaluation.status==='evaluated').length};
  }
- const evaluation=report(dir,now());write(path.join(dir,'evaluation.json'),evaluation);write(statusFile,{last_result_slot:lastResultSlot,started_at:new Date(started).toISOString(),generated_at:new Date(now()).toISOString(),run_id:process.env.GITHUB_RUN_ID||null,collections,errors});
- console.log(JSON.stringify({summary:evaluation.summary,collections,errors}));return evaluation;
+ write(path.join(dir,'evaluation.json'),evaluation);
+ write(statusFile,{last_result_slot:lastResultSlot,last_result_attempt_at:lastResultAttemptAt,last_result_attempt_slot:lastResultAttemptSlot,
+  last_result_complete_at:lastResultCompleteAt,last_result_check:lastResultCheck,
+  started_at:new Date(started).toISOString(),generated_at:new Date(now()).toISOString(),run_id:process.env.GITHUB_RUN_ID||null,collections,errors});
+ console.log(JSON.stringify({summary:evaluation.summary,result_check:lastResultCheck,collections,errors}));return evaluation;
 }
-if(require.main===module)collect({capture:!process.argv.includes('--results-only'),settle:!process.argv.includes('--forecasts-only'),scheduled:process.argv.includes('--scheduled')}).catch(e=>{console.error(e);process.exitCode=1;});module.exports={ingest,save,report,collect,predict,name,jstDate,resultSlot};
+if(require.main===module)collect({capture:!process.argv.includes('--results-only'),settle:!process.argv.includes('--forecasts-only'),scheduled:process.argv.includes('--scheduled')}).catch(e=>{console.error(e);process.exitCode=1;});module.exports={ingest,save,report,collect,predict,name,jstDate,resultSlot,shouldSettle};
