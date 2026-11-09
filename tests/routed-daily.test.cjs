@@ -84,6 +84,12 @@ console.log('routed daily: immutable capture, missing coverage, strict settlemen
   feed.generated_at=new Date(clock-3*60000).toISOString();
   await D.collect({...opts,scheduled:false});
   assert.equal(D.report(dir,clock).summary.payout,13000,'manual verification can correct settled results');
+  // Late-night results remain valid at 05:28 even if the upstream feed did not re-publish.
+  const overnight=Date.parse('2040-01-01T20:35:00Z');
+  await D.collect({...opts,now:()=>overnight,scheduled:true});
+  assert.equal(status().last_result_slot,'2040-01-01T20:28:00.000Z');
+  assert.equal(status().last_result_check.state,'complete');
+  assert.equal(D.report(dir,overnight).summary.payout,13000);
   // A failed feed never advances the checkpoint and is retried after the interval.
   const failureDir=path.join(dir,'fetch-error');
   D.save(rec,failureDir);
