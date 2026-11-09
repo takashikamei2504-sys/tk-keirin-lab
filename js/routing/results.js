@@ -21,7 +21,7 @@ Promise.all([json('data/routed_history/evaluation.json'),json('data/routed_histo
  const resultHealth=check?('結果照合 '+(labels[check.state]||'確認中')+' ／ 対象 '+check.race_date+
   ' ／ 確認済 '+(check.evaluated||0)+'R'+(check.unresolved?' ／ 未確定 '+check.unresolved+'R':'')+
   (checkedAt?' ／ 最終試行 '+stamp(checkedAt):'')):
-  '結果照合：初回確認待ち';
+  (s.last_result_slot?'結果照合：前回完了枠 '+stamp(s.last_result_slot)+' ／ 成績反映 '+d.summary.evaluated+'R（詳細な試行履歴は次回照合から）':'結果照合：初回確認待ち');
  $('updated').textContent='自動保存更新：'+stamp(s.generated_at)+' ／ '+resultHealth;metrics(d.summary);for(const [target,key] of [['engines','by_engine'],['categories','by_category'],['days','by_date'],['models','by_model']])table(target,d[key]);
  const dates=Object.keys(d.by_date).sort().reverse();$('day').append(new Option('全期間',''),...dates.map(date=>new Option(date,date)));$('day').value=dates.includes(today)?today:dates[0]||'';
  for(const k of Object.keys(d.by_engine))$('filter').append(new Option(names[k]||k,k));$('day').addEventListener('change',render);$('filter').addEventListener('change',render);render();$('report').hidden=false;
