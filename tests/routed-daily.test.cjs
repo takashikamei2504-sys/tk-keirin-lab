@@ -101,5 +101,15 @@ console.log('routed daily: immutable capture, missing coverage, strict settlemen
   assert.equal(payoutStatus.last_result_slot,null);
   assert.equal(payoutStatus.last_result_check.state,'results_pending');
   assert.equal(D.report(missingDir,clock).summary.awaiting_payout,1);
+  // Malformed settlement must not count as successful merely because accounting excludes it.
+  const invalidDir=path.join(dir,'invalid-result');
+  D.save(rec,invalidDir);
+  const invalid=copy(feed);
+  invalid.races[0].result_combos=[{combo:[1,1,1],payout:12340}];
+  await D.collect({dir:invalidDir,now:()=>clock,fetcher:async date=>date===race.date?invalid:null,capture:false,scheduled:true});
+  const invalidStatus=JSON.parse(fs.readFileSync(path.join(invalidDir,'status.json'),'utf8'));
+  assert.equal(invalidStatus.last_result_check.state,'source_error');
+  assert.equal(invalidStatus.last_result_slot,null);
+  assert.equal(invalidStatus.collections[0].result_errors.length,1);
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
 })().catch(e=>{console.error(e);process.exitCode=1;});
