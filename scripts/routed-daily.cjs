@@ -95,7 +95,7 @@ async function collect({dir=defaultDir,fetcher=fetchDay,now=()=>Date.now(),build
  let lastResultCheck=previousStatus.last_result_check||null;
  if(scheduled)settle=shouldSettle(started,previousStatus);
  if(settle){lastResultAttemptAt=new Date(started).toISOString();lastResultAttemptSlot=slotStamp;}
- const dates=new Set(Array.from({length:settle?8:1},(_,i)=>jstDate(started,-i))),errors=[],collections=[];
+ const dates=new Set(Array.from({length:settle?8:capture?1:0},(_,i)=>jstDate(started,-i))),errors=[],collections=[];
  // Retry older unsettled results as well; bound each run's network requests.
  if(settle){
  const prior=report(dir,started);for(const date of [...new Set(prior.rows.filter(r=>['pending','awaiting_payout'].includes(r.evaluation.status)).map(r=>r.date))].sort().slice(0,24))dates.add(date);
