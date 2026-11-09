@@ -49,17 +49,73 @@ console.log('routed daily: immutable capture, missing coverage, strict settlemen
   D.save(rec,dir);
   const now=()=>Date.parse('2040-01-01T12:00:00Z');
   const feed={date:race.date,generated_at:'2040-01-01T08:00:00Z',races:[F.source(race)]};
-  const opts={dir,now,fetcher:async()=>feed,capture:false,scheduled:true};
+  let clock=Date.parse('2040-01-01T12:00:00Z'),calls=0;
+  const opts={dir,now:()=>clock,fetcher:async date=>{calls++;return date===race.date?feed:null;},capture:false,scheduled:true};
   const status=()=>JSON.parse(fs.readFileSync(path.join(dir,'status.json'),'utf8'));
   await D.collect(opts);
-  assert.equal(status().last_result_slot,null,'stale source leaves the result window open');
-  feed.generated_at='2040-01-01T08:40:00Z';
+  assert.equal(status().last_result_slot,null,'stale feed cannot complete a result checkpoint');
+  assert.equal(status().last_result_check.state,'source_stale');
+  const firstCalls=calls;
+  clock+=20*60000;
+  await D.collect(opts);
+  assert.equal(calls,firstCalls,'scheduled forecast run does not repeatedly fetch results before retry interval');
+  clock+=41*60000;
+  feed.generated_at=new Date(clock-5*60000).toISOString();
+  await D.collect(opts);
+  assert.equal(status().last_result_check.state,'results_pending','fresh feed without results must not mark a checkpoint complete');
+  assert.equal(status().last_result_slot,null);
+  clock+=61*60000;
+  feed.generated_at=new Date(clock-5*60000).toISOString();
   feed.races[0].result_top3=rec.out.tickets[0].trio;
   feed.races[0].payout_trifecta=12340;
   const evaluated=await D.collect(opts);
-  assert.equal(evaluated.summary.evaluated,1,'a delayed regular run settles the missed evening window');
+  assert.equal(evaluated.summary.evaluated,1,'delayed regular run settles the missed evening checkpoint');
   assert.equal(status().last_result_slot,'2040-01-01T09:08:00.000Z');
+  assert.equal(status().last_result_check.state,'complete');
+  assert.ok(status().last_result_complete_at,'completion timestamp must be saved separately from forecast updates');
+  const afterCompleteCalls=calls;
   feed.races[0].payout_trifecta=13000;
-  assert.equal((await D.collect(opts)).summary.payout,12340,'completed window does not settle again');
+  await D.collect(opts);
+  assert.equal(calls,afterCompleteCalls,'completed slot must not re-fetch on each scheduled forecast run');
+  assert.equal(D.report(dir,clock).summary.payout,12340);
+  assert.equal(D.shouldSettle(clock,status()),false,'completed slot is skipped');
+  assert.equal(D.shouldSettle(Date.parse('2040-01-01T15:29:00Z'),status()),true,'new overnight checkpoint triggers a new result pass');
+  // Manual settlement still checks revisions, even if the scheduled checkpoint was completed.
+  feed.generated_at=new Date(clock-3*60000).toISOString();
+  await D.collect({...opts,scheduled:false});
+  assert.equal(D.report(dir,clock).summary.payout,13000,'manual verification can correct settled results');
+  // Late-night results remain valid at 05:28 even if the upstream feed did not re-publish.
+  const overnight=Date.parse('2040-01-01T20:35:00Z');
+  await D.collect({...opts,now:()=>overnight,scheduled:true});
+  assert.equal(status().last_result_slot,'2040-01-01T20:28:00.000Z');
+  assert.equal(status().last_result_check.state,'complete');
+  assert.equal(D.report(dir,overnight).summary.payout,13000);
+  // A failed feed never advances the checkpoint and is retried after the interval.
+  const failureDir=path.join(dir,'fetch-error');
+  D.save(rec,failureDir);
+  const broken=()=>Date.parse('2040-01-01T12:00:00Z');
+  await D.collect({dir:failureDir,now:broken,fetcher:async()=>{throw Error('feed down');},capture:false,scheduled:true});
+  const failedStatus=JSON.parse(fs.readFileSync(path.join(failureDir,'status.json'),'utf8'));
+  assert.equal(failedStatus.last_result_slot,null);
+  assert.equal(failedStatus.last_result_check.state,'source_error');
+  // A published race without payout must remain pending, not be treated as a 0-yen loss.
+  const missingDir=path.join(dir,'payout');
+  D.save(rec,missingDir);
+  const unpaid=copy(feed);delete unpaid.races[0].payout_trifecta;
+  await D.collect({dir:missingDir,now:()=>clock,fetcher:async date=>date===race.date?unpaid:null,capture:false,scheduled:true});
+  const payoutStatus=JSON.parse(fs.readFileSync(path.join(missingDir,'status.json'),'utf8'));
+  assert.equal(payoutStatus.last_result_slot,null);
+  assert.equal(payoutStatus.last_result_check.state,'results_pending');
+  assert.equal(D.report(missingDir,clock).summary.awaiting_payout,1);
+  // Malformed settlement must not count as successful merely because accounting excludes it.
+  const invalidDir=path.join(dir,'invalid-result');
+  D.save(rec,invalidDir);
+  const invalid=copy(feed);
+  invalid.races[0].result_combos=[{combo:[1,1,1],payout:12340}];
+  await D.collect({dir:invalidDir,now:()=>clock,fetcher:async date=>date===race.date?invalid:null,capture:false,scheduled:true});
+  const invalidStatus=JSON.parse(fs.readFileSync(path.join(invalidDir,'status.json'),'utf8'));
+  assert.equal(invalidStatus.last_result_check.state,'source_error');
+  assert.equal(invalidStatus.last_result_slot,null);
+  assert.equal(invalidStatus.collections[0].result_errors.length,1);
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -19,6 +19,15 @@ function resultSlot(now){
   if(at<=now)return {at,raceDate};
  }
 }
+// Result checks are limited to one attempt per hour when the public feed is late.
+const RESULT_RETRY_MS=60*60000;
+function shouldSettle(now,status){
+ const slot=resultSlot(now),done=Date.parse(status.last_result_slot);
+ if(Number.isFinite(done)&&done>=slot.at)return false;
+ const attempted=Date.parse(status.last_result_attempt_at);
+ return !(status.last_result_attempt_slot===new Date(slot.at).toISOString()&&
+  Number.isFinite(attempted)&&now-attempted>=0&&now-attempted<RESULT_RETRY_MS);
+}
 function packs(){const out={};for(const [key,file] of Object.entries({intelligence:'intelligence.json',recent:'recent_form.json',material:'race_material.json',s:'s_counts.json',conditions:'line_conditions.json',ex:'ex_approved/latest.json'})){
  const p=read(path.join(root,'data',file),{});if(key!=='ex'||p.license_status==='approved-for-model-and-publication'&&p.redistribution_approved===true)out[key]=p;
  }return out;}
@@ -34,7 +43,7 @@ function save(record,dir){
 function ingest(day,dir,pack,{now=()=>Date.now(),build=predict,freeze=true,capture=true,settle=true}={}){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(day?.date)||!Array.isArray(day.races)||day.races.length>250||!Number.isFinite(Date.parse(day.generated_at))||Date.parse(day.generated_at)>now())throw Error('配信日・更新時刻・レース一覧が不正');
  const folder=path.join(dir,day.date),manifest=read(path.join(folder,'coverage.json'),{date:day.date,races:[]}),previous=new Map(manifest.races.map(r=>[r.race_id,r]));
- const results=read(path.join(folder,'results.json'),{}),seen=new Set();let saved=0;const errors=[];
+ const results=read(path.join(folder,'results.json'),{}),seen=new Set();let saved=0;const errors=[],resultErrors=[];
  const ids=day.races.map(s=>`${day.date}:${s.venue}:${Number(s.race_number)}`);if(new Set(ids).size!==ids.length)throw Error('配信内に同一レースが重複');
  for(const s of day.races.slice().sort((a,b)=>String(a.start_time).localeCompare(String(b.start_time)))){
   if(s.is_girls||s.entries?.some(e=>/^L/.test(String(e.class_rank)))||![7,9].includes(s.entries?.length))continue;
@@ -44,7 +53,7 @@ function ingest(day,dir,pack,{now=()=>Date.now(),build=predict,freeze=true,captu
   try{
    if(settle){
     const holds=s.cancelled===true||s.is_cancelled===true||/^(cancelled|canceled|abandoned|中止|不成立)$/i.test(s.race_status||s.status||'')?'中止・不成立のため集計除外':s.refunds?.length||s.refunded_cars?.length||s.payouts?.refund?.length?'返還があるため精算対象外':null;
-    if(holds)results[id]={accounting_hold:holds};else{try{const observed=Audit.result(s,day,new Date(now()).toISOString());if(observed)results[id]=observed;}catch(e){results[id]={accounting_hold:'結果の訂正内容を検証できない：'+e.message};throw e;}}
+    if(holds)results[id]={accounting_hold:holds};else{try{const observed=Audit.result(s,day,new Date(now()).toISOString());if(observed)results[id]=observed;}catch(e){results[id]={accounting_hold:'結果の訂正内容を検証できない：'+e.message};resultErrors.push({race_id:id,error:e.message});throw e;}}
    }
    if(!capture)continue;
    const selection=Policy.select({class:String(s.round_name||''),riders:s.entries.map(e=>({meta:{rank:e.class_rank}}))});row.engine=selection.engine;row.label=selection.label;row.category=selection.category.key;
@@ -59,7 +68,7 @@ function ingest(day,dir,pack,{now=()=>Date.now(),build=predict,freeze=true,captu
  }
  if(settle)write(path.join(folder,'results.json'),results);
  if(capture)write(path.join(folder,'coverage.json'),{date:day.date,source_updated_at:day.generated_at,checked_at:new Date(now()).toISOString(),races:[...previous.values()].sort((a,b)=>a.race_id.localeCompare(b.race_id))});
- return {date:day.date,source_updated_at:day.generated_at,eligible:seen.size,saved,errors};
+ return {date:day.date,source_updated_at:day.generated_at,eligible:seen.size,saved,errors,result_errors:resultErrors};
 }
 function report(dir,now=Date.now()){
  const rows=[],errors=[];
@@ -78,25 +87,45 @@ async function fetchDay(date){const url='https://raw.githubusercontent.com/kurin
 async function collect({dir=defaultDir,fetcher=fetchDay,now=()=>Date.now(),build=predict,capture=true,settle=true,scheduled=false,pack=capture?packs():{}}={}){
  const started=now(),statusFile=path.join(dir,'status.json');
  const previousStatus=read(statusFile,{});
- const slot=resultSlot(started);
+ const slot=resultSlot(started),slotStamp=new Date(slot.at).toISOString();
  let lastResultSlot=previousStatus.last_result_slot||null;
- if(scheduled)settle=!(Date.parse(lastResultSlot)>=slot.at);
- const dates=new Set(Array.from({length:settle?8:1},(_,i)=>jstDate(started,-i))),errors=[],collections=[];
+ let lastResultAttemptAt=previousStatus.last_result_attempt_at||null;
+ let lastResultAttemptSlot=previousStatus.last_result_attempt_slot||null;
+ let lastResultCompleteAt=previousStatus.last_result_complete_at||null;
+ let lastResultCheck=previousStatus.last_result_check||null;
+ if(scheduled)settle=shouldSettle(started,previousStatus);
+ if(settle){lastResultAttemptAt=new Date(started).toISOString();lastResultAttemptSlot=slotStamp;}
+ const dates=new Set(Array.from({length:settle?8:capture?1:0},(_,i)=>jstDate(started,-i))),errors=[],collections=[];
  // Retry older unsettled results as well; bound each run's network requests.
  if(settle){
  const prior=report(dir,started);for(const date of [...new Set(prior.rows.filter(r=>['pending','awaiting_payout'].includes(r.evaluation.status)).map(r=>r.date))].sort().slice(0,24))dates.add(date);
  }
  const boundedBuild=(r,p)=>{if(now()-started>15*60000)throw Error('処理時間の上限に達したため次回に再試行');return build(r,p);};
  for(const date of [...dates].sort().reverse())try{if(date!==jstDate(started)&&!fs.existsSync(path.join(dir,date)))continue;const day=await fetcher(date);if(day)collections.push(ingest(day,dir,pack,{now,build:boundedBuild,freeze:date===jstDate(now()),capture,settle}));else collections.push({date,feed:'not_available'});}catch(e){errors.push({date,error:e.message});}
+ const evaluation=report(dir,now());
  if(settle){
-  const source=collections.find(c=>c.date===slot.raceDate);
-  // Do not mark a window complete when the expected provider update has not arrived.
-  if(Date.parse(source?.source_updated_at)>=slot.at-60*60000 ||
-     !source&&!errors.some(e=>e.date===slot.raceDate)&&!fs.existsSync(path.join(dir,slot.raceDate))){
-   lastResultSlot=new Date(slot.at).toISOString();
-  }
+  const source=collections.find(c=>c.date===slot.raceDate),sourceTime=Date.parse(source?.source_updated_at);
+  // A fresh feed timestamp alone does not mean that its race results were published.
+  // Only races that had enough time to finish at the checkpoint must be settled.
+  const mature=evaluation.rows.filter(r=>r.date===slot.raceDate&&r.saved_at&&
+   Date.parse(`${r.date}T${r.start}:00+09:00`)<=slot.at-45*60000);
+  const unresolved=mature.filter(r=>!['evaluated','excluded'].includes(r.evaluation.status));
+  // Overnight rechecks should not wait forever for a feed timestamp to change
+  // if all finished races already have independently validated settlement records.
+  const lastMatureStart=Math.max(...mature.map(r=>Date.parse(`${r.date}T${r.start}:00+09:00`)));
+  const fresh=Number.isFinite(sourceTime)&&(sourceTime>=slot.at-60*60000||
+   (mature.length>0&&unresolved.length===0&&sourceTime>lastMatureStart));
+  const failed=errors.some(e=>e.date===slot.raceDate)||(source?.result_errors?.length||0)>0;
+  const complete=fresh&&!failed&&unresolved.length===0;
+  if(complete){lastResultSlot=slotStamp;lastResultCompleteAt=new Date(now()).toISOString();}
+  lastResultCheck={slot:slotStamp,race_date:slot.raceDate,state:failed?'source_error':!source?'source_missing':!fresh?'source_stale':unresolved.length?'results_pending':'complete',
+   source_updated_at:source?.source_updated_at||null,mature:mature.length,unresolved:unresolved.length,
+   evaluated:evaluation.rows.filter(r=>r.date===slot.raceDate&&r.evaluation.status==='evaluated').length};
  }
- const evaluation=report(dir,now());write(path.join(dir,'evaluation.json'),evaluation);write(statusFile,{last_result_slot:lastResultSlot,started_at:new Date(started).toISOString(),generated_at:new Date(now()).toISOString(),run_id:process.env.GITHUB_RUN_ID||null,collections,errors});
- console.log(JSON.stringify({summary:evaluation.summary,collections,errors}));return evaluation;
+ write(path.join(dir,'evaluation.json'),evaluation);
+ write(statusFile,{last_result_slot:lastResultSlot,last_result_attempt_at:lastResultAttemptAt,last_result_attempt_slot:lastResultAttemptSlot,
+  last_result_complete_at:lastResultCompleteAt,last_result_check:lastResultCheck,
+  started_at:new Date(started).toISOString(),generated_at:new Date(now()).toISOString(),run_id:process.env.GITHUB_RUN_ID||null,collections,errors});
+ console.log(JSON.stringify({summary:evaluation.summary,result_check:lastResultCheck,collections,errors}));return evaluation;
 }
-if(require.main===module)collect({capture:!process.argv.includes('--results-only'),settle:!process.argv.includes('--forecasts-only'),scheduled:process.argv.includes('--scheduled')}).catch(e=>{console.error(e);process.exitCode=1;});module.exports={ingest,save,report,collect,predict,name,jstDate,resultSlot};
+if(require.main===module)collect({capture:!process.argv.includes('--results-only'),settle:!process.argv.includes('--forecasts-only'),scheduled:process.argv.includes('--scheduled')}).catch(e=>{console.error(e);process.exitCode=1;});module.exports={ingest,save,report,collect,predict,name,jstDate,resultSlot,shouldSettle};
