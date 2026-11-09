@@ -110,7 +110,11 @@ async function collect({dir=defaultDir,fetcher=fetchDay,now=()=>Date.now(),build
   const mature=evaluation.rows.filter(r=>r.date===slot.raceDate&&r.saved_at&&
    Date.parse(`${r.date}T${r.start}:00+09:00`)<=slot.at-45*60000);
   const unresolved=mature.filter(r=>!['evaluated','excluded'].includes(r.evaluation.status));
-  const fresh=Number.isFinite(sourceTime)&&sourceTime>=slot.at-60*60000;
+  // Overnight rechecks should not wait forever for a feed timestamp to change
+  // if all finished races already have independently validated settlement records.
+  const lastMatureStart=Math.max(...mature.map(r=>Date.parse(`${r.date}T${r.start}:00+09:00`)));
+  const fresh=Number.isFinite(sourceTime)&&(sourceTime>=slot.at-60*60000||
+   (mature.length>0&&unresolved.length===0&&sourceTime>lastMatureStart));
   const failed=errors.some(e=>e.date===slot.raceDate)||(source?.result_errors?.length||0)>0;
   const complete=fresh&&!failed&&unresolved.length===0;
   if(complete){lastResultSlot=slotStamp;lastResultCompleteAt=new Date(now()).toISOString();}
