@@ -6,6 +6,19 @@ const read=(file,fallback)=>fs.existsSync(file)?JSON.parse(fs.readFileSync(file,
 const write=(file,value)=>{fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file+'.tmp',JSON.stringify(value)+'\n');fs.renameSync(file+'.tmp',file);};
 const name=id=>crypto.createHash('sha256').update(id).digest('hex')+'.json';
 const jstDate=(now,offset=0)=>new Date(now+9*3600000+offset*86400000).toISOString().slice(0,10);
+// Each forecast run can pick up the latest result window if a scheduled run was delayed.
+function resultSlot(now){
+ const today=jstDate(now),yesterday=jstDate(now,-1);
+ for(const [day,time,raceDate] of [
+  [today,'18:08',today],
+  [today,'05:28',yesterday],
+  [today,'00:28',yesterday],
+  [yesterday,'18:08',yesterday]
+ ]){
+  const at=Date.parse(day+'T'+time+':00+09:00');
+  if(at<=now)return {at,raceDate};
+ }
+}
 function packs(){const out={};for(const [key,file] of Object.entries({intelligence:'intelligence.json',recent:'recent_form.json',material:'race_material.json',s:'s_counts.json',conditions:'line_conditions.json',ex:'ex_approved/latest.json'})){
  const p=read(path.join(root,'data',file),{});if(key!=='ex'||p.license_status==='approved-for-model-and-publication'&&p.redistribution_approved===true)out[key]=p;
  }return out;}
@@ -46,7 +59,7 @@ function ingest(day,dir,pack,{now=()=>Date.now(),build=predict,freeze=true,captu
  }
  if(settle)write(path.join(folder,'results.json'),results);
  if(capture)write(path.join(folder,'coverage.json'),{date:day.date,source_updated_at:day.generated_at,checked_at:new Date(now()).toISOString(),races:[...previous.values()].sort((a,b)=>a.race_id.localeCompare(b.race_id))});
- return {date:day.date,eligible:seen.size,saved,errors};
+ return {date:day.date,source_updated_at:day.generated_at,eligible:seen.size,saved,errors};
 }
 function report(dir,now=Date.now()){
  const rows=[],errors=[];
@@ -62,15 +75,28 @@ function report(dir,now=Date.now()){
  return {schema:'tk-keirin-routed-evaluation/v1',generated_at:new Date(now).toISOString(),stake_per_ticket:100,scope:'男子7車・9車。自動選択の最初の発走前保存を各100円で評価。手動切替・発走後再現は含めない。',summary:Eval.summarize(rows),by_date:Eval.group(rows,r=>r.date),by_engine:Eval.group(rows,r=>r.engine||'取得不可'),by_category:Eval.group(rows,r=>r.category||'級班不明'),by_model:Eval.group(rows,r=>[r.policy_version||'未保存',r.model_id||'未保存'].join(' / ')),rows,errors};
 }
 async function fetchDay(date){const url='https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/'+date+'.json';const res=await fetch(url,{signal:AbortSignal.timeout(20000)});if(res.status===404)return null;if(!res.ok)throw Error('HTTP '+res.status);const body=await res.text();if(body.length>8000000)throw Error('配信サイズ超過');const day=JSON.parse(body);if(day.date!==date)throw Error('配信日が不一致');return day;}
-async function collect({dir=defaultDir,fetcher=fetchDay,now=()=>Date.now(),build=predict,capture=true,settle=true,pack=capture?packs():{}}={}){
- const started=now(),dates=new Set(Array.from({length:settle?8:1},(_,i)=>jstDate(started,-i))),errors=[],collections=[];
+async function collect({dir=defaultDir,fetcher=fetchDay,now=()=>Date.now(),build=predict,capture=true,settle=true,scheduled=false,pack=capture?packs():{}}={}){
+ const started=now(),statusFile=path.join(dir,'status.json');
+ const previousStatus=read(statusFile,{});
+ const slot=resultSlot(started);
+ let lastResultSlot=previousStatus.last_result_slot||null;
+ if(scheduled)settle=!(Date.parse(lastResultSlot)>=slot.at);
+ const dates=new Set(Array.from({length:settle?8:1},(_,i)=>jstDate(started,-i))),errors=[],collections=[];
  // Retry older unsettled results as well; bound each run's network requests.
  if(settle){
  const prior=report(dir,started);for(const date of [...new Set(prior.rows.filter(r=>['pending','awaiting_payout'].includes(r.evaluation.status)).map(r=>r.date))].sort().slice(0,24))dates.add(date);
  }
  const boundedBuild=(r,p)=>{if(now()-started>15*60000)throw Error('処理時間の上限に達したため次回に再試行');return build(r,p);};
  for(const date of [...dates].sort().reverse())try{if(date!==jstDate(started)&&!fs.existsSync(path.join(dir,date)))continue;const day=await fetcher(date);if(day)collections.push(ingest(day,dir,pack,{now,build:boundedBuild,freeze:date===jstDate(now()),capture,settle}));else collections.push({date,feed:'not_available'});}catch(e){errors.push({date,error:e.message});}
- const evaluation=report(dir,now());write(path.join(dir,'evaluation.json'),evaluation);write(path.join(dir,'status.json'),{started_at:new Date(started).toISOString(),generated_at:new Date(now()).toISOString(),run_id:process.env.GITHUB_RUN_ID||null,collections,errors});
+ if(settle){
+  const source=collections.find(c=>c.date===slot.raceDate);
+  // Do not mark a window complete when the expected provider update has not arrived.
+  if(Date.parse(source?.source_updated_at)>=slot.at-60*60000 ||
+     !source&&!errors.some(e=>e.date===slot.raceDate)&&!fs.existsSync(path.join(dir,slot.raceDate))){
+   lastResultSlot=new Date(slot.at).toISOString();
+  }
+ }
+ const evaluation=report(dir,now());write(path.join(dir,'evaluation.json'),evaluation);write(statusFile,{last_result_slot:lastResultSlot,started_at:new Date(started).toISOString(),generated_at:new Date(now()).toISOString(),run_id:process.env.GITHUB_RUN_ID||null,collections,errors});
  console.log(JSON.stringify({summary:evaluation.summary,collections,errors}));return evaluation;
 }
-if(require.main===module)collect({capture:!process.argv.includes('--results-only'),settle:!process.argv.includes('--forecasts-only')}).catch(e=>{console.error(e);process.exitCode=1;});module.exports={ingest,save,report,collect,predict,name,jstDate};
+if(require.main===module)collect({capture:!process.argv.includes('--results-only'),settle:!process.argv.includes('--forecasts-only'),scheduled:process.argv.includes('--scheduled')}).catch(e=>{console.error(e);process.exitCode=1;});module.exports={ingest,save,report,collect,predict,name,jstDate,resultSlot};
