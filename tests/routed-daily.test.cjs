@@ -22,7 +22,13 @@ try{
  const file=path.join(dir,day.date,D.name(rec.race_id)),original=fs.readFileSync(file,'utf8');
  let rep=D.report(dir,at+2000);assert.equal(rep.summary.saved,1);assert.equal(rep.summary.pending,1);assert.equal(rep.rows[0].engine,'physical');assert.equal(rep.by_category['A級_7'].saved,1);
  const after=()=>Date.parse('2040-01-01T08:01:00Z'),resultDay=copy(day);resultDay.generated_at='2040-01-01T08:00:00Z';resultDay.races[0].result_top3=rec.out.tickets[0].trio;resultDay.races[0].payout_trifecta=12340;
- D.ingest(resultDay,dir,{}, {now:after,build});rep=D.report(dir,after());assert.equal(rep.summary.hits,1);assert.equal(rep.summary.payout,12340);assert.equal(fs.readFileSync(file,'utf8'),original);
+ D.ingest(resultDay,dir,{}, {now:after,build,settle:false});
+ assert.equal(D.report(dir,after()).summary.pending,1,'forecast runs do not ingest published results');
+ const coverageFile=path.join(dir,day.date,'coverage.json');
+ const coverageBefore=fs.readFileSync(coverageFile,'utf8');
+ D.ingest(resultDay,dir,{}, {now:after,build,capture:false});
+ assert.equal(fs.readFileSync(coverageFile,'utf8'),coverageBefore,'result runs do not rewrite forecast coverage');
+ rep=D.report(dir,after());assert.equal(rep.summary.hits,1);assert.equal(rep.summary.payout,12340);assert.equal(fs.readFileSync(file,'utf8'),original);
  resultDay.races[0].payout_trifecta=12000;D.ingest(resultDay,dir,{}, {now:after,build});assert.equal(D.report(dir,after()).summary.payout,12000,'result corrections update accounting only');
  const extra=F.source(F.race(7,'A3',2));resultDay.races.push(extra);D.ingest(resultDay,dir,{}, {now:after,build});rep=D.report(dir,after());assert.equal(rep.summary.missed,1);assert.equal(calls,1,'late races are never backfilled');
  resultDay.races[0].is_cancelled=true;D.ingest(resultDay,dir,{}, {now:after,build});assert.equal(D.report(dir,after()).summary.excluded,1);
