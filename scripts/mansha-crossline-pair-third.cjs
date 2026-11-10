@@ -52,10 +52,6 @@ function riderCols(x,card,first=null,second=null) {
   +(first&&second&&x.line!==first.line&&x.line!==second.line)];
  return col;
 }
-function logits(e,w){
- const v=e.map(x=>sum(x.cols.map((a,i)=>a*w[i]),x=>x)); // corrected below by rank scoring
- return v;
-}
 const dot=(x,w)=>x.reduce((s,a,i)=>s+a*w[i],0);
 const softmax=z=>{
  const m=Math.max(...z),e=z.map(v=>Math.exp(v-m)),t=e.reduce((a,b)=>a+b,0);return e.map(x=>x/t);
