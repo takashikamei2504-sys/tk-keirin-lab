@@ -169,7 +169,7 @@ function validate(shadow,parent) {
          stats.byNo.get(t.trio[0]).line===stats.byNo.get(t.trio[1]).line||keys.has(t.key))return false;
       keys.add(t.key);return true;
     });
-  })));
+  }));
  }catch{return false}
 }
 function evaluate(shadow,parent,observed) {
