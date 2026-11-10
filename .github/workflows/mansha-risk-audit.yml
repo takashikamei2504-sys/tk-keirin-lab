@@ -1,0 +1,48 @@
+name: Audit calibrated mansha risk score (research only)
+on:
+  push:
+    branches: [research/mansha-risk-score-v1-20261110]
+    paths:
+      - 'scripts/mansha-risk-audit.cjs'
+      - 'scripts/mansha-study.cjs'
+      - 'js/mansha/risk.js'
+      - 'tests/mansha-risk.test.cjs'
+      - '.github/workflows/mansha-risk-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check and test research code
+        run: |
+          node --check scripts/mansha-risk-audit.cjs
+          node --check js/mansha/risk.js
+          node tests/mansha-risk.test.cjs
+          node tests/mansha-study.test.cjs
+      - name: Compute out-of-time risk calibration
+        run: node scripts/mansha-risk-audit.cjs
+      - name: Refresh routing asset integrity after adding research scripts
+        run: node scripts/race-router-identity.cjs
+      - name: Store model and validation on research branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add js/mansha/model.js reports/mansha/risk-v1-audit.json reports/mansha/risk-v1-audit.md auto.html js/routing/build.js
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record calibrated mansha risk model and independent validation'
+            git push
+          fi
+      - name: Archive verification artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mansha-risk-audit
+          path: reports/mansha/risk-v1-audit.*
+          if-no-files-found: warn
