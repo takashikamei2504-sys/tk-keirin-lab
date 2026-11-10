@@ -157,10 +157,11 @@ function validate(shadow,parent) {
   if(shadow.schema!==SCHEMA||!/^mansha-shadow-crossline-v1\.0@[0-9a-f]{16}$/.test(shadow.model_id)||shadow.race_id!==parent.race_id||
     shadow.parent_record_sha256!==fingerprint(parent)||shadow.parent_output_sha256!==parent.output_sha256||
     shadow.original_saved_at!==parent.saved_at||shadow.cutoff!==parent.cutoff||
-    !(Date.parse(shadow.created_at)<Date.parse(parent.cutoff))||shadow.sha256!==fingerprint(v))return false;
+    !(Date.parse(shadow.created_at)>=Date.parse(parent.saved_at)&&Date.parse(shadow.created_at)<Date.parse(parent.cutoff))||shadow.sha256!==fingerprint(v))return false;
   const ids=new Set(o.input.riders.map(r=>r.no)),stats=prep(o.input);
-  return shadow.modes?.length===2&&shadow.modes.every(mode=>
-    ['baseline','tactical'].includes(mode.name)&&mode.variants?.length===3&&mode.variants.every(variant=>{
+  return shadow.modes?.length===2&&new Set(shadow.modes.map(x=>x.name)).size===2&&shadow.modes.every(mode=>
+    ['baseline','tactical'].includes(mode.name)&&mode.variants?.length===3&&new Set(mode.variants.map(x=>x.id)).size===3&&mode.variants.every(variant=>{
+    if(!['A','B','C'].includes(variant.id)||variant.third!==(variant.id==='C'?'top2':'all'))return false;
     const max=variant.id==='A'?1:2,per=variant.third==='all'?ids.size-2:2;
     if(variant.pairs!==max||variant.tickets?.length!==max*per||variant.scope==null)return false;
     const keys=new Set();
