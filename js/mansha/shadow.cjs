@@ -154,7 +154,7 @@ function generate(parent,createdAt) {
 function validate(shadow,parent) {
  try{
   const {o}=checkForecast(parent),v={...shadow};delete v.sha256;
-  if(shadow.schema!==SCHEMA||shadow.model_id!==MODEL_ID||shadow.race_id!==parent.race_id||
+  if(shadow.schema!==SCHEMA||!/^mansha-shadow-crossline-v1\.0@[0-9a-f]{16}$/.test(shadow.model_id)||shadow.race_id!==parent.race_id||
     shadow.parent_record_sha256!==fingerprint(parent)||shadow.parent_output_sha256!==parent.output_sha256||
     shadow.original_saved_at!==parent.saved_at||shadow.cutoff!==parent.cutoff||
     !(Date.parse(shadow.created_at)<Date.parse(parent.cutoff))||shadow.sha256!==fingerprint(v))return false;
