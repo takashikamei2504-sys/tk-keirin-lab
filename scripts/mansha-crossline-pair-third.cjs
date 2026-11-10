@@ -180,7 +180,7 @@ async function main(){
  models.regular={winner:fit(train,0,()=>true),second:fit(train,1,()=>true)};
  models.mansha={winner:fit(train,0,r=>r.cross&&r.high),second:fit(train,1,r=>r.cross&&r.high)};
  models.third=fit(train,2,r=>r.cross&&r.high);
- const kinds=['score','regular','mansha'],K=[1,3,6,10],thirdModes=['score2','score3','trained2','trained3','pairlines','all'];
+ const kinds=['score','regular','mansha'],K=[1,2,3,6,10],thirdModes=['score2','score3','trained2','trained3','pairlines','all'];
  const configs=[];for(const kind of kinds)for(const k of K)for(const t of thirdModes)configs.push({kind,k,third:t});
  const scenarios=configs.map(s=>({id:s.kind+'-'+s.k+'-'+s.third,...s,
   validation:calc(validation,s.kind,s.k,s.third,models),
