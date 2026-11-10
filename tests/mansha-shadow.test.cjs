@@ -65,9 +65,12 @@ try{
  assert.equal(settled.summary.evaluated,1);
  const evaluation=settled.rows[0].evaluation;
  assert.equal(evaluation.status,'evaluated');
+ assert.equal(evaluation.by_mode.baseline.A.pair_hit,true,'separate first/second pair must be scored independently');
  assert.equal(evaluation.by_mode.baseline.A.hit,true);
  assert.equal(evaluation.by_mode.baseline.A.payout,17890);
  assert.equal(evaluation.by_mode.baseline.A.stake,500);
+ assert.equal(settled.summary.by_variant['baseline/A'].pair_hits,1);
+ assert.equal(settled.summary.by_variant['baseline/A'].roi_without_max,null,'single-race trimmed ROI has no denominator');
  assert.equal(fs.readFileSync(file,'utf8'),original,'outcomes must not modify frozen shadow');
  const unpaid=copy(observed);unpaid.combos[0].payout=null;fs.writeFileSync(resultsFile,JSON.stringify({[parent.race_id]:unpaid}));
  const payoutWait=Daily.report(dir,Date.parse('2040-01-01T09:01:00Z'));
