@@ -15,7 +15,7 @@ function table(id,stats){
  t.append(h);
  for(const mode of ['baseline','tactical'])for(const variant of ['A','B','C']){
   const v=stats?.by_variant?.[mode+'/'+variant],tr=node('tr');
-  for(const s of [modeName[mode]+' '+variant,v?.races??'0',v?.hits??'0',v?.high_hits??'0',v?.avg_points?.toFixed(1)??'―',pct(v?.roi),pct(v?.roi_without_max)])tr.append(node('td',s));
+  for(const s of [modeName[mode]+' '+variant,v?.races??'0',v?.pair_hits??'0',v?.hits??'0',v?.high_hits??'0',v?.avg_points?.toFixed(1)??'―',pct(v?.roi),pct(v?.roi_without_max)])tr.append(node('td',s));
   t.append(tr);
  }
  $(id).replaceChildren(t);
