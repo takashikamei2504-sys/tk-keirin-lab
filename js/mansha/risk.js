@@ -53,7 +53,6 @@ function fit(records,lambda=.005){
   }
   for(let j=0;j<w.length;j++)w[j]-=.7*(g[j]/data.length+(j?lambda*w[j]:0));
  }
- const byCat={};for(const cat of CATS){const d=data.filter(t=>t.x[CATS.indexOf(cat)]===1); /* unused; calibrated base below */ }
  return {version:VERSION,training_rows:data.length,features:FEATURE_NAMES,weights:w,calibration:{a:0,b:1},thresholds:{}};
 }
 function rawProbability(r,model){
