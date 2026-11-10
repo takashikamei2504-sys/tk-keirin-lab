@@ -195,11 +195,11 @@ function evaluate(shadow,parent,observed) {
 function summarize(rows) {
  const groups={};
  for(const row of rows)for(const [mode,variants]of Object.entries(row.evaluation.by_mode||{}))for(const [variant,ev] of Object.entries(variants)){
-  const key=mode+'/'+variant,g=(groups[key]||={races:0,hits:0,high_hits:0,stake:0,payout:0,payout_top:0,tickets:0});
-  g.races++;g.hits+=+ev.hit;g.stake+=ev.stake;g.payout+=ev.payout;g.tickets+=ev.tickets;g.payout_top=Math.max(g.payout_top,ev.payout);
+  const key=mode+'/'+variant,g=(groups[key]||={races:0,hits:0,high_hits:0,stake:0,payout:0,payout_top:0,stake_top:0,tickets:0});
+  g.races++;g.hits+=+ev.hit;g.stake+=ev.stake;g.payout+=ev.payout;g.tickets+=ev.tickets;if(ev.payout>g.payout_top){g.payout_top=ev.payout;g.stake_top=ev.stake;}
   if(ev.hit&&row.evaluation.actual.some(x=>ev.hit_keys.includes(x.key)&&x.high))g.high_hits++;
  }
- for(const g of Object.values(groups)){g.hit_rate=g.races?g.hits/g.races:null;g.roi=g.stake?g.payout/g.stake:null;g.roi_without_max=g.stake?(g.payout-g.payout_top)/g.stake:null;g.avg_points=g.races?g.tickets/g.races:null}
+ for(const g of Object.values(groups)){g.hit_rate=g.races?g.hits/g.races:null;g.roi=g.stake?g.payout/g.stake:null;g.roi_without_max=g.races>1&&g.stake>g.stake_top?(g.payout-g.payout_top)/(g.stake-g.stake_top):null;g.avg_points=g.races?g.tickets/g.races:null}
  return groups;
 }
 module.exports={SCHEMA,VERSION,MODEL_ID,generate,validate,evaluate,summarize,pairRanks,tacticEvidence,thirdRanks};
