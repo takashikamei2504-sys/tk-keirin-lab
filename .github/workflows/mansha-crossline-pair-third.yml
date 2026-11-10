@@ -1,0 +1,42 @@
+name: Audit mansha separate-line pairs and 3rd selection (research)
+on:
+  push:
+    branches: [research/mansha-crossline-pairs-20261110]
+    paths:
+      - 'scripts/mansha-crossline-pair-third.cjs'
+      - 'tests/mansha-crossline-pair-third.test.cjs'
+      - '.github/workflows/mansha-crossline-pair-third.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test deterministic candidates
+        run: |
+          node --check scripts/mansha-crossline-pair-third.cjs
+          node tests/mansha-crossline-pair-third.test.cjs
+      - name: Run full archived time-split study
+        run: node scripts/mansha-crossline-pair-third.cjs
+      - name: Save independent research results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/mansha/crossline-pair-third-v1.json reports/mansha/crossline-pair-third-v1.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save retrospective separate-line pairs and third finish audit'
+            git push
+          fi
+      - name: Upload full machine-readable results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mansha-crossline-pair-third-audit
+          path: reports/mansha/crossline-pair-third-v1.*
+          if-no-files-found: warn
