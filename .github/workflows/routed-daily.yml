@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: '22'
       - run: node tests/routed-daily.test.cjs
+      - run: node tests/mansha-shadow.test.cjs
       - name: Capture forecasts or check results
         env:
           EVENT: ${{ github.event_name }}
