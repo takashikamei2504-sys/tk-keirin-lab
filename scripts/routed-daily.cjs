@@ -123,8 +123,12 @@ async function collect({dir=defaultDir,fetcher=fetchDay,now=()=>Date.now(),build
    evaluated:evaluation.rows.filter(r=>r.date===slot.raceDate&&r.evaluation.status==='evaluated').length};
  }
  write(path.join(dir,'evaluation.json'),evaluation);
+ // Read-only research shadow: never compromise ordinary forecast/result processing.
+ let shadowError=null;
+ try{require('./mansha-shadow-daily.cjs').run({root:dir,now:now(),captureEnabled:capture,settleEnabled:settle});}
+ catch(e){shadowError=e.message;console.error('MANSHA_SHADOW_ERROR='+e.stack);}
  write(statusFile,{last_result_slot:lastResultSlot,last_result_attempt_at:lastResultAttemptAt,last_result_attempt_slot:lastResultAttemptSlot,
-  last_result_complete_at:lastResultCompleteAt,last_result_check:lastResultCheck,
+  last_result_complete_at:lastResultCompleteAt,last_result_check:lastResultCheck,shadow_error:shadowError,
   started_at:new Date(started).toISOString(),generated_at:new Date(now()).toISOString(),run_id:process.env.GITHUB_RUN_ID||null,collections,errors});
  console.log(JSON.stringify({summary:evaluation.summary,result_check:lastResultCheck,collections,errors}));return evaluation;
 }
