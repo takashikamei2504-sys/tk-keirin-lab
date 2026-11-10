@@ -1,0 +1,47 @@
+name: Retrospective mansha feature study (research branch)
+on:
+  push:
+    branches: [research/mansha-study-20261110]
+    paths:
+      - 'scripts/mansha-study.cjs'
+      - 'tests/mansha-study.test.cjs'
+      - '.github/workflows/mansha-study.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify analytical code
+        run: |
+          node --check scripts/mansha-study.cjs
+          node tests/mansha-study.test.cjs
+      - name: Run retrospective study
+        env:
+          MANSHA_START: '2026-05-08'
+          MANSHA_END: '2026-11-07'
+        run: node scripts/mansha-study.cjs
+      - name: Archive study data in isolated research branch
+        run: |
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add reports/mansha/study-20261107.json reports/mansha/study-20261107.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish retrospective mansha study outputs'
+            git push
+          fi
+      - name: Upload independent result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mansha-research-20261107
+          path: reports/mansha/
+          if-no-files-found: warn
