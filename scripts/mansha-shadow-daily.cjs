@@ -66,10 +66,14 @@ function report(root,now=Date.now()){
   excluded:x.filter(r=>r.evaluation.status==='excluded').length,
   by_variant:Forecast.summarize(x.filter(r=>r.evaluation.status==='evaluated'))});
  const byCat={};for(const cat of ['A7','C7','S7','S9'])byCat[cat]=stat(rows.filter(x=>x.cat===cat));
+ // Keep historical results in the individual immutable race files and compact daily summaries.
+ // Mobile detail payload includes only the last 14 days to avoid unbounded downloads.
+ const byDay={};for(const dt of [...new Set(rows.map(r=>r.date))].sort())byDay[dt]=stat(rows.filter(x=>x.date===dt));
+ const recentFrom=new Date(now+9*3600000-13*86400000).toISOString().slice(0,10);
  return {schema:'tk-keirin-mansha-shadow-evaluation/v1',generated_at:new Date(now).toISOString(),
   scope:'保存済み発走前予想に付属した別線万車シャドー。標準LAB買い目は変更せず、全点100円の仮想精算。9車Bの14点は比較研究用のみ。',
   summary:stat(rows),risk_high:stat(rows.filter(x=>x.risk.priority)),
-  by_category:byCat,errors,rows};
+  by_category:byCat,by_date:byDay,detail_from:recentFrom,errors,rows:rows.filter(r=>r.date>=recentFrom)};
 }
 function run({root,now=Date.now(),captureEnabled=true,settleEnabled=true}={}){
  if(!root)throw Error('root is required');
