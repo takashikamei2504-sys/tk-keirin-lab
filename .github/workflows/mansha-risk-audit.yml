@@ -28,11 +28,13 @@ jobs:
           node tests/mansha-study.test.cjs
       - name: Compute out-of-time risk calibration
         run: node scripts/mansha-risk-audit.cjs
+      - name: Refresh routing asset integrity after adding research scripts
+        run: node scripts/race-router-identity.cjs
       - name: Store model and validation on research branch only
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add js/mansha/model.js reports/mansha/risk-v1-audit.json reports/mansha/risk-v1-audit.md
+          git add js/mansha/model.js reports/mansha/risk-v1-audit.json reports/mansha/risk-v1-audit.md auto.html js/routing/build.js
           if ! git diff --cached --quiet; then
             git commit -m 'Record calibrated mansha risk model and independent validation'
             git push
