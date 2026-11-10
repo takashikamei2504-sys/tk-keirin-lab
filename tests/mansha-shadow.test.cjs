@@ -77,3 +77,19 @@ try{
  assert.equal(fs.readFileSync(file,'utf8'),original);
 }finally{fs.rmSync(dir,{recursive:true,force:true});}
 console.log('PASS mansha shadow: 7/9 cards, immutable before-start snapshots, phase evidence, revision and payout wait');
+(async()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'mansha-shadow-scheduled-'));
+ try {
+  const feed={date:race.date,generated_at:race.source.generated_at,races:[F.source(race)]};
+  const current=at+2000;
+  const res=await D.collect({dir,now:()=>current,fetcher:async day=>day===race.date?feed:null,
+   capture:true,settle:false,scheduled:false,pack:{},build:()=>parent});
+  assert.equal(res.summary.saved,1,'normal baseline must remain intact');
+  const shadow=JSON.parse(fs.readFileSync(path.join(dir,'mansha_shadow_evaluation.json'),'utf8'));
+  const status=JSON.parse(fs.readFileSync(path.join(dir,'status.json'),'utf8'));
+  assert.equal(shadow.summary.saved,1,'routed collector must save the shadow in the same scheduled run');
+  assert.equal(shadow.summary.pending,1);
+  assert.equal(status.shadow_error,null,'shadow execution must not silently fail');
+ } finally {fs.rmSync(dir,{recursive:true,force:true});}
+ console.log('PASS mansha shadow automatically integrated in routed collector');
+})().catch(e=>{console.error(e);process.exitCode=1});
