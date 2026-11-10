@@ -1,13 +1,13 @@
 {
   "schema": "tk-line-positioning-evaluation/v1",
-  "generated_at": "2026-11-09T21:11:05.200Z",
+  "generated_at": "2026-11-10T02:45:54.710Z",
   "summary": {
-    "frozen_records": 465,
+    "frozen_records": 502,
     "records_compared": 0,
     "checks_compared": 0,
     "checks_matched": 0,
     "exact_rate": null,
-    "excluded": 465,
+    "excluded": 502,
     "warning": "実戦の位置取り観測がなく、一致率は算出できない"
   },
   "rows": [
@@ -3725,6 +3725,302 @@
     },
     {
       "race_id": "2026-11-09:松戸:3",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:7",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:富山:3",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:1",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:富山:7",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:富山:11",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:5",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:2",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:11",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:富山:4",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:3",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:11",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:7",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:6",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:4",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:富山:10",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:11",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:7",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:10",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:9",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:10",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:富山:9",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:4",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:12",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:9",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:9",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:8",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:3",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:5",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:6",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:富山:8",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:1",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:3",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:宇都宮:5",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:12",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:8",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:武雄:6",
+      "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
+      "status": "excluded",
+      "reason": "検証済みの位置取り観測なし",
+      "compared": 0,
+      "matched": 0
+    },
+    {
+      "race_id": "2026-11-10:松戸:2",
       "model_id": "LAB_LINE_ENGINE_V1@22af49f47a4768bb",
       "status": "excluded",
       "reason": "検証済みの位置取り観測なし",
