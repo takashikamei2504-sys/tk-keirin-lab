@@ -11,7 +11,7 @@ function metric(label,value){const a=node('div',label,'metric');a.append(node('s
 const modeName={baseline:'能力・基準',tactical:'Bライン・展開補正'},statusName={pending:'結果待ち',awaiting_payout:'払戻待ち',excluded:'照合対象外',evaluated:'照合済み'};
 function table(id,stats){
  const t=node('table'),h=node('tr');
- for(const s of ['方式','レース','的中','万車的中','平均点数','回収率','最大払戻除外'])h.append(node('th',s));
+ for(const s of ['方式','照合','別線1・2着','三連単的中','万車的中','平均点数','回収率','最大払戻除外'])h.append(node('th',s));
  t.append(h);
  for(const mode of ['baseline','tactical'])for(const variant of ['A','B','C']){
   const v=stats?.by_variant?.[mode+'/'+variant],tr=node('tr');
