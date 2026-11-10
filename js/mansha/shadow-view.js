@@ -45,7 +45,7 @@ function show(){
     const d=node('div',null,'variant'),s=e.by_mode?.[m.name]?.[v.id];
     d.append(node('strong',v.id+'｜'+v.label+'｜'+v.tickets.length+'点'));
     d.append(node('p','三連単：'+v.tickets.join(sep),'tickets'));
-    if(s)d.append(node('p',(s.hit?'的中':'不的中')+'　投資 '+yen(s.stake)+' ／ 払戻 '+yen(s.payout),'small '+(s.hit?'statusok':'muted')));
+    if(s)d.append(node('p','1・2着 '+(s.pair_hit?'的中':'不的中')+' ／ 三連単 '+(s.hit?'的中':'不的中')+'　投資 '+yen(s.stake)+' ／ 払戻 '+yen(s.payout),'small '+(s.hit?'statusok':'muted')));
     if(v.scope?.includes('14点'))d.append(node('p','14点・上限超過のため研究比較のみ','small statusbad'));
     const path=v.evidence?.filter(x=>x.why?.length).slice(0,1);
     if(path?.length)d.append(node('p','展開根拠：'+path[0].why[0],'small'));
