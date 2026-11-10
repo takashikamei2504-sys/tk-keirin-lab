@@ -43,4 +43,5 @@ jobs:
           node tests/race-routing-browser.cjs
           ROUTING_BROWSER=webkit node tests/race-routing-browser.cjs
           node tests/routed-results-browser.cjs
+          node tests/mansha-shadow-browser.cjs
           ROUTING_BROWSER=webkit node tests/routed-results-browser.cjs
