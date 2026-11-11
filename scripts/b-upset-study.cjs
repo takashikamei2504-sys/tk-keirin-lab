@@ -40,14 +40,16 @@ async function main(){
   for(const day of days)for(const source of day.data){
     try{
       if(source.is_girls||![7,9].includes(source.entries?.length))continue;
-      const raw=Feed.convert(source,{date:day.date,generated_at:day.date+'T00:00:00+09:00'});
+      const raw=Feed.convert(source,{date:day.date,generated_at:''});
       require('../js/routing/policy.js').classify(raw);
       // Basic-card archive replays: no claim the archive itself is a frozen prediction.
       raw.source.mode='historical-archive-replay';
       const result=Audit.result(source,{date:day.date,generated_at:day.date+'T23:59:59+09:00'},new Date().toISOString());
       if(!result||result.combos.some(c=>!c.payout))continue;
+      result.source_updated_at=null;
+      result.verification='archived_result_label_metadata_time_unknown';
       expected.set(result.race_id,result);
-      const ranking=Engine.rankLines(raw,day.date+'T00:00:00+09:00');
+      const ranking=Engine.rankLines(raw,null);
       for(const line of ranking.lines.filter(l=>l.id!==ranking.favorite))for(const c of result.combos){
         lineCompositions.push({...Patterns.classify(c.trio,raw.lineup,ranking.favorite,line.id),payout:c.payout});
       }
@@ -80,7 +82,9 @@ async function main(){
     patterns:Object.fromEntries(Object.keys(Patterns.LABELS).map(key=>[key,Eval.metrics(rows.map(r=>r.patterns[key]))]))});
   // Independent actual B collection advances by at most 64 venue/day pages per run.
   const progress=read(path.join(dest,'archive-progress.json'),{checked_pages:[]});
-  const collected=await BResults.collect(expected,read(path.join(dest,'actual_b_archive.json'),{}),64,progress.checked_pages);
+  const pageLimit=Number(process.env.B_UPSET_PAGES??64);
+  if(!Number.isInteger(pageLimit)||pageLimit<0||pageLimit>64)throw Error('B_UPSET_PAGES must be 0..64');
+  const collected=await BResults.collect(expected,read(path.join(dest,'actual_b_archive.json'),{}),pageLimit,progress.checked_pages);
   write(path.join(dest,'actual_b_archive.json'),collected.records);
   write(path.join(dest,'archive-progress.json'),{generated_at:new Date().toISOString(),checked_pages:[...new Set([...progress.checked_pages,...collected.checked_pages])]});
   const actualPatterns=[];

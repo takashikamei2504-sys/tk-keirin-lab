@@ -8,6 +8,7 @@ const BResults=require('./b-upset-results.cjs');
 const Feed=require('../js/race-feed.js');
 const Counts=require('../js/s-counts.js');
 const Audit=require('../js/results-audit.js');
+const Decide=require('./b-upset-decide.cjs');
 const repo=path.resolve(__dirname,'..');
 const read=(file,fallback=null)=>fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):fallback;
 function write(file,value){fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file+'.tmp',JSON.stringify(value)+'\n');fs.renameSync(file+'.tmp',file);}
@@ -44,11 +45,14 @@ function report(dir,parentRoot,now=Date.now()){
     const record=read(entry.path),o=record.out;
     if(filename(o.race_id,o.model.model_id)!==entry.file)throw Error('保存ファイル名不一致');
     const result=ownResults[o.race_id]||read(path.join(parentRoot,entry.date,'results.json'),{})[o.race_id];
+    const decision=read(path.join(dir,entry.date,'decisions',entry.file));
+    const valueTickets=decision&&Decide.valid(decision,record)?decision.tickets:[];
     rows.push({race_id:o.race_id,...o.race,saved_at:record.saved_at,model_id:o.model.model_id,
       record:entry.date+'/'+entry.file,ranking:o.ranking,
       b_lines:[...new Set(o.scenarios.map(s=>s.b_line))],
       hypothesis_points:o.research.expanded.length,ad_points:o.research.ad.length,
-      purchase:o.recommendation,overlap:o.overlap,evaluation:Eval.evaluate(record,result,actual[o.race_id])});
+      purchase:valueTickets.length?{status:'buy',tickets:valueTickets,reason:'ROI保守的期待値選別'}:o.recommendation,
+      overlap:o.overlap,evaluation:Eval.evaluate(record,result,actual[o.race_id],decision)});
   }catch(e){errors.push({file:entry.path,error:e.message});}
   const group=key=>Object.fromEntries([...new Set(rows.map(key))].sort().map(k=>[k,Eval.summarize(rows.filter(r=>key(r)===k))]));
   return {schema:'tk-b-upset-evaluation/v2',generated_at:new Date(now).toISOString(),summary:Eval.summarize(rows),
@@ -99,9 +103,12 @@ async function run({dir=path.join(repo,'data/b_upset'),parentRoot=path.join(repo
     observations=await BResults.collect(expected,observations.records);
     write(path.join(dir,'actual_b.json'),observations.records);
   }
+  let decisions;
+  try{decisions=await Decide.collect(dir,files(dir).filter(f=>f.date===day).map(f=>read(f.path)));}
+  catch(e){decisions={error:e.message};}
   const evaluation=report(dir,parentRoot);
   write(path.join(dir,'evaluation.json'),evaluation);
-  write(path.join(dir,'status.json'),{generated_at:new Date().toISOString(),capture,actual_b_records:Object.keys(observations.records).length,result_errors:observations.errors});
+  write(path.join(dir,'status.json'),{generated_at:new Date().toISOString(),capture,decisions,actual_b_records:Object.keys(observations.records).length,result_errors:observations.errors});
   console.log(JSON.stringify({capture,summary:evaluation.summary,actual_b:Object.keys(observations.records).length}));
   return evaluation;
 }

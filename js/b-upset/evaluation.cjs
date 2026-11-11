@@ -10,7 +10,7 @@ function settle(keys, observed) {
   return {points:unique.length,stake,payout,net:payout-stake,hit:paid.length>0,winning_keys:paid.map(t=>t.key)};
 }
 
-function evaluate(record, observed, actualB) {
+function evaluate(record, observed, actualB, decision=null) {
   try {
     const o=record.out;
     const time=Date.parse(record.saved_at),cutoff=Date.parse(o.cutoff);
@@ -28,7 +28,8 @@ function evaluate(record, observed, actualB) {
     for (const key of ['ad','expanded','all_candidates','third_all']) {
       views[key]=settle(o.research[key].map(t=>typeof t==='string'?t:t.key),observed);
     }
-    views.roi_ev=settle(o.recommendation.tickets.map(t=>t.key),observed);
+    const chosen=decision&&require('../../scripts/b-upset-decide.cjs').valid(decision,record)?decision.tickets:[];
+    views.roi_ev=settle(chosen.map(t=>t.key),observed);
     const patterns={};
     for(const pattern of Object.keys(Patterns.LABELS)){
       const keys=o.research.expanded.filter(t=>t.pattern===pattern).map(t=>t.key);

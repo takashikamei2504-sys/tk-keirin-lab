@@ -46,6 +46,7 @@
     try{
       const stored=await json(current.record);if(token!==revision)return;
       record=stored.out;
+      record.recommendation=current.purchase||record.recommendation;
       $('race-name').textContent=record.race.venue+' '+record.race.race_no+'R '+record.race.start;
       const f=record.ranking.lines.find(l=>l.id===record.ranking.favorite);
       $('favorite').textContent='Fライン '+f.members.join('-')+' ／ 力量順位1位';

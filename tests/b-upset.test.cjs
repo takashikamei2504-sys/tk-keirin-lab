@@ -2,6 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os');
 const Patterns=require('../js/b-upset/patterns.cjs'),Engine=require('../js/b-upset/engine.cjs');
 const Eval=require('../js/b-upset/evaluation.cjs'),Daily=require('../scripts/b-upset-daily.cjs');
+const P=require('../js/model-provenance.js');
 const Router=require('../js/routing/router.js'),H=require('../js/routing/history.js'),Audit=require('../js/results-audit.js');
 const F=require('./race-routing-fixtures.cjs'),B=require('../js/b-axis/engine.js'),Source=require('../scripts/b-upset-results.cjs');
 const lines=[[1,2,3],[4,5,6],[7],[8,9]];
@@ -50,8 +51,18 @@ calibration.model_id='other-model';assert.equal(Engine.selectValue(o,quote,calib
 const metric=Eval.metrics([{points:1,stake:100,payout:10000,net:9900,hit:true},{points:1,stake:100,payout:0,net:-100,hit:false}]);
 assert.equal(metric.roi,50);assert.equal(metric.trim1,0);assert.equal(metric.max_drawdown,100);
 const ident=[[1,'1','一郎'],[2,'2','二郎'],[3,'3','三郎']];
-const table=b=>'<p>第1レース</p><table><tr><th>着</th><th>車番</th><th>選手名</th><th>S/B</th></tr>'+ident.map(([no,,name])=>'<tr><td>'+no+'</td><td>'+no+'</td><td>'+name+'</td><td>'+(no===2?b:'')+'</td></tr>').join('')+'</table>';
+const table=b=>'<title>青森競輪 レース結果（2040年1月1日）</title><p>第1レース</p><table><tr><th>着</th><th>車番</th><th>選手名</th><th>S/B</th></tr>'+ident.map(([no,,name])=>'<tr><td>'+no+'</td><td>'+no+'</td><td>'+name+'</td><td>'+(no===2?b:'')+'</td></tr>').join('')+'</table>';
 const expected=new Map([['2040-01-01:青森:1',{identity:ident,combos:[{key:'1-2-3',trio:[1,2,3]}]}]]);
 assert.equal(Source.parse(table('B'),'2040-01-01','青森',expected,'2040-01-02T00:00:00Z')['2040-01-01:青森:1'].b_no,2);
 assert.equal(Object.keys(Source.parse(table(''),'2040-01-01','青森',expected,'2040-01-02T00:00:00Z')).length,0);
 console.log('B-UPSET: exhaustive 7/9 classification, physical paths, immutable cutoff, result isolation, EV model guard and explicit B-column extraction passed');
+
+assert.equal(Object.keys(Source.parse(table('B'),'2040-01-02','青森',expected,'2040-01-03T00:00:00Z')).length,0,'wrong source date is rejected');
+
+const Decide=require('../scripts/b-upset-decide.cjs');
+calibration.model_id=o.model.model_id;
+const frozen={race_id:o.race_id,output_sha256:P.sha256(o),out:o};
+const valueDecision={schema:'tk-b-upset-decision/v2',race_id:o.race_id,model_id:o.model.model_id,forecast_sha256:frozen.output_sha256,
+ saved_at:new Date(at+100).toISOString(),quote,calibration,tickets:Engine.selectValue(o,quote,calibration,new Date(at+100).toISOString())};
+assert(Decide.valid(valueDecision,frozen));
+valueDecision.forecast_sha256='wrong';assert(!Decide.valid(valueDecision,frozen));
