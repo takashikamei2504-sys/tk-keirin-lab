@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101d25">
+  <title>B番狂わせ予想｜TK KEIRIN LAB</title>
+  <link rel="stylesheet" href="css/routing.css">
+  <style>
+    .scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.85rem}th,td{padding:10px 7px;border-bottom:1px solid #dce3df;text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+    .scenario{border-left:3px solid #b99852;padding:8px 12px;margin:14px 0}.ticket{border:1px solid #dce3df;border-radius:12px;padding:12px;margin:12px 0}.ticket strong{font-size:1.3rem}.phase{padding:10px 0;border-bottom:1px solid #e3e7e4}.phase p{margin:5px 0}select{max-width:100%}.attention{padding:12px;background:#f2e9d6;border-radius:10px}.race-link{display:block;padding:12px;border-bottom:1px solid #dce3df}
+  </style>
+</head>
+<body>
+<header><a class="brand" href="index.html">TK KEIRIN LAB</a><a href="auto.html">標準予想</a></header>
+<main>
+  <p class="eyebrow">B-UPSET ENGINE V2</p>
+  <h1>B番狂わせ予想</h1>
+  <p class="lead">非有力ラインの主導権から、押し切り・差し・別線の追い込みを検討します。</p>
+  <section class="card">
+    <h2>本日の注目レース</h2>
+    <p id="health" role="status">保存予想を取得中…</p>
+    <p class="attention">現在は仮説検証段階です。研究候補は最大10点。購入推奨は、B-UPSET固有の校正済み確率・発走前オッズ・収益性を確認できた場合に表示します。</p>
+    <div class="fields">
+      <label>開催日<select id="date"></select></label>
+      <label>競輪場<select id="venue"></select></label>
+      <label>レース<select id="race"></select></label>
+    </div>
+    <p id="count"></p><div id="today"></div>
+  </section>
+  <div id="detail" hidden>
+    <section class="card">
+      <h2 id="race-name"></h2><p id="favorite"></p><p id="rank-source" class="muted"></p>
+      <p id="decision" class="attention"></p><p id="saved" class="muted"></p>
+      <label>Bを取る候補ライン<select id="back"></select></label>
+      <div id="scenarios"></div>
+    </section>
+    <section class="card">
+      <h2>A〜Hパターン別の買い目</h2>
+      <label>比較方式<select id="view"><option value="ad">A〜D限定の研究候補</option><option value="expanded" selected>A〜H拡張の研究候補</option><option value="purchase">購入候補</option></select></label>
+      <p id="points"></p><div id="tickets"></div>
+    </section>
+    <section class="card"><h2>B予測と三連単の結果</h2><div id="race-result"></div></section>
+  </div>
+  <section class="card">
+    <h2>発走前保存の実績</h2><p id="coverage"></p>
+    <p class="muted">各100円の仮想精算。B予測と三連単的中を別集計。払戻平均・中央値と配当帯の構成比は的中レースが分母で、同着時はそのレースの合計払戻です。</p>
+    <div id="summary" class="scroll"></div>
+    <details><summary>パターン別</summary><div id="patterns" class="scroll"></div></details>
+    <details><summary>7車・9車別</summary><div id="cars" class="scroll"></div></details>
+    <details><summary>モデル別</summary><div id="models" class="scroll"></div></details>
+  </section>
+  <section class="card">
+    <h2>過去データの検証</h2><p id="research-state">検証結果を取得中…</p>
+    <div id="research" class="scroll"></div>
+    <details><summary>期間別の比較</summary><div id="periods" class="scroll"></div></details>
+    <details><summary>実際に非有力ラインがBを取った決着</summary><p id="b-coverage"></p><div id="b-patterns" class="scroll"></div></details>
+    <details><summary>同一レースのLAB・LINE比較</summary><p id="common-count"></p><div id="common" class="scroll"></div></details>
+  </section>
+  <footer><a href="b-axis.html">B-AXIS</a><a href="routed-results.html">標準予想の実績</a><a href="https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/main/data/b_upset/research.json">検証データ</a></footer>
+</main>
+<script src="js/b-upset/app.js?v=2"></script>
+</body>
+</html>
