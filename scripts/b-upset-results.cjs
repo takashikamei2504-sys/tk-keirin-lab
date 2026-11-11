@@ -29,9 +29,9 @@ function parse(html, date, venue, expected, collectedAt) {
   return found;
 }
 
-async function collect(expected, previous={}, maxPages=16) {
-  const result={...previous},errors=[];
-  const groups=[...new Set([...expected.values()].filter(r=>!result[r.race_id]).map(r=>r.race.date+'|'+r.race.venue))].sort().reverse().slice(0,maxPages);
+async function collect(expected, previous={}, maxPages=16, checkedPages=[]) {
+  const result={...previous},errors=[],checked=[];
+  const groups=[...new Set([...expected.values()].filter(r=>!result[r.race_id]).map(r=>r.race.date+'|'+r.race.venue))].filter(g=>!checkedPages.includes(g)).sort().reverse().slice(0,maxPages);
   // One venue/day page contains every race. Bound requests and retain prior evidence.
   for(const group of groups){
     const [date,venue]=group.split('|');
@@ -41,10 +41,12 @@ async function collect(expected, previous={}, maxPages=16) {
       const res=await fetch(url,{signal:AbortSignal.timeout(12000)});
       if(!res.ok)throw Error('HTTP '+res.status);
       const html=await res.text();
-      Object.assign(result,parse(html,date,venue,expected,new Date().toISOString()));
+      const parsed=parse(html,date,venue,expected,new Date().toISOString());
+      Object.assign(result,parsed);
+      if(Object.keys(parsed).length)checked.push(group);
     }catch(e){errors.push({url,error:e.message});}
   }
-  return {records:result,errors};
+  return {records:result,errors,checked_pages:checked};
 }
 
 module.exports={parse,collect,codes};

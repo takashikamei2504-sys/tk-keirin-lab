@@ -74,14 +74,15 @@ async function main(){
         views,patterns,primary_b:out.scenarios[0]?.b_no||null,b_lines:[...new Set(out.scenarios.map(s=>s.b_line))]});
     }catch(e){simulationErrors.push({race_id:item.result.race_id,error:e.message});}
   }
+  replay.sort((a,b)=>(a.date+'T'+a.start).localeCompare(b.date+'T'+b.start)||a.race_id.localeCompare(b.race_id));
   const summarize=rows=>({n:rows.length,
     views:Object.fromEntries(['ad','expanded','all_candidates','third_all','normal','roi_ev'].map(key=>[key,Eval.metrics(rows.map(r=>r.views[key]))])),
     patterns:Object.fromEntries(Object.keys(Patterns.LABELS).map(key=>[key,Eval.metrics(rows.map(r=>r.patterns[key]))]))});
-  // Independent actual B collection is bounded to the latest seven archive dates.
-  const recentDays=new Set(days.map(d=>d.date).sort().slice(-7));
-  const wanted=new Map([...expected].filter(([,r])=>recentDays.has(r.race.date)));
-  const collected=await BResults.collect(wanted,read(path.join(dest,'actual_b_archive.json'),{}),64);
+  // Independent actual B collection advances by at most 64 venue/day pages per run.
+  const progress=read(path.join(dest,'archive-progress.json'),{checked_pages:[]});
+  const collected=await BResults.collect(expected,read(path.join(dest,'actual_b_archive.json'),{}),64,progress.checked_pages);
   write(path.join(dest,'actual_b_archive.json'),collected.records);
+  write(path.join(dest,'archive-progress.json'),{generated_at:new Date().toISOString(),checked_pages:[...new Set([...progress.checked_pages,...collected.checked_pages])]});
   const actualPatterns=[];
   for(const card of cards){
     const b=collected.records[card.result.race_id];if(!b)continue;
@@ -111,7 +112,7 @@ async function main(){
     scope:{start,end,requested_days:dates.length,available_days:days.length,missing_days:missing,fetch_errors:errors,
       eligible_cards:cards.length,excluded,simulation_sample:sample.length,simulation_errors:simulationErrors,
       sampling:'各日・級班車立てごとにrace_id SHA256昇順の先頭2件。結果や払戻による抽出なし',
-      replay_only:true,actual_b_requested_days:[...recentDays].sort(),actual_b_known:Object.keys(collected.records).length,
+      replay_only:true,actual_b_requested_days:[...new Set([...expected.values()].map(r=>r.race.date))].sort(),actual_b_known:Object.keys(collected.records).length,
       actual_nonfavorite_b_finishes:actualPatterns.length,actual_b_errors:collected.errors},
     overall:summarize(replay),by_period:Object.fromEntries(['development','validation','evaluation'].map(key=>[key,summarize(replay.filter(r=>period(r.date)===key))])),
     by_cars:Object.fromEntries([7,9].map(n=>[n,summarize(replay.filter(r=>r.cars===n))])),

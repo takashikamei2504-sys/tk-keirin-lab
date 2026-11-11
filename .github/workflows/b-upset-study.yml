@@ -1,0 +1,32 @@
+name: Extend B-UPSET historical B audit
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '35 18 * * 5'
+permissions:
+  contents: write
+concurrency:
+  group: independent-b-upset
+  cancel-in-progress: false
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/b-upset.test.cjs
+      - run: node scripts/b-upset-study.cjs
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/b_upset/research.json data/b_upset/actual_b_archive.json data/b_upset/archive-progress.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Extend independent B-UPSET historical B coverage'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

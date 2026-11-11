@@ -96,7 +96,7 @@
     stats('periods',Object.fromEntries(Object.entries(r.by_period).flatMap(([p,s])=>['ad','expanded'].map(k=>[p+' '+names[k],s.views[k]]))));
     $('b-coverage').textContent='実B確認 '+s.actual_b_known+'R ／ 非FラインBの決着 '+s.actual_nonfavorite_b_finishes+'件。以下は実B取得後の記述集計です。';
     table('b-patterns',['型','件数','割合','平均配当','中央値','50〜100倍','100倍以上'],Object.entries(r.actual_b.patterns).map(([k,v])=>[k,v.n,pct(v.rate),yen(v.average.toFixed(0)),yen(v.median),v.mid50to100,v.over100]));
-    $('common-count').textContent='同一レースの保存LAB・LINEが揃う比較 '+r.common_frozen_sources.n+'R。LAB・LINEは既存の保存点数、B-UPSETは最大10点です。';
+    $('common-count').textContent='同一レースの保存LAB・LINEが揃う比較 '+r.common_frozen_sources.n+'R。LAB・LINEは当時の保存材料と点数、B-UPSETは基本出走表・最大10点の再現比較です。';
     stats('common',Object.fromEntries(Object.entries(r.common_frozen_sources).filter(([k])=>k!=='n')));
   }).catch(e=>{$('research-state').textContent='過去データの検証を実行中です。'+e.message;});
   $('date').addEventListener('change',venues);$('venue').addEventListener('change',()=>races());$('race').addEventListener('change',loadRace);
