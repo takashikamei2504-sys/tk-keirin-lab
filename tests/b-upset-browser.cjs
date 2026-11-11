@@ -1,0 +1,34 @@
+'use strict';
+const assert=require('node:assert/strict'),{chromium,webkit}=require('playwright');
+const Engine=require('../js/b-upset/engine.cjs'),Eval=require('../js/b-upset/evaluation.cjs'),F=require('./race-routing-fixtures.cjs');
+(async()=>{
+  const kind=process.env.ROUTING_BROWSER||'chromium',browser=await (kind==='webkit'?webkit:chromium).launch({headless:true});
+  const page=await browser.newPage({viewport:{width:390,height:844}}),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  const at=Date.parse('2040-01-01T00:00:00Z'),out=Engine.build(F.race(7,'A1'),{asOf:at});
+  const row={race_id:out.race_id,...out.race,saved_at:new Date(at+1000).toISOString(),model_id:out.model.model_id,ranking:out.ranking,record:'2040-01-01/test.json',evaluation:{status:'pending',actual_b:null}};
+  const summary=Eval.summarize([row]);
+  const report={generated_at:new Date(at).toISOString(),rows:[row],summary,by_cars:{7:summary},by_model:{[row.model_id]:summary}};
+  const research={scope:{start:'2026-05-08',end:'2026-11-07',available_days:139,requested_days:184,eligible_cards:8786,simulation_sample:997,sampling:'結果非依存の抽出',actual_b_known:442,actual_nonfavorite_b_finishes:233},overall:{views:summary.views},by_period:{evaluation:summary},actual_b:{patterns:{}},common_frozen_sources:{n:0}};
+  await page.clock.install({time:new Date(at+1000)});
+  await page.route('**/data/b_upset/**',route=>{
+    const url=route.request().url();
+    const json=url.includes('evaluation.json')?report:url.includes('research.json')?research:{saved_at:row.saved_at,out};
+    return route.fulfill({json,headers:{'access-control-allow-origin':'*'}});
+  });
+  await page.goto((process.env.LAB_URL||'http://127.0.0.1:8765')+'/b-upset.html');
+  await page.locator('#detail').waitFor();
+  assert.match(await page.locator('#favorite').innerText(),/Fライン/);
+  assert.match(await page.locator('#decision').innerText(),/見送り/);
+  assert.equal(await page.locator('#tickets .ticket').count(),out.research.expanded.length);
+  assert.match(await page.locator('#tickets').innerText(),/実オッズ —/);
+  await page.locator('#view').selectOption('ad');
+  assert.equal(await page.locator('#tickets .ticket').count(),out.research.ad.length);
+  await page.locator('#view').selectOption('purchase');
+  assert.equal(await page.locator('#tickets .ticket').count(),0);
+  assert.match(await page.locator('#points').innerText(),/0円/);
+  await page.locator('#back').selectOption(out.scenarios[0].b_line);
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+  assert.deepEqual(errors,[]);await browser.close();
+  console.log('B-UPSET '+kind+': iPhone layout, scenario switch, A-D/A-H variants, no fabricated quotes and zero purchase passed');
+})().catch(e=>{console.error(e);process.exitCode=1;});

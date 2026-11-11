@@ -1,0 +1,48 @@
+name: Collect independent B-UPSET forecasts and results
+on:
+  schedule:
+    - cron: '18,48 * * * *'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Save and evaluate race-routed forecasts', 'Collect results and evaluate frozen forecasts']
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths: ['js/b-upset/**','scripts/b-upset-*.cjs','.github/workflows/b-upset.yml']
+permissions:
+  contents: write
+concurrency:
+  group: independent-b-upset
+  cancel-in-progress: false
+jobs:
+  daily:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/b-upset-identity.cjs && git diff --exit-code -- js/b-upset/build.json
+      - run: node tests/b-upset.test.cjs
+      - run: node scripts/b-upset-daily.cjs
+      - name: Save independent forecasts and evaluations
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/b_upset
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save independent B-UPSET forecasts and evaluations'
+            for attempt in 1 2 3 4; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then exit 0; fi
+            done
+            exit 1
+          fi
