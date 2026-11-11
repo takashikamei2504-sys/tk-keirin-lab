@@ -68,3 +68,6 @@ assert(Decide.valid(valueDecision,frozen));
 valueDecision.forecast_sha256='wrong';assert(!Decide.valid(valueDecision,frozen));
 
 assert.equal(Source.parse(table('B').replace('青森競輪','青森チャリロト'),'2040-01-01','青森',expected,'2040-01-02T00:00:00Z')['2040-01-01:青森:1'].b_no,2,'venue branding variant keeps exact date validation');
+
+const mix=Eval.metrics([5000,10000,0].map(payout=>({points:1,stake:100,payout,net:payout-100,hit:payout>0})));
+assert.equal(mix.average_hit_payout,7500);assert.equal(mix.median_hit_payout,7500);assert.equal(mix.mid50to100_share,.5);assert.equal(mix.over100_share,.5);

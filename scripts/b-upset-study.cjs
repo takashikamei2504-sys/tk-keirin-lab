@@ -17,10 +17,11 @@ function descriptive(items){
   }
   return Object.fromEntries(Object.entries(bins).sort().map(([key,rows])=>{
     const pay=rows.map(r=>r.payout).sort((a,b)=>a-b),n=pay.length;
-    return [key,{n,rate:n/items.length,average:pay.reduce((a,b)=>a+b,0)/n,median:pay[Math.floor(n/2)],
+    return [key,{n,rate:n/items.length,average:pay.reduce((a,b)=>a+b,0)/n,median:(pay[Math.floor((n-1)/2)]+pay[Math.floor(n/2)])/2,
       mid50to100:pay.filter(p=>p>=5000&&p<10000).length,over100:pay.filter(p=>p>=10000).length,
       b_leader_top2:rows.filter(r=>r.b_positions[0]>0&&r.b_positions[0]<=2).length,
-      b_second_top2:rows.filter(r=>r.b_positions[1]>0&&r.b_positions[1]<=2).length}];
+      b_second_top2:rows.filter(r=>r.b_positions[1]>0&&r.b_positions[1]<=2).length,
+      role_position_distribution:Object.fromEntries(['b_positions','f_positions'].map(role=>[role,[0,1].map(index=>Object.fromEntries([0,1,2,3].map(place=>[place,rows.filter(r=>r[role][index]===place).length])))]))}];
   }));
 }
 

@@ -15,8 +15,8 @@
     $(target).replaceChildren(table);
   }
   function stats(target,bins){
-    table(target,['方式','対象','的中','点数平均','回収率','収支','最大DD','最大1件除外','上位5件除外'],Object.entries(bins).map(([k,s])=>[
-      names[k]||k,s.n,s.hits,s.avg_points?.toFixed(1)||'0',pct(s.roi),yen(s.net),yen(s.max_drawdown),pct(s.trim1),pct(s.trim5)]));
+    table(target,['方式','対象','候補あり','的中','点数平均','回収率','収支','最大DD','最大1件除外','上位5件除外','的中払戻平均','的中払戻中央値','50〜100倍構成比','万車構成比'],Object.entries(bins).map(([k,s])=>[
+      names[k]||k,s.n,s.purchased,s.hits,s.avg_points?.toFixed(1)||'0',pct(s.roi),yen(s.net),yen(s.max_drawdown),pct(s.trim1),pct(s.trim5),s.average_hit_payout==null?'—':yen(Math.round(s.average_hit_payout)),s.median_hit_payout==null?'—':yen(s.median_hit_payout),pct(s.mid50to100_share),pct(s.over100_share)]));
   }
   async function json(file){
     const res=await fetch(root+file+'?v='+Date.now(),{cache:'no-store'});

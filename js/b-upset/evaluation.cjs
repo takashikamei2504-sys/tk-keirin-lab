@@ -54,6 +54,7 @@ function evaluate(record, observed, actualB, decision=null) {
 function metrics(rows) {
   const n=rows.length,stake=rows.reduce((s,r)=>s+r.stake,0),payout=rows.reduce((s,r)=>s+r.payout,0);
   const hits=rows.filter(r=>r.hit),winners=hits.slice().sort((a,b)=>b.payout-a.payout);
+  const paid=hits.map(r=>r.payout).sort((a,b)=>a-b),mid=paid.filter(p=>p>=5000&&p<10000).length,high=paid.filter(p=>p>=10000).length;
   const trim=k=>{
     const removed=winners.slice(0,k),s=stake-removed.reduce((v,r)=>v+r.stake,0),p=payout-removed.reduce((v,r)=>v+r.payout,0);
     return s?p/s:null;
@@ -62,6 +63,8 @@ function metrics(rows) {
   for(const r of rows){balance+=r.net;peak=Math.max(peak,balance);drawdown=Math.max(drawdown,peak-balance);}
   return {n,purchased:rows.filter(r=>r.points>0).length,hits:hits.length,hit_rate:n?hits.length/n:null,
     points:rows.reduce((s,r)=>s+r.points,0),avg_points:n?rows.reduce((s,r)=>s+r.points,0)/n:null,
+    average_hit_payout:paid.length?payout/paid.length:null,median_hit_payout:paid.length?(paid[Math.floor((paid.length-1)/2)]+paid[Math.floor(paid.length/2)])/2:null,
+    mid50to100_hits:mid,mid50to100_share:paid.length?mid/paid.length:null,over100_hits:high,over100_share:paid.length?high/paid.length:null,
     stake,payout,net:payout-stake,roi:stake?payout/stake:null,max_drawdown:drawdown,
     trim1:trim(1),trim5:trim(5),max_payout:winners[0]?.payout||0,
     top1_dependency:payout?(winners[0]?.payout||0)/payout:null};
