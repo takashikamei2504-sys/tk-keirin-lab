@@ -7,8 +7,8 @@ function parse(html, date, venue, expected, collectedAt) {
   const found={};
   const [year,month,day]=date.split('-');
   const title=clean(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]||'');
-  const expectedTitle=venue+'競輪レース結果('+year+'年'+Number(month)+'月'+Number(day)+'日)';
-  if(!title.includes(expectedTitle))return found;
+  const suffix='レース結果('+year+'年'+Number(month)+'月'+Number(day)+'日)';
+  if(!['競輪','チャリロト'].some(label=>title.startsWith(venue+label+suffix)))return found;
   const sections=[...html.matchAll(/第(\d+)レース[\s\S]*?(?=第\d+レース|$)/g)];
   for(const section of sections){
     const raceNo=Number(section[1]),id=date+':'+venue+':'+raceNo,race=expected.get(id);

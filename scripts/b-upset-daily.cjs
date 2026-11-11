@@ -30,7 +30,7 @@ function freezeInput(raw,dir,{clock=Date.now,ex=null,context=null,parent=null,pa
   const out=Engine.build(raw,{asOf:at,ex,context,packs});
   const now=clock();
   if(!(now<Date.parse(out.cutoff)))return {saved:false,reason:'cutoff_during_build'};
-  out.overlap=parent?out.research.expanded.filter(t=>parent.out.tickets.some(p=>p.key===t.key)).map(t=>t.key):null;
+  out.overlap=parent?out.research.all_candidates.filter(t=>parent.out.tickets.some(p=>p.key===t.key)).map(t=>t.key):null;
   const record={schema:'tk-b-upset-frozen/v2',race_id:out.race_id,saved_at:new Date(now).toISOString(),
     parent_model_id:parent?.model_id||null,parent_output_sha256:parent?.output_sha256||null,output_sha256:P.sha256(out),out};
   if(Eval.evaluate(record).status!=='pending')throw Error('B-UPSET保存記録の整合性検査に失敗');

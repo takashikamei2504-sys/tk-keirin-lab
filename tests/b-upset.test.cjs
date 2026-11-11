@@ -66,3 +66,5 @@ const valueDecision={schema:'tk-b-upset-decision/v2',race_id:o.race_id,model_id:
  saved_at:new Date(at+100).toISOString(),quote,calibration,tickets:Engine.selectValue(o,quote,calibration,new Date(at+100).toISOString())};
 assert(Decide.valid(valueDecision,frozen));
 valueDecision.forecast_sha256='wrong';assert(!Decide.valid(valueDecision,frozen));
+
+assert.equal(Source.parse(table('B').replace('青森競輪','青森チャリロト'),'2040-01-01','青森',expected,'2040-01-02T00:00:00Z')['2040-01-01:青森:1'].b_no,2,'venue branding variant keeps exact date validation');
