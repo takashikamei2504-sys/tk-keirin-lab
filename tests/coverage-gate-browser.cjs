@@ -71,8 +71,8 @@ async function main(){
     assert.match(await page.locator('#today-list').innerText(),/見送り理由：9車立て/);
     await page.locator('#today-filter').selectOption('pass');
     assert.equal(await page.locator('#today-list .today-race').count(),1);
-    const details=page.locator('#today-list .today-race details');
-    if(!(await details.evaluate(el=>el.open)))await details.locator('summary').click();
+    const openedDetails=page.locator('#today-list .today-race details');
+    if(!(await openedDetails.evaluate(el=>el.open)))await openedDetails.locator('summary').click();
     assert.match(await page.locator('#today-list').innerText(),/1-2-3/);
     assert(await page.getByRole('button',{name:'買い目をコピー'}).isVisible());
     await page.locator('#today-filter').selectOption('skip');
