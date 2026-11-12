@@ -50,4 +50,6 @@ jobs:
           node tests/mansha-shadow-browser.cjs
           ROUTING_BROWSER=webkit node tests/routed-results-browser.cjs
           node tests/b-upset-browser.cjs
+          node tests/mobile-shell-browser.cjs
+          ROUTING_BROWSER=webkit node tests/mobile-shell-browser.cjs
           ROUTING_BROWSER=webkit node tests/b-upset-browser.cjs
