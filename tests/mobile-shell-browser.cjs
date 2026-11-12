@@ -27,6 +27,7 @@ const {chromium,webkit}=require('playwright');
     assert.deepEqual(href,['auto.html','coverage-gate.html','high-payout.html','performance.html']);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,path+': horizontal overflow');
   }
+  await page.locator('#state').getByText('4方式の保存評価を読み込みました。').waitFor({timeout:30000});
   await page.locator('.lab-performance-item').first().waitFor();
   assert.equal(await page.locator('.lab-performance-item').count(),4);
   assert.match(await page.locator('#results').innerText(),/1200\.0%/);
