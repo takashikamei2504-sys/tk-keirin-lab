@@ -3,7 +3,7 @@
 await page.clock.install({time:new Date('2040-01-01T00:00:00Z')});
 const cards=[race(7,'A1',1),race(7,'S1',2),race(9,'S1',3),race(7,'A3',4)].map(source),feed={date:'2040-01-01',generated_at:'2039-12-31T00:00:00Z',races:cards};
 await page.route('**/keirin-app-data/**',r=>r.fulfill({json:feed,headers:{'access-control-allow-origin':'*'}}));await page.route('**/data/**',r=>r.fulfill({json:{}}));
-const base=process.env.LAB_URL||'http://127.0.0.1:8765';await page.goto(base+'/auto.html?date=2040-01-01');await page.locator('#load:not([disabled])').waitFor();await page.locator('#load').click();
+const base=process.env.LAB_URL||'http://127.0.0.1:8765';await page.goto(base+'/auto.html?date=2040-01-01');await page.locator('#load:not([disabled])').waitFor();await page.locator('#load').click();await page.locator('.lab-muted-details > summary').click();
 await page.waitForFunction(()=>/^推定万車率 \d+\.\d+%/.test(document.getElementById('mansha-prob').textContent));
 assert.match(await page.locator('#mansha-context').innerText(),/買い目には影響なし/);
 assert.equal(await page.evaluate(()=>window.ManshaRiskModel.version),'mansha-risk-v1.0');
