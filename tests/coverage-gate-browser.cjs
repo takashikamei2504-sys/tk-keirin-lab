@@ -65,6 +65,7 @@ async function main(){
     await page.locator('#period').selectOption('all');
     assert.equal(await page.locator('#races .race').count(),3);
 
+    await page.locator('#today-filter').selectOption('all');
     await page.locator('#today-list .today-race').first().waitFor({timeout:30000});
     assert.equal(await page.locator('#today-list .today-race').count(),2);
     assert.equal(await page.locator('#today-pass').innerText(),'1');
