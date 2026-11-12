@@ -1,11 +1,11 @@
 {
   "schema": "tk-ex-roi-freeze-status/v1",
-  "last_run": "2026-11-12T07:16:53.123Z",
+  "last_run": "2026-11-12T07:45:11.502Z",
   "model_id": "ex-roi-shadow-v1.0.0@5b27e11a2575c4ce",
-  "saved": 12,
-  "scanned": 12,
-  "covered": 12,
-  "unchanged": 6,
+  "saved": 5,
+  "scanned": 5,
+  "covered": 5,
+  "unchanged": 3,
   "errors": 0,
   "timestamp_policy": "original public forecast and WINTICKET observations must both predate the frozen EX A/B prediction and race start",
   "price_policy": "not an EV model, no buy decision"
