@@ -52,7 +52,8 @@ async function main(){
     await page.locator('#kpi-gate').getByText('270.0%').waitFor({timeout:30000});
     assert.equal(await page.locator('#kpi-base').innerText(),'135.0%');
     assert.match(await page.locator('#scope-summary').innerText(),/見送り 1R/);
-    await page.locator('#lab-advanced-wrap > summary').click();\n    await page.locator('#cars').selectOption('all');
+    await page.locator('#lab-advanced-wrap > summary').click();\n    await page.locator('#lab-advanced-wrap > summary').click();
+    await page.locator('#cars').selectOption('all');
     await page.locator('#max-heads').selectOption('7');
     assert.equal(await page.locator('#kpi-gate').innerText(),'135.0%');
     assert.match(await page.locator('#mode-chip').innerText(),/探索的/);
