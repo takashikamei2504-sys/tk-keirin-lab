@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/coverage-gate.css?v=1">
 <script defer src="js/coverage-gate/logic.js?v=1"></script>
 <script defer src="js/coverage-gate/app.js?v=1"></script>
+<script defer src="js/coverage-gate/today.js?v=2"></script>
 </head>
 <body>
 <main>
@@ -17,7 +18,28 @@
 <h1>coverage<span>GATE</span></h1>
 <p class="subtitle">当てにいく前に、買わないレースを選ぶ。</p>
 <div id="load-state" class="load-state" role="status">検証データを読み込んでいます…</div>
-<nav class="jump" aria-label="画面内移動"><a href="#performance">成績</a><a href="#settings">見送り条件</a><a href="#daily">日別</a><a href="#race-list">レース判定</a></nav>
+<nav class="jump" aria-label="画面内移動"><a href="#today-predictions">今日の予想</a><a href="#performance">成績</a><a href="#settings">見送り条件</a><a href="#daily">日別</a><a href="#race-list">レース判定</a></nav>
+
+<section id="today-predictions" class="panel">
+<div class="section-row"><div><p class="eyebrow small">TODAY / COVERAGE GATE</p><h2>本日のGATE予想</h2></div><button type="button" id="today-refresh">最新を取得</button></div>
+<p class="small-note" id="today-date">開催日を確認しています。</p>
+<div class="today-metrics" aria-label="本日の予想判定数">
+<div><small>GATE通過</small><strong id="today-pass">—</strong><span>レース</span></div>
+<div><small>見送り</small><strong id="today-skip">—</strong><span>レース</span></div>
+<div><small>発走前・通過</small><strong id="today-upcoming">—</strong><span>レース</span></div>
+</div>
+<p class="helper">発走前に保存したcoverage方式の三連単を表示します。GATE通過は「7車立て・1着候補5車以内」を満たす<strong>研究用の購入候補</strong>であり、実オッズの期待値判定や実購入を意味しません。見送りの買い目も検証用に確認できます。</p>
+<p id="today-alert" class="notice" role="status">当日の発走前予想を読み込んでいます…</p>
+<label for="today-filter">表示する予想<select id="today-filter">
+<option value="all">保存された全レース（発走前優先）</option>
+<option value="upcoming">発走前のみ</option>
+<option value="pass">GATE通過</option>
+<option value="skip">見送り</option>
+</select></label>
+<p id="today-count" class="helper"></p>
+<div id="today-list" class="today-list" aria-live="polite"></div>
+<p class="helper">「購入・見送り条件」を画面上で変更しても、上の正式GATE判定は固定ルールのままです。試算判定のみ別表示します。更新はページ表示中、約2分ごとです。</p>
+</section>
 
 <section id="performance" class="panel">
 <div class="section-row"><div><p class="eyebrow small">PERFORMANCE</p><h2>累計パフォーマンス</h2></div><span id="mode-chip" class="chip">探索的検証</span></div>
