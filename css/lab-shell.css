@@ -60,3 +60,23 @@ body:not(.lab-home){padding-bottom:calc(105px + env(safe-area-inset-bottom))!imp
 .lab-empty{padding:14px;border:1px dashed #4a6761;color:var(--lab-muted);border-radius:11px;font-size:13px}
 @media(min-width:700px){.lab-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.lab-wrap{padding-inline:24px}.lab-bottom-nav{max-width:540px;left:50%;right:auto;width:100%;transform:translateX(-50%);border-left:1px solid #46605c;border-right:1px solid #46605c;border-radius:16px 16px 0 0}}
 @media(max-width:370px){.lab-wrap{padding-left:13px;padding-right:13px}.lab-tile{padding:12px;min-height:145px}.lab-tile strong{font-size:15px}.lab-tile small{font-size:11px}.lab-bottom-nav a{font-size:10px}}
+/* Focused controls while preserving original research sections. */
+.lab-advanced{margin-top:14px;border-top:1px solid #385047}
+.lab-advanced>summary{font-size:12px;color:#b9cdc4;list-style:none}
+.lab-advanced>summary::-webkit-details-marker{display:none}
+.lab-advanced>summary:before{content:"＋";padding-right:7px;color:#e5cb8e}
+.lab-advanced[open]>summary:before{content:"−"}
+.lab-muted-details>summary{color:#d9e4dc;font-size:14px}
+.lab-deep-audit{border:1px solid #47605a;border-radius:15px;background:#11232b;padding:13px;margin:16px 0}
+.lab-deep-audit>summary{cursor:pointer;color:#f2dfae;font-size:15px;min-height:50px;display:flex;align-items:center;font-weight:750}
+.lab-deep-audit>.panel{margin:12px 0}
+.lab-performance-list{display:grid;gap:12px}
+.lab-performance-item{background:#11252b;border:1px solid var(--lab-border);border-radius:13px;padding:15px}
+.lab-performance-item h3{margin:0 0 10px;font-size:16px}
+.lab-performance-item dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 6px;margin:0}
+.lab-performance-item dl>div{min-width:0}
+.lab-performance-item dt{font-size:11px;color:var(--lab-muted)}
+.lab-performance-item dd{font-size:18px;font-weight:750;margin:2px 0 0;font-variant-numeric:tabular-nums}
+.lab-performance-item dd.important{color:var(--lab-accent)}
+.lab-performance-item .lab-meta{margin-top:11px}
+.lab-home select:focus-visible,.lab-home button:focus-visible{outline:2px solid var(--lab-accent);outline-offset:3px}
