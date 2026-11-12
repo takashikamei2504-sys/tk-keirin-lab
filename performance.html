@@ -3,7 +3,7 @@
 <body class="lab-home"><main class="lab-wrap"><div class="lab-top"><a class="lab-wordmark" href="index.html">TK KEIRIN LAB</a><span class="lab-label">4 / 4</span></div>
 <p class="lab-kicker">PERFORMANCE / TRACK RECORD</p><h1>成績を比較する。</h1><p class="lab-subtitle">方式別の保存実績。購入額は各方式の保存点数に応じた100円仮想投資です。</p>
 <section class="lab-panel"><label for="period" style="display:block;font-size:13px;margin-bottom:8px">集計期間</label><select class="lab-select" id="period"><option value="today">今日</option><option value="7">直近7日</option><option value="30">直近30日</option><option value="all" selected>累計</option></select><p class="lab-meta" id="range-note">各方式の保存開始日が異なります。まずは累計を表示します。</p></section>
-<section class="lab-panel"><div class="lab-section-title"><h2>方式別の保存評価</h2><span class="lab-pill">研究用</span></div><p id="state" class="lab-meta" role="status">保存結果を読み込んでいます。</p><div class="lab-table-wrap"><table class="lab-table"><thead><tr><th>方式</th><th>評価R</th><th>的中</th><th>回収率</th><th>最大払戻除外</th></tr></thead><tbody id="results"></tbody></table></div><p class="lab-meta">最大払戻除外：その期間の払戻最大1レース分だけを差し引き、投資総額は据え置いて計算。件数・モデル・対象期間が異なるため、順位や同一条件での優劣を示す表ではありません。</p></section>
+<section class="lab-panel"><div class="lab-section-title"><h2>方式別の保存評価</h2><span class="lab-pill">研究用</span></div><p id="state" class="lab-meta" role="status">保存結果を読み込んでいます。</p><div id="results" class="lab-performance-list" aria-live="polite"></div><p class="lab-meta">最大払戻除外：その期間の払戻最大1レース分だけを差し引き、投資総額は据え置いて計算。件数・モデル・対象期間が異なるため、順位や同一条件での優劣を示す表ではありません。</p></section>
 <section class="lab-panel"><h2>検証をどう読むか</h2><p>GATEは7車・1着候補5車以内で通過した保存予想。AUTOはレース別に採用された通常予想。B-UPSETはA〜H拡張候補です。LAB LINEはこの評価ファイルに払戻集計がないため、的中数のみ表示します。</p><p class="lab-meta">GATEの2026年11月12日以前の数字は条件探索に使われています。条件固定後の前向き成績とは分けて判断します。</p></section>
 <div class="lab-compact-list" aria-label="元データと詳細画面">
 <a href="coverage-gate.html#performance"><strong>GATEの通過・見送り詳細</strong><span>›</span></a>
@@ -24,7 +24,22 @@ if(k==='auto')return(d.rows||[]).filter(r=>r.evaluation?.status==='evaluated'&&s
 if(k==='upset')return(d.rows||[]).filter(r=>r.evaluation?.status==='evaluated'&&selected(r.date,period)).map(r=>{const v=r.evaluation.views?.expanded||{};return record(r.date,v.stake,v.payout,v.hit);});
 return(d.rows||[]).filter(r=>r.evaluation?.status==='evaluated'&&selected((r.race_id||'').slice(0,10),period)).map(r=>record((r.race_id||'').slice(0,10),0,0,r.evaluation.hit));}
 function summary(rows,canRoi){const s=rows.reduce((a,r)=>({n:a.n+1,hits:a.hits+(r.hit?1:0),stake:a.stake+r.stake,payout:a.payout+r.payout,max:Math.max(a.max,r.payout)}),{n:0,hits:0,stake:0,payout:0,max:0});return {n:s.n,hits:s.hits,roi:canRoi&&s.stake?s.payout/s.stake:null,trim:canRoi&&s.stake?(s.payout-s.max)/s.stake:null};}
-function render(){const p=$('period').value,body=$('results');body.replaceChildren();let loaded=0;for(const k of order){const data=cache[k],tr=document.createElement('tr');const values=data?(()=>{const s=summary(rowsFor(k,data,p),k!=='line');loaded++;return [names[k],s.n+'',s.hits+'',pct(s.roi),pct(s.trim)]})():[names[k],'—','—','—','—'];for(const val of values){const td=document.createElement('td');td.textContent=val;tr.append(td)}body.append(tr)}$('state').textContent=loaded===4?'4方式のファイルを読み込みました。':loaded+' / 4方式のファイルを読み込みました。未取得の方式は「—」。';$('range-note').textContent=p==='all'?'累計は各方式の保存開始以降。':p==='today'?'日本時間 '+jst()+' の結果照合済み分。':('日本時間 '+jst()+' までの直近'+p+'日。');}
+function render(){
+const p=$('period').value,body=$('results');body.replaceChildren();let loaded=0;
+for(const k of order){
+const data=cache[k],s=data?summary(rowsFor(k,data,p),k!=='line'):null;if(data)loaded++;
+const item=document.createElement('article');item.className='lab-performance-item';
+const title=document.createElement('h3');title.textContent=names[k];item.append(title);
+const metrics=document.createElement('dl');
+const vals=[['評価R',s?s.n+'':'—'],['的中R',s?s.hits+'':'—'],['回収率',s?pct(s.roi):'—'],['最高払戻1件除外',s?pct(s.trim):'—']];
+for(const [label,value] of vals){const wrap=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;if(label==='回収率')dd.className='important';wrap.append(dt,dd);metrics.append(wrap);}
+item.append(metrics);
+if(k==='line'){const note=document.createElement('p');note.className='lab-meta';note.textContent='払戻データは未集計のため、回収率は表示しません。';item.append(note);}
+body.append(item);
+}
+$('state').textContent=loaded===4?'4方式の保存評価を読み込みました。':loaded+' / 4方式のファイルを読み込みました。未取得は「—」。';
+$('range-note').textContent=p==='all'?'累計は各方式の保存開始以降。':p==='today'?'日本時間 '+jst()+' の結果照合済み分。':('日本時間 '+jst()+' までの直近'+p+'日。');
+}
 $('period').addEventListener('change',render);render();
 Promise.all(Object.entries(files).map(async([k,url])=>{try{const r=await fetch(url+'?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const d=await r.json();if(!d||!Array.isArray(k==='gate'?d.races:d.rows))throw Error('invalid');cache[k]=d;}catch(e){cache[k]=null;}render();})).then(render);
 })();
