@@ -10,7 +10,7 @@
 <script defer src="js/coverage-gate/logic.js?v=1"></script>
 <script defer src="js/coverage-gate/app.js?v=1"></script>
 <script defer src="js/coverage-gate/today.js?v=2"></script>
-</head>
+<link rel="stylesheet" href="css/lab-shell.css?v=1"></head>
 <body>
 <main>
 <header class="top"><a class="brand" href="index.html">TK KEIRIN LAB</a><a class="home" href="roi.html">ROI ENGINE ↗</a></header>
@@ -31,6 +31,7 @@
 <p class="helper">発走前に保存したcoverage方式の三連単を表示します。GATE通過は「7車立て・1着候補5車以内」を満たす<strong>研究用の購入候補</strong>であり、実オッズの期待値判定や実購入を意味しません。見送りの買い目も検証用に確認できます。</p>
 <p id="today-alert" class="notice" role="status">当日の発走前予想を読み込んでいます…</p>
 <label for="today-filter">表示する予想<select id="today-filter">
+<option value="candidate" selected>発走前のGATE通過だけ</option>
 <option value="all">保存された全レース（発走前優先）</option>
 <option value="upcoming">発走前のみ</option>
 <option value="pass">GATE通過</option>
@@ -54,7 +55,7 @@
 <div class="split" id="split-summary"></div>
 </section>
 
-<section id="settings" class="panel">
+<details id="lab-advanced-wrap" class="lab-deep-audit"><summary>詳細検証・条件変更を開く</summary><section id="settings" class="panel">
 <div class="section-row"><div><p class="eyebrow small">BUY / SKIP FILTER</p><h2>購入・見送り条件</h2></div><button type="button" id="reset">固定条件に戻す</button></div>
 <div class="fields">
 <label>対象の車立て<select id="cars"><option value="7">7車のみ（固定条件）</option><option value="all">7車・9車とも購入候補</option><option value="9">9車のみ</option></select></label>
@@ -85,11 +86,11 @@
 <p id="race-limit" class="helper"></p>
 </section>
 
-<section class="panel info"><h2>検証の扱い</h2>
+</details><section class="panel info"><h2>検証の扱い</h2>
 <p>通常coverageとGATEは、同じ発走前保存予想と同じ結果を使用して比較します。各買い目100円の仮想投資であり、実際の購入を意味しません。結果待ち・照合不備のレースは成績に混ぜません。</p>
 <p>2026年11月12日までの結果は条件を探索した期間です。11月13日以降の「固定条件」は別集計し、将来の予想を過去の成績に合わせて変更したかのように扱いません。見送りルールを変更した画面上の数値は、すべて探索的な試算として扱います。</p>
 <p>最大払戻1件を除いた回収率は購入額を固定して計算します。公開フィードの着順・払戻は独立した公式照合が済んでいない場合があります。</p></section>
 <footer><a href="index.html">LABホーム</a><a href="roi.html">ROI ENGINE</a><a href="b-upset.html">B-UPSET</a><a href="https://github.com/takashikamei2504-sys/tk-keirin-lab/blob/main/data/coverage_gate/evaluation.json">集計データ</a></footer>
 </main>
-</body>
+<script src="js/lab-shell.js?v=1"></script></body>
 </html>

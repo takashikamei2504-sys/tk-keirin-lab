@@ -152,7 +152,8 @@
     const kind=statusFilter.value;
     const filtered=records.filter(r=>
       kind==='all' ||
-      (kind==='upcoming' ? active(r) :
+      (kind==='candidate' ? active(r)&&verdict(r).pass :
+       kind==='upcoming' ? active(r) :
        kind==='pass'?verdict(r).pass:!verdict(r).pass));
     id('today-count').textContent='表示 '+filtered.length+'R／取得済み '+records.length+'R';
     if(!records.length){
@@ -160,7 +161,7 @@
         state.loading?'当日の保存予想を取得しています…':'本日の発走前保存coverage予想はまだありません。更新してご確認ください。','empty'));
     }else if(!filtered.length) {
       id('today-list').replaceChildren(el('p',
-        kind==='upcoming'?'表示できる発走前予想はありません。全件表示で保存済みの予想を確認できます。':'該当するレースはありません。','empty'));
+        kind==='candidate'?'発走前のGATE通過レースはありません。表示条件を変更すると保存済みの予想を確認できます。':kind==='upcoming'?'表示できる発走前予想はありません。全件表示で保存済みの予想を確認できます。':'該当するレースはありません。','empty'));
     }else id('today-list').replaceChildren(...filtered.map(makeCard));
   }
   async function load(){
