@@ -5,7 +5,7 @@
 const fs=require('node:fs/promises'),path=require('node:path');
 const Phase4=require('./crossline-phase4.cjs');
 const Gate=require('./crossline-phase3-gate.cjs');
-const MODES=['legacy4','conditional_pair4','cross_third4','conditional_joint4'];
+const MODES=['legacy4','conditional_pair4','cross_third4','conditional_joint4','blend25_4','blend50_4'];
 const sum=(rows,fn)=>rows.reduce((a,r)=>a+fn(r),0);
 function summarize(rows){
  const cross=rows.filter(r=>r.cross12),pairRecall={};
@@ -52,6 +52,7 @@ function evaluate(cards,base,model){
    'Sep and Oct-Nov already observed in previous studies; not a virgin holdout. Future pre-race shadow test required.',
    'Phase3 selection here uses fixed historic highrisk and old predicted pairs, avoiding target information.',
    'No real pre-close odds supplied. ROI is retrospective payout/stake, NOT a calibrated EV estimate.',
+   'Blends at 25% and 50% were selected before this replay and are research-only ablations, not optimized against observed returns.',
    'No production forecasts, ticket rankings, or purchase logic changed.'
   ]};
  return {report,rows:scored};
@@ -71,16 +72,16 @@ async function run(cards,base,{dir=path.join(__dirname,'../reports/mansha')}={})
  const fmt=x=>x?.roi==null?'-':(x.roi*100).toFixed(1)+'%';
  const md=['# Phase4: conditional runner-up and third line research','',
  'Caution: retrospective only; all model training restricted to June-August 2026. Subsequent dates were previously inspected in other studies. No production rollout.','',
- '| Evaluation period | races | old 4 tickets | conditional 2nd only | conditional 3rd only | both conditional |',
- '|---|---:|---:|---:|---:|---:|'];
+ '| Evaluation period | races | old 4 tickets | conditional 2nd only | conditional 3rd only | both conditional | blend 25% | blend 50% |',
+ '|---|---:|---:|---:|---:|---:|---:|'];
  for(const [key,label] of [['train','June-Aug train'],['sep','September diagnostic'],['octnov','Oct-Nov diagnostic']]){
   const x=report.periods[key],n=x.strategies;
-  md.push('|'+label+'|'+x.races+'|'+fmt(n.legacy4)+'|'+fmt(n.conditional_pair4)+'|'+fmt(n.cross_third4)+'|'+fmt(n.conditional_joint4)+'|');
+  md.push('|'+label+'|'+x.races+'|'+fmt(n.legacy4)+'|'+fmt(n.conditional_pair4)+'|'+fmt(n.cross_third4)+'|'+fmt(n.conditional_joint4)+'|'+fmt(n.blend25_4)+'|'+fmt(n.blend50_4)+'|');
  }
  md.push('','## Phase 3 pre-race-selected A7/C7 high-risk non-reverse subset','');
  for(const [key,label] of [['sep','September'],['octnov','Oct-Nov']]){
   const x=report.selected_phase3[key];
-  md.push('- '+label+': '+x.races+' races. Old 4='+fmt(x.strategies.legacy4)+', conditional joint 4='+fmt(x.strategies.conditional_joint4)+'.');
+  md.push('- '+label+': '+x.races+' races. Old 4='+fmt(x.strategies.legacy4)+', conditional joint 4='+fmt(x.strategies.conditional_joint4)+', blend25='+fmt(x.strategies.blend25_4)+', blend50='+fmt(x.strategies.blend50_4)+'.');
  }
  md.push('','## 1st/2nd pair capture (among actual cross-line first-two finishes)','');
  for(const key of ['sep','octnov']){
