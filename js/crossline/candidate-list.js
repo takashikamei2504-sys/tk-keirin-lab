@@ -10,13 +10,15 @@ function validForecast(f){
  if(!f||f.version!==VERSION||!['A7','C7'].includes(f.category)||
  !Array.isArray(f.pairs)||f.pairs.length!==2||!Array.isArray(f.candidate4)||f.candidate4.length!==4||
  new Set(f.candidate4).size!==4||!Array.isArray(f.tickets))return false;
- const keys=f.candidate4.every(k=>typeof k==='string'&&/^[1-9]-[1-9]-[1-9]$/.test(k)&&new Set(k.split('-')).size===3);
+ const keys=f.candidate4.every((k,i)=>typeof k==='string'&&/^[1-9]-[1-9]-[1-9]$/.test(k)&&new Set(k.split('-')).size===3&&
+  Array.isArray(f.pairs[Math.floor(i/2)])&&f.pairs[Math.floor(i/2)].length===2&&
+  k.split('-').slice(0,2).join('-')===f.pairs[Math.floor(i/2)].join('-'));
  const reverse=f.pairs[0][0]===f.pairs[1][1]&&f.pairs[0][1]===f.pairs[1][0];
  return keys&&(f.eligible===true?!!f.risk?.priority&&!reverse&&f.tickets.length===4&&f.tickets.every((t,i)=>t===f.candidate4[i])&&f.stake===400:
  f.eligible===false&&f.tickets.length===0&&f.stake===0);
 }
 function validSaved(h,date){
- if(!h||h.date!==date||h.race_id!==[h.date,h.venue,h.race_no].join(':')||!validForecast(h.forecast))return false;
+ if(!h||h.date!==date||h.race_id!==[h.date,h.venue,h.race_no].join(':')||!validForecast(h.forecast)||!Array.isArray(h.identity)||h.identity.length!==7||!Array.isArray(h.lineup)||h.lineup.flat().length!==7)return false;
  const start=cutoff(date,h.start),saved=Date.parse(h.saved_at),source=Date.parse(h.source_generated_at);
  return Number.isFinite(start)&&Number.isFinite(saved)&&Number.isFinite(source)&&saved<start&&source<=saved&&source<start;
 }
@@ -40,8 +42,10 @@ function assemble({date,feed=null,rows=[],now=Date.now(),weights=null,riskLib=nu
    if(h.identity){try{
     if(typeof convert!=='function')throw Error('照合できません');
     converted=convert(s,feed);
-    if(JSON.stringify(identity(converted))!==JSON.stringify(h.identity)){
-     invalid.push({race_id:id,reason:'保存時と選手が異なります'});continue;
+    if(JSON.stringify(identity(converted))!==JSON.stringify(h.identity)||
+    JSON.stringify(converted.lineup)!==JSON.stringify(h.lineup)||
+    String(h.start)!==String(s.start_time)){
+     invalid.push({race_id:id,reason:'保存時と選手・ライン・発走時刻が異なります'});continue;
     }
    }catch(e){invalid.push({race_id:id,reason:'保存時の出走者照合不可'});continue;}}
    forecast=h.forecast;source='frozen';
