@@ -2,12 +2,12 @@
   "schema": "tk-b-axis-ex-observations/v1",
   "license_status": "approved-for-model-and-publication",
   "redistribution_approved": true,
-  "generated_at": "2026-11-12T17:39:56.252Z",
+  "generated_at": "2026-11-13T06:50:44.466Z",
   "source_type": "rights-approved-original-winticket-ex-records",
   "license_expires_at": null,
   "summary": {
     "covered_venues": 17,
-    "covered_races": 72,
+    "covered_races": 43,
     "unique_riders": 1391,
     "valid_metrics": 3498,
     "valid_context_buckets": 24072,
@@ -1845,17 +1845,17 @@
     "2026-11-13:玉野:1": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/1",
-      "collected_at": "2026-11-12T17:37:24.475Z"
+      "collected_at": "2026-11-13T06:48:23.656Z"
     },
     "2026-11-13:佐世保:1": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/1",
-      "collected_at": "2026-11-12T17:37:26.802Z"
+      "collected_at": "2026-11-13T06:48:25.749Z"
     },
     "2026-11-13:四日市:1": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/1",
-      "collected_at": "2026-11-12T17:37:28.898Z"
+      "collected_at": "2026-11-13T06:48:28.355Z"
     },
     "2026-11-13:松戸:1": {
       "weather": null,
@@ -1865,7 +1865,7 @@
     "2026-11-13:松阪:1": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/1",
-      "collected_at": "2026-11-12T17:37:33.571Z"
+      "collected_at": "2026-11-13T06:48:32.120Z"
     },
     "2026-11-13:福井:1": {
       "weather": null,
@@ -1880,17 +1880,17 @@
     "2026-11-13:玉野:2": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/2",
-      "collected_at": "2026-11-12T17:37:40.284Z"
+      "collected_at": "2026-11-13T06:48:37.766Z"
     },
     "2026-11-13:佐世保:2": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/2",
-      "collected_at": "2026-11-12T17:37:42.488Z"
+      "collected_at": "2026-11-13T06:48:39.705Z"
     },
     "2026-11-13:四日市:2": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/2",
-      "collected_at": "2026-11-12T17:37:44.487Z"
+      "collected_at": "2026-11-13T06:48:41.589Z"
     },
     "2026-11-13:松戸:2": {
       "weather": null,
@@ -1900,7 +1900,7 @@
     "2026-11-13:松阪:2": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/2",
-      "collected_at": "2026-11-12T17:37:49.006Z"
+      "collected_at": "2026-11-13T06:48:45.565Z"
     },
     "2026-11-13:福井:2": {
       "weather": null,
@@ -1915,17 +1915,17 @@
     "2026-11-13:玉野:3": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/3",
-      "collected_at": "2026-11-12T17:37:55.252Z"
+      "collected_at": "2026-11-13T06:48:51.311Z"
     },
     "2026-11-13:佐世保:3": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/3",
-      "collected_at": "2026-11-12T17:37:57.583Z"
+      "collected_at": "2026-11-13T06:48:53.535Z"
     },
     "2026-11-13:四日市:3": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/3",
-      "collected_at": "2026-11-12T17:37:59.608Z"
+      "collected_at": "2026-11-13T06:48:55.428Z"
     },
     "2026-11-13:松戸:3": {
       "weather": null,
@@ -1935,7 +1935,7 @@
     "2026-11-13:松阪:3": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/3",
-      "collected_at": "2026-11-12T17:38:03.782Z"
+      "collected_at": "2026-11-13T06:48:59.401Z"
     },
     "2026-11-13:福井:3": {
       "weather": null,
@@ -1950,17 +1950,17 @@
     "2026-11-13:玉野:4": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/4",
-      "collected_at": "2026-11-12T17:38:10.153Z"
+      "collected_at": "2026-11-13T06:49:05.492Z"
     },
     "2026-11-13:佐世保:4": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/4",
-      "collected_at": "2026-11-12T17:38:12.233Z"
+      "collected_at": "2026-11-13T06:49:07.373Z"
     },
     "2026-11-13:四日市:4": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/4",
-      "collected_at": "2026-11-12T17:38:14.249Z"
+      "collected_at": "2026-11-13T06:49:09.338Z"
     },
     "2026-11-13:松戸:4": {
       "weather": null,
@@ -1970,7 +1970,7 @@
     "2026-11-13:松阪:4": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/4",
-      "collected_at": "2026-11-12T17:38:18.463Z"
+      "collected_at": "2026-11-13T06:49:13.229Z"
     },
     "2026-11-13:福井:4": {
       "weather": null,
@@ -1985,17 +1985,17 @@
     "2026-11-13:玉野:5": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/5",
-      "collected_at": "2026-11-12T17:38:25.392Z"
+      "collected_at": "2026-11-13T06:49:19.252Z"
     },
     "2026-11-13:佐世保:5": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/5",
-      "collected_at": "2026-11-12T17:38:27.487Z"
+      "collected_at": "2026-11-13T06:49:21.063Z"
     },
     "2026-11-13:四日市:5": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/5",
-      "collected_at": "2026-11-12T17:38:29.537Z"
+      "collected_at": "2026-11-13T06:49:23.299Z"
     },
     "2026-11-13:松戸:5": {
       "weather": null,
@@ -2005,7 +2005,7 @@
     "2026-11-13:松阪:5": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/5",
-      "collected_at": "2026-11-12T17:38:33.624Z"
+      "collected_at": "2026-11-13T06:49:27.139Z"
     },
     "2026-11-13:福井:5": {
       "weather": null,
@@ -2020,17 +2020,17 @@
     "2026-11-13:玉野:6": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/6",
-      "collected_at": "2026-11-12T17:38:40.083Z"
+      "collected_at": "2026-11-13T06:49:33.260Z"
     },
     "2026-11-13:佐世保:6": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/6",
-      "collected_at": "2026-11-12T17:38:42.250Z"
+      "collected_at": "2026-11-13T06:49:35.144Z"
     },
     "2026-11-13:四日市:6": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/6",
-      "collected_at": "2026-11-12T17:38:44.376Z"
+      "collected_at": "2026-11-13T06:49:37.171Z"
     },
     "2026-11-13:松戸:6": {
       "weather": null,
@@ -2040,7 +2040,7 @@
     "2026-11-13:松阪:6": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/6",
-      "collected_at": "2026-11-12T17:38:48.455Z"
+      "collected_at": "2026-11-13T06:49:40.942Z"
     },
     "2026-11-13:福井:6": {
       "weather": null,
@@ -2055,17 +2055,17 @@
     "2026-11-13:玉野:7": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/7",
-      "collected_at": "2026-11-12T17:38:54.993Z"
+      "collected_at": "2026-11-13T06:49:46.733Z"
     },
     "2026-11-13:佐世保:7": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/7",
-      "collected_at": "2026-11-12T17:38:57.087Z"
+      "collected_at": "2026-11-13T06:49:48.631Z"
     },
     "2026-11-13:四日市:7": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/7",
-      "collected_at": "2026-11-12T17:38:59.182Z"
+      "collected_at": "2026-11-13T06:49:50.635Z"
     },
     "2026-11-13:松戸:7": {
       "weather": null,
@@ -2075,7 +2075,7 @@
     "2026-11-13:松阪:7": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/7",
-      "collected_at": "2026-11-12T17:39:03.250Z"
+      "collected_at": "2026-11-13T06:49:54.442Z"
     },
     "2026-11-13:福井:7": {
       "weather": null,
@@ -2090,22 +2090,22 @@
     "2026-11-13:玉野:8": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/8",
-      "collected_at": "2026-11-12T17:39:09.958Z"
+      "collected_at": "2026-11-13T06:50:00.300Z"
     },
     "2026-11-13:佐世保:8": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/8",
-      "collected_at": "2026-11-12T17:39:12.091Z"
+      "collected_at": "2026-11-13T06:50:02.338Z"
     },
     "2026-11-13:四日市:8": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/8",
-      "collected_at": "2026-11-12T17:39:14.273Z"
+      "collected_at": "2026-11-13T06:50:04.382Z"
     },
     "2026-11-13:松阪:8": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/8",
-      "collected_at": "2026-11-12T17:39:16.177Z"
+      "collected_at": "2026-11-13T06:50:06.281Z"
     },
     "2026-11-13:福井:8": {
       "weather": null,
@@ -2120,22 +2120,22 @@
     "2026-11-13:玉野:9": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/9",
-      "collected_at": "2026-11-12T17:39:22.727Z"
+      "collected_at": "2026-11-13T06:50:12.175Z"
     },
     "2026-11-13:佐世保:9": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/9",
-      "collected_at": "2026-11-12T17:39:24.858Z"
+      "collected_at": "2026-11-13T06:50:14.396Z"
     },
     "2026-11-13:四日市:9": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/9",
-      "collected_at": "2026-11-12T17:39:27.013Z"
+      "collected_at": "2026-11-13T06:50:16.451Z"
     },
     "2026-11-13:松阪:9": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/9",
-      "collected_at": "2026-11-12T17:39:29.011Z"
+      "collected_at": "2026-11-13T06:50:19.020Z"
     },
     "2026-11-13:福井:9": {
       "weather": null,
@@ -2150,12 +2150,12 @@
     "2026-11-13:玉野:10": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/10",
-      "collected_at": "2026-11-12T17:39:35.486Z"
+      "collected_at": "2026-11-13T06:50:24.851Z"
     },
     "2026-11-13:四日市:10": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/10",
-      "collected_at": "2026-11-12T17:39:37.665Z"
+      "collected_at": "2026-11-13T06:50:26.928Z"
     },
     "2026-11-13:福井:10": {
       "weather": null,
@@ -2170,12 +2170,12 @@
     "2026-11-13:玉野:11": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/11",
-      "collected_at": "2026-11-12T17:39:43.887Z"
+      "collected_at": "2026-11-13T06:50:32.695Z"
     },
     "2026-11-13:四日市:11": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/11",
-      "collected_at": "2026-11-12T17:39:45.840Z"
+      "collected_at": "2026-11-13T06:50:34.751Z"
     },
     "2026-11-13:福井:11": {
       "weather": null,
@@ -2190,17 +2190,17 @@
     "2026-11-13:四日市:12": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/12",
-      "collected_at": "2026-11-12T17:39:51.874Z"
+      "collected_at": "2026-11-13T06:50:40.609Z"
     },
     "2026-11-13:福井:12": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/fukui/racecard/2026111151/3/12",
-      "collected_at": "2026-11-12T17:39:53.930Z"
+      "collected_at": "2026-11-13T06:50:42.450Z"
     },
     "2026-11-13:立川:12": {
       "weather": null,
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "collected_at": "2026-11-12T17:39:56.124Z"
+      "collected_at": "2026-11-13T06:50:44.382Z"
     }
   },
   "riders": {
@@ -3015,8 +3015,8 @@
     },
     "11431": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/1",
-      "published_at": "2026-11-12T17:37:24.475Z",
-      "collected_at": "2026-11-12T17:37:24.475Z",
+      "published_at": "2026-11-13T06:48:23.656Z",
+      "collected_at": "2026-11-13T06:48:23.656Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -3343,8 +3343,8 @@
     },
     "11599": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/1",
-      "published_at": "2026-11-12T17:37:24.475Z",
-      "collected_at": "2026-11-12T17:37:24.475Z",
+      "published_at": "2026-11-13T06:48:23.656Z",
+      "collected_at": "2026-11-13T06:48:23.656Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -4015,8 +4015,8 @@
     },
     "11792": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/5",
-      "published_at": "2026-11-12T17:38:25.392Z",
-      "collected_at": "2026-11-12T17:38:25.392Z",
+      "published_at": "2026-11-13T06:49:19.252Z",
+      "collected_at": "2026-11-13T06:49:19.252Z",
       "metrics": {
         "tsuppari": {
           "events": 1,
@@ -4577,8 +4577,8 @@
     },
     "11935": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/2",
-      "published_at": "2026-11-12T17:37:40.284Z",
-      "collected_at": "2026-11-12T17:37:40.284Z",
+      "published_at": "2026-11-13T06:48:37.766Z",
+      "collected_at": "2026-11-13T06:48:37.766Z",
       "metrics": {
         "chigiri": {
           "events": 6,
@@ -4924,8 +4924,8 @@
     },
     "12132": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/7",
-      "published_at": "2026-11-12T17:38:54.993Z",
-      "collected_at": "2026-11-12T17:38:54.993Z",
+      "published_at": "2026-11-13T06:49:46.733Z",
+      "collected_at": "2026-11-13T06:49:46.733Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -5140,8 +5140,8 @@
     },
     "12197": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/4",
-      "published_at": "2026-11-12T17:38:10.153Z",
-      "collected_at": "2026-11-12T17:38:10.153Z",
+      "published_at": "2026-11-13T06:49:05.492Z",
+      "collected_at": "2026-11-13T06:49:05.492Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -5253,8 +5253,8 @@
     },
     "12206": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/2",
-      "published_at": "2026-11-12T17:37:42.488Z",
-      "collected_at": "2026-11-12T17:37:42.488Z",
+      "published_at": "2026-11-13T06:48:39.705Z",
+      "collected_at": "2026-11-13T06:48:39.705Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -6668,8 +6668,8 @@
     },
     "12402": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/5",
-      "published_at": "2026-11-12T17:38:25.392Z",
-      "collected_at": "2026-11-12T17:38:25.392Z",
+      "published_at": "2026-11-13T06:49:19.252Z",
+      "collected_at": "2026-11-13T06:49:19.252Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -7574,8 +7574,8 @@
     },
     "12479": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/3",
-      "published_at": "2026-11-12T17:37:57.583Z",
-      "collected_at": "2026-11-12T17:37:57.583Z",
+      "published_at": "2026-11-13T06:48:53.535Z",
+      "collected_at": "2026-11-13T06:48:53.535Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -8019,8 +8019,8 @@
     },
     "12507": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/3",
-      "published_at": "2026-11-12T17:37:55.252Z",
-      "collected_at": "2026-11-12T17:37:55.252Z",
+      "published_at": "2026-11-13T06:48:51.311Z",
+      "collected_at": "2026-11-13T06:48:51.311Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -8256,8 +8256,8 @@
     },
     "12529": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/2",
-      "published_at": "2026-11-12T17:37:42.488Z",
-      "collected_at": "2026-11-12T17:37:42.488Z",
+      "published_at": "2026-11-13T06:48:39.705Z",
+      "collected_at": "2026-11-13T06:48:39.705Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -9191,8 +9191,8 @@
     },
     "12590": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/8",
-      "published_at": "2026-11-12T17:39:09.958Z",
-      "collected_at": "2026-11-12T17:39:09.958Z",
+      "published_at": "2026-11-13T06:50:00.300Z",
+      "collected_at": "2026-11-13T06:50:00.300Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -9544,8 +9544,8 @@
     },
     "12597": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/3",
-      "published_at": "2026-11-12T17:37:57.583Z",
-      "collected_at": "2026-11-12T17:37:57.583Z",
+      "published_at": "2026-11-13T06:48:53.535Z",
+      "collected_at": "2026-11-13T06:48:53.535Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -9784,8 +9784,8 @@
     },
     "12602": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/3",
-      "published_at": "2026-11-12T17:38:03.782Z",
-      "collected_at": "2026-11-12T17:38:03.782Z",
+      "published_at": "2026-11-13T06:48:59.401Z",
+      "collected_at": "2026-11-13T06:48:59.401Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -9892,8 +9892,8 @@
     },
     "12603": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/4",
-      "published_at": "2026-11-12T17:38:18.463Z",
-      "collected_at": "2026-11-12T17:38:18.463Z",
+      "published_at": "2026-11-13T06:49:13.229Z",
+      "collected_at": "2026-11-13T06:49:13.229Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -10849,8 +10849,8 @@
     },
     "12681": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/4",
-      "published_at": "2026-11-12T17:38:12.233Z",
-      "collected_at": "2026-11-12T17:38:12.233Z",
+      "published_at": "2026-11-13T06:49:07.373Z",
+      "collected_at": "2026-11-13T06:49:07.373Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -12818,8 +12818,8 @@
     },
     "12809": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/7",
-      "published_at": "2026-11-12T17:38:54.993Z",
-      "collected_at": "2026-11-12T17:38:54.993Z",
+      "published_at": "2026-11-13T06:49:46.733Z",
+      "collected_at": "2026-11-13T06:49:46.733Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -12926,8 +12926,8 @@
     },
     "12811": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/10",
-      "published_at": "2026-11-12T17:39:35.486Z",
-      "collected_at": "2026-11-12T17:39:35.486Z",
+      "published_at": "2026-11-13T06:50:24.851Z",
+      "collected_at": "2026-11-13T06:50:24.851Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -13732,8 +13732,8 @@
     },
     "12847": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/8",
-      "published_at": "2026-11-12T17:39:12.091Z",
-      "collected_at": "2026-11-12T17:39:12.091Z",
+      "published_at": "2026-11-13T06:50:02.338Z",
+      "collected_at": "2026-11-13T06:50:02.338Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -14775,8 +14775,8 @@
     },
     "12895": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/6",
-      "published_at": "2026-11-12T17:38:42.250Z",
-      "collected_at": "2026-11-12T17:38:42.250Z",
+      "published_at": "2026-11-13T06:49:35.144Z",
+      "collected_at": "2026-11-13T06:49:35.144Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -15544,8 +15544,8 @@
     },
     "12960": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/7",
-      "published_at": "2026-11-12T17:39:03.250Z",
-      "collected_at": "2026-11-12T17:39:03.250Z",
+      "published_at": "2026-11-13T06:49:54.442Z",
+      "collected_at": "2026-11-13T06:49:54.442Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -15873,8 +15873,8 @@
     },
     "12971": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/5",
-      "published_at": "2026-11-12T17:38:27.487Z",
-      "collected_at": "2026-11-12T17:38:27.487Z",
+      "published_at": "2026-11-13T06:49:21.063Z",
+      "collected_at": "2026-11-13T06:49:21.063Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -16462,8 +16462,8 @@
     },
     "12997": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/2",
-      "published_at": "2026-11-12T17:37:42.488Z",
-      "collected_at": "2026-11-12T17:37:42.488Z",
+      "published_at": "2026-11-13T06:48:39.705Z",
+      "collected_at": "2026-11-13T06:48:39.705Z",
       "metrics": {
         "chigiri": {
           "events": 6,
@@ -16819,8 +16819,8 @@
     },
     "13014": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/10",
-      "published_at": "2026-11-12T17:39:35.486Z",
-      "collected_at": "2026-11-12T17:39:35.486Z",
+      "published_at": "2026-11-13T06:50:24.851Z",
+      "collected_at": "2026-11-13T06:50:24.851Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -17769,8 +17769,8 @@
     },
     "13041": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/7",
-      "published_at": "2026-11-12T17:38:57.087Z",
-      "collected_at": "2026-11-12T17:38:57.087Z",
+      "published_at": "2026-11-13T06:49:48.631Z",
+      "collected_at": "2026-11-13T06:49:48.631Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -17872,8 +17872,8 @@
     },
     "13042": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/5",
-      "published_at": "2026-11-12T17:38:33.624Z",
-      "collected_at": "2026-11-12T17:38:33.624Z",
+      "published_at": "2026-11-13T06:49:27.139Z",
+      "collected_at": "2026-11-13T06:49:27.139Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -18100,8 +18100,8 @@
     },
     "13047": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/9",
-      "published_at": "2026-11-12T17:39:24.858Z",
-      "collected_at": "2026-11-12T17:39:24.858Z",
+      "published_at": "2026-11-13T06:50:14.396Z",
+      "collected_at": "2026-11-13T06:50:14.396Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -18462,8 +18462,8 @@
     },
     "13056": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/4",
-      "published_at": "2026-11-12T17:38:12.233Z",
-      "collected_at": "2026-11-12T17:38:12.233Z",
+      "published_at": "2026-11-13T06:49:07.373Z",
+      "collected_at": "2026-11-13T06:49:07.373Z",
       "metrics": {
         "chigiri": {
           "events": 6,
@@ -18894,8 +18894,8 @@
     },
     "13061": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/4",
-      "published_at": "2026-11-12T17:38:10.153Z",
-      "collected_at": "2026-11-12T17:38:10.153Z",
+      "published_at": "2026-11-13T06:49:05.492Z",
+      "collected_at": "2026-11-13T06:49:05.492Z",
       "metrics": {
         "chigiri": {
           "events": 6,
@@ -20169,8 +20169,8 @@
     },
     "13115": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/9",
-      "published_at": "2026-11-12T17:39:27.013Z",
-      "collected_at": "2026-11-12T17:39:27.013Z",
+      "published_at": "2026-11-13T06:50:16.451Z",
+      "collected_at": "2026-11-13T06:50:16.451Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -20271,8 +20271,8 @@
     },
     "13117": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/5",
-      "published_at": "2026-11-12T17:38:33.624Z",
-      "collected_at": "2026-11-12T17:38:33.624Z",
+      "published_at": "2026-11-13T06:49:27.139Z",
+      "collected_at": "2026-11-13T06:49:27.139Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -20511,8 +20511,8 @@
     },
     "13119": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/1",
-      "published_at": "2026-11-12T17:37:28.898Z",
-      "collected_at": "2026-11-12T17:37:28.898Z",
+      "published_at": "2026-11-13T06:48:28.355Z",
+      "collected_at": "2026-11-13T06:48:28.355Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -20619,8 +20619,8 @@
     },
     "13121": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/4",
-      "published_at": "2026-11-12T17:38:12.233Z",
-      "collected_at": "2026-11-12T17:38:12.233Z",
+      "published_at": "2026-11-13T06:49:07.373Z",
+      "collected_at": "2026-11-13T06:49:07.373Z",
       "metrics": {
         "chigiri": {
           "events": 6,
@@ -20736,8 +20736,8 @@
     },
     "13128": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/1",
-      "published_at": "2026-11-12T17:37:26.802Z",
-      "collected_at": "2026-11-12T17:37:26.802Z",
+      "published_at": "2026-11-13T06:48:25.749Z",
+      "collected_at": "2026-11-13T06:48:25.749Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -20844,8 +20844,8 @@
     },
     "13142": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/2",
-      "published_at": "2026-11-12T17:37:44.487Z",
-      "collected_at": "2026-11-12T17:37:44.487Z",
+      "published_at": "2026-11-13T06:48:41.589Z",
+      "collected_at": "2026-11-13T06:48:41.589Z",
       "metrics": {
         "chigiri": {
           "events": 10,
@@ -21064,8 +21064,8 @@
     },
     "13146": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/11",
-      "published_at": "2026-11-12T17:39:43.887Z",
-      "collected_at": "2026-11-12T17:39:43.887Z",
+      "published_at": "2026-11-13T06:50:32.695Z",
+      "collected_at": "2026-11-13T06:50:32.695Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -21312,8 +21312,8 @@
     },
     "13155": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/6",
-      "published_at": "2026-11-12T17:38:42.250Z",
-      "collected_at": "2026-11-12T17:38:42.250Z",
+      "published_at": "2026-11-13T06:49:35.144Z",
+      "collected_at": "2026-11-13T06:49:35.144Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -21892,8 +21892,8 @@
     },
     "13179": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/6",
-      "published_at": "2026-11-12T17:38:40.083Z",
-      "collected_at": "2026-11-12T17:38:40.083Z",
+      "published_at": "2026-11-13T06:49:33.260Z",
+      "collected_at": "2026-11-13T06:49:33.260Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -22237,8 +22237,8 @@
     },
     "13192": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/3",
-      "published_at": "2026-11-12T17:38:03.782Z",
-      "collected_at": "2026-11-12T17:38:03.782Z",
+      "published_at": "2026-11-13T06:48:59.401Z",
+      "collected_at": "2026-11-13T06:48:59.401Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -22903,8 +22903,8 @@
     },
     "13207": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/4",
-      "published_at": "2026-11-12T17:38:18.463Z",
-      "collected_at": "2026-11-12T17:38:18.463Z",
+      "published_at": "2026-11-13T06:49:13.229Z",
+      "collected_at": "2026-11-13T06:49:13.229Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -25487,8 +25487,8 @@
     },
     "13296": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/5",
-      "published_at": "2026-11-12T17:38:27.487Z",
-      "collected_at": "2026-11-12T17:38:27.487Z",
+      "published_at": "2026-11-13T06:49:21.063Z",
+      "collected_at": "2026-11-13T06:49:21.063Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -25613,8 +25613,8 @@
     },
     "13298": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/7",
-      "published_at": "2026-11-12T17:38:54.993Z",
-      "collected_at": "2026-11-12T17:38:54.993Z",
+      "published_at": "2026-11-13T06:49:46.733Z",
+      "collected_at": "2026-11-13T06:49:46.733Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -26629,8 +26629,8 @@
     },
     "13345": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/2",
-      "published_at": "2026-11-12T17:37:49.006Z",
-      "collected_at": "2026-11-12T17:37:49.006Z",
+      "published_at": "2026-11-13T06:48:45.565Z",
+      "collected_at": "2026-11-13T06:48:45.565Z",
       "metrics": {
         "tsuppari": {
           "events": 2,
@@ -26749,8 +26749,8 @@
     },
     "13349": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/8",
-      "published_at": "2026-11-12T17:39:09.958Z",
-      "collected_at": "2026-11-12T17:39:09.958Z",
+      "published_at": "2026-11-13T06:50:00.300Z",
+      "collected_at": "2026-11-13T06:50:00.300Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -27491,8 +27491,8 @@
     },
     "13374": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/7",
-      "published_at": "2026-11-12T17:38:57.087Z",
-      "collected_at": "2026-11-12T17:38:57.087Z",
+      "published_at": "2026-11-13T06:49:48.631Z",
+      "collected_at": "2026-11-13T06:49:48.631Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -27828,8 +27828,8 @@
     },
     "13394": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/6",
-      "published_at": "2026-11-12T17:38:44.376Z",
-      "collected_at": "2026-11-12T17:38:44.376Z",
+      "published_at": "2026-11-13T06:49:37.171Z",
+      "collected_at": "2026-11-13T06:49:37.171Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -28631,8 +28631,8 @@
     },
     "13420": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/7",
-      "published_at": "2026-11-12T17:38:59.182Z",
-      "collected_at": "2026-11-12T17:38:59.182Z",
+      "published_at": "2026-11-13T06:49:50.635Z",
+      "collected_at": "2026-11-13T06:49:50.635Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -29110,8 +29110,8 @@
     },
     "13434": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/4",
-      "published_at": "2026-11-12T17:38:12.233Z",
-      "collected_at": "2026-11-12T17:38:12.233Z",
+      "published_at": "2026-11-13T06:49:07.373Z",
+      "collected_at": "2026-11-13T06:49:07.373Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -29236,8 +29236,8 @@
     },
     "13435": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/11",
-      "published_at": "2026-11-12T17:39:43.887Z",
-      "collected_at": "2026-11-12T17:39:43.887Z",
+      "published_at": "2026-11-13T06:50:32.695Z",
+      "collected_at": "2026-11-13T06:50:32.695Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -31067,8 +31067,8 @@
     },
     "13492": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/2",
-      "published_at": "2026-11-12T17:37:40.284Z",
-      "collected_at": "2026-11-12T17:37:40.284Z",
+      "published_at": "2026-11-13T06:48:37.766Z",
+      "collected_at": "2026-11-13T06:48:37.766Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -31535,8 +31535,8 @@
     },
     "13506": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/1",
-      "published_at": "2026-11-12T17:37:28.898Z",
-      "collected_at": "2026-11-12T17:37:28.898Z",
+      "published_at": "2026-11-13T06:48:28.355Z",
+      "collected_at": "2026-11-13T06:48:28.355Z",
       "metrics": {
         "chigiri": {
           "events": 6,
@@ -31652,8 +31652,8 @@
     },
     "13508": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/1",
-      "published_at": "2026-11-12T17:37:26.802Z",
-      "collected_at": "2026-11-12T17:37:26.802Z",
+      "published_at": "2026-11-13T06:48:25.749Z",
+      "collected_at": "2026-11-13T06:48:25.749Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -31991,8 +31991,8 @@
     },
     "13521": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/5",
-      "published_at": "2026-11-12T17:38:25.392Z",
-      "collected_at": "2026-11-12T17:38:25.392Z",
+      "published_at": "2026-11-13T06:49:19.252Z",
+      "collected_at": "2026-11-13T06:49:19.252Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -33163,8 +33163,8 @@
     },
     "13568": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/9",
-      "published_at": "2026-11-12T17:39:29.011Z",
-      "collected_at": "2026-11-12T17:39:29.011Z",
+      "published_at": "2026-11-13T06:50:19.020Z",
+      "collected_at": "2026-11-13T06:50:19.020Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -33408,8 +33408,8 @@
     },
     "13575": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/3",
-      "published_at": "2026-11-12T17:38:03.782Z",
-      "collected_at": "2026-11-12T17:38:03.782Z",
+      "published_at": "2026-11-13T06:48:59.401Z",
+      "collected_at": "2026-11-13T06:48:59.401Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -33629,8 +33629,8 @@
     },
     "13582": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/2",
-      "published_at": "2026-11-12T17:37:44.487Z",
-      "collected_at": "2026-11-12T17:37:44.487Z",
+      "published_at": "2026-11-13T06:48:41.589Z",
+      "collected_at": "2026-11-13T06:48:41.589Z",
       "metrics": {
         "chigiri": {
           "events": 7,
@@ -33746,8 +33746,8 @@
     },
     "13587": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/4",
-      "published_at": "2026-11-12T17:38:12.233Z",
-      "collected_at": "2026-11-12T17:38:12.233Z",
+      "published_at": "2026-11-13T06:49:07.373Z",
+      "collected_at": "2026-11-13T06:49:07.373Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -33853,8 +33853,8 @@
     },
     "13588": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/3",
-      "published_at": "2026-11-12T17:37:55.252Z",
-      "collected_at": "2026-11-12T17:37:55.252Z",
+      "published_at": "2026-11-13T06:48:51.311Z",
+      "collected_at": "2026-11-13T06:48:51.311Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -33975,8 +33975,8 @@
     },
     "13595": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/6",
-      "published_at": "2026-11-12T17:38:42.250Z",
-      "collected_at": "2026-11-12T17:38:42.250Z",
+      "published_at": "2026-11-13T06:49:35.144Z",
+      "collected_at": "2026-11-13T06:49:35.144Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -34576,8 +34576,8 @@
     },
     "13616": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/5",
-      "published_at": "2026-11-12T17:38:33.624Z",
-      "collected_at": "2026-11-12T17:38:33.624Z",
+      "published_at": "2026-11-13T06:49:27.139Z",
+      "collected_at": "2026-11-13T06:49:27.139Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -35414,8 +35414,8 @@
     },
     "13645": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/7",
-      "published_at": "2026-11-12T17:39:03.250Z",
-      "collected_at": "2026-11-12T17:39:03.250Z",
+      "published_at": "2026-11-13T06:49:54.442Z",
+      "collected_at": "2026-11-13T06:49:54.442Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -36568,8 +36568,8 @@
     },
     "13673": {
       "source_url": "https://www.winticket.jp/keirin/fukui/racecard/2026111151/3/12",
-      "published_at": "2026-11-12T17:39:53.930Z",
-      "collected_at": "2026-11-12T17:39:53.930Z",
+      "published_at": "2026-11-13T06:50:42.450Z",
+      "collected_at": "2026-11-13T06:50:42.450Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -36920,8 +36920,8 @@
     },
     "13684": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/5",
-      "published_at": "2026-11-12T17:38:25.392Z",
-      "collected_at": "2026-11-12T17:38:25.392Z",
+      "published_at": "2026-11-13T06:49:19.252Z",
+      "collected_at": "2026-11-13T06:49:19.252Z",
       "metrics": {
         "chigiri": {
           "events": 6,
@@ -37041,8 +37041,8 @@
     },
     "13685": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/12",
-      "published_at": "2026-11-12T17:39:51.874Z",
-      "collected_at": "2026-11-12T17:39:51.874Z",
+      "published_at": "2026-11-13T06:50:40.609Z",
+      "collected_at": "2026-11-13T06:50:40.609Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -39537,8 +39537,8 @@
     },
     "13767": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/3",
-      "published_at": "2026-11-12T17:37:57.583Z",
-      "collected_at": "2026-11-12T17:37:57.583Z",
+      "published_at": "2026-11-13T06:48:53.535Z",
+      "collected_at": "2026-11-13T06:48:53.535Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -40022,8 +40022,8 @@
     },
     "13782": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/7",
-      "published_at": "2026-11-12T17:39:03.250Z",
-      "collected_at": "2026-11-12T17:39:03.250Z",
+      "published_at": "2026-11-13T06:49:54.442Z",
+      "collected_at": "2026-11-13T06:49:54.442Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -40238,8 +40238,8 @@
     },
     "13788": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/1",
-      "published_at": "2026-11-12T17:37:26.802Z",
-      "collected_at": "2026-11-12T17:37:26.802Z",
+      "published_at": "2026-11-13T06:48:25.749Z",
+      "collected_at": "2026-11-13T06:48:25.749Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -40817,8 +40817,8 @@
     },
     "13802": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/1",
-      "published_at": "2026-11-12T17:37:26.802Z",
-      "collected_at": "2026-11-12T17:37:26.802Z",
+      "published_at": "2026-11-13T06:48:25.749Z",
+      "collected_at": "2026-11-13T06:48:25.749Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -41395,8 +41395,8 @@
     },
     "13811": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/10",
-      "published_at": "2026-11-12T17:39:35.486Z",
-      "collected_at": "2026-11-12T17:39:35.486Z",
+      "published_at": "2026-11-13T06:50:24.851Z",
+      "collected_at": "2026-11-13T06:50:24.851Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -41837,8 +41837,8 @@
     },
     "13821": {
       "source_url": "https://www.winticket.jp/keirin/fukui/racecard/2026111151/3/12",
-      "published_at": "2026-11-12T17:39:53.930Z",
-      "collected_at": "2026-11-12T17:39:53.930Z",
+      "published_at": "2026-11-13T06:50:42.450Z",
+      "collected_at": "2026-11-13T06:50:42.450Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -43876,8 +43876,8 @@
     },
     "13890": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/9",
-      "published_at": "2026-11-12T17:39:24.858Z",
-      "collected_at": "2026-11-12T17:39:24.858Z",
+      "published_at": "2026-11-13T06:50:14.396Z",
+      "collected_at": "2026-11-13T06:50:14.396Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -43999,8 +43999,8 @@
     },
     "13895": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/5",
-      "published_at": "2026-11-12T17:38:27.487Z",
-      "collected_at": "2026-11-12T17:38:27.487Z",
+      "published_at": "2026-11-13T06:49:21.063Z",
+      "collected_at": "2026-11-13T06:49:21.063Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -44102,8 +44102,8 @@
     },
     "13899": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/7",
-      "published_at": "2026-11-12T17:38:54.993Z",
-      "collected_at": "2026-11-12T17:38:54.993Z",
+      "published_at": "2026-11-13T06:49:46.733Z",
+      "collected_at": "2026-11-13T06:49:46.733Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -44698,8 +44698,8 @@
     },
     "13907": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/8",
-      "published_at": "2026-11-12T17:39:09.958Z",
-      "collected_at": "2026-11-12T17:39:09.958Z",
+      "published_at": "2026-11-13T06:50:00.300Z",
+      "collected_at": "2026-11-13T06:50:00.300Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -44833,8 +44833,8 @@
     },
     "13908": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/2",
-      "published_at": "2026-11-12T17:37:49.006Z",
-      "collected_at": "2026-11-12T17:37:49.006Z",
+      "published_at": "2026-11-13T06:48:45.565Z",
+      "collected_at": "2026-11-13T06:48:45.565Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -44962,8 +44962,8 @@
     },
     "13910": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/6",
-      "published_at": "2026-11-12T17:38:48.455Z",
-      "collected_at": "2026-11-12T17:38:48.455Z",
+      "published_at": "2026-11-13T06:49:40.942Z",
+      "collected_at": "2026-11-13T06:49:40.942Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -45450,8 +45450,8 @@
     },
     "13916": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/7",
-      "published_at": "2026-11-12T17:38:54.993Z",
-      "collected_at": "2026-11-12T17:38:54.993Z",
+      "published_at": "2026-11-13T06:49:46.733Z",
+      "collected_at": "2026-11-13T06:49:46.733Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -45696,8 +45696,8 @@
     },
     "13923": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -45809,8 +45809,8 @@
     },
     "13925": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/4",
-      "published_at": "2026-11-12T17:38:18.463Z",
-      "collected_at": "2026-11-12T17:38:18.463Z",
+      "published_at": "2026-11-13T06:49:13.229Z",
+      "collected_at": "2026-11-13T06:49:13.229Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -45931,8 +45931,8 @@
     },
     "13926": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/2",
-      "published_at": "2026-11-12T17:37:40.284Z",
-      "collected_at": "2026-11-12T17:37:40.284Z",
+      "published_at": "2026-11-13T06:48:37.766Z",
+      "collected_at": "2026-11-13T06:48:37.766Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -46170,8 +46170,8 @@
     },
     "13942": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/6",
-      "published_at": "2026-11-12T17:38:48.455Z",
-      "collected_at": "2026-11-12T17:38:48.455Z",
+      "published_at": "2026-11-13T06:49:40.942Z",
+      "collected_at": "2026-11-13T06:49:40.942Z",
       "metrics": {
         "chigiri": {
           "events": 6,
@@ -46408,8 +46408,8 @@
     },
     "13945": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/6",
-      "published_at": "2026-11-12T17:38:44.376Z",
-      "collected_at": "2026-11-12T17:38:44.376Z",
+      "published_at": "2026-11-13T06:49:37.171Z",
+      "collected_at": "2026-11-13T06:49:37.171Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -46534,8 +46534,8 @@
     },
     "13947": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/11",
-      "published_at": "2026-11-12T17:39:45.840Z",
-      "collected_at": "2026-11-12T17:39:45.840Z",
+      "published_at": "2026-11-13T06:50:34.751Z",
+      "collected_at": "2026-11-13T06:50:34.751Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -46647,8 +46647,8 @@
     },
     "13951": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/5",
-      "published_at": "2026-11-12T17:38:27.487Z",
-      "collected_at": "2026-11-12T17:38:27.487Z",
+      "published_at": "2026-11-13T06:49:21.063Z",
+      "collected_at": "2026-11-13T06:49:21.063Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -46755,8 +46755,8 @@
     },
     "13952": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/3",
-      "published_at": "2026-11-12T17:38:03.782Z",
-      "collected_at": "2026-11-12T17:38:03.782Z",
+      "published_at": "2026-11-13T06:48:59.401Z",
+      "collected_at": "2026-11-13T06:48:59.401Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -46875,8 +46875,8 @@
     },
     "13953": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/2",
-      "published_at": "2026-11-12T17:37:44.487Z",
-      "collected_at": "2026-11-12T17:37:44.487Z",
+      "published_at": "2026-11-13T06:48:41.589Z",
+      "collected_at": "2026-11-13T06:48:41.589Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -47339,8 +47339,8 @@
     },
     "13971": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/6",
-      "published_at": "2026-11-12T17:38:40.083Z",
-      "collected_at": "2026-11-12T17:38:40.083Z",
+      "published_at": "2026-11-13T06:49:33.260Z",
+      "collected_at": "2026-11-13T06:49:33.260Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -48056,8 +48056,8 @@
     },
     "13985": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/9",
-      "published_at": "2026-11-12T17:39:22.727Z",
-      "collected_at": "2026-11-12T17:39:22.727Z",
+      "published_at": "2026-11-13T06:50:12.175Z",
+      "collected_at": "2026-11-13T06:50:12.175Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -48276,8 +48276,8 @@
     },
     "13989": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/4",
-      "published_at": "2026-11-12T17:38:18.463Z",
-      "collected_at": "2026-11-12T17:38:18.463Z",
+      "published_at": "2026-11-13T06:49:13.229Z",
+      "collected_at": "2026-11-13T06:49:13.229Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -48500,8 +48500,8 @@
     },
     "13993": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/11",
-      "published_at": "2026-11-12T17:39:45.840Z",
-      "collected_at": "2026-11-12T17:39:45.840Z",
+      "published_at": "2026-11-13T06:50:34.751Z",
+      "collected_at": "2026-11-13T06:50:34.751Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -48627,8 +48627,8 @@
     },
     "13994": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/9",
-      "published_at": "2026-11-12T17:39:22.727Z",
-      "collected_at": "2026-11-12T17:39:22.727Z",
+      "published_at": "2026-11-13T06:50:12.175Z",
+      "collected_at": "2026-11-13T06:50:12.175Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -49102,8 +49102,8 @@
     },
     "14008": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/6",
-      "published_at": "2026-11-12T17:38:40.083Z",
-      "collected_at": "2026-11-12T17:38:40.083Z",
+      "published_at": "2026-11-13T06:49:33.260Z",
+      "collected_at": "2026-11-13T06:49:33.260Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -49415,8 +49415,8 @@
     },
     "14014": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/2",
-      "published_at": "2026-11-12T17:37:40.284Z",
-      "collected_at": "2026-11-12T17:37:40.284Z",
+      "published_at": "2026-11-13T06:48:37.766Z",
+      "collected_at": "2026-11-13T06:48:37.766Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -49964,8 +49964,8 @@
     },
     "14021": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/2",
-      "published_at": "2026-11-12T17:37:49.006Z",
-      "collected_at": "2026-11-12T17:37:49.006Z",
+      "published_at": "2026-11-13T06:48:45.565Z",
+      "collected_at": "2026-11-13T06:48:45.565Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -51009,8 +51009,8 @@
     },
     "14045": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/12",
-      "published_at": "2026-11-12T17:39:51.874Z",
-      "collected_at": "2026-11-12T17:39:51.874Z",
+      "published_at": "2026-11-13T06:50:40.609Z",
+      "collected_at": "2026-11-13T06:50:40.609Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -52456,8 +52456,8 @@
     },
     "14067": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/4",
-      "published_at": "2026-11-12T17:38:10.153Z",
-      "collected_at": "2026-11-12T17:38:10.153Z",
+      "published_at": "2026-11-13T06:49:05.492Z",
+      "collected_at": "2026-11-13T06:49:05.492Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -52706,8 +52706,8 @@
     },
     "14070": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/4",
-      "published_at": "2026-11-12T17:38:18.463Z",
-      "collected_at": "2026-11-12T17:38:18.463Z",
+      "published_at": "2026-11-13T06:49:13.229Z",
+      "collected_at": "2026-11-13T06:49:13.229Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -53291,8 +53291,8 @@
     },
     "14081": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/9",
-      "published_at": "2026-11-12T17:39:27.013Z",
-      "collected_at": "2026-11-12T17:39:27.013Z",
+      "published_at": "2026-11-13T06:50:16.451Z",
+      "collected_at": "2026-11-13T06:50:16.451Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -54125,8 +54125,8 @@
     },
     "14093": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/8",
-      "published_at": "2026-11-12T17:39:12.091Z",
-      "collected_at": "2026-11-12T17:39:12.091Z",
+      "published_at": "2026-11-13T06:50:02.338Z",
+      "collected_at": "2026-11-13T06:50:02.338Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -54729,8 +54729,8 @@
     },
     "14105": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/12",
-      "published_at": "2026-11-12T17:39:51.874Z",
-      "collected_at": "2026-11-12T17:39:51.874Z",
+      "published_at": "2026-11-13T06:50:40.609Z",
+      "collected_at": "2026-11-13T06:50:40.609Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -55414,8 +55414,8 @@
     },
     "14116": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/7",
-      "published_at": "2026-11-12T17:38:57.087Z",
-      "collected_at": "2026-11-12T17:38:57.087Z",
+      "published_at": "2026-11-13T06:49:48.631Z",
+      "collected_at": "2026-11-13T06:49:48.631Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -55849,8 +55849,8 @@
     },
     "14124": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/5",
-      "published_at": "2026-11-12T17:38:25.392Z",
-      "collected_at": "2026-11-12T17:38:25.392Z",
+      "published_at": "2026-11-13T06:49:19.252Z",
+      "collected_at": "2026-11-13T06:49:19.252Z",
       "metrics": {
         "tsuppari": {
           "events": 1,
@@ -55970,8 +55970,8 @@
     },
     "14125": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/4",
-      "published_at": "2026-11-12T17:38:14.249Z",
-      "collected_at": "2026-11-12T17:38:14.249Z",
+      "published_at": "2026-11-13T06:49:09.338Z",
+      "collected_at": "2026-11-13T06:49:09.338Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -56557,8 +56557,8 @@
     },
     "14135": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/7",
-      "published_at": "2026-11-12T17:39:03.250Z",
-      "collected_at": "2026-11-12T17:39:03.250Z",
+      "published_at": "2026-11-13T06:49:54.442Z",
+      "collected_at": "2026-11-13T06:49:54.442Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -57228,8 +57228,8 @@
     },
     "14145": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/4",
-      "published_at": "2026-11-12T17:38:14.249Z",
-      "collected_at": "2026-11-12T17:38:14.249Z",
+      "published_at": "2026-11-13T06:49:09.338Z",
+      "collected_at": "2026-11-13T06:49:09.338Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -57486,8 +57486,8 @@
     },
     "14148": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/12",
-      "published_at": "2026-11-12T17:39:51.874Z",
-      "collected_at": "2026-11-12T17:39:51.874Z",
+      "published_at": "2026-11-13T06:50:40.609Z",
+      "collected_at": "2026-11-13T06:50:40.609Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -60250,8 +60250,8 @@
     },
     "14195": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/8",
-      "published_at": "2026-11-12T17:39:09.958Z",
-      "collected_at": "2026-11-12T17:39:09.958Z",
+      "published_at": "2026-11-13T06:50:00.300Z",
+      "collected_at": "2026-11-13T06:50:00.300Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -61901,8 +61901,8 @@
     },
     "14227": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/3",
-      "published_at": "2026-11-12T17:37:59.608Z",
-      "collected_at": "2026-11-12T17:37:59.608Z",
+      "published_at": "2026-11-13T06:48:55.428Z",
+      "collected_at": "2026-11-13T06:48:55.428Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -63211,8 +63211,8 @@
     },
     "14248": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/9",
-      "published_at": "2026-11-12T17:39:27.013Z",
-      "collected_at": "2026-11-12T17:39:27.013Z",
+      "published_at": "2026-11-13T06:50:16.451Z",
+      "collected_at": "2026-11-13T06:50:16.451Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -63351,8 +63351,8 @@
     },
     "14249": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/8",
-      "published_at": "2026-11-12T17:39:14.273Z",
-      "collected_at": "2026-11-12T17:39:14.273Z",
+      "published_at": "2026-11-13T06:50:04.382Z",
+      "collected_at": "2026-11-13T06:50:04.382Z",
       "metrics": {
         "chigiri": {
           "events": 7,
@@ -64064,8 +64064,8 @@
     },
     "14261": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/4",
-      "published_at": "2026-11-12T17:38:10.153Z",
-      "collected_at": "2026-11-12T17:38:10.153Z",
+      "published_at": "2026-11-13T06:49:05.492Z",
+      "collected_at": "2026-11-13T06:49:05.492Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -64766,8 +64766,8 @@
     },
     "14268": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/7",
-      "published_at": "2026-11-12T17:38:59.182Z",
-      "collected_at": "2026-11-12T17:38:59.182Z",
+      "published_at": "2026-11-13T06:49:50.635Z",
+      "collected_at": "2026-11-13T06:49:50.635Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -65942,8 +65942,8 @@
     },
     "14303": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/4",
-      "published_at": "2026-11-12T17:38:18.463Z",
-      "collected_at": "2026-11-12T17:38:18.463Z",
+      "published_at": "2026-11-13T06:49:13.229Z",
+      "collected_at": "2026-11-13T06:49:13.229Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -66062,8 +66062,8 @@
     },
     "14304": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/3",
-      "published_at": "2026-11-12T17:37:59.608Z",
-      "collected_at": "2026-11-12T17:37:59.608Z",
+      "published_at": "2026-11-13T06:48:55.428Z",
+      "collected_at": "2026-11-13T06:48:55.428Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -66770,8 +66770,8 @@
     },
     "14314": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/6",
-      "published_at": "2026-11-12T17:38:42.250Z",
-      "collected_at": "2026-11-12T17:38:42.250Z",
+      "published_at": "2026-11-13T06:49:35.144Z",
+      "collected_at": "2026-11-13T06:49:35.144Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -67273,8 +67273,8 @@
     },
     "14319": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/2",
-      "published_at": "2026-11-12T17:37:42.488Z",
-      "collected_at": "2026-11-12T17:37:42.488Z",
+      "published_at": "2026-11-13T06:48:39.705Z",
+      "collected_at": "2026-11-13T06:48:39.705Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -67501,8 +67501,8 @@
     },
     "14321": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/3",
-      "published_at": "2026-11-12T17:37:59.608Z",
-      "collected_at": "2026-11-12T17:37:59.608Z",
+      "published_at": "2026-11-13T06:48:55.428Z",
+      "collected_at": "2026-11-13T06:48:55.428Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -68235,8 +68235,8 @@
     },
     "14333": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/9",
-      "published_at": "2026-11-12T17:39:24.858Z",
-      "collected_at": "2026-11-12T17:39:24.858Z",
+      "published_at": "2026-11-13T06:50:14.396Z",
+      "collected_at": "2026-11-13T06:50:14.396Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -68924,8 +68924,8 @@
     },
     "14344": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/10",
-      "published_at": "2026-11-12T17:39:35.486Z",
-      "collected_at": "2026-11-12T17:39:35.486Z",
+      "published_at": "2026-11-13T06:50:24.851Z",
+      "collected_at": "2026-11-13T06:50:24.851Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -70434,8 +70434,8 @@
     },
     "14374": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/5",
-      "published_at": "2026-11-12T17:38:27.487Z",
-      "collected_at": "2026-11-12T17:38:27.487Z",
+      "published_at": "2026-11-13T06:49:21.063Z",
+      "collected_at": "2026-11-13T06:49:21.063Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -71057,8 +71057,8 @@
     },
     "14388": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/1",
-      "published_at": "2026-11-12T17:37:24.475Z",
-      "collected_at": "2026-11-12T17:37:24.475Z",
+      "published_at": "2026-11-13T06:48:23.656Z",
+      "collected_at": "2026-11-13T06:48:23.656Z",
       "metrics": {
         "chigiri": {
           "events": 5,
@@ -71554,8 +71554,8 @@
     },
     "14394": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "tsuppari": {
           "events": 0,
@@ -72155,8 +72155,8 @@
     },
     "14403": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/1",
-      "published_at": "2026-11-12T17:37:28.898Z",
-      "collected_at": "2026-11-12T17:37:28.898Z",
+      "published_at": "2026-11-13T06:48:28.355Z",
+      "collected_at": "2026-11-13T06:48:28.355Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -72411,8 +72411,8 @@
     },
     "14408": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/10",
-      "published_at": "2026-11-12T17:39:35.486Z",
-      "collected_at": "2026-11-12T17:39:35.486Z",
+      "published_at": "2026-11-13T06:50:24.851Z",
+      "collected_at": "2026-11-13T06:50:24.851Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -73863,8 +73863,8 @@
     },
     "14434": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/3",
-      "published_at": "2026-11-12T17:37:55.252Z",
-      "collected_at": "2026-11-12T17:37:55.252Z",
+      "published_at": "2026-11-13T06:48:51.311Z",
+      "collected_at": "2026-11-13T06:48:51.311Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -74691,8 +74691,8 @@
     },
     "14455": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/5",
-      "published_at": "2026-11-12T17:38:33.624Z",
-      "collected_at": "2026-11-12T17:38:33.624Z",
+      "published_at": "2026-11-13T06:49:27.139Z",
+      "collected_at": "2026-11-13T06:49:27.139Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -75145,8 +75145,8 @@
     },
     "14460": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/5",
-      "published_at": "2026-11-12T17:38:33.624Z",
-      "collected_at": "2026-11-12T17:38:33.624Z",
+      "published_at": "2026-11-13T06:49:27.139Z",
+      "collected_at": "2026-11-13T06:49:27.139Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -75512,8 +75512,8 @@
     },
     "14463": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/2",
-      "published_at": "2026-11-12T17:37:40.284Z",
-      "collected_at": "2026-11-12T17:37:40.284Z",
+      "published_at": "2026-11-13T06:48:37.766Z",
+      "collected_at": "2026-11-13T06:48:37.766Z",
       "metrics": {},
       "contextual": {
         "position": {
@@ -76594,8 +76594,8 @@
     },
     "14479": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/2",
-      "published_at": "2026-11-12T17:37:49.006Z",
-      "collected_at": "2026-11-12T17:37:49.006Z",
+      "published_at": "2026-11-13T06:48:45.565Z",
+      "collected_at": "2026-11-13T06:48:45.565Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -76950,8 +76950,8 @@
     },
     "14486": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/7",
-      "published_at": "2026-11-12T17:38:57.087Z",
-      "collected_at": "2026-11-12T17:38:57.087Z",
+      "published_at": "2026-11-13T06:49:48.631Z",
+      "collected_at": "2026-11-13T06:49:48.631Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -77206,8 +77206,8 @@
     },
     "14492": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/8",
-      "published_at": "2026-11-12T17:39:09.958Z",
-      "collected_at": "2026-11-12T17:39:09.958Z",
+      "published_at": "2026-11-13T06:50:00.300Z",
+      "collected_at": "2026-11-13T06:50:00.300Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -77891,8 +77891,8 @@
     },
     "14505": {
       "source_url": "https://www.winticket.jp/keirin/fukui/racecard/2026111151/3/12",
-      "published_at": "2026-11-12T17:39:53.930Z",
-      "collected_at": "2026-11-12T17:39:53.930Z",
+      "published_at": "2026-11-13T06:50:42.450Z",
+      "collected_at": "2026-11-13T06:50:42.450Z",
       "metrics": {
         "tsuppari": {
           "events": 1,
@@ -79053,8 +79053,8 @@
     },
     "14537": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/9",
-      "published_at": "2026-11-12T17:39:27.013Z",
-      "collected_at": "2026-11-12T17:39:27.013Z",
+      "published_at": "2026-11-13T06:50:16.451Z",
+      "collected_at": "2026-11-13T06:50:16.451Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -79175,8 +79175,8 @@
     },
     "14550": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/8",
-      "published_at": "2026-11-12T17:39:12.091Z",
-      "collected_at": "2026-11-12T17:39:12.091Z",
+      "published_at": "2026-11-13T06:50:02.338Z",
+      "collected_at": "2026-11-13T06:50:02.338Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -79414,8 +79414,8 @@
     },
     "14555": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/1",
-      "published_at": "2026-11-12T17:37:24.475Z",
-      "collected_at": "2026-11-12T17:37:24.475Z",
+      "published_at": "2026-11-13T06:48:23.656Z",
+      "collected_at": "2026-11-13T06:48:23.656Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -79634,8 +79634,8 @@
     },
     "14559": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/8",
-      "published_at": "2026-11-12T17:39:12.091Z",
-      "collected_at": "2026-11-12T17:39:12.091Z",
+      "published_at": "2026-11-13T06:50:02.338Z",
+      "collected_at": "2026-11-13T06:50:02.338Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -80950,8 +80950,8 @@
     },
     "14582": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/7",
-      "published_at": "2026-11-12T17:38:59.182Z",
-      "collected_at": "2026-11-12T17:38:59.182Z",
+      "published_at": "2026-11-13T06:49:50.635Z",
+      "collected_at": "2026-11-13T06:49:50.635Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -81516,8 +81516,8 @@
     },
     "14591": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/1",
-      "published_at": "2026-11-12T17:37:28.898Z",
-      "collected_at": "2026-11-12T17:37:28.898Z",
+      "published_at": "2026-11-13T06:48:28.355Z",
+      "collected_at": "2026-11-13T06:48:28.355Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -84145,8 +84145,8 @@
     },
     "14651": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/4",
-      "published_at": "2026-11-12T17:38:14.249Z",
-      "collected_at": "2026-11-12T17:38:14.249Z",
+      "published_at": "2026-11-13T06:49:09.338Z",
+      "collected_at": "2026-11-13T06:49:09.338Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -84271,8 +84271,8 @@
     },
     "14652": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/3",
-      "published_at": "2026-11-12T17:37:57.583Z",
-      "collected_at": "2026-11-12T17:37:57.583Z",
+      "published_at": "2026-11-13T06:48:53.535Z",
+      "collected_at": "2026-11-13T06:48:53.535Z",
       "metrics": {
         "tsuppari": {
           "events": 0,
@@ -84896,8 +84896,8 @@
     },
     "14671": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/9",
-      "published_at": "2026-11-12T17:39:29.011Z",
-      "collected_at": "2026-11-12T17:39:29.011Z",
+      "published_at": "2026-11-13T06:50:19.020Z",
+      "collected_at": "2026-11-13T06:50:19.020Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -85572,8 +85572,8 @@
     },
     "14684": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/2",
-      "published_at": "2026-11-12T17:37:44.487Z",
-      "collected_at": "2026-11-12T17:37:44.487Z",
+      "published_at": "2026-11-13T06:48:41.589Z",
+      "collected_at": "2026-11-13T06:48:41.589Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -86070,8 +86070,8 @@
     },
     "14692": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "kamashi": {
           "events": 8,
@@ -86201,8 +86201,8 @@
     },
     "14693": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/3",
-      "published_at": "2026-11-12T17:37:55.252Z",
-      "collected_at": "2026-11-12T17:37:55.252Z",
+      "published_at": "2026-11-13T06:48:51.311Z",
+      "collected_at": "2026-11-13T06:48:51.311Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -86538,8 +86538,8 @@
     },
     "14700": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/8",
-      "published_at": "2026-11-12T17:39:14.273Z",
-      "collected_at": "2026-11-12T17:39:14.273Z",
+      "published_at": "2026-11-13T06:50:04.382Z",
+      "collected_at": "2026-11-13T06:50:04.382Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -87926,8 +87926,8 @@
     },
     "14732": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/2",
-      "published_at": "2026-11-12T17:37:49.006Z",
-      "collected_at": "2026-11-12T17:37:49.006Z",
+      "published_at": "2026-11-13T06:48:45.565Z",
+      "collected_at": "2026-11-13T06:48:45.565Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -88165,8 +88165,8 @@
     },
     "14739": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/4",
-      "published_at": "2026-11-12T17:38:10.153Z",
-      "collected_at": "2026-11-12T17:38:10.153Z",
+      "published_at": "2026-11-13T06:49:05.492Z",
+      "collected_at": "2026-11-13T06:49:05.492Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -88552,8 +88552,8 @@
     },
     "14749": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/5",
-      "published_at": "2026-11-12T17:38:27.487Z",
-      "collected_at": "2026-11-12T17:38:27.487Z",
+      "published_at": "2026-11-13T06:49:21.063Z",
+      "collected_at": "2026-11-13T06:49:21.063Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -88804,8 +88804,8 @@
     },
     "14754": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/8",
-      "published_at": "2026-11-12T17:39:14.273Z",
-      "collected_at": "2026-11-12T17:39:14.273Z",
+      "published_at": "2026-11-13T06:50:04.382Z",
+      "collected_at": "2026-11-13T06:50:04.382Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -88916,8 +88916,8 @@
     },
     "14757": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/8",
-      "published_at": "2026-11-12T17:39:14.273Z",
-      "collected_at": "2026-11-12T17:39:14.273Z",
+      "published_at": "2026-11-13T06:50:04.382Z",
+      "collected_at": "2026-11-13T06:50:04.382Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -89556,8 +89556,8 @@
     },
     "14782": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/6",
-      "published_at": "2026-11-12T17:38:42.250Z",
-      "collected_at": "2026-11-12T17:38:42.250Z",
+      "published_at": "2026-11-13T06:49:35.144Z",
+      "collected_at": "2026-11-13T06:49:35.144Z",
       "metrics": {
         "tsuppari": {
           "events": 1,
@@ -89914,8 +89914,8 @@
     },
     "14789": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/11",
-      "published_at": "2026-11-12T17:39:43.887Z",
-      "collected_at": "2026-11-12T17:39:43.887Z",
+      "published_at": "2026-11-13T06:50:32.695Z",
+      "collected_at": "2026-11-13T06:50:32.695Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -90641,8 +90641,8 @@
     },
     "14801": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/2",
-      "published_at": "2026-11-12T17:37:49.006Z",
-      "collected_at": "2026-11-12T17:37:49.006Z",
+      "published_at": "2026-11-13T06:48:45.565Z",
+      "collected_at": "2026-11-13T06:48:45.565Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -91470,8 +91470,8 @@
     },
     "14810": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/2",
-      "published_at": "2026-11-12T17:37:40.284Z",
-      "collected_at": "2026-11-12T17:37:40.284Z",
+      "published_at": "2026-11-13T06:48:37.766Z",
+      "collected_at": "2026-11-13T06:48:37.766Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -92209,8 +92209,8 @@
     },
     "14820": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/3",
-      "published_at": "2026-11-12T17:37:59.608Z",
-      "collected_at": "2026-11-12T17:37:59.608Z",
+      "published_at": "2026-11-13T06:48:55.428Z",
+      "collected_at": "2026-11-13T06:48:55.428Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -92814,8 +92814,8 @@
     },
     "14831": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -93860,8 +93860,8 @@
     },
     "14842": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/3",
-      "published_at": "2026-11-12T17:37:57.583Z",
-      "collected_at": "2026-11-12T17:37:57.583Z",
+      "published_at": "2026-11-13T06:48:53.535Z",
+      "collected_at": "2026-11-13T06:48:53.535Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -94226,8 +94226,8 @@
     },
     "14849": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/9",
-      "published_at": "2026-11-12T17:39:22.727Z",
-      "collected_at": "2026-11-12T17:39:22.727Z",
+      "published_at": "2026-11-13T06:50:12.175Z",
+      "collected_at": "2026-11-13T06:50:12.175Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -94478,8 +94478,8 @@
     },
     "14851": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/8",
-      "published_at": "2026-11-12T17:39:09.958Z",
-      "collected_at": "2026-11-12T17:39:09.958Z",
+      "published_at": "2026-11-13T06:50:00.300Z",
+      "collected_at": "2026-11-13T06:50:00.300Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -94716,8 +94716,8 @@
     },
     "14854": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -94828,8 +94828,8 @@
     },
     "14859": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/11",
-      "published_at": "2026-11-12T17:39:43.887Z",
-      "collected_at": "2026-11-12T17:39:43.887Z",
+      "published_at": "2026-11-13T06:50:32.695Z",
+      "collected_at": "2026-11-13T06:50:32.695Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -95202,8 +95202,8 @@
     },
     "14862": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/4",
-      "published_at": "2026-11-12T17:38:14.249Z",
-      "collected_at": "2026-11-12T17:38:14.249Z",
+      "published_at": "2026-11-13T06:49:09.338Z",
+      "collected_at": "2026-11-13T06:49:09.338Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -96025,8 +96025,8 @@
     },
     "14885": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/8",
-      "published_at": "2026-11-12T17:39:12.091Z",
-      "collected_at": "2026-11-12T17:39:12.091Z",
+      "published_at": "2026-11-13T06:50:02.338Z",
+      "collected_at": "2026-11-13T06:50:02.338Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -97169,8 +97169,8 @@
     },
     "14932": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/1",
-      "published_at": "2026-11-12T17:37:24.475Z",
-      "collected_at": "2026-11-12T17:37:24.475Z",
+      "published_at": "2026-11-13T06:48:23.656Z",
+      "collected_at": "2026-11-13T06:48:23.656Z",
       "metrics": {
         "chigiri": {
           "events": 4,
@@ -97613,8 +97613,8 @@
     },
     "14939": {
       "source_url": "https://www.winticket.jp/keirin/fukui/racecard/2026111151/3/12",
-      "published_at": "2026-11-12T17:39:53.930Z",
-      "collected_at": "2026-11-12T17:39:53.930Z",
+      "published_at": "2026-11-13T06:50:42.450Z",
+      "collected_at": "2026-11-13T06:50:42.450Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -98466,8 +98466,8 @@
     },
     "14949": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/9",
-      "published_at": "2026-11-12T17:39:24.858Z",
-      "collected_at": "2026-11-12T17:39:24.858Z",
+      "published_at": "2026-11-13T06:50:14.396Z",
+      "collected_at": "2026-11-13T06:50:14.396Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -100035,8 +100035,8 @@
     },
     "14981": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/11",
-      "published_at": "2026-11-12T17:39:45.840Z",
-      "collected_at": "2026-11-12T17:39:45.840Z",
+      "published_at": "2026-11-13T06:50:34.751Z",
+      "collected_at": "2026-11-13T06:50:34.751Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -100526,8 +100526,8 @@
     },
     "14993": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/3",
-      "published_at": "2026-11-12T17:38:03.782Z",
-      "collected_at": "2026-11-12T17:38:03.782Z",
+      "published_at": "2026-11-13T06:48:59.401Z",
+      "collected_at": "2026-11-13T06:48:59.401Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -100988,8 +100988,8 @@
     },
     "14999": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/11",
-      "published_at": "2026-11-12T17:39:45.840Z",
-      "collected_at": "2026-11-12T17:39:45.840Z",
+      "published_at": "2026-11-13T06:50:34.751Z",
+      "collected_at": "2026-11-13T06:50:34.751Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -101230,8 +101230,8 @@
     },
     "15002": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/9",
-      "published_at": "2026-11-12T17:39:27.013Z",
-      "collected_at": "2026-11-12T17:39:27.013Z",
+      "published_at": "2026-11-13T06:50:16.451Z",
+      "collected_at": "2026-11-13T06:50:16.451Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -101702,8 +101702,8 @@
     },
     "15010": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/9",
-      "published_at": "2026-11-12T17:39:22.727Z",
-      "collected_at": "2026-11-12T17:39:22.727Z",
+      "published_at": "2026-11-13T06:50:12.175Z",
+      "collected_at": "2026-11-13T06:50:12.175Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -101949,8 +101949,8 @@
     },
     "15012": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/7",
-      "published_at": "2026-11-12T17:38:54.993Z",
-      "collected_at": "2026-11-12T17:38:54.993Z",
+      "published_at": "2026-11-13T06:49:46.733Z",
+      "collected_at": "2026-11-13T06:49:46.733Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -102168,8 +102168,8 @@
     },
     "15015": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/9",
-      "published_at": "2026-11-12T17:39:22.727Z",
-      "collected_at": "2026-11-12T17:39:22.727Z",
+      "published_at": "2026-11-13T06:50:12.175Z",
+      "collected_at": "2026-11-13T06:50:12.175Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -102389,8 +102389,8 @@
     },
     "15018": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/10",
-      "published_at": "2026-11-12T17:39:37.665Z",
-      "collected_at": "2026-11-12T17:39:37.665Z",
+      "published_at": "2026-11-13T06:50:26.928Z",
+      "collected_at": "2026-11-13T06:50:26.928Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -102475,8 +102475,8 @@
     },
     "15023": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/10",
-      "published_at": "2026-11-12T17:39:37.665Z",
-      "collected_at": "2026-11-12T17:39:37.665Z",
+      "published_at": "2026-11-13T06:50:26.928Z",
+      "collected_at": "2026-11-13T06:50:26.928Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -103422,8 +103422,8 @@
     },
     "15050": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -103781,8 +103781,8 @@
     },
     "15060": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/11",
-      "published_at": "2026-11-12T17:39:43.887Z",
-      "collected_at": "2026-11-12T17:39:43.887Z",
+      "published_at": "2026-11-13T06:50:32.695Z",
+      "collected_at": "2026-11-13T06:50:32.695Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -103907,8 +103907,8 @@
     },
     "15062": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/3",
-      "published_at": "2026-11-12T17:37:55.252Z",
-      "collected_at": "2026-11-12T17:37:55.252Z",
+      "published_at": "2026-11-13T06:48:51.311Z",
+      "collected_at": "2026-11-13T06:48:51.311Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -104251,8 +104251,8 @@
     },
     "15071": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/5",
-      "published_at": "2026-11-12T17:38:29.537Z",
-      "collected_at": "2026-11-12T17:38:29.537Z",
+      "published_at": "2026-11-13T06:49:23.299Z",
+      "collected_at": "2026-11-13T06:49:23.299Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -105190,8 +105190,8 @@
     },
     "15090": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -105307,8 +105307,8 @@
     },
     "15091": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/1",
-      "published_at": "2026-11-12T17:37:28.898Z",
-      "collected_at": "2026-11-12T17:37:28.898Z",
+      "published_at": "2026-11-13T06:48:28.355Z",
+      "collected_at": "2026-11-13T06:48:28.355Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -105674,8 +105674,8 @@
     },
     "15097": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -105782,8 +105782,8 @@
     },
     "15099": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/6",
-      "published_at": "2026-11-12T17:38:40.083Z",
-      "collected_at": "2026-11-12T17:38:40.083Z",
+      "published_at": "2026-11-13T06:49:33.260Z",
+      "collected_at": "2026-11-13T06:49:33.260Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -106611,8 +106611,8 @@
     },
     "15109": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/4",
-      "published_at": "2026-11-12T17:38:18.463Z",
-      "collected_at": "2026-11-12T17:38:18.463Z",
+      "published_at": "2026-11-13T06:49:13.229Z",
+      "collected_at": "2026-11-13T06:49:13.229Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -108190,8 +108190,8 @@
     },
     "15135": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/1",
-      "published_at": "2026-11-12T17:37:33.571Z",
-      "collected_at": "2026-11-12T17:37:33.571Z",
+      "published_at": "2026-11-13T06:48:32.120Z",
+      "collected_at": "2026-11-13T06:48:32.120Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -109103,8 +109103,8 @@
     },
     "15159": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/7",
-      "published_at": "2026-11-12T17:38:54.993Z",
-      "collected_at": "2026-11-12T17:38:54.993Z",
+      "published_at": "2026-11-13T06:49:46.733Z",
+      "collected_at": "2026-11-13T06:49:46.733Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -109355,8 +109355,8 @@
     },
     "15162": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/9",
-      "published_at": "2026-11-12T17:39:22.727Z",
-      "collected_at": "2026-11-12T17:39:22.727Z",
+      "published_at": "2026-11-13T06:50:12.175Z",
+      "collected_at": "2026-11-13T06:50:12.175Z",
       "metrics": {
         "kamashi": {
           "events": 7,
@@ -109485,8 +109485,8 @@
     },
     "15163": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/6",
-      "published_at": "2026-11-12T17:38:48.455Z",
-      "collected_at": "2026-11-12T17:38:48.455Z",
+      "published_at": "2026-11-13T06:49:40.942Z",
+      "collected_at": "2026-11-13T06:49:40.942Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -110547,8 +110547,8 @@
     },
     "15177": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/3",
-      "published_at": "2026-11-12T17:37:57.583Z",
-      "collected_at": "2026-11-12T17:37:57.583Z",
+      "published_at": "2026-11-13T06:48:53.535Z",
+      "collected_at": "2026-11-13T06:48:53.535Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -110676,8 +110676,8 @@
     },
     "15178": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/8",
-      "published_at": "2026-11-12T17:39:14.273Z",
-      "collected_at": "2026-11-12T17:39:14.273Z",
+      "published_at": "2026-11-13T06:50:04.382Z",
+      "collected_at": "2026-11-13T06:50:04.382Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -110934,8 +110934,8 @@
     },
     "15183": {
       "source_url": "https://www.winticket.jp/keirin/fukui/racecard/2026111151/3/12",
-      "published_at": "2026-11-12T17:39:53.930Z",
-      "collected_at": "2026-11-12T17:39:53.930Z",
+      "published_at": "2026-11-13T06:50:42.450Z",
+      "collected_at": "2026-11-13T06:50:42.450Z",
       "metrics": {
         "kamashi": {
           "events": 6,
@@ -111414,8 +111414,8 @@
     },
     "15191": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/6",
-      "published_at": "2026-11-12T17:38:44.376Z",
-      "collected_at": "2026-11-12T17:38:44.376Z",
+      "published_at": "2026-11-13T06:49:37.171Z",
+      "collected_at": "2026-11-13T06:49:37.171Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -112196,8 +112196,8 @@
     },
     "15198": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/9",
-      "published_at": "2026-11-12T17:39:27.013Z",
-      "collected_at": "2026-11-12T17:39:27.013Z",
+      "published_at": "2026-11-13T06:50:16.451Z",
+      "collected_at": "2026-11-13T06:50:16.451Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -112311,8 +112311,8 @@
     },
     "15200": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/6",
-      "published_at": "2026-11-12T17:38:40.083Z",
-      "collected_at": "2026-11-12T17:38:40.083Z",
+      "published_at": "2026-11-13T06:49:33.260Z",
+      "collected_at": "2026-11-13T06:49:33.260Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -112442,8 +112442,8 @@
     },
     "15201": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/6",
-      "published_at": "2026-11-12T17:38:44.376Z",
-      "collected_at": "2026-11-12T17:38:44.376Z",
+      "published_at": "2026-11-13T06:49:37.171Z",
+      "collected_at": "2026-11-13T06:49:37.171Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -112568,8 +112568,8 @@
     },
     "15202": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/7",
-      "published_at": "2026-11-12T17:38:57.087Z",
-      "collected_at": "2026-11-12T17:38:57.087Z",
+      "published_at": "2026-11-13T06:49:48.631Z",
+      "collected_at": "2026-11-13T06:49:48.631Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -112707,8 +112707,8 @@
     },
     "15204": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/10",
-      "published_at": "2026-11-12T17:39:35.486Z",
-      "collected_at": "2026-11-12T17:39:35.486Z",
+      "published_at": "2026-11-13T06:50:24.851Z",
+      "collected_at": "2026-11-13T06:50:24.851Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -112838,8 +112838,8 @@
     },
     "15205": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/7",
-      "published_at": "2026-11-12T17:38:59.182Z",
-      "collected_at": "2026-11-12T17:38:59.182Z",
+      "published_at": "2026-11-13T06:49:50.635Z",
+      "collected_at": "2026-11-13T06:49:50.635Z",
       "metrics": {
         "chigiri": {
           "events": 1,
@@ -114375,8 +114375,8 @@
     },
     "15230": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/8",
-      "published_at": "2026-11-12T17:39:16.177Z",
-      "collected_at": "2026-11-12T17:39:16.177Z",
+      "published_at": "2026-11-13T06:50:06.281Z",
+      "collected_at": "2026-11-13T06:50:06.281Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -115181,8 +115181,8 @@
     },
     "15250": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/8",
-      "published_at": "2026-11-12T17:39:14.273Z",
-      "collected_at": "2026-11-12T17:39:14.273Z",
+      "published_at": "2026-11-13T06:50:04.382Z",
+      "collected_at": "2026-11-13T06:50:04.382Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -115541,8 +115541,8 @@
     },
     "15255": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/6",
-      "published_at": "2026-11-12T17:38:48.455Z",
-      "collected_at": "2026-11-12T17:38:48.455Z",
+      "published_at": "2026-11-13T06:49:40.942Z",
+      "collected_at": "2026-11-13T06:49:40.942Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -116437,8 +116437,8 @@
     },
     "15269": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/9",
-      "published_at": "2026-11-12T17:39:27.013Z",
-      "collected_at": "2026-11-12T17:39:27.013Z",
+      "published_at": "2026-11-13T06:50:16.451Z",
+      "collected_at": "2026-11-13T06:50:16.451Z",
       "metrics": {
         "chigiri": {
           "events": 3,
@@ -116792,8 +116792,8 @@
     },
     "15278": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/9",
-      "published_at": "2026-11-12T17:39:24.858Z",
-      "collected_at": "2026-11-12T17:39:24.858Z",
+      "published_at": "2026-11-13T06:50:14.396Z",
+      "collected_at": "2026-11-13T06:50:14.396Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -116926,8 +116926,8 @@
     },
     "15279": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/1",
-      "published_at": "2026-11-12T17:37:28.898Z",
-      "collected_at": "2026-11-12T17:37:28.898Z",
+      "published_at": "2026-11-13T06:48:28.355Z",
+      "collected_at": "2026-11-13T06:48:28.355Z",
       "metrics": {
         "kamashi": {
           "events": 7,
@@ -117557,8 +117557,8 @@
     },
     "15285": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/11",
-      "published_at": "2026-11-12T17:39:45.840Z",
-      "collected_at": "2026-11-12T17:39:45.840Z",
+      "published_at": "2026-11-13T06:50:34.751Z",
+      "collected_at": "2026-11-13T06:50:34.751Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -117679,8 +117679,8 @@
     },
     "15286": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/2",
-      "published_at": "2026-11-12T17:37:40.284Z",
-      "collected_at": "2026-11-12T17:37:40.284Z",
+      "published_at": "2026-11-13T06:48:37.766Z",
+      "collected_at": "2026-11-13T06:48:37.766Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -117919,8 +117919,8 @@
     },
     "15290": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/1",
-      "published_at": "2026-11-12T17:37:24.475Z",
-      "collected_at": "2026-11-12T17:37:24.475Z",
+      "published_at": "2026-11-13T06:48:23.656Z",
+      "collected_at": "2026-11-13T06:48:23.656Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -118270,8 +118270,8 @@
     },
     "15299": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/4",
-      "published_at": "2026-11-12T17:38:14.249Z",
-      "collected_at": "2026-11-12T17:38:14.249Z",
+      "published_at": "2026-11-13T06:49:09.338Z",
+      "collected_at": "2026-11-13T06:49:09.338Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -118480,8 +118480,8 @@
     },
     "15308": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/8",
-      "published_at": "2026-11-12T17:39:16.177Z",
-      "collected_at": "2026-11-12T17:39:16.177Z",
+      "published_at": "2026-11-13T06:50:06.281Z",
+      "collected_at": "2026-11-13T06:50:06.281Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -119009,8 +119009,8 @@
     },
     "15324": {
       "source_url": "https://www.winticket.jp/keirin/tachikawa/racecard/2026111228/2/12",
-      "published_at": "2026-11-12T17:39:56.124Z",
-      "collected_at": "2026-11-12T17:39:56.124Z",
+      "published_at": "2026-11-13T06:50:44.382Z",
+      "collected_at": "2026-11-13T06:50:44.382Z",
       "metrics": {
         "kamashi": {
           "events": 7,
@@ -119124,8 +119124,8 @@
     },
     "15325": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/7",
-      "published_at": "2026-11-12T17:38:59.182Z",
-      "collected_at": "2026-11-12T17:38:59.182Z",
+      "published_at": "2026-11-13T06:49:50.635Z",
+      "collected_at": "2026-11-13T06:49:50.635Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -120416,8 +120416,8 @@
     },
     "15344": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/9",
-      "published_at": "2026-11-12T17:39:29.011Z",
-      "collected_at": "2026-11-12T17:39:29.011Z",
+      "published_at": "2026-11-13T06:50:19.020Z",
+      "collected_at": "2026-11-13T06:50:19.020Z",
       "metrics": {
         "tsuppari": {
           "events": 2,
@@ -120541,8 +120541,8 @@
     },
     "15345": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/9",
-      "published_at": "2026-11-12T17:39:22.727Z",
-      "collected_at": "2026-11-12T17:39:22.727Z",
+      "published_at": "2026-11-13T06:50:12.175Z",
+      "collected_at": "2026-11-13T06:50:12.175Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -120778,8 +120778,8 @@
     },
     "15348": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/11",
-      "published_at": "2026-11-12T17:39:43.887Z",
-      "collected_at": "2026-11-12T17:39:43.887Z",
+      "published_at": "2026-11-13T06:50:32.695Z",
+      "collected_at": "2026-11-13T06:50:32.695Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -121620,8 +121620,8 @@
     },
     "15355": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/1",
-      "published_at": "2026-11-12T17:37:26.802Z",
-      "collected_at": "2026-11-12T17:37:26.802Z",
+      "published_at": "2026-11-13T06:48:25.749Z",
+      "collected_at": "2026-11-13T06:48:25.749Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -121740,8 +121740,8 @@
     },
     "15357": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/1",
-      "published_at": "2026-11-12T17:37:28.898Z",
-      "collected_at": "2026-11-12T17:37:28.898Z",
+      "published_at": "2026-11-13T06:48:28.355Z",
+      "collected_at": "2026-11-13T06:48:28.355Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -122569,8 +122569,8 @@
     },
     "15365": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/9",
-      "published_at": "2026-11-12T17:39:29.011Z",
-      "collected_at": "2026-11-12T17:39:29.011Z",
+      "published_at": "2026-11-13T06:50:19.020Z",
+      "collected_at": "2026-11-13T06:50:19.020Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -123204,8 +123204,8 @@
     },
     "15371": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/4",
-      "published_at": "2026-11-12T17:38:10.153Z",
-      "collected_at": "2026-11-12T17:38:10.153Z",
+      "published_at": "2026-11-13T06:49:05.492Z",
+      "collected_at": "2026-11-13T06:49:05.492Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -123792,8 +123792,8 @@
     },
     "15380": {
       "source_url": "https://www.winticket.jp/keirin/fukui/racecard/2026111151/3/12",
-      "published_at": "2026-11-12T17:39:53.930Z",
-      "collected_at": "2026-11-12T17:39:53.930Z",
+      "published_at": "2026-11-13T06:50:42.450Z",
+      "collected_at": "2026-11-13T06:50:42.450Z",
       "metrics": {
         "kamashi": {
           "events": 6,
@@ -124782,8 +124782,8 @@
     },
     "15402": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/5",
-      "published_at": "2026-11-12T17:38:29.537Z",
-      "collected_at": "2026-11-12T17:38:29.537Z",
+      "published_at": "2026-11-13T06:49:23.299Z",
+      "collected_at": "2026-11-13T06:49:23.299Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -126939,8 +126939,8 @@
     },
     "15442": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/9",
-      "published_at": "2026-11-12T17:39:29.011Z",
-      "collected_at": "2026-11-12T17:39:29.011Z",
+      "published_at": "2026-11-13T06:50:19.020Z",
+      "collected_at": "2026-11-13T06:50:19.020Z",
       "metrics": {
         "tsuppari": {
           "events": 0,
@@ -127334,8 +127334,8 @@
     },
     "15447": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/6",
-      "published_at": "2026-11-12T17:38:48.455Z",
-      "collected_at": "2026-11-12T17:38:48.455Z",
+      "published_at": "2026-11-13T06:49:40.942Z",
+      "collected_at": "2026-11-13T06:49:40.942Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -128103,8 +128103,8 @@
     },
     "15459": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/7",
-      "published_at": "2026-11-12T17:38:57.087Z",
-      "collected_at": "2026-11-12T17:38:57.087Z",
+      "published_at": "2026-11-13T06:49:48.631Z",
+      "collected_at": "2026-11-13T06:49:48.631Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -128466,8 +128466,8 @@
     },
     "15462": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/2",
-      "published_at": "2026-11-12T17:37:44.487Z",
-      "collected_at": "2026-11-12T17:37:44.487Z",
+      "published_at": "2026-11-13T06:48:41.589Z",
+      "collected_at": "2026-11-13T06:48:41.589Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -129238,8 +129238,8 @@
     },
     "15473": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/7",
-      "published_at": "2026-11-12T17:38:59.182Z",
-      "collected_at": "2026-11-12T17:38:59.182Z",
+      "published_at": "2026-11-13T06:49:50.635Z",
+      "collected_at": "2026-11-13T06:49:50.635Z",
       "metrics": {
         "kamashi": {
           "events": 6,
@@ -129716,8 +129716,8 @@
     },
     "15481": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/3",
-      "published_at": "2026-11-12T17:37:59.608Z",
-      "collected_at": "2026-11-12T17:37:59.608Z",
+      "published_at": "2026-11-13T06:48:55.428Z",
+      "collected_at": "2026-11-13T06:48:55.428Z",
       "metrics": {
         "chigiri": {
           "events": 0,
@@ -129966,8 +129966,8 @@
     },
     "15485": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/8",
-      "published_at": "2026-11-12T17:39:16.177Z",
-      "collected_at": "2026-11-12T17:39:16.177Z",
+      "published_at": "2026-11-13T06:50:06.281Z",
+      "collected_at": "2026-11-13T06:50:06.281Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -130578,8 +130578,8 @@
     },
     "15501": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/8",
-      "published_at": "2026-11-12T17:39:16.177Z",
-      "collected_at": "2026-11-12T17:39:16.177Z",
+      "published_at": "2026-11-13T06:50:06.281Z",
+      "collected_at": "2026-11-13T06:50:06.281Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -131534,8 +131534,8 @@
     },
     "15516": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/12",
-      "published_at": "2026-11-12T17:39:51.874Z",
-      "collected_at": "2026-11-12T17:39:51.874Z",
+      "published_at": "2026-11-13T06:50:40.609Z",
+      "collected_at": "2026-11-13T06:50:40.609Z",
       "metrics": {
         "kamashi": {
           "events": 5,
@@ -132330,8 +132330,8 @@
     },
     "15533": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/7",
-      "published_at": "2026-11-12T17:39:03.250Z",
-      "collected_at": "2026-11-12T17:39:03.250Z",
+      "published_at": "2026-11-13T06:49:54.442Z",
+      "collected_at": "2026-11-13T06:49:54.442Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -132441,8 +132441,8 @@
     },
     "15534": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/4",
-      "published_at": "2026-11-12T17:38:12.233Z",
-      "collected_at": "2026-11-12T17:38:12.233Z",
+      "published_at": "2026-11-13T06:49:07.373Z",
+      "collected_at": "2026-11-13T06:49:07.373Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -133997,8 +133997,8 @@
     },
     "15567": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/2",
-      "published_at": "2026-11-12T17:37:44.487Z",
-      "collected_at": "2026-11-12T17:37:44.487Z",
+      "published_at": "2026-11-13T06:48:41.589Z",
+      "collected_at": "2026-11-13T06:48:41.589Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -134376,8 +134376,8 @@
     },
     "15572": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/6",
-      "published_at": "2026-11-12T17:38:44.376Z",
-      "collected_at": "2026-11-12T17:38:44.376Z",
+      "published_at": "2026-11-13T06:49:37.171Z",
+      "collected_at": "2026-11-13T06:49:37.171Z",
       "metrics": {
         "kamashi": {
           "events": 5,
@@ -134567,8 +134567,8 @@
     },
     "15578": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/10",
-      "published_at": "2026-11-12T17:39:37.665Z",
-      "collected_at": "2026-11-12T17:39:37.665Z",
+      "published_at": "2026-11-13T06:50:26.928Z",
+      "collected_at": "2026-11-13T06:50:26.928Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -134820,8 +134820,8 @@
     },
     "15585": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/1",
-      "published_at": "2026-11-12T17:37:33.571Z",
-      "collected_at": "2026-11-12T17:37:33.571Z",
+      "published_at": "2026-11-13T06:48:32.120Z",
+      "collected_at": "2026-11-13T06:48:32.120Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -134992,8 +134992,8 @@
     },
     "15592": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/10",
-      "published_at": "2026-11-12T17:39:37.665Z",
-      "collected_at": "2026-11-12T17:39:37.665Z",
+      "published_at": "2026-11-13T06:50:26.928Z",
+      "collected_at": "2026-11-13T06:50:26.928Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -135068,8 +135068,8 @@
     },
     "15594": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/11",
-      "published_at": "2026-11-12T17:39:45.840Z",
-      "collected_at": "2026-11-12T17:39:45.840Z",
+      "published_at": "2026-11-13T06:50:34.751Z",
+      "collected_at": "2026-11-13T06:50:34.751Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -136218,8 +136218,8 @@
     },
     "15610": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/12",
-      "published_at": "2026-11-12T17:39:51.874Z",
-      "collected_at": "2026-11-12T17:39:51.874Z",
+      "published_at": "2026-11-13T06:50:40.609Z",
+      "collected_at": "2026-11-13T06:50:40.609Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -136329,8 +136329,8 @@
     },
     "15611": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/4",
-      "published_at": "2026-11-12T17:38:14.249Z",
-      "collected_at": "2026-11-12T17:38:14.249Z",
+      "published_at": "2026-11-13T06:49:09.338Z",
+      "collected_at": "2026-11-13T06:49:09.338Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -137296,8 +137296,8 @@
     },
     "15622": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/6",
-      "published_at": "2026-11-12T17:38:48.455Z",
-      "collected_at": "2026-11-12T17:38:48.455Z",
+      "published_at": "2026-11-13T06:49:40.942Z",
+      "collected_at": "2026-11-13T06:49:40.942Z",
       "metrics": {
         "chigiri": {
           "events": 2,
@@ -137676,8 +137676,8 @@
     },
     "15625": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/9",
-      "published_at": "2026-11-12T17:39:29.011Z",
-      "collected_at": "2026-11-12T17:39:29.011Z",
+      "published_at": "2026-11-13T06:50:19.020Z",
+      "collected_at": "2026-11-13T06:50:19.020Z",
       "metrics": {
         "kamashi": {
           "events": 9,
@@ -137797,8 +137797,8 @@
     },
     "15627": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/3",
-      "published_at": "2026-11-12T17:37:59.608Z",
-      "collected_at": "2026-11-12T17:37:59.608Z",
+      "published_at": "2026-11-13T06:48:55.428Z",
+      "collected_at": "2026-11-13T06:48:55.428Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -138267,8 +138267,8 @@
     },
     "15632": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/9",
-      "published_at": "2026-11-12T17:39:24.858Z",
-      "collected_at": "2026-11-12T17:39:24.858Z",
+      "published_at": "2026-11-13T06:50:14.396Z",
+      "collected_at": "2026-11-13T06:50:14.396Z",
       "metrics": {
         "kamashi": {
           "events": 10,
@@ -139725,8 +139725,8 @@
     },
     "15649": {
       "source_url": "https://www.winticket.jp/keirin/fukui/racecard/2026111151/3/12",
-      "published_at": "2026-11-12T17:39:53.930Z",
-      "collected_at": "2026-11-12T17:39:53.930Z",
+      "published_at": "2026-11-13T06:50:42.450Z",
+      "collected_at": "2026-11-13T06:50:42.450Z",
       "metrics": {
         "kamashi": {
           "events": 13,
@@ -139841,8 +139841,8 @@
     },
     "15650": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/6",
-      "published_at": "2026-11-12T17:38:40.083Z",
-      "collected_at": "2026-11-12T17:38:40.083Z",
+      "published_at": "2026-11-13T06:49:33.260Z",
+      "collected_at": "2026-11-13T06:49:33.260Z",
       "metrics": {
         "kamashi": {
           "events": 6,
@@ -140201,8 +140201,8 @@
     },
     "15654": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/6",
-      "published_at": "2026-11-12T17:38:44.376Z",
-      "collected_at": "2026-11-12T17:38:44.376Z",
+      "published_at": "2026-11-13T06:49:37.171Z",
+      "collected_at": "2026-11-13T06:49:37.171Z",
       "metrics": {
         "kamashi": {
           "events": 6,
@@ -141553,8 +141553,8 @@
     },
     "15685": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/6",
-      "published_at": "2026-11-12T17:38:48.455Z",
-      "collected_at": "2026-11-12T17:38:48.455Z",
+      "published_at": "2026-11-13T06:49:40.942Z",
+      "collected_at": "2026-11-13T06:49:40.942Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -141794,8 +141794,8 @@
     },
     "15688": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/3",
-      "published_at": "2026-11-12T17:38:03.782Z",
-      "collected_at": "2026-11-12T17:38:03.782Z",
+      "published_at": "2026-11-13T06:48:59.401Z",
+      "collected_at": "2026-11-13T06:48:59.401Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -142523,8 +142523,8 @@
     },
     "15705": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/8",
-      "published_at": "2026-11-12T17:39:09.958Z",
-      "collected_at": "2026-11-12T17:39:09.958Z",
+      "published_at": "2026-11-13T06:50:00.300Z",
+      "collected_at": "2026-11-13T06:50:00.300Z",
       "metrics": {
         "kamashi": {
           "events": 5,
@@ -144391,8 +144391,8 @@
     },
     "15736": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/4",
-      "published_at": "2026-11-12T17:38:12.233Z",
-      "collected_at": "2026-11-12T17:38:12.233Z",
+      "published_at": "2026-11-13T06:49:07.373Z",
+      "collected_at": "2026-11-13T06:49:07.373Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -144729,8 +144729,8 @@
     },
     "15739": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/2",
-      "published_at": "2026-11-12T17:37:42.488Z",
-      "collected_at": "2026-11-12T17:37:42.488Z",
+      "published_at": "2026-11-13T06:48:39.705Z",
+      "collected_at": "2026-11-13T06:48:39.705Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -145468,8 +145468,8 @@
     },
     "15746": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/3",
-      "published_at": "2026-11-12T17:37:59.608Z",
-      "collected_at": "2026-11-12T17:37:59.608Z",
+      "published_at": "2026-11-13T06:48:55.428Z",
+      "collected_at": "2026-11-13T06:48:55.428Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -145695,8 +145695,8 @@
     },
     "15750": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/6",
-      "published_at": "2026-11-12T17:38:42.250Z",
-      "collected_at": "2026-11-12T17:38:42.250Z",
+      "published_at": "2026-11-13T06:49:35.144Z",
+      "collected_at": "2026-11-13T06:49:35.144Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -145941,8 +145941,8 @@
     },
     "15752": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/4",
-      "published_at": "2026-11-12T17:38:14.249Z",
-      "collected_at": "2026-11-12T17:38:14.249Z",
+      "published_at": "2026-11-13T06:49:09.338Z",
+      "collected_at": "2026-11-13T06:49:09.338Z",
       "metrics": {
         "kamashi": {
           "events": 5,
@@ -146219,8 +146219,8 @@
     },
     "15761": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/5",
-      "published_at": "2026-11-12T17:38:29.537Z",
-      "collected_at": "2026-11-12T17:38:29.537Z",
+      "published_at": "2026-11-13T06:49:23.299Z",
+      "collected_at": "2026-11-13T06:49:23.299Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -146305,8 +146305,8 @@
     },
     "15762": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/5",
-      "published_at": "2026-11-12T17:38:29.537Z",
-      "collected_at": "2026-11-12T17:38:29.537Z",
+      "published_at": "2026-11-13T06:49:23.299Z",
+      "collected_at": "2026-11-13T06:49:23.299Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -146386,8 +146386,8 @@
     },
     "15763": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/1",
-      "published_at": "2026-11-12T17:37:33.571Z",
-      "collected_at": "2026-11-12T17:37:33.571Z",
+      "published_at": "2026-11-13T06:48:32.120Z",
+      "collected_at": "2026-11-13T06:48:32.120Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -146553,8 +146553,8 @@
     },
     "15765": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/10",
-      "published_at": "2026-11-12T17:39:37.665Z",
-      "collected_at": "2026-11-12T17:39:37.665Z",
+      "published_at": "2026-11-13T06:50:26.928Z",
+      "collected_at": "2026-11-13T06:50:26.928Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -146816,8 +146816,8 @@
     },
     "15774": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/1",
-      "published_at": "2026-11-12T17:37:33.571Z",
-      "collected_at": "2026-11-12T17:37:33.571Z",
+      "published_at": "2026-11-13T06:48:32.120Z",
+      "collected_at": "2026-11-13T06:48:32.120Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -147844,8 +147844,8 @@
     },
     "15787": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/8",
-      "published_at": "2026-11-12T17:39:14.273Z",
-      "collected_at": "2026-11-12T17:39:14.273Z",
+      "published_at": "2026-11-13T06:50:04.382Z",
+      "collected_at": "2026-11-13T06:50:04.382Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -147955,8 +147955,8 @@
     },
     "15788": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/7",
-      "published_at": "2026-11-12T17:39:03.250Z",
-      "collected_at": "2026-11-12T17:39:03.250Z",
+      "published_at": "2026-11-13T06:49:54.442Z",
+      "collected_at": "2026-11-13T06:49:54.442Z",
       "metrics": {
         "kamashi": {
           "events": 5,
@@ -148504,8 +148504,8 @@
     },
     "15795": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/5",
-      "published_at": "2026-11-12T17:38:33.624Z",
-      "collected_at": "2026-11-12T17:38:33.624Z",
+      "published_at": "2026-11-13T06:49:27.139Z",
+      "collected_at": "2026-11-13T06:49:27.139Z",
       "metrics": {
         "kamashi": {
           "events": 7,
@@ -149202,8 +149202,8 @@
     },
     "15812": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/5",
-      "published_at": "2026-11-12T17:38:33.624Z",
-      "collected_at": "2026-11-12T17:38:33.624Z",
+      "published_at": "2026-11-13T06:49:27.139Z",
+      "collected_at": "2026-11-13T06:49:27.139Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -150205,8 +150205,8 @@
     },
     "15825": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/12",
-      "published_at": "2026-11-12T17:39:51.874Z",
-      "collected_at": "2026-11-12T17:39:51.874Z",
+      "published_at": "2026-11-13T06:50:40.609Z",
+      "collected_at": "2026-11-13T06:50:40.609Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -150660,8 +150660,8 @@
     },
     "15831": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/11",
-      "published_at": "2026-11-12T17:39:43.887Z",
-      "collected_at": "2026-11-12T17:39:43.887Z",
+      "published_at": "2026-11-13T06:50:32.695Z",
+      "collected_at": "2026-11-13T06:50:32.695Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -151352,8 +151352,8 @@
     },
     "15843": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/6",
-      "published_at": "2026-11-12T17:38:42.250Z",
-      "collected_at": "2026-11-12T17:38:42.250Z",
+      "published_at": "2026-11-13T06:49:35.144Z",
+      "collected_at": "2026-11-13T06:49:35.144Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -151458,8 +151458,8 @@
     },
     "15844": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/5",
-      "published_at": "2026-11-12T17:38:27.487Z",
-      "collected_at": "2026-11-12T17:38:27.487Z",
+      "published_at": "2026-11-13T06:49:21.063Z",
+      "collected_at": "2026-11-13T06:49:21.063Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -151693,8 +151693,8 @@
     },
     "15847": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/7",
-      "published_at": "2026-11-12T17:38:57.087Z",
-      "collected_at": "2026-11-12T17:38:57.087Z",
+      "published_at": "2026-11-13T06:49:48.631Z",
+      "collected_at": "2026-11-13T06:49:48.631Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -152430,8 +152430,8 @@
     },
     "15856": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/1",
-      "published_at": "2026-11-12T17:37:33.571Z",
-      "collected_at": "2026-11-12T17:37:33.571Z",
+      "published_at": "2026-11-13T06:48:32.120Z",
+      "collected_at": "2026-11-13T06:48:32.120Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -152511,8 +152511,8 @@
     },
     "15858": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/8",
-      "published_at": "2026-11-12T17:39:16.177Z",
-      "collected_at": "2026-11-12T17:39:16.177Z",
+      "published_at": "2026-11-13T06:50:06.281Z",
+      "collected_at": "2026-11-13T06:50:06.281Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -152845,8 +152845,8 @@
     },
     "15866": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/10",
-      "published_at": "2026-11-12T17:39:37.665Z",
-      "collected_at": "2026-11-12T17:39:37.665Z",
+      "published_at": "2026-11-13T06:50:26.928Z",
+      "collected_at": "2026-11-13T06:50:26.928Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -152926,8 +152926,8 @@
     },
     "15867": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/8",
-      "published_at": "2026-11-12T17:39:16.177Z",
-      "collected_at": "2026-11-12T17:39:16.177Z",
+      "published_at": "2026-11-13T06:50:06.281Z",
+      "collected_at": "2026-11-13T06:50:06.281Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -153801,8 +153801,8 @@
     },
     "15878": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/11",
-      "published_at": "2026-11-12T17:39:45.840Z",
-      "collected_at": "2026-11-12T17:39:45.840Z",
+      "published_at": "2026-11-13T06:50:34.751Z",
+      "collected_at": "2026-11-13T06:50:34.751Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -154372,8 +154372,8 @@
     },
     "15889": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/5",
-      "published_at": "2026-11-12T17:38:25.392Z",
-      "collected_at": "2026-11-12T17:38:25.392Z",
+      "published_at": "2026-11-13T06:49:19.252Z",
+      "collected_at": "2026-11-13T06:49:19.252Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -154824,8 +154824,8 @@
     },
     "15895": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/7",
-      "published_at": "2026-11-12T17:39:03.250Z",
-      "collected_at": "2026-11-12T17:39:03.250Z",
+      "published_at": "2026-11-13T06:49:54.442Z",
+      "collected_at": "2026-11-13T06:49:54.442Z",
       "metrics": {
         "kamashi": {
           "events": 0,
@@ -155965,8 +155965,8 @@
     },
     "15910": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/2",
-      "published_at": "2026-11-12T17:37:44.487Z",
-      "collected_at": "2026-11-12T17:37:44.487Z",
+      "published_at": "2026-11-13T06:48:41.589Z",
+      "collected_at": "2026-11-13T06:48:41.589Z",
       "metrics": {
         "kamashi": {
           "events": 4,
@@ -156089,8 +156089,8 @@
     },
     "15911": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/9",
-      "published_at": "2026-11-12T17:39:29.011Z",
-      "collected_at": "2026-11-12T17:39:29.011Z",
+      "published_at": "2026-11-13T06:50:19.020Z",
+      "collected_at": "2026-11-13T06:50:19.020Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -156779,8 +156779,8 @@
     },
     "15929": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/9",
-      "published_at": "2026-11-12T17:39:24.858Z",
-      "collected_at": "2026-11-12T17:39:24.858Z",
+      "published_at": "2026-11-13T06:50:14.396Z",
+      "collected_at": "2026-11-13T06:50:14.396Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -156894,8 +156894,8 @@
     },
     "15930": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/10",
-      "published_at": "2026-11-12T17:39:35.486Z",
-      "collected_at": "2026-11-12T17:39:35.486Z",
+      "published_at": "2026-11-13T06:50:24.851Z",
+      "collected_at": "2026-11-13T06:50:24.851Z",
       "metrics": {
         "kamashi": {
           "events": 6,
@@ -157573,8 +157573,8 @@
     },
     "15944": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/5",
-      "published_at": "2026-11-12T17:38:29.537Z",
-      "collected_at": "2026-11-12T17:38:29.537Z",
+      "published_at": "2026-11-13T06:49:23.299Z",
+      "collected_at": "2026-11-13T06:49:23.299Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -157740,8 +157740,8 @@
     },
     "15948": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/5",
-      "published_at": "2026-11-12T17:38:29.537Z",
-      "collected_at": "2026-11-12T17:38:29.537Z",
+      "published_at": "2026-11-13T06:49:23.299Z",
+      "collected_at": "2026-11-13T06:49:23.299Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -158247,8 +158247,8 @@
     },
     "15961": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/1",
-      "published_at": "2026-11-12T17:37:24.475Z",
-      "collected_at": "2026-11-12T17:37:24.475Z",
+      "published_at": "2026-11-13T06:48:23.656Z",
+      "collected_at": "2026-11-13T06:48:23.656Z",
       "metrics": {
         "kamashi": {
           "events": 5,
@@ -158569,8 +158569,8 @@
     },
     "15970": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/3",
-      "published_at": "2026-11-12T17:37:55.252Z",
-      "collected_at": "2026-11-12T17:37:55.252Z",
+      "published_at": "2026-11-13T06:48:51.311Z",
+      "collected_at": "2026-11-13T06:48:51.311Z",
       "metrics": {
         "kamashi": {
           "events": 5,
@@ -158693,8 +158693,8 @@
     },
     "15971": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/4",
-      "published_at": "2026-11-12T17:38:10.153Z",
-      "collected_at": "2026-11-12T17:38:10.153Z",
+      "published_at": "2026-11-13T06:49:05.492Z",
+      "collected_at": "2026-11-13T06:49:05.492Z",
       "metrics": {
         "kamashi": {
           "events": 5,
@@ -160770,8 +160770,8 @@
     },
     "16002": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/8",
-      "published_at": "2026-11-12T17:39:12.091Z",
-      "collected_at": "2026-11-12T17:39:12.091Z",
+      "published_at": "2026-11-13T06:50:02.338Z",
+      "collected_at": "2026-11-13T06:50:02.338Z",
       "metrics": {
         "kamashi": {
           "events": 3,
@@ -161312,8 +161312,8 @@
     },
     "16009": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/5",
-      "published_at": "2026-11-12T17:38:25.392Z",
-      "collected_at": "2026-11-12T17:38:25.392Z",
+      "published_at": "2026-11-13T06:49:19.252Z",
+      "collected_at": "2026-11-13T06:49:19.252Z",
       "metrics": {
         "tsuppari": {
           "events": 1,
@@ -161523,8 +161523,8 @@
     },
     "16013": {
       "source_url": "https://www.winticket.jp/keirin/tamano/racecard/2026111261/2/3",
-      "published_at": "2026-11-12T17:37:55.252Z",
-      "collected_at": "2026-11-12T17:37:55.252Z",
+      "published_at": "2026-11-13T06:48:51.311Z",
+      "collected_at": "2026-11-13T06:48:51.311Z",
       "metrics": {
         "kamashi": {
           "events": 6,
@@ -161740,8 +161740,8 @@
     },
     "16021": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/3",
-      "published_at": "2026-11-12T17:37:57.583Z",
-      "collected_at": "2026-11-12T17:37:57.583Z",
+      "published_at": "2026-11-13T06:48:53.535Z",
+      "collected_at": "2026-11-13T06:48:53.535Z",
       "metrics": {
         "kamashi": {
           "events": 2,
@@ -161851,8 +161851,8 @@
     },
     "16025": {
       "source_url": "https://www.winticket.jp/keirin/sasebo/racecard/2026111185/3/8",
-      "published_at": "2026-11-12T17:39:12.091Z",
-      "collected_at": "2026-11-12T17:39:12.091Z",
+      "published_at": "2026-11-13T06:50:02.338Z",
+      "collected_at": "2026-11-13T06:50:02.338Z",
       "metrics": {
         "kamashi": {
           "events": 1,
@@ -162198,8 +162198,8 @@
     },
     "16033": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/8",
-      "published_at": "2026-11-12T17:39:16.177Z",
-      "collected_at": "2026-11-12T17:39:16.177Z",
+      "published_at": "2026-11-13T06:50:06.281Z",
+      "collected_at": "2026-11-13T06:50:06.281Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -162279,8 +162279,8 @@
     },
     "16034": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/10",
-      "published_at": "2026-11-12T17:39:37.665Z",
-      "collected_at": "2026-11-12T17:39:37.665Z",
+      "published_at": "2026-11-13T06:50:26.928Z",
+      "collected_at": "2026-11-13T06:50:26.928Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -162355,8 +162355,8 @@
     },
     "16038": {
       "source_url": "https://www.winticket.jp/keirin/yokkaichi/racecard/2026111148/3/5",
-      "published_at": "2026-11-12T17:38:29.537Z",
-      "collected_at": "2026-11-12T17:38:29.537Z",
+      "published_at": "2026-11-13T06:49:23.299Z",
+      "collected_at": "2026-11-13T06:49:23.299Z",
       "metrics": {},
       "contextual": {
         "race_type": {
@@ -162507,8 +162507,8 @@
     },
     "16041": {
       "source_url": "https://www.winticket.jp/keirin/matsusaka/racecard/2026111147/3/1",
-      "published_at": "2026-11-12T17:37:33.571Z",
-      "collected_at": "2026-11-12T17:37:33.571Z",
+      "published_at": "2026-11-13T06:48:32.120Z",
+      "collected_at": "2026-11-13T06:48:32.120Z",
       "metrics": {},
       "contextual": {
         "race_type": {
