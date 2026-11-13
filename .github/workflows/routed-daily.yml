@@ -34,11 +34,17 @@ jobs:
           else
             node scripts/routed-daily.cjs --scheduled
           fi
+      - name: Validate and capture forward-only cross-line research
+        continue-on-error: true
+        run: |
+          node tests/crossline-shadow.test.cjs
+          node scripts/crossline-shadow.cjs
       - name: Persist forecasts and daily evaluation
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/routed_history
+          if [ -d data/crossline_shadow ]; then git add data/crossline_shadow; fi
           if ! git diff --cached --quiet; then
             git commit -m 'Save automatic race forecasts and update daily evaluation'
             for attempt in 1 2 3 4; do
