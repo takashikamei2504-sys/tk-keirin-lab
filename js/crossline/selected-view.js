@@ -40,7 +40,10 @@ function chooseRace(value){
  $('race').disabled=!races.length;$('predict').disabled=!races.length;
 }
 async function refresh(){
- const seq=++revision;day=null;current=null;loaded=false;
+ const seq=++revision;day=null;current=null;loaded=false;listRevision++;currentList=null;
+ $('candidate-list').replaceChildren();$('candidate-stats').replaceChildren();$('candidate-copy-all').disabled=true;
+ $('candidate-concluded').replaceChildren();$('candidate-skipped').replaceChildren();
+ $('candidate-status').textContent='開催情報を更新しています。';
  $('result').hidden=true;$('copy').disabled=true;$('predict').disabled=true;
  $('venue').disabled=true;$('race').disabled=true;status('公開出走表を確認しています');
  try{
@@ -142,10 +145,12 @@ async function renderCandidateList(){
 }
 
 function showForecast(f,{source='recomputed',date=null,venue=null,raceNo=null,time=null,sourceGeneratedAt=null,savedAt=null,evaluation=null}={}){
- current={forecast:f,source};$('result').hidden=false;$('copy').disabled=!(source==='live'&&f.eligible);
+ const startAt=date&&time?Date.parse(date+'T'+time+':00+09:00'):NaN;
+ const actionable=f.eligible&&(source==='live'||source==='frozen')&&Number.isFinite(startAt)&&Date.now()<startAt;
+ current={forecast:f,source,startAt};$('result').hidden=false;$('copy').disabled=!actionable;
  const active=f.eligible;
- $('verdict').textContent=active?'購入候補4点':'見送り';
- $('verdict').className=active?'flag selected':'flag skipped';
+ $('verdict').textContent=actionable?'購入候補4点':active?'発走済み／参考記録':'見送り';
+ $('verdict').className=actionable?'flag selected':'flag skipped';
  $('reason').textContent=f.reason;
  $('risk').textContent='万車リスク '+(f.risk?f.risk.percent.toFixed(1)+'% ／ '+f.risk.band:'判定対象外');
  $('lineup').textContent='別線1・2着候補 '+formatPairs(f.pairs||[]);
@@ -154,7 +159,7 @@ function showForecast(f,{source='recomputed',date=null,venue=null,raceNo=null,ti
  for(const t of f.candidate4||[]){
   const e=tag('div',t,'bet');if(!active)e.classList.add('muted-bet');$('tickets').append(e);
  }
- $('points').textContent=active?'4点×100円＝400円':'投資対象外：0円（下の4点は比較研究用）';
+ $('points').textContent=actionable?'4点×100円＝400円':active?'現在は購入対象外（発走済み・参考記録）':'投資対象外：0円（下の4点は比較研究用）';
  const sourceText=source==='frozen'?'発走前固定保存済み：'+stamp(savedAt):
   source==='live'?'発走前予測・この画面の再計算（自動保存実績とは別）':
   '過去の出走表から再計算（発走前に固定した予想ではありません）';
@@ -231,7 +236,7 @@ $('venue').addEventListener('change',()=>chooseRace());
 $('race').addEventListener('change',()=>{$('result').hidden=true;});
 $('predict').addEventListener('click',predict);
 $('copy').addEventListener('click',async()=>{
- if(!current||current.source!=='live'||!current.forecast.eligible)return;
+ if(!current||!['live','frozen'].includes(current.source)||!current.forecast.eligible||!(Date.now()<current.startAt))return;
  const text=current.forecast.tickets.join('\n');
  try{await navigator.clipboard.writeText(text);$('copy').textContent='コピーしました';setTimeout(()=>$('copy').textContent='4点をコピー',1800);}
  catch(_){$('copy').textContent='コピーできませんでした';}
