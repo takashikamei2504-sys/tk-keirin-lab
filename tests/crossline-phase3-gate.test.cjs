@@ -1,0 +1,18 @@
+'use strict';
+const assert=require('node:assert/strict');
+const g=require('../scripts/crossline-phase3-gate.cjs');
+const r=(category,highrisk,pairs)=>g.select({category,highrisk,pairs});
+assert.equal(r('A7',true,['1-2','1-3']).eligible,true);
+assert.equal(r('C7',true,['1-2','3-1']).eligible,true);
+assert.equal(r('チャレンジ_7',true,[[1,2],[1,3]]).eligible,true);
+assert.equal(r('A級_7',true,[[1,2],[2,1]]).reason,'reverse_pair');
+assert.equal(r('C7',true,['1-3','3-1']).eligible,false);
+assert.equal(r('S級_7',true,['1-2','1-3']).reason,'unsupported_category');
+assert.equal(r('A7',false,['1-2','1-3']).reason,'risk_below_threshold');
+assert.equal(r('A7',null,['1-2','1-3']).reason,'risk_unknown');
+assert.equal(r('A7',true,['1-2']).reason,'pairs_missing');
+assert.equal(r('A7',true,['1-1','2-3']).reason,'pairs_invalid');
+const original=r('A7',true,['1-2','1-4']),copy=r('A7',true,['1-2','1-4']);
+assert.deepEqual(original,copy,'fully deterministic before results');
+assert.equal(Object.hasOwn(original,'payout'),false);
+console.log('crossline-phase3-gate: tests passed');

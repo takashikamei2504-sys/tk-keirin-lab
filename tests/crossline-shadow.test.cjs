@@ -1,0 +1,74 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path');
+const m=require('../scripts/crossline-shadow.cjs');
+const date='2030-03-21',start='14:30',pre=Date.parse(date+'T11:00:00+09:00'),cutoff=Date.parse(date+'T'+start+':00+09:00');
+const riders=Array.from({length:7},(_,i)=>({no:i+1,name:'選手'+(i+1),score:105-i*.8,style:i%3===0?'逃':'追',meta:{rider_id:String(2000+i)}}));
+const base=['1-2-3','2-1-4','1-2-4','2-1-3','3-4-5','4-3-6','5-6-2','6-5-1'];
+const model={regular:{winner:{weights:[.6,.2,.13,.36,-.49,-.03,.43,.38,-.58,0,0,0]},second:{weights:[.3,.18,-.02,.3,-.3,-.17,.44,.24,-.1,0,0,0]}},third:{weights:[.18,-.05,.04,.04,-.08,.04,-.08,-.06,-.19,.19,.07,-.26]}};
+const source={requested:'auto',saved_at:new Date(pre).toISOString(),race_id:date+':福井:9',input_sha256:'input-hash',output_sha256:'output-hash',out:{selection:{requested:'auto',engine:'roi_coverage',category:{key:'S級_7'}},input:{date,venue:'福井',race_no:9,start,riders,lineup:[[1,2],[3,4],[5,6],[7]],source:{mode:'live-public-feed',generated_at:date+'T09:00:00+09:00'}},tickets:base.map(key=>({key}))}};
+const card=m.card(source);assert.ok(card);assert.equal(card.card.n,7);
+const p=m.alternatives(card,model);
+assert.equal(p.pairs.length,2);assert.equal(p.candidates_4.length,4);assert.equal(p.candidates_all.length,10);assert.equal(p.hybrid_8.length,8);
+assert.deepEqual(p.hybrid_8.slice(0,6),base.slice(0,6));
+assert.ok(p.swap_all.includes('1-3-2'),'full swap diagnosis detects original head preserved but second/third inverted');
+for(const t of p.candidates_4){const [a,b,c]=t.split('-').map(Number);assert.notEqual(card.card.e.find(x=>x.no===a).line,card.card.e.find(x=>x.no===b).line);assert.equal(new Set([a,b,c]).size,3);}
+assert.deepEqual(m.alternatives(card,model),p,'deterministic candidates');
+const phase4={schema:'crossline-conditional-v1',train_through:'2026-08-31',
+ second:{weights:Array(22).fill(0)},third:{weights:Array(22).fill(0)}};
+const p4=m.alternatives(card,model,phase4);
+assert.deepEqual(p4.candidates_4,p.candidates_4,'legacy tickets unchanged when optional model exists');
+assert.equal(p4.conditional_pair4.length,4);
+assert.equal(p4.cross_third4.length,4);
+assert.equal(p4.conditional_joint4.length,4);
+assert.equal(new Set(p4.conditional_joint4).size,4);
+const snap4=m.freeze(source,model,pre+60000,null,phase4);
+assert.equal(snap4.phase4_model,'crossline-conditional-v1');
+const outcome4=p4.conditional_joint4[0],result4={race_id:snap4.race_id,race:{start},identity:snap4.identity,
+ combos:[{key:outcome4,trio:outcome4.split('-').map(Number),payout:16000}],source_updated_at:date+'T15:31:00+09:00',
+ collected_at:date+'T15:32:00+09:00'};
+const eval4=m.evaluate(snap4,result4);
+assert.equal(eval4.views.conditional_joint4.stake,400);
+assert.equal(eval4.views.conditional_joint4.payout,16000);
+assert.equal(m.totals([{evaluation:eval4}], 'conditional_joint4').roi,40);
+assert.equal(m.totals([{evaluation:eval4},{evaluation:{...eval4,views:{...eval4.views,conditional_joint4:undefined}}}], 'conditional_joint4').selected,1,'v1 snapshots without phase4 mode remain readable');
+
+// Phase3 is a pre-race-only research filter and must not use the outcome.
+const eligibleSource=JSON.parse(JSON.stringify(source));
+eligibleSource.out.selection.category.key='A級_7';
+eligibleSource.out.input.riders.forEach(r=>{r.meta.rank='A1';});
+const riskModel={version:'mansha-risk-v1.0',features:require('../js/mansha/risk.js').FEATURE_NAMES,weights:Array(16).fill(0),calibration:{a:0,b:1},thresholds:{A7:{q75:.2,q90:.9},C7:{q75:.2,q90:.9},S7:{q75:.2,q90:.9},S9:{q75:.2,q90:.9}}};
+const eligibleCard=m.card(eligibleSource);assert.ok(eligibleCard);
+const p3=m.phase3Decision(eligibleSource,eligibleCard,[[1,3],[1,5]],riskModel);
+assert.equal(p3.eligible,true);
+assert.equal(p3.risk_model,'mansha-risk-v1.0');
+assert.equal(p3.risk_band,'上位25%');
+assert.equal(m.phase3Decision(eligibleSource,eligibleCard,[[1,3],[3,1]],riskModel).reason,'reverse_pair');
+assert.equal(m.phase3Decision(eligibleSource,eligibleCard,[[1,3],[1,5]],null).reason,'risk_unknown');
+const phase3Snap=m.freeze(eligibleSource,model,pre+60000,riskModel);
+assert.ok(phase3Snap.phase3);
+assert.equal(phase3Snap.phase3.eligible,m.phase3Decision(eligibleSource,eligibleCard,m.alternatives(eligibleCard,model).pairs,riskModel).eligible);
+const snap=m.freeze(source,model,pre+60000);assert.ok(snap);
+assert.equal(m.freeze(source,model,cutoff),null,'cannot backfill after race starts');
+const win=p.candidates_4[0],parts=win.split('-').map(Number);
+const actual={race_id:snap.race_id,race:{start},identity:snap.identity,combos:[{key:win,trio:parts,payout:11200}],source_updated_at:date+'T15:31:00+09:00',collected_at:date+'T15:32:00+09:00'};
+const ev=m.evaluate(snap,actual);assert.equal(ev.status,'evaluated');assert.equal(ev.views.candidates_4.payout,11200);assert.equal(ev.views.base_8.stake,800);assert.equal(ev.views.hybrid_8.stake,800);
+assert.equal(ev.views.phase3_4.stake,0,'unsupported S7 category is not selected by Phase3');
+const pa=m.evaluate(phase3Snap,{...actual,identity:phase3Snap.identity});
+assert.equal(pa.status,'evaluated');
+assert.equal(pa.views.phase3_4.stake,phase3Snap.phase3.eligible?400:0);
+assert.equal(pa.views.phase3_4.payout,phase3Snap.phase3.eligible?actual.combos[0].payout*(phase3Snap.forecasts.candidates_4.includes(win)?1:0):0);
+assert.equal(ev.topology[0].cross12,true);assert.match(ev.topology[0].type,/^cross_/);assert.equal(ev.topology[0].first_role,1);
+assert.equal(m.evaluate(snap,undefined).status,'pending');
+assert.equal(m.evaluate(snap,{...actual,identity:[]}).status,'excluded');
+assert.equal(m.evaluate(snap,{...actual,combos:[{key:'1-2-3',trio:[1,2,3],payout:0}]}).status,'pending');
+const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'crossline-shadow-'));
+try{
+ const hist=path.join(tmp,'data/routed_history',date);fs.mkdirSync(hist,{recursive:true});fs.writeFileSync(path.join(hist,m.hash(snap.race_id)+'.json'),JSON.stringify(source));
+ const modelPath=path.join(tmp,'reports/mansha/crossline-pair-third-v1.json');fs.mkdirSync(path.dirname(modelPath),{recursive:true});fs.writeFileSync(modelPath,JSON.stringify({models:model}));
+ const first=m.run({root:tmp,now:pre+60000});assert.equal(first.totals.base_8.pending,1);assert.equal(first.rows.length,1);
+ const second=m.run({root:tmp,now:pre+70000});assert.equal(second.rows.length,1,'do not duplicate snapshots');
+ fs.writeFileSync(path.join(hist,'results.json'),JSON.stringify({[snap.race_id]:actual}));
+ const third=m.run({root:tmp,now:cutoff+3600000});assert.equal(third.totals.candidates_4.evaluated,1);assert.equal(third.totals.candidates_4.payout,11200);
+ assert.equal(third.crossline.cross12,1);assert.equal(Object.keys(third.by_topology).length,1);
+}finally{fs.rmSync(tmp,{recursive:true,force:true});}
+console.log('crossline-shadow: tests passed');
