@@ -13,6 +13,25 @@ assert.deepEqual(p.hybrid_8.slice(0,6),base.slice(0,6));
 assert.ok(p.swap_all.includes('1-3-2'),'full swap diagnosis detects original head preserved but second/third inverted');
 for(const t of p.candidates_4){const [a,b,c]=t.split('-').map(Number);assert.notEqual(card.card.e.find(x=>x.no===a).line,card.card.e.find(x=>x.no===b).line);assert.equal(new Set([a,b,c]).size,3);}
 assert.deepEqual(m.alternatives(card,model),p,'deterministic candidates');
+const phase4={schema:'crossline-conditional-v1',train_through:'2026-08-31',
+ second:{weights:Array(22).fill(0)},third:{weights:Array(22).fill(0)}};
+const p4=m.alternatives(card,model,phase4);
+assert.deepEqual(p4.candidates_4,p.candidates_4,'legacy tickets unchanged when optional model exists');
+assert.equal(p4.conditional_pair4.length,4);
+assert.equal(p4.cross_third4.length,4);
+assert.equal(p4.conditional_joint4.length,4);
+assert.equal(new Set(p4.conditional_joint4).size,4);
+const snap4=m.freeze(source,model,pre+60000,null,phase4);
+assert.equal(snap4.phase4_model,'crossline-conditional-v1');
+const outcome4=p4.conditional_joint4[0],result4={race_id:snap4.race_id,race:{start},identity:snap4.identity,
+ combos:[{key:outcome4,trio:outcome4.split('-').map(Number),payout:16000}],source_updated_at:date+'T15:31:00+09:00',
+ collected_at:date+'T15:32:00+09:00'};
+const eval4=m.evaluate(snap4,result4);
+assert.equal(eval4.views.conditional_joint4.stake,400);
+assert.equal(eval4.views.conditional_joint4.payout,16000);
+assert.equal(m.totals([{evaluation:eval4}], 'conditional_joint4').roi,40);
+assert.equal(m.totals([{evaluation:eval4},{evaluation:{...eval4,views:{...eval4.views,conditional_joint4:undefined}}}], 'conditional_joint4').selected,1,'v1 snapshots without phase4 mode remain readable');
+
 // Phase3 is a pre-race-only research filter and must not use the outcome.
 const eligibleSource=JSON.parse(JSON.stringify(source));
 eligibleSource.out.selection.category.key='A級_7';
