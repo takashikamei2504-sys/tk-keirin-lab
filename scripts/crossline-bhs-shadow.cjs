@@ -18,12 +18,14 @@ function freeze(parent,raw,feed,{now=Date.now()}={}){
  if(raw.entries.length!==race.riders?.length||![7,9].includes(raw.entries.length)||new Set(raw.entries.map(x=>Number(x.car_number))).size!==raw.entries.length)return null;
  const byNo=new Map(race.riders.map(x=>[x.no,x])),lines=new Map();
  race.lineup.forEach((row,i)=>row.forEach((no,j)=>lines.set(no,String(i+1)+'-'+String(j+1))));
+ const rawLineIds=[...new Set(raw.entries.map(x=>Number(String(x.line_position).split('-')[0])))].sort((a,b)=>a-b);
  const ordered=raw.entries.slice().sort((a,b)=>Number(a.car_number)-Number(b.car_number)),riders=[];
  for(const e of ordered){
   const rider=byNo.get(Number(e.car_number));
   if(!rider||String(rider.meta?.rider_id||'')!==String(e.rider_id||'')||
    norm(rider.name)!==norm(e.rider_full_name||e.rider_name)||
-   String(e.line_position)!==lines.get(Number(e.car_number)))return null;
+   !/^\d+-\d+$/.test(String(e.line_position))||
+   String(rawLineIds.indexOf(Number(String(e.line_position).split('-')[0]))+1)+'-'+String(e.line_position).split('-')[1]!==lines.get(Number(e.car_number)))return null;
   const vals=[e.b_count,e.h_count,e.s_count];
   if(vals.some(x=>!Number.isInteger(x)||x<0||x>80))return null;
   riders.push({no:Number(e.car_number),rider_id:String(e.rider_id),line:e.line_position,
