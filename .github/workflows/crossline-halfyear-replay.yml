@@ -6,6 +6,12 @@ on:
       - 'scripts/crossline-halfyear-replay.cjs'
       - 'tests/crossline-halfyear-replay.test.cjs'
       - '.github/workflows/crossline-halfyear-replay.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/crossline-halfyear-replay.cjs'
+      - 'tests/crossline-halfyear-replay.test.cjs'
+      - '.github/workflows/crossline-halfyear-replay.yml'
   workflow_dispatch:
 permissions:
   contents: write
