@@ -106,7 +106,7 @@ function report(root=ROOT,now=Date.now()){
    errors:errors.length,views:sum(rows)},
   by_date:by(r=>r.date),by_category:by(r=>r.forecast.category),
   rows:rows.map(r=>({race_id:r.race_id,date:r.date,venue:r.venue,race_no:r.race_no,start:r.start,
-   saved_at:r.saved_at,source_generated_at:r.source_generated_at,forecast:r.forecast,evaluation:r.evaluation})),
+   saved_at:r.saved_at,source_generated_at:r.source_generated_at,identity:r.identity,lineup:r.lineup,forecast:r.forecast,evaluation:r.evaluation})),
   errors};
 }
 async function fetchDay(date){
