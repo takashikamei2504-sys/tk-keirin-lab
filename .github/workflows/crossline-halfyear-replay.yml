@@ -5,12 +5,20 @@ on:
     paths:
       - 'scripts/crossline-halfyear-replay.cjs'
       - 'tests/crossline-halfyear-replay.test.cjs'
+      - 'scripts/crossline-shadow.cjs'
+      - 'tests/crossline-shadow.test.cjs'
+      - 'scripts/crossline-phase3-gate.cjs'
+      - 'tests/crossline-phase3-gate.test.cjs'
       - '.github/workflows/crossline-halfyear-replay.yml'
   pull_request:
     branches: [main]
     paths:
       - 'scripts/crossline-halfyear-replay.cjs'
       - 'tests/crossline-halfyear-replay.test.cjs'
+      - 'scripts/crossline-shadow.cjs'
+      - 'tests/crossline-shadow.test.cjs'
+      - 'scripts/crossline-phase3-gate.cjs'
+      - 'tests/crossline-phase3-gate.test.cjs'
       - '.github/workflows/crossline-halfyear-replay.yml'
   workflow_dispatch:
 permissions:
@@ -35,6 +43,8 @@ jobs:
           node --check scripts/crossline-halfyear-replay.cjs
           node tests/mansha-crossline-pair-third.test.cjs
           node tests/crossline-halfyear-replay.test.cjs
+          node tests/crossline-phase3-gate.test.cjs
+          node tests/crossline-shadow.test.cjs
       - name: Replay historical archive through Nov 7
         run: node scripts/crossline-halfyear-replay.cjs
       - name: Persist six-month results on research branch
