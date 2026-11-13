@@ -1,3 +1,17 @@
+## 別線決着・選別4点エンジン（独立実装）
+
+[別線4点のiPhone用予想画面](https://takashikamei2504-sys.github.io/tk-keirin-lab/crossline-selected.html)
+
+従来の別線予測係数（2026年6〜8月学習、`reports/mansha/crossline-pair-third-v1.json`）をそのまま使用。A級・チャレンジ7車のリスク上位25%かつ上位2ペアが裏表にならないレースのみ、2ペア×3着候補2人＝三連単4点・各点100円を候補表示します。対象外は見送り、比較研究用の4点のみ表示します。
+
+`js/crossline/selected.js` は通常LABから独立。 `scripts/crossline-selected-daily.cjs` が発走前の最初の予想を `data/crossline_selected/日付/` に固定保存し、既存の確定結果ソースと照合します。`evaluation.json` で全4点と選別4点を同額比較し、最高払戻1/3/5件除外と未確定レースを区別。通常のAUTO、LAB LINE、B-UPSET、GATE、買い目保存は変更していません。自動購入機能はありません。
+
+`node tests/crossline-selected.test.cjs` で旧モデルとの買い目完全一致、事後情報の遮断、発走後保存拒否、結果照合、固定ファイルの非上書きを検証します。
+
+この選別ルールは過去データから探索された条件で、過去回収率140.3%は将来の期待値として扱いません。前向きに成績を蓄積して採用判断します。
+
+---
+
 ## レース別エンジン自動選択
 
 [自動選択の予想画面を開く](https://takashikamei2504-sys.github.io/tk-keirin-lab/auto.html)
