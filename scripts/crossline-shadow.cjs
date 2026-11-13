@@ -42,6 +42,8 @@ function alternatives(c,models,phase4Model=null){
   alt.conditional_pair4=p.tickets.conditional_pair4;
   alt.cross_third4=p.tickets.cross_third4;
   alt.conditional_joint4=p.tickets.conditional_joint4;
+  alt.blend25_4=p.tickets.blend25_4;
+  alt.blend50_4=p.tickets.blend50_4;
   alt.phase4_pairs=p.pairs.conditional;
  }
  return alt;
@@ -69,14 +71,14 @@ function evaluate(r,actual){
  if(!actual.combos?.length||actual.combos.some(x=>!Array.isArray(x.trio)||x.trio.length!==3||x.key!==x.trio.join('-')||!Number.isInteger(x.payout)||x.payout<=0))return {status:'pending',reason:'Payout missing'};
  const line=new Map(r.lineup.map(x=>[x[0],x[1]])),role=new Map(r.lineup.map(x=>[x[0],x[2]]));
  const topology=actual.combos.map(x=>{const [a,b,d]=x.trio,cross=line.get(a)!==line.get(b),third=line.get(d)===line.get(a)?'first':line.get(d)===line.get(b)?'second':'other';return {key:x.key,cross12:cross,three_lines:cross&&third==='other',type:(cross?'cross':'same')+'_'+third,first_role:role.get(a),second_role:role.get(b),payout:x.payout};});
- const views={};for(const [label,keys] of Object.entries(r.forecasts))if(['base_8','hybrid_8','candidates_4','candidates_all','swap_top2','swap_all','conditional_pair4','cross_third4','conditional_joint4'].includes(label)&&Array.isArray(keys)){const set=new Set(keys),stake=keys.length*100,payout=actual.combos.filter(x=>set.has(x.key)).reduce((s,x)=>s+x.payout,0);views[label]={points:keys.length,hit:payout>0,stake,payout,net:payout-stake};}
+ const views={};for(const [label,keys] of Object.entries(r.forecasts))if(['base_8','hybrid_8','candidates_4','candidates_all','swap_top2','swap_all','conditional_pair4','cross_third4','conditional_joint4','blend25_4','blend50_4'].includes(label)&&Array.isArray(keys)){const set=new Set(keys),stake=keys.length*100,payout=actual.combos.filter(x=>set.has(x.key)).reduce((s,x)=>s+x.payout,0);views[label]={points:keys.length,hit:payout>0,stake,payout,net:payout-stake};}
  const selected=r.phase3?.eligible===true,base4=views.candidates_4;
  if(base4)views.phase3_4={points:selected?base4.points:0,hit:selected&&base4.hit,stake:selected?base4.stake:0,payout:selected?base4.payout:0,net:selected?base4.net:0};
  return {status:'evaluated',topology,views};
 }
 function totals(rows,name){const r=rows.filter(x=>x.evaluation.status==='evaluated'),stake=r.reduce((s,x)=>s+(x.evaluation.views[name]?.stake||0),0),payout=r.reduce((s,x)=>s+(x.evaluation.views[name]?.payout||0),0),hits=r.filter(x=>x.evaluation.views[name]?.hit).length;const largest=r.map(x=>x.evaluation.views[name]).filter(Boolean).sort((a,b)=>b.payout-a.payout)[0];return {evaluated:r.length,selected:r.filter(x=>(x.evaluation.views[name]?.stake||0)>0).length,pending:rows.filter(x=>x.evaluation.status==='pending').length,hits,stake,payout,net:payout-stake,roi:stake?payout/stake:null,trim1_roi:largest&&stake>largest.stake?(payout-largest.payout)/(stake-largest.stake):null};}
 function report(dir,outcomes,now){const rows=[],errors=[];for(const date of fs.existsSync(dir)?fs.readdirSync(dir).filter(x=>/^\d{4}-\d{2}-\d{2}$/.test(x)).sort():[]){const results=read(path.join(outcomes,date,'results.json'),{});for(const file of fs.readdirSync(path.join(dir,date)).filter(x=>/^[a-f0-9]{64}\.json$/.test(x)))try{const r=read(path.join(dir,date,file));if(r.model!==MODEL_ID||file!==hash(r.race_id+'|'+MODEL_ID)+'.json'||Date.parse(r.saved_at)>=Date.parse(r.cutoff))throw Error('Invalid frozen record');rows.push({...r,evaluation:evaluate(r,results[r.race_id])});}catch(e){errors.push({date,file,error:e.message});}}
- const names=['base_8','hybrid_8','candidates_4','phase3_4','candidates_all','swap_top2','swap_all','conditional_pair4','cross_third4','conditional_joint4'],sum=r=>Object.fromEntries(names.map(name=>[name,totals(r,name)])),group=fn=>Object.fromEntries([...new Set(rows.map(fn))].sort().map(k=>[k,sum(rows.filter(r=>fn(r)===k))]));
+ const names=['base_8','hybrid_8','candidates_4','phase3_4','candidates_all','swap_top2','swap_all','conditional_pair4','cross_third4','conditional_joint4','blend25_4','blend50_4'],sum=r=>Object.fromEntries(names.map(name=>[name,totals(r,name)])),group=fn=>Object.fromEntries([...new Set(rows.map(fn))].sort().map(k=>[k,sum(rows.filter(r=>fn(r)===k))]));
  const evaluated=rows.filter(r=>r.evaluation.status==='evaluated');
  const types=[...new Set(evaluated.flatMap(r=>r.evaluation.topology.map(t=>t.type)))].sort(),byTopology=Object.fromEntries(types.map(k=>[k,sum(evaluated.filter(r=>r.evaluation.topology.length===1&&r.evaluation.topology[0].type===k))]));
  return {schema:'tk-crossline-shadow-evaluation/v1',model:MODEL_ID,generated_at:new Date(now).toISOString(),note:'Research only. No production betting changes; prospective frozen forecasts only.',totals:sum(rows),by_date:group(r=>r.date),by_category:group(r=>r.category),by_topology:byTopology,crossline:{evaluated:evaluated.length,cross12:evaluated.filter(r=>r.evaluation.topology.some(t=>t.cross12)).length,three_lines:evaluated.filter(r=>r.evaluation.topology.some(t=>t.three_lines)).length},rows,errors};
