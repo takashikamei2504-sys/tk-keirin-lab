@@ -26,7 +26,7 @@ function frozen(s){
 const rows=[frozen(feed.races[0]),frozen(feed.races[3])];
 assert.equal(Candidate.validSaved(rows[0],date),true);
 assert.equal(Candidate.validSaved({...rows[0],identity:null},date),false);
-assert.equal(Candidate.validForecast({...eligible,candidate4:['1-3-5',...tickets.slice(1)]}),true);
+assert.equal(Candidate.validForecast({...eligible,candidate4:['1-3-5',...tickets.slice(1)],tickets:['1-3-5',...tickets.slice(1)]}),true);
 assert.equal(Candidate.validForecast({...eligible,candidate4:['1-6-2',...tickets.slice(1)]}),false,'pair/ticket mismatch');
 assert.equal(Candidate.validForecast({...eligible,stake:800}),false);
 let convertCalls=0,predictionCalls=0;
