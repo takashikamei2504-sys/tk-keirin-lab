@@ -4,7 +4,7 @@ const jp=n=>Number(n||0).toLocaleString('ja-JP'),pct=n=>n==null?'―':(n*100).to
 const jst=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const stamp=v=>v?new Date(v).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo',year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'未取得';
 const tag=(name,text,className)=>{const e=document.createElement(name);if(text!==undefined)e.textContent=String(text);if(className)e.className=className;return e;};
-let day=null,weights=null,history=null,current=null,loaded=false,revision=0;
+let day=null,weights=null,history=null,current=null,loaded=false,revision=0,listRevision=0,currentList=null;
 const status=s=>{$('status').textContent=s;};
 async function json(url){
  const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),12000);
@@ -49,9 +49,98 @@ async function refresh(){
   chooseVenue(q.get('date')===d.date?q.get('venue'):'');
   if(q.get('date')===d.date&&q.get('venue')===$('venue').value)chooseRace(q.get('r'));
   status(day.races.length?'対象のレースを選んで予想を表示できます。':'この日の出走表はまだ配信されていません。');
- }catch(e){if(seq!==revision)return;status('出走表を取得できませんでした：'+e.message);}
+  void renderCandidateList();
+ }catch(e){if(seq!==revision)return;status('出走表を取得できませんでした：'+e.message);void renderCandidateList();}
 }
 const formatPairs=p=>p.map(x=>x.join('-')).join('、');
+
+function formatCopy(r){
+ return r.venue+' '+r.race_no+'R　発走予定 '+r.start+'（'+r.date+'）\n'+
+  r.forecast.tickets.map(t=>t+'　100円').join('\n')+'\n合計 400円';
+}
+async function copyTickets(content,btn){
+ try{
+  if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');
+  await navigator.clipboard.writeText(content);
+  const old=btn.textContent;btn.textContent='コピーしました';
+  setTimeout(()=>{btn.textContent=old;},1500);
+ }catch(_){$('candidate-status').textContent='コピーできませんでした。表示されている買い目を選択してご利用ください。';}
+}
+function candidateMetric(label,value){
+ const d=tag('div',null,'candidate-total');d.append(tag('small',label),tag('strong',value));return d;
+}
+function drawCandidateList(data,modelError=null){
+ currentList=data;
+ $('candidate-stats').replaceChildren(
+  candidateMetric('発走前の購入候補',jp(data.upcoming.length)+' レース'),
+  candidateMetric('合計購入点数',jp(data.points)+' 点'),
+  candidateMetric('1レースの想定額','400 円'),
+  candidateMetric('全対象の想定額',yen(data.stake))
+ );
+ $('candidate-copy-all').disabled=data.upcoming.length===0;
+ const extra=[];
+ if(modelError)extra.push('当日再計算不可：'+modelError);
+ if(!data.feed_ok)extra.push('公開出走表の取得待ち。保存済み予想のみを表示しています');
+ if(data.invalid.length)extra.push('確認できないレース '+data.invalid.length+'件');
+ $('candidate-status').textContent='表示：'+data.date+' ／ 発走前候補 '+data.upcoming.length+'R ／ 発走済候補 '+data.concluded.length+'R ／ 見送り '+data.skipped.length+'R'+
+  (extra.length?' ／ '+extra.join(' ／ '):'');
+ const frag=document.createDocumentFragment();
+ if(!data.upcoming.length)frag.append(tag('p','発走前の購入候補は現在ありません。見送り・発走済みは下の欄で確認できます。','candidate-empty'));
+ for(const row of data.upcoming){
+  const d=tag('article',null,'candidate-card');
+  const head=tag('div',null,'candidate-head');
+  const name=tag('div',null,'candidate-heading');
+  name.append(tag('span',row.venue+' '+row.race_no+'R'),tag('div','発走予定 '+row.start+'　／　'+(row.forecast.category==='C7'?'チャレンジ':'A級')+'7車','candidate-time'));
+  head.append(name,tag('span','4点購入候補','candidate-badge'));d.append(head);
+  d.append(tag('p','万車リスク '+(row.forecast.risk?.percent?.toFixed(1)??'―')+'%　／　別線1・2着 '+formatPairs(row.forecast.pairs),'candidate-pairs'));
+  const ticks=tag('div',null,'candidate-tickets');
+  for(const ticket of row.forecast.tickets)ticks.append(tag('div',ticket,'candidate-ticket'));
+  d.append(ticks);
+  const footer=tag('div',null,'candidate-footer'),copy=tag('button','4点をコピー');
+  footer.append(tag('strong','各100円 ／ 計400円'),copy);d.append(footer);
+  copy.type='button';copy.addEventListener('click',()=>copyTickets(formatCopy(row),copy));
+  d.append(tag('p',row.source==='frozen'?'発走前固定保存 '+stamp(row.saved_at):'当日出走表から計算・未固定', 'candidate-source'));
+  frag.append(d);
+ }
+ $('candidate-list').replaceChildren(frag);
+ $('candidate-concluded-title').textContent='発走済みの購入候補（'+data.concluded.length+'R）';
+ const concluded=document.createDocumentFragment();
+ for(const row of data.concluded){
+  const d=tag('div',null,'candidate-mini');
+  d.append(tag('strong',row.venue+' '+row.race_no+'R　'+row.start+'　／　4点400円'));
+  d.append(tag('div',row.forecast.candidate4.join(' ／ ')));
+  d.append(tag('div','発走済みのため現在の購入対象には含めません。'));
+  concluded.append(d);
+ }
+ if(!data.concluded.length)concluded.append(tag('p','該当レースはありません。','fine'));
+ $('candidate-concluded').replaceChildren(concluded);
+ $('candidate-skipped-title').textContent='見送りレース（'+data.skipped.length+'R）';
+ const skipped=document.createDocumentFragment();
+ for(const row of data.skipped){
+  const d=tag('div',null,'candidate-mini');
+  d.append(tag('strong',row.venue+' '+row.race_no+'R　'+row.start));
+  d.append(tag('div',row.forecast.reason+' ／ 投資0円'));
+  skipped.append(d);
+ }
+ if(!data.skipped.length)skipped.append(tag('p','見送りレースはありません。','fine'));
+ $('candidate-skipped').replaceChildren(skipped);
+}
+async function renderCandidateList(){
+ const seq=++listRevision,date=$('date').value;
+ $('candidate-status').textContent='購入対象レースを集計しています。';
+ let w=null,error=null;
+ if(day?.date===date&&day.races?.some(CrosslineCandidateList.supported)){
+  try{w=await model();}catch(e){error=e.message;}
+ }
+ if(seq!==listRevision||date!==$('date').value)return;
+ try{
+  const result=CrosslineCandidateList.assemble({date,feed:day?.date===date?day:null,
+   rows:history?.rows||[],now:Date.now(),weights:w,riskLib:ManshaRisk,
+   riskModel:ManshaRiskModel,convert:RaceFeed.convert,predict:CrosslineSelected.predict});
+  drawCandidateList(result,error);
+ }catch(e){$('candidate-status').textContent='購入候補一覧を作成できません：'+e.message;}
+}
+
 function showForecast(f,{source='recomputed',date=null,venue=null,raceNo=null,time=null,sourceGeneratedAt=null,savedAt=null,evaluation=null}={}){
  current={forecast:f,source};$('result').hidden=false;$('copy').disabled=!(source==='live'&&f.eligible);
  const active=f.eligible;
@@ -125,11 +214,19 @@ async function loadHistory(){
  try{
   const x=await json('data/crossline_selected/evaluation.json?ts='+Date.now());
   if(x.schema!=='tk-crossline-selected-evaluation/v1'||!Array.isArray(x.rows))throw Error('保存形式が異なります');
-  history=x;showSummary();
- }catch(_){$('health').textContent='発走前の固定予想・結果照合データはまだありません。';}
+  history=x;showSummary();void renderCandidateList();
+ }catch(_){$('health').textContent='発走前の固定予想・結果照合データはまだありません。';void renderCandidateList();}
 }
 $('date').value=new URLSearchParams(location.search).get('date')||jst();
 $('date').addEventListener('change',refresh);
+$('candidate-refresh').addEventListener('click',()=>{void refresh();void loadHistory();});
+$('candidate-copy-all').addEventListener('click',()=>{
+ if(!currentList?.upcoming?.length)return;
+ void copyTickets(currentList.upcoming.map(formatCopy).join('\n\n'),$('candidate-copy-all'));
+});
+setInterval(()=>{if(currentList?.upcoming?.length)void renderCandidateList();},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)void renderCandidateList();});
+
 $('venue').addEventListener('change',()=>chooseRace());
 $('race').addEventListener('change',()=>{$('result').hidden=true;});
 $('predict').addEventListener('click',predict);
