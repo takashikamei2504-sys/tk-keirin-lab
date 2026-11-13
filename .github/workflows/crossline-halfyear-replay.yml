@@ -1,0 +1,56 @@
+name: Cross-line half-year retrospective backtest (research)
+on:
+  push:
+    branches: [research/crossline-shadow-20261113]
+    paths:
+      - 'scripts/crossline-halfyear-replay.cjs'
+      - 'tests/crossline-halfyear-replay.test.cjs'
+      - '.github/workflows/crossline-halfyear-replay.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: crossline-halfyear-research
+  cancel-in-progress: false
+jobs:
+  halfyear:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/crossline-shadow-20261113
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify outcome isolation and invariants
+        run: |
+          node --check scripts/crossline-halfyear-replay.cjs
+          node tests/mansha-crossline-pair-third.test.cjs
+          node tests/crossline-halfyear-replay.test.cjs
+      - name: Replay historical archive through Nov 7
+        run: node scripts/crossline-halfyear-replay.cjs
+      - name: Persist six-month results on research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/mansha/crossline-halfyear-v2.json reports/mansha/crossline-halfyear-v2.md reports/mansha/crossline-halfyear-v2-ledger.csv
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save full six-month crossline retrospective replay and per-race ledger'
+            for attempt in 1 2 3; do
+              git pull --rebase origin research/crossline-shadow-20261113
+              if git push origin HEAD:research/crossline-shadow-20261113; then exit 0; fi
+            done
+            exit 1
+          fi
+      - name: Upload full six-month report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crossline-halfyear-replay
+          path: |
+            reports/mansha/crossline-halfyear-v2.json
+            reports/mansha/crossline-halfyear-v2.md
+            reports/mansha/crossline-halfyear-v2-ledger.csv
+          if-no-files-found: warn
