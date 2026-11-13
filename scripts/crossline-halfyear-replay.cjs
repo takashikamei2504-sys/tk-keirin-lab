@@ -117,6 +117,10 @@ async function run({fetchDay=fetchPinnedDay,start=START,end=END,models=null}={})
  for(const [k,o] of Object.entries(result.by_period_cat.holdout))md.push('|'+k+'|'+o.races+'|'+pct(o.baseline8.roi)+'|'+pct(o.hybrid8.roi)+'|'+pct(o.cross4.roi)+'|'+pct(o.hybrid8.trim1)+'|');
  md.push('','','詳細：reports/mansha/crossline-halfyear-v2.json、個別レース台帳：reports/mansha/crossline-halfyear-v2-ledger.csv。');
  await fs.writeFile(path.join(dir,'crossline-halfyear-v2.md'),md.join('\n')+'\n');
+ if(start===START&&end===END&&available.length===139&&cards.length===8736){
+  const phase4=await require('./crossline-phase4-replay.cjs').run(cards,w,{dir});
+  console.log('PHASE4_RETRO='+JSON.stringify({train:phase4.report.periods.train,sep:phase4.report.periods.sep,octnov:phase4.report.periods.octnov,selected:phase4.report.selected_phase3}));
+ }
  console.log('HALFYEAR_REPLAY='+JSON.stringify({available:available.length,missing:missing.length,eligible:rows.length,train:result.by_period.train,validation:result.by_period.validation,holdout:result.by_period.holdout,byHoldoutCat:result.by_period_cat.holdout,bootstrap:result.holdout_bootstrap}));
  return {result,rows};
 }
