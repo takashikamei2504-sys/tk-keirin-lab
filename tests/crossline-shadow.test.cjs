@@ -10,6 +10,7 @@ const card=m.card(source);assert.ok(card);assert.equal(card.card.n,7);
 const p=m.alternatives(card,model);
 assert.equal(p.pairs.length,2);assert.equal(p.candidates_4.length,4);assert.equal(p.candidates_all.length,10);assert.equal(p.hybrid_8.length,8);
 assert.deepEqual(p.hybrid_8.slice(0,6),base.slice(0,6));
+assert.ok(p.swap_all.includes('1-3-2'),'full swap diagnosis detects original head preserved but second/third inverted');
 for(const t of p.candidates_4){const [a,b,c]=t.split('-').map(Number);assert.notEqual(card.card.e.find(x=>x.no===a).line,card.card.e.find(x=>x.no===b).line);assert.equal(new Set([a,b,c]).size,3);}
 assert.deepEqual(m.alternatives(card,model),p,'deterministic candidates');
 const snap=m.freeze(source,model,pre+60000);assert.ok(snap);
