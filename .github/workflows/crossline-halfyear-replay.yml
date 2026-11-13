@@ -8,6 +8,9 @@ on:
       - 'scripts/crossline-shadow.cjs'
       - 'tests/crossline-shadow.test.cjs'
       - 'scripts/crossline-phase3-gate.cjs'
+      - 'scripts/crossline-phase4.cjs'
+      - 'scripts/crossline-phase4-replay.cjs'
+      - 'tests/crossline-phase4.test.cjs'
       - 'tests/crossline-phase3-gate.test.cjs'
       - '.github/workflows/crossline-halfyear-replay.yml'
   pull_request:
@@ -18,6 +21,9 @@ on:
       - 'scripts/crossline-shadow.cjs'
       - 'tests/crossline-shadow.test.cjs'
       - 'scripts/crossline-phase3-gate.cjs'
+      - 'scripts/crossline-phase4.cjs'
+      - 'scripts/crossline-phase4-replay.cjs'
+      - 'tests/crossline-phase4.test.cjs'
       - 'tests/crossline-phase3-gate.test.cjs'
       - '.github/workflows/crossline-halfyear-replay.yml'
   workflow_dispatch:
@@ -44,6 +50,7 @@ jobs:
           node tests/mansha-crossline-pair-third.test.cjs
           node tests/crossline-halfyear-replay.test.cjs
           node tests/crossline-phase3-gate.test.cjs
+          node tests/crossline-phase4.test.cjs
           node tests/crossline-shadow.test.cjs
       - name: Replay historical archive through Nov 7
         run: node scripts/crossline-halfyear-replay.cjs
@@ -52,6 +59,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add reports/mansha/crossline-halfyear-v2.json reports/mansha/crossline-halfyear-v2.md reports/mansha/crossline-halfyear-v2-ledger.csv
+          git add reports/mansha/crossline-phase4-model.json reports/mansha/crossline-phase4-evaluation.json reports/mansha/crossline-phase4-ledger.csv reports/mansha/crossline-phase4-findings.md
           if ! git diff --cached --quiet; then
             git commit -m 'Save full six-month crossline retrospective replay and per-race ledger'
             for attempt in 1 2 3; do
@@ -69,4 +77,8 @@ jobs:
             reports/mansha/crossline-halfyear-v2.json
             reports/mansha/crossline-halfyear-v2.md
             reports/mansha/crossline-halfyear-v2-ledger.csv
+            reports/mansha/crossline-phase4-model.json
+            reports/mansha/crossline-phase4-evaluation.json
+            reports/mansha/crossline-phase4-ledger.csv
+            reports/mansha/crossline-phase4-findings.md
           if-no-files-found: warn
