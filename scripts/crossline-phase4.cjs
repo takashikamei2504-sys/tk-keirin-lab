@@ -68,15 +68,18 @@ function weightsOK(model){
  Array.isArray(model?.third?.weights)&&model.third.weights.length===22&&
  model.second.weights.every(Number.isFinite)&&model.third.weights.every(Number.isFinite);
 }
-function orderedPairs(c,base,model){
+function orderedPairs(c,base,model,mix=1){
  if(!weightsOK(model))throw Error('Missing fixed Phase4 weights');
+ if(!Number.isFinite(mix)||mix<0||mix>1)throw Error('Invalid blending fraction');
  const w=base.regular.winner.weights;
+ const oldSecond=softmax(c.e.map(x=>dot(Study.riderCols(x,c),base.regular.second.weights)));
+ const secondMap=new Map(c.e.map((x,i)=>[x.no,oldSecond[i]]));
  const winner=softmax(c.e.map(x=>dot(Study.riderCols(x,c),w)));
  const pairs=[];
  for(let i=0;i<c.e.length;i++){
   const a=c.e[i],possible=c.e.filter(x=>x.no!==a.no);
   const conditional=softmax(possible.map(x=>dot(secondFeatures(x,c,a),model.second.weights)));
-  possible.forEach((b,j)=>{if(b.line!==a.line)pairs.push({a,b,score:Math.log(winner[i])+Math.log(conditional[j])});});
+  possible.forEach((b,j)=>{if(b.line!==a.line)pairs.push({a,b,score:Math.log(winner[i])+(1-mix)*Math.log(secondMap.get(b.no))+mix*Math.log(conditional[j])});});
  }
  pairs.sort((x,y)=>y.score-x.score||x.a.no-y.a.no||x.b.no-y.b.no);
  return pairs;
@@ -104,14 +107,18 @@ function predict(c,base,model){
  if(!weightsOK(model))throw Error('Unvalidated phase4 weights');
  const oldPairs=Study.orderedPairs(c,'regular',base);
  const newPairs=orderedPairs(c,base,model);
+ const blend25Pairs=orderedPairs(c,base,model,.25);
+ const blend50Pairs=orderedPairs(c,base,model,.5);
  const legacyPairs=oldPairs.slice(0,2),conditionalPairs=newPairs.slice(0,2);
  const legacy=makeTickets(legacyPairs,p=>legacyThird(c,p,base));
  const pair4=makeTickets(conditionalPairs,p=>legacyThird(c,p,base));
  const third4=makeTickets(legacyPairs,p=>thirdOrder(c,p,model));
  const joint4=makeTickets(conditionalPairs,p=>thirdOrder(c,p,model));
+ const blend25_4=makeTickets(blend25Pairs,p=>legacyThird(c,p,base));
+ const blend50_4=makeTickets(blend50Pairs,p=>legacyThird(c,p,base));
  const ordered=ps=>ps.map(p=>p.a.no+'-'+p.b.no);
- return {tickets:{legacy4:legacy,conditional_pair4:pair4,cross_third4:third4,conditional_joint4:joint4},
-  pairs:{legacy:ordered(legacyPairs),conditional:ordered(conditionalPairs)},
-  all_pair_ranks:{legacy:ordered(oldPairs),conditional:ordered(newPairs)}};
+ return {tickets:{legacy4:legacy,conditional_pair4:pair4,cross_third4:third4,conditional_joint4:joint4,blend25_4,blend50_4},
+  pairs:{legacy:ordered(legacyPairs),conditional:ordered(conditionalPairs),blend25:ordered(blend25Pairs.slice(0,2)),blend50:ordered(blend50Pairs.slice(0,2))},
+  all_pair_ranks:{legacy:ordered(oldPairs),conditional:ordered(newPairs),blend25:ordered(blend25Pairs),blend50:ordered(blend50Pairs)}};
 }
 module.exports={SCHEMA,TRAIN_END,secondFeatures,thirdFeatures,fit,weightsOK,orderedPairs,thirdOrder,predict,softmax};
