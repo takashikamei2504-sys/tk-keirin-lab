@@ -1,0 +1,41 @@
+name: Cross-line selected 4-ticket engine checks
+on:
+  push:
+    branches: [feature/crossline-selected-v1-20261114]
+    paths:
+      - 'js/crossline/**'
+      - 'scripts/crossline-selected-daily.cjs'
+      - 'tests/crossline-selected.test.cjs'
+      - 'crossline-selected.html'
+      - '.github/workflows/crossline-selected-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'js/crossline/**'
+      - 'scripts/crossline-selected-daily.cjs'
+      - 'tests/crossline-selected.test.cjs'
+      - 'crossline-selected.html'
+      - '.github/workflows/crossline-selected-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source syntax
+        run: |
+          node --check js/crossline/selected.js
+          node --check js/crossline/selected-view.js
+          node --check scripts/crossline-selected-daily.cjs
+      - name: Independent engine, result isolation, and settlement regression
+        run: node tests/crossline-selected.test.cjs
+      - name: Existing routing regressions
+        run: |
+          node tests/race-routing.test.cjs
+          node tests/routed-daily.test.cjs

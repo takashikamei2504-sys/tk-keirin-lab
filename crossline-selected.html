@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b151d">
+<title>別線4点エンジン｜TK KEIRIN LAB</title><link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/routing.css?v=3f18375c59d1"><link rel="stylesheet" href="css/lab-shell.css?v=1">
+<style>
+:root{color-scheme:dark}main{padding-bottom:90px}.intro{max-width:720px}.flag{display:inline-block;border-radius:99px;font-weight:750;padding:7px 12px;letter-spacing:.04em}
+.selected{color:#10251c;background:#9bd4a8}.skipped{color:#e7e0d3;background:#4e5d66}
+.panel-body{display:grid;gap:12px}.ticket-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.bet{font-size:23px;font-weight:800;letter-spacing:.1em;text-align:center;border:1px solid #678779;padding:15px 4px;border-radius:12px;background:#213d39;white-space:nowrap}
+.muted-bet{opacity:.6;background:#222f39}.kpi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.kpi{background:#1d3437;border:1px solid #345558;padding:12px;border-radius:12px;min-width:0}
+.kpi small{display:block;color:#b4c9c3;line-height:1.55}.kpi strong{display:block;font-size:19px;margin-top:5px;font-variant-numeric:tabular-nums}
+.history-row{border-bottom:1px solid #3b5455;padding:9px 0}.history-row summary{cursor:pointer;line-height:1.6}.history-row p{font-size:12px;color:#d7dfdb}.ticketline{font-size:15px!important;font-weight:700;color:#e2d39f!important;overflow-wrap:anywhere}
+#result button{margin-top:0}.fine{font-size:12px;color:#a9bfb7;line-height:1.8}#status{min-height:24px}
+@media (min-width:560px){.ticket-grid,.kpi-grid{grid-template-columns:repeat(4,minmax(0,1fr))}} 
+</style></head><body>
+<header><a class="brand" href="index.html">TK KEIRIN LAB</a><a href="high-payout.html">高配当研究へ</a></header>
+<main>
+<p class="eyebrow">CROSS-LINE SELECTED / LEGACY 4 × PHASE 3</p>
+<h1>別線決着を、<br>4点に絞る。</h1>
+<p class="lead intro">従来の別線1・2着ペア2組と3着候補各2車を固定。A級・チャレンジ7車の万車リスク上位25%で、上位2ペアが裏表でない場合だけ購入候補とします。独立エンジンとして、通常LABの買い目は変更しません。</p>
+<section class="card">
+<h2>レースを指定</h2>
+<div class="fields">
+<label>開催日<input id="date" type="date"></label>
+<label>競輪場<select id="venue" disabled></select></label>
+<label>レース<select id="race" disabled></select></label>
+</div>
+<button type="button" id="predict" disabled>このレースの別線4点を表示</button>
+<p id="status" role="status" aria-live="polite" class="muted">出走表を確認しています</p>
+</section>
+<section id="result" class="card" hidden aria-live="polite">
+<p id="event" class="eyebrow"></p>
+<div class="panel-body">
+<div><span id="verdict" class="flag skipped">判定前</span></div>
+<p id="reason"></p>
+<p id="risk" class="muted"></p>
+<p id="lineup">別線ペア：</p>
+<div id="tickets" class="ticket-grid" aria-label="三連単4点"></div>
+<p id="points" class="lead"></p>
+<button id="copy" type="button" disabled>4点をコピー</button>
+<p id="source" class="fine"></p><p id="outcome" class="fine"></p>
+</div>
+</section>
+<section class="card">
+<h2>発走前固定の実績</h2>
+<p id="health" role="status" class="muted">初回の自動保存を確認中です。</p>
+<p id="updated" class="fine"></p><div id="metrics" class="kpi-grid"></div>
+<p class="fine">購入対象外は0円。全レース4点との比較、最大払戻3件除外後の回収率も表示します。結果確定前の買い目は変更しません。</p>
+<details><summary>レース別の保存予想と結果を見る</summary><div id="history"></div></details>
+</section>
+<section class="card">
+<h2>モデルについて</h2>
+<p>男子A級7車・チャレンジ7車のみ。従来係数で1着・2着を独立順位付けし、異なるラインの上位2ペアを選択。各ペアにつき独立した3着予測上位2人を選ぶため、計4点です。</p>
+<p>リスクは過去の競走得点・脚質・ライン構成から計算する固定モデルの同級班上位25%。上位2組が「1-3」「3-1」のような裏表関係なら見送ります。</p>
+<p class="fine">過去9月〜11月7日の選別後回収率140.3%は事後データを見て定めた条件の過去実績です。未来の収益保証ではありません。過去の公開出走表からの再計算は発走前固定実績と区別します。1点100円は仮想集計で、決済・自動投票はありません。</p>
+</section>
+<footer><a href="auto.html">通常の自動選択予想</a> ／ <a href="mansha-shadow.html">万車・別線研究</a> ／ <a href="routed-results.html">通常予想の成績</a></footer>
+</main>
+<script src="js/race-feed.js?v=e17bdfe21149"></script>
+<script src="js/mansha/risk.js?v=125624ada5cb"></script>
+<script src="js/mansha/model.js?v=6fe607453949"></script>
+<script src="js/crossline/selected.js?v=1"></script>
+<script src="js/crossline/selected-view.js?v=1"></script>
+<script src="js/lab-shell.js?v=1"></script>
+</body></html>
