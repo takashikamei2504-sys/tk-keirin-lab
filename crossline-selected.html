@@ -12,6 +12,35 @@
 .kpi small{display:block;color:#b4c9c3;line-height:1.55}.kpi strong{display:block;font-size:19px;margin-top:5px;font-variant-numeric:tabular-nums}
 .history-row{border-bottom:1px solid #3b5455;padding:9px 0}.history-row summary{cursor:pointer;line-height:1.6}.history-row p{font-size:12px;color:#d7dfdb}.ticketline{font-size:15px!important;font-weight:700;color:#e2d39f!important;overflow-wrap:anywhere}
 #result button{margin-top:0}.fine{font-size:12px;color:#a9bfb7;line-height:1.8}#status{min-height:24px}
+
+/* Single-screen purchase candidate overview, optimized for 390px iPhone */
+.candidate-toolbar{display:flex;align-items:end;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.candidate-toolbar h2{margin:0}.candidate-date{width:190px;max-width:100%}
+.candidate-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}
+.candidate-total{padding:12px;background:#203a36;border:1px solid #466a59;border-radius:12px}
+.candidate-total small{display:block;color:#b7cac3;font-size:12px}
+.candidate-total strong{display:block;font-size:23px;font-variant-numeric:tabular-nums;margin-top:4px}
+.candidate-actions{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}
+.candidate-actions button{flex:1 1 175px;margin:0;min-height:45px;font-size:14px}
+.candidate-card{padding:15px 12px;margin:14px 0;border:1px solid #5b806a;border-radius:14px;background:#1b3434}
+.candidate-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.candidate-heading{font-size:19px;font-weight:800;line-height:1.35}.candidate-time{font-size:12px;color:#c4d6c9;font-weight:650}
+.candidate-badge{display:inline-block;padding:5px 9px;border-radius:8px;background:#b7dfb7;color:#173224;font-size:12px;font-weight:800}
+.candidate-pairs{color:#d6e4da;font-size:12px;margin:8px 0}
+.candidate-tickets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.candidate-ticket{padding:10px 4px;text-align:center;font-size:20px;font-weight:800;letter-spacing:.06em;border-radius:10px;background:#284641;border:1px solid #658574;white-space:nowrap}
+.candidate-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.candidate-footer strong{font-size:16px;font-variant-numeric:tabular-nums}
+.candidate-footer button{width:auto;min-height:42px;padding:7px 13px;margin:0;font-size:13px}
+.candidate-source{font-size:11px;color:#aebfb9;margin:8px 0 0;line-height:1.6}
+.candidate-empty{background:#1a2d31;border-radius:12px;padding:15px;color:#c3d2cc;line-height:1.7}
+.candidate-collapse{margin-top:12px;padding-top:10px;border-top:1px solid #385a53}
+.candidate-collapse>summary{cursor:pointer;font-weight:750;padding:6px 0}
+.candidate-mini{padding:9px 0;border-bottom:1px solid #36534c;font-size:13px;line-height:1.7}
+.candidate-mini strong{color:#f0dfb3}
+.field-two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:600px){.candidate-tickets{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
 @media (min-width:560px){.ticket-grid,.kpi-grid{grid-template-columns:repeat(4,minmax(0,1fr))}} 
 </style></head><body>
 <header><a class="brand" href="index.html">TK KEIRIN LAB</a><a href="high-payout.html">高配当研究へ</a></header>
@@ -19,10 +48,23 @@
 <p class="eyebrow">CROSS-LINE SELECTED / LEGACY 4 × PHASE 3</p>
 <h1>別線決着を、<br>4点に絞る。</h1>
 <p class="lead intro">従来の別線1・2着ペア2組と3着候補各2車を固定。A級・チャレンジ7車の万車リスク上位25%で、上位2ペアが裏表でない場合だけ購入候補とします。独立エンジンとして、通常LABの買い目は変更しません。</p>
+<section class="card" id="purchase-list" aria-labelledby="purchase-list-title">
+<div class="candidate-toolbar">
+<div><p class="eyebrow">BUY LIST / CROSS-LINE 4</p><h2 id="purchase-list-title">購入対象レースと買い目一覧</h2></div>
+<label class="candidate-date">開催日<input id="date" type="date"></label>
+</div>
+<p class="fine">この日の対象レースをまとめて判定し、発走前の購入候補だけを時刻順に表示します。1レース4点・各100円です。</p>
+<div class="candidate-stats" id="candidate-stats" aria-label="購入候補の集計"></div>
+<p id="candidate-status" class="fine" role="status" aria-live="polite">購入候補を集計しています。</p>
+<div class="candidate-actions"><button type="button" id="candidate-refresh">一覧を更新</button><button type="button" id="candidate-copy-all" class="secondary" disabled>対象の買い目を一括コピー</button></div>
+<div id="candidate-list" aria-label="発走前の購入候補"></div>
+<details class="candidate-collapse"><summary id="candidate-concluded-title">発走済みの購入候補</summary><div id="candidate-concluded"></div></details>
+<details class="candidate-collapse"><summary id="candidate-skipped-title">見送りレース</summary><div id="candidate-skipped"></div></details>
+<p class="fine">※「発走前」は発走予定時刻を基準とした表示です。実際の投票締切はこれより前になります。購入前に公式の締切・出走者変更・並びを必ず確認してください。自動投票は行いません。</p>
+</section>
 <section class="card">
-<h2>レースを指定</h2>
-<div class="fields">
-<label>開催日<input id="date" type="date"></label>
+<h2>レース別の予想詳細</h2>
+<div class="fields field-two">
 <label>競輪場<select id="venue" disabled></select></label>
 <label>レース<select id="race" disabled></select></label>
 </div>
@@ -61,6 +103,7 @@
 <script src="js/mansha/risk.js?v=125624ada5cb"></script>
 <script src="js/mansha/model.js?v=6fe607453949"></script>
 <script src="js/crossline/selected.js?v=1"></script>
-<script src="js/crossline/selected-view.js?v=1"></script>
+<script src="js/crossline/candidate-list.js?v=2"></script>
+<script src="js/crossline/selected-view.js?v=2"></script>
 <script src="js/lab-shell.js?v=1"></script>
 </body></html>
