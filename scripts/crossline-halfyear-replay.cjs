@@ -5,6 +5,19 @@
 const fs=require('node:fs/promises'),path=require('node:path');
 const archive=require('./mansha-study.cjs'),study=require('./mansha-crossline-pair-third.cjs');
 const START='2026-05-08',END='2026-11-07',MODEL='crossline-halfyear-v2';
+const SOURCE_COMMIT='fd30ca7515c7fbccbed2de77bd4be557387eb9c7'; // Public archive snapshot before 54 old days were removed on Nov 13
+const HISTORICAL_BASE='https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/'+SOURCE_COMMIT+'/';
+async function fetchPinnedDay(date){
+ for(let attempt=0;attempt<3;attempt++)try{
+  const r=await fetch(HISTORICAL_BASE+date+'.json',{signal:AbortSignal.timeout(20000),headers:{'user-agent':'TK-KEIRIN-LAB-halfyear-replay'}});
+  if(r.status===404)return {date,missing:true};
+  if(r.status===429||r.status>=500){await new Promise(resolve=>setTimeout(resolve,500*(attempt+1)));continue;}
+  if(!r.ok)return {date,error:'HTTP '+r.status};
+  const j=await r.json();if(!Array.isArray(j.races))return {date,error:'No races array'};
+  return {date,data:j.races};
+ }catch(e){if(attempt===2)return {date,error:String(e).slice(0,220)};await new Promise(resolve=>setTimeout(resolve,500*(attempt+1)));}
+ return {date,error:'All retries exhausted'};
+}
 const MODES=['baseline8','hybrid8','cross4','cross2full','cross1full','score4'];
 const sum=(a,f)=>a.reduce((n,x)=>n+f(x),0);
 function cols(x,c,first=null,second=null){
@@ -83,7 +96,7 @@ function evaluate(cards,w){
  by_month:group(rows,r=>r.date.slice(0,7)),by_topology:group(rows,r=>r.structure),holdout_topology:group(split.holdout,r=>r.structure),holdout_roles:group(split.holdout,r=>r.roles),holdout_bootstrap:bootstrap(split.holdout),hardest_highpayout:split.holdout.filter(r=>r.payout>=30000&&!r.views.hybrid8.hit).sort((a,b)=>b.payout-a.payout).slice(0,20).map(r=>({id:r.id,actual:r.actual,payout:r.payout,structure:r.structure,topPairs:r.topPairs,baseHit:r.views.baseline8.hit,crossHit:r.views.cross4.hit}))};
  return {result,rows};
 }
-async function run({fetchDay=archive.fetchDay,start=START,end=END,models=null}={}){
+async function run({fetchDay=fetchPinnedDay,start=START,end=END,models=null}={}){
  const w=models||JSON.parse(await fs.readFile(path.join(__dirname,'../reports/mansha/crossline-pair-third-v1.json'),'utf8')).models;
  if(!w?.regular?.winner?.weights||!w?.regular?.second?.weights||!w?.third?.weights)throw Error('Missing immutable pretrained weights');
  const dates=archive.dateList(start,end),days=[],errors=[],missing=[],available=[],excluded={size:0,girls_or_unclassified:0,pending_or_invalid_result:0,multiple_results:0,invalid_prelude:0},cards=[];let index=0;
@@ -92,7 +105,7 @@ async function run({fetchDay=archive.fetchDay,start=START,end=END,models=null}={
  for(const d of days){if(d.error){errors.push({date:d.date,error:d.error});continue}if(d.missing){missing.push(d.date);continue}available.push(d.date);for(const raw of d.data){const c=study.createCard(raw,d.date,excluded);if(c&&['S7','S9','A7','C7'].includes(c.cat))cards.push(c);}}
  if(errors.length)throw Error('Archive fetch incomplete '+JSON.stringify(errors.slice(0,6)));
  if(start===START&&end===END&&(available.length!==139||cards.length!==8736))throw Error('Archived source drift: expected 139 days/8736 races; got '+available.length+'/'+cards.length);
- const {result,rows}=evaluate(cards,w);result.available_days=available.length;result.missing_days=missing;result.excluded=excluded;result.created_at=new Date().toISOString();
+ const {result,rows}=evaluate(cards,w);result.available_days=available.length;result.missing_days=missing;result.excluded=excluded;result.source_url=HISTORICAL_BASE;result.source_commit=SOURCE_COMMIT;result.created_at=new Date().toISOString();
  const dir=path.join(__dirname,'../reports/mansha');await fs.mkdir(dir,{recursive:true});
  await fs.writeFile(path.join(dir,'crossline-halfyear-v2.json'),JSON.stringify(result,null,2)+'\n');
  const csv=['race_id,date,category,actual,payout,structure,highrisk,top_pairs,baseline8_stake,baseline8_payout,hybrid8_stake,hybrid8_payout,cross4_stake,cross4_payout,cross2full_stake,cross2full_payout,cross1full_stake,cross1full_payout,score4_stake,score4_payout'];
@@ -108,4 +121,4 @@ async function run({fetchDay=archive.fetchDay,start=START,end=END,models=null}={
  return {result,rows};
 }
 if(require.main===module)run().catch(e=>{console.error(e.stack||e);process.exitCode=1});
-module.exports={syntheticBase8,predict,score,evaluate,summary,bootstrap,run};
+module.exports={syntheticBase8,predict,score,evaluate,summary,bootstrap,fetchPinnedDay,SOURCE_COMMIT,run};
