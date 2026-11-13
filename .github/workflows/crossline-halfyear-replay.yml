@@ -8,6 +8,8 @@ on:
       - 'scripts/crossline-shadow.cjs'
       - 'tests/crossline-shadow.test.cjs'
       - 'scripts/crossline-phase3-gate.cjs'
+      - 'scripts/crossline-bhs-shadow.cjs'
+      - 'tests/crossline-bhs-shadow.test.cjs'
       - 'scripts/crossline-phase4.cjs'
       - 'scripts/crossline-phase4-replay.cjs'
       - 'tests/crossline-phase4.test.cjs'
@@ -21,6 +23,8 @@ on:
       - 'scripts/crossline-shadow.cjs'
       - 'tests/crossline-shadow.test.cjs'
       - 'scripts/crossline-phase3-gate.cjs'
+      - 'scripts/crossline-bhs-shadow.cjs'
+      - 'tests/crossline-bhs-shadow.test.cjs'
       - 'scripts/crossline-phase4.cjs'
       - 'scripts/crossline-phase4-replay.cjs'
       - 'tests/crossline-phase4.test.cjs'
@@ -51,6 +55,7 @@ jobs:
           node tests/crossline-halfyear-replay.test.cjs
           node tests/crossline-phase3-gate.test.cjs
           node tests/crossline-phase4.test.cjs
+          node tests/crossline-bhs-shadow.test.cjs
           node tests/crossline-shadow.test.cjs
       - name: Replay historical archive through Nov 7
         run: node scripts/crossline-halfyear-replay.cjs
