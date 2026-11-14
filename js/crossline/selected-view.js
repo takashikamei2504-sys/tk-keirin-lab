@@ -58,6 +58,26 @@ async function refresh(){
 const formatPairs=p=>p.map(x=>x.join('-')).join('、');
 
 function formatCopy(r){return CrosslinePurchaseHandoff.ticketText(r);}
+
+function formationGuide(tickets){
+ const guide=CrosslineFormationGuide.exactFormations(tickets);
+ const box=tag('section',null,'formation-guide');
+ box.append(tag('h4',guide.formations.length===1?'投票入力｜1つのフォーメーションで4点':'投票入力｜2つのフォーメーションで計4点'));
+ box.append(tag('p','以下の着順・車番を投票画面で選択してください。余分な買い目は発生しません。','formation-note'));
+ for(let i=0;i<guide.formations.length;i++){
+  const f=guide.formations[i],item=tag('div',null,'formation-block');
+  item.append(tag('div','フォーメーション '+(i+1),'formation-num'));
+  const cols=tag('div',null,'formation-columns');
+  for(const [label,values] of [['1着',f.first],['2着',f.second],['3着',f.third]]){
+   const col=tag('div',null,'formation-col');col.append(tag('small',label),tag('strong',values.join('・')));
+   cols.append(col);
+  }
+  item.append(cols,tag('p',f.tickets.length+'点','formation-count'));box.append(item);
+ }
+ box.append(tag('p','合計4点 × 100円 = 400円','formation-total'));
+ return box;
+}
+
 async function copyTickets(content,btn){
  try{
   if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');
@@ -96,6 +116,7 @@ function drawCandidateList(data,modelError=null){
   const ticks=tag('div',null,'candidate-tickets');
   for(const ticket of row.forecast.tickets)ticks.append(tag('div',ticket,'candidate-ticket'));
   d.append(ticks);
+  d.append(formationGuide(row.forecast.tickets));
   const footer=tag('div',null,'candidate-footer'),copy=tag('button','4点をコピー');
   footer.append(tag('strong','各100円 ／ 計400円'),copy);d.append(footer);
   copy.type='button';copy.addEventListener('click',()=>{
@@ -113,7 +134,7 @@ function drawCandidateList(data,modelError=null){
    });
    links.append(a);
   }
-  d.append(links,tag('p','最初に「4点をコピー」し、移動先の公式画面でレースと4点を手入力してください。投票確定はご本人が操作します。','site-guidance'));
+  d.append(links,tag('p','移動先で上のフォーメーション通りに選択し、正確に4点・各100円となることを確認してご本人が確定してください。買い目が自動入力されるものではありません。','site-guidance'));
   d.append(tag('p',row.source==='frozen'?'発走前固定保存 '+stamp(row.saved_at):'当日出走表から計算・未固定', 'candidate-source'));
   frag.append(d);
  }
@@ -172,6 +193,8 @@ function showForecast(f,{source='recomputed',date=null,venue=null,raceNo=null,ti
  for(const t of f.candidate4||[]){
   const e=tag('div',t,'bet');if(!active)e.classList.add('muted-bet');$('tickets').append(e);
  }
+ $('formation-guide-detail').replaceChildren();
+ if(f.candidate4?.length===4)$('formation-guide-detail').append(formationGuide(f.candidate4));
  $('points').textContent=actionable?'4点×100円＝400円':active?'現在は購入対象外（発走済み・参考記録）':'投資対象外：0円（下の4点は比較研究用）';
  const sourceText=source==='frozen'?'発走前固定保存済み：'+stamp(savedAt):
   source==='live'?'発走前予測・この画面の再計算（自動保存実績とは別）':
