@@ -8,6 +8,7 @@ on:
       - 'scripts/crossline-selected-daily.cjs'
       - 'tests/crossline-selected.test.cjs'
       - 'crossline-selected.html'
+      - 'crossline-buy.html'
       - '.github/workflows/crossline-selected-ci.yml'
   pull_request:
     branches: [main]
@@ -16,6 +17,7 @@ on:
       - 'scripts/crossline-selected-daily.cjs'
       - 'tests/crossline-selected.test.cjs'
       - 'crossline-selected.html'
+      - 'crossline-buy.html'
       - '.github/workflows/crossline-selected-ci.yml'
   workflow_dispatch:
 permissions:
