@@ -39,6 +39,15 @@
 .candidate-mini{padding:9px 0;border-bottom:1px solid #36534c;font-size:13px;line-height:1.7}
 .candidate-mini strong{color:#f0dfb3}
 .field-two{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+/* Explicit user-initiated handoff; only official home pages, never inferred bet links */
+.site-handoff{margin-top:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.site-link{min-width:0;min-height:45px;padding:11px 8px;border:1px solid #c8bd8a;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#f2e4b4;background:#172b30;font-size:13px;font-weight:750;text-align:center;text-decoration:none;line-height:1.4}
+.site-link:focus-visible{outline:3px solid #efcf89;outline-offset:2px}
+.site-handoff[hidden]{display:none}
+.site-guidance{font-size:11px;color:#c4d2c6;margin:7px 0 0;line-height:1.75}
+.candidate-actions .secondary{font-size:14px}
+
 @media(min-width:600px){.candidate-tickets{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
 @media (min-width:560px){.ticket-grid,.kpi-grid{grid-template-columns:repeat(4,minmax(0,1fr))}} 
@@ -60,7 +69,7 @@
 <div id="candidate-list" aria-label="発走前の購入候補"></div>
 <details class="candidate-collapse"><summary id="candidate-concluded-title">発走済みの購入候補</summary><div id="candidate-concluded"></div></details>
 <details class="candidate-collapse"><summary id="candidate-skipped-title">見送りレース</summary><div id="candidate-skipped"></div></details>
-<p class="fine">※「発走前」は発走予定時刻を基準とした表示です。実際の投票締切はこれより前になります。購入前に公式の締切・出走者変更・並びを必ず確認してください。自動投票は行いません。</p>
+<p class="fine">※サイトへの移動は公式トップ画面へのリンクです。買い目が自動でセットされるものではありません。「発走前」は発走予定時刻を基準とし、投票締切はそれより前です。最終確定はご自身で操作してください。</p>
 </section>
 <section class="card">
 <h2>レース別の予想詳細</h2>
@@ -81,6 +90,11 @@
 <div id="tickets" class="ticket-grid" aria-label="三連単4点"></div>
 <p id="points" class="lead"></p>
 <button id="copy" type="button" disabled>4点をコピー</button>
+<div id="site-handoff-detail" class="site-handoff" hidden>
+<a id="detail-winticket" class="site-link" href="https://www.winticket.jp/keirin" target="_blank" rel="noopener noreferrer">WINTICKETで開く</a>
+<a id="detail-kdreams" class="site-link" href="https://keirin.kdreams.jp/" target="_blank" rel="noopener noreferrer">楽天Kドリームスで開く</a>
+</div>
+<p class="site-guidance">①買い目をコピー → ②購入サイトで開催場・レースを選択 → ③三連単4点・各100円を入力 → ④内容を確認して、ご本人が投票確定してください。自動入力・自動投票は行いません。</p>
 <p id="source" class="fine"></p><p id="outcome" class="fine"></p>
 </div>
 </section>
@@ -104,6 +118,7 @@
 <script src="js/mansha/model.js?v=6fe607453949"></script>
 <script src="js/crossline/selected.js?v=1"></script>
 <script src="js/crossline/candidate-list.js?v=2"></script>
-<script src="js/crossline/selected-view.js?v=2"></script>
+<script src="js/crossline/purchase-handoff.js?v=1"></script>
+<script src="js/crossline/selected-view.js?v=3"></script>
 <script src="js/lab-shell.js?v=1"></script>
 </body></html>
