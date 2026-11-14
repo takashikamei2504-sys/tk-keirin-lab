@@ -35,12 +35,14 @@ jobs:
           node --check js/crossline/selected-view.js
           node --check js/crossline/candidate-list.js
           node --check js/crossline/purchase-handoff.js
+          node --check js/crossline/formation-guide.js
           node --check scripts/crossline-selected-daily.cjs
       - name: Independent engine, result isolation, and settlement regression
         run: |
           node tests/crossline-selected.test.cjs
           node tests/crossline-candidate-list.test.cjs
           node tests/crossline-purchase-handoff.test.cjs
+          node tests/crossline-formation-guide.test.cjs
       - name: Existing routing regressions
         run: |
           node tests/race-routing.test.cjs
