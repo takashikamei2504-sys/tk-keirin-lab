@@ -3,7 +3,7 @@ const $=id=>document.getElementById(id);
 const jp=n=>Number(n||0).toLocaleString('ja-JP'),pct=n=>n==null?'―':(n*100).toFixed(1)+'%',yen=n=>jp(n)+'円';
 const jst=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const stamp=v=>v?new Date(v).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo',year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'未取得';
-const tag=(name,text,className)=>{const e=document.createElement(name);if(text!==undefined)e.textContent=String(text);if(className)e.className=className;return e;};
+const tag=(name,text,className)=>{const e=document.createElement(name);if(text!==null&&text!==undefined)e.textContent=String(text);if(className)e.className=className;return e;};
 let day=null,weights=null,history=null,current=null,loaded=false,revision=0,listRevision=0,currentList=null;
 const status=s=>{$('status').textContent=s;};
 async function json(url){
