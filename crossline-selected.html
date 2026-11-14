@@ -65,18 +65,47 @@
 @media(min-width:600px){.candidate-tickets{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
 @media (min-width:560px){.ticket-grid,.kpi-grid{grid-template-columns:repeat(4,minmax(0,1fr))}} 
+
+/* iPhone first: clear two-column tickets and no oversized formation tiles */
+#purchase-list{padding:14px 12px}
+.candidate-toolbar{gap:8px}
+.candidate-toolbar h2{font-size:18px;line-height:1.35;margin:2px 0}
+.candidate-date{width:100%;max-width:180px}
+.candidate-stats{gap:8px;margin:12px 0}
+.candidate-total{padding:9px 10px}
+.candidate-total strong{font-size:21px}
+.candidate-card{padding:12px;margin:10px 0;border-radius:12px}
+.candidate-head{align-items:start;flex-wrap:nowrap;gap:6px}
+.candidate-heading{font-size:18px;min-width:0;overflow-wrap:anywhere}
+.candidate-badge{font-size:11px;padding:4px 7px;white-space:nowrap}
+.candidate-pairs{line-height:1.65;margin:8px 0}
+.candidate-tickets{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.candidate-ticket{padding:12px 4px;font-size:24px;line-height:1.2;min-width:0}
+.formation-details{border:1px solid #45645a;background:#122a30;border-radius:10px;margin:8px 0 10px;padding:0 10px}
+.formation-details>summary{font-size:13px;font-weight:750;color:#f2daa4;line-height:1.4;min-height:44px;padding:12px 2px}
+.formation-details .formation-guide{border:0;border-top:1px solid #38574e;margin:0;padding:10px 0;background:transparent;border-radius:0}
+.formation-guide h4{font-size:13px}
+.formation-columns{gap:6px}
+.formation-col{min-width:0;padding:8px 4px}
+.formation-col strong{font-size:19px;line-height:1.3}
+.formation-note{line-height:1.5}
+.site-handoff{gap:8px;margin-top:9px}
+.site-link{padding:9px 5px}
+#result .formation-guide{max-width:100%}
+@media(max-width:390px){.candidate-card{padding:11px 9px}.candidate-heading{font-size:17px}.candidate-ticket{font-size:22px}.candidate-badge{font-size:10px}}
+
 </style></head><body>
 <header><a class="brand" href="index.html">TK KEIRIN LAB</a><a href="high-payout.html">高配当研究へ</a></header>
 <main>
 <p class="eyebrow">CROSS-LINE SELECTED / LEGACY 4 × PHASE 3</p>
-<h1>別線決着を、<br>4点に絞る。</h1>
-<p class="lead intro">従来の別線1・2着ペア2組と3着候補各2車を固定。A級・チャレンジ7車の万車リスク上位25%で、上位2ペアが裏表でない場合だけ購入候補とします。独立エンジンとして、通常LABの買い目は変更しません。</p>
+<h1>別線4点｜購入候補</h1>
+<p class="lead intro">A級・チャレンジ7車から、対象レースと三連単4点を一覧表示。条件外は見送りします。</p>
 <section class="card" id="purchase-list" aria-labelledby="purchase-list-title">
 <div class="candidate-toolbar">
 <div><p class="eyebrow">BUY LIST / CROSS-LINE 4</p><h2 id="purchase-list-title">購入対象レースと買い目一覧</h2></div>
 <label class="candidate-date">開催日<input id="date" type="date"></label>
 </div>
-<p class="fine">この日の対象レースをまとめて判定し、発走前の購入候補だけを時刻順に表示します。1レース4点・各100円です。</p>
+<p class="fine">発走予定時刻順。各レース4点×100円＝400円。必要なレースだけ「投票入力の選択表」を開けます。</p>
 <div class="candidate-stats" id="candidate-stats" aria-label="購入候補の集計"></div>
 <p id="candidate-status" class="fine" role="status" aria-live="polite">購入候補を集計しています。</p>
 <div class="candidate-actions"><button type="button" id="candidate-refresh">一覧を更新</button><button type="button" id="candidate-copy-all" class="secondary" disabled>対象の買い目を一括コピー</button></div>
@@ -135,6 +164,6 @@
 <script src="js/crossline/candidate-list.js?v=2"></script>
 <script src="js/crossline/purchase-handoff.js?v=1"></script>
 <script src="js/crossline/formation-guide.js?v=1"></script>
-<script src="js/crossline/selected-view.js?v=4"></script>
+<script src="js/crossline/selected-view.js?v=5"></script>
 <script src="js/lab-shell.js?v=1"></script>
 </body></html>

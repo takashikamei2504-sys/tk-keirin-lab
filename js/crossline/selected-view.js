@@ -3,7 +3,7 @@ const $=id=>document.getElementById(id);
 const jp=n=>Number(n||0).toLocaleString('ja-JP'),pct=n=>n==null?'―':(n*100).toFixed(1)+'%',yen=n=>jp(n)+'円';
 const jst=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const stamp=v=>v?new Date(v).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo',year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'未取得';
-const tag=(name,text,className)=>{const e=document.createElement(name);if(text!==undefined)e.textContent=String(text);if(className)e.className=className;return e;};
+const tag=(name,text,className)=>{const e=document.createElement(name);if(text!==null&&text!==undefined)e.textContent=String(text);if(className)e.className=className;return e;};
 let day=null,weights=null,history=null,current=null,loaded=false,revision=0,listRevision=0,currentList=null;
 const status=s=>{$('status').textContent=s;};
 async function json(url){
@@ -116,7 +116,12 @@ function drawCandidateList(data,modelError=null){
   const ticks=tag('div',null,'candidate-tickets');
   for(const ticket of row.forecast.tickets)ticks.append(tag('div',ticket,'candidate-ticket'));
   d.append(ticks);
-  d.append(formationGuide(row.forecast.tickets));
+  // Keep the day-level overview compact on iPhone. Expand only the race to buy.
+  const formation=CrosslineFormationGuide.exactFormations(row.forecast.tickets);
+  const fold=tag('details',null,'formation-details');
+  fold.append(tag('summary','投票入力の選択表を開く（'+formation.formations.length+'組）'));
+  fold.append(formationGuide(row.forecast.tickets));
+  d.append(fold);
   const footer=tag('div',null,'candidate-footer'),copy=tag('button','4点をコピー');
   footer.append(tag('strong','各100円 ／ 計400円'),copy);d.append(footer);
   copy.type='button';copy.addEventListener('click',()=>{
@@ -134,7 +139,7 @@ function drawCandidateList(data,modelError=null){
    });
    links.append(a);
   }
-  d.append(links,tag('p','移動先で上のフォーメーション通りに選択し、正確に4点・各100円となることを確認してご本人が確定してください。買い目が自動入力されるものではありません。','site-guidance'));
+  d.append(links,tag('p','投票は手動入力です。購入前に上の選択表を開き、4点・各100円になっているか確認してください。','site-guidance'));
   d.append(tag('p',row.source==='frozen'?'発走前固定保存 '+stamp(row.saved_at):'当日出走表から計算・未固定', 'candidate-source'));
   frag.append(d);
  }

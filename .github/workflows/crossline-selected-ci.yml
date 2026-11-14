@@ -43,6 +43,7 @@ jobs:
           node tests/crossline-candidate-list.test.cjs
           node tests/crossline-purchase-handoff.test.cjs
           node tests/crossline-formation-guide.test.cjs
+          node tests/crossline-mobile-layout.test.cjs
       - name: Existing routing regressions
         run: |
           node tests/race-routing.test.cjs
