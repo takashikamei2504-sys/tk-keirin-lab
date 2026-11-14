@@ -57,10 +57,7 @@ async function refresh(){
 }
 const formatPairs=p=>p.map(x=>x.join('-')).join('、');
 
-function formatCopy(r){
- return r.venue+' '+r.race_no+'R　発走予定 '+r.start+'（'+r.date+'）\n'+
-  r.forecast.tickets.map(t=>t+'　100円').join('\n')+'\n合計 400円';
-}
+function formatCopy(r){return CrosslinePurchaseHandoff.ticketText(r);}
 async function copyTickets(content,btn){
  try{
   if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');
@@ -101,7 +98,22 @@ function drawCandidateList(data,modelError=null){
   d.append(ticks);
   const footer=tag('div',null,'candidate-footer'),copy=tag('button','4点をコピー');
   footer.append(tag('strong','各100円 ／ 計400円'),copy);d.append(footer);
-  copy.type='button';copy.addEventListener('click',()=>copyTickets(formatCopy(row),copy));
+  copy.type='button';copy.addEventListener('click',()=>{
+   if(!CrosslinePurchaseHandoff.validRow(row)){void renderCandidateList();return;}
+   void copyTickets(formatCopy(row),copy);
+  });
+  const links=tag('div',null,'site-handoff');
+  for(const [key,title] of [['winticket','WINTICKETで開く'],['kdreams','楽天Kドリームスで開く']]){
+   const a=tag('a',title,'site-link');a.href=CrosslinePurchaseHandoff.destination(key);
+   a.target='_blank';a.rel='noopener noreferrer';
+   a.addEventListener('click',event=>{
+    if(!CrosslinePurchaseHandoff.validRow(row)){
+     event.preventDefault();void renderCandidateList();return;
+    }
+   });
+   links.append(a);
+  }
+  d.append(links,tag('p','最初に「4点をコピー」し、移動先の公式画面でレースと4点を手入力してください。投票確定はご本人が操作します。','site-guidance'));
   d.append(tag('p',row.source==='frozen'?'発走前固定保存 '+stamp(row.saved_at):'当日出走表から計算・未固定', 'candidate-source'));
   frag.append(d);
  }
@@ -148,6 +160,7 @@ function showForecast(f,{source='recomputed',date=null,venue=null,raceNo=null,ti
  const startAt=date&&time?Date.parse(date+'T'+time+':00+09:00'):NaN;
  const actionable=f.eligible&&(source==='live'||source==='frozen')&&Number.isFinite(startAt)&&Date.now()<startAt;
  current={forecast:f,source,startAt};$('result').hidden=false;$('copy').disabled=!actionable;
+ $('site-handoff-detail').hidden=!actionable;
  const active=f.eligible;
  $('verdict').textContent=actionable?'購入候補4点':active?'発走済み／参考記録':'見送り';
  $('verdict').className=actionable?'flag selected':'flag skipped';
@@ -227,7 +240,9 @@ $('date').addEventListener('change',refresh);
 $('candidate-refresh').addEventListener('click',()=>{void refresh();void loadHistory();});
 $('candidate-copy-all').addEventListener('click',()=>{
  if(!currentList?.upcoming?.length)return;
- void copyTickets(currentList.upcoming.map(formatCopy).join('\n\n'),$('candidate-copy-all'));
+ const valid=currentList.upcoming.filter(row=>CrosslinePurchaseHandoff.validRow(row));
+ if(valid.length!==currentList.upcoming.length){void renderCandidateList();return;}
+ void copyTickets(valid.map(formatCopy).join('\n\n'),$('candidate-copy-all'));
 });
 setInterval(()=>{if(currentList?.upcoming?.length)void renderCandidateList();},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)void renderCandidateList();});
@@ -237,9 +252,19 @@ $('race').addEventListener('change',()=>{$('result').hidden=true;});
 $('predict').addEventListener('click',predict);
 $('copy').addEventListener('click',async()=>{
  if(!current||!['live','frozen'].includes(current.source)||!current.forecast.eligible||!(Date.now()<current.startAt))return;
- const text=current.forecast.tickets.join('\n');
+ const row={source:current.source,startAt:current.startAt,forecast:current.forecast,date:'',venue:'',race_no:'',start:''};
+ if(!CrosslinePurchaseHandoff.validRow(row)){void renderCandidateList();return;}
+ const text=current.forecast.tickets.map(x=>x+'　100円').join('\n')+'\n合計400円';
  try{await navigator.clipboard.writeText(text);$('copy').textContent='コピーしました';setTimeout(()=>$('copy').textContent='4点をコピー',1800);}
  catch(_){$('copy').textContent='コピーできませんでした';}
 });
+for(const id of ['detail-winticket','detail-kdreams']){
+ $(id).addEventListener('click',event=>{
+  if(!current||!(Date.now()<current.startAt)||!current.forecast.eligible||
+   !['live','frozen'].includes(current.source)){
+   event.preventDefault();$('site-handoff-detail').hidden=true;void renderCandidateList();
+  }
+ });
+}
 refresh();loadHistory();
 })();
