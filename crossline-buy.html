@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b151d"><meta name="app-build" content="crossline-mobile-r7-20261114">
+<title>別線4点｜購入候補一覧・修正版｜TK KEIRIN LAB</title><link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/routing.css?v=3f18375c59d1"><link rel="stylesheet" href="css/lab-shell.css?v=1">
+<style>
+:root{color-scheme:dark}main{padding-bottom:90px}.intro{max-width:720px}.flag{display:inline-block;border-radius:99px;font-weight:750;padding:7px 12px;letter-spacing:.04em}
+.selected{color:#10251c;background:#9bd4a8}.skipped{color:#e7e0d3;background:#4e5d66}
+.panel-body{display:grid;gap:12px}.ticket-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.bet{font-size:23px;font-weight:800;letter-spacing:.1em;text-align:center;border:1px solid #678779;padding:15px 4px;border-radius:12px;background:#213d39;white-space:nowrap}
+.muted-bet{opacity:.6;background:#222f39}.kpi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.kpi{background:#1d3437;border:1px solid #345558;padding:12px;border-radius:12px;min-width:0}
+.kpi small{display:block;color:#b4c9c3;line-height:1.55}.kpi strong{display:block;font-size:19px;margin-top:5px;font-variant-numeric:tabular-nums}
+.history-row{border-bottom:1px solid #3b5455;padding:9px 0}.history-row summary{cursor:pointer;line-height:1.6}.history-row p{font-size:12px;color:#d7dfdb}.ticketline{font-size:15px!important;font-weight:700;color:#e2d39f!important;overflow-wrap:anywhere}
+#result button{margin-top:0}.fine{font-size:12px;color:#a9bfb7;line-height:1.8}#status{min-height:24px}
+
+/* Single-screen purchase candidate overview, optimized for 390px iPhone */
+.candidate-toolbar{display:flex;align-items:end;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.candidate-toolbar h2{margin:0}.candidate-date{width:190px;max-width:100%}
+.candidate-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}
+.candidate-total{padding:12px;background:#203a36;border:1px solid #466a59;border-radius:12px}
+.candidate-total small{display:block;color:#b7cac3;font-size:12px}
+.candidate-total strong{display:block;font-size:23px;font-variant-numeric:tabular-nums;margin-top:4px}
+.candidate-actions{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}
+.candidate-actions button{flex:1 1 175px;margin:0;min-height:45px;font-size:14px}
+.candidate-card{padding:15px 12px;margin:14px 0;border:1px solid #5b806a;border-radius:14px;background:#1b3434}
+.candidate-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.candidate-heading{font-size:19px;font-weight:800;line-height:1.35}.candidate-time{font-size:12px;color:#c4d6c9;font-weight:650}
+.candidate-badge{display:inline-block;padding:5px 9px;border-radius:8px;background:#b7dfb7;color:#173224;font-size:12px;font-weight:800}
+.candidate-pairs{color:#d6e4da;font-size:12px;margin:8px 0}
+.candidate-tickets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.candidate-ticket{padding:10px 4px;text-align:center;font-size:20px;font-weight:800;letter-spacing:.06em;border-radius:10px;background:#284641;border:1px solid #658574;white-space:nowrap}
+.candidate-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.candidate-footer strong{font-size:16px;font-variant-numeric:tabular-nums}
+.candidate-footer button{width:auto;min-height:42px;padding:7px 13px;margin:0;font-size:13px}
+.candidate-source{font-size:11px;color:#aebfb9;margin:8px 0 0;line-height:1.6}
+.candidate-empty{background:#1a2d31;border-radius:12px;padding:15px;color:#c3d2cc;line-height:1.7}
+.candidate-collapse{margin-top:12px;padding-top:10px;border-top:1px solid #385a53}
+.candidate-collapse>summary{cursor:pointer;font-weight:750;padding:6px 0}
+.candidate-mini{padding:9px 0;border-bottom:1px solid #36534c;font-size:13px;line-height:1.7}
+.candidate-mini strong{color:#f0dfb3}
+.field-two{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+.formation-guide{padding:12px;background:#102b32;border:1px solid #527167;border-radius:12px;margin:12px 0}
+.formation-guide h4{font-size:13px;margin:0 0 6px;color:#eedc9e}
+.formation-note{font-size:11px;color:#c2d6cd;margin:4px 0 10px;line-height:1.6}
+.formation-block{padding:9px 0;border-top:1px solid #36594e}
+.formation-block:first-of-type{border-top:none}
+.formation-num{font-size:11px;color:#bfd4c9;font-weight:700}
+.formation-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:6px}
+.formation-col{padding:9px 5px;border-radius:8px;background:#26443d;text-align:center;min-width:0}
+.formation-col small{display:block;font-size:11px;color:#bbd2c8;letter-spacing:.02em}
+.formation-col strong{display:block;font-size:20px;line-height:1.45;overflow-wrap:anywhere}
+.formation-count{font-size:12px;color:#f0dfba;text-align:right;margin:5px 0 0}
+.formation-total{font-size:12px;color:#e4f3e8;font-weight:800;margin:8px 0 0}
+
+
+/* Explicit user-initiated handoff; only official home pages, never inferred bet links */
+.site-handoff{margin-top:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.site-link{min-width:0;min-height:45px;padding:11px 8px;border:1px solid #c8bd8a;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#f2e4b4;background:#172b30;font-size:13px;font-weight:750;text-align:center;text-decoration:none;line-height:1.4}
+.site-link:focus-visible{outline:3px solid #efcf89;outline-offset:2px}
+.site-handoff[hidden]{display:none}
+.site-guidance{font-size:11px;color:#c4d2c6;margin:7px 0 0;line-height:1.75}
+.candidate-actions .secondary{font-size:14px}
+
+@media(min-width:600px){.candidate-tickets{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+@media (min-width:560px){.ticket-grid,.kpi-grid{grid-template-columns:repeat(4,minmax(0,1fr))}} 
+
+/* iPhone first: clear two-column tickets and no oversized formation tiles */
+#purchase-list{padding:14px 12px}
+.candidate-toolbar{gap:8px}
+.candidate-toolbar h2{font-size:18px;line-height:1.35;margin:2px 0}
+.candidate-date{width:100%;max-width:180px}
+.candidate-stats{gap:8px;margin:12px 0}
+.candidate-total{padding:9px 10px}
+.candidate-total strong{font-size:21px}
+.candidate-card{padding:12px;margin:10px 0;border-radius:12px}
+.candidate-head{align-items:start;flex-wrap:nowrap;gap:6px}
+.candidate-heading{font-size:18px;min-width:0;overflow-wrap:anywhere}
+.candidate-badge{font-size:11px;padding:4px 7px;white-space:nowrap}
+.candidate-pairs{line-height:1.65;margin:8px 0}
+.candidate-tickets{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.candidate-ticket{padding:12px 4px;font-size:24px;line-height:1.2;min-width:0}
+.formation-details{border:1px solid #45645a;background:#122a30;border-radius:10px;margin:8px 0 10px;padding:0 10px}
+.formation-details>summary{font-size:13px;font-weight:750;color:#f2daa4;line-height:1.4;min-height:44px;padding:12px 2px}
+.formation-details .formation-guide{border:0;border-top:1px solid #38574e;margin:0;padding:10px 0;background:transparent;border-radius:0}
+.formation-guide h4{font-size:13px}
+.formation-columns{gap:6px}
+.formation-col{min-width:0;padding:8px 4px}
+.formation-col strong{font-size:19px;line-height:1.3}
+.formation-note{line-height:1.5}
+.site-handoff{gap:8px;margin-top:9px}
+.site-link{padding:9px 5px}
+#result .formation-guide{max-width:100%}
+@media(max-width:390px){.candidate-card{padding:11px 9px}.candidate-heading{font-size:17px}.candidate-ticket{font-size:22px}.candidate-badge{font-size:10px}}
+
+
+.build-version{font-size:12px;color:#a7c9c3;background:#10272c;border:1px solid #365f55;border-radius:8px;padding:7px 10px;margin:0 0 12px;line-height:1.4}
+</style></head><body>
+<header><a class="brand" href="index.html">TK KEIRIN LAB</a><a href="high-payout.html">高配当研究へ</a></header>
+<main>
+<p class="eyebrow">CROSS-LINE SELECTED / LEGACY 4 × PHASE 3</p>
+<h1>別線4点｜購入候補</h1>
+<p class="build-version" aria-label="画面バージョン">画面更新版 r7 ／ 4点は2列表示・フォーメーションは折りたたみ</p>
+<p class="lead intro">A級・チャレンジ7車から、対象レースと三連単4点を一覧表示。条件外は見送りします。</p>
+<section class="card" id="purchase-list" aria-labelledby="purchase-list-title">
+<div class="candidate-toolbar">
+<div><p class="eyebrow">BUY LIST / CROSS-LINE 4</p><h2 id="purchase-list-title">購入対象レースと買い目一覧</h2></div>
+<label class="candidate-date">開催日<input id="date" type="date"></label>
+</div>
+<p class="fine">発走予定時刻順。各レース4点×100円＝400円。必要なレースだけ「投票入力の選択表」を開けます。</p>
+<div class="candidate-stats" id="candidate-stats" aria-label="購入候補の集計"></div>
+<p id="candidate-status" class="fine" role="status" aria-live="polite">購入候補を集計しています。</p>
+<div class="candidate-actions"><button type="button" id="candidate-refresh">一覧を更新</button><button type="button" id="candidate-copy-all" class="secondary" disabled>対象の買い目を一括コピー</button></div>
+<div id="candidate-list" aria-label="発走前の購入候補"></div>
+<details class="candidate-collapse"><summary id="candidate-concluded-title">発走済みの購入候補</summary><div id="candidate-concluded"></div></details>
+<details class="candidate-collapse"><summary id="candidate-skipped-title">見送りレース</summary><div id="candidate-skipped"></div></details>
+<p class="fine">※サイトへの移動は公式トップ画面へのリンクです。買い目が自動でセットされるものではありません。「発走前」は発走予定時刻を基準とし、投票締切はそれより前です。最終確定はご自身で操作してください。</p>
+</section>
+<section class="card">
+<h2>レース別の予想詳細</h2>
+<div class="fields field-two">
+<label>競輪場<select id="venue" disabled></select></label>
+<label>レース<select id="race" disabled></select></label>
+</div>
+<button type="button" id="predict" disabled>このレースの別線4点を表示</button>
+<p id="status" role="status" aria-live="polite" class="muted">出走表を確認しています</p>
+</section>
+<section id="result" class="card" hidden aria-live="polite">
+<p id="event" class="eyebrow"></p>
+<div class="panel-body">
+<div><span id="verdict" class="flag skipped">判定前</span></div>
+<p id="reason"></p>
+<p id="risk" class="muted"></p>
+<p id="lineup">別線ペア：</p>
+<div id="tickets" class="ticket-grid" aria-label="三連単4点"></div>
+<div id="formation-guide-detail"></div>
+<p id="points" class="lead"></p>
+<button id="copy" type="button" disabled>4点をコピー</button>
+<div id="site-handoff-detail" class="site-handoff" hidden>
+<a id="detail-winticket" class="site-link" href="https://www.winticket.jp/keirin" target="_blank" rel="noopener noreferrer">WINTICKETで開く</a>
+<a id="detail-kdreams" class="site-link" href="https://keirin.kdreams.jp/" target="_blank" rel="noopener noreferrer">楽天Kドリームスで開く</a>
+</div>
+<p class="site-guidance">①購入サイトを開く → ②開催場・レースを選択 → ③上のフォーメーション通りに選択 → ④買い目4点・各100円を確認 → ⑤ご本人が投票確定してください。自動入力・自動投票は行いません。</p>
+<p id="source" class="fine"></p><p id="outcome" class="fine"></p>
+</div>
+</section>
+<section class="card">
+<h2>発走前固定の実績</h2>
+<p id="health" role="status" class="muted">初回の自動保存を確認中です。</p>
+<p id="updated" class="fine"></p><div id="metrics" class="kpi-grid"></div>
+<p class="fine">購入対象外は0円。全レース4点との比較、最大払戻3件除外後の回収率も表示します。結果確定前の買い目は変更しません。</p>
+<details><summary>レース別の保存予想と結果を見る</summary><div id="history"></div></details>
+</section>
+<section class="card">
+<h2>モデルについて</h2>
+<p>男子A級7車・チャレンジ7車のみ。従来係数で1着・2着を独立順位付けし、異なるラインの上位2ペアを選択。各ペアにつき独立した3着予測上位2人を選ぶため、計4点です。</p>
+<p>リスクは過去の競走得点・脚質・ライン構成から計算する固定モデルの同級班上位25%。上位2組が「1-3」「3-1」のような裏表関係なら見送ります。</p>
+<p class="fine">過去9月〜11月7日の選別後回収率140.3%は事後データを見て定めた条件の過去実績です。未来の収益保証ではありません。過去の公開出走表からの再計算は発走前固定実績と区別します。1点100円は仮想集計で、決済・自動投票はありません。</p>
+</section>
+<footer><a href="auto.html">通常の自動選択予想</a> ／ <a href="mansha-shadow.html">万車・別線研究</a> ／ <a href="routed-results.html">通常予想の成績</a></footer>
+</main>
+<script src="js/race-feed.js?v=e17bdfe21149"></script>
+<script src="js/mansha/risk.js?v=125624ada5cb"></script>
+<script src="js/mansha/model.js?v=6fe607453949"></script>
+<script src="js/crossline/selected.js?v=1"></script>
+<script src="js/crossline/candidate-list.js?v=2"></script>
+<script src="js/crossline/purchase-handoff.js?v=1"></script>
+<script src="js/crossline/formation-guide.js?v=1"></script>
+<script src="js/crossline/selected-view.js?v=7"></script>
+<script src="js/lab-shell.js?v=1"></script>
+</body></html>
