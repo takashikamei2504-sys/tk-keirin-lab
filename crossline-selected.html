@@ -40,6 +40,20 @@
 .candidate-mini strong{color:#f0dfb3}
 .field-two{grid-template-columns:repeat(2,minmax(0,1fr))}
 
+.formation-guide{padding:12px;background:#102b32;border:1px solid #527167;border-radius:12px;margin:12px 0}
+.formation-guide h4{font-size:13px;margin:0 0 6px;color:#eedc9e}
+.formation-note{font-size:11px;color:#c2d6cd;margin:4px 0 10px;line-height:1.6}
+.formation-block{padding:9px 0;border-top:1px solid #36594e}
+.formation-block:first-of-type{border-top:none}
+.formation-num{font-size:11px;color:#bfd4c9;font-weight:700}
+.formation-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:6px}
+.formation-col{padding:9px 5px;border-radius:8px;background:#26443d;text-align:center;min-width:0}
+.formation-col small{display:block;font-size:11px;color:#bbd2c8;letter-spacing:.02em}
+.formation-col strong{display:block;font-size:20px;line-height:1.45;overflow-wrap:anywhere}
+.formation-count{font-size:12px;color:#f0dfba;text-align:right;margin:5px 0 0}
+.formation-total{font-size:12px;color:#e4f3e8;font-weight:800;margin:8px 0 0}
+
+
 /* Explicit user-initiated handoff; only official home pages, never inferred bet links */
 .site-handoff{margin-top:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .site-link{min-width:0;min-height:45px;padding:11px 8px;border:1px solid #c8bd8a;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#f2e4b4;background:#172b30;font-size:13px;font-weight:750;text-align:center;text-decoration:none;line-height:1.4}
@@ -88,13 +102,14 @@
 <p id="risk" class="muted"></p>
 <p id="lineup">別線ペア：</p>
 <div id="tickets" class="ticket-grid" aria-label="三連単4点"></div>
+<div id="formation-guide-detail"></div>
 <p id="points" class="lead"></p>
 <button id="copy" type="button" disabled>4点をコピー</button>
 <div id="site-handoff-detail" class="site-handoff" hidden>
 <a id="detail-winticket" class="site-link" href="https://www.winticket.jp/keirin" target="_blank" rel="noopener noreferrer">WINTICKETで開く</a>
 <a id="detail-kdreams" class="site-link" href="https://keirin.kdreams.jp/" target="_blank" rel="noopener noreferrer">楽天Kドリームスで開く</a>
 </div>
-<p class="site-guidance">①買い目をコピー → ②購入サイトで開催場・レースを選択 → ③三連単4点・各100円を入力 → ④内容を確認して、ご本人が投票確定してください。自動入力・自動投票は行いません。</p>
+<p class="site-guidance">①購入サイトを開く → ②開催場・レースを選択 → ③上のフォーメーション通りに選択 → ④買い目4点・各100円を確認 → ⑤ご本人が投票確定してください。自動入力・自動投票は行いません。</p>
 <p id="source" class="fine"></p><p id="outcome" class="fine"></p>
 </div>
 </section>
@@ -119,6 +134,7 @@
 <script src="js/crossline/selected.js?v=1"></script>
 <script src="js/crossline/candidate-list.js?v=2"></script>
 <script src="js/crossline/purchase-handoff.js?v=1"></script>
-<script src="js/crossline/selected-view.js?v=3"></script>
+<script src="js/crossline/formation-guide.js?v=1"></script>
+<script src="js/crossline/selected-view.js?v=4"></script>
 <script src="js/lab-shell.js?v=1"></script>
 </body></html>
