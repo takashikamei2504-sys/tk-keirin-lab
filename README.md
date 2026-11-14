@@ -14,7 +14,7 @@ iPhone用の購入対象一覧で、1レースにつき三連単4点（各100円
 
 
 
-[別線4点のiPhone用予想画面](https://takashikamei2504-sys.github.io/tk-keirin-lab/crossline-selected.html)
+[別線4点のiPhone用予想画面](https://takashikamei2504-sys.github.io/tk-keirin-lab/crossline-buy.html)
 
 従来の別線予測係数（2026年6〜8月学習、`reports/mansha/crossline-pair-third-v1.json`）をそのまま使用。A級・チャレンジ7車のリスク上位25%かつ上位2ペアが裏表にならないレースのみ、2ペア×3着候補2人＝三連単4点・各点100円を候補表示します。対象外は見送り、比較研究用の4点のみ表示します。
 
