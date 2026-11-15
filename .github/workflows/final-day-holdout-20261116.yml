@@ -1,0 +1,74 @@
+name: Historical final-day 1298-race fixed-rule holdout
+on:
+  push:
+    branches: ['research/final-day-replay-20261116']
+    paths:
+      - 'scripts/final-day-backtest.cjs'
+      - 'scripts/final-day-aggregate.cjs'
+      - '.github/workflows/final-day-holdout-20261116.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: final-day-holdout-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  replay:
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Baseline dispatch and B-UPSET tests
+        run: node tests/race-routing.test.cjs && node tests/b-upset.test.cjs
+      - name: Replay identically sampled current-code engine variants
+        run: |
+          FINAL_OFFSET=$((217 * ${{ matrix.shard }})) FINAL_MAX=217 FINAL_REPORT_NAME=part-${{ matrix.shard }}.json node scripts/final-day-backtest.cjs
+      - name: Preserve shard report
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-day-shard-${{ matrix.shard }}
+          path: reports/final-day/part-${{ matrix.shard }}.json
+          if-no-files-found: error
+          retention-days: 30
+  aggregate:
+    needs: replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore all six shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: final-day-shard-*
+          merge-multiple: true
+          path: reports/final-day/shards
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Strictly validate all 1298 ranks; compute holdout ROI
+        run: node scripts/final-day-aggregate.cjs reports/final-day/shards reports/final-day/holdout-1298.json
+      - name: Save verified aggregate as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-day-1298-holdout
+          path: reports/final-day/holdout-1298.json
+          retention-days: 90
+      - name: Persist aggregate only on research branch
+        if: github.ref == 'refs/heads/research/final-day-replay-20261116'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/final-day/holdout-1298.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record deterministic 240 vs 1058 final-day holdout comparison'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
