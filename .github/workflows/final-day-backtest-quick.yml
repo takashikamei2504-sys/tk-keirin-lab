@@ -1,0 +1,31 @@
+name: Quick historical final-day replay smoke
+on:
+  push:
+    branches: ['research/final-day-losses-20261115']
+    paths: ['.github/workflows/final-day-backtest-quick.yml']
+permissions:
+  contents: write
+jobs:
+  compare-quick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Replay first 12 outcome-blind sampled races
+        env:
+          FINAL_MAX: 12
+        run: node scripts/final-day-backtest.cjs
+      - name: Store separately as pilot, not definitive ROI
+        run: |
+          cp reports/final-day/historical-20260816-20261107.json reports/final-day/pilot-12.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/final-day/pilot-12.json
+          git commit -m 'Store 12-race initial final-day replay pilot'
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin HEAD:${{ github.ref_name }}
