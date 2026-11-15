@@ -24,9 +24,9 @@ jobs:
           node-version: '22'
       - name: Verify baseline engine tests
         run: node tests/race-routing.test.cjs && node tests/b-upset.test.cjs
-      - name: Historical replay (uniform 60-race sample)
+      - name: Historical replay (uniform 240-race sample)
         env:
-          FINAL_MAX: 60
+          FINAL_MAX: 240
         run: node scripts/final-day-backtest.cjs
       - name: Persist research report only on research branch
         run: |
@@ -34,7 +34,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add reports/final-day/historical-20260816-20261107.json
           if ! git diff --cached --quiet; then
-            git commit -m 'Record final-day consolation historical comparison'
+            git commit -m 'Record extended final-day consolation historical comparison'
             git pull --rebase origin ${{ github.ref_name }}
             git push origin HEAD:${{ github.ref_name }}
           fi
