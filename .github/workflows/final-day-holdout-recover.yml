@@ -1,0 +1,49 @@
+name: Audit preserved final-day holdout shards
+on:
+  push:
+    branches:
+      - research/final-day-holdout-audit-20261116
+    paths:
+      - scripts/final-day-holdout-recover.cjs
+      - reports/final-day/frozen-development-240.json
+      - .github/workflows/final-day-holdout-recover.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Download all six completed original replay artifacts
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 43775051807
+          repository: takashikamei2504-sys/tk-keirin-lab
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: final-day-shard-*
+          merge-multiple: true
+          path: reports/final-day/shards
+      - name: Verify recovered original selection and recompute untouched holdout
+        run: node scripts/final-day-holdout-recover.cjs reports/final-day/shards reports/final-day/recovered-1286.json
+      - name: Preserve audit JSON artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-day-audit-frozen240-holdout1048
+          path: reports/final-day/recovered-1286.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Commit report to research-only branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/final-day/recovered-1286.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record frozen 240 versus surviving 1048 final-day holdout"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
