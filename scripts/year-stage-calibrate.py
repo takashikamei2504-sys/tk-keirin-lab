@@ -62,12 +62,15 @@ def payout_from(rows):
 def stage_of(round_name,meeting_day):
     name=norm(round_name)
     if not name:return "その他"
+    if re.search(r"準決|準々決|予選|勝ち上がり",name):return "勝ち上がり戦"
     if "決勝" in name:return "決勝"
     if meeting_day=="初日" and re.search(r"初日特選|特別選抜|特選|^選抜$",name):return "初日特選"
-    if re.search(r"準決|準々決|予選|勝ち上がり",name):return "勝ち上がり戦"
     if re.search(r"特別選抜|特選|特秀|特優",name):return "特選等"
     if re.search(r"一般|特一般|選抜|敗者|順位",name):return "敗者戦"
     return "その他"
+assert stage_of("準決勝","二日目")=="勝ち上がり戦", "準決勝 must never be classified as 決勝"
+assert stage_of("S級決勝","最終日")=="決勝"
+assert stage_of("選抜","初日")=="初日特選"
 def is_same_riders(rows,entries):
     if len(rows)!=len(entries):return False
     names={str(r.get("banum")):norm(r.get("player_name")) for r in rows}
