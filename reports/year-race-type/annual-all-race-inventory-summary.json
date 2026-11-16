@@ -1,0 +1,190 @@
+{
+  "schema": "tk-keirin-one-year-complete-universe-v1",
+  "period": {
+    "start": "2025-11-16",
+    "end": "2026-11-15"
+  },
+  "source": {
+    "repo": "Kenseimk/keirin-data",
+    "commit": "55c425947770080fe3f3629720cda0f4ede69b9e",
+    "files": {
+      "2025_11": {
+        "sha256": "1c03b19d388252419dd888aa8e3d77e0d2b6a5f38f241d1f74e0709c1a07cdfe",
+        "csv_rows": 15796
+      },
+      "2025_12": {
+        "sha256": "d744fed3522ccce1a53b4c6feff1f84ca77ff981777e73458e4b87ced5391447",
+        "csv_rows": 15898
+      },
+      "2026_01": {
+        "sha256": "770c4774275dc0747dcd3f4fd2031b5cffc3d3e180843c1663871c28b0b166da",
+        "csv_rows": 16441
+      },
+      "2026_02": {
+        "sha256": "7eec1db554762b6621e33cf0f060ac720f4074b745b4b24ab0bee27119c82a04",
+        "csv_rows": 15306
+      },
+      "2026_03": {
+        "sha256": "4acc5f657da969a97551150b9fda76ae434e05f5f220c13dfbf4795b74747b7d",
+        "csv_rows": 16286
+      },
+      "2026_04": {
+        "sha256": "de3ef84a741f22fc5ec7dd1faccd166a8b6c34dbbc6ae8031066f02ed4e3b4a9",
+        "csv_rows": 15485
+      },
+      "2026_05": {
+        "sha256": "d684f2e436df8da3da29f7dd611bfe9274adba6579494eb6999d26cdc8799f36",
+        "csv_rows": 14400
+      },
+      "2026_06": {
+        "sha256": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6",
+        "csv_rows": 14113
+      },
+      "2026_07": {
+        "sha256": "fe0b4c3afc7aedd955eb8930959f76c76fd69cf375cd349544b3efaa378ff059",
+        "csv_rows": 14223
+      },
+      "2026_08": {
+        "sha256": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb",
+        "csv_rows": 15842
+      },
+      "2026_09": {
+        "sha256": "ac5659e62a585374f2c71996b4589f6008a73c230614f973c2bf04d477cef9b2",
+        "csv_rows": 14463
+      },
+      "2026_10": {
+        "sha256": "19ded9f444df85aca2a2dc9dc22351428d76d531cf281d12bac8a7015a4ac7a3",
+        "csv_rows": 11963
+      },
+      "2026_11": {
+        "sha256": "fe8564014bf19e896aeded1c5778177db1dac00d7107efda9a6c7b5be038daf0",
+        "csv_rows": 7215
+      }
+    }
+  },
+  "meaning": "Full annual candidate inventory, NOT completed predictions nor settled bets.",
+  "total_eligible_census": 21695,
+  "total_races_with_public_3rentan": 14118,
+  "all_riders_have_score_style": 21327,
+  "by_grade": {
+    "A級_7": {
+      "races": 10516,
+      "payout_available": 6836,
+      "complete_score_and_style": 10366
+    },
+    "S級_7": {
+      "races": 4556,
+      "payout_available": 2934,
+      "complete_score_and_style": 4495
+    },
+    "S級_9": {
+      "races": 2099,
+      "complete_score_and_style": 2061,
+      "payout_available": 1414
+    },
+    "チャレンジ_7": {
+      "races": 4524,
+      "payout_available": 2934,
+      "complete_score_and_style": 4405
+    }
+  },
+  "by_month": {
+    "2025-11": {
+      "A級_7": 461,
+      "S級_7": 214,
+      "チャレンジ_7": 196,
+      "S級_9": 57
+    },
+    "2025-12": {
+      "チャレンジ_7": 378,
+      "A級_7": 984,
+      "S級_7": 414,
+      "S級_9": 161
+    },
+    "2026-01": {
+      "A級_7": 988,
+      "S級_7": 394,
+      "S級_9": 213,
+      "チャレンジ_7": 417
+    },
+    "2026-02": {
+      "チャレンジ_7": 395,
+      "A級_7": 892,
+      "S級_7": 428,
+      "S級_9": 158
+    },
+    "2026-03": {
+      "A級_7": 955,
+      "S級_7": 385,
+      "チャレンジ_7": 387,
+      "S級_9": 237
+    },
+    "2026-04": {
+      "チャレンジ_7": 371,
+      "A級_7": 934,
+      "S級_7": 423,
+      "S級_9": 149
+    },
+    "2026-05": {
+      "A級_7": 834,
+      "S級_7": 347,
+      "チャレンジ_7": 397,
+      "S級_9": 160
+    },
+    "2026-06": {
+      "チャレンジ_7": 313,
+      "A級_7": 804,
+      "S級_7": 334,
+      "S級_9": 194
+    },
+    "2026-07": {
+      "A級_7": 861,
+      "S級_7": 369,
+      "チャレンジ_7": 367,
+      "S級_9": 139
+    },
+    "2026-08": {
+      "チャレンジ_7": 410,
+      "A級_7": 886,
+      "S級_7": 393,
+      "S級_9": 200
+    },
+    "2026-09": {
+      "S級_9": 175,
+      "S級_7": 378,
+      "A級_7": 829,
+      "チャレンジ_7": 366
+    },
+    "2026-10": {
+      "A級_7": 698,
+      "チャレンジ_7": 338,
+      "S級_7": 301,
+      "S級_9": 143
+    },
+    "2026-11": {
+      "A級_7": 390,
+      "S級_7": 176,
+      "チャレンジ_7": 189,
+      "S級_9": 113
+    }
+  },
+  "excluded": {
+    "girls": 1964,
+    "not_7_9": 1466,
+    "unknown_grade": 9,
+    "outside_period": 1151,
+    "other_male_grade": 5,
+    "invalid_day_or_race": 61
+  },
+  "manifest_filename": "reports/year-race-type/annual-all-race-manifest-20251116-20261115.jsonl",
+  "manifest_sha256": "2ff4baab8a2ef9622db0fe30cfd3331fce69bb1dd500d70e0d7803dbcd3ea040",
+  "missing_inputs": [
+    "authentic published round for all pre-Aug-18 dates",
+    "verified full team line for all pre-Aug-18 dates",
+    "independently audited official payout where CSV is empty"
+  ],
+  "no_result_selection": true,
+  "daily_source_replay_period": "2026-08-18 through 2026-11-15 separately verified with eight-engine exhaustive 90-day workflow",
+  "legacy_historical_sample": "2025-11 through 2026-08, 50 source-complete races only; not a representative sample",
+  "completeness_note": "The complete year is 365 calendar days; historical 90-day period is a separate archived source, not year-wide model evidence."
+}
