@@ -42,7 +42,7 @@ jobs:
         working-directory: source
         shell: bash
         run: |
-          python3 -m two_t.observe --ledger ../ledger --reconcile-budget-seconds 360 | tee ../observation-report.json
+          python3 -m two_t.observe --ledger ../ledger --reconcile-budget-seconds 360 --review-results | tee ../observation-report.json
       - name: Commit new records to the dedicated ledger branch
         id: persist
         run: |
@@ -74,11 +74,13 @@ jobs:
                   ("今回の出走表保存", "cards_saved"),
                   ("今回の確定結果保存", "results_saved"),
                   ("今回の完全な教師ラベル", "complete_labels"),
+                  ("今回の結果候補（選手ID要確認）", "review_results_saved"),
                   ("今回の未確定結果", "results_pending"),
                   ("今回の再試行期限超過", "result_retries_expired"),
               ):
                   print(f"| {label} | {report.get(key, 0)} |", file=summary)
-              for label, folder in (("台帳の出走表", "cards"), ("台帳の確定結果", "results")):
+              for label, folder in (("台帳の出走表", "cards"), ("台帳の確定結果", "results"),
+                                    ("台帳の結果候補", "review-results")):
                   print(f"| {label} | {sum(1 for _ in (root / folder).glob('*.json'))} |", file=summary)
               print(f"| 今回のエラー | {len(report['failures'])} |", file=summary)
               if "day_feed" in report["failures"]:
@@ -86,36 +88,23 @@ jobs:
               if report.get("reconcile_budget_exhausted"):
                   print("\n照合時間枠を使い切りました。残りは次回候補です。", file=summary)
           PY
-      - name: Check reachability of public results sources
+      - name: Validate the parser against a published historical race
         if: ${{ github.event_name == 'pull_request' }}
         working-directory: source
         run: |
           python3 - <<'PY'
-          import re
-          from urllib.error import URLError
-          from urllib.request import Request, urlopen
+          from two_t.kdreams_results import links_for, parse_result, read_page
 
-          for label, url in (
-              ("WINTICKET meeting index", "https://www.winticket.jp/keirin/racecard"),
-              ("WINTICKET completed race", "https://www.winticket.jp/keirin/omiya/racecard/2026110425/3/1"),
-              ("Kdreams exacta index", "https://keirin.kdreams.jp/raceresult/"),
-              ("Kdreams completed race", "https://keirin.kdreams.jp/omiya/racedetail/2520261104030001/?pageType=showResult"),
-          ):
-              try:
-                  request = Request(url, headers={"User-Agent": "TK-KEIRIN-LAB/1.0 (public race research)"})
-                  with urlopen(request, timeout=12) as response:
-                      body = response.read(3_000_000).decode("utf-8", errors="replace")
-                      print(label, response.status, "size", len(body))
-                      if label.startswith("Kdreams"):
-                          links = re.findall(r'href=["\']([^"\']+)["\']', body)
-                          print("result routes", list(dict.fromkeys(h for h in links if "raceresult" in h or "racedetail" in h or "race-card/result" in h))[:14])
-                      if label == "Kdreams completed race":
-                          for term in ("670", "上吹越", "２車単", "二車単", "発走予定", "result_table", "払い戻し", "showResult"):
-                              matches = list(re.finditer(term, body))
-                              print("markup", term, len(matches), [re.sub(r'\s+', ' ', body[max(0,m.start()-100):m.start()+250]) for m in matches[-2:]])
-                          for table in re.findall(r'<table\b[^>]*>.*?</table>', body, flags=re.S):
-                              if ("決ま" in table and ("勝敗因" in table or "上り" in table)) or "670" in table:
-                                  print("candidate table", re.sub(r'\s+', ' ', table[:4600]))
-              except (OSError, URLError) as error:
-                  print(label, str(error))
+          day = "2026-11-06"
+          source_id = "202611062501"
+          url = links_for(day)[source_id]
+          card = {"race_id": day + ":大宮:1", "venue": "大宮", "race_no": 1,
+                  "cars": list(range(1, 8)), "start": day + "T11:05:00+09:00"}
+          roster = ["上吹越俊一", "石川恭規", "山田哲也", "利川寛太", "原真司", "大関祐也", "三宅旬"]
+          raw = {"race_id": source_id, "entries": [
+              {"car_number": car, "rider_full_name": item} for car, item in enumerate(roster, 1)]}
+          result = parse_result(read_page(url), url, card, raw)
+          assert result["back"] == 6 and result["finish"] == [3, 5, 2], result
+          assert result["payouts"] == {"3-5": 670} and not result["rider_ids_verified"], result
+          print("Historical sample verified: 2026-11-06 Omiya 1R, B=6, finish=3-5-2, exacta=670 JPY")
           PY
