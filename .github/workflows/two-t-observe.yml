@@ -99,7 +99,7 @@ jobs:
               ("WINTICKET meeting index", "https://www.winticket.jp/keirin/racecard"),
               ("WINTICKET completed race", "https://www.winticket.jp/keirin/omiya/racecard/2026110425/3/1"),
               ("Kdreams exacta index", "https://keirin.kdreams.jp/raceresult/"),
-              ("Kdreams completed race", "https://keirin.kdreams.jp/gamboo/keirin-kaisai/race-card/result/3420261114/34202611140200/11/"),
+              ("Kdreams completed race", "https://keirin.kdreams.jp/omiya/racedetail/2520261104030001/?pageType=showResult"),
           ):
               try:
                   request = Request(url, headers={"User-Agent": "TK-KEIRIN-LAB/1.0 (public race research)"})
@@ -110,12 +110,12 @@ jobs:
                           links = re.findall(r'href=["\']([^"\']+)["\']', body)
                           print("result routes", list(dict.fromkeys(h for h in links if "raceresult" in h or "racedetail" in h or "race-card/result" in h))[:14])
                       if label == "Kdreams completed race":
-                          for term in ("S／B", "堀江", "選手名", "3-6", "２車単", "2車単", "発走予定"):
+                          for term in ("670", "上吹越", "２車単", "二車単", "発走予定", "result_table", "払い戻し", "showResult"):
                               matches = list(re.finditer(term, body))
                               print("markup", term, len(matches), [re.sub(r'\s+', ' ', body[max(0,m.start()-100):m.start()+250]) for m in matches[-2:]])
                           for table in re.findall(r'<table\b[^>]*>.*?</table>', body, flags=re.S):
-                              if "決ま" in table and "勝敗因" in table or "２車単" in table:
-                                  print("candidate table", re.sub(r'\s+', ' ', table[:7000]))
+                              if ("決ま" in table and ("勝敗因" in table or "上り" in table)) or "670" in table:
+                                  print("candidate table", re.sub(r'\s+', ' ', table[:4600]))
               except (OSError, URLError) as error:
                   print(label, str(error))
           PY
