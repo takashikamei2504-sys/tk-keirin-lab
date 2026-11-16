@@ -1,6 +1,6 @@
 {
   "schema": "tk-keirin-90day-finalday-projected-b-line-audit/v1",
-  "created_at": "2026-11-16T10:30:37.799294+00:00",
+  "created_at": "2026-11-16T10:34:14.477401+00:00",
   "source": {
     "provider": "kurinaka12-afk/keirin-app-data",
     "sha": "4588ec938a2fec9e81216d3fd3423329805aa3d5",
@@ -6372,6 +6372,42 @@
     },
     "method": "All pre-result model inputs come from SHA-pinned 90-day source; historical B only for validation",
     "warning": "B-AXIS v0.5 and this proxy developed after race dates, not genuine historical forecasts"
+  },
+  "b_model_agreement": {
+    "nov6": {
+      "n": 26,
+      "agree_n": 20,
+      "agree_pct": 76.9,
+      "correct_when_agree": 14,
+      "accuracy_when_agree_pct": 70.0,
+      "disagree_n": 6,
+      "only_proxy_correct": 1,
+      "only_axis_correct": 4,
+      "neither_correct": 1
+    },
+    "nov7": {
+      "n": 58,
+      "agree_n": 44,
+      "agree_pct": 75.9,
+      "correct_when_agree": 30,
+      "accuracy_when_agree_pct": 68.2,
+      "disagree_n": 14,
+      "only_proxy_correct": 5,
+      "only_axis_correct": 4,
+      "neither_correct": 5
+    },
+    "combined_descriptive": {
+      "n": 84,
+      "agree_n": 64,
+      "agree_pct": 76.2,
+      "correct_when_agree": 44,
+      "accuracy_when_agree_pct": 68.8,
+      "disagree_n": 20,
+      "only_proxy_correct": 6,
+      "only_axis_correct": 8,
+      "neither_correct": 6
+    },
+    "limitation": "Only 2 selected race dates and changing B-AXIS model versions. No prospective confirmation."
   },
   "heldout_baseline": {
     "n": 517,
