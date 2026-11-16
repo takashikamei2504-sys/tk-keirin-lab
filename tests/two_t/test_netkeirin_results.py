@@ -21,9 +21,9 @@ def page():
         comment = '<!-- <td><a href="wrong-id">unused</a></td> -->'
         rows += '<tr class="PlayerList">' + comment + "".join(f"<td>{x}</td>" for x in cells) + "</tr>"
     return (
-        '<title>大宮競輪 ＦＩ杯 2026年11月06日 1R 結果・払戻金</title>'
-        f'<link rel="canonical" href="{RESULT_URL}{ID}">'
-        '<div>発走 11:05 締切 11:00</div><p>レースが確定しました</p>'
+        '<head><title>大宮競輪 ＦＩ杯 2026年11月06日 1R 結果・払戻金</title>'
+        f'<link rel="canonical" href="{RESULT_URL}{ID}"></head>'
+        '<svg><title>アイコン</title></svg><div>発走 11:05 締切 11:00</div><p>レースが確定しました</p>'
         f'<table id="All_Result_Table">{rows}</table>'
         '<table><tr class="Umatan"><td class="Result">3&gt;5</td>'
         '<td class="Payout"><span>670円</span></td></tr></table>'
