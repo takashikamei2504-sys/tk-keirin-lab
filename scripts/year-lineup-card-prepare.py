@@ -96,7 +96,10 @@ for i,r in enumerate(m_source["races"]):
         if not title or not round_no or int(round_no)!=int(rec["race_id"][12:]):
             raise ValueError("Race number not verified against page title")
         # Verify both date and venue identity from URL and page title.
-        d=rec["date"];date_match=(d[:4]+"年"+str(int(d[5:7]))+"月"+str(int(d[8:]))+"日") in title
+        d=rec["date"]
+        published_date=re.search(r"(\d{4})年(\d{1,2})月(\d{1,2})日",title)
+        expected_tuple=tuple(map(int,d.split("-")))
+        date_match=bool(published_date and tuple(map(int,published_date.groups()))==expected_tuple)
         if not date_match: raise ValueError("Race date mismatch against source title")
         if not venue or not start:raise ValueError("Missing exact venue or start time")
         entries=[]
