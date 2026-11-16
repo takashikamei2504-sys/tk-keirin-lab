@@ -1,0 +1,2278 @@
+{
+  "schema": "tk-keirin-2025-26-fullcard-pilot/v1",
+  "sample_n": 60,
+  "prepared_n": 9,
+  "status_counts": {
+    "ready": 9,
+    "source_metadata_invalid": 41,
+    "missing_or_invalid_trifecta": 10
+  },
+  "source_hashes": {
+    "2025_11": "1c03b19d388252419dd888aa8e3d77e0d2b6a5f38f241d1f74e0709c1a07cdfe",
+    "2025_12": "d744fed3522ccce1a53b4c6feff1f84ca77ff981777e73458e4b87ced5391447",
+    "2026_02": "7eec1db554762b6621e33cf0f060ac720f4074b745b4b24ab0bee27119c82a04",
+    "2026_01": "770c4774275dc0747dcd3f4fd2031b5cffc3d3e180843c1663871c28b0b166da",
+    "2026_03": "4acc5f657da969a97551150b9fda76ae434e05f5f220c13dfbf4795b74747b7d",
+    "2026_04": "de3ef84a741f22fc5ec7dd1faccd166a8b6c34dbbc6ae8031066f02ed4e3b4a9",
+    "2026_06": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6",
+    "2026_05": "d684f2e436df8da3da29f7dd611bfe9274adba6579494eb6999d26cdc8799f36",
+    "2026_08": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb",
+    "2026_07": "fe0b4c3afc7aedd955eb8930959f76c76fd69cf375cd349544b3efaa378ff059"
+  },
+  "robots_checked": true,
+  "no_unknown_start_time_guesses": true,
+  "meanings": [
+    "Retrospective source card, not frozen pre-race forecast",
+    "Provider line forecast may differ from actual tactics",
+    "Prize result is used for evaluation only after prediction"
+  ],
+  "cards": [
+    {
+      "race_id": "5620251116010012",
+      "date": "2025-11-16",
+      "category": "S級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/kishiwada/racedetail/5620251116010012/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "ready",
+      "published_round": "岸和田競輪レース詳細|スピチャン・スカパー杯弁慶賞12RS級初特選|2025年11月16日【楽天Kドリームス】",
+      "start_time": "16:18",
+      "grade": "F1",
+      "venue": "岸和田",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "大矢崇弘東",
+          "class_rank": "S1",
+          "competition_score": 104.43,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "神田紘輔大",
+          "class_rank": "S1",
+          "competition_score": 105.53,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "松川高大熊",
+          "class_rank": "S1",
+          "competition_score": 106.78,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "山口富生岐",
+          "class_rank": "S1",
+          "competition_score": 106.5,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "中川誠一郎熊",
+          "class_rank": "S1",
+          "competition_score": 106.0,
+          "running_style": "両",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "鈴木裕千",
+          "class_rank": "S1",
+          "competition_score": 103.87,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "恩田淳平群",
+          "class_rank": "S1",
+          "competition_score": 109.28,
+          "running_style": "追",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            1,
+            4
+          ],
+          "payout": 3880
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "3120251119030010",
+      "date": "2025-11-21",
+      "category": "S級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/matsudo/racedetail/3120251119030010/",
+      "line_groups": [
+        [
+          1,
+          5,
+          4
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "ready",
+      "published_round": "松戸競輪レース詳細|KEIRINフェスティバル10RS級決勝|2025年11月21日【楽天Kドリームス】",
+      "start_time": "14:58",
+      "grade": "F1",
+      "venue": "松戸",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "根田空史千",
+          "class_rank": "S1",
+          "competition_score": 108.03,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "寺沼拓摩東",
+          "class_rank": "S1",
+          "competition_score": 109.61,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "川口公太朗岐",
+          "class_rank": "S1",
+          "competition_score": 105.51,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "佐藤壮千",
+          "class_rank": "S2",
+          "competition_score": 105.5,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "山賀雅仁千",
+          "class_rank": "S1",
+          "competition_score": 105.21,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "谷内健太京",
+          "class_rank": "S2",
+          "competition_score": 103.35,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "芦澤大輔茨",
+          "class_rank": "S2",
+          "competition_score": 106.17,
+          "running_style": "追",
+          "line_position": "2-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            3,
+            2
+          ],
+          "payout": 31330
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "6120251127020003",
+      "date": "2025-11-28",
+      "category": "チャレンジ_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/tamano/racedetail/6120251127020003/",
+      "line_groups": [
+        [
+          1,
+          4
+        ],
+        [
+          5,
+          7,
+          2
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "ready",
+      "published_round": "玉野競輪レース詳細|両備バス杯&CTC杯は3分前杯3Rチャレンジ準決勝|2025年11月28日【楽天Kドリームス】",
+      "start_time": "16:48",
+      "grade": "F2",
+      "venue": "玉野",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "小西涼太岡",
+          "class_rank": "A3",
+          "competition_score": 75.93,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "池上孝之兵",
+          "class_rank": "A3",
+          "competition_score": 68.0,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "天沼雅貴埼",
+          "class_rank": "A3",
+          "competition_score": 70.43,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "森佑樹岡",
+          "class_rank": "A3",
+          "competition_score": 70.13,
+          "running_style": "逃",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "布居翼",
+          "class_rank": "A3",
+          "competition_score": 71.45,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "島田茂希",
+          "class_rank": "A3",
+          "competition_score": 67.38,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "川本恵二兵",
+          "class_rank": "A3",
+          "competition_score": 71.64,
+          "running_style": "追",
+          "line_position": "2-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            4,
+            1,
+            3
+          ],
+          "payout": 3940
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "6120251118020005",
+      "date": "2025-11-19",
+      "category": "A級_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/tamano/racedetail/6120251118020005/",
+      "line_groups": [
+        [
+          1,
+          6,
+          7
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "ready",
+      "published_round": "玉野競輪レース詳細|チャリロト杯5RA級選抜|2025年11月19日【楽天Kドリームス】",
+      "start_time": "22:10",
+      "grade": "F2",
+      "venue": "玉野",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "船山真生愛",
+          "class_rank": "A2",
+          "competition_score": 87.66,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "宮下貴之埼",
+          "class_rank": "A1",
+          "competition_score": 86.33,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "寺林正秋宮",
+          "class_rank": "A1",
+          "competition_score": 85.96,
+          "running_style": "追",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "阿部英光宮",
+          "class_rank": "A2",
+          "competition_score": 83.07,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "飯島淳東",
+          "class_rank": "A2",
+          "competition_score": 80.44,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "川口秀人徳",
+          "class_rank": "A2",
+          "competition_score": 80.08,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "古城英之広",
+          "class_rank": "A2",
+          "competition_score": 79.93,
+          "running_style": "追",
+          "line_position": "1-3"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            6,
+            4
+          ],
+          "payout": 5390
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "3120251119030007",
+      "date": "2025-11-21",
+      "category": "S級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/matsudo/racedetail/3120251119030007/",
+      "line_groups": [
+        [
+          4,
+          7
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "ready",
+      "published_round": "松戸競輪レース詳細|KEIRINフェスティバル7RS級特選|2025年11月21日【楽天Kドリームス】",
+      "start_time": "13:33",
+      "grade": "F1",
+      "venue": "松戸",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "徳永哲人熊",
+          "class_rank": "S1",
+          "competition_score": 101.96,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "三浦貴大岐",
+          "class_rank": "S2",
+          "competition_score": 98.39,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "大石剣士静",
+          "class_rank": "S2",
+          "competition_score": 102.18,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "佐藤博紀岩",
+          "class_rank": "S2",
+          "competition_score": 102.11,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "長尾拳太岐",
+          "class_rank": "S1",
+          "competition_score": 100.43,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "小菅誠",
+          "class_rank": "S2",
+          "competition_score": 94.69,
+          "running_style": "追",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "内藤高裕東",
+          "class_rank": "S2",
+          "competition_score": 101.57,
+          "running_style": "追",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            3,
+            1,
+            6
+          ],
+          "payout": 5200
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "3620251224010012",
+      "date": "2025-12-24",
+      "category": "S級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/odawara/racedetail/3620251224010012/",
+      "line_groups": [
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          2,
+          4
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "ready",
+      "published_round": "小田原競輪レース詳細|ジャパンカップ×HPCJC12RS級初特選|2025年12月24日【楽天Kドリームス】",
+      "start_time": "16:09",
+      "grade": "F1",
+      "venue": "小田原",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "武藤龍生埼",
+          "class_rank": "S1",
+          "competition_score": 112.21,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "青野将大",
+          "class_rank": "S1",
+          "competition_score": 107.4,
+          "running_style": "逃",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "佐々木豪愛",
+          "class_rank": "S1",
+          "competition_score": 108.46,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "佐々木眞也",
+          "class_rank": "S1",
+          "competition_score": 109.26,
+          "running_style": "両",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "菅田壱道宮",
+          "class_rank": "S1",
+          "competition_score": 113.46,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "道場晃規静",
+          "class_rank": "S1",
+          "competition_score": 106.95,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "松岡貴久熊",
+          "class_rank": "S1",
+          "competition_score": 108.03,
+          "running_style": "追",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            1,
+            5
+          ],
+          "payout": 7160
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "5520251220030012",
+      "date": "2025-12-22",
+      "category": "S級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/wakayama/racedetail/5520251220030012/",
+      "line_groups": [
+        [
+          4,
+          7,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "ready",
+      "published_round": "和歌山競輪レース詳細|WTVテレビ和歌山杯12RS級決勝|2025年12月22日【楽天Kドリームス】",
+      "start_time": "16:02",
+      "grade": "F1",
+      "venue": "和歌山",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "東口善朋",
+          "class_rank": "S1",
+          "competition_score": 108.95,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "守澤太志秋",
+          "class_rank": "S1",
+          "competition_score": 112.6,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "中西大",
+          "class_rank": "S2",
+          "competition_score": 101.29,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "中野慎詞岩",
+          "class_rank": "S1",
+          "competition_score": 114.7,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "岡崎智哉大",
+          "class_rank": "S1",
+          "competition_score": 108.15,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "藤井栄二兵",
+          "class_rank": "S2",
+          "competition_score": 99.43,
+          "running_style": "両",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "嵯峨昇喜郎青",
+          "class_rank": "S2",
+          "competition_score": 103.88,
+          "running_style": "両",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            4,
+            7,
+            2
+          ],
+          "payout": 890
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "4720251205020003",
+      "date": "2025-12-06",
+      "category": "A級_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720251205020003/",
+      "line_groups": [
+        [
+          4,
+          1,
+          6
+        ],
+        [
+          7,
+          2,
+          3
+        ],
+        [
+          5
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4720251227020002",
+      "date": "2025-12-28",
+      "category": "チャレンジ_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720251227020002/",
+      "line_groups": [
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          2
+        ],
+        [
+          4
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "ready",
+      "published_round": "松阪競輪レース詳細|ウィンチケットミッドナイト競輪2Rチャレンジ一般|2025年12月28日【楽天Kドリームス】",
+      "start_time": "21:10",
+      "grade": "F2",
+      "venue": "松阪",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "渡邊颯太静",
+          "class_rank": "A3",
+          "competition_score": 72.81,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "本間慎吾新",
+          "class_rank": "A3",
+          "competition_score": 70.0,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "小泉俊也静",
+          "class_rank": "A3",
+          "competition_score": 69.81,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "菅原洋輔岩",
+          "class_rank": "A3",
+          "competition_score": 68.81,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "石井孝千",
+          "class_rank": "A3",
+          "competition_score": 68.22,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "舟元権造大",
+          "class_rank": "A3",
+          "competition_score": 66.04,
+          "running_style": "追",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "高木修二大",
+          "class_rank": "A3",
+          "competition_score": 62.11,
+          "running_style": "追",
+          "line_position": "4-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            3,
+            6
+          ],
+          "payout": 72820
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "4720251205030003",
+      "date": "2025-12-07",
+      "category": "A級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720251205030003/",
+      "line_groups": [
+        [
+          3,
+          7,
+          5
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4820260124010012",
+      "date": "2026-01-24",
+      "category": "S級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/yokkaichi/racedetail/4820260124010012/",
+      "line_groups": [
+        [
+          2,
+          7
+        ],
+        [
+          4
+        ],
+        [
+          1
+        ],
+        [
+          3,
+          5,
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "3120260121030011",
+      "date": "2026-01-23",
+      "category": "A級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/matsudo/racedetail/3120260121030011/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          6
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2420260131010002",
+      "date": "2026-01-31",
+      "category": "A級_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/utsunomiya/racedetail/2420260131010002/",
+      "line_groups": [
+        [
+          4,
+          1,
+          6
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "6220260121030002",
+      "date": "2026-01-23",
+      "category": "A級_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/hiroshima/racedetail/6220260121030002/",
+      "line_groups": [
+        [
+          5,
+          1,
+          3
+        ],
+        [
+          6
+        ],
+        [
+          4,
+          2,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "5620251231030003",
+      "date": "2026-01-02",
+      "category": "A級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/kishiwada/racedetail/5620251231030003/",
+      "line_groups": [
+        [
+          1,
+          4,
+          6,
+          5
+        ],
+        [
+          3,
+          7,
+          2
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "6120260204010009",
+      "date": "2026-02-04",
+      "category": "A級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/tamano/racedetail/6120260204010009/",
+      "line_groups": [
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          1,
+          4
+        ],
+        [
+          7,
+          3
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "5520260218030011",
+      "date": "2026-02-20",
+      "category": "A級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/wakayama/racedetail/5520260218030011/",
+      "line_groups": [
+        [
+          6,
+          3,
+          4
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "6220260228010001",
+      "date": "2026-02-28",
+      "category": "A級_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/hiroshima/racedetail/6220260228010001/",
+      "line_groups": [
+        [
+          1,
+          5,
+          4
+        ],
+        [
+          3
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "3120260204020009",
+      "date": "2026-02-05",
+      "category": "S級_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/matsudo/racedetail/3120260204020009/",
+      "line_groups": [
+        [
+          5,
+          1
+        ],
+        [
+          6
+        ],
+        [
+          2,
+          4,
+          3
+        ],
+        [
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2720260203030004",
+      "date": "2026-02-05",
+      "category": "A級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/keiokaku/racedetail/2720260203030004/",
+      "line_groups": [
+        [
+          4,
+          2,
+          5
+        ],
+        [
+          1
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2220260320010012",
+      "date": "2026-03-20",
+      "category": "S級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/maebashi/racedetail/2220260320010012/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4220260317030012",
+      "date": "2026-03-19",
+      "category": "S級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/nagoya/racedetail/4220260317030012/",
+      "line_groups": [
+        [
+          1,
+          5
+        ],
+        [
+          2
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4
+        ],
+        [
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "8320260307010006",
+      "date": "2026-03-07",
+      "category": "A級_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/kurume/racedetail/8320260307010006/",
+      "line_groups": [
+        [
+          1,
+          2,
+          7
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "3620260308020008",
+      "date": "2026-03-09",
+      "category": "S級_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/odawara/racedetail/3620260308020008/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          3
+        ],
+        [
+          4,
+          2,
+          6
+        ],
+        [
+          5
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4420260325030008",
+      "date": "2026-03-27",
+      "category": "S級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/ogaki/racedetail/4420260325030008/",
+      "line_groups": [
+        [
+          1,
+          7,
+          6
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4720260404010007",
+      "date": "2026-04-04",
+      "category": "A級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720260404010007/",
+      "line_groups": [
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "3720260413030011",
+      "date": "2026-04-15",
+      "category": "A級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/ito/racedetail/3720260413030011/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          4
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "3720260428010002",
+      "date": "2026-04-28",
+      "category": "チャレンジ_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/ito/racedetail/3720260428010002/",
+      "line_groups": [
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "8320260410020006",
+      "date": "2026-04-11",
+      "category": "S級_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/kurume/racedetail/8320260410020006/",
+      "line_groups": [
+        [
+          7,
+          1,
+          4
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "8720260426030009",
+      "date": "2026-04-28",
+      "category": "S級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/kumamoto/racedetail/8720260426030009/",
+      "line_groups": [
+        [
+          1,
+          6
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          3,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "8320260517010011",
+      "date": "2026-05-17",
+      "category": "A級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/kurume/racedetail/8320260517010011/",
+      "line_groups": [
+        [
+          5,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          1
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "7520260520030012",
+      "date": "2026-05-22",
+      "category": "S級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/matsuyama/racedetail/7520260520030012/",
+      "line_groups": [
+        [
+          1,
+          5,
+          6
+        ],
+        [
+          7,
+          4,
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "6320260501020003",
+      "date": "2026-05-02",
+      "category": "A級_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/hofu/racedetail/6320260501020003/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          3,
+          4,
+          6
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "7420260518020002",
+      "date": "2026-05-19",
+      "category": "チャレンジ_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/kochi/racedetail/7420260518020002/",
+      "line_groups": [
+        [
+          1,
+          7,
+          5
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "2120260510030006",
+      "date": "2026-05-12",
+      "category": "A級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/yahiko/racedetail/2120260510030006/",
+      "line_groups": [
+        [
+          2,
+          1,
+          6
+        ],
+        [
+          5
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "2720260617010005",
+      "date": "2026-06-17",
+      "category": "A級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/keiokaku/racedetail/2720260617010005/",
+      "line_groups": [
+        [
+          7,
+          1,
+          5
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "7420260618030009",
+      "date": "2026-06-20",
+      "category": "A級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/kochi/racedetail/7420260618030009/",
+      "line_groups": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4720260615010008",
+      "date": "2026-06-15",
+      "category": "A級_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720260615010008/",
+      "line_groups": [
+        [
+          1,
+          2,
+          5,
+          6
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "2420260621020003",
+      "date": "2026-06-22",
+      "category": "A級_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/utsunomiya/racedetail/2420260621020003/",
+      "line_groups": [
+        [
+          2,
+          3,
+          6
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          4
+        ],
+        [
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "8420260621030006",
+      "date": "2026-06-23",
+      "category": "A級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/takeo/racedetail/8420260621030006/",
+      "line_groups": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          3,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "1120260701010007",
+      "date": "2026-07-01",
+      "category": "A級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/hakodate/racedetail/1120260701010007/",
+      "line_groups": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          4
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "3720260710030012",
+      "date": "2026-07-12",
+      "category": "S級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/ito/racedetail/3720260710030012/",
+      "line_groups": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          7,
+          4,
+          3
+        ],
+        [
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4720260716020010",
+      "date": "2026-07-17",
+      "category": "S級_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720260716020010/",
+      "line_groups": [
+        [
+          5,
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "5620260713020007",
+      "date": "2026-07-14",
+      "category": "A級_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/kishiwada/racedetail/5620260713020007/",
+      "line_groups": [
+        [
+          5,
+          1,
+          4
+        ],
+        [
+          6
+        ],
+        [
+          2,
+          3,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2720260719030007",
+      "date": "2026-07-21",
+      "category": "A級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/keiokaku/racedetail/2720260719030007/",
+      "line_groups": [
+        [
+          2,
+          1
+        ],
+        [
+          5,
+          3,
+          4
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4420260817010005",
+      "date": "2026-08-17",
+      "category": "A級_7",
+      "inferred_stage": "初日特選",
+      "source_url": "https://keirin.kdreams.jp/ogaki/racedetail/4420260817010005/",
+      "line_groups": [
+        [
+          7,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2820260808030012",
+      "date": "2026-08-10",
+      "category": "S級_7",
+      "inferred_stage": "決勝",
+      "source_url": "https://keirin.kdreams.jp/tachikawa/racedetail/2820260808030012/",
+      "line_groups": [
+        [
+          7,
+          2
+        ],
+        [
+          6,
+          3,
+          5
+        ],
+        [
+          1
+        ],
+        [
+          4
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2820260817010002",
+      "date": "2026-08-17",
+      "category": "チャレンジ_7",
+      "inferred_stage": "勝ち上がり戦",
+      "source_url": "https://keirin.kdreams.jp/tachikawa/racedetail/2820260817010002/",
+      "line_groups": [
+        [
+          1,
+          4,
+          6
+        ],
+        [
+          7,
+          2,
+          5
+        ],
+        [
+          3
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "5320260814030005",
+      "date": "2026-08-16",
+      "category": "S級_7",
+      "inferred_stage": "敗者戦",
+      "source_url": "https://keirin.kdreams.jp/nara/racedetail/5320260814030005/",
+      "line_groups": [
+        [
+          2,
+          4,
+          6
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4220260804030004",
+      "date": "2026-08-06",
+      "category": "A級_7",
+      "inferred_stage": "特選等",
+      "source_url": "https://keirin.kdreams.jp/nagoya/racedetail/4220260804030004/",
+      "line_groups": [
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          7
+        ]
+      ],
+      "source_selection": "stratified_stage_50",
+      "status": "missing_or_invalid_trifecta"
+    },
+    {
+      "race_id": "8120251119050011",
+      "date": "2025-11-23",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/kokura/racedetail/8120251119050011/",
+      "line_groups": [
+        [
+          1,
+          4
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          6
+        ],
+        [
+          5,
+          8
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "ready",
+      "published_round": "小倉競輪レース詳細|朝日新聞社杯競輪祭11RS級準決勝|2025年11月23日【楽天Kドリームス】",
+      "start_time": "19:57",
+      "grade": "G1",
+      "venue": "小倉",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "郡司浩平",
+          "class_rank": "SS",
+          "competition_score": 115.17,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "嘉永泰斗熊",
+          "class_rank": "S1",
+          "competition_score": 117.08,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "太田海也岡",
+          "class_rank": "S1",
+          "competition_score": 121.0,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "松井宏佑",
+          "class_rank": "S1",
+          "competition_score": 114.14,
+          "running_style": "逃",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "山口拳矢岐",
+          "class_rank": "S1",
+          "competition_score": 116.72,
+          "running_style": "両",
+          "line_position": "5-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "阿部拓真宮",
+          "class_rank": "S1",
+          "competition_score": 105.3,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "松浦悠士広",
+          "class_rank": "SS",
+          "competition_score": 107.16,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "三谷将太奈",
+          "class_rank": "S1",
+          "competition_score": 112.41,
+          "running_style": "追",
+          "line_position": "5-2"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "荒井崇博長",
+          "class_rank": "S1",
+          "competition_score": 115.0,
+          "running_style": "両",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            4,
+            6,
+            9
+          ],
+          "payout": 48740
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
+    },
+    {
+      "race_id": "8520251204030010",
+      "date": "2025-12-06",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/sasebo/racedetail/8520251204030010/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          6,
+          5,
+          8
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2520260115010002",
+      "date": "2026-01-15",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/omiya/racedetail/2520260115010002/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          3,
+          4,
+          6
+        ],
+        [
+          5,
+          9
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "3820260212010006",
+      "date": "2026-02-12",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/shizuoka/racedetail/3820260212010006/",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          5,
+          8
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          6
+        ],
+        [
+          4
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2320260312030009",
+      "date": "2026-03-14",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/toride/racedetail/2320260312030009/",
+      "line_groups": [
+        [
+          1,
+          9,
+          7
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          4,
+          8
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "4220260423030012",
+      "date": "2026-04-25",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/nagoya/racedetail/4220260423030012/",
+      "line_groups": [
+        [
+          2,
+          5,
+          8
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          4
+        ],
+        [
+          7
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "8420260523010008",
+      "date": "2026-05-23",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/takeo/racedetail/8420260523010008/",
+      "line_groups": [
+        [
+          1,
+          7,
+          4
+        ],
+        [
+          2,
+          5,
+          8
+        ],
+        [
+          9,
+          6,
+          3
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "2320260627010001",
+      "date": "2026-06-27",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/toride/racedetail/2320260627010001/",
+      "line_groups": [
+        [
+          1,
+          9,
+          6
+        ],
+        [
+          5,
+          2,
+          8
+        ],
+        [
+          3,
+          7,
+          4
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "7420260717030004",
+      "date": "2026-07-19",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/kochi/racedetail/7420260717030004/",
+      "line_groups": [
+        [
+          1,
+          6
+        ],
+        [
+          9,
+          2,
+          5
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          4,
+          7
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "source_metadata_invalid",
+      "why": "Race date mismatch against source title"
+    },
+    {
+      "race_id": "3620260801040009",
+      "date": "2026-08-04",
+      "category": "S級_9",
+      "inferred_stage": "未確定",
+      "source_url": "https://keirin.kdreams.jp/odawara/racedetail/3620260801040009/",
+      "line_groups": [
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          8,
+          3,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "source_selection": "yearly_9car_10",
+      "status": "missing_or_invalid_trifecta"
+    }
+  ],
+  "errors": {}
+}
