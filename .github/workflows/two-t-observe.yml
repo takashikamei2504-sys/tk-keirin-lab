@@ -108,3 +108,28 @@ jobs:
           assert result["payouts"] == {"3-5": 670} and not result["rider_ids_verified"], result
           print("Historical sample verified: 2026-11-06 Omiya 1R, B=6, finish=3-5-2, exacta=670 JPY")
           PY
+
+      - name: Verify availability of independent racer IDs
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: source
+        run: |
+          python3 - <<'PY'
+          import re
+          from urllib.request import Request, urlopen
+          pages = {
+              "Kdreams": ("https://keirin.kdreams.jp/omiya/racedetail/2520261104030001/?pageType=showResult",
+                          ("015045", "15045", "千葉/32/107", "loadDigestVideoFromApi", "選手情報")),
+              "KEIRIN.JP": ("https://www.keirin.jp/pc/racerprofile?snum=015045",
+                           ("登録番号", "015045", "祐也", "近況成績", "racerprofile")),
+          }
+          for source, (url, terms) in pages.items():
+              try:
+                  with urlopen(Request(url, headers={"User-Agent": "TK-KEIRIN-LAB/1.0 (public race research)"}), timeout=15) as res:
+                      html = res.read(2_000_000).decode("utf-8", errors="replace")
+                      print(source, res.status, res.url, len(html))
+                  for term in terms:
+                      found = list(re.finditer(re.escape(term), html))
+                      print(term, len(found), [re.sub(r'\s+', ' ', html[max(0,m.start()-125):m.start()+125]) for m in found[:3]])
+              except OSError as error:
+                  print(source, str(error))
+          PY
