@@ -3,8 +3,8 @@ on:
   push:
     branches: ['research/annual-full-audit-20261116']
     paths:
-      - scripts/year-fun-third-place-shard.cjs
-      - scripts/year-fun-third-place-aggregate.cjs
+      - scripts/year-fun-third-lite-shard.py
+      - scripts/year-fun-third-lite-aggregate.py
       - .github/workflows/year-fun-third-place.yml
   workflow_dispatch:
 permissions:
@@ -16,7 +16,7 @@ concurrency:
 jobs:
   replay:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 16
     strategy:
       fail-fast: false
       max-parallel: 12
@@ -24,9 +24,6 @@ jobs:
         shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
       - uses: actions/download-artifact@v4
         with:
           name: complete90-eight-engine-all-race-results
@@ -40,43 +37,34 @@ jobs:
           merge-multiple: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: reports/year-race-type/baxis90-shards
-      - name: Replay third-car variants on original 90-day pinned race cards
+      - name: Verify and replay rational B-head pairs and 3rd-number variants
         env:
           FUN_SHARD: ${{ matrix.shard }}
         run: |
-          node --check scripts/year-fun-third-place-shard.cjs
-          node scripts/year-fun-third-place-shard.cjs
+          python3 -m py_compile scripts/year-fun-third-lite-shard.py
+          python3 scripts/year-fun-third-lite-shard.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: fun-third-place-part-${{ matrix.shard }}
-          path: reports/year-race-type/fun-third-shards/part-${{ matrix.shard }}.json
+          name: fun-lite-third-part-${{ matrix.shard }}
+          path: reports/year-race-type/fun-lite-shards/part-${{ matrix.shard }}.json
           if-no-files-found: warn
-          retention-days: 90
+          retention-days: 30
   aggregate:
     needs: replay
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
       - uses: actions/download-artifact@v4
         with:
-          name: complete90-eight-engine-all-race-results
-          run-id: 43796244008
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: reports/year-race-type
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: fun-third-place-part-*
+          pattern: fun-lite-third-part-*
           merge-multiple: true
-          path: reports/year-race-type/fun-third-shards
-      - name: Audit unique full 5745 race set and calculate blinded third-place experiment
+          path: reports/year-race-type/fun-lite-shards
+      - name: Run audited 90-day case-matched 3rd car experiment
         run: |
-          node --check scripts/year-fun-third-place-aggregate.cjs
-          node scripts/year-fun-third-place-aggregate.cjs
+          python3 -m py_compile scripts/year-fun-third-lite-aggregate.py
+          python3 scripts/year-fun-third-lite-aggregate.py
       - uses: actions/upload-artifact@v4
         with:
           name: fun-third-place-full-audited-report
@@ -85,13 +73,13 @@ jobs:
             reports/year-race-type/fun-third-place-irrational-5745r-summary-ja.md
           if-no-files-found: error
           retention-days: 90
-      - name: Commit research-only result to isolated branch
+      - name: Commit only verified research findings
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add reports/year-race-type/fun-third-place-irrational-5745r-summary.json reports/year-race-type/fun-third-place-irrational-5745r-summary-ja.md
           if ! git diff --cached --quiet; then
-            git commit -m 'Evaluate number six and random controls as incremental third-place bets'
+            git commit -m 'Audit rational-plus-irrational third place digit and placebo effects'
             git pull --rebase origin "${{ github.ref_name }}"
             git push origin "HEAD:${{ github.ref_name }}"
           fi
