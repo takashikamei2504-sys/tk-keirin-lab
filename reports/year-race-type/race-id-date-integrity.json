@@ -1,0 +1,445 @@
+{
+  "schema": "tk-keirin-historical-identifier-calendar-audit/v1",
+  "sources": "Kenseimk/keirin-data 13 monthly CSVs 2025-11 through 2026-11",
+  "meaning": "Compares supplied CSV date against date decoded as start date + (identifier day-index-1), without assuming universal identifier semantics",
+  "totals": {
+    "matches_start": 3171,
+    "matches_inferred": 23119,
+    "ordinal_out_of_range": 34,
+    "other_day": 27
+  },
+  "by_month": {
+    "2025_11": {
+      "matches_start": 1483,
+      "matches_inferred": 727,
+      "ordinal_out_of_range": 12
+    },
+    "2025_12": {
+      "matches_start": 1514,
+      "matches_inferred": 733
+    },
+    "2026_01": {
+      "matches_inferred": 2305
+    },
+    "2026_02": {
+      "matches_inferred": 2149,
+      "other_day": 9
+    },
+    "2026_03": {
+      "matches_inferred": 2263,
+      "other_day": 11
+    },
+    "2026_04": {
+      "matches_inferred": 2192
+    },
+    "2026_05": {
+      "matches_start": 30,
+      "matches_inferred": 1983,
+      "ordinal_out_of_range": 11
+    },
+    "2026_06": {
+      "matches_start": 62,
+      "matches_inferred": 1919,
+      "other_day": 7
+    },
+    "2026_07": {
+      "matches_inferred": 2006
+    },
+    "2026_08": {
+      "matches_inferred": 2210,
+      "ordinal_out_of_range": 11
+    },
+    "2026_09": {
+      "matches_start": 82,
+      "matches_inferred": 1948
+    },
+    "2026_10": {
+      "matches_inferred": 1678
+    },
+    "2026_11": {
+      "matches_inferred": 1006
+    }
+  },
+  "by_month_ordinal": {
+    "2025_11": {
+      "3": {
+        "matches_start": 716
+      },
+      "1": {
+        "matches_inferred": 727
+      },
+      "2": {
+        "matches_start": 707
+      },
+      "4": {
+        "matches_start": 48
+      },
+      "5": {
+        "matches_start": 12
+      }
+    },
+    "2025_12": {
+      "2": {
+        "matches_start": 742
+      },
+      "3": {
+        "matches_start": 736
+      },
+      "1": {
+        "matches_inferred": 733
+      },
+      "4": {
+        "matches_start": 36
+      }
+    },
+    "2026_01": {
+      "1": {
+        "matches_inferred": 747
+      },
+      "3": {
+        "matches_inferred": 764
+      },
+      "2": {
+        "matches_inferred": 746
+      },
+      "4": {
+        "matches_inferred": 48
+      }
+    },
+    "2026_02": {
+      "2": {
+        "matches_inferred": 703,
+        "other_day": 9
+      },
+      "3": {
+        "matches_inferred": 694
+      },
+      "1": {
+        "matches_inferred": 704
+      },
+      "4": {
+        "matches_inferred": 48
+      }
+    },
+    "2026_03": {
+      "2": {
+        "matches_inferred": 739,
+        "other_day": 11
+      },
+      "1": {
+        "matches_inferred": 708
+      },
+      "4": {
+        "matches_inferred": 83
+      },
+      "3": {
+        "matches_inferred": 733
+      }
+    },
+    "2026_04": {
+      "1": {
+        "matches_inferred": 742
+      },
+      "2": {
+        "matches_inferred": 692
+      },
+      "3": {
+        "matches_inferred": 722
+      },
+      "4": {
+        "matches_inferred": 36
+      }
+    },
+    "2026_05": {
+      "2": {
+        "matches_start": 30,
+        "matches_inferred": 653
+      },
+      "1": {
+        "matches_inferred": 619
+      },
+      "3": {
+        "matches_inferred": 676
+      },
+      "5": {
+        "matches_inferred": 11
+      },
+      "4": {
+        "matches_inferred": 24
+      }
+    },
+    "2026_06": {
+      "3": {
+        "matches_start": 23,
+        "matches_inferred": 631,
+        "other_day": 7
+      },
+      "2": {
+        "matches_start": 39,
+        "matches_inferred": 604
+      },
+      "1": {
+        "matches_inferred": 624
+      },
+      "4": {
+        "matches_inferred": 48
+      },
+      "5": {
+        "matches_inferred": 12
+      }
+    },
+    "2026_07": {
+      "1": {
+        "matches_inferred": 685
+      },
+      "2": {
+        "matches_inferred": 671
+      },
+      "3": {
+        "matches_inferred": 626
+      },
+      "4": {
+        "matches_inferred": 24
+      }
+    },
+    "2026_08": {
+      "3": {
+        "matches_inferred": 724
+      },
+      "2": {
+        "matches_inferred": 740
+      },
+      "1": {
+        "matches_inferred": 677
+      },
+      "4": {
+        "matches_inferred": 58
+      },
+      "5": {
+        "matches_inferred": 11
+      }
+    },
+    "2026_09": {
+      "3": {
+        "matches_start": 40,
+        "matches_inferred": 662
+      },
+      "2": {
+        "matches_start": 42,
+        "matches_inferred": 626
+      },
+      "1": {
+        "matches_inferred": 613
+      },
+      "4": {
+        "matches_inferred": 47
+      }
+    },
+    "2026_10": {
+      "2": {
+        "matches_inferred": 547
+      },
+      "1": {
+        "matches_inferred": 562
+      },
+      "3": {
+        "matches_inferred": 533
+      },
+      "4": {
+        "matches_inferred": 36
+      }
+    },
+    "2026_11": {
+      "3": {
+        "matches_inferred": 323
+      },
+      "1": {
+        "matches_inferred": 323
+      },
+      "2": {
+        "matches_inferred": 324
+      },
+      "4": {
+        "matches_inferred": 36
+      }
+    }
+  },
+  "examples": {
+    "matches_start": [
+      {
+        "id": "2120251030030001",
+        "csv_date": "2025-10-30",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-10-30",
+        "ordinal": 3,
+        "difference": -2
+      },
+      {
+        "id": "2120251030030002",
+        "csv_date": "2025-10-30",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-10-30",
+        "ordinal": 3,
+        "difference": -2
+      },
+      {
+        "id": "2120251030030003",
+        "csv_date": "2025-10-30",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-10-30",
+        "ordinal": 3,
+        "difference": -2
+      },
+      {
+        "id": "2120251030030004",
+        "csv_date": "2025-10-30",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-10-30",
+        "ordinal": 3,
+        "difference": -2
+      },
+      {
+        "id": "2120251030030005",
+        "csv_date": "2025-10-30",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-10-30",
+        "ordinal": 3,
+        "difference": -2
+      },
+      {
+        "id": "2120251030030006",
+        "csv_date": "2025-10-30",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-10-30",
+        "ordinal": 3,
+        "difference": -2
+      },
+      {
+        "id": "2120251030030007",
+        "csv_date": "2025-10-30",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-10-30",
+        "ordinal": 3,
+        "difference": -2
+      }
+    ],
+    "matches_inferred": [
+      {
+        "id": "3520251101010001",
+        "csv_date": "2025-11-01",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-11-01",
+        "ordinal": 1,
+        "difference": 0
+      },
+      {
+        "id": "3520251101010002",
+        "csv_date": "2025-11-01",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-11-01",
+        "ordinal": 1,
+        "difference": 0
+      },
+      {
+        "id": "3520251101010003",
+        "csv_date": "2025-11-01",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-11-01",
+        "ordinal": 1,
+        "difference": 0
+      },
+      {
+        "id": "3520251101010004",
+        "csv_date": "2025-11-01",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-11-01",
+        "ordinal": 1,
+        "difference": 0
+      },
+      {
+        "id": "3520251101010005",
+        "csv_date": "2025-11-01",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-11-01",
+        "ordinal": 1,
+        "difference": 0
+      },
+      {
+        "id": "3520251101010006",
+        "csv_date": "2025-11-01",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-11-01",
+        "ordinal": 1,
+        "difference": 0
+      },
+      {
+        "id": "3520251101010007",
+        "csv_date": "2025-11-01",
+        "inferred_date": "2025-11-01",
+        "meeting_start": "2025-11-01",
+        "ordinal": 1,
+        "difference": 0
+      }
+    ],
+    "other_day": [
+      {
+        "id": "3720260207020101",
+        "csv_date": "2026-02-09",
+        "inferred_date": "2026-02-08",
+        "meeting_start": "2026-02-07",
+        "ordinal": 2,
+        "difference": 1
+      },
+      {
+        "id": "3720260207020102",
+        "csv_date": "2026-02-09",
+        "inferred_date": "2026-02-08",
+        "meeting_start": "2026-02-07",
+        "ordinal": 2,
+        "difference": 1
+      },
+      {
+        "id": "3720260207020103",
+        "csv_date": "2026-02-09",
+        "inferred_date": "2026-02-08",
+        "meeting_start": "2026-02-07",
+        "ordinal": 2,
+        "difference": 1
+      },
+      {
+        "id": "3720260207020104",
+        "csv_date": "2026-02-09",
+        "inferred_date": "2026-02-08",
+        "meeting_start": "2026-02-07",
+        "ordinal": 2,
+        "difference": 1
+      },
+      {
+        "id": "3720260207020105",
+        "csv_date": "2026-02-09",
+        "inferred_date": "2026-02-08",
+        "meeting_start": "2026-02-07",
+        "ordinal": 2,
+        "difference": 1
+      },
+      {
+        "id": "3720260207020106",
+        "csv_date": "2026-02-09",
+        "inferred_date": "2026-02-08",
+        "meeting_start": "2026-02-07",
+        "ordinal": 2,
+        "difference": 1
+      },
+      {
+        "id": "3720260207020107",
+        "csv_date": "2026-02-09",
+        "inferred_date": "2026-02-08",
+        "meeting_start": "2026-02-07",
+        "ordinal": 2,
+        "difference": 1
+      }
+    ]
+  },
+  "errors": {},
+  "policy": "Do not correct dates without independent crosscheck. Reject race-day inference wherever source semantics conflict."
+}
