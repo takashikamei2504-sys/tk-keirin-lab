@@ -1,0 +1,573 @@
+{
+  "schema": "tk-keirin-third-place-ties-payout-corrections/v1",
+  "generated_at": "2026-11-16T04:11:18.528Z",
+  "source_revision": "4588ec938a2fec9e81216d3fd3423329805aa3d5",
+  "method": "Restore both verified third-place-dead-heat winning 3連単 combinations; hold wagers and all 8 engines constant",
+  "limitations": [
+    "3 externally checked race-result pages; historical retrospective evaluation, not frozen forecast",
+    "No investment applied; this is corrected simulated settlement only"
+  ],
+  "races": [
+    {
+      "race_id": "2026-08-21:川崎:11",
+      "date": "2026-08-21",
+      "venue": "川崎",
+      "race_no": 11,
+      "payout_sources": [
+        "https://sp.oddspark.com/keirin/SpRaceResultInfo.do?joCd=34&joCode=34&kaisaiBi=20260821&raceNo=11",
+        "https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/4588ec938a2fec9e81216d3fd3423329805aa3d5/2026-08-21.json"
+      ],
+      "original_published_combos": [
+        {
+          "key": "4-6-5",
+          "payout": 11790
+        }
+      ],
+      "corrected_winning_keys": [
+        {
+          "key": "4-6-2",
+          "payout": 23100
+        },
+        {
+          "key": "4-6-5",
+          "payout": 11790
+        }
+      ],
+      "engines": {
+        "auto": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "physical": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "causal": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "lab_v5": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "line": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "roi_coverage": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "b_upset_ad": {
+          "original": {
+            "points": 4,
+            "stake": 400,
+            "payout": 0,
+            "net": -400,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 4,
+            "stake": 400,
+            "payout": 0,
+            "net": -400,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "b_upset_expanded": {
+          "original": {
+            "points": 10,
+            "stake": 1000,
+            "payout": 0,
+            "net": -1000,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 10,
+            "stake": 1000,
+            "payout": 0,
+            "net": -1000,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        }
+      }
+    },
+    {
+      "race_id": "2026-08-22:松戸:3",
+      "date": "2026-08-22",
+      "venue": "松戸",
+      "race_no": 3,
+      "payout_sources": [
+        "https://keirin.kdreams.jp/matsudo/raceresult/31202608220100/",
+        "https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/4588ec938a2fec9e81216d3fd3423329805aa3d5/2026-08-22.json"
+      ],
+      "original_published_combos": [
+        {
+          "key": "5-3-9",
+          "payout": 400
+        }
+      ],
+      "corrected_winning_keys": [
+        {
+          "key": "5-3-7",
+          "payout": 180
+        },
+        {
+          "key": "5-3-9",
+          "payout": 400
+        }
+      ],
+      "engines": {
+        "auto": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "physical": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "causal": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "lab_v5": {
+          "original": {
+            "points": 5,
+            "stake": 500,
+            "payout": 0,
+            "net": -500,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 5,
+            "stake": 500,
+            "payout": 180,
+            "net": -320,
+            "hit": true,
+            "winning_keys": [
+              "5-3-7"
+            ]
+          },
+          "delta_payout": 180
+        },
+        "line": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 180,
+            "net": -620,
+            "hit": true,
+            "winning_keys": [
+              "5-3-7"
+            ]
+          },
+          "delta_payout": 180
+        },
+        "roi_coverage": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 180,
+            "net": -620,
+            "hit": true,
+            "winning_keys": [
+              "5-3-7"
+            ]
+          },
+          "delta_payout": 180
+        },
+        "b_upset_ad": {
+          "original": {
+            "points": 10,
+            "stake": 1000,
+            "payout": 0,
+            "net": -1000,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 10,
+            "stake": 1000,
+            "payout": 0,
+            "net": -1000,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "b_upset_expanded": {
+          "original": {
+            "points": 10,
+            "stake": 1000,
+            "payout": 0,
+            "net": -1000,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 10,
+            "stake": 1000,
+            "payout": 0,
+            "net": -1000,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        }
+      }
+    },
+    {
+      "race_id": "2026-08-26:玉野:6",
+      "date": "2026-08-26",
+      "venue": "玉野",
+      "race_no": 6,
+      "payout_sources": [
+        "https://www.keirin-mobile.jp/New/races/20260826/61/06/",
+        "https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/4588ec938a2fec9e81216d3fd3423329805aa3d5/2026-08-26.json"
+      ],
+      "original_published_combos": [
+        {
+          "key": "4-3-5",
+          "payout": 900
+        }
+      ],
+      "corrected_winning_keys": [
+        {
+          "key": "4-3-1",
+          "payout": 1590
+        },
+        {
+          "key": "4-3-5",
+          "payout": 900
+        }
+      ],
+      "engines": {
+        "auto": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "physical": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "causal": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "lab_v5": {
+          "original": {
+            "points": 6,
+            "stake": 600,
+            "payout": 0,
+            "net": -600,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 6,
+            "stake": 600,
+            "payout": 0,
+            "net": -600,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "line": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "roi_coverage": {
+          "original": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 8,
+            "stake": 800,
+            "payout": 0,
+            "net": -800,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        },
+        "b_upset_ad": {
+          "original": {
+            "points": 9,
+            "stake": 900,
+            "payout": 900,
+            "net": 0,
+            "hit": true,
+            "winning_keys": [
+              "4-3-5"
+            ]
+          },
+          "corrected": {
+            "points": 9,
+            "stake": 900,
+            "payout": 2490,
+            "net": 1590,
+            "hit": true,
+            "winning_keys": [
+              "4-3-1",
+              "4-3-5"
+            ]
+          },
+          "delta_payout": 1590
+        },
+        "b_upset_expanded": {
+          "original": {
+            "points": 10,
+            "stake": 1000,
+            "payout": 0,
+            "net": -1000,
+            "hit": false,
+            "winning_keys": []
+          },
+          "corrected": {
+            "points": 10,
+            "stake": 1000,
+            "payout": 0,
+            "net": -1000,
+            "hit": false,
+            "winning_keys": []
+          },
+          "delta_payout": 0
+        }
+      }
+    }
+  ],
+  "delta_by_engine": {
+    "auto": 0,
+    "physical": 0,
+    "causal": 0,
+    "lab_v5": 180,
+    "line": 180,
+    "roi_coverage": 180,
+    "b_upset_ad": 1590,
+    "b_upset_expanded": 0
+  }
+}
