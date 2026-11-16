@@ -4,51 +4,100 @@ on:
     branches: ['research/annual-full-audit-20261116']
     paths:
       - scripts/year-extend180-comment-prepare.py
-      - scripts/year-extend180-comment-eights.cjs
+      - scripts/year-extend180-comment-shard.cjs
+      - scripts/year-extend180-comment-aggregate.cjs
       - .github/workflows/year-extend180-comment-eights.yml
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
   group: tk-extend180-comment-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
-  replay:
+  prepare:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source join and infer only strict rider-comment lineups
+        run: python3 scripts/year-extend180-comment-prepare.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: extend180-prepared-private
+          path: |
+            reports/year-race-type/extended180-comment-inputs-temporary.json
+            reports/year-race-type/extended180-comment-input-summary.json
+          if-no-files-found: error
+          retention-days: 1
+  replay:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Source-join and reconstruct lineups from explicit historical rider comments
-        run: python3 scripts/year-extend180-comment-prepare.py
-      - name: Replay eight engines only on audited historical candidate cards
+      - uses: actions/download-artifact@v4
+        with:
+          name: extend180-prepared-private
+          path: reports/year-race-type
+      - name: Replay 1/12 of 661 strictly reconstructed source-complete cases
+        env:
+          YEAR_EXT_SHARD: ${{ matrix.shard }}
+          YEAR_EXT_TOTAL: 12
         run: |
-          if test -f scripts/year-extend180-comment-eights.cjs; then
-            node --check scripts/year-extend180-comment-eights.cjs
-            node scripts/year-extend180-comment-eights.cjs
-          fi
+          node --check scripts/year-extend180-comment-shard.cjs
+          node scripts/year-extend180-comment-shard.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: extend180-comment-replay-summaries
+          name: extend180-comment-part-${{ matrix.shard }}
+          path: reports/year-race-type/extend180-comment-shards/part-${{ matrix.shard }}.json
+          if-no-files-found: warn
+          retention-days: 30
+  aggregate:
+    needs: replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: extend180-prepared-private
+          path: reports/year-race-type
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: extend180-comment-part-*
+          merge-multiple: true
+          path: reports/year-race-type/extend180-comment-shards
+      - name: Audit all twelve shards and every eight-engine prediction
+        run: |
+          node --check scripts/year-extend180-comment-aggregate.cjs
+          node scripts/year-extend180-comment-aggregate.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: extend180-comment-verified-summary
           path: |
-            reports/year-race-type/extended180-comment-input-summary.json
             reports/year-race-type/extended180-preceding90-comment-eights-summary.json
             reports/year-race-type/extended180-preceding90-comment-eights-ja.md
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 90
-      - name: Commit aggregated audit to research branch only
+      - name: Commit only aggregate research report to isolated branch
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/year-race-type/extended180-comment-input-summary.json
-          if test -f reports/year-race-type/extended180-preceding90-comment-eights-summary.json; then
-            git add reports/year-race-type/extended180-preceding90-comment-eights-summary.json reports/year-race-type/extended180-preceding90-comment-eights-ja.md
-          fi
+          git add reports/year-race-type/extended180-comment-input-summary.json reports/year-race-type/extended180-preceding90-comment-eights-summary.json reports/year-race-type/extended180-preceding90-comment-eights-ja.md
           if ! git diff --cached --quiet; then
-            git commit -m 'Audit strict historical comment-derived lineups and eight-engine exploratory ROI'
+            git commit -m 'Verify 661 selected historical races across eight engines in twelve shards'
             git pull --rebase origin "${{ github.ref_name }}"
             git push origin "HEAD:${{ github.ref_name }}"
           fi
