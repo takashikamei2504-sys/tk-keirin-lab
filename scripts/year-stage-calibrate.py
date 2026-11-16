@@ -285,7 +285,7 @@ for month in sorted({m for m,s in month_stage}):
         sample.append({
            "race_id":rid,"date":selected["date"],"month":month,"predicted_stage":selected["stage"],
            "category":selected["class"],"race_no":selected["race_no"],"venue_code":selected["venue_code"],
-           "source_url":"https://keirin0.com/detail/"+rid[2:10]+"/"+selected["date"].replace("-","")+"/"+rid[:2]+"/"+rid[12:],
+           "source_url":"https://keirin0.com/detail/"+rid[2:10]+"/"+selected["date"].replace("-","")+"/"+rid[:2]+"/"+format(int(rid[12:]),"02d"),
            "selection":"smallest sha256(race_id|crossyear-stage-v1) within month and predicted stage"
         })
 sample_report={"schema":"tk-keirin-crossyear-stage-audit-sample/v1",
