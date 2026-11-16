@@ -1,0 +1,41 @@
+name: Repair tied-third trifecta accounting in 3 archived races
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-fix-third-ties.cjs
+      - .github/workflows/year-fix-third-ties.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Re-run unchanged 8 ways on three 3rd-place-tie races with both verified winning combos
+        run: |
+          node --check scripts/year-fix-third-ties.cjs
+          node scripts/year-fix-third-ties.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verified-third-place-ties-eight-engine-corrections
+          path: reports/year-race-type/equal-third-3race-corrections.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Commit report to isolated research branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/equal-third-3race-corrections.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Restore both 3連単 winners for three 3rd-place ties without altering tickets'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
