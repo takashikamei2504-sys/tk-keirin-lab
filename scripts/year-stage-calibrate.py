@@ -296,7 +296,7 @@ sample_report={"schema":"tk-keirin-crossyear-stage-audit-sample/v1",
  "note":"Audit public title labels of previously held-out historical dates. Not an 8-engine annual ROI test."}
 p_sample=pathlib.Path("reports/year-race-type/crossyear-stage-sample.json")
 p_sample.parent.mkdir(parents=True,exist_ok=True)
-p_sample.write_text(json.dumps(sample_report,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+p_sample.write_text(json.dumps(sample_report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 path=pathlib.Path("reports/year-race-type/annual-stage-validation.json")
 path.parent.mkdir(parents=True,exist_ok=True)
 path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
