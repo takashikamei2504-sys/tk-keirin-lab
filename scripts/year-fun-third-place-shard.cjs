@@ -131,7 +131,7 @@ async function main(){
     upset:upset.research.ad.map(cleanKey)
    };
    for(const [name,keys] of Object.entries(original)){
-    if(!keys.length||new Set(keys).size!==keys.length)throw Error('Invalid or duplicated baseline tickets '+name);
+    if((name==='auto'&&!keys.length)||new Set(keys).size!==keys.length)throw Error('Invalid or duplicated baseline tickets '+name);
     const expectedSettlement=o.predictions[name==='auto'?'auto':'b_upset_ad'];
     const got=settle(keys,observed),delta=correct.get(rid+'|'+(name==='auto'?'auto':'b_upset_ad'))||0;
     if(got.s!==expectedSettlement.stake||got.p!==expectedSettlement.payout+delta)throw Error('Original settlement disagreement '+name);
