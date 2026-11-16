@@ -1,0 +1,1118 @@
+{
+  "schema": "tk-keirin-180day-prior90-source-coverage/v1",
+  "generated_at": "2026-11-16T07:33:06.049Z",
+  "start": "2026-05-20",
+  "end": "2026-08-17",
+  "days": 90,
+  "source": {
+    "repository": "snarfnet/keirin-data",
+    "pinned_commit": "6ea68de4d92d3a8294e1a7d168e918a8a90eb155",
+    "raw_data_not_redistributed": true
+  },
+  "counts": {
+    "entry_days": 90,
+    "result_days": 71,
+    "paired_days": 71,
+    "entry_races": 6826,
+    "result_races": 5352,
+    "paired_races": 5352,
+    "paired_seven_nine_all_gender": 5022,
+    "trifecta_results": 5346,
+    "missing_lines_seven_nine": 6389,
+    "missing_round_seven_nine": 6389,
+    "duplicate_ids": 0,
+    "results_not_joined": 0,
+    "entries_not_joined": 5
+  },
+  "daily": [
+    {
+      "date": "2026-05-20",
+      "entries": true,
+      "results": false,
+      "entry_count": 83,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "f8b213a2a91f225d84bfa168cf559392e1fa7b71296204ce61384454740a1263"
+      }
+    },
+    {
+      "date": "2026-05-21",
+      "entries": true,
+      "results": false,
+      "entry_count": 72,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "8778dc71c358edf367196b5b4e8e8c04e230c18f9fa9d68d33404bbd9e29a527"
+      }
+    },
+    {
+      "date": "2026-05-22",
+      "entries": true,
+      "results": false,
+      "entry_count": 83,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "572df8cc73997ce414c9bccc1fc58a6ad410e7c1e3fa7cbe4637a746c3510592"
+      }
+    },
+    {
+      "date": "2026-05-23",
+      "entries": true,
+      "results": false,
+      "entry_count": 61,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "3917cd4f55b094c49a374e73b994186e2de76bc648ab1f530bc5b98cc476438d"
+      }
+    },
+    {
+      "date": "2026-05-24",
+      "entries": true,
+      "results": false,
+      "entry_count": 78,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "a18473aefcf2e2376d74cb08e913fa296bb45cb8b9317265ad86d84c24aa0f0e"
+      }
+    },
+    {
+      "date": "2026-05-25",
+      "entries": true,
+      "results": false,
+      "entry_count": 75,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "70421e07a98b4f0c65f08bbd7ceab6e2c6803a74e74cd235512e1775b287d697"
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "entries": true,
+      "results": false,
+      "entry_count": 74,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "a48ea4f2a32ae71f015d99bcc2c36ef2f3f3df8d8d38f5cb2a59189eafa29766"
+      }
+    },
+    {
+      "date": "2026-05-27",
+      "entries": true,
+      "results": false,
+      "entry_count": 75,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "130dd08301edb345559e46105a73de9142bba04952611d175389f1eb1c3d5a3b"
+      }
+    },
+    {
+      "date": "2026-05-28",
+      "entries": true,
+      "results": false,
+      "entry_count": 79,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "cc73bf953bd1d0b1d83053293b54c892e0c70445d5d6b9a2b6d9ffe51ed79895"
+      }
+    },
+    {
+      "date": "2026-05-29",
+      "entries": true,
+      "results": false,
+      "entry_count": 72,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "a625ef22d0231f7d7c55e70695d9943fd8c35ccac068c82471a44b99ba2d1917"
+      }
+    },
+    {
+      "date": "2026-05-30",
+      "entries": true,
+      "results": false,
+      "entry_count": 83,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "e672248bb3ffd62f99b972b73ffc81283b31c2fc037dc9c19f89ce7184ac833a"
+      }
+    },
+    {
+      "date": "2026-05-31",
+      "entries": true,
+      "results": false,
+      "entry_count": 74,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "d682f7a0230f11f70fb982d446acbeca562cd98f874c7bfee3af903dae5d17fb"
+      }
+    },
+    {
+      "date": "2026-06-01",
+      "entries": true,
+      "results": false,
+      "entry_count": 92,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "b276794466700c67c5142e3bfa8fd088b27042545e4fefc2001cd82c121df5d9"
+      }
+    },
+    {
+      "date": "2026-06-02",
+      "entries": true,
+      "results": false,
+      "entry_count": 92,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "ac7cd92e1753c4319c3eccfe9d0f2478baf84258c6121dcae490822bc42e6fc6"
+      }
+    },
+    {
+      "date": "2026-06-03",
+      "entries": true,
+      "results": false,
+      "entry_count": 81,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "f286a85a66afc3fa85c0b17125964913fb36048cdacce88f07c38b21aeb4378a"
+      }
+    },
+    {
+      "date": "2026-06-04",
+      "entries": true,
+      "results": false,
+      "entry_count": 75,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "1477bbbb0478fc1e14fbf5b58b76ab9a3471298caec58e117e0ecbcd739bdd94"
+      }
+    },
+    {
+      "date": "2026-06-05",
+      "entries": true,
+      "results": false,
+      "entry_count": 81,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "505db3e9cb980d6e6b73cce0d2baa7aac7e919b777910dfc1103c1d270088028"
+      }
+    },
+    {
+      "date": "2026-06-06",
+      "entries": true,
+      "results": false,
+      "entry_count": 67,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "7f556d53c2eda9e1b411888ee262626286c85f5f7079bedb9fdab4e857e3247a"
+      }
+    },
+    {
+      "date": "2026-06-07",
+      "entries": true,
+      "results": false,
+      "entry_count": 72,
+      "result_count": 0,
+      "joined": 0,
+      "sha256": {
+        "entries": "d13054ed9d63f2e1330856df899c207e4c9efc3ddafe6ddbbfb620f6baa8914b"
+      }
+    },
+    {
+      "date": "2026-06-08",
+      "entries": true,
+      "results": true,
+      "entry_count": 69,
+      "result_count": 69,
+      "joined": 69,
+      "sha256": {
+        "entries": "c1b7414966b8e3709fdac43e0272469dcf2e1454ed15713c37c55726374b1a77",
+        "results": "9801a6111fe165a2f29e1830e8e5123623edfb88cc8ce6fa3a6074a433aed5f8"
+      }
+    },
+    {
+      "date": "2026-06-09",
+      "entries": true,
+      "results": true,
+      "entry_count": 81,
+      "result_count": 81,
+      "joined": 81,
+      "sha256": {
+        "entries": "4456c18125d64d2fb3c63507dea756d34a80ea9dd37f50786145ece5b49f4058",
+        "results": "0d2fe5b347de5b681dbfe7641a8f3641b22317b37b59dc0c4e448d86e6a57da9"
+      }
+    },
+    {
+      "date": "2026-06-10",
+      "entries": true,
+      "results": true,
+      "entry_count": 89,
+      "result_count": 89,
+      "joined": 89,
+      "sha256": {
+        "entries": "9715359980ff94a255138a18be9fae7df7c38e34f5c990087a3d0cdadc884edc",
+        "results": "effa7d47f786cd9d75cd99d45cba49c9642d83b9c13ea3cd33c982c23405efb6"
+      }
+    },
+    {
+      "date": "2026-06-11",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "b171ba15b9f8ed7a5442eb8840f5f078c53ad3a4fb7d71ac4172cc760db38d8c",
+        "results": "e8ac8da678981a0f4a89aeafd0d6e7a270a9108f667e1b3bcbcedb63976eb4f5"
+      }
+    },
+    {
+      "date": "2026-06-12",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "35c3645bec38c159dca6a0bd35bb40e812930e027bbdfe58c5a1f52e3d0c7c86",
+        "results": "c7d777fcbd6b1d2d73416a8b3e7cc2994c6bf530db346d0cc6b5b8cde35867e3"
+      }
+    },
+    {
+      "date": "2026-06-13",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "fcbb8ce3f933594dd56eaf1251454c9cd95c23953a5f1a02f1ef8811c5e72ede",
+        "results": "d2c28b00252d30a10b462f86d217ea300e6dbb6d3837e616dc055b63a7848be8"
+      }
+    },
+    {
+      "date": "2026-06-14",
+      "entries": true,
+      "results": true,
+      "entry_count": 90,
+      "result_count": 90,
+      "joined": 90,
+      "sha256": {
+        "entries": "33904156a78409ee0f2160a986c06f15e812a319aafcf644ed57fe79c459196b",
+        "results": "c6c1497f1cfc4bcb3ceb20fffe243952beea4ba222407f7d66bfe7edb3d8ac1f"
+      }
+    },
+    {
+      "date": "2026-06-15",
+      "entries": true,
+      "results": true,
+      "entry_count": 78,
+      "result_count": 78,
+      "joined": 78,
+      "sha256": {
+        "entries": "bc2bc391e25155e38cc0c9c10e5d1444e1273230fb367de77bec460a8855622f",
+        "results": "29f51ff60730611e7ceee8b5b21191feefab4486352b21fb18d736aaf715e7a1"
+      }
+    },
+    {
+      "date": "2026-06-16",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "046734da72e2c02ecb50840b1f1180a90140c8571c9562fbd0c680be145c96d6",
+        "results": "28100174b61c9c0f6e64e468bad5b2aff21a0dd5bbf476ea26193a24e0c6ad78"
+      }
+    },
+    {
+      "date": "2026-06-17",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "c0495fc593e5cc3f5f6b9e2dd0e908ed316eba89410d647470fcd19e9ea865ee",
+        "results": "9363b23cbe20fc0243a7d9264a660403ef890b444424b707bf4185b02bbf6653"
+      }
+    },
+    {
+      "date": "2026-06-18",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "346d08b3ce6393b94c2b6db8fabfcb97bca1f839030b2a1eb804f1ff422e25e8",
+        "results": "7e6919b161fce74a149abb71e4248b17e945fc903a714e2655a006b2f5f179e5"
+      }
+    },
+    {
+      "date": "2026-06-19",
+      "entries": true,
+      "results": true,
+      "entry_count": 79,
+      "result_count": 79,
+      "joined": 79,
+      "sha256": {
+        "entries": "78b4068326391d6f03fd628e26204653449b150ed1f8a46a5a4a0e3349b4de0f",
+        "results": "e18b68ed783601b133cccb46d66aebc5215d8a98238412a9695bba31f6528122"
+      }
+    },
+    {
+      "date": "2026-06-20",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "72f9ab50674571d25c6f6c30a52cab7456774502f22732f6bcca1a13353481a9",
+        "results": "28d3c3f1905b9f9eb759cd1c4059fae46c6d9081de9fe68d87769fd8dd73d7cc"
+      }
+    },
+    {
+      "date": "2026-06-21",
+      "entries": true,
+      "results": true,
+      "entry_count": 61,
+      "result_count": 61,
+      "joined": 61,
+      "sha256": {
+        "entries": "1209bd0a0292ce843405215755a5b6786812a26bbac159bced6efa5c9c564add",
+        "results": "957157e04595ed929e0f26a16fa7ff6e06a351522e1fff4aa91dd8f162c4d010"
+      }
+    },
+    {
+      "date": "2026-06-22",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "bfd52ec97316b448a469955354672146fac1fb3d673b5755fcf56ba43b4bab7d",
+        "results": "eaf868ca9887fcaa3709195d4d5b559f697c88b3893f666171a6a3409d8935df"
+      }
+    },
+    {
+      "date": "2026-06-23",
+      "entries": true,
+      "results": true,
+      "entry_count": 90,
+      "result_count": 88,
+      "joined": 88,
+      "sha256": {
+        "entries": "367ec5a7a0fb7ca98d062c804b2faf93c990e56ca0a6338e4b5d4f30a9ae0bb7",
+        "results": "d132a16046a7c6de33982f1f94bbfdb089335a4b0a0fc1b396fdec3032497f6f"
+      }
+    },
+    {
+      "date": "2026-06-24",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "3cab2f94821b7c1bc164d8f3dfe7c9ce9c7ef4437bb6c58448cccd417df8e33e",
+        "results": "c3709d86ef54e395f885775e434cf4763a1df2f208930a28e578d9018d5468f4"
+      }
+    },
+    {
+      "date": "2026-06-25",
+      "entries": true,
+      "results": true,
+      "entry_count": 75,
+      "result_count": 75,
+      "joined": 75,
+      "sha256": {
+        "entries": "1e1efdeda25a8e972daa786a5f1e09b29987960b7c1d16771d2503bfe31af442",
+        "results": "41e4440cb4db421f1cf458ac8408618ab60340e51b9dfdbf1702de4f1dd64dbc"
+      }
+    },
+    {
+      "date": "2026-06-26",
+      "entries": true,
+      "results": true,
+      "entry_count": 64,
+      "result_count": 64,
+      "joined": 64,
+      "sha256": {
+        "entries": "9fe7faaf69e4505f14eacaaae4a2ccd4f86f03c003082e52c048b87592b7a9d3",
+        "results": "f4bcf5087627bebeafafd243896b66e2edb5f5687f0efc3ca8032f939489ead5"
+      }
+    },
+    {
+      "date": "2026-06-27",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "1b0837fbac00e399a8e26b1aad180ab250c727e9a69a93c016904ead8cd911d0",
+        "results": "91b8eddb87e6d94b879ff2b404f9d4cd9b2e62e7690cd33c8dd98c4a83d65a74"
+      }
+    },
+    {
+      "date": "2026-06-28",
+      "entries": true,
+      "results": true,
+      "entry_count": 59,
+      "result_count": 59,
+      "joined": 59,
+      "sha256": {
+        "entries": "fce302cd6bca5233e36377f689e63d6dc2b504bce924e6307133fe2c5f7b09d2",
+        "results": "24de9cba3af0f02e918b1885e8f6112061987e6c9a40305ab38cc800500561d7"
+      }
+    },
+    {
+      "date": "2026-06-29",
+      "entries": true,
+      "results": true,
+      "entry_count": 64,
+      "result_count": 64,
+      "joined": 64,
+      "sha256": {
+        "entries": "598f29e02de70d7eac2fd5f2a428f49ea20f20e965aa73fd5d237333e9dced1d",
+        "results": "d341349df8edb4124a236b883d2bdd4cc9a6265dc204211ca3dda246fec0b203"
+      }
+    },
+    {
+      "date": "2026-06-30",
+      "entries": true,
+      "results": true,
+      "entry_count": 76,
+      "result_count": 76,
+      "joined": 76,
+      "sha256": {
+        "entries": "6969c2ec06e03c3b3420a525b4d4be166bf36c1f5b8ae789d80abd2428d1bbd6",
+        "results": "246f1ad6403e444d6f96acc177735ec3cbeaab0642c755c11d90e1747050b837"
+      }
+    },
+    {
+      "date": "2026-07-01",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "d97fc4c39e66c0934ea4b9adf86b6b4d53c873c6441e7a0a383329488a58763b",
+        "results": "982533e8bdc8c2563be82f5af5013b32b9ca81c04aac20e58e702a3b0c9cbbd1"
+      }
+    },
+    {
+      "date": "2026-07-02",
+      "entries": true,
+      "results": true,
+      "entry_count": 82,
+      "result_count": 81,
+      "joined": 81,
+      "sha256": {
+        "entries": "b83f3e21759b1590a9213468c30cc64a2df6977b914ac858e0b554d984b1d4df",
+        "results": "90c473282326fb62f7ef4bc195df2261d989c1392fdd3c5a84d5d03abe9822ab"
+      }
+    },
+    {
+      "date": "2026-07-03",
+      "entries": true,
+      "results": true,
+      "entry_count": 75,
+      "result_count": 75,
+      "joined": 75,
+      "sha256": {
+        "entries": "4ef822b09aaff20fc0174f2253c2412bd512f253c535c20ed6637ce41795d99e",
+        "results": "ad5f7fe58844dd3c95f7e2a1e8ab707bfaaf0b1502d696d5105579603433a875"
+      }
+    },
+    {
+      "date": "2026-07-04",
+      "entries": true,
+      "results": true,
+      "entry_count": 63,
+      "result_count": 63,
+      "joined": 63,
+      "sha256": {
+        "entries": "8e78ecacca0c184b974535ce203fe81ab3817011b0c9899e074575ea78bd9196",
+        "results": "0fe3a63c3f308df0590cda507fd0a3991a9e686a6332295439e6e4915349b713"
+      }
+    },
+    {
+      "date": "2026-07-05",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "db2358ce005906f498f67d79a1482ddc4f04b93b6ab3923c6432ca9ee527b04c",
+        "results": "6bf0fe8580933f48bb2d8f37b061765d42794feb57b75137360497bb9f45022e"
+      }
+    },
+    {
+      "date": "2026-07-06",
+      "entries": true,
+      "results": true,
+      "entry_count": 70,
+      "result_count": 70,
+      "joined": 70,
+      "sha256": {
+        "entries": "fe18e39cfed8dc46729b43c6f3e02555f5ad04bab09026a9844d330e762f701a",
+        "results": "374ed02146c02a849e914bf6d2d178e13e8ffdd483829a29b9d32bcb069d4a9b"
+      }
+    },
+    {
+      "date": "2026-07-07",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "b23a5b151dd0fe3f73ffff8e997b333906613728c620b6a34c64c17ed323655c",
+        "results": "ecbfb9cf7ebadf419ca0888abeb02da1a45fc62dc317408ab70670bd619a5dad"
+      }
+    },
+    {
+      "date": "2026-07-08",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "d471c87922f9feaa46a58bf986a8c16a77d291eb57572daae6332530bf38a0bc",
+        "results": "b7a079f69bdc007e4be1b091c9d605b90b4e65e493697a4cf46aefdcb72dd412"
+      }
+    },
+    {
+      "date": "2026-07-09",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "ffd0886af3c6be9d46f496a858c41178a14db052a2a854e6f53ceebbde094d3d",
+        "results": "922af687acb8f569ea2cad017a506fbbb41fb1964c135a5b523e184f6f6d8fd3"
+      }
+    },
+    {
+      "date": "2026-07-10",
+      "entries": true,
+      "results": true,
+      "entry_count": 80,
+      "result_count": 80,
+      "joined": 80,
+      "sha256": {
+        "entries": "a246afda937ae1a9ad1363c06c0e75d0bac6fd10856305fb4fdc0a933f73ad33",
+        "results": "83eec96a0f159a34fe286fb4a501d630612a7982ffaaa8c1432c3db0b00ac570"
+      }
+    },
+    {
+      "date": "2026-07-11",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "abdb547f8695bf2d9b5b08a93b1c28d78a16369d31de18d6f927b762d129b7d0",
+        "results": "2bb019ec72bfa916ee04f70f308b42ead04be08efc25fc690a2e50f18ed6e1fc"
+      }
+    },
+    {
+      "date": "2026-07-12",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "b98f6167fb7a05675866769d84baba2acc1a1a5d7a7d46b14b2ff5d68128f4de",
+        "results": "a282c77f3da55bca4552b1f764ea634f2931a7c27b0bb6bbba7fb5cdc085acb7"
+      }
+    },
+    {
+      "date": "2026-07-13",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "c2459803a5e8e0846c80d734032c484050aff5d0f24bcf077105d56ea3d6b7f4",
+        "results": "35532cd04b0f673f73f7f987d3c127d77e127fe7de7a02f4164e74a00349a593"
+      }
+    },
+    {
+      "date": "2026-07-14",
+      "entries": true,
+      "results": true,
+      "entry_count": 84,
+      "result_count": 84,
+      "joined": 84,
+      "sha256": {
+        "entries": "1c2ab69db04248c1f72a2602626fe2a84b4e2b72b5b79f2b35192f5da68bf024",
+        "results": "4db0dac1006e611d368922856654552c5d20a6b8ce92adcef4e7a048382be1d2"
+      }
+    },
+    {
+      "date": "2026-07-15",
+      "entries": true,
+      "results": true,
+      "entry_count": 91,
+      "result_count": 91,
+      "joined": 91,
+      "sha256": {
+        "entries": "129d2fd8ab8a2a3342073bdabf2c46c6d947b4b583679920fc873216c787dd86",
+        "results": "47397ad6c57a8ce0a7efee0f8a19bf3180f921d6fdc1f83cfb348aa39a7a2871"
+      }
+    },
+    {
+      "date": "2026-07-16",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "e3c59de7ec7fe6d0df32a7d9dc78b439b14d6f7eb49d07ab6b5c06b993378676",
+        "results": "704ad0c5b9d86b75a432f20bf8c26b1f2f0654604cba56944cab28b2038a86b8"
+      }
+    },
+    {
+      "date": "2026-07-17",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "0dcf75dcb6d14feeee9079e4cf48f96c47a807454006966992e4eac5b655ef27",
+        "results": "304fc66c684b5d91d1d95076a3cd72216c98e3c79f8bb995ac307ebb1f55a4c0"
+      }
+    },
+    {
+      "date": "2026-07-18",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "65f6dd298c2ade3df5c78e388d42f46566bb869838e64546b031e3a021efc1f9",
+        "results": "fc8648f3293586d4b1d9a86ea2a3ee4669fb6f91f269b68ea2a9d939d8375878"
+      }
+    },
+    {
+      "date": "2026-07-19",
+      "entries": true,
+      "results": true,
+      "entry_count": 67,
+      "result_count": 67,
+      "joined": 67,
+      "sha256": {
+        "entries": "023e28e03e9e12115591f4dfe42ca1ed07b705657befa7e350d2080b3c846293",
+        "results": "e29453d8a7ff059915a7c205a3eccab04bc20544b52f06a77cb92c33e452d65f"
+      }
+    },
+    {
+      "date": "2026-07-20",
+      "entries": true,
+      "results": true,
+      "entry_count": 68,
+      "result_count": 68,
+      "joined": 68,
+      "sha256": {
+        "entries": "8efc4d583a7ca84abdb537d96cf7e6da2c2ddddd0d06a80a3f210189331d90da",
+        "results": "5f63f6118a55866b750c46d0fd357dcf52c3dbf7decb7fd8ac1b460943896af9"
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "entries": true,
+      "results": true,
+      "entry_count": 60,
+      "result_count": 60,
+      "joined": 60,
+      "sha256": {
+        "entries": "d4ccc28bfe796e94ef7bee435697403930220c4b83c038876f98729296dd3a09",
+        "results": "3024ba270e0e90cfd3b4bf584e3e8820994d95910c6aee92326913ec0db5efce"
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "entries": true,
+      "results": true,
+      "entry_count": 86,
+      "result_count": 86,
+      "joined": 86,
+      "sha256": {
+        "entries": "c11482cf680b37a9049cbf4334cdadc164d03dc3722e2df209465ca3957ffd72",
+        "results": "ade2127a55d7854c1871f777fe67087b07989d8e7b7bf8771b1a0c1992afb6dd"
+      }
+    },
+    {
+      "date": "2026-07-23",
+      "entries": true,
+      "results": true,
+      "entry_count": 93,
+      "result_count": 93,
+      "joined": 93,
+      "sha256": {
+        "entries": "9fcd06f76797f42cf49f25885bbeb30e8d668ba14fd3c07f3c3d5aea14bfa934",
+        "results": "f43c3eae207a17eccd84bbe73af6fd2b52ccb0a21cb1036ff84de9775158469c"
+      }
+    },
+    {
+      "date": "2026-07-24",
+      "entries": true,
+      "results": true,
+      "entry_count": 92,
+      "result_count": 92,
+      "joined": 92,
+      "sha256": {
+        "entries": "1290d880b8dc812cb363e14e620d667562c959c6822bad7a0dd324bb230482a4",
+        "results": "75c10137c479c7e797f8c2fd039ce9af62059cacc2ece6317df856a77bcca422"
+      }
+    },
+    {
+      "date": "2026-07-25",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "1538fbd0f875fa5c6393749a1190f59ce6aad779d1e608e1c34c10bcedc9c818",
+        "results": "02207e0e3fddd9172835f05fee179fbd730d4db984289541ed1b85929d418c29"
+      }
+    },
+    {
+      "date": "2026-07-26",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "543e8d1b32f59ecea4989294224f33d90d602cfb721f90427de78ae43231ce4f",
+        "results": "fb084b5ad4464d8d365341404fa67d55633bc672a86ff8b9959cc1169300eb76"
+      }
+    },
+    {
+      "date": "2026-07-27",
+      "entries": true,
+      "results": true,
+      "entry_count": 80,
+      "result_count": 80,
+      "joined": 80,
+      "sha256": {
+        "entries": "1ed093982b883d9e727a1b3ff862ec8029152847e478ff1360aa6f1c3a02faf5",
+        "results": "805a7b74151f92c356b1a2e61d48935740f34360f10bc378a4f71da095487466"
+      }
+    },
+    {
+      "date": "2026-07-28",
+      "entries": true,
+      "results": true,
+      "entry_count": 78,
+      "result_count": 77,
+      "joined": 77,
+      "sha256": {
+        "entries": "f9dc01faa0b66d24c146b5f63858b335ec1ba8d606be862fdf1a3b4e4812ccb8",
+        "results": "0ad2cf66df2e379052d3df1eceb5436db801d69711dc7cacbf5bf697c72087e7"
+      }
+    },
+    {
+      "date": "2026-07-29",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "05fc1fe93e2e517019e1b407625d65778c4a77f716b31db468fb48c62159df99",
+        "results": "87483ff18e182f40c1634ea5589b76fc70d43a2f93f6e92e029fe491942ca108"
+      }
+    },
+    {
+      "date": "2026-07-30",
+      "entries": true,
+      "results": true,
+      "entry_count": 70,
+      "result_count": 70,
+      "joined": 70,
+      "sha256": {
+        "entries": "fb9ce8179a271708551a039d9b13c533860fa42be3c93b3791ee168bf102dda1",
+        "results": "04afa71ffeba7eb3df03c59bf23bda9f65761e955b658e7cf7326e08959b4c3f"
+      }
+    },
+    {
+      "date": "2026-07-31",
+      "entries": true,
+      "results": true,
+      "entry_count": 94,
+      "result_count": 94,
+      "joined": 94,
+      "sha256": {
+        "entries": "378e0dc08838c82fdf4ed9d74f2b7c47b0d87ec201fd4f2977ed310e4909929c",
+        "results": "209ed3704df392ddd8d389e1fab437dd2f417ef17b7f283d473072c703177331"
+      }
+    },
+    {
+      "date": "2026-08-01",
+      "entries": true,
+      "results": true,
+      "entry_count": 94,
+      "result_count": 94,
+      "joined": 94,
+      "sha256": {
+        "entries": "4251a478dfaa0fc0c253270517f0dd01071bb1b1b2b4bb20ce3777bba3e212dd",
+        "results": "923fa9549ff5436a4831b053470940471b773ea5cedbcec2cafe1ebe185a015a"
+      }
+    },
+    {
+      "date": "2026-08-02",
+      "entries": true,
+      "results": true,
+      "entry_count": 64,
+      "result_count": 64,
+      "joined": 64,
+      "sha256": {
+        "entries": "5884ab28c31ad9f20000ca5101e0f2933ff9abccb87e60b181e8f0344f04972f",
+        "results": "23f0761f534277f9c0886dfa4534177306e97d038195d506a24fc37c185bf426"
+      }
+    },
+    {
+      "date": "2026-08-03",
+      "entries": true,
+      "results": true,
+      "entry_count": 52,
+      "result_count": 52,
+      "joined": 52,
+      "sha256": {
+        "entries": "1b00a0e80ddbb5f5dfe5f5773247570338acfbcf1267c4a404ed7e0e1c6bf450",
+        "results": "db5b90982b617010aca918fccbb82ee7871b27ce2e6d23843adab12411c49bf7"
+      }
+    },
+    {
+      "date": "2026-08-04",
+      "entries": true,
+      "results": true,
+      "entry_count": 82,
+      "result_count": 82,
+      "joined": 82,
+      "sha256": {
+        "entries": "75577c5cec8e2a7af32e52a540b668a88fd2ec7ed154b90f2463c5c47860d892",
+        "results": "8a56ede123848ee82947a0c083642645bcf3b7a56f043d658cfa9af922599425"
+      }
+    },
+    {
+      "date": "2026-08-05",
+      "entries": true,
+      "results": true,
+      "entry_count": 82,
+      "result_count": 82,
+      "joined": 82,
+      "sha256": {
+        "entries": "a2cf150d96d3a0db1a23e7635e7817e90d8cdf6185ce078649ee4615ac3d4ac3",
+        "results": "8bec712df4467dd24dca354b5b2c4519d5b8c978fdb19c6cd74506c4426b550d"
+      }
+    },
+    {
+      "date": "2026-08-06",
+      "entries": true,
+      "results": true,
+      "entry_count": 83,
+      "result_count": 83,
+      "joined": 83,
+      "sha256": {
+        "entries": "6edb10a3fa776f54cd28b693c4de6b251cdbadde03a4e533d5a2e087a24991f4",
+        "results": "2b78ac9c2c490ada58610e6fdee922917d2fe5f266f789ce46f91e87fcf405a5"
+      }
+    },
+    {
+      "date": "2026-08-07",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "e8ca1781d53d7bbb15b762bf39e0ff0c692869504248aba18cbef5b65fab350e",
+        "results": "ee27c0bad0b12fab0f7d137023a435ecc9c509ab396bc309c014426fe05d99b9"
+      }
+    },
+    {
+      "date": "2026-08-08",
+      "entries": true,
+      "results": true,
+      "entry_count": 72,
+      "result_count": 72,
+      "joined": 72,
+      "sha256": {
+        "entries": "b2037dc75099aa136811e58f0a471e38df0861a047dd5450f855ad00c22b84d9",
+        "results": "1864a11cfc8e14b5dfe8a18ff8eb7b5261d50341c1ddb80af9dbce7afcbd86cc"
+      }
+    },
+    {
+      "date": "2026-08-09",
+      "entries": true,
+      "results": true,
+      "entry_count": 79,
+      "result_count": 79,
+      "joined": 79,
+      "sha256": {
+        "entries": "3c1e4980dc054711c3ec62716c62b315fe4d94ed46ee456d7fdfaba03a2242db",
+        "results": "fdd648a9caefef0a3a61267c77a2eff20cc49cc298043c6265c42399bed57ed4"
+      }
+    },
+    {
+      "date": "2026-08-10",
+      "entries": true,
+      "results": true,
+      "entry_count": 59,
+      "result_count": 59,
+      "joined": 59,
+      "sha256": {
+        "entries": "6fff01b7a6d84c61fac3c6b207cbc3ccae90d2bcacfd8aedf596d5dcd086f3ea",
+        "results": "7704d05c451dd283c65bb3edaadefa9609ac4a0612a931157376251a09c850ce"
+      }
+    },
+    {
+      "date": "2026-08-11",
+      "entries": true,
+      "results": true,
+      "entry_count": 82,
+      "result_count": 82,
+      "joined": 82,
+      "sha256": {
+        "entries": "2118a1f1340e4c3d1f5198a0e7551f5eddd2aa7efb689760eeea2287b92a369a",
+        "results": "10cc36e83d62cedd8d0cc11d667d54256dd1ff96822b6bdd5334301ae03b47cf"
+      }
+    },
+    {
+      "date": "2026-08-12",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "e5e57def30977a8b42b18a31468cb1954e44623397347b16ec36330ad0047f95",
+        "results": "e9650a8dd34f4d4e807ec1ae41d739e7ec81715bc863b7eb3300084485dc7a22"
+      }
+    },
+    {
+      "date": "2026-08-13",
+      "entries": true,
+      "results": true,
+      "entry_count": 67,
+      "result_count": 67,
+      "joined": 67,
+      "sha256": {
+        "entries": "fd65b62c9245edd59781c34864a46f4e8af6b787fe6a350ac51ab748ee2265cd",
+        "results": "1f54e8ed833b76cbc4bb285a0b90669a7e57e41a97686eb4e2cc454ff79e3d19"
+      }
+    },
+    {
+      "date": "2026-08-14",
+      "entries": true,
+      "results": true,
+      "entry_count": 67,
+      "result_count": 67,
+      "joined": 67,
+      "sha256": {
+        "entries": "e3a43182a6a0efb55b14ef21890a398a97c7d2eff072c7aa1244acf20d78cf73",
+        "results": "a20cca0543a8f1be57fb1fd2dde90d6c41a3ce58dc0fff963dc15d47a9e45329"
+      }
+    },
+    {
+      "date": "2026-08-15",
+      "entries": true,
+      "results": true,
+      "entry_count": 60,
+      "result_count": 60,
+      "joined": 60,
+      "sha256": {
+        "entries": "652643d461ff1e5e32872d716e7f4d9dabadb20c427f2638a7db0aaba5f04856",
+        "results": "4c96963e2c1c2be5dbd5ab783494629eeed6744bc29b1079ee5a52f130f678dd"
+      }
+    },
+    {
+      "date": "2026-08-16",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "1c14de8356c1a3c085c0601b1a9dbd5a01e216c61b09d22891ce541e0b570f53",
+        "results": "a0aefc0b5e4296f02d49141b6958162361458e6a9f8ea9d6c7c405e70e7fda8d"
+      }
+    },
+    {
+      "date": "2026-08-17",
+      "entries": true,
+      "results": true,
+      "entry_count": 71,
+      "result_count": 71,
+      "joined": 71,
+      "sha256": {
+        "entries": "f5b64462a972c668a57266d01cfbb0b4a0652121765d303afde29cd5269f4274",
+        "results": "0b82396a60e07d5b05e0c3fb158ee7622ae919ab985f2cca8e347b3401dfd3ad"
+      }
+    }
+  ],
+  "missing_results_dates": [
+    "2026-05-20",
+    "2026-05-21",
+    "2026-05-22",
+    "2026-05-23",
+    "2026-05-24",
+    "2026-05-25",
+    "2026-05-26",
+    "2026-05-27",
+    "2026-05-28",
+    "2026-05-29",
+    "2026-05-30",
+    "2026-05-31",
+    "2026-06-01",
+    "2026-06-02",
+    "2026-06-03",
+    "2026-06-04",
+    "2026-06-05",
+    "2026-06-06",
+    "2026-06-07"
+  ],
+  "critical_missing_fields": [
+    "verified line_position",
+    "published race round_name",
+    "graded A/S/Challenge category",
+    "2026-05-20 to 2026-06-07 results"
+  ],
+  "evaluation_status": "SOURCE_AUDIT_ONLY; EIGHT_ENGINE_180_DAY_ROI_NOT_AVAILABLE"
+}
