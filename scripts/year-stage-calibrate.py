@@ -130,7 +130,7 @@ def summarize_pred(rows,model,known=True):
       "coverage":round(len(matches)/len(rows),4) if rows else None,
       "by_stage":stage_eval,
       "by_category":{c:{"evaluated":sum(x["category"]==c for x in verdict),
-                        "predicted":sum(x["category"]==c and x["predicted"] for x in matches),
+                        "predicted":sum(bool(x["category"]==c and x["predicted"]) for x in matches),
                         "correct":sum(x["category"]==c and x["predicted"]==x["stage"] for x in matches)} for c in CATS}}
 # fetch 13 calendar-month archives and 90 daily racecard JSONs, only raw.githubusercontent.com
 months={};daily={};errors={};source_hashes={}
