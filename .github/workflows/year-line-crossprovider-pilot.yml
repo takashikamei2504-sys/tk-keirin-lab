@@ -1,0 +1,41 @@
+name: Bounded 16-card cross-provider lineup identity check
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-line-crossprovider-pilot.py
+      - .github/workflows/year-line-crossprovider-pilot.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Cross-check K-Dreams archive lines with daily publisher line positions
+        run: |
+          python -m py_compile scripts/year-line-crossprovider-pilot.py
+          python scripts/year-line-crossprovider-pilot.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bounded-line-crossprovider-validation
+          path: reports/year-race-type/line-crossprovider-16-check.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Record lineup comparator outcome on research branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/line-crossprovider-16-check.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record bounded cross-source lineup verification'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
