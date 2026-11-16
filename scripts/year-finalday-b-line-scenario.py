@@ -286,4 +286,4 @@ print("PROJECTED_B_LINE_SCENARIO",json.dumps({
    "auto_trim5":v["engines"]["auto"]["trim5_roi_pct"],
    "win_b_line":v["winner_projected_b_line_pct"]} for k,v in out["by_scenario"].items()},
  "adaptive_prior30":out["adaptive_prior30_summary"]["selected"]["engines"]["auto"]["roi_pct"]
-},ensure_ascii=False).slice(0,15000))
+},ensure_ascii=False)[:15000])
