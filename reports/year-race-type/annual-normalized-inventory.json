@@ -1,0 +1,548 @@
+{
+  "schema": "tk-keirin-year-date-normalized-inventory/v1",
+  "period": {
+    "start": "2025-11-16",
+    "end": "2026-11-15"
+  },
+  "source": "Kenseimk/keirin-data 13 monthly CSVs (nonofficial third-party archive)",
+  "method": "16-digit race ID: venue2 + startYYYYMMDD + meeting_day2 + race_no4. Actual date = start + day_index-1, confirmed against 2026 Aug-Nov independent daily race feed.",
+  "note": "Original CSV source date was sometimes meeting_start, not actual race date. Overlapping and abnormal days are not inferred.",
+  "status": "annual normalized calendar and class inventory only; genuine lineup and program round still unavailable for earlier days",
+  "total_unique_ids_seen": 26351,
+  "counts": {
+    "all": 25139,
+    "main_male_classes": 21695,
+    "eligible_with_trifecta": 14118,
+    "women": 2119
+  },
+  "grade_counts": {
+    "A級_5": {
+      "all": 32
+    },
+    "A級_6": {
+      "all": 218
+    },
+    "A級_7": {
+      "all": 10516,
+      "male_eligible": 10516,
+      "with_trifecta": 6836
+    },
+    "A級_9": {
+      "all": 3
+    },
+    "S級_5": {
+      "all": 67
+    },
+    "S級_6": {
+      "all": 317
+    },
+    "S級_7": {
+      "all": 4556,
+      "male_eligible": 4556,
+      "with_trifecta": 2934
+    },
+    "S級_8": {
+      "all": 121
+    },
+    "S級_9": {
+      "all": 2099,
+      "male_eligible": 2099,
+      "with_trifecta": 1414
+    },
+    "チャレンジ_5": {
+      "all": 106
+    },
+    "チャレンジ_6": {
+      "all": 450
+    },
+    "チャレンジ_7": {
+      "all": 4524,
+      "male_eligible": 4524,
+      "with_trifecta": 2934
+    },
+    "チャレンジ_9": {
+      "all": 2
+    },
+    "不明_7": {
+      "all": 8
+    },
+    "不明_9": {
+      "all": 1
+    },
+    "女子_5": {
+      "all": 23
+    },
+    "女子_6": {
+      "all": 132
+    },
+    "女子_7": {
+      "all": 1964
+    }
+  },
+  "meeting_day_index_counts": {
+    "3": 8213,
+    "1": 8096,
+    "4": 548,
+    "2": 8236,
+    "5": 46
+  },
+  "by_actual_month": {
+    "2025-11": {
+      "A級_7": 461,
+      "S級_7": 214,
+      "チャレンジ_7": 196,
+      "女子_7": 87,
+      "S級_8": 3,
+      "S級_9": 57,
+      "女子_6": 4,
+      "女子_5": 3,
+      "S級_6": 3,
+      "チャレンジ_5": 5,
+      "チャレンジ_6": 13,
+      "A級_6": 13
+    },
+    "2025-12": {
+      "チャレンジ_6": 40,
+      "チャレンジ_7": 378,
+      "A級_7": 984,
+      "S級_7": 414,
+      "女子_7": 159,
+      "チャレンジ_5": 8,
+      "女子_6": 23,
+      "S級_6": 33,
+      "女子_5": 7,
+      "A級_6": 18,
+      "S級_9": 161,
+      "S級_8": 9,
+      "チャレンジ_9": 1,
+      "A級_5": 7,
+      "S級_5": 4,
+      "A級_9": 1
+    },
+    "2026-01": {
+      "A級_7": 988,
+      "S級_7": 394,
+      "チャレンジ_7": 417,
+      "女子_7": 169,
+      "S級_6": 17,
+      "S級_5": 7,
+      "A級_5": 3,
+      "A級_6": 23,
+      "チャレンジ_6": 44,
+      "チャレンジ_5": 8,
+      "S級_9": 213,
+      "S級_8": 11,
+      "女子_6": 11
+    },
+    "2026-02": {
+      "A級_7": 892,
+      "S級_7": 428,
+      "チャレンジ_6": 42,
+      "チャレンジ_7": 395,
+      "女子_7": 164,
+      "S級_8": 5,
+      "S級_9": 158,
+      "S級_6": 26,
+      "チャレンジ_5": 9,
+      "A級_5": 3,
+      "A級_6": 13,
+      "女子_6": 13,
+      "女子_5": 1
+    },
+    "2026-03": {
+      "チャレンジ_7": 387,
+      "女子_7": 170,
+      "A級_6": 16,
+      "A級_7": 955,
+      "S級_7": 385,
+      "S級_9": 237,
+      "A級_9": 1,
+      "S級_6": 18,
+      "チャレンジ_6": 52,
+      "チャレンジ_5": 7,
+      "女子_6": 14,
+      "S級_8": 16,
+      "女子_5": 1,
+      "S級_5": 4
+    },
+    "2026-04": {
+      "A級_7": 934,
+      "S級_7": 423,
+      "チャレンジ_6": 39,
+      "チャレンジ_7": 371,
+      "女子_7": 165,
+      "S級_9": 149,
+      "チャレンジ_5": 19,
+      "S級_8": 15,
+      "A級_6": 16,
+      "S級_6": 39,
+      "女子_6": 4,
+      "S級_5": 14,
+      "女子_5": 1,
+      "A級_5": 3
+    },
+    "2026-05": {
+      "A級_7": 834,
+      "S級_6": 32,
+      "S級_7": 347,
+      "チャレンジ_7": 397,
+      "S級_9": 160,
+      "女子_7": 170,
+      "チャレンジ_6": 28,
+      "女子_6": 7,
+      "A級_6": 15,
+      "A級_5": 5,
+      "女子_5": 2,
+      "S級_8": 6,
+      "チャレンジ_5": 8,
+      "S級_5": 2
+    },
+    "2026-06": {
+      "チャレンジ_5": 22,
+      "チャレンジ_6": 52,
+      "チャレンジ_7": 313,
+      "女子_6": 14,
+      "A級_7": 804,
+      "女子_7": 154,
+      "S級_7": 334,
+      "S級_9": 194,
+      "A級_6": 21,
+      "S級_6": 32,
+      "S級_5": 14,
+      "女子_5": 4,
+      "S級_8": 9,
+      "A級_9": 1,
+      "不明_7": 8,
+      "不明_9": 1,
+      "A級_5": 3,
+      "チャレンジ_9": 1
+    },
+    "2026-07": {
+      "A級_7": 861,
+      "S級_7": 369,
+      "女子_7": 164,
+      "S級_6": 32,
+      "A級_6": 15,
+      "チャレンジ_7": 367,
+      "チャレンジ_6": 25,
+      "S級_9": 139,
+      "女子_6": 13,
+      "S級_5": 3,
+      "チャレンジ_5": 4,
+      "S級_8": 10,
+      "A級_5": 3,
+      "女子_5": 1
+    },
+    "2026-08": {
+      "チャレンジ_7": 410,
+      "女子_7": 188,
+      "A級_7": 886,
+      "S級_6": 34,
+      "S級_7": 393,
+      "S級_9": 200,
+      "女子_6": 6,
+      "チャレンジ_6": 39,
+      "A級_6": 30,
+      "S級_8": 10,
+      "S級_5": 7,
+      "チャレンジ_5": 7
+    },
+    "2026-09": {
+      "チャレンジ_6": 53,
+      "チャレンジ_7": 366,
+      "A級_7": 829,
+      "S級_6": 21,
+      "S級_7": 378,
+      "女子_7": 172,
+      "A級_6": 13,
+      "S級_9": 175,
+      "S級_8": 10,
+      "女子_6": 6,
+      "S級_5": 5,
+      "チャレンジ_5": 2
+    },
+    "2026-10": {
+      "女子_7": 131,
+      "A級_7": 698,
+      "チャレンジ_7": 338,
+      "S級_7": 301,
+      "S級_9": 143,
+      "A級_6": 18,
+      "S級_5": 2,
+      "S級_6": 17,
+      "S級_8": 5,
+      "チャレンジ_5": 4,
+      "チャレンジ_6": 9,
+      "女子_6": 6,
+      "A級_5": 3,
+      "女子_5": 3
+    },
+    "2026-11": {
+      "A級_7": 390,
+      "S級_5": 5,
+      "S級_6": 13,
+      "S級_7": 176,
+      "チャレンジ_6": 14,
+      "チャレンジ_7": 189,
+      "女子_7": 71,
+      "S級_9": 113,
+      "女子_6": 11,
+      "S級_8": 12,
+      "A級_6": 7,
+      "チャレンジ_5": 3,
+      "A級_5": 2
+    }
+  },
+  "diagnostics": {
+    "outside_requested_year": 1151,
+    "corrected_from_meeting_start": 2388,
+    "source_misdated_meeting_start_per_row": 16858,
+    "direct_match_per_row": 161873,
+    "race_id_calendar_conflict": 61
+  },
+  "corrected_examples": [
+    {
+      "race_id": "1320251114030001",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030002",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030003",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030004",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030005",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030006",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030007",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030008",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030009",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030010",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030011",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    },
+    {
+      "race_id": "1320251114030012",
+      "original": "2025-11-14",
+      "normalized": "2025-11-16",
+      "day_index": 3
+    }
+  ],
+  "conflict_examples": [
+    {
+      "race_id": "8120251119060001",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060002",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060003",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060004",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060005",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060006",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060007",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060008",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060009",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060010",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060011",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    },
+    {
+      "race_id": "8120251119060012",
+      "sources": [
+        "2025_11"
+      ],
+      "statuses": {
+        "invalid_day_or_race_number": 9
+      }
+    }
+  ],
+  "source_files": {
+    "2025_11": {
+      "rows": 15796,
+      "sha256": "1c03b19d388252419dd888aa8e3d77e0d2b6a5f38f241d1f74e0709c1a07cdfe"
+    },
+    "2025_12": {
+      "rows": 15898,
+      "sha256": "d744fed3522ccce1a53b4c6feff1f84ca77ff981777e73458e4b87ced5391447"
+    },
+    "2026_01": {
+      "rows": 16441,
+      "sha256": "770c4774275dc0747dcd3f4fd2031b5cffc3d3e180843c1663871c28b0b166da"
+    },
+    "2026_02": {
+      "rows": 15306,
+      "sha256": "7eec1db554762b6621e33cf0f060ac720f4074b745b4b24ab0bee27119c82a04"
+    },
+    "2026_03": {
+      "rows": 16286,
+      "sha256": "4acc5f657da969a97551150b9fda76ae434e05f5f220c13dfbf4795b74747b7d"
+    },
+    "2026_04": {
+      "rows": 15485,
+      "sha256": "de3ef84a741f22fc5ec7dd1faccd166a8b6c34dbbc6ae8031066f02ed4e3b4a9"
+    },
+    "2026_05": {
+      "rows": 14400,
+      "sha256": "d684f2e436df8da3da29f7dd611bfe9274adba6579494eb6999d26cdc8799f36"
+    },
+    "2026_06": {
+      "rows": 14113,
+      "sha256": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6"
+    },
+    "2026_07": {
+      "rows": 14223,
+      "sha256": "fe0b4c3afc7aedd955eb8930959f76c76fd69cf375cd349544b3efaa378ff059"
+    },
+    "2026_08": {
+      "rows": 15842,
+      "sha256": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb"
+    },
+    "2026_09": {
+      "rows": 14463,
+      "sha256": "ac5659e62a585374f2c71996b4589f6008a73c230614f973c2bf04d477cef9b2"
+    },
+    "2026_10": {
+      "rows": 11963,
+      "sha256": "19ded9f444df85aca2a2dc9dc22351428d76d531cf281d12bac8a7015a4ac7a3"
+    },
+    "2026_11": {
+      "rows": 7215,
+      "sha256": "fe8564014bf19e896aeded1c5778177db1dac00d7107efda9a6c7b5be038daf0"
+    }
+  },
+  "limitations": [
+    "A missing proper lineup is never replaced with prediction marks",
+    "A meeting-day index is not a program round (決勝/勝ち上がり/敗者/初日特選)",
+    "Cancelled or postponed meeting days may not satisfy simple contiguous date arithmetic; conflicting cases excluded",
+    "This 1-year inventory cannot establish current engine's 1-year historical ROI",
+    "Payouts are unverified scraped data, not official evidence"
+  ]
+}
