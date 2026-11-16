@@ -83,16 +83,27 @@ for r in rows:
  if card is None:raise ValueError("Card not found")
  f=projection(card)
  if len(f["summary"])!=r["line_count"]:raise ValueError("Line count mismatch")
- winner=card.get("result_top3") or []
- if len(winner)!=3 or int(winner[0]) not in set(int(x["car_number"]) for x in card["entries"]):
-  raise ValueError("Missing valid winner "+r["race_id"])
+ # Tied placings may have several valid trifecta settlements and no result_top3.
+ # These are legitimate paid races and must not be silently removed.
+ observed=card.get("result_top3")
+ if isinstance(observed,list) and len(observed)==3:
+  combos=[observed]
+ else:
+  combos=[x.get("combo") for x in (card.get("result_combos") or [])]
+ if not combos or any(not isinstance(c,list) or len(c)!=3 for c in combos):
+  raise ValueError("Missing all valid placements "+r["race_id"])
+ numbers={int(c[0]) for c in combos}
+ field={int(x["car_number"]) for x in card["entries"]}
+ if not numbers.issubset(field):raise ValueError("Winner not a starter "+r["race_id"])
+ # If there is a first-place tie, classify winning line as unknown for rates.
+ winner=next(iter(numbers)) if len(numbers)==1 else None
  rr=dict(r)
  rr["b_feature"]=f
  rr["outcome_check"]={
-  "winner_in_projected_b_line":int(winner[0]) in f["projected_b_members"],
-  "winner_is_projected_b_head":int(winner[0])==f["projected_b_head"],
-  "winner_in_favorite_line":int(winner[0]) in f["favorite_members"],
-  "first_two_in_projected_b_line":all(int(n) in f["projected_b_members"] for n in winner[:2])
+  "winner_in_projected_b_line":winner in f["projected_b_members"] if winner is not None else None,
+  "winner_is_projected_b_head":winner==f["projected_b_head"] if winner is not None else None,
+  "winner_in_favorite_line":winner in f["favorite_members"] if winner is not None else None,
+  "first_two_in_projected_b_line":all(all(int(n) in f["projected_b_members"] for n in c[:2]) for c in combos)
  }
  data.append(rr)
 final=[r for r in data if r["meeting_day"]=="最終日" and r["stage"]=="敗者戦"]
@@ -103,13 +114,19 @@ def pack(group):
   ev[k]=mod.metrics(group,k)
  n=len(group)
  hits=collections.Counter()
+ unknown=collections.Counter()
  for r in group:
   for k,v in r["outcome_check"].items():
-   if v:hits[k]+=1
- return {"n":n,"winner_projected_b_line_pct":round(100*hits["winner_in_projected_b_line"]/n,1) if n else None,
-  "winner_projected_b_head_pct":round(100*hits["winner_is_projected_b_head"]/n,1) if n else None,
-  "winner_favorite_line_pct":round(100*hits["winner_in_favorite_line"]/n,1) if n else None,
-  "first_two_projected_b_line_pct":round(100*hits["first_two_in_projected_b_line"]/n,1) if n else None,
+   if v is None:unknown[k]+=1
+   elif v:hits[k]+=1
+ def rate(k):
+  denom=n-unknown[k]
+  return round(100*hits[k]/denom,1) if denom else None
+ return {"n":n,"winner_known":n-unknown["winner_in_projected_b_line"],
+  "winner_projected_b_line_pct":rate("winner_in_projected_b_line"),
+  "winner_projected_b_head_pct":rate("winner_is_projected_b_head"),
+  "winner_favorite_line_pct":rate("winner_in_favorite_line"),
+  "first_two_projected_b_line_pct":rate("first_two_in_projected_b_line"),
   "engines":ev}
 def groups(rows):
  return {k:pack([r for r in rows if flag(r["b_feature"],k)]) for k in SCENARIOS}
