@@ -1,0 +1,902 @@
+{
+  "schema": "tk-keirin-90day-rolling-30day-gates-oos-v1",
+  "period": {
+    "all": [
+      "2026-08-18",
+      "2026-11-15"
+    ],
+    "train_initial_days": 30,
+    "heldout_from": "2026-09-17",
+    "heldout_through": "2026-11-15",
+    "train_days_prior": 30,
+    "step_days": 5
+  },
+  "full_90day": {
+    "races": 5745,
+    "hits": 1204,
+    "stake_yen": 4595100,
+    "payout_yen": 3733430,
+    "net_yen": -861670,
+    "roi_pct": 81.25,
+    "trim5_roi_pct": 74.13,
+    "max_drawdown_yen": 1043800
+  },
+  "out_of_time_baseline": {
+    "races": 3748,
+    "hits": 816,
+    "stake_yen": 2998100,
+    "payout_yen": 2544960,
+    "net_yen": -453140,
+    "roi_pct": 84.89,
+    "trim5_roi_pct": 73.97,
+    "max_drawdown_yen": 698350
+  },
+  "policies": {
+    "meeting_day_trim1_80": {
+      "all_test": {
+        "races": 874,
+        "hits": 180,
+        "stake_yen": 699200,
+        "payout_yen": 690930,
+        "net_yen": -8270,
+        "roi_pct": 98.82,
+        "trim5_roi_pct": 66.97,
+        "max_drawdown_yen": 133260
+      },
+      "coverage_pct": 23.3,
+      "test_first_30days": {
+        "races": 564,
+        "hits": 104,
+        "stake_yen": 451200,
+        "payout_yen": 465620,
+        "net_yen": 14420,
+        "roi_pct": 103.2,
+        "trim5_roi_pct": 57.91,
+        "max_drawdown_yen": 86150
+      },
+      "test_last_30days": {
+        "races": 310,
+        "hits": 76,
+        "stake_yen": 248000,
+        "payout_yen": 225310,
+        "net_yen": -22690,
+        "roi_pct": 90.85,
+        "trim5_roi_pct": 56.19,
+        "max_drawdown_yen": 74190
+      },
+      "baseline_first_30days": {
+        "races": 1804,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim5_roi_pct": 62.82,
+        "max_drawdown_yen": 380880
+      },
+      "baseline_last_30days": {
+        "races": 1944,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim5_roi_pct": 72.68,
+        "max_drawdown_yen": 317470
+      },
+      "relative_roi_gap_pctpoints": 13.93,
+      "bootstrap": {
+        "difference_pctpoints_95pct_interval": [
+          -12.3,
+          44.6
+        ],
+        "bootstrap_fraction_gate_outperforms": 0.828,
+        "resamples": 12000,
+        "cluster_size_days": 5
+      }
+    },
+    "stage_trim1_70": {
+      "all_test": {
+        "races": 1691,
+        "hits": 385,
+        "stake_yen": 1352800,
+        "payout_yen": 1215930,
+        "net_yen": -136870,
+        "roi_pct": 89.88,
+        "trim5_roi_pct": 69.06,
+        "max_drawdown_yen": 301320
+      },
+      "coverage_pct": 45.1,
+      "test_first_30days": {
+        "races": 850,
+        "hits": 170,
+        "stake_yen": 680000,
+        "payout_yen": 536040,
+        "net_yen": -143960,
+        "roi_pct": 78.83,
+        "trim5_roi_pct": 55.28,
+        "max_drawdown_yen": 189720
+      },
+      "test_last_30days": {
+        "races": 841,
+        "hits": 215,
+        "stake_yen": 672800,
+        "payout_yen": 679890,
+        "net_yen": 7090,
+        "roi_pct": 101.05,
+        "trim5_roi_pct": 65.41,
+        "max_drawdown_yen": 126850
+      },
+      "baseline_first_30days": {
+        "races": 1804,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim5_roi_pct": 62.82,
+        "max_drawdown_yen": 380880
+      },
+      "baseline_last_30days": {
+        "races": 1944,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim5_roi_pct": 72.68,
+        "max_drawdown_yen": 317470
+      },
+      "relative_roi_gap_pctpoints": 4.99,
+      "bootstrap": {
+        "difference_pctpoints_95pct_interval": [
+          -4.2,
+          14.1
+        ],
+        "bootstrap_fraction_gate_outperforms": 0.865,
+        "resamples": 12000,
+        "cluster_size_days": 5
+      }
+    },
+    "category_trim1_80": {
+      "all_test": {
+        "races": 619,
+        "hits": 112,
+        "stake_yen": 495200,
+        "payout_yen": 271090,
+        "net_yen": -224110,
+        "roi_pct": 54.74,
+        "trim5_roi_pct": 33.17,
+        "max_drawdown_yen": 227350
+      },
+      "coverage_pct": 16.5,
+      "test_first_30days": {
+        "races": 535,
+        "hits": 95,
+        "stake_yen": 428000,
+        "payout_yen": 217340,
+        "net_yen": -210660,
+        "roi_pct": 50.78,
+        "trim5_roi_pct": 29.83,
+        "max_drawdown_yen": 210660
+      },
+      "test_last_30days": {
+        "races": 84,
+        "hits": 17,
+        "stake_yen": 67200,
+        "payout_yen": 53750,
+        "net_yen": -13450,
+        "roi_pct": 79.99,
+        "trim5_roi_pct": 21.47,
+        "max_drawdown_yen": 21250
+      },
+      "baseline_first_30days": {
+        "races": 1804,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim5_roi_pct": 62.82,
+        "max_drawdown_yen": 380880
+      },
+      "baseline_last_30days": {
+        "races": 1944,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim5_roi_pct": 72.68,
+        "max_drawdown_yen": 317470
+      },
+      "relative_roi_gap_pctpoints": -30.15,
+      "bootstrap": {
+        "difference_pctpoints_95pct_interval": [
+          -57.0,
+          -2.1
+        ],
+        "bootstrap_fraction_gate_outperforms": 0.017,
+        "resamples": 12000,
+        "cluster_size_days": 5
+      }
+    },
+    "category_stage_trim1_80": {
+      "all_test": {
+        "races": 479,
+        "hits": 101,
+        "stake_yen": 383200,
+        "payout_yen": 215900,
+        "net_yen": -167300,
+        "roi_pct": 56.34,
+        "trim5_roi_pct": 46.03,
+        "max_drawdown_yen": 177650
+      },
+      "coverage_pct": 12.8,
+      "test_first_30days": {
+        "races": 261,
+        "hits": 45,
+        "stake_yen": 208800,
+        "payout_yen": 69340,
+        "net_yen": -139460,
+        "roi_pct": 33.21,
+        "trim5_roi_pct": 23.54,
+        "max_drawdown_yen": 140910
+      },
+      "test_last_30days": {
+        "races": 218,
+        "hits": 56,
+        "stake_yen": 174400,
+        "payout_yen": 146560,
+        "net_yen": -27840,
+        "roi_pct": 84.04,
+        "trim5_roi_pct": 62.27,
+        "max_drawdown_yen": 41730
+      },
+      "baseline_first_30days": {
+        "races": 1804,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim5_roi_pct": 62.82,
+        "max_drawdown_yen": 380880
+      },
+      "baseline_last_30days": {
+        "races": 1944,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim5_roi_pct": 72.68,
+        "max_drawdown_yen": 317470
+      },
+      "relative_roi_gap_pctpoints": -28.55,
+      "bootstrap": {
+        "difference_pctpoints_95pct_interval": [
+          -59.6,
+          0.7
+        ],
+        "bootstrap_fraction_gate_outperforms": 0.029,
+        "resamples": 12000,
+        "cluster_size_days": 5
+      }
+    }
+  },
+  "fixed_train_30day": {
+    "meeting_day_trim1_80": {
+      "all_test": {
+        "races": 1146,
+        "hits": 210,
+        "stake_yen": 916800,
+        "payout_yen": 806550,
+        "net_yen": -110250,
+        "roi_pct": 87.97,
+        "trim5_roi_pct": 63.67,
+        "max_drawdown_yen": 276390
+      },
+      "coverage_pct": 30.6,
+      "test_first_30days": {
+        "races": 564,
+        "hits": 104,
+        "stake_yen": 451200,
+        "payout_yen": 465620,
+        "net_yen": 14420,
+        "roi_pct": 103.2,
+        "trim5_roi_pct": 57.91,
+        "max_drawdown_yen": 86150
+      },
+      "test_last_30days": {
+        "races": 582,
+        "hits": 106,
+        "stake_yen": 465600,
+        "payout_yen": 340930,
+        "net_yen": -124670,
+        "roi_pct": 73.22,
+        "trim5_roi_pct": 50.46,
+        "max_drawdown_yen": 217320
+      },
+      "baseline_first_30days": {
+        "races": 1804,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim5_roi_pct": 62.82,
+        "max_drawdown_yen": 380880
+      },
+      "baseline_last_30days": {
+        "races": 1944,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim5_roi_pct": 72.68,
+        "max_drawdown_yen": 317470
+      },
+      "relative_roi_gap_pctpoints": 3.08
+    },
+    "stage_trim1_70": {
+      "all_test": {
+        "races": 653,
+        "hits": 117,
+        "stake_yen": 522400,
+        "payout_yen": 451740,
+        "net_yen": -70660,
+        "roi_pct": 86.47,
+        "trim5_roi_pct": 59.87,
+        "max_drawdown_yen": 135230
+      },
+      "coverage_pct": 17.4,
+      "test_first_30days": {
+        "races": 316,
+        "hits": 59,
+        "stake_yen": 252800,
+        "payout_yen": 247450,
+        "net_yen": -5350,
+        "roi_pct": 97.88,
+        "trim5_roi_pct": 56.02,
+        "max_drawdown_yen": 66980
+      },
+      "test_last_30days": {
+        "races": 337,
+        "hits": 58,
+        "stake_yen": 269600,
+        "payout_yen": 204290,
+        "net_yen": -65310,
+        "roi_pct": 75.78,
+        "trim5_roi_pct": 40.56,
+        "max_drawdown_yen": 120090
+      },
+      "baseline_first_30days": {
+        "races": 1804,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim5_roi_pct": 62.82,
+        "max_drawdown_yen": 380880
+      },
+      "baseline_last_30days": {
+        "races": 1944,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim5_roi_pct": 72.68,
+        "max_drawdown_yen": 317470
+      },
+      "relative_roi_gap_pctpoints": 1.58
+    },
+    "category_trim1_80": {
+      "all_test": {
+        "races": 1774,
+        "hits": 398,
+        "stake_yen": 1419200,
+        "payout_yen": 1035140,
+        "net_yen": -384060,
+        "roi_pct": 72.94,
+        "trim5_roi_pct": 63.76,
+        "max_drawdown_yen": 418500
+      },
+      "coverage_pct": 47.3,
+      "test_first_30days": {
+        "races": 844,
+        "hits": 182,
+        "stake_yen": 675200,
+        "payout_yen": 440180,
+        "net_yen": -235020,
+        "roi_pct": 65.19,
+        "trim5_roi_pct": 52.37,
+        "max_drawdown_yen": 240150
+      },
+      "test_last_30days": {
+        "races": 930,
+        "hits": 216,
+        "stake_yen": 744000,
+        "payout_yen": 594960,
+        "net_yen": -149040,
+        "roi_pct": 79.97,
+        "trim5_roi_pct": 64.35,
+        "max_drawdown_yen": 184300
+      },
+      "baseline_first_30days": {
+        "races": 1804,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim5_roi_pct": 62.82,
+        "max_drawdown_yen": 380880
+      },
+      "baseline_last_30days": {
+        "races": 1944,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim5_roi_pct": 72.68,
+        "max_drawdown_yen": 317470
+      },
+      "relative_roi_gap_pctpoints": -11.95
+    },
+    "category_stage_trim1_80": {
+      "all_test": {
+        "races": 837,
+        "hits": 156,
+        "stake_yen": 669600,
+        "payout_yen": 434070,
+        "net_yen": -235530,
+        "roi_pct": 64.83,
+        "trim5_roi_pct": 53.6,
+        "max_drawdown_yen": 288670
+      },
+      "coverage_pct": 22.3,
+      "test_first_30days": {
+        "races": 399,
+        "hits": 72,
+        "stake_yen": 319200,
+        "payout_yen": 192740,
+        "net_yen": -126460,
+        "roi_pct": 60.38,
+        "trim5_roi_pct": 44.73,
+        "max_drawdown_yen": 134750
+      },
+      "test_last_30days": {
+        "races": 438,
+        "hits": 84,
+        "stake_yen": 350400,
+        "payout_yen": 241330,
+        "net_yen": -109070,
+        "roi_pct": 68.87,
+        "trim5_roi_pct": 48.86,
+        "max_drawdown_yen": 162210
+      },
+      "baseline_first_30days": {
+        "races": 1804,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim5_roi_pct": 62.82,
+        "max_drawdown_yen": 380880
+      },
+      "baseline_last_30days": {
+        "races": 1944,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim5_roi_pct": 72.68,
+        "max_drawdown_yen": 317470
+      },
+      "relative_roi_gap_pctpoints": -20.06
+    }
+  },
+  "method": "Gate threshold set against preceding 30 days' max-one-winner-removed AUTO ROI and minimum n. No test payout used in gate decision. Four candidate policy families are exploratory, not pre-registered prospective validation.",
+  "limitations": [
+    "Underlying current 2026-11 model retrospective replays, not frozen contemporaneous predictions.",
+    "Source-provided lineups and payouts lack an independent race-by-race official timestamp audit.",
+    "Multiple attempted policies; apparent top performer may be selection luck.",
+    "Meeting day/round publication may differ from original pre-race source.",
+    "Small selected sample and top-5 payout dependence preclude production promotion.",
+    "Reduced total loss is not proof of alpha: abstaining from every race trivially avoids losses.",
+    "661R strict-comment reconstructed subset has a different selection mechanism and MUST NOT be pooled."
+  ],
+  "decision_audit": [
+    {
+      "train_start_day": 0,
+      "test_start_day": 30,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 316,
+      "selected_races": 97
+    },
+    {
+      "train_start_day": 0,
+      "test_start_day": 30,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 2,
+      "tested_races": 316,
+      "selected_races": 55
+    },
+    {
+      "train_start_day": 0,
+      "test_start_day": 30,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 316,
+      "selected_races": 135
+    },
+    {
+      "train_start_day": 0,
+      "test_start_day": 30,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 3,
+      "tested_races": 316,
+      "selected_races": 65
+    },
+    {
+      "train_start_day": 5,
+      "test_start_day": 35,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 299,
+      "selected_races": 103
+    },
+    {
+      "train_start_day": 5,
+      "test_start_day": 35,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 2,
+      "tested_races": 299,
+      "selected_races": 127
+    },
+    {
+      "train_start_day": 5,
+      "test_start_day": 35,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 299,
+      "selected_races": 65
+    },
+    {
+      "train_start_day": 5,
+      "test_start_day": 35,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 3,
+      "tested_races": 299,
+      "selected_races": 66
+    },
+    {
+      "train_start_day": 10,
+      "test_start_day": 40,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 295,
+      "selected_races": 67
+    },
+    {
+      "train_start_day": 10,
+      "test_start_day": 40,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 2,
+      "tested_races": 295,
+      "selected_races": 107
+    },
+    {
+      "train_start_day": 10,
+      "test_start_day": 40,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 295,
+      "selected_races": 54
+    },
+    {
+      "train_start_day": 10,
+      "test_start_day": 40,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 3,
+      "tested_races": 295,
+      "selected_races": 36
+    },
+    {
+      "train_start_day": 15,
+      "test_start_day": 45,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 304,
+      "selected_races": 108
+    },
+    {
+      "train_start_day": 15,
+      "test_start_day": 45,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 2,
+      "tested_races": 304,
+      "selected_races": 140
+    },
+    {
+      "train_start_day": 15,
+      "test_start_day": 45,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 304,
+      "selected_races": 61
+    },
+    {
+      "train_start_day": 15,
+      "test_start_day": 45,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 2,
+      "tested_races": 304,
+      "selected_races": 29
+    },
+    {
+      "train_start_day": 20,
+      "test_start_day": 50,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 317,
+      "selected_races": 90
+    },
+    {
+      "train_start_day": 20,
+      "test_start_day": 50,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 3,
+      "tested_races": 317,
+      "selected_races": 282
+    },
+    {
+      "train_start_day": 20,
+      "test_start_day": 50,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 2,
+      "tested_races": 317,
+      "selected_races": 150
+    },
+    {
+      "train_start_day": 20,
+      "test_start_day": 50,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 2,
+      "tested_races": 317,
+      "selected_races": 43
+    },
+    {
+      "train_start_day": 25,
+      "test_start_day": 55,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 273,
+      "selected_races": 99
+    },
+    {
+      "train_start_day": 25,
+      "test_start_day": 55,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 3,
+      "tested_races": 273,
+      "selected_races": 139
+    },
+    {
+      "train_start_day": 25,
+      "test_start_day": 55,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 273,
+      "selected_races": 70
+    },
+    {
+      "train_start_day": 25,
+      "test_start_day": 55,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 2,
+      "tested_races": 273,
+      "selected_races": 22
+    },
+    {
+      "train_start_day": 30,
+      "test_start_day": 60,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 323,
+      "selected_races": 91
+    },
+    {
+      "train_start_day": 30,
+      "test_start_day": 60,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 3,
+      "tested_races": 323,
+      "selected_races": 146
+    },
+    {
+      "train_start_day": 30,
+      "test_start_day": 60,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 323,
+      "selected_races": 43
+    },
+    {
+      "train_start_day": 30,
+      "test_start_day": 60,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 4,
+      "tested_races": 323,
+      "selected_races": 52
+    },
+    {
+      "train_start_day": 35,
+      "test_start_day": 65,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 0,
+      "tested_races": 333,
+      "selected_races": 0
+    },
+    {
+      "train_start_day": 35,
+      "test_start_day": 65,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 1,
+      "tested_races": 333,
+      "selected_races": 22
+    },
+    {
+      "train_start_day": 35,
+      "test_start_day": 65,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 333,
+      "selected_races": 41
+    },
+    {
+      "train_start_day": 35,
+      "test_start_day": 65,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 333,
+      "selected_races": 11
+    },
+    {
+      "train_start_day": 40,
+      "test_start_day": 70,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 0,
+      "tested_races": 311,
+      "selected_races": 0
+    },
+    {
+      "train_start_day": 40,
+      "test_start_day": 70,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 2,
+      "tested_races": 311,
+      "selected_races": 181
+    },
+    {
+      "train_start_day": 40,
+      "test_start_day": 70,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 0,
+      "tested_races": 311,
+      "selected_races": 0
+    },
+    {
+      "train_start_day": 40,
+      "test_start_day": 70,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 311,
+      "selected_races": 73
+    },
+    {
+      "train_start_day": 45,
+      "test_start_day": 75,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 0,
+      "tested_races": 320,
+      "selected_races": 0
+    },
+    {
+      "train_start_day": 45,
+      "test_start_day": 75,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 2,
+      "tested_races": 320,
+      "selected_races": 174
+    },
+    {
+      "train_start_day": 45,
+      "test_start_day": 75,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 0,
+      "tested_races": 320,
+      "selected_races": 0
+    },
+    {
+      "train_start_day": 45,
+      "test_start_day": 75,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 320,
+      "selected_races": 68
+    },
+    {
+      "train_start_day": 50,
+      "test_start_day": 80,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 335,
+      "selected_races": 101
+    },
+    {
+      "train_start_day": 50,
+      "test_start_day": 80,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 1,
+      "tested_races": 335,
+      "selected_races": 155
+    },
+    {
+      "train_start_day": 50,
+      "test_start_day": 80,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 0,
+      "tested_races": 335,
+      "selected_races": 0
+    },
+    {
+      "train_start_day": 50,
+      "test_start_day": 80,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 335,
+      "selected_races": 14
+    },
+    {
+      "train_start_day": 55,
+      "test_start_day": 85,
+      "policy": "meeting_day_trim1_80",
+      "qualified_group_count": 1,
+      "tested_races": 322,
+      "selected_races": 118
+    },
+    {
+      "train_start_day": 55,
+      "test_start_day": 85,
+      "policy": "stage_trim1_70",
+      "qualified_group_count": 1,
+      "tested_races": 322,
+      "selected_races": 163
+    },
+    {
+      "train_start_day": 55,
+      "test_start_day": 85,
+      "policy": "category_trim1_80",
+      "qualified_group_count": 0,
+      "tested_races": 322,
+      "selected_races": 0
+    },
+    {
+      "train_start_day": 55,
+      "test_start_day": 85,
+      "policy": "category_stage_trim1_80",
+      "qualified_group_count": 0,
+      "tested_races": 322,
+      "selected_races": 0
+    }
+  ]
+}
