@@ -1,0 +1,30 @@
+name: Check four historic WINTICKET racecards without bulk collection
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-winticket-archive-pilot.py
+      - .github/workflows/year-winticket-archive-pilot.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check archival published lines from four fixed races subject to robots
+        run: |
+          python -m py_compile scripts/year-winticket-archive-pilot.py
+          python scripts/year-winticket-archive-pilot.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: winticket-four-card-archival-qa
+          path: reports/year-race-type/winticket-archive-four-page-check.json
+          if-no-files-found: warn
+          retention-days: 30
