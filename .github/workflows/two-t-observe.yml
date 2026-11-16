@@ -42,7 +42,7 @@ jobs:
         working-directory: source
         shell: bash
         run: |
-          python3 -m two_t.observe --ledger ../ledger --reconcile-budget-seconds 360 --review-results | tee ../observation-report.json
+          python3 -m two_t.observe --ledger ../ledger --reconcile-budget-seconds 360 --verify-review-results | tee ../observation-report.json
       - name: Commit new records to the dedicated ledger branch
         id: persist
         run: |
@@ -94,37 +94,21 @@ jobs:
         run: |
           python3 - <<'PY'
           from two_t.kdreams_results import links_for, parse_result, read_page
+          from two_t.netkeirin_results import confirm
 
           day = "2026-11-06"
           source_id = "202611062501"
           url = links_for(day)[source_id]
           card = {"race_id": day + ":大宮:1", "venue": "大宮", "race_no": 1,
-                  "cars": list(range(1, 8)), "start": day + "T11:05:00+09:00"}
+                  "date": day, "cars": list(range(1, 8)), "start": day + "T11:05:00+09:00",
+                  "roster": list(enumerate(["14788", "14282", "14749", "15924", "13782", "15045", "13349"], 1))}
           roster = ["上吹越俊一", "石川恭規", "山田哲也", "利川寛太", "原真司", "大関祐也", "三宅旬"]
           raw = {"race_id": source_id, "entries": [
               {"car_number": car, "rider_full_name": item} for car, item in enumerate(roster, 1)]}
           result = parse_result(read_page(url), url, card, raw)
           assert result["back"] == 6 and result["finish"] == [3, 5, 2], result
           assert result["payouts"] == {"3-5": 670} and not result["rider_ids_verified"], result
-          print("Historical sample verified: 2026-11-06 Omiya 1R, B=6, finish=3-5-2, exacta=670 JPY")
-          PY
-
-      - name: Inspect independent result roster and identifiers
-        if: ${{ github.event_name == 'pull_request' }}
-        working-directory: source
-        run: |
-          python3 - <<'PY'
-          import re
-          from urllib.request import Request, urlopen
-
-          url = "https://keirin.netkeiba.com/race/result/?race_id=202611062501"
-          with urlopen(Request(url, headers={"User-Agent": "TK-KEIRIN-LAB/1.0 (public race research)"}), timeout=15) as res:
-              html = res.read(2_000_000).decode(res.headers.get_content_charset() or "utf-8")
-              print(res.status, res.url, len(html))
-          for term in ("15045", "着順", "670", "２車単", "確定しました", "RaceData", "canonical"):
-              matches = list(re.finditer(re.escape(term), html))
-              print(term, len(matches), [re.sub(r'\s+', ' ', html[max(0,m.start()-100):m.start()+150]) for m in matches[:5]])
-          for table in re.findall(r'<table\b[^>]*>.*?</table>', html, flags=re.S):
-              if "15045" in table or "670" in table:
-                  print("table", re.sub(r'\s+', ' ', table[:5500]))
+          checked = confirm(card, result)
+          assert checked["rider_ids_verified"] and checked["labels"] == [6, 3, 5, 2], checked
+          print("Both sources and all seven racer IDs verified: 2026-11-06 Omiya 1R, B=6, finish=3-5-2, exacta=670 JPY")
           PY
