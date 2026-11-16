@@ -6,6 +6,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import re
+from time import monotonic
 from urllib.error import HTTPError
 
 from .ledger import ledger_path, store_once
@@ -15,6 +16,7 @@ from .supplement import published_card
 
 
 LEAD = timedelta(minutes=10)
+RESULT_RETRY_WINDOW = timedelta(days=3)
 RESULT_URL = re.compile(re.escape(BASE) + r"/keirin/[a-z0-9-]+/racecard/\d{10}/\d+/\d+")
 
 
@@ -34,6 +36,7 @@ def check_window(card, at):
 def capture(ledger, day, feed, fetched_at, clock, report, failures):
     if feed["date"] != day or stamp(feed["generated_at"]) > fetched_at:
         raise ValueError("feed date or publication time is inconsistent")
+    report["feed_rows"] = len(feed["races"])
     source = feed_url(day)
     candidates = {}
     for index, raw in enumerate(feed["races"]):
@@ -83,12 +86,16 @@ def audited_card(record):
     return card
 
 
-def reconcile(ledger, day, clock, overrides, report, failures):
+def reconcile(ledger, day, clock, overrides, report, failures, budget_seconds):
+    deadline = None if budget_seconds is None else monotonic() + budget_seconds
     urls = None
     for path in sorted((ledger / "cards").glob("*.json")):
         settled = ledger / "results" / path.name
         if settled.exists():
             continue
+        if deadline is not None and monotonic() >= deadline:
+            report["reconcile_budget_exhausted"] = 1
+            break
         key = path.stem
         try:
             record = payload(path)
@@ -98,6 +105,10 @@ def reconcile(ledger, day, clock, overrides, report, failures):
                 raise ValueError("race is stored under a different key")
             route = ledger_path(ledger / "routes", key)
             url = overrides.get(key)
+            started = stamp(card["start"])
+            if not url and clock() > started + RESULT_RETRY_WINDOW:
+                report["result_retries_expired"] += 1
+                continue
             if not url and route.exists():
                 url = payload(route)["result_source"]
             if not url and card["date"] == day:
@@ -111,7 +122,7 @@ def reconcile(ledger, day, clock, overrides, report, failures):
                     except FileExistsError:
                         url = payload(route)["result_source"]
             now = clock()
-            if now < stamp(card["start"]) + LEAD:
+            if now < started + LEAD:
                 continue
             if not url:
                 raise ValueError("race result URL unavailable")
@@ -145,7 +156,7 @@ def reconcile(ledger, day, clock, overrides, report, failures):
                 failures[key] = str(error)
 
 
-def observe(ledger, overrides=None, clock=utc_now):
+def observe(ledger, overrides=None, clock=utc_now, budget_seconds=None):
     day = clock().astimezone(JST).date().isoformat()
     report = Counter(cards_saved=0, results_saved=0, complete_labels=0)
     failures = {}
@@ -154,7 +165,7 @@ def observe(ledger, overrides=None, clock=utc_now):
         capture(ledger, day, feed, clock(), clock, report, failures)
     except (OSError, KeyError, TypeError, ValueError) as error:
         failures["day_feed"] = str(error)
-    reconcile(ledger, day, clock, overrides or {}, report, failures)
+    reconcile(ledger, day, clock, overrides or {}, report, failures, budget_seconds)
     return {"day": day, **report, "failures": failures}
 
 
@@ -162,9 +173,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger", type=Path, required=True)
     parser.add_argument("--result-urls", type=Path, help="optional JSON mapping of race ID to result URL")
+    parser.add_argument("--reconcile-budget-seconds", type=int, help="stop between result checks after this duration")
     args = parser.parse_args()
+    if args.reconcile_budget_seconds is not None and args.reconcile_budget_seconds <= 0:
+        parser.error("--reconcile-budget-seconds must be positive")
     urls = payload(args.result_urls) if args.result_urls else {}
     if not isinstance(urls, dict) or any(not isinstance(url, str) or not RESULT_URL.fullmatch(url)
                                         for url in urls.values()):
         parser.error("--result-urls must map race IDs to public WINTICKET racecard URLs")
-    print(json.dumps(observe(args.ledger, urls), ensure_ascii=False))
+    print(json.dumps(observe(args.ledger, urls, budget_seconds=args.reconcile_budget_seconds), ensure_ascii=False))
