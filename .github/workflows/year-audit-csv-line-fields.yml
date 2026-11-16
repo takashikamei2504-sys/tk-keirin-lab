@@ -1,0 +1,29 @@
+name: Audit lineup data columns across all annual public CSV months
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-audit-csv-line-fields.py
+      - .github/workflows/year-audit-csv-line-fields.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect actual archived CSV columns and values, no provider scraping
+        run: |
+          python -m py_compile scripts/year-audit-csv-line-fields.py
+          python scripts/year-audit-csv-line-fields.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: annual-12month-existing-lineup-column-check
+          path: reports/year-race-type/annual-monthly-lineup-column-audit.json
+          if-no-files-found: error
+          retention-days: 90
