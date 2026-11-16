@@ -220,8 +220,8 @@ for r in inventory:
     if r["race_id"] in used:continue
     stage,extra=classify(r,model)
     if stage not in eligible_stages:continue
-    annual.append({"class":r["class"],"date":r["date"],"stage":stage,"payout":r["payout"],
-       "basis":extra["basis"]})
+    annual.append({"race_id":r["race_id"],"class":r["class"],"date":r["date"],"stage":stage,"payout":r["payout"],
+       "day_index":r["day_index"],"race_no":r["race_no"],"venue_code":r["venue_code"],"basis":extra["basis"]})
 for row in annual:category[row["class"]+"|"+row["stage"]].append(row)
 def payout_stats(rows):
     if rows and isinstance(rows[0],dict):
@@ -269,6 +269,34 @@ report={"schema":"tk-keirin-annual-stage-inference-oot-v1",
     "Existing lineup-based engines cannot be faithfully replayed on historic records with no actual lineup.",
     "Classifier training, selection and validation do not use payouts/finishing order.",
     "Do not choose real-money betting strategy based on estimated stage results." ]}
+# Deterministic, outcome-blind <=50-record cross-year archive verification sample.
+# The stage decision precedes all payout consultation. No stakes / wagers are made.
+month_stage=collections.defaultdict(list)
+for r in annual:
+    if r["date"] < str(DATA_START):
+        month_stage[(r["date"][:7],r["stage"])].append(r)
+sample=[]
+for month in sorted({m for m,s in month_stage}):
+    for stage_name in ["初日特選","決勝","勝ち上がり戦","敗者戦","特選等"]:
+        candidates=month_stage.get((month,stage_name),[])
+        if not candidates:continue
+        selected=min(candidates,key=lambda r:hashlib.sha256((r["race_id"]+"|crossyear-stage-v1").encode()).digest())
+        rid=selected["race_id"]
+        sample.append({
+           "race_id":rid,"date":selected["date"],"month":month,"predicted_stage":selected["stage"],
+           "category":selected["class"],"race_no":selected["race_no"],"venue_code":selected["venue_code"],
+           "source_url":"https://keirin0.com/detail/"+rid[2:10]+"/"+selected["date"].replace("-","")+"/"+rid[:2]+"/"+rid[12:],
+           "selection":"smallest sha256(race_id|crossyear-stage-v1) within month and predicted stage"
+        })
+sample_report={"schema":"tk-keirin-crossyear-stage-audit-sample/v1",
+ "origin":"High-precision model trained 2026-08-18..2026-10-15; not validated on 2025 before this sample.",
+ "window":{"start":str(START),"end":str(DATA_START-datetime.timedelta(days=1))},
+ "selection":"At most one record per calendar month and predicted program-stage group. Payout and result data never used.",
+ "sample_n":len(sample),"races":sample,
+ "note":"Audit public title labels of previously held-out historical dates. Not an 8-engine annual ROI test."}
+p_sample=pathlib.Path("reports/year-race-type/crossyear-stage-sample.json")
+p_sample.parent.mkdir(parents=True,exist_ok=True)
+p_sample.write_text(json.dumps(sample_report,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
 path=pathlib.Path("reports/year-race-type/annual-stage-validation.json")
 path.parent.mkdir(parents=True,exist_ok=True)
 path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
