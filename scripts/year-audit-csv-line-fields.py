@@ -30,7 +30,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
  for f in concurrent.futures.as_completed(futures):
   try:results.append(f.result())
   except Exception as e:errs[futures[f]]=str(e)[:190]
-if errs or len(results)!=12:raise RuntimeError("Incomplete source or changed schema "+str(errs))
+if errs or len(results)!=len(MONTHS):raise RuntimeError("Incomplete source or changed schema "+str(errs))
 results.sort(key=lambda o:o['month'])
 out={"schema":"tk-keirin-annual-monthly-line-schema-audit/v1",
  "date_range":"2025-11-16..2026-11-15","source_commit":COMMIT,
