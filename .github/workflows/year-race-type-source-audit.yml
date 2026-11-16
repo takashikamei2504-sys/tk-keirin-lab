@@ -1,0 +1,37 @@
+name: Audit 2025-11 to 2026-11 source completeness
+on:
+  push:
+    branches: ['research/year-race-type-audit-20261116']
+    paths:
+      - 'scripts/year-race-type-source-audit.py'
+      - '.github/workflows/year-race-type-source-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Read all public 2025-11 through 2026-11 CSVs and audit per-race completeness
+        run: python scripts/year-race-type-source-audit.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: year-race-type-annual-source-audit
+          path: reports/year-race-type/year-source-audit-20251116-20261115.json
+          retention-days: 90
+      - name: Commit research audit only; never touch production branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/year-source-audit-20251116-20261115.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record data-completeness blockers for annual race-type analysis'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
