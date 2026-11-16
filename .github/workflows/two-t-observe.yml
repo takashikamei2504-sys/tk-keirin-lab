@@ -95,7 +95,8 @@ jobs:
         run: |
           day="$(python3 -c 'import json; print(json.load(open("../observation-report.json"))["day"])')"
           python3 -m two_t.observation_export --ledger ../ledger --day "$day" --output ../observation-export
-          cat ../observation-export/summary.md >> "$GITHUB_STEP_SUMMARY"
+          printf 'ledger_commit=%s\nexporter_commit=%s\n' "$(git -C ../ledger rev-parse HEAD)" "$(git rev-parse HEAD)" > ../observation-export/provenance.txt
+          tee -a "$GITHUB_STEP_SUMMARY" < ../observation-export/summary.md
       - name: Upload the verification export
         if: ${{ github.event_name != 'schedule' && steps.persist.outcome == 'success' }}
         uses: actions/upload-artifact@v4
