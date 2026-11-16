@@ -1,0 +1,55 @@
+name: Rational plus irrational third-place experiment
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-fun-third-place-shard.cjs
+      - scripts/year-fun-third-place-aggregate.cjs
+      - .github/workflows/year-fun-third-place.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: tk-fun-third-place-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        shard: [0]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: baxis90-v06-part-*
+          run-id: 43854561054
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type/baxis90-shards
+      - name: Replay third-car variants on original 90-day pinned race cards
+        env:
+          FUN_SHARD: ${{ matrix.shard }}
+        run: |
+          node --check scripts/year-fun-third-place-shard.cjs
+          node scripts/year-fun-third-place-shard.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fun-third-place-part-${{ matrix.shard }}
+          path: reports/year-race-type/fun-third-shards/part-${{ matrix.shard }}.json
+          if-no-files-found: warn
+          retention-days: 90
