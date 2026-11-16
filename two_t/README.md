@@ -52,3 +52,11 @@ python -m two_t.observe --ledger /path/to/persistent/2t-observations
 取得したカードについて同じ保存先で再実行すると、WINTICKETの確定後に開催日、会場、レース番号、発走予定時刻、車番と選手IDを照合し、最終バック、着順、二車単払戻を `results/` に追記する。未確定結果は次回以降に再確認する。中止・事故・返還・通常の着順ラベルを確定できない同着等は結果を記録し、完全な教師ラベル件数から除く。掲載URLを自動で確保できなかった場合は `--result-urls` に `YYYY-MM-DD:会場:レース番号` → WINTICKETの公開レースURLのJSONを指定できる。
 
 標準出力に新規保存件数とレース単位の失敗理由を出す。保存先には再実行時も同じ永続領域を指定する。これは教師データの前向き収集で、予測・締切前オッズの取得・回収率算定は上記の予測系で扱う。固定済みV1の学習・最終評価データへの追加は自動化していない。
+
+### GitHub Actionsでの収集
+
+[2T lineup observations](https://github.com/takashikamei2504-sys/tk-keirin-lab/actions/workflows/two-t-observe.yml) の実行概要で、配信・出走表保存・照合件数とGitへの保存成否を確認できる。実行ログにレース別の除外理由を残す。台帳は [lab-2t-observations](https://github.com/takashikamei2504-sys/tk-keirin-lab/tree/lab-2t-observations) ブランチに追記し、次回も同じブランチから読み込む。
+
+WINTICKETの開催一覧と確定結果ページはGitHub標準ランナーから403が返ったため、Actionsは `--review-results` で楽天Kドリームスの公開結果を取り込む。開催日・会場・レース番号・発走予定時刻と全員の車番・氏名、着順と二車単払戻の整合性を確認する。選手IDを独立に確認できていないため、`review-results/` に記録する。教師データ・回収率集計に使用する `results/` への書き込みは、従来の選手ID照合経路で行う。
+
+PR段階でiPhoneから1回実行する場合は、[実行リクエスト](https://github.com/takashikamei2504-sys/tk-keirin-lab/edit/lab-2t-transformer-v1/two_t/observation-request.txt) をSafariで開き、時刻を書き換えて `lab-2t-transformer-v1` にコミットする。既定ブランチへの承認済み反映後は、Actionsの「Run workflow」とJSTの7:11〜23:41の30分間隔、および翌0:11のスケジュールを利用できる。通常の自動照合は発走から3日間まで再試行する。この間隔は出走表と結果の収集用で、締切前オッズのT−10取得窓には使用しない。公開リポジトリの標準ランナーを使う。
