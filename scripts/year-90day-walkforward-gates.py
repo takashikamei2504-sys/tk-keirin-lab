@@ -197,7 +197,7 @@ def main():
   "- **これらは現行コードを2026年8〜11月に遡及適用した結果で、当時の発走前凍結予想ではない。**",
   "- 180日の追加661Rは選別されたコメント復元レースで母集団条件が異なり、ここには混合しない。",
   "",
-  "出典：GitHub Actions 43796244008 の complete90-eight-engine-all-race-results、同着3Rの4払戻補正。"]
+  "出典：GitHub Actions 43796244008 の complete90-eight-engine-all-race-results、同着3Rの4払戻補正。"])
  (ROOT/"90day-walkforward-abstention-20261116-ja.md").write_text("\n".join(md)+"\n",encoding="utf-8")
  print("WALK_FORWARD_GATE_AUDIT",json.dumps({"baseline":baseline,
   "selected":{name:{"n":v["all_test"]["races"],"roi":v["all_test"]["roi_pct"],
