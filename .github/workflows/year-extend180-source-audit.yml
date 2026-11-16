@@ -1,0 +1,45 @@
+name: Prior-90 source audit for 180-day research
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-extend180-source-audit.cjs
+      - .github/workflows/year-extend180-source-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: tk-extend180-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit all 90 earlier dates, no inferred lines or bets
+        run: |
+          node --check scripts/year-extend180-source-audit.cjs
+          node scripts/year-extend180-source-audit.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: extend180-prior90-source-audit
+          path: |
+            reports/year-race-type/extended180-preceding90-source-audit.json
+            reports/year-race-type/extended180-preceding90-source-audit-ja.md
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit audit summaries to research branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/extended180-preceding90-source-audit.json reports/year-race-type/extended180-preceding90-source-audit-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record verified additional 90-day source coverage (no predicted ROI)'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
