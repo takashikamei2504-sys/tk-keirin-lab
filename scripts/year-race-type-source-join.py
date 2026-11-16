@@ -16,7 +16,7 @@ def get(url):
     req=urllib.request.Request(url,headers=HEADERS)
     with urllib.request.urlopen(req,timeout=40) as r:return r.read()
 def normal(v):
-    return re.sub(r"[\\s\\u3000]",'',unicodedata.normalize("NFKC",str(v or "")))
+    return re.sub(r"[\s\u3000]",'',unicodedata.normalize("NFKC",str(v or "")))
 def csv_month(m):
     raw=get(CSV_BASE.format(m));records=list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))))
     return m,records,hashlib.sha256(raw).hexdigest()
@@ -36,7 +36,7 @@ def lineup_ok(entries):
     try:
         used=set()
         for e in entries:
-            car=int(e["car_number"]);match=re.fullmatch(r"(\\d{1,2})-(\\d{1,2})",str(e.get("line_position","")))
+            car=int(e["car_number"]);match=re.fullmatch(r"(\d{1,2})-(\d{1,2})",str(e.get("line_position","")))
             if not match or car in used:return False
             used.add(car);groups[int(match.group(1))].append((int(match.group(2)),car))
         return all(sorted(x[0] for x in v)==list(range(1,len(v)+1)) for v in groups.values())
@@ -61,7 +61,7 @@ def score_match(entries,rows):
     return good
 def matches(combo_csv,source):
     # optional payout cross-check; missing payout is not a reason to fabricate a match
-    m=re.search(r"([1-9])\\s*-\\s*([1-9])\\s*-\\s*([1-9])\\s+([\\d,]+)\\s*円",combo_csv)
+    m=re.search(r"([1-9])\s*-\s*([1-9])\s*-\s*([1-9])\s+([\d,]+)\s*円",combo_csv)
     if not m:return None
     a,b,c,value=m.groups();top=source.get("result_top3") or []
     combo=[int(a),int(b),int(c)]
@@ -108,7 +108,16 @@ for d,day in sorted(raw_days.items()):
             if n is not None and n>=max(5,len(es)-1):
                 options.append((n,rid,rs))
         options.sort(key=lambda x:x[0],reverse=True)
-        if not options:reasons["rider_id_name_mismatch"]+=1;continue
+        if not options:
+            reasons["rider_id_name_mismatch"]+=1
+            if len(lookup_examples)<5 and candidates:
+                for r_id,c_rs in list(candidates.items())[:1]:
+                    lookup_examples.append({"date":d,"diagnostic":"candidate_no_identity_match",
+                      "csv_race_id":r_id,"csv_rider_count":len(c_rs),
+                      "public_rider_count":len(es),
+                      "csv_names":[(x.get("banum"),normal(x.get("player_name"))) for x in c_rs[:4]],
+                      "public_names":[(x.get("car_number"),normal(x.get("rider_full_name") or x.get("rider_name"))) for x in es[:4]]})
+            continue
         if len(options)>1 and options[0][0]==options[1][0]:reasons["ambiguous_name_join"]+=1;continue
         n,rid,rs=options[0]
         if rid in matched_ids:reasons["duplicate_matched_source_race"]+=1;continue
@@ -152,6 +161,6 @@ report={"schema":"tk-keirin-year-coverage-reconciliation/v1","period":{"from":st
                        "Current engine 12-month ROI cannot be calculated from incomplete source"],
         "year_full_cards_recovered":False}
 out=outdir/"source-join-20260818-20261115.json"
-out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 print("RECONCILED",json.dumps({"counts":report["counts"],"stages":report["stages"],"missing_reasons":report["missing_reasons"],
   "errors":report["errors"],"source_days":len(raw_days),"mappings":len(hall_votes)},ensure_ascii=False),flush=True)
