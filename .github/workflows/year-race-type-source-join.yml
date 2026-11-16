@@ -1,0 +1,42 @@
+name: Reconcile annual CSV with archived genuine lineups
+on:
+  push:
+    branches: ['research/year-race-type-audit-20261116']
+    paths:
+      - scripts/year-race-type-source-join.py
+      - .github/workflows/year-race-type-source-join.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  join:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify code syntax and reconcile independent source identities
+        run: |
+          python -m py_compile scripts/year-race-type-source-join.py
+          python scripts/year-race-type-source-join.py
+      - name: Preserve reconciliation summary artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: annual-source-identity-reconciliation
+          path: reports/year-race-type/source-join-20260818-20261115.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit research-only audit
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/source-join-20260818-20261115.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Audit independent identity and genuine race-card joins'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
