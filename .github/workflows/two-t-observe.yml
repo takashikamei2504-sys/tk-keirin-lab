@@ -1,0 +1,81 @@
+name: 2T lineup observations
+on:
+  pull_request:
+    paths:
+      - .github/workflows/two-t-observe.yml
+      - two_t/observation-request.txt
+  workflow_dispatch:
+  schedule:
+    - cron: '11,41 0-14,22-23 * * *'
+    - cron: '11 15 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lab-2t-observations
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    # A fork or a change to repository visibility must not start a write-enabled run.
+    if: >-
+      ${{ !github.event.repository.private &&
+          (github.event_name != 'pull_request' ||
+            (github.event.pull_request.head.repo.full_name == github.repository &&
+             github.event.pull_request.head.ref == 'lab-2t-transformer-v1')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: source
+          persist-credentials: false
+          sparse-checkout: two_t
+      - uses: actions/checkout@v4
+        with:
+          ref: lab-2t-observations
+          path: ledger
+      - name: Capture lineups and match published results
+        working-directory: source
+        run: |
+          python3 -m two_t.observe --ledger ../ledger --reconcile-budget-seconds 360 | tee ../observation-report.json
+      - name: Commit new records to the dedicated ledger branch
+        run: |
+          git -C ledger add --all
+          if git -C ledger diff --cached --quiet; then
+            exit 0
+          fi
+          git -C ledger -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Append 2T race observations'
+          git -C ledger push origin HEAD:refs/heads/lab-2t-observations
+      - name: Write mobile-readable coverage summary
+        if: ${{ !cancelled() && hashFiles('observation-report.json') != '' }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          report = json.loads(Path("observation-report.json").read_text())
+          root = Path("ledger")
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              print(f"## 2T 観測結果 / {report['day']} (JST)", file=summary)
+              print("| 項目 | 件数 |\n| --- | ---: |", file=summary)
+              for label, key in (
+                  ("今回の出走表保存", "cards_saved"),
+                  ("今回の確定結果保存", "results_saved"),
+                  ("今回の完全な教師ラベル", "complete_labels"),
+                  ("今回の未確定結果", "results_pending"),
+                  ("今回の再試行期限超過", "result_retries_expired"),
+              ):
+                  print(f"| {label} | {report.get(key, 0)} |", file=summary)
+              for label, folder in (("台帳の出走表", "cards"), ("台帳の確定結果", "results")):
+                  print(f"| {label} | {sum(1 for _ in (root / folder).glob('*.json'))} |", file=summary)
+              print(f"| 今回のエラー | {len(report['failures'])} |", file=summary)
+              if "day_feed" in report["failures"]:
+                  print("\n当日出走表を読み込めませんでした。明細は実行ログにあります。", file=summary)
+              if report.get("reconcile_budget_exhausted"):
+                  print("\n照合時間枠を使い切りました。残りは次回候補です。", file=summary)
+          PY
