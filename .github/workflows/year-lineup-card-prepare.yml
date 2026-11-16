@@ -1,0 +1,39 @@
+name: Validate 2025-26 recovered lineup with historical source cards
+on:
+  push:
+    branches: ['research/annual-lineup-source-20261116']
+    paths:
+      - scripts/year-lineup-card-prepare.py
+      - .github/workflows/year-lineup-card-prepare.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build only fully-validated historical source cards (no invented time)
+        run: python scripts/year-lineup-card-prepare.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-complete-year-60-race-cards
+          path: reports/year-race-type/annual-60-card-input-audit.json
+          retention-days: 90
+          if-no-files-found: error
+      - name: Commit source quality record on isolated branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/annual-60-card-input-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Audit actual historical start times, rider class, source line and trifecta on small sample'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
