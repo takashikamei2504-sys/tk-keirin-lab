@@ -30,3 +30,13 @@ python -m unittest discover -s tests/two_t -v
 単一レースの手動確認は `python -m two_t.forward {capture,probability,settle} --card CARD --url RACE_URL --out LEDGER`。予測時は `--checkpoint MODEL` も指定する。 `CARD` には学習入力と同じ正規形式のレース行を使う。T−5の取得は `--mode t5` で独立保管する。結果と投票締切時刻はデータ提供元の時刻を使用する。予測は固定保存後に上書きされず、購入・投票の処理は存在しない。
 
 [GitHub Actionsのスケジュール仕様](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+
+## 過去レースの照合と学習データ追加
+
+発走10分以上前の並びを含むコミットが確認できた場合に、照合済みのレースを学習用データへ追加できる。実測B・上位3着・二車単払戻は、照合記録とWINTICKETの確定結果が一致することを確認する。事故・返還・時刻不明・選手IDの不一致は保留とし、理由をレース単位で記録する。新規追加は既存のTRAIN期間に限り、元のデータファイルは入力として扱う。
+
+```bash
+python -m two_t.archive_join --report /tmp/2t/race-join-audit.json
+```
+
+このコマンドで [照合済み50R](../docs/2T_RACE_JOIN_20261117.json) の現在の取り込み可否を確認できる。並びの原本を確保した場合は `--public-checkout` で公開配信元のGitチェックアウトを指定し、`--ref-day FULL_SHA YYYY-MM-DD` を追加する。`--result-urls` は照合記録の数値レースIDを公開WINTICKET URLに対応させたJSON。実際に追加する場合は `--baseline INPUT.json --dataset-output OUTPUT.json` を指定する。生成したデータは上記の `two_t.train` に渡せる。
