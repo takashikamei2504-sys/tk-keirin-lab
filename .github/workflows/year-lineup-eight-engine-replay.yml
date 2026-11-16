@@ -5,6 +5,8 @@ on:
     paths:
       - reports/year-race-type/annual-60-card-input-audit.json
       - .github/workflows/year-lineup-eight-engine-replay.yml
+      - scripts/year-lineup-eight-engine-replay.cjs
+      - scripts/year-lineup-eight-engine-aggregate.cjs
   workflow_dispatch:
 permissions:
   contents: write
