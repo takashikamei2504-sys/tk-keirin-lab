@@ -29,7 +29,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: annual-stage-calibration-out-of-time
-          path: reports/year-race-type/annual-stage-validation.json
+          path: |
+            reports/year-race-type/annual-stage-validation.json
+            reports/year-race-type/crossyear-stage-sample.json
           if-no-files-found: warn
           retention-days: 90
       - name: Commit validated reports only on isolated research branch
@@ -37,7 +39,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/year-race-type/annual-stage-validation.json
+          git add reports/year-race-type/annual-stage-validation.json reports/year-race-type/crossyear-stage-sample.json
           if ! git diff --cached --quiet; then
             git commit -m 'Record annual stage proxy temporal holdout and payout distributions'
             git pull --rebase origin "${{ github.ref_name }}"
