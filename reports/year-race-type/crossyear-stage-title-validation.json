@@ -1,0 +1,567 @@
+{
+  "schema": "tk-keirin-crossyear-stage-independent-title-qa/v1",
+  "source": "https://keirin0.com",
+  "sample": "reports/year-race-type/crossyear-stage-sample.json",
+  "rules_status": "verified",
+  "count": 50,
+  "results": [
+    {
+      "race_id": "5620251116010012",
+      "month": "2025-11",
+      "category": "S級_7",
+      "expected_stage": "初日特選",
+      "date": "2025-11-16",
+      "url": "https://keirin0.com/detail/20251116/20251116/56/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3120251119030010",
+      "month": "2025-11",
+      "category": "S級_7",
+      "expected_stage": "決勝",
+      "date": "2025-11-21",
+      "url": "https://keirin0.com/detail/20251119/20251121/31/0010",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "6120251127020003",
+      "month": "2025-11",
+      "category": "チャレンジ_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2025-11-28",
+      "url": "https://keirin0.com/detail/20251127/20251128/61/0003",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "6120251118020005",
+      "month": "2025-11",
+      "category": "A級_7",
+      "expected_stage": "敗者戦",
+      "date": "2025-11-19",
+      "url": "https://keirin0.com/detail/20251118/20251119/61/0005",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3120251119030007",
+      "month": "2025-11",
+      "category": "S級_7",
+      "expected_stage": "特選等",
+      "date": "2025-11-21",
+      "url": "https://keirin0.com/detail/20251119/20251121/31/0007",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3620251224010012",
+      "month": "2025-12",
+      "category": "S級_7",
+      "expected_stage": "初日特選",
+      "date": "2025-12-24",
+      "url": "https://keirin0.com/detail/20251224/20251224/36/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "5520251220030012",
+      "month": "2025-12",
+      "category": "S級_7",
+      "expected_stage": "決勝",
+      "date": "2025-12-22",
+      "url": "https://keirin0.com/detail/20251220/20251222/55/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4720251205020003",
+      "month": "2025-12",
+      "category": "A級_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2025-12-06",
+      "url": "https://keirin0.com/detail/20251205/20251206/47/0003",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4720251227020002",
+      "month": "2025-12",
+      "category": "チャレンジ_7",
+      "expected_stage": "敗者戦",
+      "date": "2025-12-28",
+      "url": "https://keirin0.com/detail/20251227/20251228/47/0002",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4720251205030003",
+      "month": "2025-12",
+      "category": "A級_7",
+      "expected_stage": "特選等",
+      "date": "2025-12-07",
+      "url": "https://keirin0.com/detail/20251205/20251207/47/0003",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4820260124010012",
+      "month": "2026-01",
+      "category": "S級_7",
+      "expected_stage": "初日特選",
+      "date": "2026-01-24",
+      "url": "https://keirin0.com/detail/20260124/20260124/48/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3120260121030011",
+      "month": "2026-01",
+      "category": "A級_7",
+      "expected_stage": "決勝",
+      "date": "2026-01-23",
+      "url": "https://keirin0.com/detail/20260121/20260123/31/0011",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2420260131010002",
+      "month": "2026-01",
+      "category": "A級_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2026-01-31",
+      "url": "https://keirin0.com/detail/20260131/20260131/24/0002",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "6220260121030002",
+      "month": "2026-01",
+      "category": "A級_7",
+      "expected_stage": "敗者戦",
+      "date": "2026-01-23",
+      "url": "https://keirin0.com/detail/20260121/20260123/62/0002",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "5620251231030003",
+      "month": "2026-01",
+      "category": "A級_7",
+      "expected_stage": "特選等",
+      "date": "2026-01-02",
+      "url": "https://keirin0.com/detail/20251231/20260102/56/0003",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "6120260204010009",
+      "month": "2026-02",
+      "category": "A級_7",
+      "expected_stage": "初日特選",
+      "date": "2026-02-04",
+      "url": "https://keirin0.com/detail/20260204/20260204/61/0009",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "5520260218030011",
+      "month": "2026-02",
+      "category": "A級_7",
+      "expected_stage": "決勝",
+      "date": "2026-02-20",
+      "url": "https://keirin0.com/detail/20260218/20260220/55/0011",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "6220260228010001",
+      "month": "2026-02",
+      "category": "A級_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2026-02-28",
+      "url": "https://keirin0.com/detail/20260228/20260228/62/0001",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3120260204020009",
+      "month": "2026-02",
+      "category": "S級_7",
+      "expected_stage": "敗者戦",
+      "date": "2026-02-05",
+      "url": "https://keirin0.com/detail/20260204/20260205/31/0009",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2720260203030004",
+      "month": "2026-02",
+      "category": "A級_7",
+      "expected_stage": "特選等",
+      "date": "2026-02-05",
+      "url": "https://keirin0.com/detail/20260203/20260205/27/0004",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2220260320010012",
+      "month": "2026-03",
+      "category": "S級_7",
+      "expected_stage": "初日特選",
+      "date": "2026-03-20",
+      "url": "https://keirin0.com/detail/20260320/20260320/22/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4220260317030012",
+      "month": "2026-03",
+      "category": "S級_7",
+      "expected_stage": "決勝",
+      "date": "2026-03-19",
+      "url": "https://keirin0.com/detail/20260317/20260319/42/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "8320260307010006",
+      "month": "2026-03",
+      "category": "A級_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2026-03-07",
+      "url": "https://keirin0.com/detail/20260307/20260307/83/0006",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3620260308020008",
+      "month": "2026-03",
+      "category": "S級_7",
+      "expected_stage": "敗者戦",
+      "date": "2026-03-09",
+      "url": "https://keirin0.com/detail/20260308/20260309/36/0008",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4420260325030008",
+      "month": "2026-03",
+      "category": "S級_7",
+      "expected_stage": "特選等",
+      "date": "2026-03-27",
+      "url": "https://keirin0.com/detail/20260325/20260327/44/0008",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4720260404010007",
+      "month": "2026-04",
+      "category": "A級_7",
+      "expected_stage": "初日特選",
+      "date": "2026-04-04",
+      "url": "https://keirin0.com/detail/20260404/20260404/47/0007",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3720260413030011",
+      "month": "2026-04",
+      "category": "A級_7",
+      "expected_stage": "決勝",
+      "date": "2026-04-15",
+      "url": "https://keirin0.com/detail/20260413/20260415/37/0011",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3720260428010002",
+      "month": "2026-04",
+      "category": "チャレンジ_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2026-04-28",
+      "url": "https://keirin0.com/detail/20260428/20260428/37/0002",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "8320260410020006",
+      "month": "2026-04",
+      "category": "S級_7",
+      "expected_stage": "敗者戦",
+      "date": "2026-04-11",
+      "url": "https://keirin0.com/detail/20260410/20260411/83/0006",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "8720260426030009",
+      "month": "2026-04",
+      "category": "S級_7",
+      "expected_stage": "特選等",
+      "date": "2026-04-28",
+      "url": "https://keirin0.com/detail/20260426/20260428/87/0009",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "8320260517010011",
+      "month": "2026-05",
+      "category": "A級_7",
+      "expected_stage": "初日特選",
+      "date": "2026-05-17",
+      "url": "https://keirin0.com/detail/20260517/20260517/83/0011",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "7520260520030012",
+      "month": "2026-05",
+      "category": "S級_7",
+      "expected_stage": "決勝",
+      "date": "2026-05-22",
+      "url": "https://keirin0.com/detail/20260520/20260522/75/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "6320260501020003",
+      "month": "2026-05",
+      "category": "A級_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2026-05-02",
+      "url": "https://keirin0.com/detail/20260501/20260502/63/0003",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "7420260518020002",
+      "month": "2026-05",
+      "category": "チャレンジ_7",
+      "expected_stage": "敗者戦",
+      "date": "2026-05-19",
+      "url": "https://keirin0.com/detail/20260518/20260519/74/0002",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2120260510030006",
+      "month": "2026-05",
+      "category": "A級_7",
+      "expected_stage": "特選等",
+      "date": "2026-05-12",
+      "url": "https://keirin0.com/detail/20260510/20260512/21/0006",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2720260617010005",
+      "month": "2026-06",
+      "category": "A級_7",
+      "expected_stage": "初日特選",
+      "date": "2026-06-17",
+      "url": "https://keirin0.com/detail/20260617/20260617/27/0005",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "7420260618030009",
+      "month": "2026-06",
+      "category": "A級_7",
+      "expected_stage": "決勝",
+      "date": "2026-06-20",
+      "url": "https://keirin0.com/detail/20260618/20260620/74/0009",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4720260615010008",
+      "month": "2026-06",
+      "category": "A級_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2026-06-15",
+      "url": "https://keirin0.com/detail/20260615/20260615/47/0008",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2420260621020003",
+      "month": "2026-06",
+      "category": "A級_7",
+      "expected_stage": "敗者戦",
+      "date": "2026-06-22",
+      "url": "https://keirin0.com/detail/20260621/20260622/24/0003",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "8420260621030006",
+      "month": "2026-06",
+      "category": "A級_7",
+      "expected_stage": "特選等",
+      "date": "2026-06-23",
+      "url": "https://keirin0.com/detail/20260621/20260623/84/0006",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "1120260701010007",
+      "month": "2026-07",
+      "category": "A級_7",
+      "expected_stage": "初日特選",
+      "date": "2026-07-01",
+      "url": "https://keirin0.com/detail/20260701/20260701/11/0007",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "3720260710030012",
+      "month": "2026-07",
+      "category": "S級_7",
+      "expected_stage": "決勝",
+      "date": "2026-07-12",
+      "url": "https://keirin0.com/detail/20260710/20260712/37/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4720260716020010",
+      "month": "2026-07",
+      "category": "S級_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2026-07-17",
+      "url": "https://keirin0.com/detail/20260716/20260717/47/0010",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "5620260713020007",
+      "month": "2026-07",
+      "category": "A級_7",
+      "expected_stage": "敗者戦",
+      "date": "2026-07-14",
+      "url": "https://keirin0.com/detail/20260713/20260714/56/0007",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2720260719030007",
+      "month": "2026-07",
+      "category": "A級_7",
+      "expected_stage": "特選等",
+      "date": "2026-07-21",
+      "url": "https://keirin0.com/detail/20260719/20260721/27/0007",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4420260817010005",
+      "month": "2026-08",
+      "category": "A級_7",
+      "expected_stage": "初日特選",
+      "date": "2026-08-17",
+      "url": "https://keirin0.com/detail/20260817/20260817/44/0005",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2820260808030012",
+      "month": "2026-08",
+      "category": "S級_7",
+      "expected_stage": "決勝",
+      "date": "2026-08-10",
+      "url": "https://keirin0.com/detail/20260808/20260810/28/0012",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "2820260817010002",
+      "month": "2026-08",
+      "category": "チャレンジ_7",
+      "expected_stage": "勝ち上がり戦",
+      "date": "2026-08-17",
+      "url": "https://keirin0.com/detail/20260817/20260817/28/0002",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "5320260814030005",
+      "month": "2026-08",
+      "category": "S級_7",
+      "expected_stage": "敗者戦",
+      "date": "2026-08-16",
+      "url": "https://keirin0.com/detail/20260814/20260816/53/0005",
+      "status": "http_error",
+      "error": "HTTP 404"
+    },
+    {
+      "race_id": "4220260804030004",
+      "month": "2026-08",
+      "category": "A級_7",
+      "expected_stage": "特選等",
+      "date": "2026-08-06",
+      "url": "https://keirin0.com/detail/20260804/20260806/42/0004",
+      "status": "http_error",
+      "error": "HTTP 404"
+    }
+  ],
+  "limitations": [
+    "This confirms only program labels, never lineup, betting model performance or ROI.",
+    "Published third-party title metadata may have errors."
+  ],
+  "overall": {
+    "requested": 50,
+    "attempted": 50,
+    "evaluated": 0,
+    "correct": 0,
+    "precision": null,
+    "status_counts": {
+      "http_error": 50
+    }
+  },
+  "by_stage": {
+    "初日特選": {
+      "evaluated": 0,
+      "correct": 0,
+      "precision": null
+    },
+    "勝ち上がり戦": {
+      "evaluated": 0,
+      "correct": 0,
+      "precision": null
+    },
+    "敗者戦": {
+      "evaluated": 0,
+      "correct": 0,
+      "precision": null
+    },
+    "決勝": {
+      "evaluated": 0,
+      "correct": 0,
+      "precision": null
+    },
+    "特選等": {
+      "evaluated": 0,
+      "correct": 0,
+      "precision": null
+    }
+  },
+  "by_class": {
+    "A級_7": {
+      "evaluated": 0,
+      "correct": 0,
+      "precision": null
+    },
+    "S級_7": {
+      "evaluated": 0,
+      "correct": 0,
+      "precision": null
+    },
+    "チャレンジ_7": {
+      "evaluated": 0,
+      "correct": 0,
+      "precision": null
+    }
+  }
+}
