@@ -12,11 +12,11 @@ const ARCHIVE_SHA='4588ec938a2fec9e81216d3fd3423329805aa3d5';
 const BASE='https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/'+ARCHIVE_SHA+'/';
 const WAYS=['auto','physical','causal','lab_v5','line','roi_coverage','b_upset_ad','b_upset_expanded'];
 const SHARD=Number(process.env.YEAR_FULL_SHARD||0);
-if(!Number.isInteger(SHARD)||SHARD<0||SHARD>8)throw Error('Expected shard 0..8');
+if(!Number.isInteger(SHARD)||SHARD<0||SHARD>17)throw Error('Expected shard 0..17');
 const ROOT=new Date('2026-08-18T00:00:00Z').getTime(),MAX_DAY=new Date('2026-11-15T00:00:00Z').getTime(),DAY=86400000;
 const dayString=offset=>new Date(ROOT+offset*DAY).toISOString().slice(0,10);
 const dates=[];
-for(let i=SHARD*10;i<Math.min(SHARD*10+10,90);i++){if(ROOT+i*DAY<=MAX_DAY)dates.push(dayString(i));}
+for(let i=SHARD*5;i<Math.min(SHARD*5+5,90);i++){if(ROOT+i*DAY<=MAX_DAY)dates.push(dayString(i));}
 if(!dates.length)throw Error('No dates in shard');
 const sha=raw=>crypto.createHash('sha256').update(raw).digest('hex');
 const stage=(round,meeting)=>{
@@ -44,7 +44,7 @@ async function get(date){
  }
 }
 async function main(){
- const all=[]; // bounded 10 pinned public GitHub raw objects per job
+ const all=[]; // bounded 5 pinned public GitHub raw objects per job
  for(let i=0;i<dates.length;i+=3){
   const batch=await Promise.all(dates.slice(i,i+3).map(get));all.push(...batch);
  }
