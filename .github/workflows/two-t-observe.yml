@@ -88,6 +88,22 @@ jobs:
               if report.get("reconcile_budget_exhausted"):
                   print("\n照合時間枠を使い切りました。残りは次回候補です。", file=summary)
           PY
+      - name: Export the day's audited verification inputs
+        if: ${{ steps.persist.outcome == 'success' }}
+        working-directory: source
+        shell: bash
+        run: |
+          day="$(python3 -c 'import json; print(json.load(open("../observation-report.json"))["day"])')"
+          python3 -m two_t.observation_export --ledger ../ledger --day "$day" --output ../observation-export
+          cat ../observation-export/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload the verification export
+        if: ${{ github.event_name != 'schedule' && steps.persist.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2t-observation-audit
+          path: observation-export/
+          retention-days: 7
+          if-no-files-found: error
       - name: Validate the parser against a published historical race
         if: ${{ github.event_name == 'pull_request' }}
         working-directory: source
