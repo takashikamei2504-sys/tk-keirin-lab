@@ -1,10 +1,9 @@
 {
   "schema": "tk-keirin-2025-26-fullcard-pilot/v1",
   "sample_n": 60,
-  "prepared_n": 9,
+  "prepared_n": 50,
   "status_counts": {
-    "ready": 9,
-    "source_metadata_invalid": 41,
+    "ready": 50,
     "missing_or_invalid_trifecta": 10
   },
   "source_hashes": {
@@ -12,12 +11,12 @@
     "2025_12": "d744fed3522ccce1a53b4c6feff1f84ca77ff981777e73458e4b87ced5391447",
     "2026_02": "7eec1db554762b6621e33cf0f060ac720f4074b745b4b24ab0bee27119c82a04",
     "2026_01": "770c4774275dc0747dcd3f4fd2031b5cffc3d3e180843c1663871c28b0b166da",
-    "2026_03": "4acc5f657da969a97551150b9fda76ae434e05f5f220c13dfbf4795b74747b7d",
     "2026_04": "de3ef84a741f22fc5ec7dd1faccd166a8b6c34dbbc6ae8031066f02ed4e3b4a9",
-    "2026_06": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6",
     "2026_05": "d684f2e436df8da3da29f7dd611bfe9274adba6579494eb6999d26cdc8799f36",
-    "2026_08": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb",
-    "2026_07": "fe0b4c3afc7aedd955eb8930959f76c76fd69cf375cd349544b3efaa378ff059"
+    "2026_06": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6",
+    "2026_03": "4acc5f657da969a97551150b9fda76ae434e05f5f220c13dfbf4795b74747b7d",
+    "2026_07": "fe0b4c3afc7aedd955eb8930959f76c76fd69cf375cd349544b3efaa378ff059",
+    "2026_08": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb"
   },
   "robots_checked": true,
   "no_unknown_start_time_guesses": true,
@@ -732,8 +731,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "松阪競輪レース詳細|ミツイバウ記念杯CTC杯3RA級準決勝|2025年12月06日【楽天Kドリームス】",
+      "start_time": "16:43",
+      "grade": "F1",
+      "venue": "松阪",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "舛井幹雄三",
+          "class_rank": "A1",
+          "competition_score": 88.91,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "大矢将大埼",
+          "class_rank": "A1",
+          "competition_score": 90.66,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "根本雄紀茨",
+          "class_rank": "A2",
+          "competition_score": 87.5,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "疋田力也愛",
+          "class_rank": "A1",
+          "competition_score": 89.55,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "高橋秀吉秋",
+          "class_rank": "A1",
+          "competition_score": 86.5,
+          "running_style": "追",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "東鉄也三",
+          "class_rank": "A2",
+          "competition_score": 84.11,
+          "running_style": "両",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "松坂侑亮",
+          "class_rank": "A1",
+          "competition_score": 88.05,
+          "running_style": "逃",
+          "line_position": "2-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            7,
+            1
+          ],
+          "payout": 2090
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4720251227020002",
@@ -856,8 +927,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "松阪競輪レース詳細|ミツイバウ記念杯CTC杯3RA級特選|2025年12月07日【楽天Kドリームス】",
+      "start_time": "16:37",
+      "grade": "F1",
+      "venue": "松阪",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "根本雄紀茨",
+          "class_rank": "A2",
+          "competition_score": 87.5,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "舛井幹雄三",
+          "class_rank": "A1",
+          "competition_score": 88.91,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "酒井拳蔵大",
+          "class_rank": "A1",
+          "competition_score": 91.61,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "上川直紀栃",
+          "class_rank": "A1",
+          "competition_score": 85.96,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "田中俊充福",
+          "class_rank": "A2",
+          "competition_score": 86.28,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "山崎晃石",
+          "class_rank": "A2",
+          "competition_score": 84.73,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "肥後尚己大",
+          "class_rank": "A1",
+          "competition_score": 89.34,
+          "running_style": "追",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            3,
+            7,
+            4
+          ],
+          "payout": 2570
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4820260124010012",
@@ -883,8 +1026,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "四日市競輪レース詳細|WNRCTC杯報知賞12RS級初特選|2026年01月24日【楽天Kドリームス】",
+      "start_time": "20:30",
+      "grade": "F1",
+      "venue": "四日市",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "小森貴大福",
+          "class_rank": "S1",
+          "competition_score": 107.28,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "志田龍星岐",
+          "class_rank": "S1",
+          "competition_score": 110.17,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "渡邉雅也静",
+          "class_rank": "S1",
+          "competition_score": 108.54,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "雨谷一樹栃",
+          "class_rank": "S1",
+          "competition_score": 109.92,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "小原太樹",
+          "class_rank": "S1",
+          "competition_score": 110.96,
+          "running_style": "追",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "近藤保千",
+          "class_rank": "S1",
+          "competition_score": 106.96,
+          "running_style": "追",
+          "line_position": "4-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "皿屋豊三",
+          "class_rank": "S1",
+          "competition_score": 109.62,
+          "running_style": "逃",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            7,
+            6
+          ],
+          "payout": 29230
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "3120260121030011",
@@ -910,8 +1125,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "松戸競輪レース詳細|スピードチャンネル・スカパー杯11RA級決勝|2026年01月23日【楽天Kドリームス】",
+      "start_time": "20:02",
+      "grade": "F1",
+      "venue": "松戸",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "菊地圭宮",
+          "class_rank": "A1",
+          "competition_score": 91.0,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "坂上樹大石",
+          "class_rank": "A1",
+          "competition_score": 92.96,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "吉堂将規奈",
+          "class_rank": "A1",
+          "competition_score": 88.66,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "溝口葵三",
+          "class_rank": "A1",
+          "competition_score": 92.95,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "徳丸泰教兵",
+          "class_rank": "A1",
+          "competition_score": 90.12,
+          "running_style": "追",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "村上貴彦栃",
+          "class_rank": "A2",
+          "competition_score": 72.45,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "大森光明",
+          "class_rank": "A2",
+          "competition_score": 83.9,
+          "running_style": "両",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            3,
+            5,
+            1
+          ],
+          "payout": 5380
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2420260131010002",
@@ -935,8 +1222,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "宇都宮競輪レース詳細|HPCJC杯・スカパー杯2RA級予選|2026年01月31日【楽天Kドリームス】",
+      "start_time": "11:28",
+      "grade": "F1",
+      "venue": "宇都宮",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "武田憲祐",
+          "class_rank": "A1",
+          "competition_score": 87.59,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "佐藤啓斗青",
+          "class_rank": "A2",
+          "competition_score": 80.45,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "稲村好将群",
+          "class_rank": "A1",
+          "competition_score": 90.66,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "深瀬泰我静",
+          "class_rank": "A1",
+          "competition_score": 84.95,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "古屋琢晶山",
+          "class_rank": "A1",
+          "competition_score": 87.88,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "河野要",
+          "class_rank": "A2",
+          "competition_score": 78.5,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "佐々木健司青",
+          "class_rank": "A2",
+          "competition_score": 80.62,
+          "running_style": "追",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            4,
+            6
+          ],
+          "payout": 4150
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "6220260121030002",
@@ -960,8 +1319,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "広島競輪レース詳細|サンフレッチェ広島カップ2RA級一般|2026年01月23日【楽天Kドリームス】",
+      "start_time": "11:28",
+      "grade": "F1",
+      "venue": "広島",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "田中洋輔宮",
+          "class_rank": "A1",
+          "competition_score": 88.11,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "葛西雄太郎愛",
+          "class_rank": "A2",
+          "competition_score": 80.16,
+          "running_style": "両",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "山崎敦雄静",
+          "class_rank": "A1",
+          "competition_score": 79.25,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "在本直樹岡",
+          "class_rank": "A2",
+          "competition_score": 78.84,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "寺師幸成",
+          "class_rank": "A2",
+          "competition_score": 86.41,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "佐藤正吾宮",
+          "class_rank": "A2",
+          "competition_score": 76.25,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "吉田彰久香",
+          "class_rank": "A2",
+          "competition_score": 76.58,
+          "running_style": "追",
+          "line_position": "3-3"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            5,
+            1,
+            3
+          ],
+          "payout": 1180
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "5620251231030003",
@@ -983,8 +1414,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "岸和田競輪レース詳細|ニッカン・コム杯SD賞3RA級特選|2026年01月02日【楽天Kドリームス】",
+      "start_time": "12:33",
+      "grade": "F1",
+      "venue": "岸和田",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "田川翔琉熊",
+          "class_rank": "A1",
+          "competition_score": 85.5,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "近藤誠二香",
+          "class_rank": "A1",
+          "competition_score": 94.23,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "中原航大岡",
+          "class_rank": "A1",
+          "competition_score": 91.28,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "川野正芳大",
+          "class_rank": "A2",
+          "competition_score": 86.27,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "長野和弘福",
+          "class_rank": "A2",
+          "competition_score": 84.4,
+          "running_style": "追",
+          "line_position": "1-4"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "杉山剛福",
+          "class_rank": "A2",
+          "competition_score": 82.56,
+          "running_style": "両",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "櫻井太士岡",
+          "class_rank": "A1",
+          "competition_score": 89.07,
+          "running_style": "追",
+          "line_position": "2-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            4,
+            1,
+            2
+          ],
+          "payout": 13580
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "6120260204010009",
@@ -1008,8 +1511,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "玉野競輪レース詳細|ウィンチケットミッドナイト競輪9RA級初日特選|2026年02月04日【楽天Kドリームス】",
+      "start_time": "23:30",
+      "grade": "F2",
+      "venue": "玉野",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "藤田昌宏岡",
+          "class_rank": "A1",
+          "competition_score": 98.14,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "泉慶輔宮",
+          "class_rank": "A1",
+          "competition_score": 97.69,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "原真司岐",
+          "class_rank": "A1",
+          "competition_score": 94.54,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "大崎飛雄馬愛",
+          "class_rank": "A1",
+          "competition_score": 94.52,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "松本京太静",
+          "class_rank": "A1",
+          "competition_score": 93.84,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "長松空吾大",
+          "class_rank": "A1",
+          "competition_score": 93.66,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "張野幸聖",
+          "class_rank": "A1",
+          "competition_score": 92.96,
+          "running_style": "逃",
+          "line_position": "3-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            3,
+            6
+          ],
+          "payout": 14550
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "5520260218030011",
@@ -1033,8 +1608,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "和歌山競輪レース詳細|パチンコサイトはパチ7カップ11RA級決勝|2026年02月20日【楽天Kドリームス】",
+      "start_time": "16:05",
+      "grade": "F2",
+      "venue": "和歌山",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "山田幸司",
+          "class_rank": "A1",
+          "competition_score": 93.92,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "篠原忍愛",
+          "class_rank": "A1",
+          "competition_score": 92.92,
+          "running_style": "両",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "小榑佑弥群",
+          "class_rank": "A1",
+          "competition_score": 91.52,
+          "running_style": "逃",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "吉田元輝茨",
+          "class_rank": "A2",
+          "competition_score": 83.85,
+          "running_style": "両",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "菊池竣太朗静",
+          "class_rank": "A1",
+          "competition_score": 90.71,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "平根優大福",
+          "class_rank": "A2",
+          "competition_score": 82.58,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "野中龍之介",
+          "class_rank": "A2",
+          "competition_score": 91.79,
+          "running_style": "逃",
+          "line_position": "2-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            1,
+            6
+          ],
+          "payout": 6560
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "6220260228010001",
@@ -1060,8 +1707,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "広島競輪レース詳細|グランドプリンスホテル広島杯1RA級予選|2026年02月28日【楽天Kドリームス】",
+      "start_time": "09:00",
+      "grade": "F2",
+      "venue": "広島",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "常次勇人大",
+          "class_rank": "A1",
+          "competition_score": 89.23,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "是永幸寛福",
+          "class_rank": "A2",
+          "competition_score": 86.13,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "宮内善光群",
+          "class_rank": "A1",
+          "competition_score": 86.12,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "荻野哲",
+          "class_rank": "A2",
+          "competition_score": 82.44,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "筒井裕哉兵",
+          "class_rank": "A1",
+          "competition_score": 87.3,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "河上陽一千",
+          "class_rank": "A2",
+          "competition_score": 80.87,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "緒方慎太朗熊",
+          "class_rank": "A2",
+          "competition_score": 81.83,
+          "running_style": "逃",
+          "line_position": "3-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            5,
+            3
+          ],
+          "payout": 1490
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "3120260204020009",
@@ -1087,8 +1806,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "松戸競輪レース詳細|第25回チャリロト松戸杯9RS級選抜|2026年02月05日【楽天Kドリームス】",
+      "start_time": "19:07",
+      "grade": "F1",
+      "venue": "松戸",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "安部貴之宮",
+          "class_rank": "S2",
+          "competition_score": 95.93,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "伊藤慶太郎埼",
+          "class_rank": "S2",
+          "competition_score": 99.58,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "松尾透福",
+          "class_rank": "S2",
+          "competition_score": 98.32,
+          "running_style": "追",
+          "line_position": "3-3"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "武田豊樹茨",
+          "class_rank": "S2",
+          "competition_score": 107.28,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "房州輝也福",
+          "class_rank": "S2",
+          "competition_score": 97.5,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "山崎泰己岡",
+          "class_rank": "S2",
+          "competition_score": 92.75,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "坂本健太郎福",
+          "class_rank": "S1",
+          "competition_score": 99.4,
+          "running_style": "両",
+          "line_position": "4-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            6,
+            4
+          ],
+          "payout": 20010
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2720260203030004",
@@ -1114,8 +1905,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "京王閣競輪レース詳細|真備&京王電鉄&L新橋&日刊杯4RA級特選|2026年02月05日【楽天Kドリームス】",
+      "start_time": "12:17",
+      "grade": "F1",
+      "venue": "京王閣",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "川口聖翔三",
+          "class_rank": "A2",
+          "competition_score": 80.25,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "佐々木省司青",
+          "class_rank": "A1",
+          "competition_score": 94.03,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "小山峻汰熊",
+          "class_rank": "A2",
+          "competition_score": 81.0,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "角田光福",
+          "class_rank": "A2",
+          "competition_score": 91.46,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "荒木伸哉静",
+          "class_rank": "A1",
+          "competition_score": 84.54,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "山田哲也愛",
+          "class_rank": "A2",
+          "competition_score": 79.59,
+          "running_style": "追",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "立花成泰岡",
+          "class_rank": "A1",
+          "competition_score": 87.66,
+          "running_style": "追",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            4,
+            2,
+            5
+          ],
+          "payout": 330
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2220260320010012",
@@ -1141,8 +2004,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "前橋競輪レース詳細|日本トーターグリーンドームC12RS級初特選|2026年03月20日【楽天Kドリームス】",
+      "start_time": "20:30",
+      "grade": "F1",
+      "venue": "前橋",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "木村皆斗茨",
+          "class_rank": "S1",
+          "competition_score": 105.92,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "脇本勇希福",
+          "class_rank": "S1",
+          "competition_score": 105.71,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "三宅達也岡",
+          "class_rank": "S1",
+          "competition_score": 104.41,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "須永優太福",
+          "class_rank": "S1",
+          "competition_score": 107.94,
+          "running_style": "追",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "守澤太志秋",
+          "class_rank": "S1",
+          "competition_score": 111.6,
+          "running_style": "追",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "兼本将太熊",
+          "class_rank": "S1",
+          "competition_score": 104.36,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "恩田淳平群",
+          "class_rank": "S1",
+          "competition_score": 107.96,
+          "running_style": "追",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            7,
+            5
+          ],
+          "payout": 1620
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4220260317030012",
@@ -1170,8 +2105,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "名古屋競輪レース詳細|日刊スポーツ杯・Betimo杯12RS級決勝|2026年03月19日【楽天Kドリームス】",
+      "start_time": "20:30",
+      "grade": "F1",
+      "venue": "名古屋",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "谷内健太京",
+          "class_rank": "S2",
+          "competition_score": 107.06,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "和田圭宮",
+          "class_rank": "S1",
+          "competition_score": 108.96,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "安彦統賀埼",
+          "class_rank": "S2",
+          "competition_score": 102.5,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "片岡迪之岡",
+          "class_rank": "S1",
+          "competition_score": 105.72,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "山田久徳京",
+          "class_rank": "S1",
+          "competition_score": 109.85,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "纐纈洸翔愛",
+          "class_rank": "S1",
+          "competition_score": 102.29,
+          "running_style": "両",
+          "line_position": "5-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "岡田征陽東",
+          "class_rank": "S2",
+          "competition_score": 104.9,
+          "running_style": "追",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            5,
+            3,
+            1
+          ],
+          "payout": 12820
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "8320260307010006",
@@ -1195,8 +2202,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "久留米競輪レース詳細|楽天ケイドリームス杯6RA級特予選|2026年03月07日【楽天Kドリームス】",
+      "start_time": "22:20",
+      "grade": "F2",
+      "venue": "久留米",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "梶原大地福",
+          "class_rank": "A2",
+          "competition_score": 87.55,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "寺崎祐樹熊",
+          "class_rank": "A1",
+          "competition_score": 85.53,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "中村泰輔",
+          "class_rank": "A2",
+          "competition_score": 85.04,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "藤井稜也岐",
+          "class_rank": "A2",
+          "competition_score": 83.55,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "在本直樹岡",
+          "class_rank": "A2",
+          "competition_score": 83.33,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "吉田彰久香",
+          "class_rank": "A2",
+          "competition_score": 80.31,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "阪本正和長",
+          "class_rank": "A2",
+          "competition_score": 78.53,
+          "running_style": "追",
+          "line_position": "1-3"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            1,
+            5
+          ],
+          "payout": 1640
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "3620260308020008",
@@ -1222,8 +2301,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "小田原競輪レース詳細|JSフードシステムカップ争奪戦8RS級選抜|2026年03月09日【楽天Kドリームス】",
+      "start_time": "14:12",
+      "grade": "F1",
+      "venue": "小田原",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "遠藤拓巳香",
+          "class_rank": "S2",
+          "competition_score": 101.06,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "板垣昴",
+          "class_rank": "S2",
+          "competition_score": 100.8,
+          "running_style": "逃",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "鈴木薫東",
+          "class_rank": "S2",
+          "competition_score": 100.13,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "坂本紘規青",
+          "class_rank": "S2",
+          "competition_score": 96.21,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "成松春樹佐",
+          "class_rank": "S2",
+          "competition_score": 95.48,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "丸山貴秀秋",
+          "class_rank": "S2",
+          "competition_score": 94.38,
+          "running_style": "追",
+          "line_position": "3-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "稲吉悠大福",
+          "class_rank": "S2",
+          "competition_score": 100.32,
+          "running_style": "追",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            3,
+            7
+          ],
+          "payout": 3670
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4420260325030008",
@@ -1247,8 +2398,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "大垣競輪レース詳細|第12回名輪会ヤマコウカップ8RS級特選|2026年03月27日【楽天Kドリームス】",
+      "start_time": "14:12",
+      "grade": "F1",
+      "venue": "大垣",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "藤根俊貴岩",
+          "class_rank": "S2",
+          "competition_score": 97.58,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "長尾拳太岐",
+          "class_rank": "S1",
+          "competition_score": 101.68,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "伊藤慶太郎埼",
+          "class_rank": "S2",
+          "competition_score": 99.15,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "長谷部龍一岐",
+          "class_rank": "S2",
+          "competition_score": 101.86,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "志村太賀山",
+          "class_rank": "S2",
+          "competition_score": 103.26,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "金成和幸福",
+          "class_rank": "S2",
+          "competition_score": 95.37,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "大森慶一",
+          "class_rank": "S1",
+          "competition_score": 101.68,
+          "running_style": "追",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            1,
+            6
+          ],
+          "payout": 1840
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4720260404010007",
@@ -1274,8 +2497,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "松阪競輪レース詳細|前検日コメならウィンチケット杯7RA級初日特選|2026年04月04日【楽天Kドリームス】",
+      "start_time": "23:12",
+      "grade": "F2",
+      "venue": "松阪",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "真鍋顕汰三",
+          "class_rank": "A1",
+          "competition_score": 95.23,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "今藤康裕岐",
+          "class_rank": "A1",
+          "competition_score": 94.71,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "稲毛知也",
+          "class_rank": "A1",
+          "competition_score": 93.33,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "吉田勇人埼",
+          "class_rank": "A1",
+          "competition_score": 93.23,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "佐々木省司青",
+          "class_rank": "A1",
+          "competition_score": 91.8,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "高間悠平福",
+          "class_rank": "A1",
+          "competition_score": 91.52,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "飯田辰哉千",
+          "class_rank": "A1",
+          "competition_score": 90.14,
+          "running_style": "追",
+          "line_position": "4-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            4,
+            1
+          ],
+          "payout": 1150
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "3720260413030011",
@@ -1301,8 +2596,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "伊東競輪レース詳細|広告は静岡テレビセンター杯11R決勝|2026年04月15日【楽天Kドリームス】",
+      "start_time": "20:15",
+      "grade": "F2",
+      "venue": "伊東",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "西岡利起奈",
+          "class_rank": "A2",
+          "competition_score": 91.57,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "林昴福",
+          "class_rank": "A1",
+          "competition_score": 87.3,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "渡辺正光福",
+          "class_rank": "A1",
+          "competition_score": 91.9,
+          "running_style": "追",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "張野幸聖",
+          "class_rank": "A1",
+          "competition_score": 93.51,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "角田光福",
+          "class_rank": "A2",
+          "competition_score": 92.27,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "小原将通大",
+          "class_rank": "A1",
+          "competition_score": 87.0,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "篠原忍愛",
+          "class_rank": "A1",
+          "competition_score": 92.0,
+          "running_style": "両",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            7,
+            1
+          ],
+          "payout": 14110
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "3720260428010002",
@@ -1326,8 +2693,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "伊東競輪レース詳細|けいりんLOVEらぶりん杯2Rチャレンジ予選|2026年04月28日【楽天Kドリームス】",
+      "start_time": "21:00",
+      "grade": "F2",
+      "venue": "伊東",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "白濱一平長",
+          "class_rank": "A3",
+          "competition_score": 74.57,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "中秀平",
+          "class_rank": "A3",
+          "competition_score": 73.96,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "住村実徳",
+          "class_rank": "A3",
+          "competition_score": 70.33,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "植田誠静",
+          "class_rank": "A3",
+          "competition_score": 67.42,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "伊藤司福",
+          "class_rank": "A3",
+          "competition_score": 66.41,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "取鳥敬一岡",
+          "class_rank": "A3",
+          "competition_score": 65.76,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "関戸努宮",
+          "class_rank": "A3",
+          "competition_score": 65.54,
+          "running_style": "追",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            2,
+            4
+          ],
+          "payout": 1050
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "8320260410020006",
@@ -1351,8 +2790,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "久留米競輪レース詳細|CTC3分前杯×HPCJC6RS級一般|2026年04月11日【楽天Kドリームス】",
+      "start_time": "17:54",
+      "grade": "F1",
+      "venue": "久留米",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "中村健志熊",
+          "class_rank": "S2",
+          "competition_score": 96.4,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "山本恵介福",
+          "class_rank": "S2",
+          "competition_score": 92.84,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "和田誠寿広",
+          "class_rank": "S2",
+          "competition_score": 92.38,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "那須久幸福",
+          "class_rank": "S2",
+          "competition_score": 92.23,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "薦田将伍愛",
+          "class_rank": "S2",
+          "competition_score": 96.6,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "上遠野拓馬宮",
+          "class_rank": "S2",
+          "competition_score": 90.7,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "兼本将太熊",
+          "class_rank": "S1",
+          "competition_score": 100.85,
+          "running_style": "逃",
+          "line_position": "1-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            5,
+            7,
+            3
+          ],
+          "payout": 8280
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "8720260426030009",
@@ -1376,8 +2887,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "熊本競輪レース詳細|トータリゼータ熊本杯9RS級特選|2026年04月28日【楽天Kドリームス】",
+      "start_time": "14:34",
+      "grade": "F1",
+      "venue": "熊本",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "久田裕也徳",
+          "class_rank": "S1",
+          "competition_score": 98.13,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "佐藤幸治長",
+          "class_rank": "S2",
+          "competition_score": 105.69,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "窪木一茂福",
+          "class_rank": "S2",
+          "competition_score": 105.5,
+          "running_style": "両",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "坂田康季佐",
+          "class_rank": "S2",
+          "competition_score": 99.44,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "高橋晋也福",
+          "class_rank": "S1",
+          "competition_score": 100.91,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "今野大輔岡",
+          "class_rank": "S2",
+          "competition_score": 95.12,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "橋本智昭宮",
+          "class_rank": "S2",
+          "competition_score": 97.6,
+          "running_style": "逃",
+          "line_position": "3-3"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            3,
+            1
+          ],
+          "payout": 3040
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "8320260517010011",
@@ -1403,8 +2986,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "久留米競輪レース詳細|楽天ケイドリームス杯11RA級初日特選|2026年05月17日【楽天Kドリームス】",
+      "start_time": "20:14",
+      "grade": "F2",
+      "venue": "久留米",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "水谷良和愛",
+          "class_rank": "A1",
+          "competition_score": 90.26,
+          "running_style": "追",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "曽我圭佑熊",
+          "class_rank": "A1",
+          "competition_score": 92.0,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "三ツ石康洋徳",
+          "class_rank": "A1",
+          "competition_score": 90.68,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "常次勇人大",
+          "class_rank": "A1",
+          "competition_score": 89.83,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "保田浩輔岡",
+          "class_rank": "A1",
+          "competition_score": 93.29,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "筒井裕哉兵",
+          "class_rank": "A1",
+          "competition_score": 89.59,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "名川豊福",
+          "class_rank": "A1",
+          "competition_score": 89.7,
+          "running_style": "追",
+          "line_position": "4-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            5,
+            3,
+            6
+          ],
+          "payout": 2090
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "7520260520030012",
@@ -1452,8 +3107,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "防府競輪レース詳細|ミコーミートギャラリーカップ3RA級準決勝|2026年05月02日【楽天Kドリームス】",
+      "start_time": "09:20",
+      "grade": "F2",
+      "venue": "防府",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "中野雄喜京",
+          "class_rank": "A1",
+          "competition_score": 90.14,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "好永晃佐",
+          "class_rank": "A1",
+          "competition_score": 86.16,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "林昴福",
+          "class_rank": "A1",
+          "competition_score": 88.92,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "楢原由将福",
+          "class_rank": "A2",
+          "competition_score": 82.89,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "松本憲斗熊",
+          "class_rank": "A1",
+          "competition_score": 93.73,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "仲松勝太沖",
+          "class_rank": "A2",
+          "competition_score": 81.94,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "舛井幹雄三",
+          "class_rank": "A1",
+          "competition_score": 91.0,
+          "running_style": "追",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            7,
+            6
+          ],
+          "payout": 34380
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "7420260518020002",
@@ -1555,8 +3282,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "高知競輪レース詳細|オッズパーク杯9RA級決勝|2026年06月20日【楽天Kドリームス】",
+      "start_time": "23:20",
+      "grade": "F2",
+      "venue": "高知",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "尾野翔一福",
+          "class_rank": "A2",
+          "competition_score": 94.4,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "塩崎隼秀愛",
+          "class_rank": "A1",
+          "competition_score": 92.81,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "曽我圭佑熊",
+          "class_rank": "A1",
+          "competition_score": 91.83,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "八谷誠賢福",
+          "class_rank": "A1",
+          "competition_score": 91.45,
+          "running_style": "逃",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "溪飛雄馬愛",
+          "class_rank": "A1",
+          "competition_score": 91.31,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "高井流星岡",
+          "class_rank": "A1",
+          "competition_score": 90.44,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "吉本哲郎広",
+          "class_rank": "A1",
+          "competition_score": 89.8,
+          "running_style": "両",
+          "line_position": "4-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            6,
+            7
+          ],
+          "payout": 7200
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4720260615010008",
@@ -1680,8 +3479,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "伊東競輪レース詳細|競輪ワールドシリーズ12RS級決勝|2026年07月12日【楽天Kドリームス】",
+      "start_time": "20:30",
+      "grade": "F1",
+      "venue": "伊東",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "深谷知広静",
+          "class_rank": "S1",
+          "competition_score": 115.25,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "太田海也岡",
+          "class_rank": "S1",
+          "competition_score": 118.33,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "田中誠福",
+          "class_rank": "S1",
+          "competition_score": 104.16,
+          "running_style": "追",
+          "line_position": "2-4"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "久米良徳",
+          "class_rank": "S1",
+          "competition_score": 107.15,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "岡村潤静",
+          "class_rank": "S1",
+          "competition_score": 105.03,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "リチャードソン外",
+          "class_rank": "S2",
+          "competition_score": 102.83,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "松浦悠士広",
+          "class_rank": "S1",
+          "competition_score": 116.32,
+          "running_style": "両",
+          "line_position": "2-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            7,
+            6
+          ],
+          "payout": 4540
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4720260716020010",
@@ -1707,8 +3578,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "松阪競輪レース詳細|大正GあいあいカップWT杯10RS級準決勝|2026年07月17日【楽天Kドリームス】",
+      "start_time": "14:52",
+      "grade": "F1",
+      "venue": "松阪",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "伏見俊昭福",
+          "class_rank": "S1",
+          "competition_score": 106.58,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "高久保雄介京",
+          "class_rank": "S2",
+          "competition_score": 105.0,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "緒方将樹熊",
+          "class_rank": "S1",
+          "competition_score": 100.86,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "染谷幸喜千",
+          "class_rank": "S2",
+          "competition_score": 99.86,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "磯島成介青",
+          "class_rank": "S2",
+          "competition_score": 101.4,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "西村行貴東",
+          "class_rank": "S2",
+          "competition_score": 91.54,
+          "running_style": "追",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "久島尚樹宮",
+          "class_rank": "S2",
+          "competition_score": 105.64,
+          "running_style": "両",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            1,
+            2
+          ],
+          "payout": 5630
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "5620260713020007",
@@ -1732,8 +3675,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "岸和田競輪レース詳細|けいりんラブ・ラブリン杯7RA級特一般|2026年07月14日【楽天Kドリームス】",
+      "start_time": "13:43",
+      "grade": "F2",
+      "venue": "岸和田",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "水書義弘千",
+          "class_rank": "A2",
+          "competition_score": 82.52,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "枠元一葵福",
+          "class_rank": "A2",
+          "competition_score": 82.83,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "島野浩司愛",
+          "class_rank": "A1",
+          "competition_score": 87.88,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "瀧野勝太群",
+          "class_rank": "A2",
+          "competition_score": 83.48,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "八嶋稔真",
+          "class_rank": "A1",
+          "competition_score": 84.76,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "鈴木裕斗宮",
+          "class_rank": "A2",
+          "competition_score": 67.53,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "渡会啓介愛",
+          "class_rank": "A2",
+          "competition_score": 83.51,
+          "running_style": "追",
+          "line_position": "3-3"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            5,
+            3,
+            7
+          ],
+          "payout": 2910
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2720260719030007",
@@ -1757,8 +3772,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "京王閣競輪レース詳細|前検日コメならウィンチケット杯7RA級特選|2026年07月21日【楽天Kドリームス】",
+      "start_time": "22:50",
+      "grade": "F2",
+      "venue": "京王閣",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "宮越孝治富",
+          "class_rank": "A1",
+          "competition_score": 94.42,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "石田拓真愛",
+          "class_rank": "A1",
+          "competition_score": 91.22,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "成田直喜青",
+          "class_rank": "A1",
+          "competition_score": 89.77,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "伊藤奎福",
+          "class_rank": "A1",
+          "competition_score": 86.7,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "大森光明",
+          "class_rank": "A2",
+          "competition_score": 85.29,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "遠藤勝弥静",
+          "class_rank": "A1",
+          "competition_score": 85.08,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "須藤誠千",
+          "class_rank": "A2",
+          "competition_score": 83.7,
+          "running_style": "追",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            2,
+            1,
+            6
+          ],
+          "payout": 1610
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4420260817010005",
@@ -1786,8 +3873,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "大垣競輪レース詳細|デイリースポーツ杯5RA級初日特選|2026年08月17日【楽天Kドリームス】",
+      "start_time": "12:37",
+      "grade": "F1",
+      "venue": "大垣",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "川口満宏東",
+          "class_rank": "A1",
+          "competition_score": 93.53,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "吉田茂生岐",
+          "class_rank": "A1",
+          "competition_score": 94.5,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "佐伯亮輔岡",
+          "class_rank": "A1",
+          "competition_score": 97.17,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "白上翔滋",
+          "class_rank": "A1",
+          "competition_score": 93.33,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "比佐宝太福",
+          "class_rank": "A1",
+          "competition_score": 92.25,
+          "running_style": "逃",
+          "line_position": "5-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "志田愛希飛富",
+          "class_rank": "A1",
+          "competition_score": 91.93,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "坪内恒千",
+          "class_rank": "A1",
+          "competition_score": 92.55,
+          "running_style": "逃",
+          "line_position": "1-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            3,
+            2,
+            4
+          ],
+          "payout": 1790
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2820260808030012",
@@ -1813,8 +3972,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "立川競輪レース詳細|スポーツニッポン杯12RS級決勝|2026年08月10日【楽天Kドリームス】",
+      "start_time": "16:09",
+      "grade": "F1",
+      "venue": "立川",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "大矢崇弘東",
+          "class_rank": "S1",
+          "competition_score": 105.82,
+          "running_style": "追",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "佐々木雄一福",
+          "class_rank": "S1",
+          "competition_score": 106.65,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "福島武士香",
+          "class_rank": "S1",
+          "competition_score": 99.92,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "藤井昭吾滋",
+          "class_rank": "S1",
+          "competition_score": 101.3,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "大屋健司広",
+          "class_rank": "S2",
+          "competition_score": 102.7,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "林昌幸愛",
+          "class_rank": "S2",
+          "competition_score": 99.04,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "小原丈一郎青",
+          "class_rank": "S2",
+          "competition_score": 103.4,
+          "running_style": "両",
+          "line_position": "1-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            3,
+            6,
+            5
+          ],
+          "payout": 2710
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2820260817010002",
@@ -1838,8 +4069,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "立川競輪レース詳細|デイリースポーツ杯2Rチャレンジ予選|2026年08月17日【楽天Kドリームス】",
+      "start_time": "11:26",
+      "grade": "F2",
+      "venue": "立川",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "渡邉拓栃",
+          "class_rank": "A3",
+          "competition_score": 77.55,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "榊枝輝文福",
+          "class_rank": "A3",
+          "competition_score": 70.9,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "藤田晃英千",
+          "class_rank": "A3",
+          "competition_score": 67.29,
+          "running_style": "追",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "清水健次東",
+          "class_rank": "A3",
+          "competition_score": 67.11,
+          "running_style": "逃",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "関戸努宮",
+          "class_rank": "A3",
+          "competition_score": 67.57,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "高瀬卓埼",
+          "class_rank": "A3",
+          "competition_score": 64.33,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "山田祐太福",
+          "class_rank": "A3",
+          "competition_score": 74.96,
+          "running_style": "逃",
+          "line_position": "2-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            4,
+            1,
+            7
+          ],
+          "payout": 4570
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "5320260814030005",
@@ -1863,8 +4166,80 @@
         ]
       ],
       "source_selection": "stratified_stage_50",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "奈良競輪レース詳細|KEIRINライジングスターズ5RS級一般|2026年08月16日【楽天Kドリームス】",
+      "start_time": "12:24",
+      "grade": "F1",
+      "venue": "奈良",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "相川永伍埼",
+          "class_rank": "S2",
+          "competition_score": 95.46,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "伊東佑晟三",
+          "class_rank": "S2",
+          "competition_score": 91.64,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "山田駿斗千",
+          "class_rank": "S2",
+          "competition_score": 102.65,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "笹倉慎也富",
+          "class_rank": "S2",
+          "competition_score": 96.2,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "武藤篤弘埼",
+          "class_rank": "S2",
+          "competition_score": 97.58,
+          "running_style": "追",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "徳丸泰教兵",
+          "class_rank": "S2",
+          "competition_score": 91.5,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "小島歩",
+          "class_rank": "S2",
+          "competition_score": 100.03,
+          "running_style": "追",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            3,
+            5
+          ],
+          "payout": 23160
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4220260804030004",
@@ -2039,8 +4414,96 @@
         ]
       ],
       "source_selection": "yearly_9car_10",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "佐世保競輪レース詳細|九十九島賞争奪戦10RS級準決勝|2025年12月06日【楽天Kドリームス】",
+      "start_time": "15:08",
+      "grade": "G3",
+      "venue": "佐世保",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "清水裕友山",
+          "class_rank": "SS",
+          "competition_score": 113.68,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "村上博幸京",
+          "class_rank": "S1",
+          "competition_score": 112.81,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "大槻寛徳宮",
+          "class_rank": "S1",
+          "competition_score": 108.14,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "岡崎智哉大",
+          "class_rank": "S1",
+          "competition_score": 108.07,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "北津留翼福",
+          "class_rank": "S1",
+          "competition_score": 110.03,
+          "running_style": "逃",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "梅崎隆介長",
+          "class_rank": "S2",
+          "competition_score": 98.75,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "松本貴治愛",
+          "class_rank": "S1",
+          "competition_score": 115.04,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "角令央奈福",
+          "class_rank": "S2",
+          "competition_score": 101.46,
+          "running_style": "両",
+          "line_position": "4-3"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "坂井洋栃",
+          "class_rank": "S1",
+          "competition_score": 108.73,
+          "running_style": "両",
+          "line_position": "2-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            5,
+            8,
+            9
+          ],
+          "payout": 5190
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2520260115010002",
@@ -2068,8 +4531,96 @@
         ]
       ],
       "source_selection": "yearly_9car_10",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "大宮競輪レース詳細|東日本発祥倉茂記念杯2RS級一予選|2026年01月15日【楽天Kドリームス】",
+      "start_time": "11:27",
+      "grade": "G3",
+      "venue": "大宮",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "纐纈洸翔愛",
+          "class_rank": "S1",
+          "competition_score": 105.5,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "櫻井正孝宮",
+          "class_rank": "S1",
+          "competition_score": 102.78,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "鈴木薫東",
+          "class_rank": "S2",
+          "competition_score": 101.63,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "久木原洋埼",
+          "class_rank": "S1",
+          "competition_score": 96.0,
+          "running_style": "両",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "橋本宇宙佐",
+          "class_rank": "S2",
+          "competition_score": 98.52,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "江連和洋栃",
+          "class_rank": "S2",
+          "competition_score": 89.13,
+          "running_style": "追",
+          "line_position": "3-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "笠松信幸愛",
+          "class_rank": "S1",
+          "competition_score": 104.93,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "鈴木涼介福",
+          "class_rank": "S2",
+          "competition_score": 93.48,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "坂本健太郎福",
+          "class_rank": "S1",
+          "competition_score": 99.32,
+          "running_style": "両",
+          "line_position": "4-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            2,
+            9
+          ],
+          "payout": 18520
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "3820260212010006",
@@ -2099,8 +4650,96 @@
         ]
       ],
       "source_selection": "yearly_9car_10",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "静岡競輪レース詳細|たちあおい賞争奪戦6RS級一予選|2026年02月12日【楽天Kドリームス】",
+      "start_time": "13:22",
+      "grade": "G3",
+      "venue": "静岡",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "村田祐樹富",
+          "class_rank": "S1",
+          "competition_score": 100.12,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "堀江省吾長",
+          "class_rank": "S2",
+          "competition_score": 104.95,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "橋本宇宙佐",
+          "class_rank": "S2",
+          "competition_score": 98.04,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "隅田洋介岡",
+          "class_rank": "S1",
+          "competition_score": 96.12,
+          "running_style": "両",
+          "line_position": "5-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "佐藤礼文茨",
+          "class_rank": "S1",
+          "competition_score": 108.22,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "森本桂太郎愛",
+          "class_rank": "S2",
+          "competition_score": 91.36,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "柴崎淳三",
+          "class_rank": "S1",
+          "competition_score": 104.56,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "尾崎剛埼",
+          "class_rank": "S2",
+          "competition_score": 93.58,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "松尾透福",
+          "class_rank": "S2",
+          "competition_score": 98.14,
+          "running_style": "追",
+          "line_position": "3-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            5,
+            1
+          ],
+          "payout": 5700
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2320260312030009",
@@ -2128,8 +4767,96 @@
         ]
       ],
       "source_selection": "yearly_9car_10",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "取手競輪レース詳細|ワールドサイクリスト支援競輪9RS級特選|2026年03月14日【楽天Kドリームス】",
+      "start_time": "14:18",
+      "grade": "G3",
+      "venue": "取手",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "嵯峨昇喜郎青",
+          "class_rank": "S1",
+          "competition_score": 105.17,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "柴崎淳三",
+          "class_rank": "S1",
+          "competition_score": 104.3,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "池田良広",
+          "class_rank": "S2",
+          "competition_score": 102.75,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "望月湧世静",
+          "class_rank": "S2",
+          "competition_score": 95.93,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "島川将貴徳",
+          "class_rank": "S1",
+          "competition_score": 99.52,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "原田翔真",
+          "class_rank": "S2",
+          "competition_score": 93.55,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "松永将茨",
+          "class_rank": "S2",
+          "competition_score": 98.37,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "加賀山淳千",
+          "class_rank": "S2",
+          "competition_score": 95.11,
+          "running_style": "逃",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "伊東翔貴福",
+          "class_rank": "S2",
+          "competition_score": 98.82,
+          "running_style": "逃",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            9,
+            1,
+            7
+          ],
+          "payout": 1410
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "4220260423030012",
@@ -2159,8 +4886,96 @@
         ]
       ],
       "source_selection": "yearly_9car_10",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "名古屋競輪レース詳細|アジア・アジアパラ大会協賛競輪12RS級準決勝|2026年04月25日【楽天Kドリームス】",
+      "start_time": "15:30",
+      "grade": "G3",
+      "venue": "名古屋",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "纐纈洸翔愛",
+          "class_rank": "S1",
+          "competition_score": 103.32,
+          "running_style": "両",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "木村皆斗茨",
+          "class_rank": "S1",
+          "competition_score": 107.84,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "櫻井正孝宮",
+          "class_rank": "S1",
+          "competition_score": 103.59,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "大石崇晴大",
+          "class_rank": "S2",
+          "competition_score": 99.86,
+          "running_style": "両",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "山岸佳太茨",
+          "class_rank": "S1",
+          "competition_score": 106.2,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "北井佑季",
+          "class_rank": "S2",
+          "competition_score": 97.95,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "遠藤拓巳香",
+          "class_rank": "S2",
+          "competition_score": 100.78,
+          "running_style": "逃",
+          "line_position": "5-1"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "朝倉佳弘東",
+          "class_rank": "S1",
+          "competition_score": 99.17,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "坂口晃輔三",
+          "class_rank": "S1",
+          "competition_score": 104.96,
+          "running_style": "追",
+          "line_position": "2-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            6,
+            1,
+            9
+          ],
+          "payout": 8890
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "8420260523010008",
@@ -2186,8 +5001,96 @@
         ]
       ],
       "source_selection": "yearly_9car_10",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "武雄競輪レース詳細|全プロ記念競輪in武雄8RS級特選|2026年05月23日【楽天Kドリームス】",
+      "start_time": "13:59",
+      "grade": "F2",
+      "venue": "武雄",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "佐々木悠葵群",
+          "class_rank": "S1",
+          "competition_score": 111.88,
+          "running_style": "両",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "町田太我広",
+          "class_rank": "S1",
+          "competition_score": 112.73,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "佐々木龍",
+          "class_rank": "S1",
+          "competition_score": 111.92,
+          "running_style": "追",
+          "line_position": "3-3"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "和田圭宮",
+          "class_rank": "S1",
+          "competition_score": 109.8,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "園田匠福",
+          "class_rank": "S1",
+          "competition_score": 111.09,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "簗田一輝静",
+          "class_rank": "S1",
+          "competition_score": 109.28,
+          "running_style": "両",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "阿部力也宮",
+          "class_rank": "S1",
+          "competition_score": 112.0,
+          "running_style": "追",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "小川勇介福",
+          "class_rank": "S1",
+          "competition_score": 109.38,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "岩本俊介千",
+          "class_rank": "S1",
+          "competition_score": 110.66,
+          "running_style": "両",
+          "line_position": "3-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            7,
+            4,
+            1
+          ],
+          "payout": 4330
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "2320260627010001",
@@ -2213,8 +5116,96 @@
         ]
       ],
       "source_selection": "yearly_9car_10",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "取手競輪レース詳細|水戸黄門賞1RS級一予選|2026年06月27日【楽天Kドリームス】",
+      "start_time": "10:58",
+      "grade": "G3",
+      "venue": "取手",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "丸山留依静",
+          "class_rank": "S2",
+          "competition_score": 103.87,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "上野優太熊",
+          "class_rank": "S1",
+          "competition_score": 108.84,
+          "running_style": "追",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "松岡篤哉岐",
+          "class_rank": "S2",
+          "competition_score": 101.9,
+          "running_style": "両",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "西岡正一",
+          "class_rank": "S2",
+          "competition_score": 97.73,
+          "running_style": "追",
+          "line_position": "3-3"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "松本秀之介熊",
+          "class_rank": "S1",
+          "competition_score": 105.7,
+          "running_style": "逃",
+          "line_position": "2-1"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "出澤拓也",
+          "class_rank": "S2",
+          "competition_score": 94.68,
+          "running_style": "追",
+          "line_position": "1-3"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "神田紘輔大",
+          "class_rank": "S1",
+          "competition_score": 106.39,
+          "running_style": "追",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "松尾透福",
+          "class_rank": "S2",
+          "competition_score": 97.43,
+          "running_style": "追",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "齊藤竜也",
+          "class_rank": "S2",
+          "competition_score": 99.87,
+          "running_style": "追",
+          "line_position": "1-2"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            5,
+            2,
+            1
+          ],
+          "payout": 1950
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "7420260717030004",
@@ -2242,8 +5233,96 @@
         ]
       ],
       "source_selection": "yearly_9car_10",
-      "status": "source_metadata_invalid",
-      "why": "Race date mismatch against source title"
+      "status": "ready",
+      "published_round": "高知競輪レース詳細|サマーナイトフェスティバル4R選抜|2026年07月19日【楽天Kドリームス】",
+      "start_time": "16:33",
+      "grade": "G2",
+      "venue": "高知",
+      "entries": [
+        {
+          "car_number": 1,
+          "rider_full_name": "岩井芯岐",
+          "class_rank": "S2",
+          "competition_score": 107.35,
+          "running_style": "逃",
+          "line_position": "1-1"
+        },
+        {
+          "car_number": 2,
+          "rider_full_name": "高橋築東",
+          "class_rank": "S1",
+          "competition_score": 109.23,
+          "running_style": "両",
+          "line_position": "2-2"
+        },
+        {
+          "car_number": 3,
+          "rider_full_name": "取鳥雄吾岡",
+          "class_rank": "S1",
+          "competition_score": 113.2,
+          "running_style": "逃",
+          "line_position": "3-1"
+        },
+        {
+          "car_number": 4,
+          "rider_full_name": "小原佑太青",
+          "class_rank": "S1",
+          "competition_score": 106.45,
+          "running_style": "逃",
+          "line_position": "4-1"
+        },
+        {
+          "car_number": 5,
+          "rider_full_name": "長島大介栃",
+          "class_rank": "S1",
+          "competition_score": 108.57,
+          "running_style": "両",
+          "line_position": "2-3"
+        },
+        {
+          "car_number": 6,
+          "rider_full_name": "長尾拳太岐",
+          "class_rank": "S2",
+          "competition_score": 104.86,
+          "running_style": "両",
+          "line_position": "1-2"
+        },
+        {
+          "car_number": 7,
+          "rider_full_name": "成田和也福",
+          "class_rank": "S1",
+          "competition_score": 112.77,
+          "running_style": "追",
+          "line_position": "4-2"
+        },
+        {
+          "car_number": 8,
+          "rider_full_name": "片岡迪之岡",
+          "class_rank": "S1",
+          "competition_score": 105.61,
+          "running_style": "両",
+          "line_position": "3-2"
+        },
+        {
+          "car_number": 9,
+          "rider_full_name": "菊池岳仁長",
+          "class_rank": "S1",
+          "competition_score": 108.95,
+          "running_style": "逃",
+          "line_position": "2-1"
+        }
+      ],
+      "result_combos": [
+        {
+          "combo": [
+            1,
+            6,
+            3
+          ],
+          "payout": 10180
+        }
+      ],
+      "input_provenance": "K-Dreams provider lineup, exact start time and page label plus Kenseimk historical rider class/score/style."
     },
     {
       "race_id": "3620260801040009",
