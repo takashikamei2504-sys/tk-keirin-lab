@@ -1,0 +1,30 @@
+name: Probe year-round historical race data source
+on:
+  push:
+    branches: ['research/year-race-type-audit-20261116']
+    paths:
+      - 'scripts/year-race-type-probe.py'
+      - '.github/workflows/year-race-type-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect historical CSV field compatibility and coverage
+        run: |
+          mkdir -p reports/year-race-type
+          python scripts/year-race-type-probe.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: year-race-type-source-probe
+          path: reports/year-race-type/probe.json
+          if-no-files-found: warn
+          retention-days: 30
