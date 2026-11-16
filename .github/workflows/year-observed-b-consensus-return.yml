@@ -1,0 +1,51 @@
+name: Observed B consensus and trifecta ROI 84-race retrospective
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-observed-b-consensus-return.py
+      - .github/workflows/year-observed-b-consensus-return.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: tk-observed-b-consensus-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - name: Verify Python and cross-check 84 B marks and payouts
+        run: |
+          python3 -m py_compile scripts/year-finalday-line-topology-audit.py
+          python3 -m py_compile scripts/year-finalday-b-line-scenario.py
+          python3 -m py_compile scripts/year-observed-b-consensus-return.py
+          python3 scripts/year-observed-b-consensus-return.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: observed-b-consensus-84r-retrospective
+          path: |
+            reports/year-race-type/observed-b-consensus-84r-replay-audit.json
+            reports/year-race-type/observed-b-consensus-84r-replay-audit-ja.md
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only audited research output
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/observed-b-consensus-84r-replay-audit.json reports/year-race-type/observed-b-consensus-84r-replay-audit-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Audit two-day observed B consensus and same-card trifecta payoffs'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
