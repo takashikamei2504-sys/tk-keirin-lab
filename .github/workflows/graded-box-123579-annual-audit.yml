@@ -1,0 +1,45 @@
+name: Graded 123579 BOX annual historical ROI audit
+on:
+  push:
+    branches: ['research/graded-box-123579-one-year-20261117']
+    paths:
+      - scripts/grade-123579-annual-audit.py
+      - .github/workflows/graded-box-123579-annual-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: graded-123579-annual-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  annual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install HTML schedule parser
+        run: pip install beautifulsoup4 -q
+      - name: Verify and calculate 365-day GIII/GII/GI/GP 123579 trifecta boxes
+        run: |
+          python3 -m py_compile scripts/grade-123579-annual-audit.py
+          python3 scripts/grade-123579-annual-audit.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grade-123579-annual-20261117
+          path: |
+            reports/year-race-type/grade-123579-one-year-20261117.json
+            reports/year-race-type/grade-123579-one-year-20261117-ja.md
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Publish audited research results to isolated branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/grade-123579-one-year-20261117.json reports/year-race-type/grade-123579-one-year-20261117-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Audit annual 123579 graded-race trifecta box and historical ticket filtering'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
