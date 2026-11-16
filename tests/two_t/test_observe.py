@@ -175,3 +175,18 @@ class ObserveTests(unittest.TestCase):
         self.assertEqual((result["back"], result["finish"], result["payouts"]), (4, [7, 3, 2], {"7-3": 6330}))
         self.assertFalse(result["rider_ids_verified"])
         self.assertFalse((self.ledger / "results").exists())
+
+        normalized = {"labels": [4, 7, 3, 2], "payouts": {"7-3": 6330}, "rider_ids_verified": True}
+        with patch("two_t.observe.netkeirin_results.confirm", side_effect=ValueError("IDs disagree")) as confirm:
+            failed = observe(self.ledger, clock=lambda: self.now, verify_review=True)
+            self.assertEqual(failed["failures"][KEY], "IDs disagree")
+            self.assertFalse((self.ledger / "results").exists())
+            confirm.side_effect = None
+            confirm.return_value = normalized
+            okay = observe(self.ledger, clock=lambda: self.now, verify_review=True)
+            self.assertEqual(okay["complete_labels"], 1)
+            self.assertEqual(okay["review_results_saved"], 0)
+            confirmed_file, = (self.ledger / "results").glob("*.json")
+            self.assertEqual(payload(confirmed_file)["result"], normalized)
+            self.assertEqual(payload(confirmed_file)["feature_sha256"], result["feature_sha256"])
+            self.assertEqual(observe(self.ledger, clock=lambda: self.now, verify_review=True)["results_saved"], 0)
