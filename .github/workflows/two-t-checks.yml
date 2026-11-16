@@ -1,0 +1,42 @@
+name: Two-car exacta model checks
+on:
+  pull_request:
+    paths:
+      - two_t/**
+      - tests/two_t/**
+      - .github/workflows/two-t-checks.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -r two_t/requirements.txt
+      - run: python -m unittest discover -s tests/two_t -v
+      - run: npm test
+      - if: ${{ hashFiles('two_t/race-records.json') != '' }}
+        run: |
+          mkdir -p /tmp/2t-preview
+          python - <<'PY'
+          from pathlib import Path
+          data = Path('two_t/race-records.json').read_text().replace('<', r'\u003c')
+          page = Path('two_t/index.html').read_text().replace('type="application/json">null<', f'type="application/json">{data}<')
+          Path('/tmp/2t-preview/index.html').write_text(page)
+          PY
+          npm ci
+          npx playwright install --with-deps webkit
+          TWO_T_WEBKIT=1 node tests/two_t/browser.cjs /tmp/2t-preview/index.html
+      - if: ${{ hashFiles('two_t/race-records.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2t-transformer-preview
+          path: /tmp/2t-preview/index.html
