@@ -4,14 +4,14 @@ from datetime import datetime, timedelta
 from hashlib import sha256
 import json
 from pathlib import Path
-from urllib.request import urlopen
 
 import torch
 
 from .evaluate import settle
 from .forward import capture_quote, freeze, predict_card, store_once
+from .public_feed import day_feed, links
 from .publish import forward_data
-from .source import BASE, JST, UTC, card_input, encode, get_page, payload, query, result_data, stamp, state, write
+from .source import BASE, JST, UTC, card_input, encode, get_page, payload, result_data, stamp, state, write
 
 
 def archived_cards(root, day):
@@ -27,29 +27,6 @@ def archived_cards(root, day):
         if row["race_id"] not in cards or stamp(row["saved_at"]) < stamp(cards[row["race_id"]]["saved_at"]):
             cards[row["race_id"]] = row
     return cards
-
-
-def day_feed(day):
-    url = f"https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/{day}.json"
-    with urlopen(url, timeout=15) as response:
-        body = response.read(8_000_001)
-    if len(body) > 8_000_000:
-        raise ValueError("feed too large")
-    feed = json.loads(body)
-    if feed.get("date") != day:
-        raise ValueError("day feed mismatch")
-    return feed
-
-
-def links(html):
-    import re
-    venues = {v["id"]: v["name"] for v in query(state(html), "FETCH_KEIRIN_VENUE_LIST")["venues"]}
-    result = {}
-    for src in set(re.findall(r'href="(/keirin/[^/"]+/racecard/\d{10}/\d+/\d+)"', html)):
-        _, meet, _, race = src.split("/")[-4:]
-        key = (venues.get(meet[-2:]), int(race))
-        result.setdefault(key, []).append(BASE + src)
-    return {key: paths[0] for key, paths in result.items() if len(paths) == 1}
 
 
 def tick(root, checkpoints, ledger, page_output):
