@@ -18,6 +18,10 @@ JSON_BASE="https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main
 HEADERS={"User-Agent":"tk-keirin-lab annual research (+https://github.com/takashikamei2504-sys/tk-keirin-lab)"}
 CATS=("A級_7","S級_7","S級_9","チャレンジ_7")
 STAGES=("勝ち上がり戦","決勝","敗者戦","初日特選","特選等","その他")
+# Archived provider uses initial-day generic「選抜」for first-day special races: verified
+# separately against Yokkaichi G3 2026-11-05 12R, Kawasaki 2026-08-19 12R,
+# Aomori 2026-11-03 5R, and Takeo 2026-09-03 5R official race lists.
+# Never interpret「選抜」on any subsequent day as first-day special.
 def fetch(url):
     with urllib.request.urlopen(urllib.request.Request(url,headers=HEADERS),timeout=45) as r:return r.read()
 def fetch_csv(month):
@@ -59,7 +63,7 @@ def stage_of(round_name,meeting_day):
     name=norm(round_name)
     if not name:return "その他"
     if "決勝" in name:return "決勝"
-    if meeting_day=="初日" and re.search(r"初日特選|特別選抜|特選",name):return "初日特選"
+    if meeting_day=="初日" and re.search(r"初日特選|特別選抜|特選|^選抜$",name):return "初日特選"
     if re.search(r"準決|準々決|予選|勝ち上がり",name):return "勝ち上がり戦"
     if re.search(r"特別選抜|特選|特秀|特優",name):return "特選等"
     if re.search(r"一般|特一般|選抜|敗者|順位",name):return "敗者戦"
