@@ -1,0 +1,58 @@
+{
+  "schema": "tk-keirin-year-coverage-reconciliation/v1",
+  "period": {
+    "from": "2025-11-16",
+    "to": "2026-11-15",
+    "calendar_days": 365
+  },
+  "secondary_source_available_from": "2026-08-18",
+  "source_days_expected": 90,
+  "secondary_source_days_loaded": 90,
+  "source_files": {
+    "2026_11": {
+      "rows": 7215,
+      "sha256": "fe8564014bf19e896aeded1c5778177db1dac00d7107efda9a6c7b5be038daf0"
+    },
+    "2026_09": {
+      "rows": 14463,
+      "sha256": "ac5659e62a585374f2c71996b4589f6008a73c230614f973c2bf04d477cef9b2"
+    },
+    "2026_10": {
+      "rows": 11963,
+      "sha256": "19ded9f444df85aca2a2dc9dc22351428d76d531cf281d12bac8a7015a4ac7a3"
+    },
+    "2026_08": {
+      "rows": 15842,
+      "sha256": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb"
+    }
+  },
+  "errors": {},
+  "counts": {
+    "public_daily_eligible": 5920
+  },
+  "missing_reasons": {
+    "rider_id_name_mismatch": 4991,
+    "no_matching_csv_race_number": 929
+  },
+  "stages": {},
+  "grades": {},
+  "stage_grade_by_month": {},
+  "venue_slug_mappings_checked": {},
+  "identity_sample": [],
+  "data_integrity": {
+    "source1": "Kenseimk/keirin-data monthly CSV",
+    "source2": "kurinaka12-afk/keirin-app-data daily JSON",
+    "join": "date + race number + >= max(5,ncars-1) independent same-car rider name prefixes; reject ambiguous candidates",
+    "line": "exact numeric line_position strings and contiguous position indexes, no inferred lineups",
+    "round": "exact published round_name; meeting_day from venue_info",
+    "payout": "optional independently matched three-car winning order plus payout, mismatch tracked",
+    "privacy": "only audit metrics and ≤12 illustrative race metadata retained, no third-party raw archive republished"
+  },
+  "limitations": [
+    "2025-11-16 to 2026-08-17 still has no public verified full lineup source",
+    "Source records may not represent precisely what was known at betting cutoff",
+    "No first-day feature may be inferred from race number",
+    "Current engine 12-month ROI cannot be calculated from incomplete source"
+  ],
+  "year_full_cards_recovered": false
+}\n
