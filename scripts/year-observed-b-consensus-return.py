@@ -188,6 +188,31 @@ out={
   "Never pool the 661 comment-inferred pre-90 sample with 5745 source-complete 90-day records.",
   "All thresholds and hypotheses explorative, not pre-registered prospective."
  ]}
+def wilson95(h,n):
+ if not n:return None
+ z=1.959963984540054
+ p=h/n
+ den=1+z*z/n
+ center=(p+z*z/(2*n))/den
+ radius=z*math.sqrt((p*(1-p)+z*z/(4*n))/n)/den
+ return [round(100*(center-radius),1),round(100*(center+radius),1)]
+out["by_agreement_day"]={
+ d:{str(a):detail([r for r in ROWS if r["date"]==d and r["b_forecasts_agree"]==a])
+   for a in (True,False)}
+ for d in sorted({r["date"] for r in ROWS})}
+out["by_agreement_field"]={
+ str(n):{str(a):detail([r for r in ROWS if r["field"]==n and r["b_forecasts_agree"]==a])
+   for a in (True,False)}
+ for n in (7,9)}
+out["agreement_baxis_top5_hit_interval_95pct"]={
+ str(a):wilson95(out["by_forecast_agreement"][str(a)]["bets"]["b_axis_top5"]["wins"],
+  out["by_forecast_agreement"][str(a)]["races"])
+ for a in (True,False)}
+out["methodology_notes"]=[
+ "Wilson intervals are binomial small-sample descriptive uncertainty, NOT correction for selection bias, day-clustering, or model development leakage.",
+ "B-AXIS v0.3 and v0.5 differ by date; day and 7/9-car stratification is recorded for transparency.",
+ "Actual first-place winner classification is separate from observed B rider and line-group membership."]
+
 ROOT.mkdir(parents=True,exist_ok=True)
 (ROOT/"observed-b-consensus-84r-replay-audit.json").write_text(
  json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
@@ -206,6 +231,21 @@ for choice,label in (("True","一致"),("False","不一致")):
  v=out["by_forecast_agreement"][choice]
  a=v["bets"]
  md.append(f"| {label} | {v['races']} | {pct(v['true_b_proxy_pct'])} | {pct(a['b_axis_top5']['roi_pct'])} | {pct(a['auto']['roi_pct'])} | {pct(a['lab_line']['roi_pct'])} | {pct(a['b_upset_ad']['roi_pct'])} | {pct(a['b_axis_top5']['trim5_roi_pct'])} |")
+md.extend(["",
+ "## 日別に分けた同一モデル比較（B-AXIS上位5点）",
+ "",
+ "| 日付 | B予測一致 | R | B-AXIS上位5点的中R | 的中率 | 回収率 | 最大5件除外 |",
+ "|---|---|---:|---:|---:|---:|---:|"])
+for day,groups in out["by_agreement_day"].items():
+ for val,label in (("True","一致"),("False","不一致")):
+  q=groups[val]
+  m=q["bets"]["b_axis_top5"]
+  hr=round(100*m["wins"]/q["races"],1) if q["races"] else None
+  md.append(f"| {day} | {label} | {q['races']} | {m['wins']} | {pct(hr)} | {pct(m['roi_pct'])} | {pct(m['trim5_roi_pct'])} |")
+md.extend(["",
+ "上位5点的中率（2日合計）の95% Wilson区間：一致群 "+str(out["agreement_baxis_top5_hit_interval_95pct"]["True"])+"%、不一致群 "+str(out["agreement_baxis_top5_hit_interval_95pct"]["False"])+"%。",
+ "少数レース・特定2日の選別標本であり、予測効率の改善や将来収益性に関する統計的証明ではない。日別でのモデルバージョン差にも注意。",
+ ])
 md.extend(["","## 2モデル一致・不一致と実測Bラインの決着構造","",
  "| 一致 | B通過者1着 | 同ライン別選手1着 | 別ライン1着 |",
  "|---|---:|---:|---:|"])
