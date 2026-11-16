@@ -2,14 +2,13 @@
 import argparse
 from datetime import datetime, timedelta
 from hashlib import sha256
-import os
 from pathlib import Path
-from tempfile import NamedTemporaryFile
 from time import perf_counter
 
 import torch
 
 from .evaluate import choices, eligible_quote, settle
+from .ledger import store_once
 from .model import make, predict
 from .source import UTC, encode, get_page, pairs, payload, query, race_data, result_data, stamp, state, write
 from .train import predict_record, tensorize
@@ -63,20 +62,6 @@ def freeze(directory, card, forecast, quote, now, mode):
     record = {**forecast, "frozen_at": now.isoformat(), "quote_mode": mode, "quote": quote,
               "selected": choices(forecast["probabilities"], quote, 1.5) if quote else None}
     return store_once(directory, card["race_id"] + ":" + mode, record)
-
-
-def store_once(directory, key, value):
-    filename = directory / (sha256(key.encode()).hexdigest() + ".json")
-    directory.mkdir(parents=True, exist_ok=True)
-    # Link the completed temporary file atomically. A retry cannot replace an existing observation.
-    with NamedTemporaryFile(dir=directory, delete=False) as temporary:
-        tmp = Path(temporary.name)
-        temporary.write(encode(value) + b"\n")
-    try:
-        os.link(tmp, filename)
-    finally:
-        tmp.unlink()
-    return filename
 
 
 def main():
