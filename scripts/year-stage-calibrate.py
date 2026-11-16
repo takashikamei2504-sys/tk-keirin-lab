@@ -230,6 +230,21 @@ def payout_stats(rows):
       "payout_50to100x":sum(5000<=p<10000 for p in nums),
       "payout_100x_plus":sum(p>=10000 for p in nums),
       "payout_100x_share":round(sum(p>=10000 for p in nums)/len(nums),4) if nums else None}
+# Keep verified published program labels separate from estimated annual labels.
+exact_by_stage=collections.defaultdict(list)
+for row in exact:
+    exact_by_stage[row["class"]+"|"+row["stage"]].append(row)
+combined=[]
+for group_name in sorted(set(exact_by_stage)|set(category)):
+    exact_rows=exact_by_stage.get(group_name,[])
+    estimated_rows=category.get(group_name,[])
+    combined.append({"category_stage":group_name,
+        "verified_source_rows":len(exact_rows),
+        "unverified_high_precision_inferred_rows":len(estimated_rows),
+        "total_labeled_rows":len(exact_rows)+len(estimated_rows),
+        "verified":payout_stats(exact_rows),
+        "inferred":payout_stats(estimated_rows),
+        "combined_observed_payouts":payout_stats(exact_rows+estimated_rows)})
 report={"schema":"tk-keirin-annual-stage-inference-oot-v1",
   "period":{"start":str(START),"end":str(END),
     "available_exact_source_from":str(DATA_START),"train_end":str(TRAIN_END),"test_from":str(TRAIN_END+datetime.timedelta(days=1))},
@@ -238,6 +253,8 @@ report={"schema":"tk-keirin-annual-stage-inference-oot-v1",
     "exact_program_joined":len(exact),"train":len(train),"out_of_time_test":len(hold),
     "high_confidence_annual_without_true_labels":len(annual)},
   "rejected":dict(rejected),"joins":dict(joining),"true_stage_distribution":summarize(exact),
+  "exact_grade_stage":{k:payout_stats(v) for k,v in sorted(exact_by_stage.items())},
+  "annual_grade_stage_split":combined,
   "train_stage_distribution":summarize(train),"holdout_stage_distribution":summarize(hold),
   "classifier":{"method":"Hierarchical program-stage majority for graded meeting day index + race number; 90% Wilson lower bound >= .83; >=95% training purity. No winner/payout features.",
      "support":MIN_SUPPORT,"validation":validation,"eligible_stages":eligible_stages},
