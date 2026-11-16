@@ -186,6 +186,73 @@ def main():
      # Keep the latest chronological month but record conflict
      ent["rows"][car_no]=fingerprint
    else:ent["rows"][car_no]=fingerprint
+ # Reconcile the 2026-08-18 through 2026-11-15 pinned daily archive with CSV.
+ # In the later months the public monthly CSV mirror has many blank payouts; never
+ # report those gaps as settled losses or pretend the original source is annual-complete.
+ ARCHIVE_SHA="4588ec938a2fec9e81216d3fd3423329805aa3d5"
+ archive_dates=sorted({day for (day,venue) in indexed
+   if "2026-08-18"<=day<="2026-11-15"})
+ daily_sources={}
+ def daily_fetch(date):
+  uri=f"https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/{ARCHIVE_SHA}/{date}.json"
+  raw=load(uri)
+  doc=json.loads(raw)
+  if doc.get("date")!=date or not isinstance(doc.get("races"),list):
+   raise ValueError("Daily archive schema/date invalid "+date)
+  return date,doc,{"url":uri,"sha256":hashlib.sha256(raw).hexdigest(),"bytes":len(raw)}
+ archive_results,archive_matched,archive_replaced,archive_dual_conflict=0,0,0,0
+ by_calendar={(r["date"],r["venue_code"],r["race_no"]):rid for rid,r in all_by_id.items()}
+ with concurrent.futures.ThreadPoolExecutor(max_workers=7) as pool:
+  for date,day,info in pool.map(daily_fetch,archive_dates):
+   daily_sources[date]=info
+   for card in day["races"]:
+    venue=normalize(card.get("venue",""))
+    if venue not in VENUE:continue
+    code=VENUE[venue];k=(date,code,int(card.get("race_number",0)))
+    event=indexed.get((date,code))
+    if not event:continue
+    if not isinstance(card.get("entries"),list) or not card["entries"]:continue
+    if card.get("is_girls") or card.get("cancelled") or card.get("is_cancelled"):
+     continue
+    payout_entries=card.get("result_combos") or (card.get("payouts") or {}).get("trifecta") or []
+    if not payout_entries and card.get("result_top3") and card.get("payout_trifecta"):
+     payout_entries=[{"combo":card["result_top3"],"payout":card["payout_trifecta"]}]
+    results=[]
+    for x in payout_entries:
+     try:
+      combo=tuple(map(int,x["combo"]));yen=int(x["payout"])
+      if len(combo)==3 and len(set(combo))==3 and yen>0:results.append((combo,yen))
+     except (ValueError,KeyError,TypeError):continue
+    if not results:continue
+    rows={}
+    for e in card["entries"]:
+     try:n=int(e["car_number"])
+     except (ValueError,KeyError,TypeError):continue
+     player={"banum":str(n),"player_class":str(e.get("class_rank","")),"san_ren_tan":""}
+     rows[n]=tuple(sorted(player.items()))
+    if len(rows) not in (7,9):continue
+    rid="archive:"+date+":"+str(code)+":"+str(k[2])
+    rr={"id":rid,"date":date,"race_no":k[2],"venue_code":code,
+        "venue_slug":venue,"event":event,"grade":event["grade"],
+        "rows":rows,"archive_results":results}
+    oldrid=by_calendar.get(k)
+    if oldrid:
+     old=all_by_id[oldrid]
+     archive_replaced+=1
+     old_text=set(normalize(dict(row).get("san_ren_tan",""))
+                  for row in old["rows"].values()
+                  if normalize(dict(row).get("san_ren_tan","")))
+     if len(old_text)==1:
+      prev=parse_result(next(iter(old_text)))
+      if prev and sorted(prev)!=sorted(results):
+       archive_dual_conflict+=1
+       # Prioritise the immutable archival result while retaining conflict counter.
+     del all_by_id[oldrid]
+    all_by_id[rid]=rr
+    by_calendar[k]=rid
+    archive_matched+=1
+ print("DAILY_ARCHIVE_RECONCILED",json.dumps({"dates":len(daily_sources),"settled_grade_races":archive_matched,
+  "replaced_csv":archive_replaced,"payout_conflict":archive_dual_conflict},ensure_ascii=False),flush=True)
  # inspect each event race that exists, and whether settled
  valid=[];coverage=Counter();excluded=Counter()
  for rid,r in sorted(all_by_id.items()):
@@ -198,13 +265,16 @@ def main():
   if all(x.startswith("L") for x in ranks):excluded["girls"]+=1;continue
   if any(x.startswith("L") for x in ranks) or not any(x.startswith("S") for x in ranks):
    excluded["not_male_grade"]+=1;continue
-  payout_strings=set(normalize(x.get("san_ren_tan","")) for x in rows if normalize(x.get("san_ren_tan","")))
-  if not payout_strings:excluded["no_trifecta_payout"]+=1;continue
-  if len(payout_strings)>1:
-   excluded["inconsistent_trifecta_payout"]+=1;continue
-  try:results=parse_result(next(iter(payout_strings)))
-  except Exception:excluded["payout_parse_conflict"]+=1;continue
-  if not results:excluded["trifecta_parse_missing"]+=1;continue
+  if "archive_results" in r:
+   results=r["archive_results"]
+  else:
+   payout_strings=set(normalize(x.get("san_ren_tan","")) for x in rows if normalize(x.get("san_ren_tan","")))
+   if not payout_strings:excluded["no_trifecta_payout"]+=1;continue
+   if len(payout_strings)>1:
+    excluded["inconsistent_trifecta_payout"]+=1;continue
+   try:results=parse_result(next(iter(payout_strings)))
+   except Exception:excluded["payout_parse_conflict"]+=1;continue
+   if not results:excluded["trifecta_parse_missing"]+=1;continue
   if any(any(n not in numbers for n in trio) for trio,_ in results):
    excluded["winning_car_not_starter"]+=1;continue
   r["cars_set"]=numbers;r["results"]=results;r["cars"]=len(numbers)
@@ -301,9 +371,11 @@ def main():
   "seven_car_valid_tickets":len(all_tickets((1,2,3,5,7)))},
  "sources":{"schedule":schedule_digests,"monthly_csv":source_summary,
   "monthly_source_repository":SOURCE_REPO,"graded_schedule_provider":"楽天Kドリームス",
+  "pinned_recent_daily_archive":{"commit":ARCHIVE_SHA,"days":daily_sources,
+    "csv_races_replaced":archive_replaced,"overlapping_payout_conflicts":archive_dual_conflict},
   "provenance_warning":"Third-party scraped CSV may omit result/payout on many scheduled graded fixtures. Coverage is not official exhaustive."},
  "coverage":{"schedule_fixtures":len(events),"scheduled_grade_venue_days":len(indexed),
-  "csv_matched_unique_races":len(all_by_id),"eligible_9car_with_payout":len(nine),
+  "csv_matched_unique_races":len(all_by_id),"eligible_9car_with_payout":len(nine),"archive_new_or_updated_grade_races":archive_matched,
   "eligible_7car_with_payout":len(seven),"excluded":dict(excluded),"ingest_notes":dict(skipped),
   "eligible_by_grade":dict(Counter(r["grade"] for r in nine)),
   "results_per_month":dict(Counter(r["date"][:7] for r in nine)),
@@ -322,7 +394,8 @@ def main():
   "note":"Numerous strategies on same year; monthly pre-month selection avoids same-race lookahead but feature families designed retrospectively."},
  "individual_9car_races":full_per_race,
  "method_warnings":[
-  "This is only verified paired schedule/race results from a third-party monthly CSV mirror, not proof all official grade events covered.",
+  "This is a combined schedule/third-party monthly CSV/pinned daily archive, not proof all official grade events covered.",
+  "Most recent 2026-08-18..2026-11-15 races use immutable commit-pinned daily archive results and were de-duplicated against monthly CSV by actual date, velodrome code and race number.",
   "A full six-car box costs 12000 yen per 9-car race; only exactly 9-cars are comparable.",
   "GIII includes occasional 7-car races: a 60-point five-number box is separately shown, NOT counted as 9-car 120-point bet.",
   "Male grade selection requires at least 1 S-class starter and excludes L-class athletes; GP/GI womens-only rounds not in male scope.",
