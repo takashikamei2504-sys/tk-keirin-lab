@@ -129,7 +129,7 @@ def main():
                 tally['already_recorded_matches']+=1
             else:
                 tally['newly_restored_payouts']+=1
-                results.append({'race_id':rid,'date':day,'category':('S級' if any(str(x.get('player_class','')).startswith('S') for x in rows) else 'A級')+'_'+str(len(rows)),
+                results.append({'race_id':rid,'date':day,'category':('チャレンジ' if all(str(x.get('player_class','')).strip()=='A3' for x in rows) else 'S級' if any(str(x.get('player_class','')).startswith('S') for x in rows) else 'A級')+'_'+str(len(rows)),
                     'payouts':[{'key':key,'payout':amount} for key,amount in extra],
                     'source_date_sha256':hashes[day],'rider_name_matches':n,
                     'origin':'archived_daily_json', 'source_date':day})
