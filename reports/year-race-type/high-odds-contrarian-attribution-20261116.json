@@ -1,0 +1,4675 @@
+{
+  "schema": "tk-keirin-retro-high-odds-attribution-and-contrarian/v1",
+  "generated_at": "2026-11-16T14:13:49.987Z",
+  "period": {
+    "from": "2026-08-18",
+    "to": "2026-11-15",
+    "total_races": 5745,
+    "heldout_races": 3748
+  },
+  "source": {
+    "pinned_daily_source": "4588ec938a2fec9e81216d3fd3423329805aa3d5",
+    "all90_days_SHA_verified": true,
+    "existing_eight_way_source_fixed": true,
+    "BAXIS_model": "LAB_B_AXIS_V0.6.0",
+    "raw_pre_race_odds_available": false
+  },
+  "methodological_warning": "50x and 100x classifications use winning realized total payout per race, known only after settlement. They CANNOT be used as ex-ante ticket filters. Multiple dead-heat winning tickets in the same race may add payouts, so not an exact odds band for each combination.",
+  "payout_band_definitions": {
+    "low": "payout positive less than 5000 yen",
+    "medium": "winning payout per race at least 5000 and below 10000 yen",
+    "high": "winning payout per race at least 10000 yen"
+  },
+  "high_payout_attribution": {
+    "all_90": {
+      "n": 5745,
+      "engine": {
+        "auto": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 45951,
+          "stake_yen": 4595100,
+          "payout_yen": 3733430,
+          "net_yen": -861670,
+          "roi_pct": 81.25,
+          "trim1_pct": 79.09,
+          "trim5_pct": 74.13,
+          "hit_races": 1204,
+          "tail_bins": {
+            "zero": {
+              "races": 4541,
+              "payout": 0
+            },
+            "low": {
+              "races": 1039,
+              "payout": 1461370
+            },
+            "medium": {
+              "races": 95,
+              "payout": 670290
+            },
+            "high": {
+              "races": 70,
+              "payout": 1601770
+            }
+          },
+          "high50plus_hit_races": 165,
+          "high50plus_paid_yen": 2272060,
+          "high50plus_share_of_payout_pct": 60.9,
+          "high50plus_contribution_to_roi_pctpts": 49.4,
+          "paid_roi_without_50plus_payout_pct": 31.8,
+          "medium_50to100_paid_share_pct": 18,
+          "high100plus_paid_share_pct": 42.9
+        },
+        "baxis_3": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 17235,
+          "stake_yen": 1723500,
+          "payout_yen": 1359890,
+          "net_yen": -363610,
+          "roi_pct": 78.9,
+          "trim1_pct": 76.16,
+          "trim5_pct": 68.76,
+          "hit_races": 758,
+          "tail_bins": {
+            "zero": {
+              "races": 4987,
+              "payout": 0
+            },
+            "low": {
+              "races": 700,
+              "payout": 736120
+            },
+            "medium": {
+              "races": 43,
+              "payout": 306510
+            },
+            "high": {
+              "races": 15,
+              "payout": 317260
+            }
+          },
+          "high50plus_hit_races": 58,
+          "high50plus_paid_yen": 623770,
+          "high50plus_share_of_payout_pct": 45.9,
+          "high50plus_contribution_to_roi_pctpts": 36.2,
+          "paid_roi_without_50plus_payout_pct": 42.7,
+          "medium_50to100_paid_share_pct": 22.5,
+          "high100plus_paid_share_pct": 23.3
+        },
+        "baxis_5": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 28725,
+          "stake_yen": 2872500,
+          "payout_yen": 2096340,
+          "net_yen": -776160,
+          "roi_pct": 72.98,
+          "trim1_pct": 70.77,
+          "trim5_pct": 65.5,
+          "hit_races": 1086,
+          "tail_bins": {
+            "zero": {
+              "races": 4659,
+              "payout": 0
+            },
+            "low": {
+              "races": 997,
+              "payout": 1118000
+            },
+            "medium": {
+              "races": 64,
+              "payout": 449870
+            },
+            "high": {
+              "races": 25,
+              "payout": 528470
+            }
+          },
+          "high50plus_hit_races": 89,
+          "high50plus_paid_yen": 978340,
+          "high50plus_share_of_payout_pct": 46.7,
+          "high50plus_contribution_to_roi_pctpts": 34.1,
+          "paid_roi_without_50plus_payout_pct": 38.9,
+          "medium_50to100_paid_share_pct": 21.5,
+          "high100plus_paid_share_pct": 25.2
+        },
+        "baxis_10": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 57255,
+          "stake_yen": 5725500,
+          "payout_yen": 3990850,
+          "net_yen": -1734650,
+          "roi_pct": 69.7,
+          "trim1_pct": 68.6,
+          "trim5_pct": 65.63,
+          "hit_races": 1641,
+          "tail_bins": {
+            "zero": {
+              "races": 4104,
+              "payout": 0
+            },
+            "low": {
+              "races": 1443,
+              "payout": 1855620
+            },
+            "medium": {
+              "races": 137,
+              "payout": 944070
+            },
+            "high": {
+              "races": 61,
+              "payout": 1191160
+            }
+          },
+          "high50plus_hit_races": 198,
+          "high50plus_paid_yen": 2135230,
+          "high50plus_share_of_payout_pct": 53.5,
+          "high50plus_contribution_to_roi_pctpts": 37.3,
+          "paid_roi_without_50plus_payout_pct": 32.4,
+          "medium_50to100_paid_share_pct": 23.7,
+          "high100plus_paid_share_pct": 29.8
+        },
+        "physical": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 45960,
+          "stake_yen": 4596000,
+          "payout_yen": 3355330,
+          "net_yen": -1240670,
+          "roi_pct": 73.01,
+          "trim1_pct": 71.5,
+          "trim5_pct": 68.01,
+          "hit_races": 1270,
+          "tail_bins": {
+            "zero": {
+              "races": 4475,
+              "payout": 0
+            },
+            "low": {
+              "races": 1109,
+              "payout": 1624010
+            },
+            "medium": {
+              "races": 111,
+              "payout": 770040
+            },
+            "high": {
+              "races": 50,
+              "payout": 961280
+            }
+          },
+          "high50plus_hit_races": 161,
+          "high50plus_paid_yen": 1731320,
+          "high50plus_share_of_payout_pct": 51.6,
+          "high50plus_contribution_to_roi_pctpts": 37.7,
+          "paid_roi_without_50plus_payout_pct": 35.3,
+          "medium_50to100_paid_share_pct": 22.9,
+          "high100plus_paid_share_pct": 28.6
+        },
+        "causal": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 45960,
+          "stake_yen": 4596000,
+          "payout_yen": 3368880,
+          "net_yen": -1227120,
+          "roi_pct": 73.3,
+          "trim1_pct": 71.14,
+          "trim5_pct": 66.14,
+          "hit_races": 1107,
+          "tail_bins": {
+            "zero": {
+              "races": 4638,
+              "payout": 0
+            },
+            "low": {
+              "races": 948,
+              "payout": 1409710
+            },
+            "medium": {
+              "races": 103,
+              "payout": 716290
+            },
+            "high": {
+              "races": 56,
+              "payout": 1242880
+            }
+          },
+          "high50plus_hit_races": 159,
+          "high50plus_paid_yen": 1959170,
+          "high50plus_share_of_payout_pct": 58.2,
+          "high50plus_contribution_to_roi_pctpts": 42.6,
+          "paid_roi_without_50plus_payout_pct": 30.7,
+          "medium_50to100_paid_share_pct": 21.3,
+          "high100plus_paid_share_pct": 36.9
+        },
+        "lab_v5": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 45374,
+          "stake_yen": 4537400,
+          "payout_yen": 2577980,
+          "net_yen": -1959420,
+          "roi_pct": 56.82,
+          "trim1_pct": 55.59,
+          "trim5_pct": 52.6,
+          "hit_races": 898,
+          "tail_bins": {
+            "zero": {
+              "races": 4847,
+              "payout": 0
+            },
+            "low": {
+              "races": 764,
+              "payout": 988630
+            },
+            "medium": {
+              "races": 82,
+              "payout": 579590
+            },
+            "high": {
+              "races": 52,
+              "payout": 1009760
+            }
+          },
+          "high50plus_hit_races": 134,
+          "high50plus_paid_yen": 1589350,
+          "high50plus_share_of_payout_pct": 61.7,
+          "high50plus_contribution_to_roi_pctpts": 35,
+          "paid_roi_without_50plus_payout_pct": 21.8,
+          "medium_50to100_paid_share_pct": 22.5,
+          "high100plus_paid_share_pct": 39.2
+        },
+        "line": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 44924,
+          "stake_yen": 4492400,
+          "payout_yen": 3558330,
+          "net_yen": -934070,
+          "roi_pct": 79.21,
+          "trim1_pct": 73.8,
+          "trim5_pct": 66.45,
+          "hit_races": 1044,
+          "tail_bins": {
+            "zero": {
+              "races": 4701,
+              "payout": 0
+            },
+            "low": {
+              "races": 889,
+              "payout": 1131920
+            },
+            "medium": {
+              "races": 93,
+              "payout": 646700
+            },
+            "high": {
+              "races": 62,
+              "payout": 1779710
+            }
+          },
+          "high50plus_hit_races": 155,
+          "high50plus_paid_yen": 2426410,
+          "high50plus_share_of_payout_pct": 68.2,
+          "high50plus_contribution_to_roi_pctpts": 54,
+          "paid_roi_without_50plus_payout_pct": 25.2,
+          "medium_50to100_paid_share_pct": 18.2,
+          "high100plus_paid_share_pct": 50
+        },
+        "roi_coverage": {
+          "races": 5745,
+          "purchased": 5745,
+          "tickets": 45931,
+          "stake_yen": 4593100,
+          "payout_yen": 3002470,
+          "net_yen": -1590630,
+          "roi_pct": 65.37,
+          "trim1_pct": 63.53,
+          "trim5_pct": 58.03,
+          "hit_races": 1074,
+          "tail_bins": {
+            "zero": {
+              "races": 4671,
+              "payout": 0
+            },
+            "low": {
+              "races": 936,
+              "payout": 1138850
+            },
+            "medium": {
+              "races": 86,
+              "payout": 602860
+            },
+            "high": {
+              "races": 52,
+              "payout": 1260760
+            }
+          },
+          "high50plus_hit_races": 138,
+          "high50plus_paid_yen": 1863620,
+          "high50plus_share_of_payout_pct": 62.1,
+          "high50plus_contribution_to_roi_pctpts": 40.6,
+          "paid_roi_without_50plus_payout_pct": 24.8,
+          "medium_50to100_paid_share_pct": 20.1,
+          "high100plus_paid_share_pct": 42
+        },
+        "b_upset_ad": {
+          "races": 5745,
+          "purchased": 5638,
+          "tickets": 51790,
+          "stake_yen": 5179000,
+          "payout_yen": 3622470,
+          "net_yen": -1556530,
+          "roi_pct": 69.95,
+          "trim1_pct": 68.29,
+          "trim5_pct": 64.22,
+          "hit_races": 690,
+          "tail_bins": {
+            "zero": {
+              "races": 5055,
+              "payout": 0
+            },
+            "low": {
+              "races": 490,
+              "payout": 996650
+            },
+            "medium": {
+              "races": 114,
+              "payout": 788750
+            },
+            "high": {
+              "races": 86,
+              "payout": 1837070
+            }
+          },
+          "high50plus_hit_races": 200,
+          "high50plus_paid_yen": 2625820,
+          "high50plus_share_of_payout_pct": 72.5,
+          "high50plus_contribution_to_roi_pctpts": 50.7,
+          "paid_roi_without_50plus_payout_pct": 19.2,
+          "medium_50to100_paid_share_pct": 21.8,
+          "high100plus_paid_share_pct": 50.7
+        },
+        "b_upset_expanded": {
+          "races": 5745,
+          "purchased": 5693,
+          "tickets": 56911,
+          "stake_yen": 5691100,
+          "payout_yen": 3775880,
+          "net_yen": -1915220,
+          "roi_pct": 66.35,
+          "trim1_pct": 65.19,
+          "trim5_pct": 61.25,
+          "hit_races": 717,
+          "tail_bins": {
+            "zero": {
+              "races": 5028,
+              "payout": 0
+            },
+            "low": {
+              "races": 525,
+              "payout": 968190
+            },
+            "medium": {
+              "races": 91,
+              "payout": 638750
+            },
+            "high": {
+              "races": 101,
+              "payout": 2168940
+            }
+          },
+          "high50plus_hit_races": 192,
+          "high50plus_paid_yen": 2807690,
+          "high50plus_share_of_payout_pct": 74.4,
+          "high50plus_contribution_to_roi_pctpts": 49.3,
+          "paid_roi_without_50plus_payout_pct": 17,
+          "medium_50to100_paid_share_pct": 16.9,
+          "high100plus_paid_share_pct": 57.4
+        }
+      }
+    },
+    "heldout_60": {
+      "n": 3748,
+      "engine": {
+        "auto": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 29981,
+          "stake_yen": 2998100,
+          "payout_yen": 2544960,
+          "net_yen": -453140,
+          "roi_pct": 84.89,
+          "trim1_pct": 81.58,
+          "trim5_pct": 73.97,
+          "hit_races": 816,
+          "tail_bins": {
+            "zero": {
+              "races": 2932,
+              "payout": 0
+            },
+            "low": {
+              "races": 710,
+              "payout": 1013990
+            },
+            "medium": {
+              "races": 62,
+              "payout": 430870
+            },
+            "high": {
+              "races": 44,
+              "payout": 1100100
+            }
+          },
+          "high50plus_hit_races": 106,
+          "high50plus_paid_yen": 1530970,
+          "high50plus_share_of_payout_pct": 60.2,
+          "high50plus_contribution_to_roi_pctpts": 51.1,
+          "paid_roi_without_50plus_payout_pct": 33.8,
+          "medium_50to100_paid_share_pct": 16.9,
+          "high100plus_paid_share_pct": 43.2
+        },
+        "baxis_3": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 11244,
+          "stake_yen": 1124400,
+          "payout_yen": 920560,
+          "net_yen": -203840,
+          "roi_pct": 81.87,
+          "trim1_pct": 78.36,
+          "trim5_pct": 70.28,
+          "hit_races": 496,
+          "tail_bins": {
+            "zero": {
+              "races": 3252,
+              "payout": 0
+            },
+            "low": {
+              "races": 452,
+              "payout": 482980
+            },
+            "medium": {
+              "races": 34,
+              "payout": 249010
+            },
+            "high": {
+              "races": 10,
+              "payout": 188570
+            }
+          },
+          "high50plus_hit_races": 44,
+          "high50plus_paid_yen": 437580,
+          "high50plus_share_of_payout_pct": 47.5,
+          "high50plus_contribution_to_roi_pctpts": 38.9,
+          "paid_roi_without_50plus_payout_pct": 43,
+          "medium_50to100_paid_share_pct": 27,
+          "high100plus_paid_share_pct": 20.5
+        },
+        "baxis_5": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 18740,
+          "stake_yen": 1874000,
+          "payout_yen": 1393140,
+          "net_yen": -480860,
+          "roi_pct": 74.34,
+          "trim1_pct": 70.95,
+          "trim5_pct": 64.57,
+          "hit_races": 703,
+          "tail_bins": {
+            "zero": {
+              "races": 3045,
+              "payout": 0
+            },
+            "low": {
+              "races": 640,
+              "payout": 725990
+            },
+            "medium": {
+              "races": 47,
+              "payout": 339900
+            },
+            "high": {
+              "races": 16,
+              "payout": 327250
+            }
+          },
+          "high50plus_hit_races": 63,
+          "high50plus_paid_yen": 667150,
+          "high50plus_share_of_payout_pct": 47.9,
+          "high50plus_contribution_to_roi_pctpts": 35.6,
+          "paid_roi_without_50plus_payout_pct": 38.7,
+          "medium_50to100_paid_share_pct": 24.4,
+          "high100plus_paid_share_pct": 23.5
+        },
+        "baxis_10": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 37368,
+          "stake_yen": 3736800,
+          "payout_yen": 2612100,
+          "net_yen": -1124700,
+          "roi_pct": 69.9,
+          "trim1_pct": 68.21,
+          "trim5_pct": 63.94,
+          "hit_races": 1052,
+          "tail_bins": {
+            "zero": {
+              "races": 2696,
+              "payout": 0
+            },
+            "low": {
+              "races": 920,
+              "payout": 1187330
+            },
+            "medium": {
+              "races": 93,
+              "payout": 663920
+            },
+            "high": {
+              "races": 39,
+              "payout": 760850
+            }
+          },
+          "high50plus_hit_races": 132,
+          "high50plus_paid_yen": 1424770,
+          "high50plus_share_of_payout_pct": 54.5,
+          "high50plus_contribution_to_roi_pctpts": 38.1,
+          "paid_roi_without_50plus_payout_pct": 31.8,
+          "medium_50to100_paid_share_pct": 25.4,
+          "high100plus_paid_share_pct": 29.1
+        },
+        "physical": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 29984,
+          "stake_yen": 2998400,
+          "payout_yen": 2170250,
+          "net_yen": -828150,
+          "roi_pct": 72.38,
+          "trim1_pct": 70.07,
+          "trim5_pct": 65.19,
+          "hit_races": 851,
+          "tail_bins": {
+            "zero": {
+              "races": 2897,
+              "payout": 0
+            },
+            "low": {
+              "races": 752,
+              "payout": 1100460
+            },
+            "medium": {
+              "races": 67,
+              "payout": 452910
+            },
+            "high": {
+              "races": 32,
+              "payout": 616880
+            }
+          },
+          "high50plus_hit_races": 99,
+          "high50plus_paid_yen": 1069790,
+          "high50plus_share_of_payout_pct": 49.3,
+          "high50plus_contribution_to_roi_pctpts": 35.7,
+          "paid_roi_without_50plus_payout_pct": 36.7,
+          "medium_50to100_paid_share_pct": 20.9,
+          "high100plus_paid_share_pct": 28.4
+        },
+        "causal": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 29984,
+          "stake_yen": 2998400,
+          "payout_yen": 2255270,
+          "net_yen": -743130,
+          "roi_pct": 75.22,
+          "trim1_pct": 71.91,
+          "trim5_pct": 64.29,
+          "hit_races": 741,
+          "tail_bins": {
+            "zero": {
+              "races": 3007,
+              "payout": 0
+            },
+            "low": {
+              "races": 644,
+              "payout": 972350
+            },
+            "medium": {
+              "races": 62,
+              "payout": 430050
+            },
+            "high": {
+              "races": 35,
+              "payout": 852870
+            }
+          },
+          "high50plus_hit_races": 97,
+          "high50plus_paid_yen": 1282920,
+          "high50plus_share_of_payout_pct": 56.9,
+          "high50plus_contribution_to_roi_pctpts": 42.8,
+          "paid_roi_without_50plus_payout_pct": 32.4,
+          "medium_50to100_paid_share_pct": 19.1,
+          "high100plus_paid_share_pct": 37.8
+        },
+        "lab_v5": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 29610,
+          "stake_yen": 2961000,
+          "payout_yen": 1674560,
+          "net_yen": -1286440,
+          "roi_pct": 56.55,
+          "trim1_pct": 54.67,
+          "trim5_pct": 50.67,
+          "hit_races": 581,
+          "tail_bins": {
+            "zero": {
+              "races": 3167,
+              "payout": 0
+            },
+            "low": {
+              "races": 492,
+              "payout": 654060
+            },
+            "medium": {
+              "races": 56,
+              "payout": 394200
+            },
+            "high": {
+              "races": 33,
+              "payout": 626300
+            }
+          },
+          "high50plus_hit_races": 89,
+          "high50plus_paid_yen": 1020500,
+          "high50plus_share_of_payout_pct": 60.9,
+          "high50plus_contribution_to_roi_pctpts": 34.5,
+          "paid_roi_without_50plus_payout_pct": 22.1,
+          "medium_50to100_paid_share_pct": 23.5,
+          "high100plus_paid_share_pct": 37.4
+        },
+        "line": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 29328,
+          "stake_yen": 2932800,
+          "payout_yen": 2312000,
+          "net_yen": -620800,
+          "roi_pct": 78.83,
+          "trim1_pct": 70.55,
+          "trim5_pct": 59.66,
+          "hit_races": 654,
+          "tail_bins": {
+            "zero": {
+              "races": 3094,
+              "payout": 0
+            },
+            "low": {
+              "races": 556,
+              "payout": 713550
+            },
+            "medium": {
+              "races": 59,
+              "payout": 417890
+            },
+            "high": {
+              "races": 39,
+              "payout": 1180560
+            }
+          },
+          "high50plus_hit_races": 98,
+          "high50plus_paid_yen": 1598450,
+          "high50plus_share_of_payout_pct": 69.1,
+          "high50plus_contribution_to_roi_pctpts": 54.5,
+          "paid_roi_without_50plus_payout_pct": 24.3,
+          "medium_50to100_paid_share_pct": 18.1,
+          "high100plus_paid_share_pct": 51.1
+        },
+        "roi_coverage": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 29971,
+          "stake_yen": 2997100,
+          "payout_yen": 1920120,
+          "net_yen": -1076980,
+          "roi_pct": 64.07,
+          "trim1_pct": 61.24,
+          "trim5_pct": 55.31,
+          "hit_races": 695,
+          "tail_bins": {
+            "zero": {
+              "races": 3053,
+              "payout": 0
+            },
+            "low": {
+              "races": 603,
+              "payout": 729570
+            },
+            "medium": {
+              "races": 59,
+              "payout": 416240
+            },
+            "high": {
+              "races": 33,
+              "payout": 774310
+            }
+          },
+          "high50plus_hit_races": 92,
+          "high50plus_paid_yen": 1190550,
+          "high50plus_share_of_payout_pct": 62,
+          "high50plus_contribution_to_roi_pctpts": 39.7,
+          "paid_roi_without_50plus_payout_pct": 24.3,
+          "medium_50to100_paid_share_pct": 21.7,
+          "high100plus_paid_share_pct": 40.3
+        },
+        "b_upset_ad": {
+          "races": 3748,
+          "purchased": 3678,
+          "tickets": 33853,
+          "stake_yen": 3385300,
+          "payout_yen": 2367370,
+          "net_yen": -1017930,
+          "roi_pct": 69.93,
+          "trim1_pct": 67.4,
+          "trim5_pct": 61.99,
+          "hit_races": 464,
+          "tail_bins": {
+            "zero": {
+              "races": 3284,
+              "payout": 0
+            },
+            "low": {
+              "races": 330,
+              "payout": 667210
+            },
+            "medium": {
+              "races": 75,
+              "payout": 531600
+            },
+            "high": {
+              "races": 59,
+              "payout": 1168560
+            }
+          },
+          "high50plus_hit_races": 134,
+          "high50plus_paid_yen": 1700160,
+          "high50plus_share_of_payout_pct": 71.8,
+          "high50plus_contribution_to_roi_pctpts": 50.2,
+          "paid_roi_without_50plus_payout_pct": 19.7,
+          "medium_50to100_paid_share_pct": 22.5,
+          "high100plus_paid_share_pct": 49.4
+        },
+        "b_upset_expanded": {
+          "races": 3748,
+          "purchased": 3713,
+          "tickets": 37118,
+          "stake_yen": 3711800,
+          "payout_yen": 2471670,
+          "net_yen": -1240130,
+          "roi_pct": 66.59,
+          "trim1_pct": 64.89,
+          "trim5_pct": 59.75,
+          "hit_races": 482,
+          "tail_bins": {
+            "zero": {
+              "races": 3266,
+              "payout": 0
+            },
+            "low": {
+              "races": 354,
+              "payout": 644940
+            },
+            "medium": {
+              "races": 60,
+              "payout": 433250
+            },
+            "high": {
+              "races": 68,
+              "payout": 1393480
+            }
+          },
+          "high50plus_hit_races": 128,
+          "high50plus_paid_yen": 1826730,
+          "high50plus_share_of_payout_pct": 73.9,
+          "high50plus_contribution_to_roi_pctpts": 49.2,
+          "paid_roi_without_50plus_payout_pct": 17.4,
+          "medium_50to100_paid_share_pct": 17.5,
+          "high100plus_paid_share_pct": 56.4
+        }
+      }
+    },
+    "finalday_losers": {
+      "n": 790,
+      "engine": {
+        "auto": {
+          "races": 790,
+          "purchased": 790,
+          "tickets": 6320,
+          "stake_yen": 632000,
+          "payout_yen": 544010,
+          "net_yen": -87990,
+          "roi_pct": 86.08,
+          "trim1_pct": 75.11,
+          "trim5_pct": 53.72,
+          "hit_races": 136,
+          "tail_bins": {
+            "zero": {
+              "races": 654,
+              "payout": 0
+            },
+            "low": {
+              "races": 115,
+              "payout": 179420
+            },
+            "medium": {
+              "races": 10,
+              "payout": 79470
+            },
+            "high": {
+              "races": 11,
+              "payout": 285120
+            }
+          },
+          "high50plus_hit_races": 21,
+          "high50plus_paid_yen": 364590,
+          "high50plus_share_of_payout_pct": 67,
+          "high50plus_contribution_to_roi_pctpts": 57.7,
+          "paid_roi_without_50plus_payout_pct": 28.4,
+          "medium_50to100_paid_share_pct": 14.6,
+          "high100plus_paid_share_pct": 52.4
+        },
+        "baxis_3": {
+          "races": 790,
+          "purchased": 790,
+          "tickets": 2370,
+          "stake_yen": 237000,
+          "payout_yen": 184830,
+          "net_yen": -52170,
+          "roi_pct": 77.99,
+          "trim1_pct": 68.21,
+          "trim5_pct": 54.08,
+          "hit_races": 112,
+          "tail_bins": {
+            "zero": {
+              "races": 678,
+              "payout": 0
+            },
+            "low": {
+              "races": 105,
+              "payout": 116380
+            },
+            "medium": {
+              "races": 5,
+              "payout": 31790
+            },
+            "high": {
+              "races": 2,
+              "payout": 36660
+            }
+          },
+          "high50plus_hit_races": 7,
+          "high50plus_paid_yen": 68450,
+          "high50plus_share_of_payout_pct": 37,
+          "high50plus_contribution_to_roi_pctpts": 28.9,
+          "paid_roi_without_50plus_payout_pct": 49.1,
+          "medium_50to100_paid_share_pct": 17.2,
+          "high100plus_paid_share_pct": 19.8
+        },
+        "b_upset_ad": {
+          "races": 790,
+          "purchased": 746,
+          "tickets": 6820,
+          "stake_yen": 682000,
+          "payout_yen": 505320,
+          "net_yen": -176680,
+          "roi_pct": 74.09,
+          "trim1_pct": 69.24,
+          "trim5_pct": 53.55,
+          "hit_races": 110,
+          "tail_bins": {
+            "zero": {
+              "races": 680,
+              "payout": 0
+            },
+            "low": {
+              "races": 86,
+              "payout": 158220
+            },
+            "medium": {
+              "races": 11,
+              "payout": 74700
+            },
+            "high": {
+              "races": 13,
+              "payout": 272400
+            }
+          },
+          "high50plus_hit_races": 24,
+          "high50plus_paid_yen": 347100,
+          "high50plus_share_of_payout_pct": 68.7,
+          "high50plus_contribution_to_roi_pctpts": 50.9,
+          "paid_roi_without_50plus_payout_pct": 23.2,
+          "medium_50to100_paid_share_pct": 14.8,
+          "high100plus_paid_share_pct": 53.9
+        },
+        "b_upset_expanded": {
+          "races": 790,
+          "purchased": 773,
+          "tickets": 7728,
+          "stake_yen": 772800,
+          "payout_yen": 519340,
+          "net_yen": -253460,
+          "roi_pct": 67.2,
+          "trim1_pct": 63.36,
+          "trim5_pct": 50.87,
+          "hit_races": 106,
+          "tail_bins": {
+            "zero": {
+              "races": 684,
+              "payout": 0
+            },
+            "low": {
+              "races": 77,
+              "payout": 132180
+            },
+            "medium": {
+              "races": 14,
+              "payout": 97140
+            },
+            "high": {
+              "races": 15,
+              "payout": 290020
+            }
+          },
+          "high50plus_hit_races": 29,
+          "high50plus_paid_yen": 387160,
+          "high50plus_share_of_payout_pct": 74.5,
+          "high50plus_contribution_to_roi_pctpts": 50.1,
+          "paid_roi_without_50plus_payout_pct": 17.1,
+          "medium_50to100_paid_share_pct": 18.7,
+          "high100plus_paid_share_pct": 55.8
+        },
+        "line": {
+          "races": 790,
+          "purchased": 790,
+          "tickets": 6041,
+          "stake_yen": 604100,
+          "payout_yen": 427680,
+          "net_yen": -176420,
+          "roi_pct": 70.8,
+          "trim1_pct": 64.96,
+          "trim5_pct": 45.83,
+          "hit_races": 147,
+          "tail_bins": {
+            "zero": {
+              "races": 643,
+              "payout": 0
+            },
+            "low": {
+              "races": 129,
+              "payout": 155180
+            },
+            "medium": {
+              "races": 8,
+              "payout": 46580
+            },
+            "high": {
+              "races": 10,
+              "payout": 225920
+            }
+          },
+          "high50plus_hit_races": 18,
+          "high50plus_paid_yen": 272500,
+          "high50plus_share_of_payout_pct": 63.7,
+          "high50plus_contribution_to_roi_pctpts": 45.1,
+          "paid_roi_without_50plus_payout_pct": 25.7,
+          "medium_50to100_paid_share_pct": 10.9,
+          "high100plus_paid_share_pct": 52.8
+        },
+        "roi_coverage": {
+          "races": 790,
+          "purchased": 790,
+          "tickets": 6318,
+          "stake_yen": 631800,
+          "payout_yen": 419140,
+          "net_yen": -212660,
+          "roi_pct": 66.34,
+          "trim1_pct": 60.76,
+          "trim5_pct": 43.57,
+          "hit_races": 149,
+          "tail_bins": {
+            "zero": {
+              "races": 641,
+              "payout": 0
+            },
+            "low": {
+              "races": 133,
+              "payout": 171940
+            },
+            "medium": {
+              "races": 6,
+              "payout": 37700
+            },
+            "high": {
+              "races": 10,
+              "payout": 209500
+            }
+          },
+          "high50plus_hit_races": 16,
+          "high50plus_paid_yen": 247200,
+          "high50plus_share_of_payout_pct": 59,
+          "high50plus_contribution_to_roi_pctpts": 39.1,
+          "paid_roi_without_50plus_payout_pct": 27.2,
+          "medium_50to100_paid_share_pct": 9,
+          "high100plus_paid_share_pct": 50
+        }
+      }
+    },
+    "nonfavorite": {
+      "n": 2100,
+      "engine": {
+        "auto": {
+          "races": 2100,
+          "purchased": 2100,
+          "tickets": 16798,
+          "stake_yen": 1679800,
+          "payout_yen": 1557200,
+          "net_yen": -122600,
+          "roi_pct": 92.7,
+          "trim1_pct": 88.58,
+          "trim5_pct": 78.42,
+          "hit_races": 371,
+          "tail_bins": {
+            "zero": {
+              "races": 1729,
+              "payout": 0
+            },
+            "low": {
+              "races": 292,
+              "payout": 518790
+            },
+            "medium": {
+              "races": 50,
+              "payout": 347850
+            },
+            "high": {
+              "races": 29,
+              "payout": 690560
+            }
+          },
+          "high50plus_hit_races": 79,
+          "high50plus_paid_yen": 1038410,
+          "high50plus_share_of_payout_pct": 66.7,
+          "high50plus_contribution_to_roi_pctpts": 61.8,
+          "paid_roi_without_50plus_payout_pct": 30.9,
+          "medium_50to100_paid_share_pct": 22.3,
+          "high100plus_paid_share_pct": 44.3
+        },
+        "baxis_3": {
+          "races": 2100,
+          "purchased": 2100,
+          "tickets": 6300,
+          "stake_yen": 630000,
+          "payout_yen": 554710,
+          "net_yen": -75290,
+          "roi_pct": 88.05,
+          "trim1_pct": 80.56,
+          "trim5_pct": 63.58,
+          "hit_races": 169,
+          "tail_bins": {
+            "zero": {
+              "races": 1931,
+              "payout": 0
+            },
+            "low": {
+              "races": 145,
+              "payout": 239700
+            },
+            "medium": {
+              "races": 15,
+              "payout": 109960
+            },
+            "high": {
+              "races": 9,
+              "payout": 205050
+            }
+          },
+          "high50plus_hit_races": 24,
+          "high50plus_paid_yen": 315010,
+          "high50plus_share_of_payout_pct": 56.8,
+          "high50plus_contribution_to_roi_pctpts": 50,
+          "paid_roi_without_50plus_payout_pct": 38,
+          "medium_50to100_paid_share_pct": 19.8,
+          "high100plus_paid_share_pct": 37
+        },
+        "b_upset_ad": {
+          "races": 2100,
+          "purchased": 2078,
+          "tickets": 19002,
+          "stake_yen": 1900200,
+          "payout_yen": 1411860,
+          "net_yen": -488340,
+          "roi_pct": 74.3,
+          "trim1_pct": 71.83,
+          "trim5_pct": 63.82,
+          "hit_races": 347,
+          "tail_bins": {
+            "zero": {
+              "races": 1753,
+              "payout": 0
+            },
+            "low": {
+              "races": 275,
+              "payout": 534570
+            },
+            "medium": {
+              "races": 44,
+              "payout": 303580
+            },
+            "high": {
+              "races": 28,
+              "payout": 573710
+            }
+          },
+          "high50plus_hit_races": 72,
+          "high50plus_paid_yen": 877290,
+          "high50plus_share_of_payout_pct": 62.1,
+          "high50plus_contribution_to_roi_pctpts": 46.2,
+          "paid_roi_without_50plus_payout_pct": 28.1,
+          "medium_50to100_paid_share_pct": 21.5,
+          "high100plus_paid_share_pct": 40.6
+        },
+        "b_upset_expanded": {
+          "races": 2100,
+          "purchased": 2095,
+          "tickets": 20934,
+          "stake_yen": 2093400,
+          "payout_yen": 1707850,
+          "net_yen": -385550,
+          "roi_pct": 81.58,
+          "trim1_pct": 78.57,
+          "trim5_pct": 70,
+          "hit_races": 343,
+          "tail_bins": {
+            "zero": {
+              "races": 1757,
+              "payout": 0
+            },
+            "low": {
+              "races": 258,
+              "payout": 485280
+            },
+            "medium": {
+              "races": 42,
+              "payout": 292870
+            },
+            "high": {
+              "races": 43,
+              "payout": 929700
+            }
+          },
+          "high50plus_hit_races": 85,
+          "high50plus_paid_yen": 1222570,
+          "high50plus_share_of_payout_pct": 71.6,
+          "high50plus_contribution_to_roi_pctpts": 58.4,
+          "paid_roi_without_50plus_payout_pct": 23.2,
+          "medium_50to100_paid_share_pct": 17.1,
+          "high100plus_paid_share_pct": 54.4
+        },
+        "line": {
+          "races": 2100,
+          "purchased": 2100,
+          "tickets": 16569,
+          "stake_yen": 1656900,
+          "payout_yen": 1445990,
+          "net_yen": -210910,
+          "roi_pct": 87.27,
+          "trim1_pct": 82.28,
+          "trim5_pct": 65.82,
+          "hit_races": 286,
+          "tail_bins": {
+            "zero": {
+              "races": 1814,
+              "payout": 0
+            },
+            "low": {
+              "races": 216,
+              "payout": 373960
+            },
+            "medium": {
+              "races": 40,
+              "payout": 283340
+            },
+            "high": {
+              "races": 30,
+              "payout": 788690
+            }
+          },
+          "high50plus_hit_races": 70,
+          "high50plus_paid_yen": 1072030,
+          "high50plus_share_of_payout_pct": 74.1,
+          "high50plus_contribution_to_roi_pctpts": 64.7,
+          "paid_roi_without_50plus_payout_pct": 22.6,
+          "medium_50to100_paid_share_pct": 19.6,
+          "high100plus_paid_share_pct": 54.5
+        },
+        "roi_coverage": {
+          "races": 2100,
+          "purchased": 2100,
+          "tickets": 16797,
+          "stake_yen": 1679700,
+          "payout_yen": 1241150,
+          "net_yen": -438550,
+          "roi_pct": 73.89,
+          "trim1_pct": 68.96,
+          "trim5_pct": 57.57,
+          "hit_races": 277,
+          "tail_bins": {
+            "zero": {
+              "races": 1823,
+              "payout": 0
+            },
+            "low": {
+              "races": 218,
+              "payout": 366000
+            },
+            "medium": {
+              "races": 34,
+              "payout": 240500
+            },
+            "high": {
+              "races": 25,
+              "payout": 634650
+            }
+          },
+          "high50plus_hit_races": 59,
+          "high50plus_paid_yen": 875150,
+          "high50plus_share_of_payout_pct": 70.5,
+          "high50plus_contribution_to_roi_pctpts": 52.1,
+          "paid_roi_without_50plus_payout_pct": 21.8,
+          "medium_50to100_paid_share_pct": 19.4,
+          "high100plus_paid_share_pct": 51.1
+        }
+      }
+    },
+    "favorited": {
+      "n": 3645,
+      "engine": {
+        "auto": {
+          "races": 3645,
+          "purchased": 3645,
+          "tickets": 29153,
+          "stake_yen": 2915300,
+          "payout_yen": 2176230,
+          "net_yen": -739070,
+          "roi_pct": 74.65,
+          "trim1_pct": 71.25,
+          "trim5_pct": 64.83,
+          "hit_races": 833,
+          "tail_bins": {
+            "zero": {
+              "races": 2812,
+              "payout": 0
+            },
+            "low": {
+              "races": 747,
+              "payout": 942580
+            },
+            "medium": {
+              "races": 45,
+              "payout": 322440
+            },
+            "high": {
+              "races": 41,
+              "payout": 911210
+            }
+          },
+          "high50plus_hit_races": 86,
+          "high50plus_paid_yen": 1233650,
+          "high50plus_share_of_payout_pct": 56.7,
+          "high50plus_contribution_to_roi_pctpts": 42.3,
+          "paid_roi_without_50plus_payout_pct": 32.3,
+          "medium_50to100_paid_share_pct": 14.8,
+          "high100plus_paid_share_pct": 41.9
+        },
+        "baxis_3": {
+          "races": 3645,
+          "purchased": 3645,
+          "tickets": 10935,
+          "stake_yen": 1093500,
+          "payout_yen": 805180,
+          "net_yen": -288320,
+          "roi_pct": 73.63,
+          "trim1_pct": 70.27,
+          "trim5_pct": 64.4,
+          "hit_races": 589,
+          "tail_bins": {
+            "zero": {
+              "races": 3056,
+              "payout": 0
+            },
+            "low": {
+              "races": 555,
+              "payout": 496420
+            },
+            "medium": {
+              "races": 28,
+              "payout": 196550
+            },
+            "high": {
+              "races": 6,
+              "payout": 112210
+            }
+          },
+          "high50plus_hit_races": 34,
+          "high50plus_paid_yen": 308760,
+          "high50plus_share_of_payout_pct": 38.3,
+          "high50plus_contribution_to_roi_pctpts": 28.2,
+          "paid_roi_without_50plus_payout_pct": 45.4,
+          "medium_50to100_paid_share_pct": 24.4,
+          "high100plus_paid_share_pct": 13.9
+        },
+        "b_upset_ad": {
+          "races": 3645,
+          "purchased": 3560,
+          "tickets": 32788,
+          "stake_yen": 3278800,
+          "payout_yen": 2210610,
+          "net_yen": -1068190,
+          "roi_pct": 67.42,
+          "trim1_pct": 64.81,
+          "trim5_pct": 58.45,
+          "hit_races": 343,
+          "tail_bins": {
+            "zero": {
+              "races": 3302,
+              "payout": 0
+            },
+            "low": {
+              "races": 215,
+              "payout": 462080
+            },
+            "medium": {
+              "races": 70,
+              "payout": 485170
+            },
+            "high": {
+              "races": 58,
+              "payout": 1263360
+            }
+          },
+          "high50plus_hit_races": 128,
+          "high50plus_paid_yen": 1748530,
+          "high50plus_share_of_payout_pct": 79.1,
+          "high50plus_contribution_to_roi_pctpts": 53.3,
+          "paid_roi_without_50plus_payout_pct": 14.1,
+          "medium_50to100_paid_share_pct": 21.9,
+          "high100plus_paid_share_pct": 57.1
+        },
+        "b_upset_expanded": {
+          "races": 3645,
+          "purchased": 3598,
+          "tickets": 35977,
+          "stake_yen": 3597700,
+          "payout_yen": 2068030,
+          "net_yen": -1529670,
+          "roi_pct": 57.48,
+          "trim1_pct": 55.64,
+          "trim5_pct": 49.99,
+          "hit_races": 374,
+          "tail_bins": {
+            "zero": {
+              "races": 3271,
+              "payout": 0
+            },
+            "low": {
+              "races": 267,
+              "payout": 482910
+            },
+            "medium": {
+              "races": 49,
+              "payout": 345880
+            },
+            "high": {
+              "races": 58,
+              "payout": 1239240
+            }
+          },
+          "high50plus_hit_races": 107,
+          "high50plus_paid_yen": 1585120,
+          "high50plus_share_of_payout_pct": 76.6,
+          "high50plus_contribution_to_roi_pctpts": 44.1,
+          "paid_roi_without_50plus_payout_pct": 13.4,
+          "medium_50to100_paid_share_pct": 16.7,
+          "high100plus_paid_share_pct": 59.9
+        },
+        "line": {
+          "races": 3645,
+          "purchased": 3645,
+          "tickets": 28355,
+          "stake_yen": 2835500,
+          "payout_yen": 2112340,
+          "net_yen": -723160,
+          "roi_pct": 74.5,
+          "trim1_pct": 65.92,
+          "trim5_pct": 57.49,
+          "hit_races": 758,
+          "tail_bins": {
+            "zero": {
+              "races": 2887,
+              "payout": 0
+            },
+            "low": {
+              "races": 673,
+              "payout": 757960
+            },
+            "medium": {
+              "races": 53,
+              "payout": 363360
+            },
+            "high": {
+              "races": 32,
+              "payout": 991020
+            }
+          },
+          "high50plus_hit_races": 85,
+          "high50plus_paid_yen": 1354380,
+          "high50plus_share_of_payout_pct": 64.1,
+          "high50plus_contribution_to_roi_pctpts": 47.8,
+          "paid_roi_without_50plus_payout_pct": 26.7,
+          "medium_50to100_paid_share_pct": 17.2,
+          "high100plus_paid_share_pct": 46.9
+        },
+        "roi_coverage": {
+          "races": 3645,
+          "purchased": 3645,
+          "tickets": 29134,
+          "stake_yen": 2913400,
+          "payout_yen": 1761320,
+          "net_yen": -1152080,
+          "roi_pct": 60.46,
+          "trim1_pct": 57.55,
+          "trim5_pct": 52.67,
+          "hit_races": 797,
+          "tail_bins": {
+            "zero": {
+              "races": 2848,
+              "payout": 0
+            },
+            "low": {
+              "races": 718,
+              "payout": 772850
+            },
+            "medium": {
+              "races": 52,
+              "payout": 362360
+            },
+            "high": {
+              "races": 27,
+              "payout": 626110
+            }
+          },
+          "high50plus_hit_races": 79,
+          "high50plus_paid_yen": 988470,
+          "high50plus_share_of_payout_pct": 56.1,
+          "high50plus_contribution_to_roi_pctpts": 33.9,
+          "paid_roi_without_50plus_payout_pct": 26.5,
+          "medium_50to100_paid_share_pct": 20.6,
+          "high100plus_paid_share_pct": 35.5
+        }
+      }
+    },
+    "agreement": {
+      "n": 5183,
+      "engine": {
+        "auto": {
+          "races": 5183,
+          "purchased": 5183,
+          "tickets": 41458,
+          "stake_yen": 4145800,
+          "payout_yen": 3417010,
+          "net_yen": -728790,
+          "roi_pct": 82.42,
+          "trim1_pct": 80.03,
+          "trim5_pct": 74.53,
+          "hit_races": 1106,
+          "tail_bins": {
+            "zero": {
+              "races": 4077,
+              "payout": 0
+            },
+            "low": {
+              "races": 954,
+              "payout": 1331900
+            },
+            "medium": {
+              "races": 87,
+              "payout": 622670
+            },
+            "high": {
+              "races": 65,
+              "payout": 1462440
+            }
+          },
+          "high50plus_hit_races": 152,
+          "high50plus_paid_yen": 2085110,
+          "high50plus_share_of_payout_pct": 61,
+          "high50plus_contribution_to_roi_pctpts": 50.3,
+          "paid_roi_without_50plus_payout_pct": 32.1,
+          "medium_50to100_paid_share_pct": 18.2,
+          "high100plus_paid_share_pct": 42.8
+        },
+        "baxis_3": {
+          "races": 5183,
+          "purchased": 5183,
+          "tickets": 15549,
+          "stake_yen": 1554900,
+          "payout_yen": 1212800,
+          "net_yen": -342100,
+          "roi_pct": 78,
+          "trim1_pct": 74.96,
+          "trim5_pct": 67.18,
+          "hit_races": 714,
+          "tail_bins": {
+            "zero": {
+              "races": 4469,
+              "payout": 0
+            },
+            "low": {
+              "races": 666,
+              "payout": 691140
+            },
+            "medium": {
+              "races": 36,
+              "payout": 259250
+            },
+            "high": {
+              "races": 12,
+              "payout": 262410
+            }
+          },
+          "high50plus_hit_races": 48,
+          "high50plus_paid_yen": 521660,
+          "high50plus_share_of_payout_pct": 43,
+          "high50plus_contribution_to_roi_pctpts": 33.5,
+          "paid_roi_without_50plus_payout_pct": 44.4,
+          "medium_50to100_paid_share_pct": 21.4,
+          "high100plus_paid_share_pct": 21.6
+        },
+        "b_upset_ad": {
+          "races": 5183,
+          "purchased": 5083,
+          "tickets": 46665,
+          "stake_yen": 4666500,
+          "payout_yen": 3171840,
+          "net_yen": -1494660,
+          "roi_pct": 67.97,
+          "trim1_pct": 66.13,
+          "trim5_pct": 61.91,
+          "hit_races": 607,
+          "tail_bins": {
+            "zero": {
+              "races": 4576,
+              "payout": 0
+            },
+            "low": {
+              "races": 436,
+              "payout": 878990
+            },
+            "medium": {
+              "races": 93,
+              "payout": 645350
+            },
+            "high": {
+              "races": 78,
+              "payout": 1647500
+            }
+          },
+          "high50plus_hit_races": 171,
+          "high50plus_paid_yen": 2292850,
+          "high50plus_share_of_payout_pct": 72.3,
+          "high50plus_contribution_to_roi_pctpts": 49.1,
+          "paid_roi_without_50plus_payout_pct": 18.8,
+          "medium_50to100_paid_share_pct": 20.3,
+          "high100plus_paid_share_pct": 51.9
+        },
+        "b_upset_expanded": {
+          "races": 5183,
+          "purchased": 5131,
+          "tickets": 51294,
+          "stake_yen": 5129400,
+          "payout_yen": 3335610,
+          "net_yen": -1793790,
+          "roi_pct": 65.03,
+          "trim1_pct": 63.74,
+          "trim5_pct": 59.38,
+          "hit_races": 619,
+          "tail_bins": {
+            "zero": {
+              "races": 4564,
+              "payout": 0
+            },
+            "low": {
+              "races": 457,
+              "payout": 847990
+            },
+            "medium": {
+              "races": 73,
+              "payout": 521850
+            },
+            "high": {
+              "races": 89,
+              "payout": 1965770
+            }
+          },
+          "high50plus_hit_races": 162,
+          "high50plus_paid_yen": 2487620,
+          "high50plus_share_of_payout_pct": 74.6,
+          "high50plus_contribution_to_roi_pctpts": 48.5,
+          "paid_roi_without_50plus_payout_pct": 16.5,
+          "medium_50to100_paid_share_pct": 15.6,
+          "high100plus_paid_share_pct": 58.9
+        },
+        "line": {
+          "races": 5183,
+          "purchased": 5183,
+          "tickets": 40572,
+          "stake_yen": 4057200,
+          "payout_yen": 3234790,
+          "net_yen": -822410,
+          "roi_pct": 79.73,
+          "trim1_pct": 73.74,
+          "trim5_pct": 65.61,
+          "hit_races": 935,
+          "tail_bins": {
+            "zero": {
+              "races": 4248,
+              "payout": 0
+            },
+            "low": {
+              "races": 796,
+              "payout": 1006150
+            },
+            "medium": {
+              "races": 84,
+              "payout": 586130
+            },
+            "high": {
+              "races": 55,
+              "payout": 1642510
+            }
+          },
+          "high50plus_hit_races": 139,
+          "high50plus_paid_yen": 2228640,
+          "high50plus_share_of_payout_pct": 68.9,
+          "high50plus_contribution_to_roi_pctpts": 54.9,
+          "paid_roi_without_50plus_payout_pct": 24.8,
+          "medium_50to100_paid_share_pct": 18.1,
+          "high100plus_paid_share_pct": 50.8
+        },
+        "roi_coverage": {
+          "races": 5183,
+          "purchased": 5183,
+          "tickets": 41440,
+          "stake_yen": 4144000,
+          "payout_yen": 2640950,
+          "net_yen": -1503050,
+          "roi_pct": 63.73,
+          "trim1_pct": 61.69,
+          "trim5_pct": 55.59,
+          "hit_races": 970,
+          "tail_bins": {
+            "zero": {
+              "races": 4213,
+              "payout": 0
+            },
+            "low": {
+              "races": 849,
+              "payout": 1022970
+            },
+            "medium": {
+              "races": 77,
+              "payout": 540590
+            },
+            "high": {
+              "races": 44,
+              "payout": 1077390
+            }
+          },
+          "high50plus_hit_races": 121,
+          "high50plus_paid_yen": 1617980,
+          "high50plus_share_of_payout_pct": 61.3,
+          "high50plus_contribution_to_roi_pctpts": 39,
+          "paid_roi_without_50plus_payout_pct": 24.7,
+          "medium_50to100_paid_share_pct": 20.5,
+          "high100plus_paid_share_pct": 40.8
+        }
+      }
+    },
+    "disagreement": {
+      "n": 562,
+      "engine": {
+        "auto": {
+          "races": 562,
+          "purchased": 562,
+          "tickets": 4493,
+          "stake_yen": 449300,
+          "payout_yen": 316420,
+          "net_yen": -132880,
+          "roi_pct": 70.43,
+          "trim1_pct": 60.17,
+          "trim5_pct": 39.77,
+          "hit_races": 98,
+          "tail_bins": {
+            "zero": {
+              "races": 464,
+              "payout": 0
+            },
+            "low": {
+              "races": 85,
+              "payout": 129470
+            },
+            "medium": {
+              "races": 8,
+              "payout": 47620
+            },
+            "high": {
+              "races": 5,
+              "payout": 139330
+            }
+          },
+          "high50plus_hit_races": 13,
+          "high50plus_paid_yen": 186950,
+          "high50plus_share_of_payout_pct": 59.1,
+          "high50plus_contribution_to_roi_pctpts": 41.6,
+          "paid_roi_without_50plus_payout_pct": 28.8,
+          "medium_50to100_paid_share_pct": 15,
+          "high100plus_paid_share_pct": 44
+        },
+        "baxis_3": {
+          "races": 562,
+          "purchased": 562,
+          "tickets": 1686,
+          "stake_yen": 168600,
+          "payout_yen": 147090,
+          "net_yen": -21510,
+          "roi_pct": 87.24,
+          "trim1_pct": 70.57,
+          "trim5_pct": 44.88,
+          "hit_races": 44,
+          "tail_bins": {
+            "zero": {
+              "races": 518,
+              "payout": 0
+            },
+            "low": {
+              "races": 34,
+              "payout": 44980
+            },
+            "medium": {
+              "races": 7,
+              "payout": 47260
+            },
+            "high": {
+              "races": 3,
+              "payout": 54850
+            }
+          },
+          "high50plus_hit_races": 10,
+          "high50plus_paid_yen": 102110,
+          "high50plus_share_of_payout_pct": 69.4,
+          "high50plus_contribution_to_roi_pctpts": 60.6,
+          "paid_roi_without_50plus_payout_pct": 26.7,
+          "medium_50to100_paid_share_pct": 32.1,
+          "high100plus_paid_share_pct": 37.3
+        },
+        "b_upset_ad": {
+          "races": 562,
+          "purchased": 555,
+          "tickets": 5125,
+          "stake_yen": 512500,
+          "payout_yen": 450630,
+          "net_yen": -61870,
+          "roi_pct": 87.93,
+          "trim1_pct": 76.52,
+          "trim5_pct": 57.61,
+          "hit_races": 83,
+          "tail_bins": {
+            "zero": {
+              "races": 479,
+              "payout": 0
+            },
+            "low": {
+              "races": 54,
+              "payout": 117660
+            },
+            "medium": {
+              "races": 21,
+              "payout": 143400
+            },
+            "high": {
+              "races": 8,
+              "payout": 189570
+            }
+          },
+          "high50plus_hit_races": 29,
+          "high50plus_paid_yen": 332970,
+          "high50plus_share_of_payout_pct": 73.9,
+          "high50plus_contribution_to_roi_pctpts": 65,
+          "paid_roi_without_50plus_payout_pct": 23,
+          "medium_50to100_paid_share_pct": 31.8,
+          "high100plus_paid_share_pct": 42.1
+        },
+        "b_upset_expanded": {
+          "races": 562,
+          "purchased": 562,
+          "tickets": 5617,
+          "stake_yen": 561700,
+          "payout_yen": 440270,
+          "net_yen": -121430,
+          "roi_pct": 78.38,
+          "trim1_pct": 73.47,
+          "trim5_pct": 57.83,
+          "hit_races": 98,
+          "tail_bins": {
+            "zero": {
+              "races": 464,
+              "payout": 0
+            },
+            "low": {
+              "races": 68,
+              "payout": 120200
+            },
+            "medium": {
+              "races": 18,
+              "payout": 116900
+            },
+            "high": {
+              "races": 12,
+              "payout": 203170
+            }
+          },
+          "high50plus_hit_races": 30,
+          "high50plus_paid_yen": 320070,
+          "high50plus_share_of_payout_pct": 72.7,
+          "high50plus_contribution_to_roi_pctpts": 57,
+          "paid_roi_without_50plus_payout_pct": 21.4,
+          "medium_50to100_paid_share_pct": 26.6,
+          "high100plus_paid_share_pct": 46.1
+        },
+        "line": {
+          "races": 562,
+          "purchased": 562,
+          "tickets": 4352,
+          "stake_yen": 435200,
+          "payout_yen": 323540,
+          "net_yen": -111660,
+          "roi_pct": 74.34,
+          "trim1_pct": 67.96,
+          "trim5_pct": 48.94,
+          "hit_races": 109,
+          "tail_bins": {
+            "zero": {
+              "races": 453,
+              "payout": 0
+            },
+            "low": {
+              "races": 93,
+              "payout": 125770
+            },
+            "medium": {
+              "races": 9,
+              "payout": 60570
+            },
+            "high": {
+              "races": 7,
+              "payout": 137200
+            }
+          },
+          "high50plus_hit_races": 16,
+          "high50plus_paid_yen": 197770,
+          "high50plus_share_of_payout_pct": 61.1,
+          "high50plus_contribution_to_roi_pctpts": 45.4,
+          "paid_roi_without_50plus_payout_pct": 28.9,
+          "medium_50to100_paid_share_pct": 18.7,
+          "high100plus_paid_share_pct": 42.4
+        },
+        "roi_coverage": {
+          "races": 562,
+          "purchased": 562,
+          "tickets": 4491,
+          "stake_yen": 449100,
+          "payout_yen": 361520,
+          "net_yen": -87580,
+          "roi_pct": 80.5,
+          "trim1_pct": 74.05,
+          "trim5_pct": 52.17,
+          "hit_races": 104,
+          "tail_bins": {
+            "zero": {
+              "races": 458,
+              "payout": 0
+            },
+            "low": {
+              "races": 87,
+              "payout": 115880
+            },
+            "medium": {
+              "races": 9,
+              "payout": 62270
+            },
+            "high": {
+              "races": 8,
+              "payout": 183370
+            }
+          },
+          "high50plus_hit_races": 17,
+          "high50plus_paid_yen": 245640,
+          "high50plus_share_of_payout_pct": 67.9,
+          "high50plus_contribution_to_roi_pctpts": 54.7,
+          "paid_roi_without_50plus_payout_pct": 25.8,
+          "medium_50to100_paid_share_pct": 17.2,
+          "high100plus_paid_share_pct": 50.7
+        }
+      }
+    },
+    "car7": {
+      "n": 5206,
+      "engine": {
+        "auto": {
+          "races": 5206,
+          "purchased": 5206,
+          "tickets": 41639,
+          "stake_yen": 4163900,
+          "payout_yen": 3362490,
+          "net_yen": -801410,
+          "roi_pct": 80.75,
+          "trim1_pct": 78.37,
+          "trim5_pct": 72.89,
+          "hit_races": 1114,
+          "tail_bins": {
+            "zero": {
+              "races": 4092,
+              "payout": 0
+            },
+            "low": {
+              "races": 969,
+              "payout": 1338150
+            },
+            "medium": {
+              "races": 82,
+              "payout": 569840
+            },
+            "high": {
+              "races": 63,
+              "payout": 1454500
+            }
+          },
+          "high50plus_hit_races": 145,
+          "high50plus_paid_yen": 2024340,
+          "high50plus_share_of_payout_pct": 60.2,
+          "high50plus_contribution_to_roi_pctpts": 48.6,
+          "paid_roi_without_50plus_payout_pct": 32.1,
+          "medium_50to100_paid_share_pct": 16.9,
+          "high100plus_paid_share_pct": 43.3
+        },
+        "baxis_3": {
+          "races": 5206,
+          "purchased": 5206,
+          "tickets": 15618,
+          "stake_yen": 1561800,
+          "payout_yen": 1232890,
+          "net_yen": -328910,
+          "roi_pct": 78.94,
+          "trim1_pct": 75.92,
+          "trim5_pct": 67.74,
+          "hit_races": 699,
+          "tail_bins": {
+            "zero": {
+              "races": 4507,
+              "payout": 0
+            },
+            "low": {
+              "races": 649,
+              "payout": 679810
+            },
+            "medium": {
+              "races": 37,
+              "payout": 260600
+            },
+            "high": {
+              "races": 13,
+              "payout": 292480
+            }
+          },
+          "high50plus_hit_races": 50,
+          "high50plus_paid_yen": 553080,
+          "high50plus_share_of_payout_pct": 44.9,
+          "high50plus_contribution_to_roi_pctpts": 35.4,
+          "paid_roi_without_50plus_payout_pct": 43.5,
+          "medium_50to100_paid_share_pct": 21.1,
+          "high100plus_paid_share_pct": 23.7
+        },
+        "b_upset_ad": {
+          "races": 5206,
+          "purchased": 5101,
+          "tickets": 46743,
+          "stake_yen": 4674300,
+          "payout_yen": 3212640,
+          "net_yen": -1461660,
+          "roi_pct": 68.73,
+          "trim1_pct": 66.9,
+          "trim5_pct": 62.46,
+          "hit_races": 632,
+          "tail_bins": {
+            "zero": {
+              "races": 4574,
+              "payout": 0
+            },
+            "low": {
+              "races": 457,
+              "payout": 918050
+            },
+            "medium": {
+              "races": 99,
+              "payout": 677360
+            },
+            "high": {
+              "races": 76,
+              "payout": 1617230
+            }
+          },
+          "high50plus_hit_races": 175,
+          "high50plus_paid_yen": 2294590,
+          "high50plus_share_of_payout_pct": 71.4,
+          "high50plus_contribution_to_roi_pctpts": 49.1,
+          "paid_roi_without_50plus_payout_pct": 19.6,
+          "medium_50to100_paid_share_pct": 21.1,
+          "high100plus_paid_share_pct": 50.3
+        },
+        "b_upset_expanded": {
+          "races": 5206,
+          "purchased": 5154,
+          "tickets": 51521,
+          "stake_yen": 5152100,
+          "payout_yen": 3448150,
+          "net_yen": -1703950,
+          "roi_pct": 66.93,
+          "trim1_pct": 65.65,
+          "trim5_pct": 61.3,
+          "hit_races": 661,
+          "tail_bins": {
+            "zero": {
+              "races": 4545,
+              "payout": 0
+            },
+            "low": {
+              "races": 484,
+              "payout": 878260
+            },
+            "medium": {
+              "races": 84,
+              "payout": 578750
+            },
+            "high": {
+              "races": 93,
+              "payout": 1991140
+            }
+          },
+          "high50plus_hit_races": 177,
+          "high50plus_paid_yen": 2569890,
+          "high50plus_share_of_payout_pct": 74.5,
+          "high50plus_contribution_to_roi_pctpts": 49.9,
+          "paid_roi_without_50plus_payout_pct": 17,
+          "medium_50to100_paid_share_pct": 16.8,
+          "high100plus_paid_share_pct": 57.7
+        },
+        "line": {
+          "races": 5206,
+          "purchased": 5206,
+          "tickets": 40613,
+          "stake_yen": 4061300,
+          "payout_yen": 3117550,
+          "net_yen": -943750,
+          "roi_pct": 76.76,
+          "trim1_pct": 70.78,
+          "trim5_pct": 62.9,
+          "hit_races": 948,
+          "tail_bins": {
+            "zero": {
+              "races": 4258,
+              "payout": 0
+            },
+            "low": {
+              "races": 818,
+              "payout": 1031080
+            },
+            "medium": {
+              "races": 79,
+              "payout": 545630
+            },
+            "high": {
+              "races": 51,
+              "payout": 1540840
+            }
+          },
+          "high50plus_hit_races": 130,
+          "high50plus_paid_yen": 2086470,
+          "high50plus_share_of_payout_pct": 66.9,
+          "high50plus_contribution_to_roi_pctpts": 51.4,
+          "paid_roi_without_50plus_payout_pct": 25.4,
+          "medium_50to100_paid_share_pct": 17.5,
+          "high100plus_paid_share_pct": 49.4
+        },
+        "roi_coverage": {
+          "races": 5206,
+          "purchased": 5206,
+          "tickets": 41623,
+          "stake_yen": 4162300,
+          "payout_yen": 2621730,
+          "net_yen": -1540570,
+          "roi_pct": 62.99,
+          "trim1_pct": 61,
+          "trim5_pct": 56.07,
+          "hit_races": 973,
+          "tail_bins": {
+            "zero": {
+              "races": 4233,
+              "payout": 0
+            },
+            "low": {
+              "races": 854,
+              "payout": 1023170
+            },
+            "medium": {
+              "races": 75,
+              "payout": 521070
+            },
+            "high": {
+              "races": 44,
+              "payout": 1077490
+            }
+          },
+          "high50plus_hit_races": 119,
+          "high50plus_paid_yen": 1598560,
+          "high50plus_share_of_payout_pct": 61,
+          "high50plus_contribution_to_roi_pctpts": 38.4,
+          "paid_roi_without_50plus_payout_pct": 24.6,
+          "medium_50to100_paid_share_pct": 19.9,
+          "high100plus_paid_share_pct": 41.1
+        }
+      }
+    },
+    "car9": {
+      "n": 539,
+      "engine": {
+        "auto": {
+          "races": 539,
+          "purchased": 539,
+          "tickets": 4312,
+          "stake_yen": 431200,
+          "payout_yen": 370940,
+          "net_yen": -60260,
+          "roi_pct": 86.03,
+          "trim1_pct": 76.46,
+          "trim5_pct": 57.59,
+          "hit_races": 90,
+          "tail_bins": {
+            "zero": {
+              "races": 449,
+              "payout": 0
+            },
+            "low": {
+              "races": 70,
+              "payout": 123220
+            },
+            "medium": {
+              "races": 13,
+              "payout": 100450
+            },
+            "high": {
+              "races": 7,
+              "payout": 147270
+            }
+          },
+          "high50plus_hit_races": 20,
+          "high50plus_paid_yen": 247720,
+          "high50plus_share_of_payout_pct": 66.8,
+          "high50plus_contribution_to_roi_pctpts": 57.4,
+          "paid_roi_without_50plus_payout_pct": 28.6,
+          "medium_50to100_paid_share_pct": 27.1,
+          "high100plus_paid_share_pct": 39.7
+        },
+        "baxis_3": {
+          "races": 539,
+          "purchased": 539,
+          "tickets": 1617,
+          "stake_yen": 161700,
+          "payout_yen": 127000,
+          "net_yen": -34700,
+          "roi_pct": 78.54,
+          "trim1_pct": 70.46,
+          "trim5_pct": 46.85,
+          "hit_races": 59,
+          "tail_bins": {
+            "zero": {
+              "races": 480,
+              "payout": 0
+            },
+            "low": {
+              "races": 51,
+              "payout": 56310
+            },
+            "medium": {
+              "races": 6,
+              "payout": 45910
+            },
+            "high": {
+              "races": 2,
+              "payout": 24780
+            }
+          },
+          "high50plus_hit_races": 8,
+          "high50plus_paid_yen": 70690,
+          "high50plus_share_of_payout_pct": 55.7,
+          "high50plus_contribution_to_roi_pctpts": 43.7,
+          "paid_roi_without_50plus_payout_pct": 34.8,
+          "medium_50to100_paid_share_pct": 36.1,
+          "high100plus_paid_share_pct": 19.5
+        },
+        "b_upset_ad": {
+          "races": 539,
+          "purchased": 537,
+          "tickets": 5047,
+          "stake_yen": 504700,
+          "payout_yen": 409830,
+          "net_yen": -94870,
+          "roi_pct": 81.2,
+          "trim1_pct": 71.63,
+          "trim5_pct": 49.63,
+          "hit_races": 58,
+          "tail_bins": {
+            "zero": {
+              "races": 481,
+              "payout": 0
+            },
+            "low": {
+              "races": 33,
+              "payout": 78600
+            },
+            "medium": {
+              "races": 15,
+              "payout": 111390
+            },
+            "high": {
+              "races": 10,
+              "payout": 219840
+            }
+          },
+          "high50plus_hit_races": 25,
+          "high50plus_paid_yen": 331230,
+          "high50plus_share_of_payout_pct": 80.8,
+          "high50plus_contribution_to_roi_pctpts": 65.6,
+          "paid_roi_without_50plus_payout_pct": 15.6,
+          "medium_50to100_paid_share_pct": 27.2,
+          "high100plus_paid_share_pct": 53.6
+        },
+        "b_upset_expanded": {
+          "races": 539,
+          "purchased": 539,
+          "tickets": 5390,
+          "stake_yen": 539000,
+          "payout_yen": 327730,
+          "net_yen": -211270,
+          "roi_pct": 60.8,
+          "trim1_pct": 51.8,
+          "trim5_pct": 34.74,
+          "hit_races": 56,
+          "tail_bins": {
+            "zero": {
+              "races": 483,
+              "payout": 0
+            },
+            "low": {
+              "races": 41,
+              "payout": 89930
+            },
+            "medium": {
+              "races": 7,
+              "payout": 60000
+            },
+            "high": {
+              "races": 8,
+              "payout": 177800
+            }
+          },
+          "high50plus_hit_races": 15,
+          "high50plus_paid_yen": 237800,
+          "high50plus_share_of_payout_pct": 72.6,
+          "high50plus_contribution_to_roi_pctpts": 44.1,
+          "paid_roi_without_50plus_payout_pct": 16.7,
+          "medium_50to100_paid_share_pct": 18.3,
+          "high100plus_paid_share_pct": 54.3
+        },
+        "line": {
+          "races": 539,
+          "purchased": 539,
+          "tickets": 4311,
+          "stake_yen": 431100,
+          "payout_yen": 440780,
+          "net_yen": 9680,
+          "roi_pct": 102.25,
+          "trim1_pct": 82.66,
+          "trim5_pct": 66.15,
+          "hit_races": 96,
+          "tail_bins": {
+            "zero": {
+              "races": 443,
+              "payout": 0
+            },
+            "low": {
+              "races": 71,
+              "payout": 100840
+            },
+            "medium": {
+              "races": 14,
+              "payout": 101070
+            },
+            "high": {
+              "races": 11,
+              "payout": 238870
+            }
+          },
+          "high50plus_hit_races": 25,
+          "high50plus_paid_yen": 339940,
+          "high50plus_share_of_payout_pct": 77.1,
+          "high50plus_contribution_to_roi_pctpts": 78.9,
+          "paid_roi_without_50plus_payout_pct": 23.4,
+          "medium_50to100_paid_share_pct": 22.9,
+          "high100plus_paid_share_pct": 54.2
+        },
+        "roi_coverage": {
+          "races": 539,
+          "purchased": 539,
+          "tickets": 4308,
+          "stake_yen": 430800,
+          "payout_yen": 380740,
+          "net_yen": -50060,
+          "roi_pct": 88.38,
+          "trim1_pct": 68.75,
+          "trim5_pct": 54.29,
+          "hit_races": 101,
+          "tail_bins": {
+            "zero": {
+              "races": 438,
+              "payout": 0
+            },
+            "low": {
+              "races": 82,
+              "payout": 115680
+            },
+            "medium": {
+              "races": 11,
+              "payout": 81790
+            },
+            "high": {
+              "races": 8,
+              "payout": 183270
+            }
+          },
+          "high50plus_hit_races": 19,
+          "high50plus_paid_yen": 265060,
+          "high50plus_share_of_payout_pct": 69.6,
+          "high50plus_contribution_to_roi_pctpts": 61.5,
+          "paid_roi_without_50plus_payout_pct": 26.9,
+          "medium_50to100_paid_share_pct": 21.5,
+          "high100plus_paid_share_pct": 48.1
+        }
+      }
+    },
+    "by30": {
+      "1": {
+        "n": 1997,
+        "engine": {
+          "auto": {
+            "races": 1997,
+            "purchased": 1997,
+            "tickets": 15970,
+            "stake_yen": 1597000,
+            "payout_yen": 1188470,
+            "net_yen": -408530,
+            "roi_pct": 74.42,
+            "trim1_pct": 71.78,
+            "trim5_pct": 63.63,
+            "hit_races": 388,
+            "tail_bins": {
+              "zero": {
+                "races": 1609,
+                "payout": 0
+              },
+              "low": {
+                "races": 329,
+                "payout": 447380
+              },
+              "medium": {
+                "races": 33,
+                "payout": 239420
+              },
+              "high": {
+                "races": 26,
+                "payout": 501670
+              }
+            },
+            "high50plus_hit_races": 59,
+            "high50plus_paid_yen": 741090,
+            "high50plus_share_of_payout_pct": 62.4,
+            "high50plus_contribution_to_roi_pctpts": 46.4,
+            "paid_roi_without_50plus_payout_pct": 28,
+            "medium_50to100_paid_share_pct": 20.1,
+            "high100plus_paid_share_pct": 42.2
+          },
+          "baxis_3": {
+            "races": 1997,
+            "purchased": 1997,
+            "tickets": 5991,
+            "stake_yen": 599100,
+            "payout_yen": 439330,
+            "net_yen": -159770,
+            "roi_pct": 73.33,
+            "trim1_pct": 65.44,
+            "trim5_pct": 51.98,
+            "hit_races": 262,
+            "tail_bins": {
+              "zero": {
+                "races": 1735,
+                "payout": 0
+              },
+              "low": {
+                "races": 248,
+                "payout": 253140
+              },
+              "medium": {
+                "races": 9,
+                "payout": 57500
+              },
+              "high": {
+                "races": 5,
+                "payout": 128690
+              }
+            },
+            "high50plus_hit_races": 14,
+            "high50plus_paid_yen": 186190,
+            "high50plus_share_of_payout_pct": 42.4,
+            "high50plus_contribution_to_roi_pctpts": 31.1,
+            "paid_roi_without_50plus_payout_pct": 42.3,
+            "medium_50to100_paid_share_pct": 13.1,
+            "high100plus_paid_share_pct": 29.3
+          },
+          "b_upset_ad": {
+            "races": 1997,
+            "purchased": 1960,
+            "tickets": 17937,
+            "stake_yen": 1793700,
+            "payout_yen": 1255100,
+            "net_yen": -538600,
+            "roi_pct": 69.97,
+            "trim1_pct": 66.82,
+            "trim5_pct": 56.77,
+            "hit_races": 226,
+            "tail_bins": {
+              "zero": {
+                "races": 1771,
+                "payout": 0
+              },
+              "low": {
+                "races": 160,
+                "payout": 329440
+              },
+              "medium": {
+                "races": 39,
+                "payout": 257150
+              },
+              "high": {
+                "races": 27,
+                "payout": 668510
+              }
+            },
+            "high50plus_hit_races": 66,
+            "high50plus_paid_yen": 925660,
+            "high50plus_share_of_payout_pct": 73.8,
+            "high50plus_contribution_to_roi_pctpts": 51.6,
+            "paid_roi_without_50plus_payout_pct": 18.4,
+            "medium_50to100_paid_share_pct": 20.5,
+            "high100plus_paid_share_pct": 53.3
+          },
+          "b_upset_expanded": {
+            "races": 1997,
+            "purchased": 1980,
+            "tickets": 19793,
+            "stake_yen": 1979300,
+            "payout_yen": 1304210,
+            "net_yen": -675090,
+            "roi_pct": 65.89,
+            "trim1_pct": 62.56,
+            "trim5_pct": 53.03,
+            "hit_races": 235,
+            "tail_bins": {
+              "zero": {
+                "races": 1762,
+                "payout": 0
+              },
+              "low": {
+                "races": 171,
+                "payout": 323250
+              },
+              "medium": {
+                "races": 31,
+                "payout": 205500
+              },
+              "high": {
+                "races": 33,
+                "payout": 775460
+              }
+            },
+            "high50plus_hit_races": 64,
+            "high50plus_paid_yen": 980960,
+            "high50plus_share_of_payout_pct": 75.2,
+            "high50plus_contribution_to_roi_pctpts": 49.6,
+            "paid_roi_without_50plus_payout_pct": 16.3,
+            "medium_50to100_paid_share_pct": 15.8,
+            "high100plus_paid_share_pct": 59.5
+          },
+          "line": {
+            "races": 1997,
+            "purchased": 1997,
+            "tickets": 15596,
+            "stake_yen": 1559600,
+            "payout_yen": 1246330,
+            "net_yen": -313270,
+            "roi_pct": 79.91,
+            "trim1_pct": 74.6,
+            "trim5_pct": 62.24,
+            "hit_races": 390,
+            "tail_bins": {
+              "zero": {
+                "races": 1607,
+                "payout": 0
+              },
+              "low": {
+                "races": 333,
+                "payout": 418370
+              },
+              "medium": {
+                "races": 34,
+                "payout": 228810
+              },
+              "high": {
+                "races": 23,
+                "payout": 599150
+              }
+            },
+            "high50plus_hit_races": 57,
+            "high50plus_paid_yen": 827960,
+            "high50plus_share_of_payout_pct": 66.4,
+            "high50plus_contribution_to_roi_pctpts": 53.1,
+            "paid_roi_without_50plus_payout_pct": 26.8,
+            "medium_50to100_paid_share_pct": 18.4,
+            "high100plus_paid_share_pct": 48.1
+          },
+          "roi_coverage": {
+            "races": 1997,
+            "purchased": 1997,
+            "tickets": 15960,
+            "stake_yen": 1596000,
+            "payout_yen": 1082350,
+            "net_yen": -513650,
+            "roi_pct": 67.82,
+            "trim1_pct": 62.62,
+            "trim5_pct": 52.88,
+            "hit_races": 379,
+            "tail_bins": {
+              "zero": {
+                "races": 1618,
+                "payout": 0
+              },
+              "low": {
+                "races": 333,
+                "payout": 409280
+              },
+              "medium": {
+                "races": 27,
+                "payout": 186620
+              },
+              "high": {
+                "races": 19,
+                "payout": 486450
+              }
+            },
+            "high50plus_hit_races": 46,
+            "high50plus_paid_yen": 673070,
+            "high50plus_share_of_payout_pct": 62.2,
+            "high50plus_contribution_to_roi_pctpts": 42.2,
+            "paid_roi_without_50plus_payout_pct": 25.6,
+            "medium_50to100_paid_share_pct": 17.2,
+            "high100plus_paid_share_pct": 44.9
+          }
+        }
+      },
+      "2": {
+        "n": 1804,
+        "engine": {
+          "auto": {
+            "races": 1804,
+            "purchased": 1804,
+            "tickets": 14432,
+            "stake_yen": 1443200,
+            "payout_yen": 1137880,
+            "net_yen": -305320,
+            "roi_pct": 78.84,
+            "trim1_pct": 74.04,
+            "trim5_pct": 62.82,
+            "hit_races": 366,
+            "tail_bins": {
+              "zero": {
+                "races": 1438,
+                "payout": 0
+              },
+              "low": {
+                "races": 326,
+                "payout": 477920
+              },
+              "medium": {
+                "races": 18,
+                "payout": 119170
+              },
+              "high": {
+                "races": 22,
+                "payout": 540790
+              }
+            },
+            "high50plus_hit_races": 40,
+            "high50plus_paid_yen": 659960,
+            "high50plus_share_of_payout_pct": 58,
+            "high50plus_contribution_to_roi_pctpts": 45.7,
+            "paid_roi_without_50plus_payout_pct": 33.1,
+            "medium_50to100_paid_share_pct": 10.5,
+            "high100plus_paid_share_pct": 47.5
+          },
+          "baxis_3": {
+            "races": 1804,
+            "purchased": 1804,
+            "tickets": 5412,
+            "stake_yen": 541200,
+            "payout_yen": 389950,
+            "net_yen": -151250,
+            "roi_pct": 72.05,
+            "trim1_pct": 69.46,
+            "trim5_pct": 61.08,
+            "hit_races": 229,
+            "tail_bins": {
+              "zero": {
+                "races": 1575,
+                "payout": 0
+              },
+              "low": {
+                "races": 210,
+                "payout": 223430
+              },
+              "medium": {
+                "races": 15,
+                "payout": 116190
+              },
+              "high": {
+                "races": 4,
+                "payout": 50330
+              }
+            },
+            "high50plus_hit_races": 19,
+            "high50plus_paid_yen": 166520,
+            "high50plus_share_of_payout_pct": 42.7,
+            "high50plus_contribution_to_roi_pctpts": 30.8,
+            "paid_roi_without_50plus_payout_pct": 41.3,
+            "medium_50to100_paid_share_pct": 29.8,
+            "high100plus_paid_share_pct": 12.9
+          },
+          "b_upset_ad": {
+            "races": 1804,
+            "purchased": 1777,
+            "tickets": 16381,
+            "stake_yen": 1638100,
+            "payout_yen": 1002380,
+            "net_yen": -635720,
+            "roi_pct": 61.19,
+            "trim1_pct": 58.73,
+            "trim5_pct": 51.38,
+            "hit_races": 210,
+            "tail_bins": {
+              "zero": {
+                "races": 1594,
+                "payout": 0
+              },
+              "low": {
+                "races": 154,
+                "payout": 301150
+              },
+              "medium": {
+                "races": 29,
+                "payout": 212060
+              },
+              "high": {
+                "races": 27,
+                "payout": 489170
+              }
+            },
+            "high50plus_hit_races": 56,
+            "high50plus_paid_yen": 701230,
+            "high50plus_share_of_payout_pct": 70,
+            "high50plus_contribution_to_roi_pctpts": 42.8,
+            "paid_roi_without_50plus_payout_pct": 18.4,
+            "medium_50to100_paid_share_pct": 21.2,
+            "high100plus_paid_share_pct": 48.8
+          },
+          "b_upset_expanded": {
+            "races": 1804,
+            "purchased": 1790,
+            "tickets": 17895,
+            "stake_yen": 1789500,
+            "payout_yen": 1187830,
+            "net_yen": -601670,
+            "roi_pct": 66.38,
+            "trim1_pct": 63.5,
+            "trim5_pct": 54.84,
+            "hit_races": 230,
+            "tail_bins": {
+              "zero": {
+                "races": 1574,
+                "payout": 0
+              },
+              "low": {
+                "races": 168,
+                "payout": 295040
+              },
+              "medium": {
+                "races": 28,
+                "payout": 208660
+              },
+              "high": {
+                "races": 34,
+                "payout": 684130
+              }
+            },
+            "high50plus_hit_races": 62,
+            "high50plus_paid_yen": 892790,
+            "high50plus_share_of_payout_pct": 75.2,
+            "high50plus_contribution_to_roi_pctpts": 49.9,
+            "paid_roi_without_50plus_payout_pct": 16.5,
+            "medium_50to100_paid_share_pct": 17.6,
+            "high100plus_paid_share_pct": 57.6
+          },
+          "line": {
+            "races": 1804,
+            "purchased": 1804,
+            "tickets": 14111,
+            "stake_yen": 1411100,
+            "payout_yen": 960730,
+            "net_yen": -450370,
+            "roi_pct": 68.08,
+            "trim1_pct": 62.22,
+            "trim5_pct": 47.06,
+            "hit_races": 281,
+            "tail_bins": {
+              "zero": {
+                "races": 1523,
+                "payout": 0
+              },
+              "low": {
+                "races": 243,
+                "payout": 318480
+              },
+              "medium": {
+                "races": 23,
+                "payout": 166520
+              },
+              "high": {
+                "races": 15,
+                "payout": 475730
+              }
+            },
+            "high50plus_hit_races": 38,
+            "high50plus_paid_yen": 642250,
+            "high50plus_share_of_payout_pct": 66.9,
+            "high50plus_contribution_to_roi_pctpts": 45.5,
+            "paid_roi_without_50plus_payout_pct": 22.6,
+            "medium_50to100_paid_share_pct": 17.3,
+            "high100plus_paid_share_pct": 49.5
+          },
+          "roi_coverage": {
+            "races": 1804,
+            "purchased": 1804,
+            "tickets": 14424,
+            "stake_yen": 1442400,
+            "payout_yen": 867040,
+            "net_yen": -575360,
+            "roi_pct": 60.11,
+            "trim1_pct": 54.58,
+            "trim5_pct": 46.26,
+            "hit_races": 305,
+            "tail_bins": {
+              "zero": {
+                "races": 1499,
+                "payout": 0
+              },
+              "low": {
+                "races": 270,
+                "payout": 340620
+              },
+              "medium": {
+                "races": 18,
+                "payout": 132500
+              },
+              "high": {
+                "races": 17,
+                "payout": 393920
+              }
+            },
+            "high50plus_hit_races": 35,
+            "high50plus_paid_yen": 526420,
+            "high50plus_share_of_payout_pct": 60.7,
+            "high50plus_contribution_to_roi_pctpts": 36.5,
+            "paid_roi_without_50plus_payout_pct": 23.6,
+            "medium_50to100_paid_share_pct": 15.3,
+            "high100plus_paid_share_pct": 45.4
+          }
+        }
+      },
+      "3": {
+        "n": 1944,
+        "engine": {
+          "auto": {
+            "races": 1944,
+            "purchased": 1944,
+            "tickets": 15549,
+            "stake_yen": 1554900,
+            "payout_yen": 1407080,
+            "net_yen": -147820,
+            "roi_pct": 90.49,
+            "trim1_pct": 84.12,
+            "trim5_pct": 72.68,
+            "hit_races": 450,
+            "tail_bins": {
+              "zero": {
+                "races": 1494,
+                "payout": 0
+              },
+              "low": {
+                "races": 384,
+                "payout": 536070
+              },
+              "medium": {
+                "races": 44,
+                "payout": 311700
+              },
+              "high": {
+                "races": 22,
+                "payout": 559310
+              }
+            },
+            "high50plus_hit_races": 66,
+            "high50plus_paid_yen": 871010,
+            "high50plus_share_of_payout_pct": 61.9,
+            "high50plus_contribution_to_roi_pctpts": 56,
+            "paid_roi_without_50plus_payout_pct": 34.5,
+            "medium_50to100_paid_share_pct": 22.2,
+            "high100plus_paid_share_pct": 39.7
+          },
+          "baxis_3": {
+            "races": 1944,
+            "purchased": 1944,
+            "tickets": 5832,
+            "stake_yen": 583200,
+            "payout_yen": 530610,
+            "net_yen": -52590,
+            "roi_pct": 90.98,
+            "trim1_pct": 84.22,
+            "trim5_pct": 69.22,
+            "hit_races": 267,
+            "tail_bins": {
+              "zero": {
+                "races": 1677,
+                "payout": 0
+              },
+              "low": {
+                "races": 242,
+                "payout": 259550
+              },
+              "medium": {
+                "races": 19,
+                "payout": 132820
+              },
+              "high": {
+                "races": 6,
+                "payout": 138240
+              }
+            },
+            "high50plus_hit_races": 25,
+            "high50plus_paid_yen": 271060,
+            "high50plus_share_of_payout_pct": 51.1,
+            "high50plus_contribution_to_roi_pctpts": 46.5,
+            "paid_roi_without_50plus_payout_pct": 44.5,
+            "medium_50to100_paid_share_pct": 25,
+            "high100plus_paid_share_pct": 26.1
+          },
+          "b_upset_ad": {
+            "races": 1944,
+            "purchased": 1901,
+            "tickets": 17472,
+            "stake_yen": 1747200,
+            "payout_yen": 1364990,
+            "net_yen": -382210,
+            "roi_pct": 78.12,
+            "trim1_pct": 73.22,
+            "trim5_pct": 63.39,
+            "hit_races": 254,
+            "tail_bins": {
+              "zero": {
+                "races": 1690,
+                "payout": 0
+              },
+              "low": {
+                "races": 176,
+                "payout": 366060
+              },
+              "medium": {
+                "races": 46,
+                "payout": 319540
+              },
+              "high": {
+                "races": 32,
+                "payout": 679390
+              }
+            },
+            "high50plus_hit_races": 78,
+            "high50plus_paid_yen": 998930,
+            "high50plus_share_of_payout_pct": 73.2,
+            "high50plus_contribution_to_roi_pctpts": 57.2,
+            "paid_roi_without_50plus_payout_pct": 21,
+            "medium_50to100_paid_share_pct": 23.4,
+            "high100plus_paid_share_pct": 49.8
+          },
+          "b_upset_expanded": {
+            "races": 1944,
+            "purchased": 1923,
+            "tickets": 19223,
+            "stake_yen": 1922300,
+            "payout_yen": 1283840,
+            "net_yen": -638460,
+            "roi_pct": 66.79,
+            "trim1_pct": 63.5,
+            "trim5_pct": 54.84,
+            "hit_races": 252,
+            "tail_bins": {
+              "zero": {
+                "races": 1692,
+                "payout": 0
+              },
+              "low": {
+                "races": 186,
+                "payout": 349900
+              },
+              "medium": {
+                "races": 32,
+                "payout": 224590
+              },
+              "high": {
+                "races": 34,
+                "payout": 709350
+              }
+            },
+            "high50plus_hit_races": 66,
+            "high50plus_paid_yen": 933940,
+            "high50plus_share_of_payout_pct": 72.7,
+            "high50plus_contribution_to_roi_pctpts": 48.6,
+            "paid_roi_without_50plus_payout_pct": 18.2,
+            "medium_50to100_paid_share_pct": 17.5,
+            "high100plus_paid_share_pct": 55.3
+          },
+          "line": {
+            "races": 1944,
+            "purchased": 1944,
+            "tickets": 15217,
+            "stake_yen": 1521700,
+            "payout_yen": 1351270,
+            "net_yen": -170430,
+            "roi_pct": 88.8,
+            "trim1_pct": 72.83,
+            "trim5_pct": 62.05,
+            "hit_races": 373,
+            "tail_bins": {
+              "zero": {
+                "races": 1571,
+                "payout": 0
+              },
+              "low": {
+                "races": 313,
+                "payout": 395070
+              },
+              "medium": {
+                "races": 36,
+                "payout": 251370
+              },
+              "high": {
+                "races": 24,
+                "payout": 704830
+              }
+            },
+            "high50plus_hit_races": 60,
+            "high50plus_paid_yen": 956200,
+            "high50plus_share_of_payout_pct": 70.8,
+            "high50plus_contribution_to_roi_pctpts": 62.8,
+            "paid_roi_without_50plus_payout_pct": 26,
+            "medium_50to100_paid_share_pct": 18.6,
+            "high100plus_paid_share_pct": 52.2
+          },
+          "roi_coverage": {
+            "races": 1944,
+            "purchased": 1944,
+            "tickets": 15547,
+            "stake_yen": 1554700,
+            "payout_yen": 1053080,
+            "net_yen": -501620,
+            "roi_pct": 67.74,
+            "trim1_pct": 62.29,
+            "trim5_pct": 55.19,
+            "hit_races": 390,
+            "tail_bins": {
+              "zero": {
+                "races": 1554,
+                "payout": 0
+              },
+              "low": {
+                "races": 333,
+                "payout": 388950
+              },
+              "medium": {
+                "races": 41,
+                "payout": 283740
+              },
+              "high": {
+                "races": 16,
+                "payout": 380390
+              }
+            },
+            "high50plus_hit_races": 57,
+            "high50plus_paid_yen": 664130,
+            "high50plus_share_of_payout_pct": 63.1,
+            "high50plus_contribution_to_roi_pctpts": 42.7,
+            "paid_roi_without_50plus_payout_pct": 25,
+            "medium_50to100_paid_share_pct": 26.9,
+            "high100plus_paid_share_pct": 36.1
+          }
+        }
+      }
+    }
+  },
+  "ex_ante_structure_hypotheses": {
+    "description": "The 13 policies are selected only using model projections (nonfavorite B-head, model agreement, cars, race stage), not winning payout amounts. Their historical profitability remains exploratory.",
+    "policies": {
+      "AUTO_ALL": {
+        "model": "auto",
+        "cover_pct": 100,
+        "all": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 29981,
+          "stake_yen": 2998100,
+          "payout_yen": 2544960,
+          "net_yen": -453140,
+          "roi_pct": 84.89,
+          "trim1_pct": 81.58,
+          "trim5_pct": 73.97,
+          "hit_races": 816,
+          "tail_bins": {
+            "zero": {
+              "races": 2932,
+              "payout": 0
+            },
+            "low": {
+              "races": 710,
+              "payout": 1013990
+            },
+            "medium": {
+              "races": 62,
+              "payout": 430870
+            },
+            "high": {
+              "races": 44,
+              "payout": 1100100
+            }
+          },
+          "high50plus_hit_races": 106,
+          "high50plus_paid_yen": 1530970,
+          "high50plus_share_of_payout_pct": 60.2,
+          "high50plus_contribution_to_roi_pctpts": 51.1,
+          "paid_roi_without_50plus_payout_pct": 33.8,
+          "medium_50to100_paid_share_pct": 16.9,
+          "high100plus_paid_share_pct": 43.2
+        },
+        "period2": {
+          "races": 1804,
+          "purchased": 1804,
+          "tickets": 14432,
+          "stake_yen": 1443200,
+          "payout_yen": 1137880,
+          "net_yen": -305320,
+          "roi_pct": 78.84,
+          "trim1_pct": 74.04,
+          "trim5_pct": 62.82,
+          "hit_races": 366,
+          "tail_bins": {
+            "zero": {
+              "races": 1438,
+              "payout": 0
+            },
+            "low": {
+              "races": 326,
+              "payout": 477920
+            },
+            "medium": {
+              "races": 18,
+              "payout": 119170
+            },
+            "high": {
+              "races": 22,
+              "payout": 540790
+            }
+          },
+          "high50plus_hit_races": 40,
+          "high50plus_paid_yen": 659960,
+          "high50plus_share_of_payout_pct": 58,
+          "high50plus_contribution_to_roi_pctpts": 45.7,
+          "paid_roi_without_50plus_payout_pct": 33.1,
+          "medium_50to100_paid_share_pct": 10.5,
+          "high100plus_paid_share_pct": 47.5
+        },
+        "period3": {
+          "races": 1944,
+          "purchased": 1944,
+          "tickets": 15549,
+          "stake_yen": 1554900,
+          "payout_yen": 1407080,
+          "net_yen": -147820,
+          "roi_pct": 90.49,
+          "trim1_pct": 84.12,
+          "trim5_pct": 72.68,
+          "hit_races": 450,
+          "tail_bins": {
+            "zero": {
+              "races": 1494,
+              "payout": 0
+            },
+            "low": {
+              "races": 384,
+              "payout": 536070
+            },
+            "medium": {
+              "races": 44,
+              "payout": 311700
+            },
+            "high": {
+              "races": 22,
+              "payout": 559310
+            }
+          },
+          "high50plus_hit_races": 66,
+          "high50plus_paid_yen": 871010,
+          "high50plus_share_of_payout_pct": 61.9,
+          "high50plus_contribution_to_roi_pctpts": 56,
+          "paid_roi_without_50plus_payout_pct": 34.5,
+          "medium_50to100_paid_share_pct": 22.2,
+          "high100plus_paid_share_pct": 39.7
+        },
+        "is_pre_result_filter": true
+      },
+      "BUPSET_ALL": {
+        "model": "b_upset_ad",
+        "cover_pct": 100,
+        "all": {
+          "races": 3748,
+          "purchased": 3678,
+          "tickets": 33853,
+          "stake_yen": 3385300,
+          "payout_yen": 2367370,
+          "net_yen": -1017930,
+          "roi_pct": 69.93,
+          "trim1_pct": 67.4,
+          "trim5_pct": 61.99,
+          "hit_races": 464,
+          "tail_bins": {
+            "zero": {
+              "races": 3284,
+              "payout": 0
+            },
+            "low": {
+              "races": 330,
+              "payout": 667210
+            },
+            "medium": {
+              "races": 75,
+              "payout": 531600
+            },
+            "high": {
+              "races": 59,
+              "payout": 1168560
+            }
+          },
+          "high50plus_hit_races": 134,
+          "high50plus_paid_yen": 1700160,
+          "high50plus_share_of_payout_pct": 71.8,
+          "high50plus_contribution_to_roi_pctpts": 50.2,
+          "paid_roi_without_50plus_payout_pct": 19.7,
+          "medium_50to100_paid_share_pct": 22.5,
+          "high100plus_paid_share_pct": 49.4
+        },
+        "period2": {
+          "races": 1804,
+          "purchased": 1777,
+          "tickets": 16381,
+          "stake_yen": 1638100,
+          "payout_yen": 1002380,
+          "net_yen": -635720,
+          "roi_pct": 61.19,
+          "trim1_pct": 58.73,
+          "trim5_pct": 51.38,
+          "hit_races": 210,
+          "tail_bins": {
+            "zero": {
+              "races": 1594,
+              "payout": 0
+            },
+            "low": {
+              "races": 154,
+              "payout": 301150
+            },
+            "medium": {
+              "races": 29,
+              "payout": 212060
+            },
+            "high": {
+              "races": 27,
+              "payout": 489170
+            }
+          },
+          "high50plus_hit_races": 56,
+          "high50plus_paid_yen": 701230,
+          "high50plus_share_of_payout_pct": 70,
+          "high50plus_contribution_to_roi_pctpts": 42.8,
+          "paid_roi_without_50plus_payout_pct": 18.4,
+          "medium_50to100_paid_share_pct": 21.2,
+          "high100plus_paid_share_pct": 48.8
+        },
+        "period3": {
+          "races": 1944,
+          "purchased": 1901,
+          "tickets": 17472,
+          "stake_yen": 1747200,
+          "payout_yen": 1364990,
+          "net_yen": -382210,
+          "roi_pct": 78.12,
+          "trim1_pct": 73.22,
+          "trim5_pct": 63.39,
+          "hit_races": 254,
+          "tail_bins": {
+            "zero": {
+              "races": 1690,
+              "payout": 0
+            },
+            "low": {
+              "races": 176,
+              "payout": 366060
+            },
+            "medium": {
+              "races": 46,
+              "payout": 319540
+            },
+            "high": {
+              "races": 32,
+              "payout": 679390
+            }
+          },
+          "high50plus_hit_races": 78,
+          "high50plus_paid_yen": 998930,
+          "high50plus_share_of_payout_pct": 73.2,
+          "high50plus_contribution_to_roi_pctpts": 57.2,
+          "paid_roi_without_50plus_payout_pct": 21,
+          "medium_50to100_paid_share_pct": 23.4,
+          "high100plus_paid_share_pct": 49.8
+        },
+        "is_pre_result_filter": true
+      },
+      "BAXIS3_ALL": {
+        "model": "baxis_3",
+        "cover_pct": 100,
+        "all": {
+          "races": 3748,
+          "purchased": 3748,
+          "tickets": 11244,
+          "stake_yen": 1124400,
+          "payout_yen": 920560,
+          "net_yen": -203840,
+          "roi_pct": 81.87,
+          "trim1_pct": 78.36,
+          "trim5_pct": 70.28,
+          "hit_races": 496,
+          "tail_bins": {
+            "zero": {
+              "races": 3252,
+              "payout": 0
+            },
+            "low": {
+              "races": 452,
+              "payout": 482980
+            },
+            "medium": {
+              "races": 34,
+              "payout": 249010
+            },
+            "high": {
+              "races": 10,
+              "payout": 188570
+            }
+          },
+          "high50plus_hit_races": 44,
+          "high50plus_paid_yen": 437580,
+          "high50plus_share_of_payout_pct": 47.5,
+          "high50plus_contribution_to_roi_pctpts": 38.9,
+          "paid_roi_without_50plus_payout_pct": 43,
+          "medium_50to100_paid_share_pct": 27,
+          "high100plus_paid_share_pct": 20.5
+        },
+        "period2": {
+          "races": 1804,
+          "purchased": 1804,
+          "tickets": 5412,
+          "stake_yen": 541200,
+          "payout_yen": 389950,
+          "net_yen": -151250,
+          "roi_pct": 72.05,
+          "trim1_pct": 69.46,
+          "trim5_pct": 61.08,
+          "hit_races": 229,
+          "tail_bins": {
+            "zero": {
+              "races": 1575,
+              "payout": 0
+            },
+            "low": {
+              "races": 210,
+              "payout": 223430
+            },
+            "medium": {
+              "races": 15,
+              "payout": 116190
+            },
+            "high": {
+              "races": 4,
+              "payout": 50330
+            }
+          },
+          "high50plus_hit_races": 19,
+          "high50plus_paid_yen": 166520,
+          "high50plus_share_of_payout_pct": 42.7,
+          "high50plus_contribution_to_roi_pctpts": 30.8,
+          "paid_roi_without_50plus_payout_pct": 41.3,
+          "medium_50to100_paid_share_pct": 29.8,
+          "high100plus_paid_share_pct": 12.9
+        },
+        "period3": {
+          "races": 1944,
+          "purchased": 1944,
+          "tickets": 5832,
+          "stake_yen": 583200,
+          "payout_yen": 530610,
+          "net_yen": -52590,
+          "roi_pct": 90.98,
+          "trim1_pct": 84.22,
+          "trim5_pct": 69.22,
+          "hit_races": 267,
+          "tail_bins": {
+            "zero": {
+              "races": 1677,
+              "payout": 0
+            },
+            "low": {
+              "races": 242,
+              "payout": 259550
+            },
+            "medium": {
+              "races": 19,
+              "payout": 132820
+            },
+            "high": {
+              "races": 6,
+              "payout": 138240
+            }
+          },
+          "high50plus_hit_races": 25,
+          "high50plus_paid_yen": 271060,
+          "high50plus_share_of_payout_pct": 51.1,
+          "high50plus_contribution_to_roi_pctpts": 46.5,
+          "paid_roi_without_50plus_payout_pct": 44.5,
+          "medium_50to100_paid_share_pct": 25,
+          "high100plus_paid_share_pct": 26.1
+        },
+        "is_pre_result_filter": true
+      },
+      "NONFAVORITE_AUTO": {
+        "model": "auto",
+        "cover_pct": 36.4,
+        "all": {
+          "races": 1363,
+          "purchased": 1363,
+          "tickets": 10903,
+          "stake_yen": 1090300,
+          "payout_yen": 1032420,
+          "net_yen": -57880,
+          "roi_pct": 94.69,
+          "trim1_pct": 88.35,
+          "trim5_pct": 73.23,
+          "hit_races": 259,
+          "tail_bins": {
+            "zero": {
+              "races": 1104,
+              "payout": 0
+            },
+            "low": {
+              "races": 211,
+              "payout": 356180
+            },
+            "medium": {
+              "races": 29,
+              "payout": 192170
+            },
+            "high": {
+              "races": 19,
+              "payout": 484070
+            }
+          },
+          "high50plus_hit_races": 48,
+          "high50plus_paid_yen": 676240,
+          "high50plus_share_of_payout_pct": 65.5,
+          "high50plus_contribution_to_roi_pctpts": 62,
+          "paid_roi_without_50plus_payout_pct": 32.7,
+          "medium_50to100_paid_share_pct": 18.6,
+          "high100plus_paid_share_pct": 46.9
+        },
+        "period2": {
+          "races": 671,
+          "purchased": 671,
+          "tickets": 5368,
+          "stake_yen": 536800,
+          "payout_yen": 543510,
+          "net_yen": 6710,
+          "roi_pct": 101.25,
+          "trim1_pct": 88.36,
+          "trim5_pct": 62.3,
+          "hit_races": 117,
+          "tail_bins": {
+            "zero": {
+              "races": 554,
+              "payout": 0
+            },
+            "low": {
+              "races": 97,
+              "payout": 160450
+            },
+            "medium": {
+              "races": 7,
+              "payout": 43410
+            },
+            "high": {
+              "races": 13,
+              "payout": 339650
+            }
+          },
+          "high50plus_hit_races": 20,
+          "high50plus_paid_yen": 383060,
+          "high50plus_share_of_payout_pct": 70.5,
+          "high50plus_contribution_to_roi_pctpts": 71.4,
+          "paid_roi_without_50plus_payout_pct": 29.9,
+          "medium_50to100_paid_share_pct": 8,
+          "high100plus_paid_share_pct": 62.5
+        },
+        "period3": {
+          "races": 692,
+          "purchased": 692,
+          "tickets": 5535,
+          "stake_yen": 553500,
+          "payout_yen": 488910,
+          "net_yen": -64590,
+          "roi_pct": 88.33,
+          "trim1_pct": 79.9,
+          "trim5_pct": 64.76,
+          "hit_races": 142,
+          "tail_bins": {
+            "zero": {
+              "races": 550,
+              "payout": 0
+            },
+            "low": {
+              "races": 114,
+              "payout": 195730
+            },
+            "medium": {
+              "races": 22,
+              "payout": 148760
+            },
+            "high": {
+              "races": 6,
+              "payout": 144420
+            }
+          },
+          "high50plus_hit_races": 28,
+          "high50plus_paid_yen": 293180,
+          "high50plus_share_of_payout_pct": 60,
+          "high50plus_contribution_to_roi_pctpts": 53,
+          "paid_roi_without_50plus_payout_pct": 35.4,
+          "medium_50to100_paid_share_pct": 30.4,
+          "high100plus_paid_share_pct": 29.5
+        },
+        "is_pre_result_filter": true
+      },
+      "NONFAVORITE_BUPSET": {
+        "model": "b_upset_ad",
+        "cover_pct": 36.4,
+        "all": {
+          "races": 1363,
+          "purchased": 1353,
+          "tickets": 12430,
+          "stake_yen": 1243000,
+          "payout_yen": 939070,
+          "net_yen": -303930,
+          "roi_pct": 75.55,
+          "trim1_pct": 71.92,
+          "trim5_pct": 61.25,
+          "hit_races": 233,
+          "tail_bins": {
+            "zero": {
+              "races": 1130,
+              "payout": 0
+            },
+            "low": {
+              "races": 185,
+              "payout": 355510
+            },
+            "medium": {
+              "races": 29,
+              "payout": 206120
+            },
+            "high": {
+              "races": 19,
+              "payout": 377440
+            }
+          },
+          "high50plus_hit_races": 48,
+          "high50plus_paid_yen": 583560,
+          "high50plus_share_of_payout_pct": 62.1,
+          "high50plus_contribution_to_roi_pctpts": 46.9,
+          "paid_roi_without_50plus_payout_pct": 28.6,
+          "medium_50to100_paid_share_pct": 21.9,
+          "high100plus_paid_share_pct": 40.2
+        },
+        "period2": {
+          "races": 671,
+          "purchased": 667,
+          "tickets": 6132,
+          "stake_yen": 613200,
+          "payout_yen": 466440,
+          "net_yen": -146760,
+          "roi_pct": 76.07,
+          "trim1_pct": 69.5,
+          "trim5_pct": 55.23,
+          "hit_races": 108,
+          "tail_bins": {
+            "zero": {
+              "races": 563,
+              "payout": 0
+            },
+            "low": {
+              "races": 83,
+              "payout": 150830
+            },
+            "medium": {
+              "races": 12,
+              "payout": 90940
+            },
+            "high": {
+              "races": 13,
+              "payout": 224670
+            }
+          },
+          "high50plus_hit_races": 25,
+          "high50plus_paid_yen": 315610,
+          "high50plus_share_of_payout_pct": 67.7,
+          "high50plus_contribution_to_roi_pctpts": 51.5,
+          "paid_roi_without_50plus_payout_pct": 24.6,
+          "medium_50to100_paid_share_pct": 19.5,
+          "high100plus_paid_share_pct": 48.2
+        },
+        "period3": {
+          "races": 692,
+          "purchased": 686,
+          "tickets": 6298,
+          "stake_yen": 629800,
+          "payout_yen": 472630,
+          "net_yen": -157170,
+          "roi_pct": 75.04,
+          "trim1_pct": 67.88,
+          "trim5_pct": 53.06,
+          "hit_races": 125,
+          "tail_bins": {
+            "zero": {
+              "races": 567,
+              "payout": 0
+            },
+            "low": {
+              "races": 102,
+              "payout": 204680
+            },
+            "medium": {
+              "races": 17,
+              "payout": 115180
+            },
+            "high": {
+              "races": 6,
+              "payout": 152770
+            }
+          },
+          "high50plus_hit_races": 23,
+          "high50plus_paid_yen": 267950,
+          "high50plus_share_of_payout_pct": 56.7,
+          "high50plus_contribution_to_roi_pctpts": 42.5,
+          "paid_roi_without_50plus_payout_pct": 32.5,
+          "medium_50to100_paid_share_pct": 24.4,
+          "high100plus_paid_share_pct": 32.3
+        },
+        "is_pre_result_filter": true,
+        "paired_vs_auto_same_races": {
+          "lo": -48.3,
+          "hi": 10,
+          "resamples": 5000
+        }
+      },
+      "DISAGREE_AUTO": {
+        "model": "auto",
+        "cover_pct": 10,
+        "all": {
+          "races": 373,
+          "purchased": 373,
+          "tickets": 2983,
+          "stake_yen": 298300,
+          "payout_yen": 246530,
+          "net_yen": -51770,
+          "roi_pct": 82.64,
+          "trim1_pct": 67.21,
+          "trim5_pct": 42.6,
+          "hit_races": 75,
+          "tail_bins": {
+            "zero": {
+              "races": 298,
+              "payout": 0
+            },
+            "low": {
+              "races": 65,
+              "payout": 96500
+            },
+            "medium": {
+              "races": 6,
+              "payout": 35630
+            },
+            "high": {
+              "races": 4,
+              "payout": 114400
+            }
+          },
+          "high50plus_hit_races": 10,
+          "high50plus_paid_yen": 150030,
+          "high50plus_share_of_payout_pct": 60.9,
+          "high50plus_contribution_to_roi_pctpts": 50.3,
+          "paid_roi_without_50plus_payout_pct": 32.3,
+          "medium_50to100_paid_share_pct": 14.5,
+          "high100plus_paid_share_pct": 46.4
+        },
+        "period2": {
+          "races": 185,
+          "purchased": 185,
+          "tickets": 1480,
+          "stake_yen": 148000,
+          "payout_yen": 160900,
+          "net_yen": 12900,
+          "roi_pct": 108.72,
+          "trim1_pct": 77.67,
+          "trim5_pct": 39.58,
+          "hit_races": 38,
+          "tail_bins": {
+            "zero": {
+              "races": 147,
+              "payout": 0
+            },
+            "low": {
+              "races": 31,
+              "payout": 46100
+            },
+            "medium": {
+              "races": 4,
+              "payout": 24380
+            },
+            "high": {
+              "races": 3,
+              "payout": 90420
+            }
+          },
+          "high50plus_hit_races": 7,
+          "high50plus_paid_yen": 114800,
+          "high50plus_share_of_payout_pct": 71.3,
+          "high50plus_contribution_to_roi_pctpts": 77.6,
+          "paid_roi_without_50plus_payout_pct": 31.1,
+          "medium_50to100_paid_share_pct": 15.2,
+          "high100plus_paid_share_pct": 56.2
+        },
+        "period3": {
+          "races": 188,
+          "purchased": 188,
+          "tickets": 1503,
+          "stake_yen": 150300,
+          "payout_yen": 85630,
+          "net_yen": -64670,
+          "roi_pct": 56.97,
+          "trim1_pct": 41.24,
+          "trim5_pct": 29.71,
+          "hit_races": 37,
+          "tail_bins": {
+            "zero": {
+              "races": 151,
+              "payout": 0
+            },
+            "low": {
+              "races": 34,
+              "payout": 50400
+            },
+            "medium": {
+              "races": 2,
+              "payout": 11250
+            },
+            "high": {
+              "races": 1,
+              "payout": 23980
+            }
+          },
+          "high50plus_hit_races": 3,
+          "high50plus_paid_yen": 35230,
+          "high50plus_share_of_payout_pct": 41.1,
+          "high50plus_contribution_to_roi_pctpts": 23.4,
+          "paid_roi_without_50plus_payout_pct": 33.5,
+          "medium_50to100_paid_share_pct": 13.1,
+          "high100plus_paid_share_pct": 28
+        },
+        "is_pre_result_filter": true
+      },
+      "DISAGREE_BUPSET": {
+        "model": "b_upset_ad",
+        "cover_pct": 10,
+        "all": {
+          "races": 373,
+          "purchased": 369,
+          "tickets": 3416,
+          "stake_yen": 341600,
+          "payout_yen": 286510,
+          "net_yen": -55090,
+          "roi_pct": 83.87,
+          "trim1_pct": 66.73,
+          "trim5_pct": 54.52,
+          "hit_races": 57,
+          "tail_bins": {
+            "zero": {
+              "races": 316,
+              "payout": 0
+            },
+            "low": {
+              "races": 36,
+              "payout": 76580
+            },
+            "medium": {
+              "races": 17,
+              "payout": 116470
+            },
+            "high": {
+              "races": 4,
+              "payout": 93460
+            }
+          },
+          "high50plus_hit_races": 21,
+          "high50plus_paid_yen": 209930,
+          "high50plus_share_of_payout_pct": 73.3,
+          "high50plus_contribution_to_roi_pctpts": 61.5,
+          "paid_roi_without_50plus_payout_pct": 22.4,
+          "medium_50to100_paid_share_pct": 40.7,
+          "high100plus_paid_share_pct": 32.6
+        },
+        "period2": {
+          "races": 185,
+          "purchased": 183,
+          "tickets": 1692,
+          "stake_yen": 169200,
+          "payout_yen": 81920,
+          "net_yen": -87280,
+          "roi_pct": 48.42,
+          "trim1_pct": 42.44,
+          "trim5_pct": 24.73,
+          "hit_races": 22,
+          "tail_bins": {
+            "zero": {
+              "races": 163,
+              "payout": 0
+            },
+            "low": {
+              "races": 15,
+              "payout": 28510
+            },
+            "medium": {
+              "races": 6,
+              "payout": 42910
+            },
+            "high": {
+              "races": 1,
+              "payout": 10500
+            }
+          },
+          "high50plus_hit_races": 7,
+          "high50plus_paid_yen": 53410,
+          "high50plus_share_of_payout_pct": 65.2,
+          "high50plus_contribution_to_roi_pctpts": 31.6,
+          "paid_roi_without_50plus_payout_pct": 16.8,
+          "medium_50to100_paid_share_pct": 52.4,
+          "high100plus_paid_share_pct": 12.8
+        },
+        "period3": {
+          "races": 188,
+          "purchased": 186,
+          "tickets": 1724,
+          "stake_yen": 172400,
+          "payout_yen": 204590,
+          "net_yen": 32190,
+          "roi_pct": 118.67,
+          "trim1_pct": 84.78,
+          "trim5_pct": 62.44,
+          "hit_races": 35,
+          "tail_bins": {
+            "zero": {
+              "races": 153,
+              "payout": 0
+            },
+            "low": {
+              "races": 21,
+              "payout": 48070
+            },
+            "medium": {
+              "races": 11,
+              "payout": 73560
+            },
+            "high": {
+              "races": 3,
+              "payout": 82960
+            }
+          },
+          "high50plus_hit_races": 14,
+          "high50plus_paid_yen": 156520,
+          "high50plus_share_of_payout_pct": 76.5,
+          "high50plus_contribution_to_roi_pctpts": 90.8,
+          "paid_roi_without_50plus_payout_pct": 27.9,
+          "medium_50to100_paid_share_pct": 36,
+          "high100plus_paid_share_pct": 40.5
+        },
+        "is_pre_result_filter": true,
+        "paired_vs_auto_same_races": {
+          "lo": -50.2,
+          "hi": 51.7,
+          "resamples": 5000
+        }
+      },
+      "NONFAV_AND_DISAGREE_BUPSET": {
+        "model": "b_upset_ad",
+        "cover_pct": 2.8,
+        "all": {
+          "races": 106,
+          "purchased": 102,
+          "tickets": 868,
+          "stake_yen": 86800,
+          "payout_yen": 41180,
+          "net_yen": -45620,
+          "roi_pct": 47.44,
+          "trim1_pct": 35.72,
+          "trim5_pct": 11.11,
+          "hit_races": 12,
+          "tail_bins": {
+            "zero": {
+              "races": 94,
+              "payout": 0
+            },
+            "low": {
+              "races": 9,
+              "payout": 18000
+            },
+            "medium": {
+              "races": 2,
+              "payout": 12680
+            },
+            "high": {
+              "races": 1,
+              "payout": 10500
+            }
+          },
+          "high50plus_hit_races": 3,
+          "high50plus_paid_yen": 23180,
+          "high50plus_share_of_payout_pct": 56.3,
+          "high50plus_contribution_to_roi_pctpts": 26.7,
+          "paid_roi_without_50plus_payout_pct": 20.7,
+          "medium_50to100_paid_share_pct": 30.8,
+          "high100plus_paid_share_pct": 25.5
+        },
+        "period2": {
+          "races": 57,
+          "purchased": 55,
+          "tickets": 474,
+          "stake_yen": 47400,
+          "payout_yen": 18940,
+          "net_yen": -28460,
+          "roi_pct": 39.96,
+          "trim1_pct": 18.15,
+          "trim5_pct": 0,
+          "hit_races": 4,
+          "tail_bins": {
+            "zero": {
+              "races": 53,
+              "payout": 0
+            },
+            "low": {
+              "races": 2,
+              "payout": 1970
+            },
+            "medium": {
+              "races": 1,
+              "payout": 6470
+            },
+            "high": {
+              "races": 1,
+              "payout": 10500
+            }
+          },
+          "high50plus_hit_races": 2,
+          "high50plus_paid_yen": 16970,
+          "high50plus_share_of_payout_pct": 89.6,
+          "high50plus_contribution_to_roi_pctpts": 35.8,
+          "paid_roi_without_50plus_payout_pct": 4.2,
+          "medium_50to100_paid_share_pct": 34.2,
+          "high100plus_paid_share_pct": 55.4
+        },
+        "period3": {
+          "races": 49,
+          "purchased": 47,
+          "tickets": 394,
+          "stake_yen": 39400,
+          "payout_yen": 22240,
+          "net_yen": -17160,
+          "roi_pct": 56.45,
+          "trim1_pct": 41.64,
+          "trim5_pct": 8.49,
+          "hit_races": 8,
+          "tail_bins": {
+            "zero": {
+              "races": 41,
+              "payout": 0
+            },
+            "low": {
+              "races": 7,
+              "payout": 16030
+            },
+            "medium": {
+              "races": 1,
+              "payout": 6210
+            },
+            "high": {
+              "races": 0,
+              "payout": 0
+            }
+          },
+          "high50plus_hit_races": 1,
+          "high50plus_paid_yen": 6210,
+          "high50plus_share_of_payout_pct": 27.9,
+          "high50plus_contribution_to_roi_pctpts": 15.8,
+          "paid_roi_without_50plus_payout_pct": 40.7,
+          "medium_50to100_paid_share_pct": 27.9,
+          "high100plus_paid_share_pct": 0
+        },
+        "is_pre_result_filter": true
+      },
+      "NONFAV_7_BUPSET": {
+        "model": "b_upset_ad",
+        "cover_pct": 32.4,
+        "all": {
+          "races": 1214,
+          "purchased": 1204,
+          "tickets": 11033,
+          "stake_yen": 1103300,
+          "payout_yen": 834940,
+          "net_yen": -268360,
+          "roi_pct": 75.68,
+          "trim1_pct": 71.59,
+          "trim5_pct": 60.03,
+          "hit_races": 215,
+          "tail_bins": {
+            "zero": {
+              "races": 999,
+              "payout": 0
+            },
+            "low": {
+              "races": 174,
+              "payout": 331300
+            },
+            "medium": {
+              "races": 24,
+              "payout": 165190
+            },
+            "high": {
+              "races": 17,
+              "payout": 338450
+            }
+          },
+          "high50plus_hit_races": 41,
+          "high50plus_paid_yen": 503640,
+          "high50plus_share_of_payout_pct": 60.3,
+          "high50plus_contribution_to_roi_pctpts": 45.6,
+          "paid_roi_without_50plus_payout_pct": 30,
+          "medium_50to100_paid_share_pct": 19.8,
+          "high100plus_paid_share_pct": 40.5
+        },
+        "period2": {
+          "races": 598,
+          "purchased": 594,
+          "tickets": 5456,
+          "stake_yen": 545600,
+          "payout_yen": 403090,
+          "net_yen": -142510,
+          "roi_pct": 73.88,
+          "trim1_pct": 66.5,
+          "trim5_pct": 52.86,
+          "hit_races": 99,
+          "tail_bins": {
+            "zero": {
+              "races": 499,
+              "payout": 0
+            },
+            "low": {
+              "races": 77,
+              "payout": 136390
+            },
+            "medium": {
+              "races": 11,
+              "payout": 81020
+            },
+            "high": {
+              "races": 11,
+              "payout": 185680
+            }
+          },
+          "high50plus_hit_races": 22,
+          "high50plus_paid_yen": 266700,
+          "high50plus_share_of_payout_pct": 66.2,
+          "high50plus_contribution_to_roi_pctpts": 48.9,
+          "paid_roi_without_50plus_payout_pct": 25,
+          "medium_50to100_paid_share_pct": 20.1,
+          "high100plus_paid_share_pct": 46.1
+        },
+        "period3": {
+          "races": 616,
+          "purchased": 610,
+          "tickets": 5577,
+          "stake_yen": 557700,
+          "payout_yen": 431850,
+          "net_yen": -125850,
+          "roi_pct": 77.43,
+          "trim1_pct": 69.35,
+          "trim5_pct": 52.6,
+          "hit_races": 116,
+          "tail_bins": {
+            "zero": {
+              "races": 500,
+              "payout": 0
+            },
+            "low": {
+              "races": 97,
+              "payout": 194910
+            },
+            "medium": {
+              "races": 13,
+              "payout": 84170
+            },
+            "high": {
+              "races": 6,
+              "payout": 152770
+            }
+          },
+          "high50plus_hit_races": 19,
+          "high50plus_paid_yen": 236940,
+          "high50plus_share_of_payout_pct": 54.9,
+          "high50plus_contribution_to_roi_pctpts": 42.5,
+          "paid_roi_without_50plus_payout_pct": 34.9,
+          "medium_50to100_paid_share_pct": 19.5,
+          "high100plus_paid_share_pct": 35.4
+        },
+        "is_pre_result_filter": true
+      },
+      "NONFAV_9_BUPSET": {
+        "model": "b_upset_ad",
+        "cover_pct": 4,
+        "all": {
+          "races": 149,
+          "purchased": 149,
+          "tickets": 1397,
+          "stake_yen": 139700,
+          "payout_yen": 104130,
+          "net_yen": -35570,
+          "roi_pct": 74.54,
+          "trim1_pct": 55.26,
+          "trim5_pct": 27.58,
+          "hit_races": 18,
+          "tail_bins": {
+            "zero": {
+              "races": 131,
+              "payout": 0
+            },
+            "low": {
+              "races": 11,
+              "payout": 24210
+            },
+            "medium": {
+              "races": 5,
+              "payout": 40930
+            },
+            "high": {
+              "races": 2,
+              "payout": 38990
+            }
+          },
+          "high50plus_hit_races": 7,
+          "high50plus_paid_yen": 79920,
+          "high50plus_share_of_payout_pct": 76.8,
+          "high50plus_contribution_to_roi_pctpts": 57.2,
+          "paid_roi_without_50plus_payout_pct": 17.3,
+          "medium_50to100_paid_share_pct": 39.3,
+          "high100plus_paid_share_pct": 37.4
+        },
+        "period2": {
+          "races": 73,
+          "purchased": 73,
+          "tickets": 676,
+          "stake_yen": 67600,
+          "payout_yen": 63350,
+          "net_yen": -4250,
+          "roi_pct": 93.71,
+          "trim1_pct": 53.84,
+          "trim5_pct": 12.54,
+          "hit_races": 9,
+          "tail_bins": {
+            "zero": {
+              "races": 64,
+              "payout": 0
+            },
+            "low": {
+              "races": 6,
+              "payout": 14440
+            },
+            "medium": {
+              "races": 1,
+              "payout": 9920
+            },
+            "high": {
+              "races": 2,
+              "payout": 38990
+            }
+          },
+          "high50plus_hit_races": 3,
+          "high50plus_paid_yen": 48910,
+          "high50plus_share_of_payout_pct": 77.2,
+          "high50plus_contribution_to_roi_pctpts": 72.4,
+          "paid_roi_without_50plus_payout_pct": 21.4,
+          "medium_50to100_paid_share_pct": 15.7,
+          "high100plus_paid_share_pct": 61.5
+        },
+        "period3": {
+          "races": 76,
+          "purchased": 76,
+          "tickets": 721,
+          "stake_yen": 72100,
+          "payout_yen": 40780,
+          "net_yen": -31320,
+          "roi_pct": 56.56,
+          "trim1_pct": 43.53,
+          "trim5_pct": 9.88,
+          "hit_races": 9,
+          "tail_bins": {
+            "zero": {
+              "races": 67,
+              "payout": 0
+            },
+            "low": {
+              "races": 5,
+              "payout": 9770
+            },
+            "medium": {
+              "races": 4,
+              "payout": 31010
+            },
+            "high": {
+              "races": 0,
+              "payout": 0
+            }
+          },
+          "high50plus_hit_races": 4,
+          "high50plus_paid_yen": 31010,
+          "high50plus_share_of_payout_pct": 76,
+          "high50plus_contribution_to_roi_pctpts": 43,
+          "paid_roi_without_50plus_payout_pct": 13.6,
+          "medium_50to100_paid_share_pct": 76,
+          "high100plus_paid_share_pct": 0
+        },
+        "is_pre_result_filter": true
+      },
+      "FINAL_LOSER_NONFAV_BUPSET": {
+        "model": "b_upset_ad",
+        "cover_pct": 6,
+        "all": {
+          "races": 226,
+          "purchased": 221,
+          "tickets": 1977,
+          "stake_yen": 197700,
+          "payout_yen": 103090,
+          "net_yen": -94610,
+          "roi_pct": 52.14,
+          "trim1_pct": 43.65,
+          "trim5_pct": 33.48,
+          "hit_races": 44,
+          "tail_bins": {
+            "zero": {
+              "races": 182,
+              "payout": 0
+            },
+            "low": {
+              "races": 41,
+              "payout": 73200
+            },
+            "medium": {
+              "races": 2,
+              "payout": 12700
+            },
+            "high": {
+              "races": 1,
+              "payout": 17190
+            }
+          },
+          "high50plus_hit_races": 3,
+          "high50plus_paid_yen": 29890,
+          "high50plus_share_of_payout_pct": 29,
+          "high50plus_contribution_to_roi_pctpts": 15.1,
+          "paid_roi_without_50plus_payout_pct": 37,
+          "medium_50to100_paid_share_pct": 12.3,
+          "high100plus_paid_share_pct": 16.7
+        },
+        "period2": {
+          "races": 110,
+          "purchased": 110,
+          "tickets": 980,
+          "stake_yen": 98000,
+          "payout_yen": 38050,
+          "net_yen": -59950,
+          "roi_pct": 38.83,
+          "trim1_pct": 32.56,
+          "trim5_pct": 20.67,
+          "hit_races": 22,
+          "tail_bins": {
+            "zero": {
+              "races": 88,
+              "payout": 0
+            },
+            "low": {
+              "races": 21,
+              "payout": 31580
+            },
+            "medium": {
+              "races": 1,
+              "payout": 6470
+            },
+            "high": {
+              "races": 0,
+              "payout": 0
+            }
+          },
+          "high50plus_hit_races": 1,
+          "high50plus_paid_yen": 6470,
+          "high50plus_share_of_payout_pct": 17,
+          "high50plus_contribution_to_roi_pctpts": 6.6,
+          "paid_roi_without_50plus_payout_pct": 32.2,
+          "medium_50to100_paid_share_pct": 17,
+          "high100plus_paid_share_pct": 0
+        },
+        "period3": {
+          "races": 116,
+          "purchased": 111,
+          "tickets": 997,
+          "stake_yen": 99700,
+          "payout_yen": 65040,
+          "net_yen": -34660,
+          "roi_pct": 65.24,
+          "trim1_pct": 48.43,
+          "trim5_pct": 31.04,
+          "hit_races": 22,
+          "tail_bins": {
+            "zero": {
+              "races": 94,
+              "payout": 0
+            },
+            "low": {
+              "races": 20,
+              "payout": 41620
+            },
+            "medium": {
+              "races": 1,
+              "payout": 6230
+            },
+            "high": {
+              "races": 1,
+              "payout": 17190
+            }
+          },
+          "high50plus_hit_races": 2,
+          "high50plus_paid_yen": 23420,
+          "high50plus_share_of_payout_pct": 36,
+          "high50plus_contribution_to_roi_pctpts": 23.5,
+          "paid_roi_without_50plus_payout_pct": 41.7,
+          "medium_50to100_paid_share_pct": 9.6,
+          "high100plus_paid_share_pct": 26.4
+        },
+        "is_pre_result_filter": true
+      },
+      "FINAL_LOSER_BUPSET": {
+        "model": "b_upset_ad",
+        "cover_pct": 13.8,
+        "all": {
+          "races": 517,
+          "purchased": 488,
+          "tickets": 4448,
+          "stake_yen": 444800,
+          "payout_yen": 316340,
+          "net_yen": -128460,
+          "roi_pct": 71.12,
+          "trim1_pct": 63.66,
+          "trim5_pct": 45.26,
+          "hit_races": 74,
+          "tail_bins": {
+            "zero": {
+              "races": 443,
+              "payout": 0
+            },
+            "low": {
+              "races": 58,
+              "payout": 105050
+            },
+            "medium": {
+              "races": 8,
+              "payout": 55240
+            },
+            "high": {
+              "races": 8,
+              "payout": 156050
+            }
+          },
+          "high50plus_hit_races": 16,
+          "high50plus_paid_yen": 211290,
+          "high50plus_share_of_payout_pct": 66.8,
+          "high50plus_contribution_to_roi_pctpts": 47.5,
+          "paid_roi_without_50plus_payout_pct": 23.6,
+          "medium_50to100_paid_share_pct": 17.5,
+          "high100plus_paid_share_pct": 49.3
+        },
+        "period2": {
+          "races": 258,
+          "purchased": 247,
+          "tickets": 2258,
+          "stake_yen": 225800,
+          "payout_yen": 141920,
+          "net_yen": -83880,
+          "roi_pct": 62.85,
+          "trim1_pct": 48.1,
+          "trim5_pct": 31.93,
+          "hit_races": 40,
+          "tail_bins": {
+            "zero": {
+              "races": 218,
+              "payout": 0
+            },
+            "low": {
+              "races": 33,
+              "payout": 58130
+            },
+            "medium": {
+              "races": 5,
+              "payout": 35780
+            },
+            "high": {
+              "races": 2,
+              "payout": 48010
+            }
+          },
+          "high50plus_hit_races": 7,
+          "high50plus_paid_yen": 83790,
+          "high50plus_share_of_payout_pct": 59,
+          "high50plus_contribution_to_roi_pctpts": 37.1,
+          "paid_roi_without_50plus_payout_pct": 25.7,
+          "medium_50to100_paid_share_pct": 25.2,
+          "high100plus_paid_share_pct": 33.8
+        },
+        "period3": {
+          "races": 259,
+          "purchased": 241,
+          "tickets": 2190,
+          "stake_yen": 219000,
+          "payout_yen": 174420,
+          "net_yen": -44580,
+          "roi_pct": 79.64,
+          "trim1_pct": 67.83,
+          "trim5_pct": 36.68,
+          "hit_races": 34,
+          "tail_bins": {
+            "zero": {
+              "races": 225,
+              "payout": 0
+            },
+            "low": {
+              "races": 25,
+              "payout": 46920
+            },
+            "medium": {
+              "races": 3,
+              "payout": 19460
+            },
+            "high": {
+              "races": 6,
+              "payout": 108040
+            }
+          },
+          "high50plus_hit_races": 9,
+          "high50plus_paid_yen": 127500,
+          "high50plus_share_of_payout_pct": 73.1,
+          "high50plus_contribution_to_roi_pctpts": 58.2,
+          "paid_roi_without_50plus_payout_pct": 21.4,
+          "medium_50to100_paid_share_pct": 11.2,
+          "high100plus_paid_share_pct": 61.9
+        },
+        "is_pre_result_filter": true,
+        "paired_vs_auto_same_races": {
+          "lo": -68.6,
+          "hi": 26.7,
+          "resamples": 5000
+        }
+      },
+      "NONFAV_BAXIS3": {
+        "model": "baxis_3",
+        "cover_pct": 36.4,
+        "all": {
+          "races": 1363,
+          "purchased": 1363,
+          "tickets": 4089,
+          "stake_yen": 408900,
+          "payout_yen": 362580,
+          "net_yen": -46320,
+          "roi_pct": 88.67,
+          "trim1_pct": 79.02,
+          "trim5_pct": 67,
+          "hit_races": 123,
+          "tail_bins": {
+            "zero": {
+              "races": 1240,
+              "payout": 0
+            },
+            "low": {
+              "races": 105,
+              "payout": 173990
+            },
+            "medium": {
+              "races": 13,
+              "payout": 98950
+            },
+            "high": {
+              "races": 5,
+              "payout": 89640
+            }
+          },
+          "high50plus_hit_races": 18,
+          "high50plus_paid_yen": 188590,
+          "high50plus_share_of_payout_pct": 52,
+          "high50plus_contribution_to_roi_pctpts": 46.1,
+          "paid_roi_without_50plus_payout_pct": 42.6,
+          "medium_50to100_paid_share_pct": 27.3,
+          "high100plus_paid_share_pct": 24.7
+        },
+        "period2": {
+          "races": 671,
+          "purchased": 671,
+          "tickets": 2013,
+          "stake_yen": 201300,
+          "payout_yen": 146590,
+          "net_yen": -54710,
+          "roi_pct": 72.82,
+          "trim1_pct": 65.84,
+          "trim5_pct": 43.86,
+          "hit_races": 52,
+          "tail_bins": {
+            "zero": {
+              "races": 619,
+              "payout": 0
+            },
+            "low": {
+              "races": 44,
+              "payout": 65670
+            },
+            "medium": {
+              "races": 5,
+              "payout": 41830
+            },
+            "high": {
+              "races": 3,
+              "payout": 39090
+            }
+          },
+          "high50plus_hit_races": 8,
+          "high50plus_paid_yen": 80920,
+          "high50plus_share_of_payout_pct": 55.2,
+          "high50plus_contribution_to_roi_pctpts": 40.2,
+          "paid_roi_without_50plus_payout_pct": 32.6,
+          "medium_50to100_paid_share_pct": 28.5,
+          "high100plus_paid_share_pct": 26.7
+        },
+        "period3": {
+          "races": 692,
+          "purchased": 692,
+          "tickets": 2076,
+          "stake_yen": 207600,
+          "payout_yen": 215990,
+          "net_yen": 8390,
+          "roi_pct": 104.04,
+          "trim1_pct": 85.04,
+          "trim5_pct": 68.37,
+          "hit_races": 71,
+          "tail_bins": {
+            "zero": {
+              "races": 621,
+              "payout": 0
+            },
+            "low": {
+              "races": 61,
+              "payout": 108320
+            },
+            "medium": {
+              "races": 8,
+              "payout": 57120
+            },
+            "high": {
+              "races": 2,
+              "payout": 50550
+            }
+          },
+          "high50plus_hit_races": 10,
+          "high50plus_paid_yen": 107670,
+          "high50plus_share_of_payout_pct": 49.8,
+          "high50plus_contribution_to_roi_pctpts": 51.9,
+          "paid_roi_without_50plus_payout_pct": 52.2,
+          "medium_50to100_paid_share_pct": 26.4,
+          "high100plus_paid_share_pct": 23.4
+        },
+        "is_pre_result_filter": true
+      }
+    }
+  },
+  "all_policy_names": [
+    "AUTO_ALL",
+    "BUPSET_ALL",
+    "BAXIS3_ALL",
+    "NONFAVORITE_AUTO",
+    "NONFAVORITE_BUPSET",
+    "DISAGREE_AUTO",
+    "DISAGREE_BUPSET",
+    "NONFAV_AND_DISAGREE_BUPSET",
+    "NONFAV_7_BUPSET",
+    "NONFAV_9_BUPSET",
+    "FINAL_LOSER_NONFAV_BUPSET",
+    "FINAL_LOSER_BUPSET",
+    "NONFAV_BAXIS3"
+  ],
+  "adoption": "DO NOT PROMOTE, all derived after exploring this same 90-day history",
+  "caveats": [
+    "Historic 2026-11 race forecasts were generated with a model developed after original races; no authentically contemporaneous prediction record.",
+    "The source daily JSON may have been retrospectively updated: no original publication timestamp audit.",
+    "No historical odds for losing trifecta tickets, so cannot simulate a tradable 50x-100x only policy or reliable expected value.",
+    "Observed 50x payouts contribute to return after the fact; payout-dependent filtering would be outcome leakage.",
+    "High payouts dominate tails, so small-sample ROI can be highly unstable.",
+    "Comparisons of many experimental policies have strong multiple testing bias.",
+    "No blending of earlier 661-race selectively reconstructed sample with full 5745 cohort.",
+    "No main/Railway/notification/production bet changes."
+  ]
+}
