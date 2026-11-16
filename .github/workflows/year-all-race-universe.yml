@@ -1,0 +1,41 @@
+name: Census all one-year male 7 9 car races (no guesses)
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-all-race-universe.py
+      - .github/workflows/year-all-race-universe.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build all annual 21695 race IDs with validated date and per-race source status
+        run: |
+          python -m py_compile scripts/year-all-race-universe.py
+          python scripts/year-all-race-universe.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: annual-21695-race-id-audit
+          path: |
+            reports/year-race-type/annual-all-race-manifest-20251116-20261115.jsonl
+            reports/year-race-type/annual-all-race-inventory-summary.json
+          retention-days: 90
+          if-no-files-found: error
+      - name: Commit aggregated census only to isolated research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/annual-all-race-inventory-summary.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Establish full one-year 21695-race census and unverifiable input ledger'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
