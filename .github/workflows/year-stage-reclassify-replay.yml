@@ -1,0 +1,39 @@
+name: Correct first-day special replay category without retuning
+on:
+  push:
+    branches: ['research/year-stage-validation-20261116']
+    paths:
+      - 'scripts/year-stage-reclassify-replay.cjs'
+      - '.github/workflows/year-stage-reclassify-replay.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  reclassify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Reclassify cached 833 forecasts while verifying unchanged stake and payout
+        run: node scripts/year-stage-reclassify-replay.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: corrected-grade-stage-833
+          path: reports/year-race-type/replay-stages-corrected-833.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Save corrected category audit on research branch only
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/replay-stages-corrected-833.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Reclassify initial selections as 初日特選 in frozen eight-engine replay'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
