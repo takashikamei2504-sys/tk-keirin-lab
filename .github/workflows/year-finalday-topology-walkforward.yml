@@ -1,0 +1,49 @@
+name: Final-day topology 30day walkforward gate audit
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-finalday-topology-walkforward.py
+      - .github/workflows/year-finalday-topology-walkforward.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: tk-finalday-topology-walkforward-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - name: Python syntax and temporal audit of all 90 source days
+        run: |
+          python3 -m py_compile scripts/year-finalday-topology-walkforward.py
+          python3 -m py_compile scripts/year-finalday-line-topology-audit.py
+          python3 scripts/year-finalday-topology-walkforward.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: finalday-topology-walkforward-517r
+          path: |
+            reports/year-race-type/90day-finalday-topology-walkforward-20261116.json
+            reports/year-race-type/90day-finalday-topology-walkforward-20261116-ja.md
+          if-no-files-found: error
+          retention-days: 90
+      - name: Save verified report on isolated research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/90day-finalday-topology-walkforward-20261116.json reports/year-race-type/90day-finalday-topology-walkforward-20261116-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Validate final-day line count router and gate by prior 30-day blocks'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
