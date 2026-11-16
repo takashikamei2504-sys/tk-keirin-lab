@@ -71,6 +71,7 @@ for k,rs in contexts.items():
   "seven_eligible_vs_random":compare(only7,"digit_7","random"),
   "six_eligible_vs_random":compare(only6,"digit_6","random"),
   "both_eligible_seven_vs_six":compare(both,"digit_7","digit_6"),
+  "seven_when_six_unavailable":compare([r for r in only7 if r["depth"]["1"]["extra"]["digit_6"]["n"]==0],"digit_7","random"),
   "7_in_eligible":len(only7),"6_in_eligible":len(only6),"both_eligible":len(both)
  }
 out={"schema":"tk-keirin-rational-irrational-third-place-matched-followup/v1",
@@ -95,6 +96,13 @@ md=["# 自由研究補足：同一レース・同一100円投資で3着7は無�
 for k in ["all90","last60","period1","period2","period3","car7","car9","nonfavorite","finalday_loser"]:
  g=groups[k]["seven_eligible_vs_random"]
  md.append(f"| {k} | {g['first']['n']} | {g['first']['roi']}% | {g['second']['roi']}% | {g['paired_bootstrap']['diff_95'] if g['paired_bootstrap'] else '－'} |")
+md.extend(["","## 3着7が可能、しかし3着6は追加できないレース（特殊構造の探索）",
+ "| 期間 | 対象R | 3着7単独ROI | 高額5件除外 | 同条件ランダムROI | 差95%区間 |",
+ "|---|---:|---:|---:|---:|---|"])
+for k in ["all90","last60","period1","period2","period3"]:
+ g=groups[k]["seven_when_six_unavailable"]
+ md.append(f"| {k} | {g['first']['n']} | {g['first']['roi']}% | {g['first']['trim5']}% | {g['second']['roi']}% | {g['paired_bootstrap']['diff_95'] if g['paired_bootstrap'] else '－'} |")
+md.extend(["","この条件は既に3着7が好成績だったことを見て発見した**完全な事後探索**。6が1・2着にいる場合や、合理3着として元から選ばれている場合が含まれる。選別条件の優位性・因果性を保証しない。"])
 md.extend(["","## 3着6と7の双方を買えるレースだけで比較",
  "| 期間 | 対象R | 3着7のROI | 3着6のROI | 差95%区間 |",
  "|---|---:|---:|---:|---|"])
