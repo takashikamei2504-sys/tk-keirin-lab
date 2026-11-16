@@ -1,0 +1,71 @@
+{
+  "schema": "tk-keirin-annual-payout-complement-v1",
+  "run_source": "pinned public 2026-08-18 through 2026-11-15 daily JSON + monthly CSV",
+  "commits": {
+    "csv": "55c425947770080fe3f3629720cda0f4ede69b9e",
+    "daily": "4588ec938a2fec9e81216d3fd3423329805aa3d5"
+  },
+  "counts": {
+    "daily_male_7_9": 5920,
+    "unique_verified_identity": 4993,
+    "already_recorded_matches": 604,
+    "newly_restored_payouts": 4373,
+    "daily_no_valid_payout": 13,
+    "payout_conflict": 3,
+    "no_verified_identity": 927
+  },
+  "conflicts": [
+    {
+      "id": "3420260819030011",
+      "date": "2026-08-21",
+      "old": [
+        "4-6-2",
+        23100
+      ],
+      "new": [
+        [
+          "4-6-5",
+          11790
+        ]
+      ]
+    },
+    {
+      "id": "3120260822010003",
+      "date": "2026-08-22",
+      "old": [
+        "5-3-7",
+        180
+      ],
+      "new": [
+        [
+          "5-3-9",
+          400
+        ]
+      ]
+    },
+    {
+      "id": "6120260826010006",
+      "date": "2026-08-26",
+      "old": [
+        "4-3-1",
+        1590
+      ],
+      "new": [
+        [
+          "4-3-5",
+          900
+        ]
+      ]
+    }
+  ],
+  "days": 90,
+  "restoration_file": "reports/year-race-type/annual-2026-90day-restored-trifecta.jsonl",
+  "restoration_sha256": "ba43324ae95bac13fecd1f6f46690bceb80ad5ee5d2013fe73d130abb0a75250",
+  "meaning": "Restores only exact identity matched archived 3連単 payout rows; not 8-model ROI or genuine race-day forecasting.",
+  "notes": [
+    "No outcome-dependent race selection",
+    "No guessed results",
+    "Any conflict excluded",
+    "No external provider websites scraped"
+  ]
+}
