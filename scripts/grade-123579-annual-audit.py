@@ -159,11 +159,23 @@ def main():
  for key,month in sorted(raw_results.items()):
   source_summary[f"{key[0]}-{key[1]:02d}"]=month["info"]
   for row in month["rows"]:
-   day=row.get("date","").strip()
-   if not (str(START)<=day<=str(END)):continue
+   reported_date=row.get("date","").strip()
    rid=row.get("race_id","").strip()
-   try:code=int(rid[:2]);race_no=int(row.get("race_no","0"));car_no=int(row.get("banum","0"))
-   except ValueError:skipped["bad_identity"]+=1;continue
+   try:
+    if not re.fullmatch(r"\d{16}",rid):raise ValueError("bad race_id format")
+    code=int(rid[:2]);race_no=int(row.get("race_no","0"));car_no=int(row.get("banum","0"))
+    meeting_start=dt.date(int(rid[2:6]),int(rid[6:8]),int(rid[8:10]))
+    meeting_sequence=int(rid[10:12]);encoded_race_no=int(rid[12:16])
+    if not 1<=meeting_sequence<=7 or encoded_race_no!=race_no:
+     raise ValueError("encoded meeting day or race number mismatch")
+    day=str(meeting_start+dt.timedelta(days=meeting_sequence-1))
+    if reported_date not in (day,str(meeting_start)):
+     skipped["reported_date_inconsistent"]+=1
+     continue
+    if reported_date!=day:
+     skipped["reported_start_date_not_race_day"]+=1
+   except (ValueError,TypeError):skipped["bad_identity"]+=1;continue
+   if not (str(START)<=day<=str(END)):continue
    event=indexed.get((day,code))
    if not event:continue
    if car_no<1 or car_no>9:skipped["bad_car_number"]+=1;continue
@@ -401,6 +413,7 @@ def main():
   "Male grade selection requires at least 1 S-class starter and excludes L-class athletes; GP/GI womens-only rounds not in male scope.",
   "Grade classified by KDreams official meeting schedule venue and date, not inferred from S-class riders.",
   "Winners and winning payouts are outcomes, and DO NOT inform simulated ticket selection in the same race.",
+  "Monthly CSV date can mean either actual race date or original meeting start: canonical actual date is decoded from 16-digit race_id (venue + YYYYMMDD meeting start + 2-digit meeting day + 4-digit race no); reported date must match actual or start.",
   "The per-race result payout is for a 100 yen unit. Refunds, scratch-driven ticket cancellations, and irregular equal-ranking combinations need further official reconciliation.",
   "Trying 6 boxes + 15 small boxes + position families creates multiple comparison effects; the best ex-post ROI is NOT a validated edge.",
   "No betting executed. Research branch only; no Railway, main, or production changes."
