@@ -1,0 +1,316 @@
+{
+  "schema": "tk-keirin-finalday-line-topology-walkforward/v1",
+  "methodology": "Train fixed previous 30d using final-day losers only, test next 30d, two independent period blocks. Route by training trim-largest-winner ROI among 8 where line-shape n>=30, otherwise AUTO. Gate purchases AUTO only if corresponding training shape n>=30 and trim1 ROI>=80. Shape alone is pre-race feature. Thresholds are exploratory; no retrospective best rule selected from test outcomes.",
+  "source": {
+    "repository": "kurinaka12-afk/keirin-app-data",
+    "commit": "4588ec938a2fec9e81216d3fd3423329805aa3d5",
+    "all_daily_SHA_checked": true
+  },
+  "period": [
+    "2026-08-18",
+    "2026-11-15"
+  ],
+  "counts": {
+    "all": 5745,
+    "finalday_losers": 790,
+    "heldout": 517
+  },
+  "heldout_auto": {
+    "races": 517,
+    "hits": 96,
+    "stake_yen": 413600,
+    "payout_yen": 359910,
+    "net_yen": -53690,
+    "roi_pct": 87.02,
+    "trim1_roi_pct": 70.25,
+    "trim5_roi_pct": 46.98,
+    "max_single_payout_yen": 69900,
+    "payout5k_to10k_hit_races": 8,
+    "payout10kplus_hit_races": 5,
+    "largest_win_share_pct": 19.4
+  },
+  "heldout_physical": {
+    "races": 517,
+    "hits": 98,
+    "stake_yen": 413600,
+    "payout_yen": 345520,
+    "net_yen": -68080,
+    "roi_pct": 83.54,
+    "trim1_roi_pct": 66.77,
+    "trim5_roi_pct": 53.79,
+    "max_single_payout_yen": 69900,
+    "payout5k_to10k_hit_races": 12,
+    "payout10kplus_hit_races": 5,
+    "largest_win_share_pct": 20.2
+  },
+  "line_count_rolling_router": {
+    "races": 517,
+    "hits": 86,
+    "stake_yen": 436700,
+    "payout_yen": 298330,
+    "net_yen": -138370,
+    "roi_pct": 68.31,
+    "trim1_roi_pct": 52.4,
+    "trim5_roi_pct": 39.5,
+    "max_single_payout_yen": 69900,
+    "payout5k_to10k_hit_races": 13,
+    "payout10kplus_hit_races": 3,
+    "largest_win_share_pct": 23.4
+  },
+  "line_count_auto_gate": {
+    "races": 72,
+    "hits": 12,
+    "stake_yen": 57600,
+    "payout_yen": 98630,
+    "net_yen": 41030,
+    "roi_pct": 171.23,
+    "trim1_roi_pct": 50.58,
+    "trim5_roi_pct": 13.4,
+    "max_single_payout_yen": 69900,
+    "payout5k_to10k_hit_races": 0,
+    "payout10kplus_hit_races": 2,
+    "largest_win_share_pct": 70.9
+  },
+  "gate_coverage_percent": 13.93,
+  "four_line_physical_only": {
+    "races": 139,
+    "hits": 28,
+    "stake_yen": 111200,
+    "payout_yen": 165130,
+    "net_yen": 53930,
+    "roi_pct": 148.5,
+    "trim1_roi_pct": 86.26,
+    "trim5_roi_pct": 49.31,
+    "max_single_payout_yen": 69900,
+    "payout5k_to10k_hit_races": 6,
+    "payout10kplus_hit_races": 3,
+    "largest_win_share_pct": 42.3
+  },
+  "router_vs_auto_block_bootstrap": {
+    "difference_roi_pctpoints_95pct": [
+      -54.7,
+      18.4
+    ],
+    "fraction_advantage": 0.161,
+    "sampled_5day_blocks": 12,
+    "resamples": 12000
+  },
+  "periods": [
+    {
+      "train_period": 1,
+      "test_period": 2,
+      "train_races": 273,
+      "heldout_races": 258,
+      "decisions": {
+        "2ライン": {
+          "training_n": 22,
+          "route_engine": "auto",
+          "gate": false,
+          "reason": "Insufficient 30 historical races"
+        },
+        "3ライン": {
+          "training_n": 164,
+          "route_engine": "b_upset_expanded",
+          "trim1_roi_pct_selected": 64.7,
+          "trim1_roi_pct_auto": 46.61,
+          "gate": false
+        },
+        "4ライン": {
+          "training_n": 75,
+          "route_engine": "physical",
+          "trim1_roi_pct_selected": 142.99,
+          "trim1_roi_pct_auto": 87.47,
+          "gate": true
+        },
+        "5ライン以上": {
+          "training_n": 12,
+          "route_engine": "auto",
+          "gate": false,
+          "reason": "Insufficient 30 historical races"
+        }
+      },
+      "baseline_auto": {
+        "races": 258,
+        "hits": 47,
+        "stake_yen": 206400,
+        "payout_yen": 222600,
+        "net_yen": 16200,
+        "roi_pct": 107.85,
+        "trim1_roi_pct": 74.27,
+        "trim5_roi_pct": 33.53,
+        "max_single_payout_yen": 69900,
+        "payout5k_to10k_hit_races": 2,
+        "payout10kplus_hit_races": 3,
+        "largest_win_share_pct": 31.4
+      },
+      "baseline_physical": {
+        "races": 258,
+        "hits": 49,
+        "stake_yen": 206400,
+        "payout_yen": 177790,
+        "net_yen": -28610,
+        "roi_pct": 86.14,
+        "trim1_roi_pct": 52.48,
+        "trim5_roi_pct": 37.53,
+        "max_single_payout_yen": 69900,
+        "payout5k_to10k_hit_races": 5,
+        "payout10kplus_hit_races": 1,
+        "largest_win_share_pct": 39.3
+      },
+      "line_count_routing": {
+        "races": 258,
+        "hits": 35,
+        "stake_yen": 235800,
+        "payout_yen": 163280,
+        "net_yen": -72520,
+        "roi_pct": 69.25,
+        "trim1_roi_pct": 39.74,
+        "trim5_roi_pct": 27.16,
+        "max_single_payout_yen": 69900,
+        "payout5k_to10k_hit_races": 6,
+        "payout10kplus_hit_races": 1,
+        "largest_win_share_pct": 42.8
+      },
+      "line_count_gate_auto": {
+        "races": 72,
+        "hits": 12,
+        "stake_yen": 57600,
+        "payout_yen": 98630,
+        "net_yen": 41030,
+        "roi_pct": 171.23,
+        "trim1_roi_pct": 50.58,
+        "trim5_roi_pct": 13.4,
+        "max_single_payout_yen": 69900,
+        "payout5k_to10k_hit_races": 0,
+        "payout10kplus_hit_races": 2,
+        "largest_win_share_pct": 70.9
+      },
+      "fixed_four_line_physical": {
+        "races": 72,
+        "hits": 13,
+        "stake_yen": 57600,
+        "payout_yen": 98040,
+        "net_yen": 40440,
+        "roi_pct": 170.21,
+        "trim1_roi_pct": 49.54,
+        "trim5_roi_pct": 20.09,
+        "max_single_payout_yen": 69900,
+        "payout5k_to10k_hit_races": 1,
+        "payout10kplus_hit_races": 1,
+        "largest_win_share_pct": 71.3
+      }
+    },
+    {
+      "train_period": 2,
+      "test_period": 3,
+      "train_races": 258,
+      "heldout_races": 259,
+      "decisions": {
+        "2ライン": {
+          "training_n": 15,
+          "route_engine": "auto",
+          "gate": false,
+          "reason": "Insufficient 30 historical races"
+        },
+        "3ライン": {
+          "training_n": 157,
+          "route_engine": "line",
+          "trim1_roi_pct_selected": 56.86,
+          "trim1_roi_pct_auto": 50.38,
+          "gate": false
+        },
+        "4ライン": {
+          "training_n": 72,
+          "route_engine": "causal",
+          "trim1_roi_pct_selected": 55.63,
+          "trim1_roi_pct_auto": 50.58,
+          "gate": false
+        },
+        "5ライン以上": {
+          "training_n": 14,
+          "route_engine": "auto",
+          "gate": false,
+          "reason": "Insufficient 30 historical races"
+        }
+      },
+      "baseline_auto": {
+        "races": 259,
+        "hits": 49,
+        "stake_yen": 207200,
+        "payout_yen": 137310,
+        "net_yen": -69890,
+        "roi_pct": 66.27,
+        "trim1_roi_pct": 58.07,
+        "trim5_roi_pct": 40.26,
+        "max_single_payout_yen": 17460,
+        "payout5k_to10k_hit_races": 6,
+        "payout10kplus_hit_races": 2,
+        "largest_win_share_pct": 12.7
+      },
+      "baseline_physical": {
+        "races": 259,
+        "hits": 49,
+        "stake_yen": 207200,
+        "payout_yen": 167730,
+        "net_yen": -39470,
+        "roi_pct": 80.95,
+        "trim1_roi_pct": 72.81,
+        "trim5_roi_pct": 50.9,
+        "max_single_payout_yen": 17460,
+        "payout5k_to10k_hit_races": 7,
+        "payout10kplus_hit_races": 4,
+        "largest_win_share_pct": 10.4
+      },
+      "line_count_routing": {
+        "races": 259,
+        "hits": 51,
+        "stake_yen": 200900,
+        "payout_yen": 135050,
+        "net_yen": -65850,
+        "roi_pct": 67.22,
+        "trim1_roi_pct": 55.6,
+        "trim5_roi_pct": 36.32,
+        "max_single_payout_yen": 23800,
+        "payout5k_to10k_hit_races": 7,
+        "payout10kplus_hit_races": 2,
+        "largest_win_share_pct": 17.6
+      },
+      "line_count_gate_auto": {
+        "races": 0,
+        "hits": 0,
+        "stake_yen": 0,
+        "payout_yen": 0,
+        "net_yen": 0,
+        "roi_pct": null,
+        "trim1_roi_pct": null,
+        "trim5_roi_pct": null,
+        "max_single_payout_yen": 0,
+        "payout5k_to10k_hit_races": 0,
+        "payout10kplus_hit_races": 0,
+        "largest_win_share_pct": null
+      },
+      "fixed_four_line_physical": {
+        "races": 67,
+        "hits": 15,
+        "stake_yen": 53600,
+        "payout_yen": 67090,
+        "net_yen": 13490,
+        "roi_pct": 125.17,
+        "trim1_roi_pct": 102.54,
+        "trim5_roi_pct": 35.38,
+        "max_single_payout_yen": 12950,
+        "payout5k_to10k_hit_races": 5,
+        "payout10kplus_hit_races": 2,
+        "largest_win_share_pct": 19.3
+      }
+    }
+  ],
+  "limitations": [
+    "The initial 90-day archive itself and policy thresholds have been explored; this is temporal holdout, not completely untouched prospective validation.",
+    "The data are retrospectively replayed with current November 2026 models, not predictions frozen before original starts.",
+    "Line groups are publisher pre-race forecast and not race-day actual line or B point.",
+    "Group selection as well as engine selection depend on small data, mostly high-tail wins.",
+    "The 661 selected earlier historical cases are a different selection process and not pooled into this test.",
+    "No main branch, Railway or live purchase change."
+  ]
+}
