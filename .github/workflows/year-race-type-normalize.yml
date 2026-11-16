@@ -1,0 +1,37 @@
+name: Normalize historical annual race dates and counts
+on:
+  push:
+    branches: ['research/year-race-type-audit-20261116']
+    paths:
+      - scripts/year-race-type-normalize.py
+      - .github/workflows/year-race-type-normalize.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Normalize actual calendar dates and rebuild annual male class inventory
+        run: python scripts/year-race-type-normalize.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: annual-normalized-race-inventory
+          path: reports/year-race-type/annual-normalized-inventory.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Commit audit only on research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/annual-normalized-inventory.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish reconciled calendar-year male race inventory'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
