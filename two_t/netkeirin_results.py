@@ -30,7 +30,8 @@ def read_result(source_id):
 def parse_result(html, card, source_id):
     url = RESULT_URL + source_id
     start = stamp(card["start"]).astimezone(JST)
-    title = clean(one(r"<title>(.*?)</title>", html, "missing netkeirin title"))
+    head = re.split(r"</head\s*>", html, maxsplit=1, flags=re.I)[0]
+    title = clean(one(r"<title>(.*?)</title>", head, "missing netkeirin title"))
     canonical = one(r'<link rel="canonical" href="([^"]+)"', html, "missing netkeirin canonical URL")
     race_no = str(card["race_no"])
     if (canonical != url or not source_id.startswith(card["date"].replace("-", ""))
