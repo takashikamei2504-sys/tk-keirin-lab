@@ -12,13 +12,15 @@ const WAYS=['auto','physical','causal','lab_v5','line','roi_coverage','b_upset_a
 if(o.scope?.sample_races!==833||o.rows?.length!==833)throw Error('Input 833-race replays not present');
 function stage(r){
  const round=String(r.round||'').normalize('NFKC').replace(/\s/g,'');
+ if(/準決|準々決|予選|勝上/.test(round))return '勝ち上がり戦';
  if(round.includes('決勝'))return '決勝';
  if(r.meeting_day==='初日'&&/^(選抜|特別選抜|初日特選|特選)$/.test(round))return '初日特選';
- if(/準決|準々決|予選|勝上/.test(round))return '勝ち上がり戦';
  if(/特別選抜|特選|特秀|特優/.test(round))return '特選等';
  if(/一般|特一般|選抜|敗者|順位/.test(round))return '敗者戦';
  return 'その他';
 }
+if(stage({round:'準決勝',meeting_day:'二日目'})!=='勝ち上がり戦')throw Error('準決勝 must not be classified as 決勝');
+if(stage({round:'決勝',meeting_day:'最終日'})!=='決勝')throw Error('決勝 classification failed');
 function metric(rows,name){
  const r=rows.map(x=>x.predictions[name]);
  if(r.some(x=>!x))throw Error('Missing predictions in '+name);
