@@ -1,0 +1,47 @@
+name: B-AXIS v0.6 90day retrospective outcome-blind replay
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-baxis90-retro-shard.cjs
+      - scripts/year-baxis90-retro-aggregate.cjs
+      - .github/workflows/year-baxis90-retro.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: tk-baxis90-retro-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - name: Historical outcome-blind v0.6 projection on validated cohort
+        env:
+          YEAR_BAXIS_SHARD: ${{ matrix.shard }}
+        run: |
+          node --check scripts/year-baxis90-retro-shard.cjs
+          node scripts/year-baxis90-retro-shard.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: baxis90-v06-part-${{ matrix.shard }}
+          path: reports/year-race-type/baxis90-shards/part-${{ matrix.shard }}.json
+          if-no-files-found: warn
+          retention-days: 90
