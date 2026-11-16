@@ -60,3 +60,14 @@ python -m two_t.observe --ledger /path/to/persistent/2t-observations
 WINTICKETの開催一覧と確定結果ページはGitHub標準ランナーから403が返る。Actionsは `--verify-review-results` で、まず楽天Kドリームスから開催日・会場・レース番号・発走予定時刻と全員の車番・氏名を確認し、`review-results/` に保存する。次にnetkeirinの確定結果に掲載された車番・選手プロフィールIDを発走前の全選手と照合し、両サイトのB・1〜3着・二車単払戻が一致した場合に `results/` に追記する。出典URL、ページ内容のハッシュ、取得時刻を記録する。確定時刻と締切時刻は確認できる場合に限り記録する。着順異常、返還などで通常結果として確認できないものは対象外のままとする。`--review-results` を指定すると確認待ちだけを収集できる。保存した結果から固定済みV1の学習・最終評価データへの追加は行わない。
 
 PR段階でiPhoneから1回実行する場合は、[実行リクエスト](https://github.com/takashikamei2504-sys/tk-keirin-lab/edit/lab-2t-transformer-v1/two_t/observation-request.txt) をSafariで開き、時刻を書き換えて `lab-2t-transformer-v1` にコミットする。既定ブランチへの承認済み反映後は、Actionsの「Run workflow」とJSTの7:11〜23:41の30分間隔、および翌0:11のスケジュールを利用できる。通常の自動照合は発走から3日間まで再試行する。この間隔は出走表と結果の収集用で、締切前オッズのT−10取得窓には使用しない。公開リポジトリの標準ランナーを使う。
+
+### 検証用データと保留理由の出力
+
+Actionsの実行概要で、7車・9車別の抽出件数と保留理由を確認できる。PRと手動実行の結果には、ダウンロード用の `2t-observation-audit` を7日間添付する。内容は `audit.json`（レース別の判定）、`rows.json`（適格行）、`summary.md`（件数表）、`provenance.txt`（台帳と抽出コードのコミット）。結果の確定やデータの修正があっても、`audit.json` の `as_of` と同じ台帳コミットを指定することで、同じ時点を再現できる。
+
+```bash
+python -m two_t.observation_export --ledger /path/to/ledger --day 2026-11-17 \
+  --as-of 2026-11-17T23:59:00+09:00 --output /tmp/2t/observation-export
+```
+
+発走前カードのハッシュ、結果の確認時刻、両サイトの出典、全選手ID、最終バック・着順・払戻を再検証して抽出する。抽出行は `split: prospective` として記録する。固定V1の学習・最終評価に使うデータとは別の、今後の検証用データ。
