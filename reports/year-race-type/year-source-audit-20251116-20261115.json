@@ -1,0 +1,514 @@
+{
+  "schema": "tk-keirin-year-race-type-source-audit/v1",
+  "period": {
+    "start": "2025-11-16",
+    "end": "2026-11-15"
+  },
+  "source": {
+    "repository": "Kenseimk/keirin-data",
+    "monthly_files": {
+      "2025_11": {
+        "sha256": "1c03b19d388252419dd888aa8e3d77e0d2b6a5f38f241d1f74e0709c1a07cdfe",
+        "bytes": 3205910,
+        "rows_all": 15796,
+        "races_in_date": 1004
+      },
+      "2025_12": {
+        "sha256": "d744fed3522ccce1a53b4c6feff1f84ca77ff981777e73458e4b87ced5391447",
+        "bytes": 3223984,
+        "rows_all": 15898,
+        "races_in_date": 2247
+      },
+      "2026_01": {
+        "sha256": "770c4774275dc0747dcd3f4fd2031b5cffc3d3e180843c1663871c28b0b166da",
+        "bytes": 5443007,
+        "rows_all": 16441,
+        "races_in_date": 2305
+      },
+      "2026_02": {
+        "sha256": "7eec1db554762b6621e33cf0f060ac720f4074b745b4b24ab0bee27119c82a04",
+        "bytes": 5028587,
+        "rows_all": 15306,
+        "races_in_date": 2158
+      },
+      "2026_03": {
+        "sha256": "4acc5f657da969a97551150b9fda76ae434e05f5f220c13dfbf4795b74747b7d",
+        "bytes": 5374784,
+        "rows_all": 16286,
+        "races_in_date": 2274
+      },
+      "2026_04": {
+        "sha256": "de3ef84a741f22fc5ec7dd1faccd166a8b6c34dbbc6ae8031066f02ed4e3b4a9",
+        "bytes": 4545604,
+        "rows_all": 15485,
+        "races_in_date": 2192
+      },
+      "2026_05": {
+        "sha256": "d684f2e436df8da3da29f7dd611bfe9274adba6579494eb6999d26cdc8799f36",
+        "bytes": 3491915,
+        "rows_all": 14400,
+        "races_in_date": 2024
+      },
+      "2026_06": {
+        "sha256": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6",
+        "bytes": 2785218,
+        "rows_all": 14113,
+        "races_in_date": 1988
+      },
+      "2026_07": {
+        "sha256": "fe0b4c3afc7aedd955eb8930959f76c76fd69cf375cd349544b3efaa378ff059",
+        "bytes": 3565233,
+        "rows_all": 14223,
+        "races_in_date": 2006
+      },
+      "2026_08": {
+        "sha256": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb",
+        "bytes": 4349027,
+        "rows_all": 15842,
+        "races_in_date": 2221
+      },
+      "2026_09": {
+        "sha256": "ac5659e62a585374f2c71996b4589f6008a73c230614f973c2bf04d477cef9b2",
+        "bytes": 2202567,
+        "rows_all": 14463,
+        "races_in_date": 2030
+      },
+      "2026_10": {
+        "sha256": "19ded9f444df85aca2a2dc9dc22351428d76d531cf281d12bac8a7015a4ac7a3",
+        "bytes": 1796273,
+        "rows_all": 11963,
+        "races_in_date": 1678
+      },
+      "2026_11": {
+        "sha256": "fe8564014bf19e896aeded1c5778177db1dac00d7107efda9a6c7b5be038daf0",
+        "bytes": 1090485,
+        "rows_all": 7215,
+        "races_in_date": 1006
+      }
+    },
+    "source_data_disclaimer": "Third-party scraped K-Dreams CSV, not independently official verified"
+  },
+  "fetch_errors": {},
+  "duplicates_across_month_files": {},
+  "counts": {
+    "all_races": 25133,
+    "car_rows": 178738,
+    "7or9": 23670,
+    "has_payout": 16333,
+    "has_rank": 16300,
+    "eligible_male": 21695,
+    "eligible_with_trifecta": 14106,
+    "other_car_count": 1463,
+    "girls": 2119
+  },
+  "months": {
+    "2025-11": {
+      "all": 1113,
+      "A級_7": 485,
+      "S級_7": 219,
+      "チャレンジ_7": 212,
+      "チャレンジ_5": 6,
+      "チャレンジ_6": 19,
+      "S級_6": 3,
+      "girls_7": 91,
+      "girls_6": 4,
+      "A級_6": 13,
+      "S級_9": 59,
+      "S級_8": 1,
+      "girls_5": 1
+    },
+    "2025-12": {
+      "all": 2138,
+      "A級_7": 931,
+      "S級_7": 402,
+      "girls_7": 152,
+      "girls_5": 7,
+      "S級_6": 33,
+      "チャレンジ_7": 349,
+      "チャレンジ_6": 34,
+      "girls_6": 22,
+      "A級_6": 18,
+      "S級_9": 161,
+      "S級_8": 9,
+      "チャレンジ_9": 1,
+      "A級_5": 7,
+      "A級_9": 1,
+      "S級_5": 4,
+      "チャレンジ_5": 7
+    },
+    "2026-01": {
+      "all": 2305,
+      "A級_5": 3,
+      "A級_6": 23,
+      "A級_7": 988,
+      "チャレンジ_7": 417,
+      "S級_7": 394,
+      "S級_6": 17,
+      "S級_5": 7,
+      "girls_7": 169,
+      "チャレンジ_6": 44,
+      "チャレンジ_5": 8,
+      "S級_9": 213,
+      "girls_6": 11,
+      "S級_8": 11
+    },
+    "2026-02": {
+      "all": 2158,
+      "A級_7": 899,
+      "girls_7": 165,
+      "S級_7": 428,
+      "S級_6": 26,
+      "チャレンジ_6": 42,
+      "チャレンジ_7": 395,
+      "S級_9": 158,
+      "S級_8": 5,
+      "チャレンジ_5": 9,
+      "A級_5": 3,
+      "A級_6": 13,
+      "girls_6": 14,
+      "girls_5": 1
+    },
+    "2026-03": {
+      "all": 2274,
+      "A級_7": 960,
+      "チャレンジ_7": 391,
+      "girls_7": 172,
+      "S級_7": 385,
+      "A級_6": 16,
+      "S級_9": 237,
+      "チャレンジ_6": 52,
+      "S級_8": 16,
+      "S級_6": 18,
+      "A級_9": 1,
+      "チャレンジ_5": 7,
+      "girls_6": 14,
+      "S級_5": 4,
+      "girls_5": 1
+    },
+    "2026-04": {
+      "all": 2222,
+      "A級_7": 951,
+      "S級_7": 428,
+      "チャレンジ_7": 375,
+      "girls_7": 167,
+      "チャレンジ_6": 39,
+      "S級_9": 149,
+      "S級_8": 15,
+      "S級_6": 41,
+      "チャレンジ_5": 19,
+      "A級_6": 16,
+      "girls_6": 4,
+      "S級_5": 14,
+      "girls_5": 1,
+      "A級_5": 3
+    },
+    "2026-05": {
+      "all": 2056,
+      "S級_9": 180,
+      "A級_7": 846,
+      "girls_7": 171,
+      "チャレンジ_7": 400,
+      "S級_7": 351,
+      "S級_6": 30,
+      "チャレンジ_6": 29,
+      "girls_6": 8,
+      "A級_6": 17,
+      "A級_5": 5,
+      "S級_8": 6,
+      "girls_5": 2,
+      "チャレンジ_5": 9,
+      "S級_5": 2
+    },
+    "2026-06": {
+      "all": 1926,
+      "チャレンジ_7": 310,
+      "A級_7": 775,
+      "S級_7": 325,
+      "S級_6": 32,
+      "girls_7": 153,
+      "チャレンジ_6": 52,
+      "A級_6": 19,
+      "S級_9": 185,
+      "チャレンジ_5": 21,
+      "S級_5": 14,
+      "girls_6": 13,
+      "girls_5": 4,
+      "S級_8": 9,
+      "A級_9": 1,
+      "unknown_7": 8,
+      "unknown_9": 1,
+      "A級_5": 3,
+      "チャレンジ_9": 1
+    },
+    "2026-07": {
+      "all": 2006,
+      "A級_7": 861,
+      "S級_7": 369,
+      "girls_7": 164,
+      "S級_6": 32,
+      "チャレンジ_7": 367,
+      "A級_6": 15,
+      "S級_9": 139,
+      "チャレンジ_6": 25,
+      "girls_6": 13,
+      "S級_5": 3,
+      "チャレンジ_5": 4,
+      "S級_8": 10,
+      "A級_5": 3,
+      "girls_5": 1
+    },
+    "2026-08": {
+      "all": 2303,
+      "チャレンジ_7": 423,
+      "girls_7": 196,
+      "A級_7": 923,
+      "girls_6": 6,
+      "チャレンジ_6": 44,
+      "S級_7": 408,
+      "S級_6": 36,
+      "A級_6": 32,
+      "S級_9": 211,
+      "S級_8": 10,
+      "S級_5": 7,
+      "チャレンジ_5": 7
+    },
+    "2026-09": {
+      "all": 1948,
+      "チャレンジ_7": 353,
+      "A級_7": 792,
+      "girls_7": 164,
+      "チャレンジ_6": 48,
+      "S級_7": 363,
+      "S級_6": 19,
+      "S級_9": 175,
+      "A級_6": 11,
+      "S級_8": 10,
+      "girls_6": 6,
+      "S級_5": 5,
+      "チャレンジ_5": 2
+    },
+    "2026-10": {
+      "all": 1678,
+      "girls_7": 131,
+      "A級_7": 698,
+      "A級_6": 18,
+      "S級_7": 301,
+      "チャレンジ_7": 338,
+      "S級_9": 143,
+      "S級_6": 17,
+      "S級_5": 2,
+      "S級_8": 5,
+      "チャレンジ_5": 4,
+      "チャレンジ_6": 9,
+      "girls_6": 6,
+      "A級_5": 3,
+      "girls_5": 3
+    },
+    "2026-11": {
+      "all": 1006,
+      "S級_9": 113,
+      "チャレンジ_6": 14,
+      "チャレンジ_7": 189,
+      "A級_7": 390,
+      "S級_7": 176,
+      "girls_7": 71,
+      "S級_5": 5,
+      "S級_6": 13,
+      "S級_8": 12,
+      "girls_6": 11,
+      "A級_6": 7,
+      "チャレンジ_5": 3,
+      "A級_5": 2
+    }
+  },
+  "grades": {
+    "A級_5": {
+      "n": 32,
+      "trifecta_settled": 19
+    },
+    "A級_6": {
+      "n": 218,
+      "trifecta_settled": 147
+    },
+    "A級_7": {
+      "n": 10499,
+      "trifecta_settled": 6812
+    },
+    "A級_9": {
+      "n": 3,
+      "trifecta_settled": 3
+    },
+    "S級_5": {
+      "n": 67,
+      "trifecta_settled": 41
+    },
+    "S級_6": {
+      "n": 317,
+      "trifecta_settled": 189
+    },
+    "S級_7": {
+      "n": 4549,
+      "trifecta_settled": 2927
+    },
+    "S級_8": {
+      "n": 119,
+      "trifecta_settled": 80
+    },
+    "S級_9": {
+      "n": 2123,
+      "trifecta_settled": 1438
+    },
+    "girls_5": {
+      "n": 21,
+      "trifecta_settled": 14
+    },
+    "girls_6": {
+      "n": 132,
+      "trifecta_settled": 93
+    },
+    "girls_7": {
+      "n": 1966,
+      "trifecta_settled": 1271
+    },
+    "unknown_7": {
+      "n": 8
+    },
+    "unknown_9": {
+      "n": 1
+    },
+    "チャレンジ_5": {
+      "n": 106,
+      "trifecta_settled": 69
+    },
+    "チャレンジ_6": {
+      "n": 451,
+      "trifecta_settled": 304
+    },
+    "チャレンジ_7": {
+      "n": 4519,
+      "trifecta_settled": 2925
+    },
+    "チャレンジ_9": {
+      "n": 2,
+      "trifecta_settled": 1
+    }
+  },
+  "sample": [
+    {
+      "id": "5620251116010001",
+      "date": "2025-11-16",
+      "venue": "kishiwada",
+      "grade": "A級_7",
+      "round": null,
+      "lineup": null,
+      "csv_lineup_is_predictions": "×1 注5 ○6 ◎2 △4",
+      "payout": {
+        "combo": "4-1-7",
+        "payout": 3110
+      }
+    },
+    {
+      "id": "5620251116020001",
+      "date": "2025-11-16",
+      "venue": "kishiwada",
+      "grade": "A級_7",
+      "round": null,
+      "lineup": null,
+      "csv_lineup_is_predictions": "×4 △1 注7 ◎2 ○3",
+      "payout": {
+        "combo": "3-7-5",
+        "payout": 3090
+      }
+    },
+    {
+      "id": "5620251116030001",
+      "date": "2025-11-16",
+      "venue": "kishiwada",
+      "grade": "A級_7",
+      "round": null,
+      "lineup": null,
+      "csv_lineup_is_predictions": "×3 注5 ○1 ◎6 △7",
+      "payout": {
+        "combo": "6-4-7",
+        "payout": 196570
+      }
+    },
+    {
+      "id": "5620251116010010",
+      "date": "2025-11-16",
+      "venue": "kishiwada",
+      "grade": "S級_7",
+      "round": null,
+      "lineup": null,
+      "csv_lineup_is_predictions": "△2 ×7 注6 ○1 ◎4",
+      "payout": {
+        "combo": "7-3-4",
+        "payout": 3540
+      }
+    },
+    {
+      "id": "5620251116020010",
+      "date": "2025-11-16",
+      "venue": "kishiwada",
+      "grade": "S級_7",
+      "round": null,
+      "lineup": null,
+      "csv_lineup_is_predictions": "○5 ◎1 △7 注6 ×2",
+      "payout": {
+        "combo": "5-3-4",
+        "payout": 21860
+      }
+    },
+    {
+      "id": "5620251116030010",
+      "date": "2025-11-16",
+      "venue": "kishiwada",
+      "grade": "S級_7",
+      "round": null,
+      "lineup": null,
+      "csv_lineup_is_predictions": "◎5 ○1 △3 ×6 注7",
+      "payout": {
+        "combo": "5-1-7",
+        "payout": 3750
+      }
+    },
+    {
+      "id": "5620251116010011",
+      "date": "2025-11-16",
+      "venue": "kishiwada",
+      "grade": "S級_7",
+      "round": null,
+      "lineup": null,
+      "csv_lineup_is_predictions": "×4 △2 注1 ◎5 ○7",
+      "payout": {
+        "combo": "2-7-5",
+        "payout": 5550
+      }
+    },
+    {
+      "id": "5620251116020011",
+      "date": "2025-11-16",
+      "venue": "kishiwada",
+      "grade": "S級_7",
+      "round": null,
+      "lineup": null,
+      "csv_lineup_is_predictions": "△5 注1 ×6 ○2 ◎4",
+      "payout": {
+        "combo": "2-3-5",
+        "payout": 16890
+      }
+    }
+  ],
+  "critical_missing_fields": [
+    "race_round_name (初日特選/予選/準決/決勝/敗者区分)",
+    "true_lineup_and_line_position",
+    "meeting_day",
+    "start_time"
+  ],
+  "misleading_field": {
+    "lineup": "Contains ◎○▲△×注 predictions rather than ordered team line, cannot feed directly to current engines"
+  },
+  "decision": "NOT_VALID_FOR_EXISTING_ENGINE_REPLAY",
+  "reason": "Existing LAB engines require accurate lineup and round_name; do not fabricate from prediction marks/race numbers.",
+  "next": "Seek a source with complete historic program labels and real line formations, then rerun all 8 engines and temporally validate."
+}
