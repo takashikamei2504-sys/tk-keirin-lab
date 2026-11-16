@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from test_archive_join import DAY, KEY, PUBLISHED, RAW, SAVED, URL
+from two_t import kdreams_results
 from two_t.observe import observe
 from two_t.source import payload, stamp
 
@@ -136,3 +137,41 @@ class ObserveTests(unittest.TestCase):
         self.assertEqual(summary["result_retries_expired"], 1)
         self.page.assert_not_called()
         self.assertEqual(self.run_cycle()["complete_labels"], 1)
+
+    def test_kdreams_result_requires_full_roster_and_remains_unverified(self):
+        raw = {**RAW, "race_id": "202609011303"}
+        self.feed.return_value = {**FEED, "races": [raw]}
+        url = "https://keirin.kdreams.jp/iwakitaira/racedetail/1320260830030003/?pageType=showResult"
+        rows = ""
+        for pos, car in enumerate([7, 3, 2, 4, 1, 5, 6], 1):
+            cells = ["", str(pos), str(car), f"選手{car}", "", "14.2", "", "B" if car == 4 else "", ""]
+            rows += "<tr>" + "".join(f"<td>{cell}</td>" for cell in cells) + "</tr>"
+        html = (
+            "<title>いわき平競輪 レース詳細 3R | 2026年09月01日</title>"
+            '<dt class="start">発走予定</dt><dd>21:37</dd>'
+            f'<table class="result_table">{rows}</table>'
+            '<table class="refund_table"><tr><td><dl><dt>7-3</dt><dd>6,330円</dd>'
+            '</dl></td></tr></table>'
+        )
+        observe(self.ledger, clock=lambda: self.now, review_results=True)
+        self.now = stamp(DAY + "T21:51:00+09:00")
+        with patch.object(kdreams_results, "links_for", return_value={raw["race_id"]: url}), \
+                patch.object(kdreams_results, "read_page", return_value=html.replace("選手4", "別選手")) as read:
+            failed = observe(self.ledger, clock=lambda: self.now, review_results=True)
+            self.assertIn("roster", failed["failures"][KEY])
+            read.return_value = html.replace("7-3", "7-2")
+            failed = observe(self.ledger, clock=lambda: self.now, review_results=True)
+            self.assertIn("payout disagree", failed["failures"][KEY])
+            read.return_value = html
+            good = observe(self.ledger, clock=lambda: self.now, review_results=True)
+            self.assertEqual(good["review_results_saved"], 1)
+            self.assertEqual(good["complete_labels"], 0)
+            read.reset_mock()
+            self.assertEqual(observe(self.ledger, clock=lambda: self.now, review_results=True)
+                             ["review_results_saved"], 0)
+            read.assert_not_called()
+        result_file, = (self.ledger / "review-results").glob("*.json")
+        result = payload(result_file)
+        self.assertEqual((result["back"], result["finish"], result["payouts"]), (4, [7, 3, 2], {"7-3": 6330}))
+        self.assertFalse(result["rider_ids_verified"])
+        self.assertFalse((self.ledger / "results").exists())
