@@ -1,0 +1,59 @@
+name: High-odds contrarian 90-day attribution research
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-high-odds-contrarian-audit.cjs
+      - .github/workflows/year-high-odds-contrarian-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: high-odds-research-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: baxis90-v06-part-*
+          run-id: 43854561054
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type/baxis90-shards
+      - name: Verify source, syntax and analyze high-payout contributions
+        run: |
+          node --check scripts/year-high-odds-contrarian-audit.cjs
+          node scripts/year-high-odds-contrarian-audit.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: high-odds-contrarian-90day-research
+          path: |
+            reports/year-race-type/high-odds-contrarian-attribution-20261116.json
+            reports/year-race-type/high-odds-contrarian-attribution-20261116-ja.md
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit research-only report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/high-odds-contrarian-attribution-20261116.json reports/year-race-type/high-odds-contrarian-attribution-20261116-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Document high-payout contribution and contrarian B-proxy hypotheses'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
