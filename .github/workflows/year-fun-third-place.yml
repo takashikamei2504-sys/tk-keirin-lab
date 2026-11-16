@@ -19,9 +19,9 @@ jobs:
     timeout-minutes: 35
     strategy:
       fail-fast: false
-      max-parallel: 8
+      max-parallel: 12
       matrix:
-        shard: [0]
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -53,3 +53,45 @@ jobs:
           path: reports/year-race-type/fun-third-shards/part-${{ matrix.shard }}.json
           if-no-files-found: warn
           retention-days: 90
+  aggregate:
+    needs: replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: fun-third-place-part-*
+          merge-multiple: true
+          path: reports/year-race-type/fun-third-shards
+      - name: Audit unique full 5745 race set and calculate blinded third-place experiment
+        run: |
+          node --check scripts/year-fun-third-place-aggregate.cjs
+          node scripts/year-fun-third-place-aggregate.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fun-third-place-full-audited-report
+          path: |
+            reports/year-race-type/fun-third-place-irrational-5745r-summary.json
+            reports/year-race-type/fun-third-place-irrational-5745r-summary-ja.md
+          if-no-files-found: error
+          retention-days: 90
+      - name: Commit research-only result to isolated branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/fun-third-place-irrational-5745r-summary.json reports/year-race-type/fun-third-place-irrational-5745r-summary-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Evaluate number six and random controls as incremental third-place bets'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
