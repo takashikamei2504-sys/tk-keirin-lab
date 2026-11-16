@@ -18,9 +18,10 @@ const part=Number(process.env.YEAR_PART||0);
 if(!Number.isInteger(offset)||!Number.isInteger(max)||offset<0||offset>60||max<1||max>60||part<0||part>9)throw Error('Invalid shard slice');
 function roundName(title){
  const t=String(title||'').normalize('NFKC').replace(/\s+/g,'');
- const m=t.match(/(?:S級|A級|チャレンジ)(?:初特選|初日特選|準決勝|準々決勝|決勝|特予選|予選|特一般|一般|特選|選抜|特秀|特優|特別選抜|特別優秀)/);
- return m?m[0]:null;
+ const m=t.match(/\d{1,2}R((?:S級|A級|チャレンジ)?(?:初特選|初日特選|準決勝|準々決勝|決勝|特予選|予選|特一般|一般|特選|選抜|特秀|特優|特別選抜|特別優秀))/);
+ return m?m[1]:null;
 }
+if(roundName('伊東競輪レース詳細|広告は静岡テレビセンター杯11R決勝|2026年04月15日')!=='決勝')throw Error('Failed grade-omitted final parser');
 const overall=(r,e)=>E.metrics(r.map(x=>x.predictions[e]));
 const failures={};const fail=(k,why)=>{(failures[k]??={count:0,examples:[]}).count++;if(failures[k].examples.length<3)failures[k].examples.push(String(why).slice(0,200))};
 const rows=[];let excluded=0;
