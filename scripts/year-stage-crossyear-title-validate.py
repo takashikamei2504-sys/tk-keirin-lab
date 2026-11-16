@@ -53,7 +53,8 @@ try:
 except Exception as e:
     out["rules_status"]="unverified:"+str(e)[:180]
 for i,row in enumerate(rows):
-    url=row["source_url"]
+    rid=row["race_id"]
+    url=ROOT+"/detail/"+rid[2:10]+"/"+row["date"].replace("-","")+"/"+rid[:2]+"/"+format(int(rid[12:]),"02d")
     item={"race_id":row["race_id"],"month":row["month"],"category":row["category"],
           "expected_stage":row["predicted_stage"],"date":row["date"],"url":url}
     if out["rules_status"]!="verified" or not url.startswith(ROOT+"/detail/"):
