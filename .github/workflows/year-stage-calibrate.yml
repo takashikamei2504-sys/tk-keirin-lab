@@ -1,0 +1,45 @@
+name: Validate 1-year program stages with time holdout
+on:
+  push:
+    branches: ['research/year-stage-validation-20261116']
+    paths:
+      - 'scripts/year-stage-calibrate.py'
+      - '.github/workflows/year-stage-calibrate.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: annual-stage-calibration-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify syntax and run out-of-time stage label validation
+        run: |
+          python -m py_compile scripts/year-stage-calibrate.py
+          python scripts/year-stage-calibrate.py
+      - name: Upload reproducible results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: annual-stage-calibration-out-of-time
+          path: reports/year-race-type/annual-stage-validation.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit validated reports only on isolated research branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/annual-stage-validation.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record annual stage proxy temporal holdout and payout distributions'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
