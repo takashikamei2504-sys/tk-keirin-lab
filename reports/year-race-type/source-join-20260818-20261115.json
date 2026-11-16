@@ -9,36 +9,372 @@
   "source_days_expected": 90,
   "secondary_source_days_loaded": 90,
   "source_files": {
-    "2026_11": {
-      "rows": 7215,
-      "sha256": "fe8564014bf19e896aeded1c5778177db1dac00d7107efda9a6c7b5be038daf0"
-    },
     "2026_09": {
       "rows": 14463,
       "sha256": "ac5659e62a585374f2c71996b4589f6008a73c230614f973c2bf04d477cef9b2"
     },
-    "2026_10": {
-      "rows": 11963,
-      "sha256": "19ded9f444df85aca2a2dc9dc22351428d76d531cf281d12bac8a7015a4ac7a3"
-    },
     "2026_08": {
       "rows": 15842,
       "sha256": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb"
+    },
+    "2026_11": {
+      "rows": 7215,
+      "sha256": "fe8564014bf19e896aeded1c5778177db1dac00d7107efda9a6c7b5be038daf0"
+    },
+    "2026_10": {
+      "rows": 11963,
+      "sha256": "19ded9f444df85aca2a2dc9dc22351428d76d531cf281d12bac8a7015a4ac7a3"
     }
   },
   "errors": {},
   "counts": {
-    "public_daily_eligible": 5920
+    "public_daily_eligible": 5920,
+    "identity_matched": 4928,
+    "complete_line_and_program": 4851,
+    "payout_crosschecked_equal": 584,
+    "payout_crosscheck_unavailable": 4341
   },
   "missing_reasons": {
-    "rider_id_name_mismatch": 4991,
-    "no_matching_csv_race_number": 929
+    "lineup_incomplete_or_invalid": 73,
+    "payout_mismatch": 3,
+    "rider_id_name_mismatch": 63,
+    "no_matching_csv_race_number": 929,
+    "race_round_missing": 4
   },
-  "stages": {},
-  "grades": {},
-  "stage_grade_by_month": {},
-  "venue_slug_mappings_checked": {},
-  "identity_sample": [],
+  "stages": {
+    "勝ち上がり戦": 1531,
+    "敗者戦": 2221,
+    "決勝": 1099
+  },
+  "grades": {
+    "チャレンジ_7": 1072,
+    "A級_7": 2266,
+    "S級_7": 1021,
+    "S級_9": 492
+  },
+  "stage_grade_by_month": {
+    "2026-08": {
+      "チャレンジ_7|勝ち上がり戦": 75,
+      "チャレンジ_7|敗者戦": 77,
+      "チャレンジ_7|決勝": 52,
+      "A級_7|勝ち上がり戦": 121,
+      "A級_7|敗者戦": 183,
+      "A級_7|決勝": 101,
+      "S級_7|勝ち上がり戦": 65,
+      "S級_7|敗者戦": 97,
+      "S級_7|決勝": 40,
+      "S級_9|勝ち上がり戦": 25,
+      "S級_9|敗者戦": 37,
+      "S級_9|決勝": 8
+    },
+    "2026-09": {
+      "チャレンジ_7|勝ち上がり戦": 125,
+      "A級_7|勝ち上がり戦": 210,
+      "A級_7|敗者戦": 383,
+      "A級_7|決勝": 191,
+      "チャレンジ_7|敗者戦": 134,
+      "S級_7|敗者戦": 172,
+      "チャレンジ_7|決勝": 89,
+      "S級_7|決勝": 79,
+      "S級_9|勝ち上がり戦": 73,
+      "S級_7|勝ち上がり戦": 103,
+      "S級_9|敗者戦": 86,
+      "S級_9|決勝": 16
+    },
+    "2026-10": {
+      "A級_7|敗者戦": 324,
+      "A級_7|決勝": 171,
+      "A級_7|勝ち上がり戦": 194,
+      "S級_9|勝ち上がり戦": 61,
+      "S級_7|勝ち上がり戦": 86,
+      "S級_7|敗者戦": 147,
+      "チャレンジ_7|勝ち上がり戦": 120,
+      "S級_9|敗者戦": 62,
+      "チャレンジ_7|敗者戦": 126,
+      "チャレンジ_7|決勝": 85,
+      "S級_7|決勝": 62,
+      "S級_9|決勝": 12
+    },
+    "2026-11": {
+      "A級_7|勝ち上がり戦": 111,
+      "チャレンジ_7|敗者戦": 74,
+      "A級_7|敗者戦": 180,
+      "チャレンジ_7|決勝": 47,
+      "S級_9|敗者戦": 57,
+      "S級_9|勝ち上がり戦": 43,
+      "S級_7|敗者戦": 82,
+      "A級_7|決勝": 97,
+      "S級_7|決勝": 37,
+      "S級_7|勝ち上がり戦": 51,
+      "S級_9|決勝": 12,
+      "チャレンジ_7|勝ち上がり戦": 68
+    }
+  },
+  "venue_slug_mappings_checked": {
+    "aomori": {
+      "青森": 253
+    },
+    "beppu": {
+      "別府": 119
+    },
+    "fukui": {
+      "福井": 42
+    },
+    "gifu": {
+      "岐阜": 173
+    },
+    "hiratsuka": {
+      "平塚": 63
+    },
+    "hiroshima": {
+      "広島": 69
+    },
+    "hofu": {
+      "防府": 138
+    },
+    "ito": {
+      "伊東": 90
+    },
+    "iwakitaira": {
+      "いわき平": 108
+    },
+    "kawasaki": {
+      "川崎": 204
+    },
+    "keiokaku": {
+      "京王閣": 97
+    },
+    "kishiwada": {
+      "岸和田": 66
+    },
+    "kochi": {
+      "高知": 179
+    },
+    "kokura": {
+      "小倉": 81
+    },
+    "komatsushima": {
+      "小松島": 60
+    },
+    "kumamoto": {
+      "熊本": 94
+    },
+    "kurume": {
+      "久留米": 104
+    },
+    "maebashi": {
+      "前橋": 115
+    },
+    "matsudo": {
+      "松戸": 138
+    },
+    "matsusaka": {
+      "松阪": 116
+    },
+    "matsuyama": {
+      "松山": 125
+    },
+    "nagoya": {
+      "名古屋": 34
+    },
+    "nara": {
+      "奈良": 251
+    },
+    "odawara": {
+      "小田原": 48
+    },
+    "ogaki": {
+      "大垣": 133
+    },
+    "omiya": {
+      "大宮": 173
+    },
+    "sasebo": {
+      "佐世保": 133
+    },
+    "seibuen": {
+      "西武園": 85
+    },
+    "shizuoka": {
+      "静岡": 105
+    },
+    "tachikawa": {
+      "立川": 149
+    },
+    "takeo": {
+      "武雄": 234
+    },
+    "tamano": {
+      "玉野": 163
+    },
+    "toride": {
+      "取手": 46
+    },
+    "toyama": {
+      "富山": 212
+    },
+    "toyohashi": {
+      "豊橋": 110
+    },
+    "utsunomiya": {
+      "宇都宮": 92
+    },
+    "wakayama": {
+      "和歌山": 38
+    },
+    "yahiko": {
+      "弥彦": 194
+    },
+    "yokkaichi": {
+      "四日市": 217
+    }
+  },
+  "identity_sample": [
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "4520260818010001",
+      "public_venue": "豊橋",
+      "venue_slug": "toyohashi",
+      "race_no": "1",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "予選",
+      "meeting_day": "初日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "4520260818010002",
+      "public_venue": "豊橋",
+      "venue_slug": "toyohashi",
+      "race_no": "2",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "予選",
+      "meeting_day": "初日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "4520260818010003",
+      "public_venue": "豊橋",
+      "venue_slug": "toyohashi",
+      "race_no": "3",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "予選",
+      "meeting_day": "初日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "4520260818010004",
+      "public_venue": "豊橋",
+      "venue_slug": "toyohashi",
+      "race_no": "4",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "予選",
+      "meeting_day": "初日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "8620260816030004",
+      "public_venue": "別府",
+      "venue_slug": "beppu",
+      "race_no": "4",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "選抜",
+      "meeting_day": "最終日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "4520260818010005",
+      "public_venue": "豊橋",
+      "venue_slug": "toyohashi",
+      "race_no": "5",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "予選",
+      "meeting_day": "初日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "8620260816030005",
+      "public_venue": "別府",
+      "venue_slug": "beppu",
+      "race_no": "5",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "選抜",
+      "meeting_day": "最終日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "4520260818010006",
+      "public_venue": "豊橋",
+      "venue_slug": "toyohashi",
+      "race_no": "6",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "予選",
+      "meeting_day": "初日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "8620260816030006",
+      "public_venue": "別府",
+      "venue_slug": "beppu",
+      "race_no": "6",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "選抜",
+      "meeting_day": "最終日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "4520260818010007",
+      "public_venue": "豊橋",
+      "venue_slug": "toyohashi",
+      "race_no": "7",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "予選",
+      "meeting_day": "初日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "8620260816030007",
+      "public_venue": "別府",
+      "venue_slug": "beppu",
+      "race_no": "7",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "決勝",
+      "meeting_day": "最終日",
+      "payout_consistency": true
+    },
+    {
+      "date": "2026-08-18",
+      "csv_race_id": "7420260818010001",
+      "public_venue": "高知",
+      "venue_slug": "kochi",
+      "race_no": "1",
+      "rider_matches": 7,
+      "lineup_ok": true,
+      "round_name": "予選",
+      "meeting_day": "初日",
+      "payout_consistency": true
+    }
+  ],
   "data_integrity": {
     "source1": "Kenseimk/keirin-data monthly CSV",
     "source2": "kurinaka12-afk/keirin-app-data daily JSON",
@@ -55,4 +391,4 @@
     "Current engine 12-month ROI cannot be calculated from incomplete source"
   ],
   "year_full_cards_recovered": false
-}\n
+}
