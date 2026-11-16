@@ -1,6 +1,6 @@
 {
   "schema": "tk-keirin-graded-123579-year-audit/v1",
-  "created_at": "2026-11-16 15:43:29.854449+00:00",
+  "created_at": "2026-11-16 15:49:41.093753+00:00",
   "period": {
     "first": "2025-11-17",
     "last": "2026-11-16",
@@ -24,22 +24,22 @@
     "schedule": {
       "2025_grade": {
         "url": "https://keirin.kdreams.jp/schedule/grade/search/2025/",
-        "sha256": "5a305f9c61b1d2540d363ddaf41aad375c7a41d64643acea37afcfed6487c375",
+        "sha256": "c450a9b40fa4cfabb36168c4ed04b4218d8599fbaef2863cd80751eb40f50ae4",
         "bytes": 120160
       },
       "2025_highgrade": {
         "url": "https://keirin.kdreams.jp/schedule/highgrade/search/2025/",
-        "sha256": "64ba47fa8235d30a3dbc4aaca80d44f049552d59273c836a7274ea8943f270b3",
+        "sha256": "bc9b0dd2f0b0ed58e9ea9c778106d6d0d44f65e5489c91e60c0acb74cf28beb2",
         "bytes": 73602
       },
       "2026_grade": {
         "url": "https://keirin.kdreams.jp/schedule/grade/search/2026/",
-        "sha256": "092084864cf563c3e64a8daa42fe431e71dd457d3c5b20752810ed4c2237c33f",
+        "sha256": "760c954823af4c1e8ec2c7de7a38f67c8594610d5ad1cf6e9cf58b963a8f8718",
         "bytes": 118014
       },
       "2026_highgrade": {
         "url": "https://keirin.kdreams.jp/schedule/highgrade/search/2026/",
-        "sha256": "0a434e8019bf83615b78471f019a58c59fa2b5a6b90f9011135db0669eb8ebea",
+        "sha256": "85dcea1e6b71928d63c47e86a1133e4484f70fd3af3542cb09232258d22fac25",
         "bytes": 73177
       }
     },
@@ -422,7 +422,10 @@
       "girls": 76,
       "not_male_grade": 21
     },
-    "ingest_notes": {},
+    "ingest_notes": {
+      "reported_start_date_not_race_day": 22551,
+      "reported_date_inconsistent": 187
+    },
     "eligible_by_grade": {
       "GIII": 1490,
       "GP": 32,
@@ -430,11 +433,11 @@
       "GII": 128
     },
     "results_per_month": {
-      "2026-05": 109,
+      "2026-05": 108,
       "2026-01": 213,
       "2026-07": 99,
       "2026-03": 237,
-      "2026-06": 70,
+      "2026-06": 71,
       "2026-04": 149,
       "2025-12": 161,
       "2026-08": 203,
@@ -444,88 +447,8 @@
       "2026-10": 184,
       "2026-11": 113
     },
-    "fixture_day_coverage": 171,
+    "fixture_day_coverage": 188,
     "missing_scheduled_days": [
-      {
-        "date": "2025-11-20",
-        "venue_code": 81,
-        "fixture": "朝日新聞社杯競輪祭"
-      },
-      {
-        "date": "2025-11-21",
-        "venue_code": 81,
-        "fixture": "朝日新聞社杯競輪祭"
-      },
-      {
-        "date": "2025-11-22",
-        "venue_code": 81,
-        "fixture": "朝日新聞社杯競輪祭"
-      },
-      {
-        "date": "2025-11-23",
-        "venue_code": 81,
-        "fixture": "朝日新聞社杯競輪祭"
-      },
-      {
-        "date": "2025-11-24",
-        "venue_code": 81,
-        "fixture": "朝日新聞社杯競輪祭"
-      },
-      {
-        "date": "2025-12-05",
-        "venue_code": 85,
-        "fixture": "佐世保競輪場"
-      },
-      {
-        "date": "2025-12-06",
-        "venue_code": 85,
-        "fixture": "佐世保競輪場"
-      },
-      {
-        "date": "2025-12-07",
-        "venue_code": 85,
-        "fixture": "佐世保競輪場"
-      },
-      {
-        "date": "2025-12-12",
-        "venue_code": 37,
-        "fixture": "椿賞争奪戦"
-      },
-      {
-        "date": "2025-12-13",
-        "venue_code": 37,
-        "fixture": "椿賞争奪戦"
-      },
-      {
-        "date": "2025-12-14",
-        "venue_code": 37,
-        "fixture": "椿賞争奪戦"
-      },
-      {
-        "date": "2025-12-21",
-        "venue_code": 62,
-        "fixture": "レインボーFin"
-      },
-      {
-        "date": "2025-12-22",
-        "venue_code": 62,
-        "fixture": "レインボーFin"
-      },
-      {
-        "date": "2025-12-23",
-        "venue_code": 62,
-        "fixture": "レインボーFin"
-      },
-      {
-        "date": "2025-12-29",
-        "venue_code": 35,
-        "fixture": "KEIRINグランプリ"
-      },
-      {
-        "date": "2025-12-30",
-        "venue_code": 35,
-        "fixture": "KEIRINグランプリ"
-      },
       {
         "date": "2026-04-05",
         "venue_code": 37,
@@ -570,11 +493,6 @@
         "date": "2026-05-21",
         "venue_code": 12,
         "fixture": "オッズパーク杯ミッドナイトG3"
-      },
-      {
-        "date": "2026-06-01",
-        "venue_code": 24,
-        "fixture": "レジェンド神山雄一郎カップ"
       },
       {
         "date": "2026-06-02",
@@ -930,36 +848,36 @@
       "wins_5000_9999": 16
     },
     "2026-05": {
-      "races": 109,
-      "purchased_races": 109,
-      "tickets": 13080,
-      "stake_yen": 1308000,
-      "payout_yen": 760870,
-      "net_yen": -547130,
-      "hits": 57,
-      "hit_rate_pct": 52.29,
-      "roi_pct": 58.17,
-      "trim1_pct": 52.24,
-      "trim5_pct": 38.18,
-      "trim10_pct": 28.2,
+      "races": 108,
+      "purchased_races": 108,
+      "tickets": 12960,
+      "stake_yen": 1296000,
+      "payout_yen": 759870,
+      "net_yen": -536130,
+      "hits": 56,
+      "hit_rate_pct": 51.85,
+      "roi_pct": 58.63,
+      "trim1_pct": 52.65,
+      "trim5_pct": 38.47,
+      "trim10_pct": 28.4,
       "highest_hit_yen": 83850,
       "high_12000_hits": 19,
       "wins_over100x": 23,
       "wins_5000_9999": 11
     },
     "2026-06": {
-      "races": 70,
-      "purchased_races": 70,
-      "tickets": 8400,
-      "stake_yen": 840000,
-      "payout_yen": 886480,
-      "net_yen": 46480,
-      "hits": 41,
-      "hit_rate_pct": 58.57,
-      "roi_pct": 105.53,
-      "trim1_pct": 88.5,
-      "trim5_pct": 35.28,
-      "trim10_pct": 19.2,
+      "races": 71,
+      "purchased_races": 71,
+      "tickets": 8520,
+      "stake_yen": 852000,
+      "payout_yen": 887480,
+      "net_yen": 35480,
+      "hits": 42,
+      "hit_rate_pct": 59.15,
+      "roi_pct": 104.16,
+      "trim1_pct": 87.35,
+      "trim5_pct": 34.87,
+      "trim10_pct": 19.02,
       "highest_hit_yen": 153720,
       "high_12000_hits": 11,
       "wins_over100x": 12,
@@ -1058,111 +976,111 @@
   },
   "by_meeting_day": {
     "1": {
-      "races": 677,
-      "purchased_races": 677,
-      "tickets": 81240,
-      "stake_yen": 8124000,
-      "payout_yen": 5131640,
-      "net_yen": -2992360,
-      "hits": 431,
-      "hit_rate_pct": 63.66,
-      "roi_pct": 63.17,
-      "trim1_pct": 60.23,
-      "trim5_pct": 52.36,
-      "trim10_pct": 47.25,
-      "highest_hit_yen": 246100,
-      "high_12000_hits": 99,
-      "wins_over100x": 123,
-      "wins_5000_9999": 65
-    },
-    "2": {
-      "races": 438,
-      "purchased_races": 438,
-      "tickets": 52560,
-      "stake_yen": 5256000,
-      "payout_yen": 3430610,
-      "net_yen": -1825390,
-      "hits": 280,
-      "hit_rate_pct": 63.93,
+      "races": 511,
+      "purchased_races": 511,
+      "tickets": 61320,
+      "stake_yen": 6132000,
+      "payout_yen": 4002260,
+      "net_yen": -2129740,
+      "hits": 331,
+      "hit_rate_pct": 64.77,
       "roi_pct": 65.27,
-      "trim1_pct": 61.08,
-      "trim5_pct": 50.55,
-      "trim10_pct": 42.89,
-      "highest_hit_yen": 227450,
-      "high_12000_hits": 61,
-      "wins_over100x": 72,
+      "trim1_pct": 61.38,
+      "trim5_pct": 52.76,
+      "trim10_pct": 46.64,
+      "highest_hit_yen": 246100,
+      "high_12000_hits": 77,
+      "wins_over100x": 95,
       "wins_5000_9999": 48
     },
+    "2": {
+      "races": 488,
+      "purchased_races": 488,
+      "tickets": 58560,
+      "stake_yen": 5856000,
+      "payout_yen": 3906940,
+      "net_yen": -1949060,
+      "hits": 317,
+      "hit_rate_pct": 64.96,
+      "roi_pct": 66.72,
+      "trim1_pct": 62.96,
+      "trim5_pct": 52.28,
+      "trim10_pct": 44.26,
+      "highest_hit_yen": 227450,
+      "high_12000_hits": 67,
+      "wins_over100x": 79,
+      "wins_5000_9999": 53
+    },
     "3": {
-      "races": 418,
-      "purchased_races": 418,
-      "tickets": 50160,
-      "stake_yen": 5016000,
-      "payout_yen": 3055990,
-      "net_yen": -1960010,
-      "hits": 227,
-      "hit_rate_pct": 54.31,
-      "roi_pct": 60.92,
-      "trim1_pct": 58.0,
-      "trim5_pct": 50.71,
-      "trim10_pct": 44.64,
+      "races": 467,
+      "purchased_races": 467,
+      "tickets": 56040,
+      "stake_yen": 5604000,
+      "payout_yen": 3368080,
+      "net_yen": -2235920,
+      "hits": 258,
+      "hit_rate_pct": 55.25,
+      "roi_pct": 60.1,
+      "trim1_pct": 57.48,
+      "trim5_pct": 50.94,
+      "trim10_pct": 44.92,
       "highest_hit_yen": 153720,
-      "high_12000_hits": 66,
-      "wins_over100x": 77,
-      "wins_5000_9999": 65
+      "high_12000_hits": 72,
+      "wins_over100x": 84,
+      "wins_5000_9999": 75
     },
     "4": {
-      "races": 340,
-      "purchased_races": 340,
-      "tickets": 40800,
-      "stake_yen": 4080000,
-      "payout_yen": 2541680,
-      "net_yen": -1538320,
-      "hits": 169,
-      "hit_rate_pct": 49.71,
-      "roi_pct": 62.3,
-      "trim1_pct": 58.45,
-      "trim5_pct": 48.86,
-      "trim10_pct": 41.32,
+      "races": 383,
+      "purchased_races": 383,
+      "tickets": 45960,
+      "stake_yen": 4596000,
+      "payout_yen": 2777350,
+      "net_yen": -1818650,
+      "hits": 192,
+      "hit_rate_pct": 50.13,
+      "roi_pct": 60.43,
+      "trim1_pct": 57.01,
+      "trim5_pct": 48.49,
+      "trim10_pct": 41.82,
       "highest_hit_yen": 163940,
-      "high_12000_hits": 56,
-      "wins_over100x": 65,
-      "wins_5000_9999": 28
+      "high_12000_hits": 63,
+      "wins_over100x": 74,
+      "wins_5000_9999": 30
     },
     "5": {
+      "races": 46,
+      "purchased_races": 46,
+      "tickets": 5520,
+      "stake_yen": 552000,
+      "payout_yen": 431320,
+      "net_yen": -120680,
+      "hits": 19,
+      "hit_rate_pct": 41.3,
+      "roi_pct": 78.14,
+      "trim1_pct": 59.92,
+      "trim5_pct": 24.74,
+      "trim10_pct": 10.64,
+      "highest_hit_yen": 107730,
+      "high_12000_hits": 8,
+      "wins_over100x": 9,
+      "wins_5000_9999": 5
+    },
+    "6": {
       "races": 34,
       "purchased_races": 34,
       "tickets": 4080,
       "stake_yen": 408000,
-      "payout_yen": 399100,
-      "net_yen": -8900,
+      "payout_yen": 224120,
+      "net_yen": -183880,
       "hits": 15,
       "hit_rate_pct": 44.12,
-      "roi_pct": 97.82,
-      "trim1_pct": 73.58,
-      "trim5_pct": 25.72,
-      "trim10_pct": 8.35,
-      "highest_hit_yen": 107730,
+      "roi_pct": 54.93,
+      "trim1_pct": 48.0,
+      "trim5_pct": 26.22,
+      "trim10_pct": 7.49,
+      "highest_hit_yen": 34050,
       "high_12000_hits": 7,
-      "wins_over100x": 7,
-      "wins_5000_9999": 5
-    },
-    "6": {
-      "races": 22,
-      "purchased_races": 22,
-      "tickets": 2640,
-      "stake_yen": 264000,
-      "payout_yen": 151050,
-      "net_yen": -112950,
-      "hits": 10,
-      "hit_rate_pct": 45.45,
-      "roi_pct": 57.22,
-      "trim1_pct": 48.53,
-      "trim5_pct": 15.29,
-      "trim10_pct": 0.0,
-      "highest_hit_yen": 28750,
-      "high_12000_hits": 5,
-      "wins_over100x": 6,
+      "wins_over100x": 9,
       "wins_5000_9999": 3
     }
   },
@@ -4270,39 +4188,39 @@
       {
         "month": "2026-05",
         "train_n": 977,
-        "test_n": 109,
+        "test_n": 108,
         "selected": "POSITION2_top3_379",
         "selected_test": {
-          "races": 109,
-          "purchased_races": 109,
-          "tickets": 6540,
-          "stake_yen": 654000,
+          "races": 108,
+          "purchased_races": 108,
+          "tickets": 6480,
+          "stake_yen": 648000,
           "payout_yen": 370130,
-          "net_yen": -283870,
+          "net_yen": -277870,
           "hits": 28,
-          "hit_rate_pct": 25.69,
-          "roi_pct": 56.59,
-          "trim1_pct": 49.36,
-          "trim5_pct": 28.47,
-          "trim10_pct": 14.34,
+          "hit_rate_pct": 25.93,
+          "roi_pct": 57.12,
+          "trim1_pct": 49.82,
+          "trim5_pct": 28.75,
+          "trim10_pct": 14.49,
           "highest_hit_yen": 50290,
           "high_12000_hits": 10,
           "wins_over100x": 13,
           "wins_5000_9999": 4
         },
         "box6_test": {
-          "races": 109,
-          "purchased_races": 109,
-          "tickets": 13080,
-          "stake_yen": 1308000,
-          "payout_yen": 760870,
-          "net_yen": -547130,
-          "hits": 57,
-          "hit_rate_pct": 52.29,
-          "roi_pct": 58.17,
-          "trim1_pct": 52.24,
-          "trim5_pct": 38.18,
-          "trim10_pct": 28.2,
+          "races": 108,
+          "purchased_races": 108,
+          "tickets": 12960,
+          "stake_yen": 1296000,
+          "payout_yen": 759870,
+          "net_yen": -536130,
+          "hits": 56,
+          "hit_rate_pct": 51.85,
+          "roi_pct": 58.63,
+          "trim1_pct": 52.65,
+          "trim5_pct": 38.47,
+          "trim10_pct": 28.4,
           "highest_hit_yen": 83850,
           "high_12000_hits": 19,
           "wins_over100x": 23,
@@ -4311,40 +4229,40 @@
       },
       {
         "month": "2026-06",
-        "train_n": 1086,
-        "test_n": 70,
+        "train_n": 1085,
+        "test_n": 71,
         "selected": "POSITION1_top3_579",
         "selected_test": {
-          "races": 70,
-          "purchased_races": 70,
-          "tickets": 4200,
-          "stake_yen": 420000,
-          "payout_yen": 192740,
-          "net_yen": -227260,
-          "hits": 19,
-          "hit_rate_pct": 27.14,
-          "roi_pct": 45.89,
-          "trim1_pct": 37.4,
-          "trim5_pct": 14.31,
-          "trim10_pct": 4.96,
+          "races": 71,
+          "purchased_races": 71,
+          "tickets": 4260,
+          "stake_yen": 426000,
+          "payout_yen": 193740,
+          "net_yen": -232260,
+          "hits": 20,
+          "hit_rate_pct": 28.17,
+          "roi_pct": 45.48,
+          "trim1_pct": 37.11,
+          "trim5_pct": 14.34,
+          "trim10_pct": 5.15,
           "highest_hit_yen": 37890,
           "high_12000_hits": 5,
           "wins_over100x": 5,
           "wins_5000_9999": 5
         },
         "box6_test": {
-          "races": 70,
-          "purchased_races": 70,
-          "tickets": 8400,
-          "stake_yen": 840000,
-          "payout_yen": 886480,
-          "net_yen": 46480,
-          "hits": 41,
-          "hit_rate_pct": 58.57,
-          "roi_pct": 105.53,
-          "trim1_pct": 88.5,
-          "trim5_pct": 35.28,
-          "trim10_pct": 19.2,
+          "races": 71,
+          "purchased_races": 71,
+          "tickets": 8520,
+          "stake_yen": 852000,
+          "payout_yen": 887480,
+          "net_yen": 35480,
+          "hits": 42,
+          "hit_rate_pct": 59.15,
+          "roi_pct": 104.16,
+          "trim1_pct": 87.35,
+          "trim5_pct": 34.87,
+          "trim10_pct": 19.02,
           "highest_hit_yen": 153720,
           "high_12000_hits": 11,
           "wins_over100x": 12,
@@ -4565,10 +4483,10 @@
     "walk_forward_overall": {
       "races": 1338,
       "stake_yen": 8028000,
-      "payout_yen": 4647790,
+      "payout_yen": 4648790,
       "baseline_stake_yen": 16056000,
       "baseline_payout_yen": 10576550,
-      "roi_pct": 57.89,
+      "roi_pct": 57.91,
       "baseline_roi_pct": 65.87
     },
     "note": "Numerous strategies on same year; monthly pre-month selection avoids same-race lookahead but feature families designed retrospectively."
@@ -7639,12 +7557,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2026-05-30",
+      "date": "2026-06-01",
       "venue": "宇都宮",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "レジェンド神山雄一郎カップ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10677,12 +10595,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 1,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10694,12 +10612,12 @@
       "box6_return_yen": 6390
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 2,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10711,12 +10629,12 @@
       "box6_return_yen": 8590
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 3,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10728,12 +10646,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 4,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10745,12 +10663,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 5,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10762,12 +10680,12 @@
       "box6_return_yen": 4950
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 6,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10779,12 +10697,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 7,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10796,12 +10714,12 @@
       "box6_return_yen": 5580
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 8,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10813,12 +10731,12 @@
       "box6_return_yen": 2220
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 9,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10830,12 +10748,12 @@
       "box6_return_yen": 1280
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-29",
       "venue": "平塚",
       "race_no": 10,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -10847,12 +10765,12 @@
       "box6_return_yen": 12550
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 1,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10864,12 +10782,12 @@
       "box6_return_yen": 9460
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 2,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10881,12 +10799,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 3,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10898,12 +10816,12 @@
       "box6_return_yen": 32520
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 4,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10915,12 +10833,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 5,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10932,12 +10850,12 @@
       "box6_return_yen": 3610
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 6,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10949,12 +10867,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 7,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10966,12 +10884,12 @@
       "box6_return_yen": 15870
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 8,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -10983,12 +10901,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 9,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -11000,12 +10918,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 10,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -11017,12 +10935,12 @@
       "box6_return_yen": 7470
     },
     {
-      "date": "2025-12-28",
+      "date": "2025-12-30",
       "venue": "平塚",
       "race_no": 11,
       "grade": "GP",
       "meeting": "KEIRINグランプリ",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12343,12 +12261,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 3,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12360,12 +12278,12 @@
       "box6_return_yen": 2250
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12377,12 +12295,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12394,12 +12312,12 @@
       "box6_return_yen": 930
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12411,12 +12329,12 @@
       "box6_return_yen": 4670
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12428,12 +12346,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12445,12 +12363,12 @@
       "box6_return_yen": 2630
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 9,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12462,12 +12380,12 @@
       "box6_return_yen": 208900
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12479,12 +12397,12 @@
       "box6_return_yen": 910
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 11,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12496,12 +12414,12 @@
       "box6_return_yen": 4260
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-12",
       "venue": "伊東",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -12513,12 +12431,12 @@
       "box6_return_yen": 1830
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12530,12 +12448,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12547,12 +12465,12 @@
       "box6_return_yen": 640
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12564,12 +12482,12 @@
       "box6_return_yen": 4730
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12581,12 +12499,12 @@
       "box6_return_yen": 6400
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12598,12 +12516,12 @@
       "box6_return_yen": 86080
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 9,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12615,12 +12533,12 @@
       "box6_return_yen": 12230
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12632,12 +12550,12 @@
       "box6_return_yen": 5630
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 11,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12649,12 +12567,12 @@
       "box6_return_yen": 3490
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-13",
       "venue": "伊東",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -12666,12 +12584,12 @@
       "box6_return_yen": 3110
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 1,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12683,12 +12601,12 @@
       "box6_return_yen": 3240
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 2,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12700,12 +12618,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 3,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12717,12 +12635,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12734,12 +12652,12 @@
       "box6_return_yen": 3050
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12751,12 +12669,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12768,12 +12686,12 @@
       "box6_return_yen": 3620
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12785,12 +12703,12 @@
       "box6_return_yen": 33920
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12802,12 +12720,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12819,12 +12737,12 @@
       "box6_return_yen": 3290
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 11,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -12836,12 +12754,12 @@
       "box6_return_yen": 2370
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-12-14",
       "venue": "伊東",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "椿賞争奪戦",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -19483,12 +19401,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 1,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19500,12 +19418,12 @@
       "box6_return_yen": 11590
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 2,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19517,12 +19435,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 3,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19534,12 +19452,12 @@
       "box6_return_yen": 44920
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19551,12 +19469,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19568,12 +19486,12 @@
       "box6_return_yen": 4310
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19585,12 +19503,12 @@
       "box6_return_yen": 2290
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19602,12 +19520,12 @@
       "box6_return_yen": 4470
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19619,12 +19537,12 @@
       "box6_return_yen": 2490
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 9,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19636,12 +19554,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19653,12 +19571,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 11,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19670,12 +19588,12 @@
       "box6_return_yen": 5630
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-21",
       "venue": "広島",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -19687,12 +19605,12 @@
       "box6_return_yen": 860
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 2,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19704,12 +19622,12 @@
       "box6_return_yen": 9400
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 3,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19721,12 +19639,12 @@
       "box6_return_yen": 9410
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19738,12 +19656,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19755,12 +19673,12 @@
       "box6_return_yen": 3290
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19772,12 +19690,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19789,12 +19707,12 @@
       "box6_return_yen": 6100
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19806,12 +19724,12 @@
       "box6_return_yen": 2060
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 9,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19823,12 +19741,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19840,12 +19758,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 11,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19857,12 +19775,12 @@
       "box6_return_yen": 1750
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-22",
       "venue": "広島",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -19874,12 +19792,12 @@
       "box6_return_yen": 750
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 1,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -19891,12 +19809,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 2,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -19908,12 +19826,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 3,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -19925,12 +19843,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -19942,12 +19860,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -19959,12 +19877,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -19976,12 +19894,12 @@
       "box6_return_yen": 550
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -19993,12 +19911,12 @@
       "box6_return_yen": 3180
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -20010,12 +19928,12 @@
       "box6_return_yen": 340
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 9,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -20027,12 +19945,12 @@
       "box6_return_yen": 43580
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -20044,12 +19962,12 @@
       "box6_return_yen": 33940
     },
     {
-      "date": "2025-12-20",
+      "date": "2025-12-23",
       "venue": "広島",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "レインボーFin",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24510,12 +24428,12 @@
       "box6_return_yen": 98350
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-20",
       "venue": "小倉",
       "race_no": 1,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -24527,12 +24445,12 @@
       "box6_return_yen": 2650
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-20",
       "venue": "小倉",
       "race_no": 2,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -24544,12 +24462,12 @@
       "box6_return_yen": 37970
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-20",
       "venue": "小倉",
       "race_no": 3,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -24561,12 +24479,12 @@
       "box6_return_yen": 28710
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-20",
       "venue": "小倉",
       "race_no": 4,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -24578,12 +24496,12 @@
       "box6_return_yen": 1300
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-20",
       "venue": "小倉",
       "race_no": 8,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -24595,12 +24513,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-20",
       "venue": "小倉",
       "race_no": 9,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -24612,12 +24530,12 @@
       "box6_return_yen": 3450
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-20",
       "venue": "小倉",
       "race_no": 10,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -24629,12 +24547,12 @@
       "box6_return_yen": 4870
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-21",
       "venue": "小倉",
       "race_no": 1,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -24646,12 +24564,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-21",
       "venue": "小倉",
       "race_no": 2,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -24663,12 +24581,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-21",
       "venue": "小倉",
       "race_no": 3,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -24680,12 +24598,12 @@
       "box6_return_yen": 5490
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-21",
       "venue": "小倉",
       "race_no": 4,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -24697,12 +24615,12 @@
       "box6_return_yen": 20940
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-21",
       "venue": "小倉",
       "race_no": 7,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -24714,12 +24632,12 @@
       "box6_return_yen": 2390
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-21",
       "venue": "小倉",
       "race_no": 8,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -24731,12 +24649,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-21",
       "venue": "小倉",
       "race_no": 9,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -24748,12 +24666,12 @@
       "box6_return_yen": 24810
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-21",
       "venue": "小倉",
       "race_no": 10,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -24765,12 +24683,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 1,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24782,12 +24700,12 @@
       "box6_return_yen": 10600
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 2,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24799,12 +24717,12 @@
       "box6_return_yen": 6030
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 3,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24816,12 +24734,12 @@
       "box6_return_yen": 13960
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 4,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24833,12 +24751,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 5,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24850,12 +24768,12 @@
       "box6_return_yen": 4790
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 6,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24867,12 +24785,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 7,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24884,12 +24802,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 8,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24901,12 +24819,12 @@
       "box6_return_yen": 4310
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 9,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24918,12 +24836,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 10,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24935,12 +24853,12 @@
       "box6_return_yen": 2110
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 11,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24952,12 +24870,12 @@
       "box6_return_yen": 10430
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-22",
       "venue": "小倉",
       "race_no": 12,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -24969,12 +24887,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 1,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -24986,12 +24904,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 2,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25003,12 +24921,12 @@
       "box6_return_yen": 3290
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 3,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25020,12 +24938,12 @@
       "box6_return_yen": 16740
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 4,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25037,12 +24955,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 5,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25054,12 +24972,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 6,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25071,12 +24989,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 7,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25088,12 +25006,12 @@
       "box6_return_yen": 10610
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 8,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25105,12 +25023,12 @@
       "box6_return_yen": 1580
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 9,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25122,12 +25040,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 10,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25139,12 +25057,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 11,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25156,12 +25074,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-23",
       "venue": "小倉",
       "race_no": 12,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 5,
       "cars": 9,
       "winners": [
         {
@@ -25173,12 +25091,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 1,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25190,12 +25108,12 @@
       "box6_return_yen": 21350
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 2,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25207,12 +25125,12 @@
       "box6_return_yen": 10420
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 3,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25224,12 +25142,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 4,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25241,12 +25159,12 @@
       "box6_return_yen": 3900
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 5,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25258,12 +25176,12 @@
       "box6_return_yen": 34050
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 6,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25275,12 +25193,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 7,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25292,12 +25210,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 8,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25309,12 +25227,12 @@
       "box6_return_yen": 3350
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 9,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25326,12 +25244,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 10,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25343,12 +25261,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 11,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -25360,12 +25278,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-11-19",
+      "date": "2025-11-24",
       "venue": "小倉",
       "race_no": 12,
       "grade": "GI",
       "meeting": "朝日新聞社杯競輪祭",
-      "day": 1,
+      "day": 6,
       "cars": 9,
       "winners": [
         {
@@ -26652,12 +26570,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 2,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26669,12 +26587,12 @@
       "box6_return_yen": 6790
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 3,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26686,12 +26604,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26703,12 +26621,12 @@
       "box6_return_yen": 26780
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26720,12 +26638,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26737,12 +26655,12 @@
       "box6_return_yen": 3740
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26754,12 +26672,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26771,12 +26689,12 @@
       "box6_return_yen": 4290
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 9,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26788,12 +26706,12 @@
       "box6_return_yen": 3920
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26805,12 +26723,12 @@
       "box6_return_yen": 2570
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 11,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26822,12 +26740,12 @@
       "box6_return_yen": 2740
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-05",
       "venue": "佐世保",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 2,
       "cars": 9,
       "winners": [
         {
@@ -26839,12 +26757,12 @@
       "box6_return_yen": 2050
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26856,12 +26774,12 @@
       "box6_return_yen": 3720
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26873,12 +26791,12 @@
       "box6_return_yen": 8680
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26890,12 +26808,12 @@
       "box6_return_yen": 11080
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26907,12 +26825,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26924,12 +26842,12 @@
       "box6_return_yen": 1010
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 9,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26941,12 +26859,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26958,12 +26876,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 11,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26979,12 +26897,12 @@
       "box6_return_yen": 8480
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-06",
       "venue": "佐世保",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 3,
       "cars": 9,
       "winners": [
         {
@@ -26996,12 +26914,12 @@
       "box6_return_yen": 490
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 4,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -27013,12 +26931,12 @@
       "box6_return_yen": 15330
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 5,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -27030,12 +26948,12 @@
       "box6_return_yen": 13130
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 6,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -27047,12 +26965,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 7,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -27064,12 +26982,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 8,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -27081,12 +26999,12 @@
       "box6_return_yen": 3290
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 9,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -27098,12 +27016,12 @@
       "box6_return_yen": 7010
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 10,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -27115,12 +27033,12 @@
       "box6_return_yen": 13600
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 11,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -27132,12 +27050,12 @@
       "box6_return_yen": 0
     },
     {
-      "date": "2025-12-04",
+      "date": "2025-12-07",
       "venue": "佐世保",
       "race_no": 12,
       "grade": "GIII",
       "meeting": "佐世保競輪場",
-      "day": 1,
+      "day": 4,
       "cars": 9,
       "winners": [
         {
@@ -37412,6 +37330,7 @@
     "Male grade selection requires at least 1 S-class starter and excludes L-class athletes; GP/GI womens-only rounds not in male scope.",
     "Grade classified by KDreams official meeting schedule venue and date, not inferred from S-class riders.",
     "Winners and winning payouts are outcomes, and DO NOT inform simulated ticket selection in the same race.",
+    "Monthly CSV date can mean either actual race date or original meeting start: canonical actual date is decoded from 16-digit race_id (venue + YYYYMMDD meeting start + 2-digit meeting day + 4-digit race no); reported date must match actual or start.",
     "The per-race result payout is for a 100 yen unit. Refunds, scratch-driven ticket cancellations, and irregular equal-ranking combinations need further official reconciliation.",
     "Trying 6 boxes + 15 small boxes + position families creates multiple comparison effects; the best ex-post ROI is NOT a validated edge.",
     "No betting executed. Research branch only; no Railway, main, or production changes."
