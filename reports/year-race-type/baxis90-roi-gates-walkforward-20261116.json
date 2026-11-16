@@ -1,0 +1,1114 @@
+{
+  "schema": "tk-keirin-baxis90-roi-gate-v1",
+  "period": "2026-08-18..2026-11-15",
+  "original_n": 5745,
+  "train_days": 30,
+  "heldout_days": 60,
+  "heldout_n": 3748,
+  "lookback_days": 30,
+  "step_days": 5,
+  "historical_model": "B-AXIS v0.6 and original eight-way 2026-11 replays",
+  "rules_count": 15,
+  "baseline": {
+    "name": "AUTO全件",
+    "all": {
+      "races": 3748,
+      "points": 29981,
+      "hits": 816,
+      "stake_yen": 2998100,
+      "payout_yen": 2544960,
+      "net_yen": -453140,
+      "roi_pct": 84.89,
+      "trim1_roi_pct": 81.58,
+      "trim5_roi_pct": 73.97,
+      "max_one_payout": 99700,
+      "max_drawdown_yen": 698350
+    },
+    "coverage_pct": 100,
+    "period2": {
+      "races": 1804,
+      "points": 14432,
+      "hits": 366,
+      "stake_yen": 1443200,
+      "payout_yen": 1137880,
+      "net_yen": -305320,
+      "roi_pct": 78.84,
+      "trim1_roi_pct": 74.04,
+      "trim5_roi_pct": 62.82,
+      "max_one_payout": 69900,
+      "max_drawdown_yen": 380880
+    },
+    "period3": {
+      "races": 1944,
+      "points": 15549,
+      "hits": 450,
+      "stake_yen": 1554900,
+      "payout_yen": 1407080,
+      "net_yen": -147820,
+      "roi_pct": 90.49,
+      "trim1_roi_pct": 84.12,
+      "trim5_roi_pct": 72.68,
+      "max_one_payout": 99700,
+      "max_drawdown_yen": 317470
+    },
+    "difference_bootstrap": null
+  },
+  "strategies": {
+    "auto": {
+      "name": "AUTO全件",
+      "all": {
+        "races": 3748,
+        "points": 29981,
+        "hits": 816,
+        "stake_yen": 2998100,
+        "payout_yen": 2544960,
+        "net_yen": -453140,
+        "roi_pct": 84.89,
+        "trim1_roi_pct": 81.58,
+        "trim5_roi_pct": 73.97,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 698350
+      },
+      "coverage_pct": 100,
+      "period2": {
+        "races": 1804,
+        "points": 14432,
+        "hits": 366,
+        "stake_yen": 1443200,
+        "payout_yen": 1137880,
+        "net_yen": -305320,
+        "roi_pct": 78.84,
+        "trim1_roi_pct": 74.04,
+        "trim5_roi_pct": 62.82,
+        "max_one_payout": 69900,
+        "max_drawdown_yen": 380880
+      },
+      "period3": {
+        "races": 1944,
+        "points": 15549,
+        "hits": 450,
+        "stake_yen": 1554900,
+        "payout_yen": 1407080,
+        "net_yen": -147820,
+        "roi_pct": 90.49,
+        "trim1_roi_pct": 84.12,
+        "trim5_roi_pct": 72.68,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 317470
+      },
+      "difference_bootstrap": null
+    },
+    "b3": {
+      "name": "B-AXIS上位3点全件",
+      "all": {
+        "races": 3748,
+        "points": 11244,
+        "hits": 496,
+        "stake_yen": 1124400,
+        "payout_yen": 920560,
+        "net_yen": -203840,
+        "roi_pct": 81.87,
+        "trim1_roi_pct": 78.36,
+        "trim5_roi_pct": 70.28,
+        "max_one_payout": 39710,
+        "max_drawdown_yen": 233090
+      },
+      "coverage_pct": 100,
+      "period2": {
+        "races": 1804,
+        "points": 5412,
+        "hits": 229,
+        "stake_yen": 541200,
+        "payout_yen": 389950,
+        "net_yen": -151250,
+        "roi_pct": 72.05,
+        "trim1_roi_pct": 69.46,
+        "trim5_roi_pct": 61.08,
+        "max_one_payout": 14260,
+        "max_drawdown_yen": 152380
+      },
+      "period3": {
+        "races": 1944,
+        "points": 5832,
+        "hits": 267,
+        "stake_yen": 583200,
+        "payout_yen": 530610,
+        "net_yen": -52590,
+        "roi_pct": 90.98,
+        "trim1_roi_pct": 84.22,
+        "trim5_roi_pct": 69.22,
+        "max_one_payout": 39710,
+        "max_drawdown_yen": 89750
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -25.1,
+          19.4
+        ],
+        "n": 3500
+      }
+    },
+    "b5": {
+      "name": "B-AXIS上位5点全件",
+      "all": {
+        "races": 3748,
+        "points": 18740,
+        "hits": 703,
+        "stake_yen": 1874000,
+        "payout_yen": 1393140,
+        "net_yen": -480860,
+        "roi_pct": 74.34,
+        "trim1_roi_pct": 70.95,
+        "trim5_roi_pct": 64.57,
+        "max_one_payout": 63910,
+        "max_drawdown_yen": 482270
+      },
+      "coverage_pct": 100,
+      "period2": {
+        "races": 1804,
+        "points": 9020,
+        "hits": 319,
+        "stake_yen": 902000,
+        "payout_yen": 586170,
+        "net_yen": -315830,
+        "roi_pct": 64.99,
+        "trim1_roi_pct": 63.13,
+        "trim5_roi_pct": 57.53,
+        "max_one_payout": 17050,
+        "max_drawdown_yen": 316230
+      },
+      "period3": {
+        "races": 1944,
+        "points": 9720,
+        "hits": 384,
+        "stake_yen": 972000,
+        "payout_yen": 806970,
+        "net_yen": -165030,
+        "roi_pct": 83.02,
+        "trim1_roi_pct": 76.49,
+        "trim5_roi_pct": 64.19,
+        "max_one_payout": 63910,
+        "max_drawdown_yen": 173910
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -33,
+          8.6
+        ],
+        "n": 3500
+      }
+    },
+    "agree_auto": {
+      "name": "B予測一致のAUTO",
+      "all": {
+        "races": 3375,
+        "points": 26998,
+        "hits": 741,
+        "stake_yen": 2699800,
+        "payout_yen": 2298430,
+        "net_yen": -401370,
+        "roi_pct": 85.13,
+        "trim1_roi_pct": 81.46,
+        "trim5_roi_pct": 73.01,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 642430
+      },
+      "coverage_pct": 90,
+      "period2": {
+        "races": 1619,
+        "points": 12952,
+        "hits": 328,
+        "stake_yen": 1295200,
+        "payout_yen": 976980,
+        "net_yen": -318220,
+        "roi_pct": 75.43,
+        "trim1_roi_pct": 70.08,
+        "trim5_roi_pct": 59.02,
+        "max_one_payout": 69900,
+        "max_drawdown_yen": 373420
+      },
+      "period3": {
+        "races": 1756,
+        "points": 14046,
+        "hits": 413,
+        "stake_yen": 1404600,
+        "payout_yen": 1321450,
+        "net_yen": -83150,
+        "roi_pct": 94.08,
+        "trim1_roi_pct": 87.03,
+        "trim5_roi_pct": 74.36,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 270600
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -3.9,
+          4.1
+        ],
+        "n": 3500
+      }
+    },
+    "agree_b3": {
+      "name": "B予測一致のB3",
+      "all": {
+        "races": 3375,
+        "points": 10125,
+        "hits": 465,
+        "stake_yen": 1012500,
+        "payout_yen": 841440,
+        "net_yen": -171060,
+        "roi_pct": 83.11,
+        "trim1_roi_pct": 79.21,
+        "trim5_roi_pct": 70.23,
+        "max_one_payout": 39710,
+        "max_drawdown_yen": 197450
+      },
+      "coverage_pct": 90,
+      "period2": {
+        "races": 1619,
+        "points": 4857,
+        "hits": 215,
+        "stake_yen": 485700,
+        "payout_yen": 357220,
+        "net_yen": -128480,
+        "roi_pct": 73.55,
+        "trim1_roi_pct": 70.66,
+        "trim5_roi_pct": 61.32,
+        "max_one_payout": 14260,
+        "max_drawdown_yen": 129210
+      },
+      "period3": {
+        "races": 1756,
+        "points": 5268,
+        "hits": 250,
+        "stake_yen": 526800,
+        "payout_yen": 484220,
+        "net_yen": -42580,
+        "roi_pct": 91.92,
+        "trim1_roi_pct": 84.43,
+        "trim5_roi_pct": 67.82,
+        "max_one_payout": 39710,
+        "max_drawdown_yen": 83530
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -26.6,
+          23
+        ],
+        "n": 3500
+      }
+    },
+    "nonfav_auto": {
+      "name": "非有力B候補のAUTO",
+      "all": {
+        "races": 1363,
+        "points": 10903,
+        "hits": 259,
+        "stake_yen": 1090300,
+        "payout_yen": 1032420,
+        "net_yen": -57880,
+        "roi_pct": 94.69,
+        "trim1_roi_pct": 88.35,
+        "trim5_roi_pct": 73.23,
+        "max_one_payout": 69900,
+        "max_drawdown_yen": 177380
+      },
+      "coverage_pct": 36.4,
+      "period2": {
+        "races": 671,
+        "points": 5368,
+        "hits": 117,
+        "stake_yen": 536800,
+        "payout_yen": 543510,
+        "net_yen": 6710,
+        "roi_pct": 101.25,
+        "trim1_roi_pct": 88.36,
+        "trim5_roi_pct": 62.3,
+        "max_one_payout": 69900,
+        "max_drawdown_yen": 97370
+      },
+      "period3": {
+        "races": 692,
+        "points": 5535,
+        "hits": 142,
+        "stake_yen": 553500,
+        "payout_yen": 488910,
+        "net_yen": -64590,
+        "roi_pct": 88.33,
+        "trim1_roi_pct": 79.9,
+        "trim5_roi_pct": 64.76,
+        "max_one_payout": 47290,
+        "max_drawdown_yen": 113280
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -5.1,
+          29.2
+        ],
+        "n": 3500
+      }
+    },
+    "nonfav_b3": {
+      "name": "非有力B候補のB3",
+      "all": {
+        "races": 1363,
+        "points": 4089,
+        "hits": 123,
+        "stake_yen": 408900,
+        "payout_yen": 362580,
+        "net_yen": -46320,
+        "roi_pct": 88.67,
+        "trim1_roi_pct": 79.02,
+        "trim5_roi_pct": 67,
+        "max_one_payout": 39710,
+        "max_drawdown_yen": 82770
+      },
+      "coverage_pct": 36.4,
+      "period2": {
+        "races": 671,
+        "points": 2013,
+        "hits": 52,
+        "stake_yen": 201300,
+        "payout_yen": 146590,
+        "net_yen": -54710,
+        "roi_pct": 72.82,
+        "trim1_roi_pct": 65.84,
+        "trim5_roi_pct": 43.86,
+        "max_one_payout": 14260,
+        "max_drawdown_yen": 73170
+      },
+      "period3": {
+        "races": 692,
+        "points": 2076,
+        "hits": 71,
+        "stake_yen": 207600,
+        "payout_yen": 215990,
+        "net_yen": 8390,
+        "roi_pct": 104.04,
+        "trim1_roi_pct": 85.04,
+        "trim5_roi_pct": 68.37,
+        "max_one_payout": 39710,
+        "max_drawdown_yen": 37700
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -23.2,
+          36.8
+        ],
+        "n": 3500
+      }
+    },
+    "switch": {
+      "name": "一致AUTO・不一致B3",
+      "all": {
+        "races": 3748,
+        "points": 28117,
+        "hits": 772,
+        "stake_yen": 2811700,
+        "payout_yen": 2377550,
+        "net_yen": -434150,
+        "roi_pct": 84.56,
+        "trim1_roi_pct": 81.04,
+        "trim5_roi_pct": 72.92,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 681110
+      },
+      "coverage_pct": 100,
+      "period2": {
+        "races": 1804,
+        "points": 13507,
+        "hits": 342,
+        "stake_yen": 1350700,
+        "payout_yen": 1009710,
+        "net_yen": -340990,
+        "roi_pct": 74.75,
+        "trim1_roi_pct": 69.62,
+        "trim5_roi_pct": 59.01,
+        "max_one_payout": 69900,
+        "max_drawdown_yen": 394830
+      },
+      "period3": {
+        "races": 1944,
+        "points": 14610,
+        "hits": 430,
+        "stake_yen": 1461000,
+        "payout_yen": 1367840,
+        "net_yen": -93160,
+        "roi_pct": 93.62,
+        "trim1_roi_pct": 86.85,
+        "trim5_roi_pct": 74.67,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 287270
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -4.5,
+          3.7
+        ],
+        "n": 3500
+      }
+    },
+    "margin_b3": {
+      "name": "一致・B支持差上位30%のB3",
+      "all": {
+        "races": 1161,
+        "points": 3483,
+        "hits": 194,
+        "stake_yen": 348300,
+        "payout_yen": 268770,
+        "net_yen": -79530,
+        "roi_pct": 77.17,
+        "trim1_roi_pct": 71.01,
+        "trim5_roi_pct": 60.78,
+        "max_one_payout": 21670,
+        "max_drawdown_yen": 86460
+      },
+      "coverage_pct": 31,
+      "period2": {
+        "races": 540,
+        "points": 1620,
+        "hits": 82,
+        "stake_yen": 162000,
+        "payout_yen": 105790,
+        "net_yen": -56210,
+        "roi_pct": 65.3,
+        "trim1_roi_pct": 58.47,
+        "trim5_roi_pct": 43.45,
+        "max_one_payout": 11240,
+        "max_drawdown_yen": 56760
+      },
+      "period3": {
+        "races": 621,
+        "points": 1863,
+        "hits": 112,
+        "stake_yen": 186300,
+        "payout_yen": 162980,
+        "net_yen": -23320,
+        "roi_pct": 87.48,
+        "trim1_roi_pct": 75.97,
+        "trim5_roi_pct": 59.92,
+        "max_one_payout": 21670,
+        "max_drawdown_yen": 30160
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -31.4,
+          14.8
+        ],
+        "n": 3500
+      }
+    },
+    "meeting_gate": {
+      "name": "開催日程・AUTO過去30日ゲート",
+      "all": {
+        "races": 874,
+        "points": 6992,
+        "hits": 180,
+        "stake_yen": 699200,
+        "payout_yen": 690930,
+        "net_yen": -8270,
+        "roi_pct": 98.82,
+        "trim1_roi_pct": 88.92,
+        "trim5_roi_pct": 66.97,
+        "max_one_payout": 69900,
+        "max_drawdown_yen": 133260
+      },
+      "coverage_pct": 23.3,
+      "period2": {
+        "races": 564,
+        "points": 4512,
+        "hits": 104,
+        "stake_yen": 451200,
+        "payout_yen": 465620,
+        "net_yen": 14420,
+        "roi_pct": 103.2,
+        "trim1_roi_pct": 87.86,
+        "trim5_roi_pct": 57.91,
+        "max_one_payout": 69900,
+        "max_drawdown_yen": 86150
+      },
+      "period3": {
+        "races": 310,
+        "points": 2480,
+        "hits": 76,
+        "stake_yen": 248000,
+        "payout_yen": 225310,
+        "net_yen": -22690,
+        "roi_pct": 90.85,
+        "trim1_roi_pct": 74.22,
+        "trim5_roi_pct": 56.19,
+        "max_one_payout": 41850,
+        "max_drawdown_yen": 74190
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -12.8,
+          43.9
+        ],
+        "n": 3500
+      }
+    },
+    "stage_gate": {
+      "name": "番組種別・AUTO過去30日ゲート",
+      "all": {
+        "races": 1691,
+        "points": 13528,
+        "hits": 385,
+        "stake_yen": 1352800,
+        "payout_yen": 1215930,
+        "net_yen": -136870,
+        "roi_pct": 89.88,
+        "trim1_roi_pct": 82.56,
+        "trim5_roi_pct": 69.06,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 301320
+      },
+      "coverage_pct": 45.1,
+      "period2": {
+        "races": 850,
+        "points": 6800,
+        "hits": 170,
+        "stake_yen": 680000,
+        "payout_yen": 536040,
+        "net_yen": -143960,
+        "roi_pct": 78.83,
+        "trim1_roi_pct": 70.78,
+        "trim5_roi_pct": 55.28,
+        "max_one_payout": 55290,
+        "max_drawdown_yen": 189720
+      },
+      "period3": {
+        "races": 841,
+        "points": 6728,
+        "hits": 215,
+        "stake_yen": 672800,
+        "payout_yen": 679890,
+        "net_yen": 7090,
+        "roi_pct": 101.05,
+        "trim1_roi_pct": 86.34,
+        "trim5_roi_pct": 65.41,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 126850
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -4.2,
+          14.1
+        ],
+        "n": 3500
+      }
+    },
+    "grade_gate": {
+      "name": "級班・AUTO過去30日ゲート",
+      "all": {
+        "races": 619,
+        "points": 4952,
+        "hits": 112,
+        "stake_yen": 495200,
+        "payout_yen": 271090,
+        "net_yen": -224110,
+        "roi_pct": 54.74,
+        "trim1_roi_pct": 48.85,
+        "trim5_roi_pct": 33.17,
+        "max_one_payout": 29570,
+        "max_drawdown_yen": 227350
+      },
+      "coverage_pct": 16.5,
+      "period2": {
+        "races": 535,
+        "points": 4280,
+        "hits": 95,
+        "stake_yen": 428000,
+        "payout_yen": 217340,
+        "net_yen": -210660,
+        "roi_pct": 50.78,
+        "trim1_roi_pct": 43.95,
+        "trim5_roi_pct": 29.83,
+        "max_one_payout": 29570,
+        "max_drawdown_yen": 210660
+      },
+      "period3": {
+        "races": 84,
+        "points": 672,
+        "hits": 17,
+        "stake_yen": 67200,
+        "payout_yen": 53750,
+        "net_yen": -13450,
+        "roi_pct": 79.99,
+        "trim1_roi_pct": 48.06,
+        "trim5_roi_pct": 21.47,
+        "max_one_payout": 21840,
+        "max_drawdown_yen": 21250
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -55.7,
+          -1.1
+        ],
+        "n": 3500
+      }
+    },
+    "grade_stage_gate": {
+      "name": "級班×番組・AUTO過去30日ゲート",
+      "all": {
+        "races": 479,
+        "points": 3832,
+        "hits": 101,
+        "stake_yen": 383200,
+        "payout_yen": 215900,
+        "net_yen": -167300,
+        "roi_pct": 56.34,
+        "trim1_roi_pct": 52.84,
+        "trim5_roi_pct": 46.03,
+        "max_one_payout": 13830,
+        "max_drawdown_yen": 177650
+      },
+      "coverage_pct": 12.8,
+      "period2": {
+        "races": 261,
+        "points": 2088,
+        "hits": 45,
+        "stake_yen": 208800,
+        "payout_yen": 69340,
+        "net_yen": -139460,
+        "roi_pct": 33.21,
+        "trim1_roi_pct": 30.11,
+        "trim5_roi_pct": 23.54,
+        "max_one_payout": 6710,
+        "max_drawdown_yen": 140910
+      },
+      "period3": {
+        "races": 218,
+        "points": 1744,
+        "hits": 56,
+        "stake_yen": 174400,
+        "payout_yen": 146560,
+        "net_yen": -27840,
+        "roi_pct": 84.04,
+        "trim1_roi_pct": 76.46,
+        "trim5_roi_pct": 62.27,
+        "max_one_payout": 13830,
+        "max_drawdown_yen": 41730
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -59.4,
+          0.9
+        ],
+        "n": 3500
+      }
+    },
+    "margin_gate": {
+      "name": "B支持差別・AUTO過去30日ゲート",
+      "all": {
+        "races": 0,
+        "points": 0,
+        "hits": 0,
+        "stake_yen": 0,
+        "payout_yen": 0,
+        "net_yen": 0,
+        "roi_pct": null,
+        "trim1_roi_pct": null,
+        "trim5_roi_pct": null,
+        "max_one_payout": 0,
+        "max_drawdown_yen": 0
+      },
+      "coverage_pct": 0,
+      "period2": {
+        "races": 0,
+        "points": 0,
+        "hits": 0,
+        "stake_yen": 0,
+        "payout_yen": 0,
+        "net_yen": 0,
+        "roi_pct": null,
+        "trim1_roi_pct": null,
+        "trim5_roi_pct": null,
+        "max_one_payout": 0,
+        "max_drawdown_yen": 0
+      },
+      "period3": {
+        "races": 0,
+        "points": 0,
+        "hits": 0,
+        "stake_yen": 0,
+        "payout_yen": 0,
+        "net_yen": 0,
+        "roi_pct": null,
+        "trim1_roi_pct": null,
+        "trim5_roi_pct": null,
+        "max_one_payout": 0,
+        "max_drawdown_yen": 0
+      },
+      "difference_bootstrap": null
+    },
+    "grade_router": {
+      "name": "級班別・AUTO/B3過去30日切替",
+      "all": {
+        "races": 3748,
+        "points": 27672,
+        "hits": 769,
+        "stake_yen": 2767200,
+        "payout_yen": 2185650,
+        "net_yen": -581550,
+        "roi_pct": 78.98,
+        "trim1_roi_pct": 75.4,
+        "trim5_roi_pct": 68.23,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 748630
+      },
+      "coverage_pct": 100,
+      "period2": {
+        "races": 1804,
+        "points": 13812,
+        "hits": 361,
+        "stake_yen": 1381200,
+        "payout_yen": 1003970,
+        "net_yen": -377230,
+        "roi_pct": 72.69,
+        "trim1_roi_pct": 68.73,
+        "trim5_roi_pct": 60.22,
+        "max_one_payout": 55290,
+        "max_drawdown_yen": 399020
+      },
+      "period3": {
+        "races": 1944,
+        "points": 13860,
+        "hits": 408,
+        "stake_yen": 1386000,
+        "payout_yen": 1181680,
+        "net_yen": -204320,
+        "roi_pct": 85.26,
+        "trim1_roi_pct": 78.11,
+        "trim5_roi_pct": 66.2,
+        "max_one_payout": 99700,
+        "max_drawdown_yen": 349610
+      },
+      "difference_bootstrap": {
+        "diff95": [
+          -12.1,
+          -0.6
+        ],
+        "n": 3500
+      }
+    }
+  },
+  "folds": [
+    {
+      "train_first": "2026-08-18",
+      "train_last": "2026-09-16",
+      "test_first": "2026-09-17",
+      "test_last": "2026-09-21",
+      "train_n": 1997,
+      "test_n": 316,
+      "buys": {
+        "auto": 316,
+        "b3": 316,
+        "b5": 316,
+        "agree_auto": 281,
+        "agree_b3": 281,
+        "nonfav_auto": 128,
+        "nonfav_b3": 128,
+        "switch": 316,
+        "margin_b3": 83,
+        "meeting_gate": 97,
+        "stage_gate": 55,
+        "grade_gate": 135,
+        "grade_stage_gate": 65,
+        "margin_gate": 0,
+        "grade_router": 316
+      }
+    },
+    {
+      "train_first": "2026-08-23",
+      "train_last": "2026-09-21",
+      "test_first": "2026-09-22",
+      "test_last": "2026-09-26",
+      "train_n": 1964,
+      "test_n": 299,
+      "buys": {
+        "auto": 299,
+        "b3": 299,
+        "b5": 299,
+        "agree_auto": 275,
+        "agree_b3": 275,
+        "nonfav_auto": 124,
+        "nonfav_b3": 124,
+        "switch": 299,
+        "margin_b3": 110,
+        "meeting_gate": 103,
+        "stage_gate": 127,
+        "grade_gate": 65,
+        "grade_stage_gate": 66,
+        "margin_gate": 0,
+        "grade_router": 299
+      }
+    },
+    {
+      "train_first": "2026-08-28",
+      "train_last": "2026-09-26",
+      "test_first": "2026-09-27",
+      "test_last": "2026-10-01",
+      "train_n": 1924,
+      "test_n": 295,
+      "buys": {
+        "auto": 295,
+        "b3": 295,
+        "b5": 295,
+        "agree_auto": 267,
+        "agree_b3": 267,
+        "nonfav_auto": 108,
+        "nonfav_b3": 108,
+        "switch": 295,
+        "margin_b3": 82,
+        "meeting_gate": 67,
+        "stage_gate": 107,
+        "grade_gate": 54,
+        "grade_stage_gate": 36,
+        "margin_gate": 0,
+        "grade_router": 295
+      }
+    },
+    {
+      "train_first": "2026-09-02",
+      "train_last": "2026-10-01",
+      "test_first": "2026-10-02",
+      "test_last": "2026-10-06",
+      "train_n": 1894,
+      "test_n": 304,
+      "buys": {
+        "auto": 304,
+        "b3": 304,
+        "b5": 304,
+        "agree_auto": 273,
+        "agree_b3": 273,
+        "nonfav_auto": 102,
+        "nonfav_b3": 102,
+        "switch": 304,
+        "margin_b3": 67,
+        "meeting_gate": 108,
+        "stage_gate": 140,
+        "grade_gate": 61,
+        "grade_stage_gate": 29,
+        "margin_gate": 0,
+        "grade_router": 304
+      }
+    },
+    {
+      "train_first": "2026-09-07",
+      "train_last": "2026-10-06",
+      "test_first": "2026-10-07",
+      "test_last": "2026-10-11",
+      "train_n": 1876,
+      "test_n": 317,
+      "buys": {
+        "auto": 317,
+        "b3": 317,
+        "b5": 317,
+        "agree_auto": 281,
+        "agree_b3": 281,
+        "nonfav_auto": 106,
+        "nonfav_b3": 106,
+        "switch": 317,
+        "margin_b3": 98,
+        "meeting_gate": 90,
+        "stage_gate": 282,
+        "grade_gate": 150,
+        "grade_stage_gate": 43,
+        "margin_gate": 0,
+        "grade_router": 317
+      }
+    },
+    {
+      "train_first": "2026-09-12",
+      "train_last": "2026-10-11",
+      "test_first": "2026-10-12",
+      "test_last": "2026-10-16",
+      "train_n": 1851,
+      "test_n": 273,
+      "buys": {
+        "auto": 273,
+        "b3": 273,
+        "b5": 273,
+        "agree_auto": 242,
+        "agree_b3": 242,
+        "nonfav_auto": 103,
+        "nonfav_b3": 103,
+        "switch": 273,
+        "margin_b3": 100,
+        "meeting_gate": 99,
+        "stage_gate": 139,
+        "grade_gate": 70,
+        "grade_stage_gate": 22,
+        "margin_gate": 0,
+        "grade_router": 273
+      }
+    },
+    {
+      "train_first": "2026-09-17",
+      "train_last": "2026-10-16",
+      "test_first": "2026-10-17",
+      "test_last": "2026-10-21",
+      "train_n": 1804,
+      "test_n": 323,
+      "buys": {
+        "auto": 323,
+        "b3": 323,
+        "b5": 323,
+        "agree_auto": 293,
+        "agree_b3": 293,
+        "nonfav_auto": 104,
+        "nonfav_b3": 104,
+        "switch": 323,
+        "margin_b3": 101,
+        "meeting_gate": 91,
+        "stage_gate": 146,
+        "grade_gate": 43,
+        "grade_stage_gate": 52,
+        "margin_gate": 0,
+        "grade_router": 323
+      }
+    },
+    {
+      "train_first": "2026-09-22",
+      "train_last": "2026-10-21",
+      "test_first": "2026-10-22",
+      "test_last": "2026-10-26",
+      "train_n": 1811,
+      "test_n": 333,
+      "buys": {
+        "auto": 333,
+        "b3": 333,
+        "b5": 333,
+        "agree_auto": 297,
+        "agree_b3": 297,
+        "nonfav_auto": 129,
+        "nonfav_b3": 129,
+        "switch": 333,
+        "margin_b3": 96,
+        "meeting_gate": 0,
+        "stage_gate": 22,
+        "grade_gate": 41,
+        "grade_stage_gate": 11,
+        "margin_gate": 0,
+        "grade_router": 333
+      }
+    },
+    {
+      "train_first": "2026-09-27",
+      "train_last": "2026-10-26",
+      "test_first": "2026-10-27",
+      "test_last": "2026-10-31",
+      "train_n": 1845,
+      "test_n": 311,
+      "buys": {
+        "auto": 311,
+        "b3": 311,
+        "b5": 311,
+        "agree_auto": 276,
+        "agree_b3": 276,
+        "nonfav_auto": 103,
+        "nonfav_b3": 103,
+        "switch": 311,
+        "margin_b3": 132,
+        "meeting_gate": 0,
+        "stage_gate": 181,
+        "grade_gate": 0,
+        "grade_stage_gate": 73,
+        "margin_gate": 0,
+        "grade_router": 311
+      }
+    },
+    {
+      "train_first": "2026-10-02",
+      "train_last": "2026-10-31",
+      "test_first": "2026-11-01",
+      "test_last": "2026-11-05",
+      "train_n": 1861,
+      "test_n": 320,
+      "buys": {
+        "auto": 320,
+        "b3": 320,
+        "b5": 320,
+        "agree_auto": 294,
+        "agree_b3": 294,
+        "nonfav_auto": 116,
+        "nonfav_b3": 116,
+        "switch": 320,
+        "margin_b3": 93,
+        "meeting_gate": 0,
+        "stage_gate": 174,
+        "grade_gate": 0,
+        "grade_stage_gate": 68,
+        "margin_gate": 0,
+        "grade_router": 320
+      }
+    },
+    {
+      "train_first": "2026-10-07",
+      "train_last": "2026-11-05",
+      "test_first": "2026-11-06",
+      "test_last": "2026-11-10",
+      "train_n": 1877,
+      "test_n": 335,
+      "buys": {
+        "auto": 335,
+        "b3": 335,
+        "b5": 335,
+        "agree_auto": 308,
+        "agree_b3": 308,
+        "nonfav_auto": 130,
+        "nonfav_b3": 130,
+        "switch": 335,
+        "margin_b3": 103,
+        "meeting_gate": 101,
+        "stage_gate": 155,
+        "grade_gate": 0,
+        "grade_stage_gate": 14,
+        "margin_gate": 0,
+        "grade_router": 335
+      }
+    },
+    {
+      "train_first": "2026-10-12",
+      "train_last": "2026-11-10",
+      "test_first": "2026-11-11",
+      "test_last": "2026-11-15",
+      "train_n": 1895,
+      "test_n": 322,
+      "buys": {
+        "auto": 322,
+        "b3": 322,
+        "b5": 322,
+        "agree_auto": 288,
+        "agree_b3": 288,
+        "nonfav_auto": 110,
+        "nonfav_b3": 110,
+        "switch": 322,
+        "margin_b3": 96,
+        "meeting_gate": 118,
+        "stage_gate": 163,
+        "grade_gate": 0,
+        "grade_stage_gate": 0,
+        "margin_gate": 0,
+        "grade_router": 322
+      }
+    }
+  ],
+  "criteria": {
+    "coverage_min": 20,
+    "overall_roi_min": 100,
+    "trim5_roi_min": 100,
+    "each_30day_roi_min": 100
+  },
+  "strict_survivors": [],
+  "limitations": [
+    "These November 2026 model outputs and original racecards were not frozen before historical start times.",
+    "Historical period already explored; candidate rules are exploratory and not independent prospective testing.",
+    "Multiple comparisons 14 alternatives; bootstrap intervals are unadjusted.",
+    "Market odds were not frozen; EV / Kelly strategies cannot be evaluated faithfully.",
+    "Higher no-bet rate reduces absolute losses in negative-ROI baseline but does not prove profitable bets.",
+    "Same historical 5745 cohort as original; no blending with selected 661R or observed B 84R.",
+    "No production, Railway or notification change"
+  ]
+}
