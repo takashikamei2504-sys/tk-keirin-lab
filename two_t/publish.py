@@ -8,7 +8,7 @@ from .source import encode, payload, write
 
 
 def public_result(result):
-    return {key: result[key] for key in ("payouts", "cancelled")} if result else None
+    return {key: result[key] for key in ("payouts", "cancelled", "accident")} if result else None
 
 
 def replay_data(dataset, predictions):
@@ -64,14 +64,20 @@ def main():
         rows = sorted(replay_data(payload(dataset), payload(predictions)),
                       key=lambda r: (r["date"], r["venue"], r["race_no"]))
         if args.examples_per_field:
-            rows = rows[:args.examples_per_field]
+            by_day = {}
+            for row in rows:
+                by_day.setdefault(row["date"], row)
+            chosen = list(by_day.values())[:args.examples_per_field]
+            extras = [row for row in rows if row not in chosen][:args.examples_per_field - len(chosen)]
+            rows = chosen + extras
         examples.extend(rows)
     records = {"replay": examples, "forward": forward_data(args.ledger) if args.ledger else []}
     if not args.dataset and args.out.exists():
         records["replay"] = payload(args.out)["replay"]
     write(args.out, records)
     if args.standalone:
-        template = (Path(__file__).parent / "index.html").read_text()
+        template = (Path(__file__).parent / "index.html").read_text().replace(
+            'href="../index.html"', 'href="https://takashikamei2504-sys.github.io/tk-keirin-lab/"')
         encoded = encode(records).decode().replace("<", "\\u003c")
         args.standalone.write_text(template.replace('type="application/json">null<',
                                                     f'type="application/json">{encoded}<'))

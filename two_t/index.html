@@ -75,7 +75,7 @@ function filter() {
   options(race, byVenue.map(r => r.key || r.race_id), id => {
     const r = byVenue.find(r => (r.key || r.race_id) === id);
     return r.race_no + 'R ・ ' + ({S:'S級',A:'A級',challenge:'チャレンジ'}[r.class] || r.class)
-      + ' ・ ' + r.cars.length + '車' + (r.quote_mode === 't5' ? ' ・ 5分前' : '');
+      + ' ・ ' + r.cars.length + '車' + (r.quote_mode === 't5' ? ' ・ 5分前' : r.quote_mode === 'probability' ? ' ・ 確率のみ' : '');
   });
   render();
 }
@@ -88,10 +88,12 @@ function render() {
   const isReplay = mode.value === 'replay';
   const odds = r.quote?.odds;
   el('heading').textContent = r.venue + ' ' + r.race_no + 'R ・ ' + r.cars.length + '車';
-  el('status').textContent = isReplay ? '過去検証' : r.frozen_at ? '発走前固定済み' : '保存待ち';
+  const closed = !isReplay && Date.now() >= Date.parse(r.quote?.sales_close || r.start);
+  el('status').textContent = isReplay ? '過去検証' : closed ? '締切済み' : r.frozen_at ? '発走前固定済み' : '保存待ち';
   el('time').textContent = (isReplay ? '発走前資料の保存 ' : '予測の保存 ') + dateTime(r.frozen_at ?? r.input_as_of);
   el('source').textContent = isReplay ? '確定オッズ利用・実購入再現不可' : odds ?
     '締切' + (r.quote_mode === 't5' ? '5' : '10') + '分前 ・ 取得 ' + dateTime(r.quote.captured_at) : '締切前オッズなし・確率のみ';
+  if (isReplay && r.result?.accident) el('source').textContent += ' ・ 論文比較対象外';
   const winners = Object.entries(r.result?.payouts || {});
   el('outcome').textContent = r.result?.cancelled ? '中止' : winners.length ?
     '二車単結果 ' + winners.map(([key, value]) => key + '（' + fmt(value) + '円）').join(' / ')
@@ -103,7 +105,7 @@ function render() {
     return {key,p,o,ev:o === null ? null : p*o};
   }).sort((a,b) => sort.value === 'ev' && odds ? b.ev-a.ev || b.p-a.p : b.p-a.p);
   const buy = rows.filter(row => row.ev >= 1.5);
-  const label = isReplay ? '仮想購入' : '購入候補';
+  const label = isReplay ? '仮想購入' : closed ? '当時の候補' : '購入候補';
   el('candidates').textContent = !odds ? 'オッズ待ち' : !buy.length ? '条件該当なし' :
     label + ' ' + buy.length + '点 ・ ' + fmt(buy.length*100) + '円 ｜ ' + buy.map(row => row.key).join('、');
   el('count').textContent = '二車単 ' + rows.length + '通り';
