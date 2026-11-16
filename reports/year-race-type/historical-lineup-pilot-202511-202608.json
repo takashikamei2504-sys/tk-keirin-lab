@@ -1,0 +1,2192 @@
+{
+  "schema": "tk-keirin-historical-kdreams-lineup-pilot/v1",
+  "dates": "2025-11-16 to 2026-08-17",
+  "robots_verified": true,
+  "source_csv_sha256": {
+    "2025_11": "1c03b19d388252419dd888aa8e3d77e0d2b6a5f38f241d1f74e0709c1a07cdfe",
+    "2026_02": "7eec1db554762b6621e33cf0f060ac720f4074b745b4b24ab0bee27119c82a04",
+    "2026_01": "770c4774275dc0747dcd3f4fd2031b5cffc3d3e180843c1663871c28b0b166da",
+    "2025_12": "d744fed3522ccce1a53b4c6feff1f84ca77ff981777e73458e4b87ced5391447",
+    "2026_04": "de3ef84a741f22fc5ec7dd1faccd166a8b6c34dbbc6ae8031066f02ed4e3b4a9",
+    "2026_03": "4acc5f657da969a97551150b9fda76ae434e05f5f220c13dfbf4795b74747b7d",
+    "2026_06": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6",
+    "2026_05": "d684f2e436df8da3da29f7dd611bfe9274adba6579494eb6999d26cdc8799f36",
+    "2026_07": "fe0b4c3afc7aedd955eb8930959f76c76fd69cf375cd349544b3efaa378ff059",
+    "2026_08": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb"
+  },
+  "sample_definition": "50 outcome-independent class-stage stratified plus 10 9-car checksum candidates, one per historical month",
+  "source": "K-Dreams archived pre-race lineup predictions; NOT objectively known actual lineups",
+  "races": [
+    {
+      "race_id": "5620251116010012",
+      "date": "2025-11-16",
+      "inferred_stage": "初日特選",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kishiwada/racedetail/5620251116010012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          6
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "2": "2-1",
+        "4": "2-2",
+        "3": "3-1",
+        "5": "3-2",
+        "6": "4-1"
+      }
+    },
+    {
+      "race_id": "3120251119030010",
+      "date": "2025-11-21",
+      "inferred_stage": "決勝",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsudo/racedetail/3120251119030010/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          5,
+          4
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "5": "1-2",
+        "4": "1-3",
+        "2": "2-1",
+        "7": "2-2",
+        "6": "3-1",
+        "3": "3-2"
+      }
+    },
+    {
+      "race_id": "6120251127020003",
+      "date": "2025-11-28",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "チャレンジ_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/tamano/racedetail/6120251127020003/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          4
+        ],
+        [
+          5,
+          7,
+          2
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "4": "1-2",
+        "5": "2-1",
+        "7": "2-2",
+        "2": "2-3",
+        "6": "3-1",
+        "3": "3-2"
+      }
+    },
+    {
+      "race_id": "6120251118020005",
+      "date": "2025-11-19",
+      "inferred_stage": "敗者戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/tamano/racedetail/6120251118020005/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          6,
+          7
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "6": "1-2",
+        "7": "1-3",
+        "2": "2-1",
+        "5": "2-2",
+        "3": "3-1",
+        "4": "3-2"
+      }
+    },
+    {
+      "race_id": "3120251119030007",
+      "date": "2025-11-21",
+      "inferred_stage": "特選等",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsudo/racedetail/3120251119030007/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          4,
+          7
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "line_position": {
+        "4": "1-1",
+        "7": "1-2",
+        "2": "2-1",
+        "5": "2-2",
+        "1": "3-1",
+        "3": "4-1",
+        "6": "4-2"
+      }
+    },
+    {
+      "race_id": "3620251224010012",
+      "date": "2025-12-24",
+      "inferred_stage": "初日特選",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/odawara/racedetail/3620251224010012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          2,
+          4
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "line_position": {
+        "5": "1-1",
+        "1": "1-2",
+        "6": "2-1",
+        "2": "2-2",
+        "4": "2-3",
+        "3": "3-1",
+        "7": "3-2"
+      }
+    },
+    {
+      "race_id": "5520251220030012",
+      "date": "2025-12-22",
+      "inferred_stage": "決勝",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/wakayama/racedetail/5520251220030012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          4,
+          7,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "line_position": {
+        "4": "1-1",
+        "7": "1-2",
+        "2": "1-3",
+        "3": "2-1",
+        "1": "2-2",
+        "5": "3-1",
+        "6": "3-2"
+      }
+    },
+    {
+      "race_id": "4720251205020003",
+      "date": "2025-12-06",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720251205020003/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          4,
+          1,
+          6
+        ],
+        [
+          7,
+          2,
+          3
+        ],
+        [
+          5
+        ]
+      ],
+      "line_position": {
+        "4": "1-1",
+        "1": "1-2",
+        "6": "1-3",
+        "7": "2-1",
+        "2": "2-2",
+        "3": "2-3",
+        "5": "3-1"
+      }
+    },
+    {
+      "race_id": "4720251227020002",
+      "date": "2025-12-28",
+      "inferred_stage": "敗者戦",
+      "category": "チャレンジ_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720251227020002/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          2
+        ],
+        [
+          4
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "3": "1-2",
+        "5": "1-3",
+        "2": "2-1",
+        "4": "3-1",
+        "6": "4-1",
+        "7": "4-2"
+      }
+    },
+    {
+      "race_id": "4720251205030003",
+      "date": "2025-12-07",
+      "inferred_stage": "特選等",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720251205030003/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          3,
+          7,
+          5
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "line_position": {
+        "3": "1-1",
+        "7": "1-2",
+        "5": "1-3",
+        "4": "2-1",
+        "1": "2-2",
+        "6": "3-1",
+        "2": "3-2"
+      }
+    },
+    {
+      "race_id": "4820260124010012",
+      "date": "2026-01-24",
+      "inferred_stage": "初日特選",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/yokkaichi/racedetail/4820260124010012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          2,
+          7
+        ],
+        [
+          4
+        ],
+        [
+          1
+        ],
+        [
+          3,
+          5,
+          6
+        ]
+      ],
+      "line_position": {
+        "2": "1-1",
+        "7": "1-2",
+        "4": "2-1",
+        "1": "3-1",
+        "3": "4-1",
+        "5": "4-2",
+        "6": "4-3"
+      }
+    },
+    {
+      "race_id": "3120260121030011",
+      "date": "2026-01-23",
+      "inferred_stage": "決勝",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsudo/racedetail/3120260121030011/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          6
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "4": "2-1",
+        "2": "2-2",
+        "6": "3-1",
+        "3": "4-1",
+        "5": "4-2"
+      }
+    },
+    {
+      "race_id": "2420260131010002",
+      "date": "2026-01-31",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/utsunomiya/racedetail/2420260131010002/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          4,
+          1,
+          6
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "line_position": {
+        "4": "1-1",
+        "1": "1-2",
+        "6": "1-3",
+        "5": "2-1",
+        "3": "2-2",
+        "2": "3-1",
+        "7": "3-2"
+      }
+    },
+    {
+      "race_id": "6220260121030002",
+      "date": "2026-01-23",
+      "inferred_stage": "敗者戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/hiroshima/racedetail/6220260121030002/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          5,
+          1,
+          3
+        ],
+        [
+          6
+        ],
+        [
+          4,
+          2,
+          7
+        ]
+      ],
+      "line_position": {
+        "5": "1-1",
+        "1": "1-2",
+        "3": "1-3",
+        "6": "2-1",
+        "4": "3-1",
+        "2": "3-2",
+        "7": "3-3"
+      }
+    },
+    {
+      "race_id": "5620251231030003",
+      "date": "2026-01-02",
+      "inferred_stage": "特選等",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kishiwada/racedetail/5620251231030003/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          4,
+          6,
+          5
+        ],
+        [
+          3,
+          7,
+          2
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "4": "1-2",
+        "6": "1-3",
+        "5": "1-4",
+        "3": "2-1",
+        "7": "2-2",
+        "2": "2-3"
+      }
+    },
+    {
+      "race_id": "6120260204010009",
+      "date": "2026-02-04",
+      "inferred_stage": "初日特選",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/tamano/racedetail/6120260204010009/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          1,
+          4
+        ],
+        [
+          7,
+          3
+        ]
+      ],
+      "line_position": {
+        "5": "1-1",
+        "2": "1-2",
+        "6": "2-1",
+        "1": "2-2",
+        "4": "2-3",
+        "7": "3-1",
+        "3": "3-2"
+      }
+    },
+    {
+      "race_id": "5520260218030011",
+      "date": "2026-02-20",
+      "inferred_stage": "決勝",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/wakayama/racedetail/5520260218030011/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          6,
+          3,
+          4
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "line_position": {
+        "6": "1-1",
+        "3": "1-2",
+        "4": "1-3",
+        "7": "2-1",
+        "1": "2-2",
+        "5": "3-1",
+        "2": "3-2"
+      }
+    },
+    {
+      "race_id": "6220260228010001",
+      "date": "2026-02-28",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/hiroshima/racedetail/6220260228010001/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          5,
+          4
+        ],
+        [
+          3
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          6
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "5": "1-2",
+        "4": "1-3",
+        "3": "2-1",
+        "7": "3-1",
+        "2": "3-2",
+        "6": "4-1"
+      }
+    },
+    {
+      "race_id": "3120260204020009",
+      "date": "2026-02-05",
+      "inferred_stage": "敗者戦",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsudo/racedetail/3120260204020009/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          5,
+          1
+        ],
+        [
+          6
+        ],
+        [
+          2,
+          4,
+          3
+        ],
+        [
+          7
+        ]
+      ],
+      "line_position": {
+        "5": "1-1",
+        "1": "1-2",
+        "6": "2-1",
+        "2": "3-1",
+        "4": "3-2",
+        "3": "3-3",
+        "7": "4-1"
+      }
+    },
+    {
+      "race_id": "2720260203030004",
+      "date": "2026-02-05",
+      "inferred_stage": "特選等",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/keiokaku/racedetail/2720260203030004/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          4,
+          2,
+          5
+        ],
+        [
+          1
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          6
+        ]
+      ],
+      "line_position": {
+        "4": "1-1",
+        "2": "1-2",
+        "5": "1-3",
+        "1": "2-1",
+        "3": "3-1",
+        "7": "3-2",
+        "6": "4-1"
+      }
+    },
+    {
+      "race_id": "2220260320010012",
+      "date": "2026-03-20",
+      "inferred_stage": "初日特選",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/maebashi/racedetail/2220260320010012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "2": "2-1",
+        "6": "3-1",
+        "3": "3-2",
+        "5": "4-1",
+        "4": "4-2"
+      }
+    },
+    {
+      "race_id": "4220260317030012",
+      "date": "2026-03-19",
+      "inferred_stage": "決勝",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/nagoya/racedetail/4220260317030012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          5
+        ],
+        [
+          2
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4
+        ],
+        [
+          6
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "5": "1-2",
+        "2": "2-1",
+        "3": "3-1",
+        "7": "3-2",
+        "4": "4-1",
+        "6": "5-1"
+      }
+    },
+    {
+      "race_id": "8320260307010006",
+      "date": "2026-03-07",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kurume/racedetail/8320260307010006/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          2,
+          7
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "2": "1-2",
+        "7": "1-3",
+        "3": "2-1",
+        "4": "2-2",
+        "5": "3-1",
+        "6": "3-2"
+      }
+    },
+    {
+      "race_id": "3620260308020008",
+      "date": "2026-03-09",
+      "inferred_stage": "敗者戦",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/odawara/racedetail/3620260308020008/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          3
+        ],
+        [
+          4,
+          2,
+          6
+        ],
+        [
+          5
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "3": "2-1",
+        "4": "3-1",
+        "2": "3-2",
+        "6": "3-3",
+        "5": "4-1"
+      }
+    },
+    {
+      "race_id": "4420260325030008",
+      "date": "2026-03-27",
+      "inferred_stage": "特選等",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/ogaki/racedetail/4420260325030008/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7,
+          6
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "6": "1-3",
+        "4": "2-1",
+        "2": "2-2",
+        "3": "3-1",
+        "5": "3-2"
+      }
+    },
+    {
+      "race_id": "4720260404010007",
+      "date": "2026-04-04",
+      "inferred_stage": "初日特選",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720260404010007/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "2": "1-2",
+        "4": "1-3",
+        "5": "2-1",
+        "3": "3-1",
+        "6": "3-2",
+        "7": "4-1"
+      }
+    },
+    {
+      "race_id": "3720260413030011",
+      "date": "2026-04-15",
+      "inferred_stage": "決勝",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/ito/racedetail/3720260413030011/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          4
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "4": "2-1",
+        "2": "3-1",
+        "6": "3-2",
+        "5": "4-1",
+        "3": "4-2"
+      }
+    },
+    {
+      "race_id": "3720260428010002",
+      "date": "2026-04-28",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "チャレンジ_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/ito/racedetail/3720260428010002/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          3,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "line_position": {
+        "2": "1-1",
+        "4": "1-2",
+        "1": "2-1",
+        "3": "2-2",
+        "6": "2-3",
+        "5": "3-1",
+        "7": "3-2"
+      }
+    },
+    {
+      "race_id": "8320260410020006",
+      "date": "2026-04-11",
+      "inferred_stage": "敗者戦",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kurume/racedetail/8320260410020006/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          7,
+          1,
+          4
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "line_position": {
+        "7": "1-1",
+        "1": "1-2",
+        "4": "1-3",
+        "6": "2-1",
+        "2": "2-2",
+        "5": "3-1",
+        "3": "3-2"
+      }
+    },
+    {
+      "race_id": "8720260426030009",
+      "date": "2026-04-28",
+      "inferred_stage": "特選等",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kumamoto/racedetail/8720260426030009/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          6
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          3,
+          7
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "6": "1-2",
+        "4": "2-1",
+        "2": "2-2",
+        "5": "3-1",
+        "3": "3-2",
+        "7": "3-3"
+      }
+    },
+    {
+      "race_id": "8320260517010011",
+      "date": "2026-05-17",
+      "inferred_stage": "初日特選",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kurume/racedetail/8320260517010011/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          5,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          1
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "line_position": {
+        "5": "1-1",
+        "3": "1-2",
+        "4": "2-1",
+        "6": "2-2",
+        "1": "3-1",
+        "2": "4-1",
+        "7": "4-2"
+      }
+    },
+    {
+      "race_id": "7520260520030012",
+      "date": "2026-05-22",
+      "inferred_stage": "決勝",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsuyama/racedetail/7520260520030012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          5,
+          6
+        ],
+        [
+          7,
+          4,
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "5": "1-2",
+        "6": "1-3",
+        "7": "2-1",
+        "4": "2-2",
+        "2": "2-3",
+        "3": "3-1"
+      }
+    },
+    {
+      "race_id": "6320260501020003",
+      "date": "2026-05-02",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/hofu/racedetail/6320260501020003/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          3,
+          4,
+          6
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "3": "2-1",
+        "4": "2-2",
+        "6": "2-3",
+        "5": "3-1",
+        "2": "3-2"
+      }
+    },
+    {
+      "race_id": "7420260518020002",
+      "date": "2026-05-19",
+      "inferred_stage": "敗者戦",
+      "category": "チャレンジ_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kochi/racedetail/7420260518020002/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7,
+          5
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          6
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "5": "1-3",
+        "2": "2-1",
+        "3": "3-1",
+        "4": "4-1",
+        "6": "5-1"
+      }
+    },
+    {
+      "race_id": "2120260510030006",
+      "date": "2026-05-12",
+      "inferred_stage": "特選等",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/yahiko/racedetail/2120260510030006/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          2,
+          1,
+          6
+        ],
+        [
+          5
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "line_position": {
+        "2": "1-1",
+        "1": "1-2",
+        "6": "1-3",
+        "5": "2-1",
+        "3": "3-1",
+        "4": "3-2",
+        "7": "3-3"
+      }
+    },
+    {
+      "race_id": "2720260617010005",
+      "date": "2026-06-17",
+      "inferred_stage": "初日特選",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/keiokaku/racedetail/2720260617010005/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          7,
+          1,
+          5
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "line_position": {
+        "7": "1-1",
+        "1": "1-2",
+        "5": "1-3",
+        "2": "2-1",
+        "4": "2-2",
+        "3": "3-1",
+        "6": "3-2"
+      }
+    },
+    {
+      "race_id": "7420260618030009",
+      "date": "2026-06-20",
+      "inferred_stage": "決勝",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kochi/racedetail/7420260618030009/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "4": "1-2",
+        "2": "2-1",
+        "5": "2-2",
+        "3": "3-1",
+        "6": "4-1",
+        "7": "4-2"
+      }
+    },
+    {
+      "race_id": "4720260615010008",
+      "date": "2026-06-15",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720260615010008/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          2,
+          5,
+          6
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          7
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "2": "1-2",
+        "5": "1-3",
+        "6": "1-4",
+        "4": "2-1",
+        "3": "2-2",
+        "7": "3-1"
+      }
+    },
+    {
+      "race_id": "2420260621020003",
+      "date": "2026-06-22",
+      "inferred_stage": "敗者戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/utsunomiya/racedetail/2420260621020003/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          2,
+          3,
+          6
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          4
+        ],
+        [
+          7
+        ]
+      ],
+      "line_position": {
+        "2": "1-1",
+        "3": "1-2",
+        "6": "1-3",
+        "1": "2-1",
+        "5": "2-2",
+        "4": "3-1",
+        "7": "4-1"
+      }
+    },
+    {
+      "race_id": "8420260621030006",
+      "date": "2026-06-23",
+      "inferred_stage": "特選等",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/takeo/racedetail/8420260621030006/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          3,
+          7
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "2": "1-2",
+        "4": "2-1",
+        "5": "2-2",
+        "6": "3-1",
+        "3": "3-2",
+        "7": "3-3"
+      }
+    },
+    {
+      "race_id": "1120260701010007",
+      "date": "2026-07-01",
+      "inferred_stage": "初日特選",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/hakodate/racedetail/1120260701010007/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          4
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          7
+        ]
+      ],
+      "line_position": {
+        "3": "1-1",
+        "1": "1-2",
+        "2": "1-3",
+        "4": "2-1",
+        "5": "3-1",
+        "6": "3-2",
+        "7": "4-1"
+      }
+    },
+    {
+      "race_id": "3720260710030012",
+      "date": "2026-07-12",
+      "inferred_stage": "決勝",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/ito/racedetail/3720260710030012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          7,
+          4,
+          3
+        ],
+        [
+          6
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "5": "1-2",
+        "2": "2-1",
+        "7": "2-2",
+        "4": "2-3",
+        "3": "2-4",
+        "6": "3-1"
+      }
+    },
+    {
+      "race_id": "4720260716020010",
+      "date": "2026-07-17",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/matsusaka/racedetail/4720260716020010/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          5,
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "line_position": {
+        "5": "1-1",
+        "1": "1-2",
+        "2": "2-1",
+        "3": "3-1",
+        "7": "3-2",
+        "4": "4-1",
+        "6": "4-2"
+      }
+    },
+    {
+      "race_id": "5620260713020007",
+      "date": "2026-07-14",
+      "inferred_stage": "敗者戦",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/kishiwada/racedetail/5620260713020007/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          5,
+          1,
+          4
+        ],
+        [
+          6
+        ],
+        [
+          2,
+          3,
+          7
+        ]
+      ],
+      "line_position": {
+        "5": "1-1",
+        "1": "1-2",
+        "4": "1-3",
+        "6": "2-1",
+        "2": "3-1",
+        "3": "3-2",
+        "7": "3-3"
+      }
+    },
+    {
+      "race_id": "2720260719030007",
+      "date": "2026-07-21",
+      "inferred_stage": "特選等",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/keiokaku/racedetail/2720260719030007/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          2,
+          1
+        ],
+        [
+          5,
+          3,
+          4
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "line_position": {
+        "2": "1-1",
+        "1": "1-2",
+        "5": "2-1",
+        "3": "2-2",
+        "4": "2-3",
+        "6": "3-1",
+        "7": "3-2"
+      }
+    },
+    {
+      "race_id": "4420260817010005",
+      "date": "2026-08-17",
+      "inferred_stage": "初日特選",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/ogaki/racedetail/4420260817010005/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          7,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ]
+      ],
+      "line_position": {
+        "7": "1-1",
+        "1": "1-2",
+        "6": "2-1",
+        "2": "2-2",
+        "3": "3-1",
+        "4": "4-1",
+        "5": "5-1"
+      }
+    },
+    {
+      "race_id": "2820260808030012",
+      "date": "2026-08-10",
+      "inferred_stage": "決勝",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/tachikawa/racedetail/2820260808030012/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          7,
+          2
+        ],
+        [
+          6,
+          3,
+          5
+        ],
+        [
+          1
+        ],
+        [
+          4
+        ]
+      ],
+      "line_position": {
+        "7": "1-1",
+        "2": "1-2",
+        "6": "2-1",
+        "3": "2-2",
+        "5": "2-3",
+        "1": "3-1",
+        "4": "4-1"
+      }
+    },
+    {
+      "race_id": "2820260817010002",
+      "date": "2026-08-17",
+      "inferred_stage": "勝ち上がり戦",
+      "category": "チャレンジ_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/tachikawa/racedetail/2820260817010002/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          4,
+          6
+        ],
+        [
+          7,
+          2,
+          5
+        ],
+        [
+          3
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "4": "1-2",
+        "6": "1-3",
+        "7": "2-1",
+        "2": "2-2",
+        "5": "2-3",
+        "3": "3-1"
+      }
+    },
+    {
+      "race_id": "5320260814030005",
+      "date": "2026-08-16",
+      "inferred_stage": "敗者戦",
+      "category": "S級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/nara/racedetail/5320260814030005/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          2,
+          4,
+          6
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "line_position": {
+        "2": "1-1",
+        "4": "1-2",
+        "6": "1-3",
+        "5": "2-1",
+        "1": "2-2",
+        "3": "3-1",
+        "7": "3-2"
+      }
+    },
+    {
+      "race_id": "4220260804030004",
+      "date": "2026-08-06",
+      "inferred_stage": "特選等",
+      "category": "A級_7",
+      "source_selection": "stratified_stage_50",
+      "source_url": "https://keirin.kdreams.jp/nagoya/racedetail/4220260804030004/",
+      "cars": 7,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          7
+        ]
+      ],
+      "line_position": {
+        "4": "1-1",
+        "3": "1-2",
+        "5": "2-1",
+        "6": "2-2",
+        "1": "3-1",
+        "2": "4-1",
+        "7": "5-1"
+      }
+    },
+    {
+      "race_id": "8120251119050011",
+      "date": "2025-11-23",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/kokura/racedetail/8120251119050011/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          4
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          6
+        ],
+        [
+          5,
+          8
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "4": "1-2",
+        "3": "2-1",
+        "7": "2-2",
+        "2": "3-1",
+        "9": "3-2",
+        "6": "4-1",
+        "5": "5-1",
+        "8": "5-2"
+      }
+    },
+    {
+      "race_id": "8520251204030010",
+      "date": "2025-12-06",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/sasebo/racedetail/8520251204030010/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          6,
+          5,
+          8
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "9": "2-1",
+        "3": "2-2",
+        "4": "3-1",
+        "2": "3-2",
+        "6": "4-1",
+        "5": "4-2",
+        "8": "4-3"
+      }
+    },
+    {
+      "race_id": "2520260115010002",
+      "date": "2026-01-15",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/omiya/racedetail/2520260115010002/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          3,
+          4,
+          6
+        ],
+        [
+          5,
+          9
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "8": "2-1",
+        "2": "2-2",
+        "3": "3-1",
+        "4": "3-2",
+        "6": "3-3",
+        "5": "4-1",
+        "9": "4-2"
+      }
+    },
+    {
+      "race_id": "3820260212010006",
+      "date": "2026-02-12",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/shizuoka/racedetail/3820260212010006/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          5,
+          8
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          6
+        ],
+        [
+          4
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "2": "2-1",
+        "5": "2-2",
+        "8": "2-3",
+        "3": "3-1",
+        "9": "3-2",
+        "6": "4-1",
+        "4": "5-1"
+      }
+    },
+    {
+      "race_id": "2320260312030009",
+      "date": "2026-03-14",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/toride/racedetail/2320260312030009/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          9,
+          7
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          4,
+          8
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "9": "1-2",
+        "7": "1-3",
+        "6": "2-1",
+        "2": "2-2",
+        "5": "3-1",
+        "3": "3-2",
+        "4": "4-1",
+        "8": "4-2"
+      }
+    },
+    {
+      "race_id": "4220260423030012",
+      "date": "2026-04-25",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/nagoya/racedetail/4220260423030012/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          2,
+          5,
+          8
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          4
+        ],
+        [
+          7
+        ]
+      ],
+      "line_position": {
+        "2": "1-1",
+        "5": "1-2",
+        "8": "1-3",
+        "1": "2-1",
+        "9": "2-2",
+        "6": "3-1",
+        "3": "3-2",
+        "4": "4-1",
+        "7": "5-1"
+      }
+    },
+    {
+      "race_id": "8420260523010008",
+      "date": "2026-05-23",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/takeo/racedetail/8420260523010008/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          7,
+          4
+        ],
+        [
+          2,
+          5,
+          8
+        ],
+        [
+          9,
+          6,
+          3
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "7": "1-2",
+        "4": "1-3",
+        "2": "2-1",
+        "5": "2-2",
+        "8": "2-3",
+        "9": "3-1",
+        "6": "3-2",
+        "3": "3-3"
+      }
+    },
+    {
+      "race_id": "2320260627010001",
+      "date": "2026-06-27",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/toride/racedetail/2320260627010001/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          9,
+          6
+        ],
+        [
+          5,
+          2,
+          8
+        ],
+        [
+          3,
+          7,
+          4
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "9": "1-2",
+        "6": "1-3",
+        "5": "2-1",
+        "2": "2-2",
+        "8": "2-3",
+        "3": "3-1",
+        "7": "3-2",
+        "4": "3-3"
+      }
+    },
+    {
+      "race_id": "7420260717030004",
+      "date": "2026-07-19",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/kochi/racedetail/7420260717030004/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          6
+        ],
+        [
+          9,
+          2,
+          5
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          4,
+          7
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "6": "1-2",
+        "9": "2-1",
+        "2": "2-2",
+        "5": "2-3",
+        "3": "3-1",
+        "8": "3-2",
+        "4": "4-1",
+        "7": "4-2"
+      }
+    },
+    {
+      "race_id": "3620260801040009",
+      "date": "2026-08-04",
+      "inferred_stage": "未確定",
+      "category": "S級_9",
+      "source_selection": "yearly_9car_10",
+      "source_url": "https://keirin.kdreams.jp/odawara/racedetail/3620260801040009/",
+      "cars": 9,
+      "status": "reconstructed",
+      "line_groups": [
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          8,
+          3,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "line_position": {
+        "1": "1-1",
+        "9": "1-2",
+        "2": "2-1",
+        "4": "2-2",
+        "8": "3-1",
+        "3": "3-2",
+        "6": "3-3",
+        "5": "4-1",
+        "7": "4-2"
+      }
+    }
+  ],
+  "errors": {},
+  "counts": {
+    "reconstructed": 60
+  },
+  "by_category": {
+    "S級_7": 18,
+    "チャレンジ_7": 5,
+    "A級_7": 27,
+    "S級_9": 10
+  },
+  "by_stage": {
+    "初日特選": 10,
+    "決勝": 10,
+    "勝ち上がり戦": 10,
+    "敗者戦": 10,
+    "特選等": 10,
+    "未確定": 10
+  },
+  "sample_n": 60
+}
