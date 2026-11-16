@@ -1,0 +1,54 @@
+name: Extend180 - historical strict-comment replay research
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-extend180-comment-prepare.py
+      - scripts/year-extend180-comment-eights.cjs
+      - .github/workflows/year-extend180-comment-eights.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: tk-extend180-comment-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source-join and reconstruct lineups from explicit historical rider comments
+        run: python3 scripts/year-extend180-comment-prepare.py
+      - name: Replay eight engines only on audited historical candidate cards
+        run: |
+          if test -f scripts/year-extend180-comment-eights.cjs; then
+            node --check scripts/year-extend180-comment-eights.cjs
+            node scripts/year-extend180-comment-eights.cjs
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: extend180-comment-replay-summaries
+          path: |
+            reports/year-race-type/extended180-comment-input-summary.json
+            reports/year-race-type/extended180-preceding90-comment-eights-summary.json
+            reports/year-race-type/extended180-preceding90-comment-eights-ja.md
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit aggregated audit to research branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/extended180-comment-input-summary.json
+          if test -f reports/year-race-type/extended180-preceding90-comment-eights-summary.json; then
+            git add reports/year-race-type/extended180-preceding90-comment-eights-summary.json reports/year-race-type/extended180-preceding90-comment-eights-ja.md
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Audit strict historical comment-derived lineups and eight-engine exploratory ROI'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
