@@ -19,8 +19,9 @@ jobs:
     timeout-minutes: 40
     strategy:
       fail-fast: false
+      max-parallel: 12
       matrix:
-        shard: [0]
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -45,3 +46,45 @@ jobs:
           path: reports/year-race-type/baxis90-shards/part-${{ matrix.shard }}.json
           if-no-files-found: warn
           retention-days: 90
+  aggregate:
+    needs: replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: baxis90-v06-part-*
+          merge-multiple: true
+          path: reports/year-race-type/baxis90-shards
+      - name: Verify exact complete 5745 race union, settle identical eight-engine cohort
+        run: |
+          node --check scripts/year-baxis90-retro-aggregate.cjs
+          node scripts/year-baxis90-retro-aggregate.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: baxis90-v06-5745r-verified-summary
+          path: |
+            reports/year-race-type/baxis90-v06-exhaustive-summary.json
+            reports/year-race-type/baxis90-v06-exhaustive-summary-ja.md
+          if-no-files-found: error
+          retention-days: 90
+      - name: Commit aggregate only to isolated research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/baxis90-v06-exhaustive-summary.json reports/year-race-type/baxis90-v06-exhaustive-summary-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Compare B-AXIS v0.6 on full 5745 race retrospective cohort'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
