@@ -1,0 +1,28 @@
+name: Verify historical K-Dreams lineup DOM against archived ground truth
+on:
+  push:
+    branches: ['research/annual-lineup-source-20261116']
+    paths:
+      - scripts/kdreams-lineup-dom-crosscheck.py
+      - .github/workflows/kdreams-lineup-dom-crosscheck.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect bounded public HTML structure without retaining raw pages
+        run: python scripts/kdreams-lineup-dom-crosscheck.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kd-2025-26-line-structure-crosscheck
+          path: reports/year-race-type/kdreams-lineup-dom-crosscheck.json
+          retention-days: 30
+          if-no-files-found: error
