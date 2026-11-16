@@ -43,6 +43,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git restore reports/year-race-type/90day-finalday-b-line-scenario-20261116.json reports/year-race-type/90day-finalday-b-line-scenario-20261116-ja.md
           git add reports/year-race-type/observed-b-consensus-84r-replay-audit.json reports/year-race-type/observed-b-consensus-84r-replay-audit-ja.md
           if ! git diff --cached --quiet; then
             git commit -m 'Audit two-day observed B consensus and same-card trifecta payoffs'
