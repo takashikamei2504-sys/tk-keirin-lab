@@ -4,6 +4,7 @@ on:
     branches: ['research/year-stage-validation-20261116']
     paths:
       - reports/year-race-type/crossyear-stage-sample.json
+      - .github/workflows/year-stage-crossyear-title-validate.yml
   workflow_dispatch:
 permissions:
   contents: write
