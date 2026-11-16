@@ -137,7 +137,7 @@ for r in selected:
  try:
   b=get(url);groups=parse_groups(b.decode("utf-8",errors="replace"))
   expected=r["baseline"]
-  valid=(len([x for group in groups for x in group])==len(expected) and
+  valid=(len([x for group in groups for x in group])==sum(map(len,expected)) and
          len(set(x for g in groups for x in g))==sum(map(len,expected)) and
          set(x for g in groups for x in g)==set(x for g in expected for x in g))
   if not valid:row.update({"status":"invalid_reconstructed_cars","source_line_count":len(groups)})
