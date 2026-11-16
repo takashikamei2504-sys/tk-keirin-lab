@@ -1,0 +1,73 @@
+name: Exploratory race-stage replay where full public cards exist
+on:
+  push:
+    branches: ['research/year-race-type-audit-20261116']
+    paths:
+      - 'scripts/year-race-type-replay.cjs'
+      - 'scripts/year-race-type-aggregate.cjs'
+      - '.github/workflows/year-race-type-replay.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: year-race-type-exploratory-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  replay:
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify replay and evaluation script syntax
+        run: |
+          node --check scripts/year-race-type-replay.cjs
+          node --check scripts/year-race-type-aggregate.cjs
+      - name: Run 8 unchanged engines on outcome-blind race-type sample
+        run: |
+          FINAL_OFFSET=$((200 * ${{ matrix.shard }})) FINAL_MAX=200 FINAL_STAGE_CAP=75 FINAL_REPORT_NAME=part-${{ matrix.shard }}.json node scripts/year-race-type-replay.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: year-types-part-${{ matrix.shard }}
+          path: reports/year-race-type/part-${{ matrix.shard }}.json
+          if-no-files-found: error
+          retention-days: 60
+  aggregate:
+    needs: replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: year-types-part-*
+          merge-multiple: true
+          path: reports/year-race-type/shards
+      - name: Verify all shards, compare class by race stage and trim jackpots
+        run: node scripts/year-race-type-aggregate.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: year-race-type-exploratory-results
+          path: reports/year-race-type/replay-available-quarter-summary.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Preserve research result only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/replay-available-quarter-summary.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record complete-shard race-stage exploratory replay'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
