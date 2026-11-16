@@ -1,0 +1,27 @@
+name: Pilot historical WINTICKET program/lineup availability
+on:
+  push:
+    branches: ['research/year-race-type-audit-20261116']
+    paths:
+      - 'scripts/winticket-archive-probe.py'
+      - '.github/workflows/winticket-archive-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Probe three archival cards with robots checked
+        run: python scripts/winticket-archive-probe.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: winticket-historical-archive-pilot
+          path: reports/year-race-type/winticket-archive-probe.json
+          if-no-files-found: error
+          retention-days: 30
