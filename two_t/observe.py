@@ -9,6 +9,7 @@ import re
 from time import monotonic
 from urllib.error import HTTPError
 
+from . import kdreams_results
 from .ledger import ledger_path, store_once
 from .public_feed import day_feed, feed_url, links
 from .source import BASE, JST, UTC, encode, get_page, payload, result_data, stamp, state
@@ -86,9 +87,10 @@ def audited_card(record):
     return card
 
 
-def reconcile(ledger, day, clock, overrides, report, failures, budget_seconds):
+def reconcile(ledger, day, clock, overrides, report, failures, budget_seconds, review_results):
     deadline = None if budget_seconds is None else monotonic() + budget_seconds
     urls = None
+    date_links = {}
     for path in sorted((ledger / "cards").glob("*.json")):
         settled = ledger / "results" / path.name
         if settled.exists():
@@ -108,6 +110,22 @@ def reconcile(ledger, day, clock, overrides, report, failures, budget_seconds):
             started = stamp(card["start"])
             if not url and clock() > started + RESULT_RETRY_WINDOW:
                 report["result_retries_expired"] += 1
+                continue
+            if review_results and not url:
+                if (ledger / "review-results" / path.name).exists() or clock() < started + LEAD:
+                    continue
+                raw = record["raw_card"]
+                date_key = card["date"]
+                if date_key not in date_links:
+                    date_links[date_key] = {}
+                    date_links[date_key] = kdreams_results.links_for(date_key)
+                url = date_links[date_key].get(str(raw.get("race_id")))
+                if not url:
+                    raise ValueError("Kdreams result URL unavailable")
+                result = kdreams_results.parse_result(kdreams_results.read_page(url), url, card, raw)
+                store_once(ledger / "review-results", key, {
+                    **result, "observed_at": clock().isoformat(), "feature_sha256": record["feature_sha256"]})
+                report["review_results_saved"] += 1
                 continue
             if not url and route.exists():
                 url = payload(route)["result_source"]
@@ -156,16 +174,16 @@ def reconcile(ledger, day, clock, overrides, report, failures, budget_seconds):
                 failures[key] = str(error)
 
 
-def observe(ledger, overrides=None, clock=utc_now, budget_seconds=None):
+def observe(ledger, overrides=None, clock=utc_now, budget_seconds=None, review_results=False):
     day = clock().astimezone(JST).date().isoformat()
-    report = Counter(cards_saved=0, results_saved=0, complete_labels=0)
+    report = Counter(cards_saved=0, results_saved=0, complete_labels=0, review_results_saved=0)
     failures = {}
     try:
         feed = day_feed(day)
         capture(ledger, day, feed, clock(), clock, report, failures)
     except (OSError, KeyError, TypeError, ValueError) as error:
         failures["day_feed"] = str(error)
-    reconcile(ledger, day, clock, overrides or {}, report, failures, budget_seconds)
+    reconcile(ledger, day, clock, overrides or {}, report, failures, budget_seconds, review_results)
     return {"day": day, **report, "failures": failures}
 
 
@@ -174,6 +192,7 @@ if __name__ == "__main__":
     parser.add_argument("--ledger", type=Path, required=True)
     parser.add_argument("--result-urls", type=Path, help="optional JSON mapping of race ID to result URL")
     parser.add_argument("--reconcile-budget-seconds", type=int, help="stop between result checks after this duration")
+    parser.add_argument("--review-results", action="store_true", help="save Kdreams name matches for identity review")
     args = parser.parse_args()
     if args.reconcile_budget_seconds is not None and args.reconcile_budget_seconds <= 0:
         parser.error("--reconcile-budget-seconds must be positive")
@@ -181,4 +200,5 @@ if __name__ == "__main__":
     if not isinstance(urls, dict) or any(not isinstance(url, str) or not RESULT_URL.fullmatch(url)
                                         for url in urls.values()):
         parser.error("--result-urls must map race IDs to public WINTICKET racecard URLs")
-    print(json.dumps(observe(args.ledger, urls, budget_seconds=args.reconcile_budget_seconds), ensure_ascii=False))
+    print(json.dumps(observe(args.ledger, urls, budget_seconds=args.reconcile_budget_seconds,
+                             review_results=args.review_results), ensure_ascii=False))
