@@ -1,0 +1,41 @@
+name: Cross-verify missing year trifecta payouts against daily source
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-complement-payouts.py
+      - .github/workflows/year-complement-payouts.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reconcile all daily source payouts via car-specific same-rider identity
+        run: |
+          python -m py_compile scripts/year-complement-payouts.py
+          python scripts/year-complement-payouts.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: annual-2026-daily-trifecta-restoration
+          path: |
+            reports/year-race-type/annual-2026-90day-restored-trifecta.jsonl
+            reports/year-race-type/annual-90day-payout-restoration-summary.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Record verified restoration counts on separate research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/annual-90day-payout-restoration-summary.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record annual missing payout restoration and checksum'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
