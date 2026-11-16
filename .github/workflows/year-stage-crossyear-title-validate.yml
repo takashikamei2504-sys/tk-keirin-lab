@@ -5,6 +5,7 @@ on:
     paths:
       - reports/year-race-type/crossyear-stage-sample.json
       - .github/workflows/year-stage-crossyear-title-validate.yml
+      - scripts/year-stage-crossyear-title-validate.py
   workflow_dispatch:
 permissions:
   contents: write
