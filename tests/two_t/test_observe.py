@@ -119,3 +119,20 @@ class ObserveTests(unittest.TestCase):
         del raw["entries"][0]["line_position"]
         self.feed.return_value = {**FEED, "races": [raw]}
         self.assertIn("no documented line", self.run_cycle()["failures"][KEY])
+
+    def test_result_budget_leaves_existing_cards_available_for_retry(self):
+        self.run_cycle()
+        self.now = stamp(DAY + "T21:51:00+09:00")
+        with patch("two_t.observe.monotonic", side_effect=[100, 101]):
+            summary = observe(self.ledger, {KEY: URL}, clock=lambda: self.now, budget_seconds=1)
+        self.assertEqual(summary["reconcile_budget_exhausted"], 1)
+        self.page.assert_not_called()
+        self.assertEqual(self.run_cycle()["complete_labels"], 1)
+
+    def test_automatic_retry_expiry_still_allows_explicit_reconciliation(self):
+        self.run_cycle()
+        self.now = stamp("2026-09-05T22:00:00+09:00")
+        summary = self.run_cycle(use_override=False)
+        self.assertEqual(summary["result_retries_expired"], 1)
+        self.page.assert_not_called()
+        self.assertEqual(self.run_cycle()["complete_labels"], 1)
