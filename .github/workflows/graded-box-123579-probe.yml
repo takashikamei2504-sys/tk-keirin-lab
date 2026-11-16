@@ -1,0 +1,21 @@
+name: Grade one-year source probe
+on:
+  push:
+    branches: ['research/graded-box-123579-one-year-20261117']
+    paths:
+      - scripts/graded-box-123579-probe.py
+      - .github/workflows/graded-box-123579-probe.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bs4
+        run: pip install beautifulsoup4 -q
+      - name: Inspect KDreams monthly result and graded schedule source
+        run: python3 scripts/graded-box-123579-probe.py
