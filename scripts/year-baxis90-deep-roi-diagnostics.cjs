@@ -177,7 +177,7 @@ md.push('','## 5日単位の損益・再現性',
  '','後半60日の12ブロックのうち、AUTOが回収率100%以上だったのは**'+fiveDay.auto_positive_count+'ブロック**、B-AXIS上位3点では**'+fiveDay.baxis3_positive_count+'ブロック**。',
  '','## B-AXIS支持差の5階級（前30日分布だけで階級を決める）',
  '','| 支持差階級 | R | B3回収率 | B3高額5件除外 | AUTO回収率 | B候補先頭1着率 | 第2期B3 | 第3期B3 |',
- '|---|---:|---:|---:|---:|---:|---:|---:|'];
+ '|---|---:|---:|---:|---:|---:|---:|---:|');
 for(const [bin,v] of Object.entries(marginQuantiles)){
  md.push('| '+bin+' | '+v.n+' | '+fmt(v.b3.roi_pct)+' | '+fmt(v.b3.trim5_pct)+' | '+fmt(v.auto.roi_pct)+' | '+fmt(v.b_head_wins_pct)+' | '+fmt(v.each30day[2].b3)+' | '+fmt(v.each30day[3].b3)+' |');
 }
