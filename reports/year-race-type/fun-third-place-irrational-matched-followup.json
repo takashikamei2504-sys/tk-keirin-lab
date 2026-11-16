@@ -109,6 +109,41 @@
           "fraction_positive": 0.843
         }
       },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 510,
+          "points": 510,
+          "hits": 13,
+          "stake": 51000,
+          "paid": 140060,
+          "net": 89060,
+          "roi": 274.63,
+          "trim1": 161.83,
+          "trim5": 40.32,
+          "biggest": 57690
+        },
+        "second": {
+          "n": 510,
+          "points": 510,
+          "hits": 6,
+          "stake": 51000,
+          "paid": 19890,
+          "net": -31110,
+          "roi": 39.0,
+          "trim1": 18.9,
+          "trim5": 1.25,
+          "biggest": 10270
+        },
+        "paired_bootstrap": {
+          "n_blocks": 18,
+          "reps": 8000,
+          "diff_95": [
+            -19.6,
+            682.4
+          ],
+          "fraction_positive": 0.945
+        }
+      },
       "7_in_eligible": 3539,
       "6_in_eligible": 5126,
       "both_eligible": 3029
@@ -217,6 +252,41 @@
             41.2
           ],
           "fraction_positive": 0.447
+        }
+      },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 328,
+          "points": 328,
+          "hits": 11,
+          "stake": 32800,
+          "paid": 134690,
+          "net": 101890,
+          "roi": 410.64,
+          "trim1": 235.47,
+          "trim5": 46.41,
+          "biggest": 57690
+        },
+        "second": {
+          "n": 328,
+          "points": 328,
+          "hits": 3,
+          "stake": 32800,
+          "paid": 2310,
+          "net": -30490,
+          "roi": 7.04,
+          "trim1": 4.01,
+          "trim5": 0.0,
+          "biggest": 1000
+        },
+        "paired_bootstrap": {
+          "n_blocks": 12,
+          "reps": 8000,
+          "diff_95": [
+            42.5,
+            1057.6
+          ],
+          "fraction_positive": 0.999
         }
       },
       "7_in_eligible": 2325,
@@ -329,6 +399,41 @@
           "fraction_positive": 0.997
         }
       },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 182,
+          "points": 182,
+          "hits": 2,
+          "stake": 18200,
+          "paid": 5370,
+          "net": -12830,
+          "roi": 29.51,
+          "trim1": 7.57,
+          "trim5": 0.0,
+          "biggest": 4000
+        },
+        "second": {
+          "n": 182,
+          "points": 182,
+          "hits": 3,
+          "stake": 18200,
+          "paid": 17580,
+          "net": -620,
+          "roi": 96.59,
+          "trim1": 40.39,
+          "trim5": 0.0,
+          "biggest": 10270
+        },
+        "paired_bootstrap": {
+          "n_blocks": 6,
+          "reps": 8000,
+          "diff_95": [
+            -181.0,
+            45.5
+          ],
+          "fraction_positive": 0.138
+        }
+      },
       "7_in_eligible": 1214,
       "6_in_eligible": 1774,
       "both_eligible": 1032
@@ -437,6 +542,41 @@
             36.9
           ],
           "fraction_positive": 0.395
+        }
+      },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 162,
+          "points": 162,
+          "hits": 6,
+          "stake": 16200,
+          "paid": 112480,
+          "net": 96280,
+          "roi": 694.32,
+          "trim1": 340.31,
+          "trim5": 10.0,
+          "biggest": 57690
+        },
+        "second": {
+          "n": 162,
+          "points": 162,
+          "hits": 1,
+          "stake": 16200,
+          "paid": 630,
+          "net": -15570,
+          "roi": 3.89,
+          "trim1": 0.0,
+          "trim5": 0.0,
+          "biggest": 630
+        },
+        "paired_bootstrap": {
+          "n_blocks": 6,
+          "reps": 8000,
+          "diff_95": [
+            16.0,
+            2041.7
+          ],
+          "fraction_positive": 0.984
         }
       },
       "7_in_eligible": 1094,
@@ -549,6 +689,41 @@
           "fraction_positive": 0.486
         }
       },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 166,
+          "points": 166,
+          "hits": 5,
+          "stake": 16600,
+          "paid": 22210,
+          "net": 5610,
+          "roi": 133.8,
+          "trim1": 81.82,
+          "trim5": 0.0,
+          "biggest": 8710
+        },
+        "second": {
+          "n": 166,
+          "points": 166,
+          "hits": 2,
+          "stake": 16600,
+          "paid": 1680,
+          "net": -14920,
+          "roi": 10.12,
+          "trim1": 4.12,
+          "trim5": 0.0,
+          "biggest": 1000
+        },
+        "paired_bootstrap": {
+          "n_blocks": 6,
+          "reps": 8000,
+          "diff_95": [
+            0.0,
+            291.5
+          ],
+          "fraction_positive": 0.911
+        }
+      },
       "7_in_eligible": 1231,
       "6_in_eligible": 1747,
       "both_eligible": 1065
@@ -657,6 +832,41 @@
             59.8
           ],
           "fraction_positive": 0.926
+        }
+      },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 488,
+          "points": 488,
+          "hits": 12,
+          "stake": 48800,
+          "paid": 136270,
+          "net": 87470,
+          "roi": 279.24,
+          "trim1": 161.36,
+          "trim5": 34.31,
+          "biggest": 57690
+        },
+        "second": {
+          "n": 488,
+          "points": 488,
+          "hits": 6,
+          "stake": 48800,
+          "paid": 19890,
+          "net": -28910,
+          "roi": 40.76,
+          "trim1": 19.75,
+          "trim5": 1.3,
+          "biggest": 10270
+        },
+        "paired_bootstrap": {
+          "n_blocks": 18,
+          "reps": 8000,
+          "diff_95": [
+            -26.8,
+            709.5
+          ],
+          "fraction_positive": 0.927
         }
       },
       "7_in_eligible": 3221,
@@ -769,6 +979,41 @@
           "fraction_positive": 0.262
         }
       },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 22,
+          "points": 22,
+          "hits": 1,
+          "stake": 2200,
+          "paid": 3790,
+          "net": 1590,
+          "roi": 172.27,
+          "trim1": 0.0,
+          "trim5": 0.0,
+          "biggest": 3790
+        },
+        "second": {
+          "n": 22,
+          "points": 22,
+          "hits": 0,
+          "stake": 2200,
+          "paid": 0,
+          "net": -2200,
+          "roi": 0.0,
+          "trim1": 0.0,
+          "trim5": 0.0,
+          "biggest": 0
+        },
+        "paired_bootstrap": {
+          "n_blocks": 11,
+          "reps": 8000,
+          "diff_95": [
+            0.0,
+            392.1
+          ],
+          "fraction_positive": 0.655
+        }
+      },
       "7_in_eligible": 318,
       "6_in_eligible": 506,
       "both_eligible": 296
@@ -879,6 +1124,41 @@
           "fraction_positive": 0.859
         }
       },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 325,
+          "points": 325,
+          "hits": 7,
+          "stake": 32500,
+          "paid": 121290,
+          "net": 88790,
+          "roi": 373.2,
+          "trim1": 196.3,
+          "trim5": 9.19,
+          "biggest": 57690
+        },
+        "second": {
+          "n": 325,
+          "points": 325,
+          "hits": 3,
+          "stake": 32500,
+          "paid": 12640,
+          "net": -19860,
+          "roi": 38.89,
+          "trim1": 7.31,
+          "trim5": 0.0,
+          "biggest": 10270
+        },
+        "paired_bootstrap": {
+          "n_blocks": 18,
+          "reps": 8000,
+          "diff_95": [
+            -39.2,
+            1058.2
+          ],
+          "fraction_positive": 0.91
+        }
+      },
       "7_in_eligible": 1316,
       "6_in_eligible": 1705,
       "both_eligible": 991
@@ -987,6 +1267,41 @@
             113.9
           ],
           "fraction_positive": 0.303
+        }
+      },
+      "seven_when_six_unavailable": {
+        "first": {
+          "n": 91,
+          "points": 91,
+          "hits": 3,
+          "stake": 9100,
+          "paid": 46090,
+          "net": 36990,
+          "roi": 506.48,
+          "trim1": 59.56,
+          "trim5": 0.0,
+          "biggest": 40730
+        },
+        "second": {
+          "n": 91,
+          "points": 91,
+          "hits": 0,
+          "stake": 9100,
+          "paid": 0,
+          "net": -9100,
+          "roi": 0.0,
+          "trim1": 0.0,
+          "trim5": 0.0,
+          "biggest": 0
+        },
+        "paired_bootstrap": {
+          "n_blocks": 18,
+          "reps": 8000,
+          "diff_95": [
+            0.0,
+            1431.6
+          ],
+          "fraction_positive": 0.964
         }
       },
       "7_in_eligible": 488,
