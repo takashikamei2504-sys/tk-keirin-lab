@@ -1,6 +1,6 @@
 {
   "schema": "tk-keirin-90day-finalday-projected-b-line-audit/v1",
-  "created_at": "2026-11-16T10:26:24.413940+00:00",
+  "created_at": "2026-11-16T10:30:37.799294+00:00",
   "source": {
     "provider": "kurinaka12-afk/keirin-app-data",
     "sha": "4588ec938a2fec9e81216d3fd3423329805aa3d5",
@@ -6317,7 +6317,10 @@
     "B_inside_projected_line_pct": 57.69,
     "B_inside_strength_favorite_line_pct": 50.0,
     "B_line_head_any_pct": 96.15,
-    "warning": "Single selected 2026-11-06 set, not a representative accuracy estimate."
+    "warning": "Single selected 2026-11-06 set, not a representative accuracy estimate.",
+    "existing_axis_v03_nov6_correct_pct": 69.2,
+    "existing_axis_v03_nov6_correct_races": 18,
+    "existing_axis_v03_nov6_source": "research/b-axis/replay_2026_11_06_v02_v03.json; retrospective"
   },
   "limits": [
     "Projected-B is an explicit score-and-head-style heuristic; not observed last-back rider or true B probability.",
@@ -6330,6 +6333,46 @@
     "Earlier selected 661R is from a different coverage mechanism and is NOT combined.",
     "No production or Railway updates."
   ],
+  "observed_b_pilot_nov7": {
+    "origin": "research/b-axis/nov7_replay_v02_v05.json; retrospective Chariloto B marks",
+    "source_cases": 58,
+    "matched": 58,
+    "excluded": [],
+    "all": {
+      "n": 58,
+      "our_head_matches": 35,
+      "our_head_match_pct": 60.3,
+      "our_line_contains_actual_B_pct": 60.3,
+      "existing_axis_correct": 34,
+      "existing_axis_correct_pct": 58.6,
+      "favorite_line_has_actual_B_pct": 41.4,
+      "nonfavorite_projection_count": 21
+    },
+    "by_car_count": {
+      "7": {
+        "n": 47,
+        "our_head_matches": 30,
+        "our_head_match_pct": 63.8,
+        "our_line_contains_actual_B_pct": 63.8,
+        "existing_axis_correct": 30,
+        "existing_axis_correct_pct": 63.8,
+        "favorite_line_has_actual_B_pct": 42.6,
+        "nonfavorite_projection_count": 16
+      },
+      "9": {
+        "n": 11,
+        "our_head_matches": 5,
+        "our_head_match_pct": 45.5,
+        "our_line_contains_actual_B_pct": 45.5,
+        "existing_axis_correct": 4,
+        "existing_axis_correct_pct": 36.4,
+        "favorite_line_has_actual_B_pct": 36.4,
+        "nonfavorite_projection_count": 5
+      }
+    },
+    "method": "All pre-result model inputs come from SHA-pinned 90-day source; historical B only for validation",
+    "warning": "B-AXIS v0.5 and this proxy developed after race dates, not genuine historical forecasts"
+  },
   "heldout_baseline": {
     "n": 517,
     "winner_known": 517,
