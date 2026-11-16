@@ -1,0 +1,28 @@
+name: Pilot K-Dreams annual historical lineup source
+on:
+  push:
+    branches: ['research/annual-lineup-source-20261116']
+    paths:
+      - scripts/kdreams-lineup-source-probe.py
+      - .github/workflows/kdreams-lineup-source-probe.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check page access and extract tiny HTML lineup structure samples
+        run: python scripts/kdreams-lineup-source-probe.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: historical-kdreams-lineup-pilot
+          path: reports/year-race-type/kdreams-lineup-source-pilot.json
+          if-no-files-found: error
+          retention-days: 30
