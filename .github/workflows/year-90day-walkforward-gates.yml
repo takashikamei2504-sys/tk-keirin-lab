@@ -1,0 +1,48 @@
+name: Walk-forward 90-day abstention gate audit (research)
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-90day-walkforward-gates.py
+      - .github/workflows/year-90day-walkforward-gates.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: tk-walkforward-gates-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - name: Run retrospective walk-forward comparison and block bootstrap
+        run: |
+          python3 -m py_compile scripts/year-90day-walkforward-gates.py
+          python3 scripts/year-90day-walkforward-gates.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: 90day-walkforward-gate-independent-audit
+          path: |
+            reports/year-race-type/90day-walkforward-abstention-20261116.json
+            reports/year-race-type/90day-walkforward-abstention-20261116-ja.md
+          if-no-files-found: error
+          retention-days: 90
+      - name: Commit audit to isolated research branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/90day-walkforward-abstention-20261116.json reports/year-race-type/90day-walkforward-abstention-20261116-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Verify out-of-time 30-day rotating no-bet gate vs AUTO'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
