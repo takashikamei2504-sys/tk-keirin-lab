@@ -1,0 +1,70 @@
+name: Replay eight engines on verified 2025 historical cards
+on:
+  push:
+    branches: ['research/annual-lineup-source-20261116']
+    paths:
+      - reports/year-race-type/annual-60-card-input-audit.json
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: year-archive-8engine-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  replay:
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        part: [0,1,2]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate input and run same eight engines with saved source cards
+        run: |
+          node --check scripts/year-lineup-eight-engine-replay.cjs
+          YEAR_PART=${{ matrix.part }} YEAR_OFFSET=$((20*${{ matrix.part }})) YEAR_LIMIT=20 node scripts/year-lineup-eight-engine-replay.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: historical-eight-part-${{ matrix.part }}
+          path: reports/year-race-type/archive-replay-part-${{ matrix.part }}.json
+          if-no-files-found: error
+          retention-days: 90
+  aggregate:
+    needs: replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: historical-eight-part-*
+          merge-multiple: true
+          path: reports/year-race-type/shards
+      - name: Common-case audit and grade/race-type stratified trifecta ROI
+        run: |
+          node --check scripts/year-lineup-eight-engine-aggregate.cjs
+          node scripts/year-lineup-eight-engine-aggregate.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: historical-60-eight-engine-results
+          path: reports/year-race-type/historical-60-eight-engine-summary.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Preserve results on research branch without changing production
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/historical-60-eight-engine-summary.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record 2025-26 verified historical source eight-engine replay feasibility'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
