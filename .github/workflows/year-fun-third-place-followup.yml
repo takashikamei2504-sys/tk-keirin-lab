@@ -1,0 +1,46 @@
+name: Independent exposure control for posthoc third-place seven
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-fun-third-place-followup.py
+      - .github/workflows/year-fun-third-place-followup.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  match:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: fun-lite-third-part-*
+          run-id: 43889631472
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          merge-multiple: true
+          path: reports/year-race-type/fun-lite-shards
+      - name: Compare same-race stake-matched number 7 versus random and 6
+        run: |
+          python3 -m py_compile scripts/year-fun-third-place-followup.py
+          python3 scripts/year-fun-third-place-followup.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: matched-thirdplace-seven-control
+          path: |
+            reports/year-race-type/fun-third-place-irrational-matched-followup.json
+            reports/year-race-type/fun-third-place-irrational-matched-followup-ja.md
+          if-no-files-found: error
+          retention-days: 90
+      - name: Commit only research follow-up
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/fun-third-place-irrational-matched-followup.json reports/year-race-type/fun-third-place-irrational-matched-followup-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Audit number seven on same 100-yen exposure as random and six'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
