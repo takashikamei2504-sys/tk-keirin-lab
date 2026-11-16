@@ -1,0 +1,208 @@
+{
+  "schema": "tk-keirin-cross-source-published-line-validation/v1",
+  "source_1": "K-Dreams historical webpage, robots checked, 16 requests max",
+  "source_2": "immutable public daily lineup JSON",
+  "selection": "4 random-hash candidates by class, no payout/finish criteria",
+  "source_commits": {
+    "daily": "4588ec938a2fec9e81216d3fd3423329805aa3d5",
+    "csv": "55c425947770080fe3f3629720cda0f4ede69b9e"
+  },
+  "requested": 16,
+  "selected": 16,
+  "checked": 16,
+  "valid_rows": 16,
+  "same_line_members_and_positions": 16,
+  "same_ordered_lines": 16,
+  "class_sample_counts": {
+    "A級_7": 4,
+    "S級_7": 4,
+    "S級_9": 4,
+    "チャレンジ_7": 4
+  },
+  "status_counts": {
+    "valid_reconstructed_cars": 16
+  },
+  "races": [
+    {
+      "race_id": "8120261105010006",
+      "date": "2026-11-05",
+      "category": "A級_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "4620260910010007",
+      "date": "2026-09-10",
+      "category": "A級_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "8520260818010005",
+      "date": "2026-08-18",
+      "category": "A級_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "4820260817020004",
+      "date": "2026-08-18",
+      "category": "A級_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "3120261109020012",
+      "date": "2026-11-10",
+      "category": "S級_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 4,
+      "lines_daily": 4
+    },
+    {
+      "race_id": "1220261103030006",
+      "date": "2026-11-05",
+      "category": "S級_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "4820260909020010",
+      "date": "2026-09-10",
+      "category": "S級_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "8420261109020006",
+      "date": "2026-11-10",
+      "category": "S級_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 4,
+      "lines_daily": 4
+    },
+    {
+      "race_id": "5320260910010005",
+      "date": "2026-09-10",
+      "category": "S級_9",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 9,
+      "lines_kdreams": 5,
+      "lines_daily": 5
+    },
+    {
+      "race_id": "2220260827030010",
+      "date": "2026-08-29",
+      "category": "S級_9",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 9,
+      "lines_kdreams": 5,
+      "lines_daily": 5
+    },
+    {
+      "race_id": "5320260910010009",
+      "date": "2026-09-10",
+      "category": "S級_9",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 9,
+      "lines_kdreams": 5,
+      "lines_daily": 5
+    },
+    {
+      "race_id": "4820261105010009",
+      "date": "2026-11-05",
+      "category": "S級_9",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 9,
+      "lines_kdreams": 4,
+      "lines_daily": 4
+    },
+    {
+      "race_id": "2420261108030003",
+      "date": "2026-11-10",
+      "category": "チャレンジ_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "8420260909020007",
+      "date": "2026-09-10",
+      "category": "チャレンジ_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "2520261110010005",
+      "date": "2026-11-10",
+      "category": "チャレンジ_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    },
+    {
+      "race_id": "2520261110010004",
+      "date": "2026-11-10",
+      "category": "チャレンジ_7",
+      "status": "valid_reconstructed_cars",
+      "same_ordered_lines": true,
+      "same_line_members_and_positions": true,
+      "cars": 7,
+      "lines_kdreams": 3,
+      "lines_daily": 3
+    }
+  ],
+  "limits": [
+    "Only 8 published archive days and <=16 historical K-Dreams pages, not representative of year",
+    "Team predictions from each vendor can legitimately differ; mismatched lines aren't necessarily parser defects",
+    "Provider terms must permit any future bulk extraction; this script alone does not authorize it"
+  ]
+}
