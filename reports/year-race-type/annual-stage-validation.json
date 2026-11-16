@@ -10,18 +10,18 @@
   "meaning": "High-precision proxy PROGRAM CLASSIFICATION ONLY; it is not 8-engine annual backtest.",
   "source_hashes": {
     "2025_11": "1c03b19d388252419dd888aa8e3d77e0d2b6a5f38f241d1f74e0709c1a07cdfe",
+    "2026_04": "de3ef84a741f22fc5ec7dd1faccd166a8b6c34dbbc6ae8031066f02ed4e3b4a9",
     "2025_12": "d744fed3522ccce1a53b4c6feff1f84ca77ff981777e73458e4b87ced5391447",
     "2026_03": "4acc5f657da969a97551150b9fda76ae434e05f5f220c13dfbf4795b74747b7d",
-    "2026_04": "de3ef84a741f22fc5ec7dd1faccd166a8b6c34dbbc6ae8031066f02ed4e3b4a9",
     "2026_01": "770c4774275dc0747dcd3f4fd2031b5cffc3d3e180843c1663871c28b0b166da",
     "2026_02": "7eec1db554762b6621e33cf0f060ac720f4074b745b4b24ab0bee27119c82a04",
-    "2026_06": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6",
-    "2026_09": "ac5659e62a585374f2c71996b4589f6008a73c230614f973c2bf04d477cef9b2",
     "2026_07": "fe0b4c3afc7aedd955eb8930959f76c76fd69cf375cd349544b3efaa378ff059",
-    "2026_10": "19ded9f444df85aca2a2dc9dc22351428d76d531cf281d12bac8a7015a4ac7a3",
-    "2026_05": "d684f2e436df8da3da29f7dd611bfe9274adba6579494eb6999d26cdc8799f36",
     "2026_08": "c1e34e19315398b24610013d0e4ab8e90591db22780c48650725a0d73133d0eb",
-    "2026_11": "fe8564014bf19e896aeded1c5778177db1dac00d7107efda9a6c7b5be038daf0"
+    "2026_09": "ac5659e62a585374f2c71996b4589f6008a73c230614f973c2bf04d477cef9b2",
+    "2026_06": "294f01fb05bc09d6d8223b4166aeabb0cf8150b9ce0e17ac78fc3ae3b4801dd6",
+    "2026_11": "fe8564014bf19e896aeded1c5778177db1dac00d7107efda9a6c7b5be038daf0",
+    "2026_10": "19ded9f444df85aca2a2dc9dc22351428d76d531cf281d12bac8a7015a4ac7a3",
+    "2026_05": "d684f2e436df8da3da29f7dd611bfe9274adba6579494eb6999d26cdc8799f36"
   },
   "counts": {
     "annual_male_7_9": 21695,
@@ -40,21 +40,24 @@
   },
   "true_stage_distribution": {
     "勝ち上がり戦": 1544,
-    "敗者戦": 1724,
+    "敗者戦": 1513,
     "決勝": 1133,
+    "初日特選": 211,
     "特選等": 588
   },
   "train_stage_distribution": {
     "勝ち上がり戦": 1064,
-    "敗者戦": 1209,
+    "敗者戦": 1061,
     "決勝": 797,
+    "初日特選": 148,
     "特選等": 408
   },
   "holdout_stage_distribution": {
-    "敗者戦": 515,
+    "敗者戦": 452,
     "決勝": 336,
     "特選等": 180,
-    "勝ち上がり戦": 480
+    "勝ち上がり戦": 480,
+    "初日特選": 63
   },
   "classifier": {
     "method": "Hierarchical program-stage majority for graded meeting day index + race number; 90% Wilson lower bound >= .83; >=95% training purity. No winner/payout features.",
@@ -84,16 +87,16 @@
           "recall": 0.8958
         },
         "敗者戦": {
-          "predicted": 435,
-          "correct": 435,
+          "predicted": 376,
+          "correct": 376,
           "precision": 1.0,
-          "recall": 0.8447
+          "recall": 0.8319
         },
         "初日特選": {
-          "predicted": 0,
-          "correct": 0,
-          "precision": null,
-          "recall": null
+          "predicted": 59,
+          "correct": 59,
+          "precision": 1.0,
+          "recall": 0.9365
         },
         "特選等": {
           "predicted": 102,
@@ -135,6 +138,7 @@
       "勝ち上がり戦",
       "決勝",
       "敗者戦",
+      "初日特選",
       "特選等"
     ]
   },
@@ -294,6 +298,15 @@
     }
   },
   "estimated_annual_by_stage": {
+    "A級_7|初日特選": {
+      "n": 494,
+      "n_with_payout": 386,
+      "median_payout_yen": 6530,
+      "average_payout_yen": 12395,
+      "payout_50to100x": 81,
+      "payout_100x_plus": 145,
+      "payout_100x_share": 0.3756
+    },
     "A級_7|勝ち上がり戦": {
       "n": 2244,
       "n_with_payout": 1808,
@@ -304,13 +317,13 @@
       "payout_100x_share": 0.2063
     },
     "A級_7|敗者戦": {
-      "n": 2602,
-      "n_with_payout": 2100,
-      "median_payout_yen": 5045,
-      "average_payout_yen": 12627,
-      "payout_50to100x": 377,
-      "payout_100x_plus": 681,
-      "payout_100x_share": 0.3243
+      "n": 2108,
+      "n_with_payout": 1714,
+      "median_payout_yen": 4625,
+      "average_payout_yen": 12679,
+      "payout_50to100x": 296,
+      "payout_100x_plus": 536,
+      "payout_100x_share": 0.3127
     },
     "A級_7|決勝": {
       "n": 1984,
@@ -330,6 +343,15 @@
       "payout_100x_plus": 152,
       "payout_100x_share": 0.2975
     },
+    "S級_7|初日特選": {
+      "n": 189,
+      "n_with_payout": 152,
+      "median_payout_yen": 8120,
+      "average_payout_yen": 17756,
+      "payout_50to100x": 35,
+      "payout_100x_plus": 60,
+      "payout_100x_share": 0.3947
+    },
     "S級_7|勝ち上がり戦": {
       "n": 985,
       "n_with_payout": 790,
@@ -340,13 +362,13 @@
       "payout_100x_share": 0.2582
     },
     "S級_7|敗者戦": {
-      "n": 1127,
-      "n_with_payout": 897,
-      "median_payout_yen": 5390,
-      "average_payout_yen": 13753,
-      "payout_50to100x": 167,
-      "payout_100x_plus": 304,
-      "payout_100x_share": 0.3389
+      "n": 938,
+      "n_with_payout": 745,
+      "median_payout_yen": 5060,
+      "average_payout_yen": 12937,
+      "payout_50to100x": 132,
+      "payout_100x_plus": 244,
+      "payout_100x_share": 0.3275
     },
     "S級_7|決勝": {
       "n": 786,
