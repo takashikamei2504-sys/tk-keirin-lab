@@ -80,7 +80,7 @@ def group_from_position(entries):
 dates={};csvs={};errs={}
 tasks={}
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
- for d in FIXED_DAYS:tasks[pool.submit(get,JSON_BASE.format(d))]=("day",d)
+ for d in FIXED_DAYS:tasks[pool.submit(get,JSON_BASE.format(d),8000000)]=("day",d)
  for m in sorted({d[:7].replace("-","_") for d in FIXED_DAYS}):tasks[pool.submit(get,CSV_BASE.format(m),8000000)]=("csv",m)
  for t in concurrent.futures.as_completed(tasks):
   kind,key=tasks[t]
