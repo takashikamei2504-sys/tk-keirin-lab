@@ -57,6 +57,6 @@ python -m two_t.observe --ledger /path/to/persistent/2t-observations
 
 [2T lineup observations](https://github.com/takashikamei2504-sys/tk-keirin-lab/actions/workflows/two-t-observe.yml) の実行概要で、配信・出走表保存・照合件数とGitへの保存成否を確認できる。実行ログにレース別の除外理由を残す。台帳は [lab-2t-observations](https://github.com/takashikamei2504-sys/tk-keirin-lab/tree/lab-2t-observations) ブランチに追記し、次回も同じブランチから読み込む。
 
-WINTICKETの開催一覧と確定結果ページはGitHub標準ランナーから403が返ったため、Actionsは `--review-results` で楽天Kドリームスの公開結果を取り込む。開催日・会場・レース番号・発走予定時刻と全員の車番・氏名、着順と二車単払戻の整合性を確認する。選手IDを独立に確認できていないため、`review-results/` に記録する。教師データ・回収率集計に使用する `results/` への書き込みは、従来の選手ID照合経路で行う。
+WINTICKETの開催一覧と確定結果ページはGitHub標準ランナーから403が返る。Actionsは `--verify-review-results` で、まず楽天Kドリームスから開催日・会場・レース番号・発走予定時刻と全員の車番・氏名を確認し、`review-results/` に保存する。次にnetkeirinの確定結果に掲載された車番・選手プロフィールIDを発走前の全選手と照合し、両サイトのB・1〜3着・二車単払戻が一致した場合に `results/` に追記する。出典URL、ページ内容のハッシュ、取得時刻を記録する。確定時刻と締切時刻は確認できる場合に限り記録する。着順異常、返還などで通常結果として確認できないものは対象外のままとする。`--review-results` を指定すると確認待ちだけを収集できる。保存した結果から固定済みV1の学習・最終評価データへの追加は行わない。
 
 PR段階でiPhoneから1回実行する場合は、[実行リクエスト](https://github.com/takashikamei2504-sys/tk-keirin-lab/edit/lab-2t-transformer-v1/two_t/observation-request.txt) をSafariで開き、時刻を書き換えて `lab-2t-transformer-v1` にコミットする。既定ブランチへの承認済み反映後は、Actionsの「Run workflow」とJSTの7:11〜23:41の30分間隔、および翌0:11のスケジュールを利用できる。通常の自動照合は発走から3日間まで再試行する。この間隔は出走表と結果の収集用で、締切前オッズのT−10取得窓には使用しない。公開リポジトリの標準ランナーを使う。
