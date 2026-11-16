@@ -1,0 +1,75 @@
+name: Exhaustive 90-day eight-engine full-race replay
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-complete90-replay.cjs
+      - scripts/year-complete90-aggregate.cjs
+      - .github/workflows/year-complete90-replay.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: tk-90day-full-20261116-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Replay every settled male 7 or 9 car race in exactly five dated source files
+        env:
+          YEAR_FULL_SHARD: ${{ matrix.shard }}
+        run: |
+          node --check scripts/year-complete90-replay.cjs
+          node scripts/year-complete90-replay.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: complete90-part-${{ matrix.shard }}
+          path: reports/year-race-type/complete90-shards/part-${{ matrix.shard }}.json
+          if-no-files-found: warn
+          retention-days: 60
+  aggregate:
+    needs: replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: complete90-part-*
+          merge-multiple: true
+          path: reports/year-race-type/complete90-shards
+      - name: Audit 90-day exact date and race completeness and 8 equal engine comparisons
+        run: node scripts/year-complete90-aggregate.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          path: |
+            reports/year-race-type/complete90-eight-engine-audit.json
+            reports/year-race-type/complete90-summary.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Save readable summary to isolated research branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/complete90-summary.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Audit all 90 available historical days and all eight current model replays'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
