@@ -1,0 +1,59 @@
+name: BAXIS deep ROI diagnostic study
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-baxis90-deep-roi-diagnostics.cjs
+      - .github/workflows/year-baxis90-deep-roi-diagnostics.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: tk-baxis90-deep-roi-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: complete90-eight-engine-all-race-results
+          run-id: 43796244008
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: baxis90-v06-part-*
+          run-id: 43854561054
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/year-race-type/baxis90-shards
+      - name: Verify source and run deep diagnosis
+        run: |
+          node --check scripts/year-baxis90-deep-roi-diagnostics.cjs
+          node scripts/year-baxis90-deep-roi-diagnostics.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: baxis90-deep-roi-diagnostic-report
+          path: |
+            reports/year-race-type/baxis90-deep-roi-diagnostics-20261116.json
+            reports/year-race-type/baxis90-deep-roi-diagnostics-20261116-ja.md
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Save audited summary in research branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/year-race-type/baxis90-deep-roi-diagnostics-20261116.json reports/year-race-type/baxis90-deep-roi-diagnostics-20261116-ja.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record BAXIS ROI tail risk and ranked-ticket diagnostics'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
