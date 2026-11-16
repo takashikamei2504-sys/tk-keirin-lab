@@ -1,0 +1,1390 @@
+{
+  "schema": "tk-keirin-B-consensus-finish-roi-84r-retro/v1",
+  "source": {
+    "B_observations": [
+      "research/b-axis/pilot_2026_11_06.json",
+      "research/b-axis/replay_2026_11_06_v02_v03.json",
+      "research/b-axis/nov7_replay_v02_v05.json"
+    ],
+    "same_pre_race_source": "90-day keirin-app-data pinned and SHA256 verified",
+    "model_and_settlement": "Nov6 B-AXIS v0.3 top5, Nov7 B-AXIS v0.5 top5, all 8-engine 2026-11-16 replay"
+  },
+  "n": 84,
+  "all": {
+    "races": 84,
+    "forecast_agree_count": 64,
+    "true_b_prediction_count": 50,
+    "true_b_proxy_pct": 59.5,
+    "true_b_axis_pct": 61.9,
+    "observed_B_line_win_pct": 58.3,
+    "finish_paths": {
+      "B通過選手が1着": 29,
+      "別ラインが1着": 35,
+      "Bライン別選手が1着": 20
+    },
+    "bets": {
+      "b_axis_top3": {
+        "races": 84,
+        "wins": 15,
+        "stake": 25200,
+        "payout": 64650,
+        "net": 39450,
+        "roi_pct": 256.55,
+        "trim1_roi_pct": 141.24,
+        "trim5_roi_pct": 33.92,
+        "max_one_payout": 29480,
+        "largest_payout_share_pct": 45.6
+      },
+      "b_axis_top5": {
+        "races": 84,
+        "wins": 22,
+        "stake": 42000,
+        "payout": 70170,
+        "net": 28170,
+        "roi_pct": 167.07,
+        "trim1_roi_pct": 98.05,
+        "trim5_roi_pct": 34.33,
+        "max_one_payout": 29480,
+        "largest_payout_share_pct": 42.0
+      },
+      "auto": {
+        "races": 84,
+        "wins": 19,
+        "stake": 67200,
+        "payout": 36740,
+        "net": -30460,
+        "roi_pct": 54.67,
+        "trim1_roi_pct": 42.47,
+        "trim5_roi_pct": 15.9,
+        "max_one_payout": 8540,
+        "largest_payout_share_pct": 23.2
+      },
+      "lab_line": {
+        "races": 84,
+        "wins": 19,
+        "stake": 65400,
+        "payout": 55220,
+        "net": -10180,
+        "roi_pct": 84.43,
+        "trim1_roi_pct": 65.15,
+        "trim5_roi_pct": 24.38,
+        "max_one_payout": 13130,
+        "largest_payout_share_pct": 23.8
+      },
+      "b_upset_ad": {
+        "races": 84,
+        "wins": 15,
+        "stake": 76500,
+        "payout": 96260,
+        "net": 19760,
+        "roi_pct": 125.83,
+        "trim1_roi_pct": 88.45,
+        "trim5_roi_pct": 36.47,
+        "max_one_payout": 29480,
+        "largest_payout_share_pct": 30.6
+      }
+    }
+  },
+  "by_forecast_agreement": {
+    "False": {
+      "races": 20,
+      "forecast_agree_count": 0,
+      "true_b_prediction_count": 6,
+      "true_b_proxy_pct": 30.0,
+      "true_b_axis_pct": 40.0,
+      "observed_B_line_win_pct": 40.0,
+      "finish_paths": {
+        "B通過選手が1着": 6,
+        "別ラインが1着": 12,
+        "Bライン別選手が1着": 2
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 20,
+          "wins": 1,
+          "stake": 6000,
+          "payout": 29480,
+          "net": 23480,
+          "roi_pct": 491.33,
+          "trim1_roi_pct": 0.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 100.0
+        },
+        "b_axis_top5": {
+          "races": 20,
+          "wins": 1,
+          "stake": 10000,
+          "payout": 29480,
+          "net": 19480,
+          "roi_pct": 294.8,
+          "trim1_roi_pct": 0.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 100.0
+        },
+        "auto": {
+          "races": 20,
+          "wins": 6,
+          "stake": 16000,
+          "payout": 21020,
+          "net": 5020,
+          "roi_pct": 131.38,
+          "trim1_roi_pct": 82.11,
+          "trim5_roi_pct": 5.92,
+          "max_one_payout": 8540,
+          "largest_payout_share_pct": 40.6
+        },
+        "lab_line": {
+          "races": 20,
+          "wins": 0,
+          "stake": 15700,
+          "payout": 0,
+          "net": -15700,
+          "roi_pct": 0.0,
+          "trim1_roi_pct": 0.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 0,
+          "largest_payout_share_pct": null
+        },
+        "b_upset_ad": {
+          "races": 20,
+          "wins": 2,
+          "stake": 18600,
+          "payout": 31530,
+          "net": 12930,
+          "roi_pct": 169.52,
+          "trim1_roi_pct": 11.65,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 93.5
+        }
+      }
+    },
+    "True": {
+      "races": 64,
+      "forecast_agree_count": 64,
+      "true_b_prediction_count": 44,
+      "true_b_proxy_pct": 68.8,
+      "true_b_axis_pct": 68.8,
+      "observed_B_line_win_pct": 64.1,
+      "finish_paths": {
+        "B通過選手が1着": 23,
+        "別ラインが1着": 23,
+        "Bライン別選手が1着": 18
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 64,
+          "wins": 14,
+          "stake": 19200,
+          "payout": 35170,
+          "net": 15970,
+          "roi_pct": 183.18,
+          "trim1_roi_pct": 139.21,
+          "trim5_roi_pct": 34.12,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 25.2
+        },
+        "b_axis_top5": {
+          "races": 64,
+          "wins": 21,
+          "stake": 32000,
+          "payout": 40690,
+          "net": 8690,
+          "roi_pct": 127.16,
+          "trim1_roi_pct": 101.05,
+          "trim5_roi_pct": 39.19,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 21.8
+        },
+        "auto": {
+          "races": 64,
+          "wins": 13,
+          "stake": 51200,
+          "payout": 15720,
+          "net": -35480,
+          "roi_pct": 30.7,
+          "trim1_roi_pct": 18.53,
+          "trim5_roi_pct": 7.67,
+          "max_one_payout": 6380,
+          "largest_payout_share_pct": 40.6
+        },
+        "lab_line": {
+          "races": 64,
+          "wins": 19,
+          "stake": 49700,
+          "payout": 55220,
+          "net": 5520,
+          "roi_pct": 111.11,
+          "trim1_roi_pct": 86.07,
+          "trim5_roi_pct": 32.76,
+          "max_one_payout": 13130,
+          "largest_payout_share_pct": 23.8
+        },
+        "b_upset_ad": {
+          "races": 64,
+          "wins": 13,
+          "stake": 57900,
+          "payout": 64730,
+          "net": 6830,
+          "roi_pct": 111.8,
+          "trim1_roi_pct": 85.82,
+          "trim5_roi_pct": 35.24,
+          "max_one_payout": 15900,
+          "largest_payout_share_pct": 24.6
+        }
+      }
+    }
+  },
+  "by_prediction_correct": {
+    "False": {
+      "races": 34,
+      "forecast_agree_count": 20,
+      "true_b_prediction_count": 0,
+      "true_b_proxy_pct": 0.0,
+      "true_b_axis_pct": 23.5,
+      "observed_B_line_win_pct": 32.4,
+      "finish_paths": {
+        "B通過選手が1着": 7,
+        "別ラインが1着": 23,
+        "Bライン別選手が1着": 4
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 34,
+          "wins": 4,
+          "stake": 10200,
+          "payout": 32900,
+          "net": 22700,
+          "roi_pct": 322.55,
+          "trim1_roi_pct": 34.55,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 89.6
+        },
+        "b_axis_top5": {
+          "races": 34,
+          "wins": 5,
+          "stake": 17000,
+          "payout": 33950,
+          "net": 16950,
+          "roi_pct": 199.71,
+          "trim1_roi_pct": 27.09,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 86.8
+        },
+        "auto": {
+          "races": 34,
+          "wins": 6,
+          "stake": 27200,
+          "payout": 11420,
+          "net": -15780,
+          "roi_pct": 41.99,
+          "trim1_roi_pct": 19.09,
+          "trim5_roi_pct": 1.42,
+          "max_one_payout": 6380,
+          "largest_payout_share_pct": 55.9
+        },
+        "lab_line": {
+          "races": 34,
+          "wins": 5,
+          "stake": 26500,
+          "payout": 13460,
+          "net": -13040,
+          "roi_pct": 50.79,
+          "trim1_roi_pct": 27.55,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 6380,
+          "largest_payout_share_pct": 47.4
+        },
+        "b_upset_ad": {
+          "races": 34,
+          "wins": 4,
+          "stake": 30900,
+          "payout": 34660,
+          "net": 3760,
+          "roi_pct": 112.17,
+          "trim1_roi_pct": 17.32,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 85.1
+        }
+      }
+    },
+    "True": {
+      "races": 50,
+      "forecast_agree_count": 44,
+      "true_b_prediction_count": 50,
+      "true_b_proxy_pct": 100.0,
+      "true_b_axis_pct": 88.0,
+      "observed_B_line_win_pct": 76.0,
+      "finish_paths": {
+        "B通過選手が1着": 22,
+        "別ラインが1着": 12,
+        "Bライン別選手が1着": 16
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 50,
+          "wins": 11,
+          "stake": 15000,
+          "payout": 31750,
+          "net": 16750,
+          "roi_pct": 211.67,
+          "trim1_roi_pct": 155.71,
+          "trim5_roi_pct": 24.67,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 27.9
+        },
+        "b_axis_top5": {
+          "races": 50,
+          "wins": 17,
+          "stake": 25000,
+          "payout": 36220,
+          "net": 11220,
+          "roi_pct": 144.88,
+          "trim1_roi_pct": 111.67,
+          "trim5_roi_pct": 32.4,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 24.5
+        },
+        "auto": {
+          "races": 50,
+          "wins": 13,
+          "stake": 40000,
+          "payout": 25320,
+          "net": -14680,
+          "roi_pct": 63.3,
+          "trim1_roi_pct": 42.81,
+          "trim5_roi_pct": 11.53,
+          "max_one_payout": 8540,
+          "largest_payout_share_pct": 33.7
+        },
+        "lab_line": {
+          "races": 50,
+          "wins": 14,
+          "stake": 38900,
+          "payout": 41760,
+          "net": 2860,
+          "roi_pct": 107.35,
+          "trim1_roi_pct": 75.14,
+          "trim5_roi_pct": 18.48,
+          "max_one_payout": 13130,
+          "largest_payout_share_pct": 31.4
+        },
+        "b_upset_ad": {
+          "races": 50,
+          "wins": 11,
+          "stake": 45600,
+          "payout": 61600,
+          "net": 16000,
+          "roi_pct": 135.09,
+          "trim1_roi_pct": 102.47,
+          "trim5_roi_pct": 38.19,
+          "max_one_payout": 15900,
+          "largest_payout_share_pct": 25.8
+        }
+      }
+    }
+  },
+  "by_day": {
+    "2026-11-06": {
+      "races": 26,
+      "forecast_agree_count": 20,
+      "true_b_prediction_count": 15,
+      "true_b_proxy_pct": 57.7,
+      "true_b_axis_pct": 69.2,
+      "observed_B_line_win_pct": 73.1,
+      "finish_paths": {
+        "B通過選手が1着": 13,
+        "別ラインが1着": 7,
+        "Bライン別選手が1着": 6
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 26,
+          "wins": 8,
+          "stake": 7800,
+          "payout": 42770,
+          "net": 34970,
+          "roi_pct": 548.33,
+          "trim1_roi_pct": 177.2,
+          "trim5_roi_pct": 22.86,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 68.9
+        },
+        "b_axis_top5": {
+          "races": 26,
+          "wins": 9,
+          "stake": 13000,
+          "payout": 43240,
+          "net": 30240,
+          "roi_pct": 332.62,
+          "trim1_roi_pct": 110.08,
+          "trim5_roi_pct": 18.19,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 68.2
+        },
+        "auto": {
+          "races": 26,
+          "wins": 8,
+          "stake": 20800,
+          "payout": 21350,
+          "net": 550,
+          "roi_pct": 102.64,
+          "trim1_roi_pct": 64.05,
+          "trim5_roi_pct": 8.57,
+          "max_one_payout": 8540,
+          "largest_payout_share_pct": 40.0
+        },
+        "lab_line": {
+          "races": 26,
+          "wins": 6,
+          "stake": 20400,
+          "payout": 17450,
+          "net": -2950,
+          "roi_pct": 85.54,
+          "trim1_roi_pct": 50.51,
+          "trim5_roi_pct": 3.17,
+          "max_one_payout": 7550,
+          "largest_payout_share_pct": 43.3
+        },
+        "b_upset_ad": {
+          "races": 26,
+          "wins": 5,
+          "stake": 23500,
+          "payout": 60320,
+          "net": 36820,
+          "roi_pct": 256.68,
+          "trim1_roi_pct": 137.07,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 48.9
+        }
+      }
+    },
+    "2026-11-07": {
+      "races": 58,
+      "forecast_agree_count": 44,
+      "true_b_prediction_count": 35,
+      "true_b_proxy_pct": 60.3,
+      "true_b_axis_pct": 58.6,
+      "observed_B_line_win_pct": 51.7,
+      "finish_paths": {
+        "B通過選手が1着": 16,
+        "別ラインが1着": 28,
+        "Bライン別選手が1着": 14
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 58,
+          "wins": 7,
+          "stake": 17400,
+          "payout": 21880,
+          "net": 4480,
+          "roi_pct": 125.75,
+          "trim1_roi_pct": 76.14,
+          "trim5_roi_pct": 4.34,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 40.5
+        },
+        "b_axis_top5": {
+          "races": 58,
+          "wins": 13,
+          "stake": 29000,
+          "payout": 26930,
+          "net": -2070,
+          "roi_pct": 92.86,
+          "trim1_roi_pct": 63.4,
+          "trim5_roi_pct": 16.83,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 32.9
+        },
+        "auto": {
+          "races": 58,
+          "wins": 11,
+          "stake": 46400,
+          "payout": 15390,
+          "net": -31010,
+          "roi_pct": 33.17,
+          "trim1_roi_pct": 16.29,
+          "trim5_roi_pct": 6.82,
+          "max_one_payout": 7960,
+          "largest_payout_share_pct": 51.7
+        },
+        "lab_line": {
+          "races": 58,
+          "wins": 13,
+          "stake": 45000,
+          "payout": 37770,
+          "net": -7230,
+          "roi_pct": 83.93,
+          "trim1_roi_pct": 55.75,
+          "trim5_roi_pct": 13.27,
+          "max_one_payout": 13130,
+          "largest_payout_share_pct": 34.8
+        },
+        "b_upset_ad": {
+          "races": 58,
+          "wins": 10,
+          "stake": 53000,
+          "payout": 35940,
+          "net": -17060,
+          "roi_pct": 67.81,
+          "trim1_roi_pct": 51.21,
+          "trim5_roi_pct": 10.79,
+          "max_one_payout": 9310,
+          "largest_payout_share_pct": 25.9
+        }
+      }
+    }
+  },
+  "by_field": {
+    "7": {
+      "races": 61,
+      "forecast_agree_count": 48,
+      "true_b_prediction_count": 38,
+      "true_b_proxy_pct": 62.3,
+      "true_b_axis_pct": 65.6,
+      "observed_B_line_win_pct": 59.0,
+      "finish_paths": {
+        "B通過選手が1着": 23,
+        "別ラインが1着": 25,
+        "Bライン別選手が1着": 13
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 61,
+          "wins": 11,
+          "stake": 18300,
+          "payout": 25520,
+          "net": 7220,
+          "roi_pct": 139.45,
+          "trim1_roi_pct": 92.56,
+          "trim5_roi_pct": 15.77,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 34.7
+        },
+        "b_axis_top5": {
+          "races": 61,
+          "wins": 17,
+          "stake": 30500,
+          "payout": 30570,
+          "net": 70,
+          "roi_pct": 100.23,
+          "trim1_roi_pct": 72.37,
+          "trim5_roi_pct": 25.68,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 29.0
+        },
+        "auto": {
+          "races": 61,
+          "wins": 16,
+          "stake": 48800,
+          "payout": 24540,
+          "net": -24260,
+          "roi_pct": 50.29,
+          "trim1_roi_pct": 34.54,
+          "trim5_roi_pct": 13.5,
+          "max_one_payout": 7960,
+          "largest_payout_share_pct": 32.4
+        },
+        "lab_line": {
+          "races": 61,
+          "wins": 15,
+          "stake": 47000,
+          "payout": 32440,
+          "net": -14560,
+          "roi_pct": 69.02,
+          "trim1_roi_pct": 53.18,
+          "trim5_roi_pct": 15.94,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 24.3
+        },
+        "b_upset_ad": {
+          "races": 61,
+          "wins": 12,
+          "stake": 55100,
+          "payout": 53840,
+          "net": -1260,
+          "roi_pct": 97.71,
+          "trim1_roi_pct": 70.13,
+          "trim5_roi_pct": 22.15,
+          "max_one_payout": 15900,
+          "largest_payout_share_pct": 29.5
+        }
+      }
+    },
+    "9": {
+      "races": 23,
+      "forecast_agree_count": 16,
+      "true_b_prediction_count": 12,
+      "true_b_proxy_pct": 52.2,
+      "true_b_axis_pct": 52.2,
+      "observed_B_line_win_pct": 56.5,
+      "finish_paths": {
+        "別ラインが1着": 10,
+        "Bライン別選手が1着": 7,
+        "B通過選手が1着": 6
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 23,
+          "wins": 4,
+          "stake": 6900,
+          "payout": 39130,
+          "net": 32230,
+          "roi_pct": 567.1,
+          "trim1_roi_pct": 146.21,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 75.3
+        },
+        "b_axis_top5": {
+          "races": 23,
+          "wins": 5,
+          "stake": 11500,
+          "payout": 39600,
+          "net": 28100,
+          "roi_pct": 344.35,
+          "trim1_roi_pct": 92.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 74.4
+        },
+        "auto": {
+          "races": 23,
+          "wins": 3,
+          "stake": 18400,
+          "payout": 12200,
+          "net": -6200,
+          "roi_pct": 66.3,
+          "trim1_roi_pct": 20.8,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 8540,
+          "largest_payout_share_pct": 70.0
+        },
+        "lab_line": {
+          "races": 23,
+          "wins": 4,
+          "stake": 18400,
+          "payout": 22780,
+          "net": 4380,
+          "roi_pct": 123.8,
+          "trim1_roi_pct": 54.83,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 13130,
+          "largest_payout_share_pct": 57.6
+        },
+        "b_upset_ad": {
+          "races": 23,
+          "wins": 3,
+          "stake": 21400,
+          "payout": 42420,
+          "net": 21020,
+          "roi_pct": 198.22,
+          "trim1_roi_pct": 63.43,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 69.5
+        }
+      }
+    }
+  },
+  "by_meeting_day": {
+    "三日目": {
+      "races": 11,
+      "forecast_agree_count": 8,
+      "true_b_prediction_count": 5,
+      "true_b_proxy_pct": 45.5,
+      "true_b_axis_pct": 36.4,
+      "observed_B_line_win_pct": 45.5,
+      "finish_paths": {
+        "別ラインが1着": 6,
+        "Bライン別選手が1着": 2,
+        "B通過選手が1着": 3
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 11,
+          "wins": 1,
+          "stake": 3300,
+          "payout": 1090,
+          "net": -2210,
+          "roi_pct": 33.03,
+          "trim1_roi_pct": 0.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 1090,
+          "largest_payout_share_pct": 100.0
+        },
+        "b_axis_top5": {
+          "races": 11,
+          "wins": 1,
+          "stake": 5500,
+          "payout": 1090,
+          "net": -4410,
+          "roi_pct": 19.82,
+          "trim1_roi_pct": 0.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 1090,
+          "largest_payout_share_pct": 100.0
+        },
+        "auto": {
+          "races": 11,
+          "wins": 0,
+          "stake": 8800,
+          "payout": 0,
+          "net": -8800,
+          "roi_pct": 0.0,
+          "trim1_roi_pct": 0.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 0,
+          "largest_payout_share_pct": null
+        },
+        "lab_line": {
+          "races": 11,
+          "wins": 2,
+          "stake": 8800,
+          "payout": 14220,
+          "net": 5420,
+          "roi_pct": 161.59,
+          "trim1_roi_pct": 13.62,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 13130,
+          "largest_payout_share_pct": 92.3
+        },
+        "b_upset_ad": {
+          "races": 11,
+          "wins": 0,
+          "stake": 10100,
+          "payout": 0,
+          "net": -10100,
+          "roi_pct": 0.0,
+          "trim1_roi_pct": 0.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 0,
+          "largest_payout_share_pct": null
+        }
+      }
+    },
+    "二日目": {
+      "races": 23,
+      "forecast_agree_count": 15,
+      "true_b_prediction_count": 14,
+      "true_b_proxy_pct": 60.9,
+      "true_b_axis_pct": 60.9,
+      "observed_B_line_win_pct": 47.8,
+      "finish_paths": {
+        "別ラインが1着": 12,
+        "Bライン別選手が1着": 6,
+        "B通過選手が1着": 5
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 23,
+          "wins": 3,
+          "stake": 6900,
+          "payout": 38040,
+          "net": 31140,
+          "roi_pct": 551.3,
+          "trim1_roi_pct": 129.7,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 77.5
+        },
+        "b_axis_top5": {
+          "races": 23,
+          "wins": 5,
+          "stake": 11500,
+          "payout": 39060,
+          "net": 27560,
+          "roi_pct": 339.65,
+          "trim1_roi_pct": 87.09,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 75.5
+        },
+        "auto": {
+          "races": 23,
+          "wins": 5,
+          "stake": 18400,
+          "payout": 13610,
+          "net": -4790,
+          "roi_pct": 73.97,
+          "trim1_roi_pct": 28.81,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 8540,
+          "largest_payout_share_pct": 62.7
+        },
+        "lab_line": {
+          "races": 23,
+          "wins": 5,
+          "stake": 18400,
+          "payout": 15870,
+          "net": -2530,
+          "roi_pct": 86.25,
+          "trim1_roi_pct": 47.27,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 7550,
+          "largest_payout_share_pct": 47.6
+        },
+        "b_upset_ad": {
+          "races": 23,
+          "wins": 6,
+          "stake": 21800,
+          "payout": 53730,
+          "net": 31930,
+          "roi_pct": 246.47,
+          "trim1_roi_pct": 116.59,
+          "trim5_roi_pct": 12.2,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 54.9
+        }
+      }
+    },
+    "初日": {
+      "races": 26,
+      "forecast_agree_count": 24,
+      "true_b_prediction_count": 17,
+      "true_b_proxy_pct": 65.4,
+      "true_b_axis_pct": 69.2,
+      "observed_B_line_win_pct": 73.1,
+      "finish_paths": {
+        "別ラインが1着": 7,
+        "Bライン別選手が1着": 7,
+        "B通過選手が1着": 12
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 26,
+          "wins": 4,
+          "stake": 7800,
+          "payout": 11030,
+          "net": 3230,
+          "roi_pct": 141.41,
+          "trim1_roi_pct": 28.93,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 80.3
+        },
+        "b_axis_top5": {
+          "races": 26,
+          "wins": 8,
+          "stake": 13000,
+          "payout": 14480,
+          "net": 1480,
+          "roi_pct": 111.38,
+          "trim1_roi_pct": 44.96,
+          "trim5_roi_pct": 10.57,
+          "max_one_payout": 8860,
+          "largest_payout_share_pct": 61.2
+        },
+        "auto": {
+          "races": 26,
+          "wins": 7,
+          "stake": 20800,
+          "payout": 10830,
+          "net": -9970,
+          "roi_pct": 52.07,
+          "trim1_roi_pct": 22.25,
+          "trim5_roi_pct": 3.51,
+          "max_one_payout": 6380,
+          "largest_payout_share_pct": 58.9
+        },
+        "lab_line": {
+          "races": 26,
+          "wins": 6,
+          "stake": 20200,
+          "payout": 10390,
+          "net": -9810,
+          "roi_pct": 51.44,
+          "trim1_roi_pct": 20.67,
+          "trim5_roi_pct": 2.22,
+          "max_one_payout": 6380,
+          "largest_payout_share_pct": 61.4
+        },
+        "b_upset_ad": {
+          "races": 26,
+          "wins": 3,
+          "stake": 24500,
+          "payout": 11150,
+          "net": -13350,
+          "roi_pct": 45.51,
+          "trim1_roi_pct": 7.83,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 9310,
+          "largest_payout_share_pct": 83.5
+        }
+      }
+    },
+    "最終日": {
+      "races": 24,
+      "forecast_agree_count": 17,
+      "true_b_prediction_count": 14,
+      "true_b_proxy_pct": 58.3,
+      "true_b_axis_pct": 66.7,
+      "observed_B_line_win_pct": 58.3,
+      "finish_paths": {
+        "B通過選手が1着": 9,
+        "別ラインが1着": 10,
+        "Bライン別選手が1着": 5
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 24,
+          "wins": 7,
+          "stake": 7200,
+          "payout": 14490,
+          "net": 7290,
+          "roi_pct": 201.25,
+          "trim1_roi_pct": 95.94,
+          "trim5_roi_pct": 9.65,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 54.3
+        },
+        "b_axis_top5": {
+          "races": 24,
+          "wins": 8,
+          "stake": 12000,
+          "payout": 15540,
+          "net": 3540,
+          "roi_pct": 129.5,
+          "trim1_roi_pct": 66.7,
+          "trim5_roi_pct": 11.26,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 50.6
+        },
+        "auto": {
+          "races": 24,
+          "wins": 7,
+          "stake": 19200,
+          "payout": 12300,
+          "net": -6900,
+          "roi_pct": 64.06,
+          "trim1_roi_pct": 23.59,
+          "trim5_roi_pct": 3.62,
+          "max_one_payout": 7960,
+          "largest_payout_share_pct": 64.7
+        },
+        "lab_line": {
+          "races": 24,
+          "wins": 6,
+          "stake": 18000,
+          "payout": 14740,
+          "net": -3260,
+          "roi_pct": 81.89,
+          "trim1_roi_pct": 39.94,
+          "trim5_roi_pct": 2.28,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 53.4
+        },
+        "b_upset_ad": {
+          "races": 24,
+          "wins": 6,
+          "stake": 20100,
+          "payout": 31380,
+          "net": 11280,
+          "roi_pct": 156.12,
+          "trim1_roi_pct": 81.05,
+          "trim5_roi_pct": 3.33,
+          "max_one_payout": 15900,
+          "largest_payout_share_pct": 50.7
+        }
+      }
+    }
+  },
+  "by_finish_path": {
+    "Bライン別選手が1着": {
+      "races": 20,
+      "forecast_agree_count": 18,
+      "true_b_prediction_count": 16,
+      "true_b_proxy_pct": 80.0,
+      "true_b_axis_pct": 85.0,
+      "observed_B_line_win_pct": 100.0,
+      "finish_paths": {
+        "Bライン別選手が1着": 20
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 20,
+          "wins": 7,
+          "stake": 6000,
+          "payout": 58910,
+          "net": 52910,
+          "roi_pct": 981.83,
+          "trim1_roi_pct": 516.32,
+          "trim5_roi_pct": 51.11,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 50.0
+        },
+        "b_axis_top5": {
+          "races": 20,
+          "wins": 10,
+          "stake": 10000,
+          "payout": 61890,
+          "net": 51890,
+          "roi_pct": 618.9,
+          "trim1_roi_pct": 341.16,
+          "trim5_roi_pct": 70.4,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 47.6
+        },
+        "auto": {
+          "races": 20,
+          "wins": 0,
+          "stake": 16000,
+          "payout": 0,
+          "net": -16000,
+          "roi_pct": 0.0,
+          "trim1_roi_pct": 0.0,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 0,
+          "largest_payout_share_pct": null
+        },
+        "lab_line": {
+          "races": 20,
+          "wins": 8,
+          "stake": 15500,
+          "payout": 24880,
+          "net": 9380,
+          "roi_pct": 160.52,
+          "trim1_roi_pct": 115.71,
+          "trim5_roi_pct": 21.27,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 31.6
+        },
+        "b_upset_ad": {
+          "races": 20,
+          "wins": 8,
+          "stake": 17900,
+          "payout": 55770,
+          "net": 37870,
+          "roi_pct": 311.56,
+          "trim1_roi_pct": 155.56,
+          "trim5_roi_pct": 20.08,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 52.9
+        }
+      }
+    },
+    "B通過選手が1着": {
+      "races": 29,
+      "forecast_agree_count": 23,
+      "true_b_prediction_count": 22,
+      "true_b_proxy_pct": 75.9,
+      "true_b_axis_pct": 72.4,
+      "observed_B_line_win_pct": 100.0,
+      "finish_paths": {
+        "B通過選手が1着": 29
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 29,
+          "wins": 6,
+          "stake": 8700,
+          "payout": 4320,
+          "net": -4380,
+          "roi_pct": 49.66,
+          "trim1_roi_pct": 27.62,
+          "trim5_roi_pct": 3.06,
+          "max_one_payout": 2000,
+          "largest_payout_share_pct": 46.3
+        },
+        "b_axis_top5": {
+          "races": 29,
+          "wins": 9,
+          "stake": 14500,
+          "payout": 5810,
+          "net": -8690,
+          "roi_pct": 40.07,
+          "trim1_roi_pct": 27.21,
+          "trim5_roi_pct": 11.08,
+          "max_one_payout": 2000,
+          "largest_payout_share_pct": 34.4
+        },
+        "auto": {
+          "races": 29,
+          "wins": 13,
+          "stake": 23200,
+          "payout": 18870,
+          "net": -4330,
+          "roi_pct": 81.34,
+          "trim1_roi_pct": 48.71,
+          "trim5_roi_pct": 21.61,
+          "max_one_payout": 7960,
+          "largest_payout_share_pct": 42.2
+        },
+        "lab_line": {
+          "races": 29,
+          "wins": 5,
+          "stake": 22300,
+          "payout": 2650,
+          "net": -19650,
+          "roi_pct": 11.88,
+          "trim1_roi_pct": 9.07,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 700,
+          "largest_payout_share_pct": 26.4
+        },
+        "b_upset_ad": {
+          "races": 29,
+          "wins": 3,
+          "stake": 26100,
+          "payout": 11830,
+          "net": -14270,
+          "roi_pct": 45.33,
+          "trim1_roi_pct": 10.04,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 9310,
+          "largest_payout_share_pct": 78.7
+        }
+      }
+    },
+    "別ラインが1着": {
+      "races": 35,
+      "forecast_agree_count": 23,
+      "true_b_prediction_count": 12,
+      "true_b_proxy_pct": 34.3,
+      "true_b_axis_pct": 40.0,
+      "observed_B_line_win_pct": 0.0,
+      "finish_paths": {
+        "別ラインが1着": 35
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 35,
+          "wins": 2,
+          "stake": 10500,
+          "payout": 1420,
+          "net": -9080,
+          "roi_pct": 13.52,
+          "trim1_roi_pct": 3.24,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 1090,
+          "largest_payout_share_pct": 76.8
+        },
+        "b_axis_top5": {
+          "races": 35,
+          "wins": 3,
+          "stake": 17500,
+          "payout": 2470,
+          "net": -15030,
+          "roi_pct": 14.11,
+          "trim1_roi_pct": 8.12,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 1090,
+          "largest_payout_share_pct": 44.1
+        },
+        "auto": {
+          "races": 35,
+          "wins": 6,
+          "stake": 28000,
+          "payout": 17870,
+          "net": -10130,
+          "roi_pct": 63.82,
+          "trim1_roi_pct": 34.3,
+          "trim5_roi_pct": 1.38,
+          "max_one_payout": 8540,
+          "largest_payout_share_pct": 47.8
+        },
+        "lab_line": {
+          "races": 35,
+          "wins": 6,
+          "stake": 27600,
+          "payout": 27690,
+          "net": 90,
+          "roi_pct": 100.33,
+          "trim1_roi_pct": 54.33,
+          "trim5_roi_pct": 1.4,
+          "max_one_payout": 13130,
+          "largest_payout_share_pct": 47.4
+        },
+        "b_upset_ad": {
+          "races": 35,
+          "wins": 4,
+          "stake": 32500,
+          "payout": 28660,
+          "net": -3840,
+          "roi_pct": 88.18,
+          "trim1_roi_pct": 40.51,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 15900,
+          "largest_payout_share_pct": 55.5
+        }
+      }
+    }
+  },
+  "by_projected_nonfavorite": {
+    "False": {
+      "races": 54,
+      "forecast_agree_count": 42,
+      "true_b_prediction_count": 32,
+      "true_b_proxy_pct": 59.3,
+      "true_b_axis_pct": 66.7,
+      "observed_B_line_win_pct": 61.1,
+      "finish_paths": {
+        "B通過選手が1着": 20,
+        "別ラインが1着": 21,
+        "Bライン別選手が1着": 13
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 54,
+          "wins": 13,
+          "stake": 16200,
+          "payout": 49230,
+          "net": 33030,
+          "roi_pct": 303.89,
+          "trim1_roi_pct": 124.21,
+          "trim5_roi_pct": 32.31,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 59.9
+        },
+        "b_axis_top5": {
+          "races": 54,
+          "wins": 19,
+          "stake": 27000,
+          "payout": 54040,
+          "net": 27040,
+          "roi_pct": 200.15,
+          "trim1_roi_pct": 92.68,
+          "trim5_roi_pct": 36.94,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 54.6
+        },
+        "auto": {
+          "races": 54,
+          "wins": 13,
+          "stake": 43200,
+          "payout": 10050,
+          "net": -33150,
+          "roi_pct": 23.26,
+          "trim1_roi_pct": 18.89,
+          "trim5_roi_pct": 9.23,
+          "max_one_payout": 2040,
+          "largest_payout_share_pct": 20.3
+        },
+        "lab_line": {
+          "races": 54,
+          "wins": 12,
+          "stake": 41900,
+          "payout": 25950,
+          "net": -15950,
+          "roi_pct": 61.93,
+          "trim1_roi_pct": 31.19,
+          "trim5_roi_pct": 10.53,
+          "max_one_payout": 13130,
+          "largest_payout_share_pct": 50.6
+        },
+        "b_upset_ad": {
+          "races": 54,
+          "wins": 9,
+          "stake": 49600,
+          "payout": 70010,
+          "net": 20410,
+          "roi_pct": 141.15,
+          "trim1_roi_pct": 83.4,
+          "trim5_roi_pct": 12.78,
+          "max_one_payout": 29480,
+          "largest_payout_share_pct": 42.1
+        }
+      }
+    },
+    "True": {
+      "races": 30,
+      "forecast_agree_count": 22,
+      "true_b_prediction_count": 18,
+      "true_b_proxy_pct": 60.0,
+      "true_b_axis_pct": 53.3,
+      "observed_B_line_win_pct": 53.3,
+      "finish_paths": {
+        "B通過選手が1着": 9,
+        "別ラインが1着": 14,
+        "Bライン別選手が1着": 7
+      },
+      "bets": {
+        "b_axis_top3": {
+          "races": 30,
+          "wins": 2,
+          "stake": 9000,
+          "payout": 15420,
+          "net": 6420,
+          "roi_pct": 171.33,
+          "trim1_roi_pct": 86.78,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 51.0
+        },
+        "b_axis_top5": {
+          "races": 30,
+          "wins": 3,
+          "stake": 15000,
+          "payout": 16130,
+          "net": 1130,
+          "roi_pct": 107.53,
+          "trim1_roi_pct": 56.97,
+          "trim5_roi_pct": 0.0,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 48.8
+        },
+        "auto": {
+          "races": 30,
+          "wins": 6,
+          "stake": 24000,
+          "payout": 26690,
+          "net": 2690,
+          "roi_pct": 111.21,
+          "trim1_roi_pct": 78.23,
+          "trim5_roi_pct": 4.3,
+          "max_one_payout": 8540,
+          "largest_payout_share_pct": 32.0
+        },
+        "lab_line": {
+          "races": 30,
+          "wins": 7,
+          "stake": 23500,
+          "payout": 29270,
+          "net": 5770,
+          "roi_pct": 124.55,
+          "trim1_roi_pct": 94.27,
+          "trim5_roi_pct": 7.58,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 26.9
+        },
+        "b_upset_ad": {
+          "races": 30,
+          "wins": 6,
+          "stake": 26900,
+          "payout": 26250,
+          "net": -650,
+          "roi_pct": 97.58,
+          "trim1_roi_pct": 70.42,
+          "trim5_roi_pct": 3.21,
+          "max_one_payout": 7870,
+          "largest_payout_share_pct": 30.0
+        }
+      }
+    }
+  },
+  "source_checks": {
+    "distinct_race_ids": 84,
+    "third_ties_supported": true,
+    "lineup_conflicts": 0,
+    "payout_conflicts": 0,
+    "B_not_used_in_prediction": true,
+    "cash_stakes": 100
+  },
+  "limitations": [
+    "Selected only 84 retrospective actual B labels from two historical dates; not an exhaustive 90day or final-day cohort.",
+    "The B-AXIS v0.3/v0.5 was developed after target race; not truly frozen predictions.",
+    "Payouts are historical third-party records crosschecked against source, not original time-stamped odds.",
+    "Joint agreement might improve actual-B precision but cannot show wagering edge without independent future proof.",
+    "Ticket sets differ between engines. ROI is sum winnings / sum stakes for each selected subset, not per-race normalized.",
+    "Winner in actual B line uses the SOURCE PRE-RACE grouped line, not verified race formation or block outcomes.",
+    "No rates of successful blocking/line detachment can be inferred without observed event-level denominators.",
+    "Never pool the 661 comment-inferred pre-90 sample with 5745 source-complete 90-day records.",
+    "All thresholds and hypotheses explorative, not pre-registered prospective."
+  ]
+}
