@@ -73,7 +73,7 @@ def read_input(filename):
   if not 0<=r["d"]<90:raise RuntimeError("Out-of-range date")
   for engine in WAYS:
    p=r["predictions"][engine]
-   if p["stake"]!=100*p["points"] or p["stake"]<100:raise RuntimeError("Invalid investment")
+   if p["stake"]!=100*p["points"] or p["stake"]<0 or (engine=="auto" and p["stake"]<100):raise RuntimeError("Invalid investment")
    diff=CORRECTIONS.get((r["race_id"],engine),0)
    if diff:
     p["payout"]+=diff
