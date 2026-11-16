@@ -175,7 +175,7 @@ for p in pilot["races"]:
  if actual_line!=pilot_line:
   excluded.append({"id":p["race_id"],"reason":"published B-line disagrees with fixed source"})
   continue
- checks.append({"id":p["race_id"],"predicted_b_head_match":f["projected_b_head"]==number,
+ checks.append({"id":p["race_id"],"actual_b":number,"our_head_no":f["projected_b_head"],"predicted_b_head_match":f["projected_b_head"]==number,
   "actual_b_in_projected_line":number in orig,
   "actual_b_in_strength_favorite_line":number in f["favorite_members"],
   "actual_b_head_of_actual_line":number in [q["head"] for q in f["summary"]],
@@ -220,6 +220,7 @@ for p in nov7["examples"]:
   pilot2excluded.append({"id":rid,"reason":"full pre-race lineup differs"})
   continue
  pilot2.append({"id":rid,"field":int(p["field"]),"actualB":actual,
+  "our_head_no":f["projected_b_head"],"axis_head_no":int(p["modelB"]),
   "our_correct_B":f["projected_b_head"]==actual,
   "our_line_contains_B":actual in f["projected_b_members"],
   "existing_B_AXIS_correct_B":int(p["modelB"])==actual,
@@ -248,6 +249,29 @@ out["observed_b_pilot"]["existing_axis_v03_nov6_correct_pct"]=69.2
 out["observed_b_pilot"]["existing_axis_v03_nov6_correct_races"]=18
 out["observed_b_pilot"]["existing_axis_v03_nov6_source"]="research/b-axis/replay_2026_11_06_v02_v03.json; retrospective"
 
+# Agreement study: B labels used exclusively for assessment, never as model input.
+prior6=json.loads(pathlib.Path("research/b-axis/replay_2026_11_06_v02_v03.json").read_text(encoding="utf8"))
+prior6_by_id={x["id"]:x for x in prior6["examples"]}
+pairs6=[]
+for x in checks:
+ old=prior6_by_id.get(x["id"])
+ if old is None or int(old["b"])!=x["actual_b"]:raise ValueError("Nov6 B label mismatch")
+ pairs6.append((x["actual_b"],x["our_head_no"],int(old["aiB"])))
+pairs7=[(x["actualB"],x["our_head_no"],x["axis_head_no"]) for x in pilot2]
+def agreement_stats(rows):
+ agreed=[x for x in rows if x[1]==x[2]]
+ diffs=[x for x in rows if x[1]!=x[2]]
+ ratio=lambda n,d:round(100*n/d,1) if d else None
+ return {"n":len(rows),"agree_n":len(agreed),"agree_pct":ratio(len(agreed),len(rows)),
+ "correct_when_agree":sum(x[0]==x[1] for x in agreed),
+ "accuracy_when_agree_pct":ratio(sum(x[0]==x[1] for x in agreed),len(agreed)),
+ "disagree_n":len(diffs),"only_proxy_correct":sum(x[0]==x[1] for x in diffs),
+ "only_axis_correct":sum(x[0]==x[2] for x in diffs),
+ "neither_correct":sum(x[0]!=x[1] and x[0]!=x[2] for x in diffs)}
+out["b_model_agreement"]={
+ "nov6":agreement_stats(pairs6),"nov7":agreement_stats(pairs7),
+ "combined_descriptive":agreement_stats(pairs6+pairs7),
+ "limitation":"Only 2 selected race dates and changing B-AXIS model versions. No prospective confirmation."}
 # Pre-declared gate hypotheses (selection on pre-result features only).
 heldout=[r for r in final if r["period30"]>0]
 out["heldout_baseline"]=pack(heldout)
