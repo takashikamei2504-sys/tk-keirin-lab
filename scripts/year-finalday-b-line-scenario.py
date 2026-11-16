@@ -191,6 +191,63 @@ out["observed_b_pilot"]={
  "B_inside_strength_favorite_line_pct":rat("actual_b_in_strength_favorite_line"),
  "B_line_head_any_pct":rat("actual_b_head_of_actual_line"),
  "warning":"Single selected 2026-11-06 set, not a representative accuracy estimate."}
+# Separate 2026-11-07 pilot: independently archived retrospective actual-B labels.
+nov7_path=pathlib.Path("research/b-axis/nov7_replay_v02_v05.json")
+nov7=json.loads(nov7_path.read_text(encoding="utf8"))
+if nov7.get("matched")!=58 or len(nov7.get("examples",[]))!=58:
+ raise ValueError("Fixed November 7 B-pilot case count changed")
+pilot2=[];pilot2excluded=[]
+by_rid={r["race_id"]:r for r in data}
+for p in nov7["examples"]:
+ rid=p["id"]
+ r=by_rid.get(rid)
+ if not r:
+  pilot2excluded.append({"id":rid,"reason":"not in 90-day complete cohort"})
+  continue
+ if r["date"]!="2026-11-07":raise ValueError("B pilot date mismatch "+rid)
+ f=r["b_feature"]
+ actual=int(p["actualB"])
+ others=[set(l["members"]) for l in f["summary"]]
+ actual_group=next((s for s in others if actual in s),None)
+ if actual_group is None:raise ValueError("B-rider absent from field "+rid)
+ source_line=set(map(int,p["bLine"].split("-")))
+ if actual_group!=source_line:
+  pilot2excluded.append({"id":rid,"reason":"B-rider lineup differs across sources"})
+  continue
+ source_all=sorted([tuple(sorted(s)) for s in others])
+ pilot_all=sorted([tuple(sorted(int(z) for z in line.split("-"))) for line in p["lines"]])
+ if source_all!=pilot_all:
+  pilot2excluded.append({"id":rid,"reason":"full pre-race lineup differs"})
+  continue
+ pilot2.append({"id":rid,"field":int(p["field"]),"actualB":actual,
+  "our_correct_B":f["projected_b_head"]==actual,
+  "our_line_contains_B":actual in f["projected_b_members"],
+  "existing_B_AXIS_correct_B":int(p["modelB"])==actual,
+  "favorite_B_correct":actual in f["favorite_members"],
+  "projected_B_nonfavorite":f["projected_nonfavorite"]})
+def pilotstat(v):
+ n=len(v)
+ if not n:return {"n":0}
+ def rate(k):return round(100*sum(x[k] for x in v)/n,1)
+ return {"n":n,
+  "our_head_matches":sum(x["our_correct_B"] for x in v),
+  "our_head_match_pct":rate("our_correct_B"),
+  "our_line_contains_actual_B_pct":rate("our_line_contains_B"),
+  "existing_axis_correct":sum(x["existing_B_AXIS_correct_B"] for x in v),
+  "existing_axis_correct_pct":rate("existing_B_AXIS_correct_B"),
+  "favorite_line_has_actual_B_pct":rate("favorite_B_correct"),
+  "nonfavorite_projection_count":sum(x["projected_B_nonfavorite"] for x in v)}
+out["observed_b_pilot_nov7"]={
+ "origin":"research/b-axis/nov7_replay_v02_v05.json; retrospective Chariloto B marks",
+ "source_cases":58,"matched":len(pilot2),"excluded":pilot2excluded,
+ "all":pilotstat(pilot2),
+ "by_car_count":{str(n):pilotstat([r for r in pilot2 if r["field"]==n]) for n in (7,9)},
+ "method":"All pre-result model inputs come from SHA-pinned 90-day source; historical B only for validation",
+ "warning":"B-AXIS v0.5 and this proxy developed after race dates, not genuine historical forecasts"}
+out["observed_b_pilot"]["existing_axis_v03_nov6_correct_pct"]=69.2
+out["observed_b_pilot"]["existing_axis_v03_nov6_correct_races"]=18
+out["observed_b_pilot"]["existing_axis_v03_nov6_source"]="research/b-axis/replay_2026_11_06_v02_v03.json; retrospective"
+
 # Pre-declared gate hypotheses (selection on pre-result features only).
 heldout=[r for r in final if r["period30"]>0]
 out["heldout_baseline"]=pack(heldout)
@@ -262,7 +319,16 @@ lines+=["","## 別枠：実測Bを含む26件の既存パイロット","",
  f"B予測先頭者と実際のBが同一 {pct(a['projected_head_equals_B_pct'])}。",
  f"B予測ラインに実際のB獲得者が含まれる {pct(a['B_inside_projected_line_pct'])}。",
  f"得点有力ラインに実際のB獲得者が含まれる {pct(a['B_inside_strength_favorite_line_pct'])}。",
- "第三者により選別された小標本であるため、真のB予測精度として一般化しない。",
+ "既存B-AXIS v0.3の11月6日パイロットは18/26件一致で、今回の簡易代理モデル15/26件より高い（いずれも事後再生成）。",
+ "",
+ "## 11月7日・58件の実測Bを用いた追加独立照合",
+ "",
+ f"固定90日アーカイブで発走前ラインが一致する対象：{out['observed_b_pilot_nov7']['matched']}R / 58R。",
+ f"今回の得点・脚質・ライン長による簡易B先頭一致率：{pct(out['observed_b_pilot_nov7']['all'].get('our_head_match_pct'))}。",
+ f"既存B-AXIS v0.5の同一対象一致率：{pct(out['observed_b_pilot_nov7']['all'].get('existing_axis_correct_pct'))}。",
+ f"簡易B候補ラインに実際のB選手が含まれる割合：{pct(out['observed_b_pilot_nov7']['all'].get('our_line_contains_actual_B_pct'))}。",
+ "どちらも開発済みモデルの過去再生成であり、前向き予想の成績ではない。級班別ではなく車数別の詳細はJSON。",
+  "第三者により選別された小標本であるため、真のB予測精度として一般化しない。",
  "",
  "## 前30日→次30日、B候補が有力ラインかどうかだけで購入を選別",
  "",
