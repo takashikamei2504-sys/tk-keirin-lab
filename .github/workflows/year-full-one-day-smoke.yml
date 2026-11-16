@@ -1,0 +1,30 @@
+name: Diagnose complete historical replay on one pinned day
+on:
+  push:
+    branches: ['research/annual-full-audit-20261116']
+    paths:
+      - scripts/year-full-one-day-smoke.cjs
+      - .github/workflows/year-full-one-day-smoke.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Replay all pinned races on 2026-08-18
+        run: |
+          node --check scripts/year-full-one-day-smoke.cjs
+          YEAR_FULL_SHARD=0 node scripts/year-full-one-day-smoke.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: year-replay-one-day-smoke
+          path: reports/year-race-type/one-day-pilot/part-0.json
+          retention-days: 14
+          if-no-files-found: warn
