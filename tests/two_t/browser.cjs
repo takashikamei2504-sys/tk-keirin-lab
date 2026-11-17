@@ -47,11 +47,32 @@ async function test() {
       assert.equal(await page.locator('#status').textContent(), '仮想精算済み');
       assert.match(await page.locator('#outcome').textContent(), /仮想投資 1,700円/);
       assert.match(await page.locator('#outcome').textContent(), /仮想収支 -1,700円/);
+      assert.match(await page.locator('#archive-count').textContent(), /3件該当/);
+      await page.selectOption('#archive-state', 'settled');
+      assert.equal(await page.locator('#archive-list li').count(), 1);
+      await page.locator('#archive-list summary').click();
+      await page.getByRole('button', {name:'締切10分前の予測を開く'}).click();
+      assert.equal(await page.locator('#tickets tr').count(), 42);
+      await page.selectOption('#archive-state', 'pending');
+      await page.locator('#archive-list summary').click();
+      await page.getByRole('button', {name:'締切10分前の予測を開く'}).click();
+      assert.match(await page.locator('#outcome').textContent(), /結果照合待ち/);
+      await page.selectOption('#archive-state', 'card');
+      await page.selectOption('#archive-field', '9');
+      assert.match(await page.locator('#archive-empty').textContent(), /条件に合う記録がありません/);
+      await page.selectOption('#archive-field', '7');
+      await page.selectOption('#archive-venue', '台帳テスト場');
+      await page.selectOption('#archive-day', {index: 1});
+      await page.fill('#archive-query', '台帳選手 １２Ｒ');
+      assert.equal(await page.locator('#archive-list li').count(), 1);
+      await page.locator('#archive-list summary').click();
+      assert.match(await page.locator('#archive-list details').textContent(), /出走表保存.*結果未取得/);
+      assert.equal(await page.locator('#archive-list button').count(), 0);
       await page.locator('#race').selectOption({index: 1});
       assert.match(await page.locator('#outcome').textContent(), /結果照合待ち/);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     }
-    console.log('PASS iPhone 13 viewport 390px; replay and standalone forward settlement status');
+    console.log('PASS iPhone 13 viewport 390px; replay, archive search, and forward settlement');
   } finally {
     await browser.close();
   }
