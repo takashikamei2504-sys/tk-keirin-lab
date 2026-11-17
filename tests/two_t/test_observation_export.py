@@ -1,4 +1,5 @@
 """Cover the prospective export's timing and evidence gates."""
+from hashlib import sha256
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -8,6 +9,7 @@ from test_archive_join import DAY, KEY, PUBLISHED, RAW, SAVED
 from two_t.kdreams_odds import ODDS_QUERY, RESULT_QUERY
 from two_t.ledger import ledger_path, store_once
 from two_t.netkeirin_results import RESULT_URL
+from two_t.observed_forward import V1_PINS, freeze_quotes, reconcile
 from two_t.observation_export import audit, summary
 from two_t.observe import observe
 from two_t.source import pairs, payload, stamp, write
@@ -90,3 +92,43 @@ class ObservationExportTests(unittest.TestCase):
         rows, report = self.get_audit()
         self.assertEqual(report["t10_counts"], {"invalid": 1})
         self.assertNotIn("t10", rows[0])
+
+    def test_frozen_v1_hashes_match_the_existing_replay(self):
+        root = Path(__file__).resolve().parents[2]
+        frozen = payload(root / "two_t/race-records.json")["replay"]
+        self.assertEqual({len(row["cars"]): row["model_sha256"] for row in frozen}, V1_PINS)
+        self.assertTrue(all(V1_PINS[len(row["cars"])] == row["model_sha256"] for row in frozen))
+
+    def test_freezes_before_sales_close_and_settles_at_the_fixed_threshold(self):
+        quote = {"state": "live", "pool": "all", "sales_close": DAY + "T21:32:00+09:00",
+                 "published_at": DAY + "T21:20:00+09:00", "captured_at": DAY + "T21:21:30+09:00",
+                 "page_sha256": "e" * 64, "source_url": SOURCE_URL.removesuffix(RESULT_QUERY) + ODDS_QUERY,
+                 "odds": {pair: 30.5 for pair in pairs(self.feature["card"]["cars"])}}
+        identity = KEY + ":t10"
+        store_once(self.ledger / "quotes", identity,
+                   {"race_id": KEY, "mode": "t10", "quote": quote, "feature_sha256": self.feature["feature_sha256"]})
+        clock = lambda: stamp(DAY + "T21:23:00+09:00")
+        checkpoint = self.ledger / "transformer-7.pt"
+        self.assertEqual(freeze_quotes(self.ledger, self.ledger, {}, clock)["counts"], {"checkpoint_unavailable": 1})
+        checkpoint.write_bytes(b"fixture checkpoint")
+        pin = sha256(checkpoint.read_bytes()).hexdigest()
+        self.assertIn("SHA-256 mismatch", freeze_quotes(self.ledger, self.ledger, {7: "f" * 64}, clock)["failures"][KEY])
+        late = lambda: stamp(quote["sales_close"])
+        self.assertEqual(freeze_quotes(self.ledger, self.ledger, {7: pin}, late)["counts"], {"closed_before_freeze": 1})
+        card = self.feature["card"]
+        probabilities = dict.fromkeys(quote["odds"], 0.85 / 41)
+        probabilities["7-3"] = 0.15
+        forecast = {**card, "input_as_of": card["saved_at"], "probabilities": probabilities,
+                    "model_sha256": pin, "feature_sha256": self.feature["feature_sha256"]}
+        with patch("two_t.forward.predict_card", return_value=forecast) as predict:
+            self.assertEqual(freeze_quotes(self.ledger, self.ledger, {7: pin}, clock)["counts"], {"frozen": 1})
+            self.assertEqual(freeze_quotes(self.ledger, self.ledger, {7: pin}, clock)["counts"], {"already_frozen": 1})
+            predict.assert_called_once()
+        self.assertEqual(reconcile(self.ledger, clock)["counts"], {"before_result_window": 1})
+        store_once(self.ledger / "review-results", KEY, self.review)
+        store_once(self.ledger / "results", KEY, self.result)
+        after = lambda: stamp(CONFIRMED)
+        self.assertEqual(reconcile(self.ledger, after)["counts"], {"settled": 1})
+        self.assertEqual(reconcile(self.ledger, after)["counts"], {"already_settled": 1})
+        settlement = payload(ledger_path(self.ledger / "settlements", identity))["settlement"]
+        self.assertEqual((settlement["stake"], settlement["returned"]), (100, 6330))
