@@ -98,7 +98,7 @@ function render() {
   el('outcome').textContent = r.result?.cancelled ? '中止' : winners.length ?
     '二車単結果 ' + winners.map(([key, value]) => key + '（' + fmt(value) + '円）').join(' / ')
        + (r.settlement?.tickets ? ' ・ ' + (r.settlement.hits ? '的中 ' : '不的中 ') + fmt(r.settlement.returned) + '円' : '')
-       + (r.cumulative_roi == null ? '' : ' ・ 累積回収率 ' + pct(r.cumulative_roi)) :
+       + (r.cumulative_roi == null ? '' : ' ・ ' + r.cars.length + '車 累積回収率 ' + pct(r.cumulative_roi)) :
     '結果照合待ち';
   const rows = Object.entries(r.probabilities).map(([key,p]) => {
     const o = odds?.[key] ?? null;
