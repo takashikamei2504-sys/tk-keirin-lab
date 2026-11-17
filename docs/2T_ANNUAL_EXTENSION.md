@@ -22,6 +22,8 @@
 
 [日別出典と照合ログ、月別の性能](2T_ANNUAL_EXTENSION.json)
 
+[2026年5〜8月の追加評価と開催日単位のモデル比較](2T_ANNUAL_SUMMER_EXTENSION.md)
+
 ```sh
 python -m two_t.annual_extension build --monthly /tmp/2t-monthly --baseline /tmp/2t-annual --cache /tmp/2t-results-cache --out /tmp/2t-extension
 python -m two_t.annual_extension score /tmp/2t-extension/extension-7.json transformer-7-latent-b.pt transformer-7-metrics.json /tmp/2t-extension/transformer-7.json
