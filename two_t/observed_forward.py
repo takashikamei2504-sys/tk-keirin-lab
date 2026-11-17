@@ -101,7 +101,7 @@ def freeze_quotes(ledger, checkpoints, pins, clock=utc_now, runner=predict_and_f
     return {"counts": dict(counts), "failures": failures}
 
 
-def reconcile(ledger, clock=utc_now):
+def reconcile(ledger, clock=utc_now, pins=V1_PINS):
     counts, failures = Counter(), {}
     for path in sorted((ledger / "forecasts").glob("*.json")):
         key = path.stem
@@ -124,6 +124,8 @@ def reconcile(ledger, clock=utc_now):
                 continue
             quote = audited_quote(record, row, payload(ledger_path(ledger / "quotes", identity)), now)
             validate_forecast(forecast, card)
+            if forecast["model_sha256"] != pins.get(len(card["cars"])):
+                raise ValueError("forecast checkpoint is not the fixed V1 model")
             if (quote != forecast["quote"] or not stamp(quote["captured_at"]) <= stamp(forecast["frozen_at"])
                     < stamp(quote["sales_close"]) < stamp(card["start"])):
                 raise ValueError("forecast was not frozen before sales close with the saved quote")
