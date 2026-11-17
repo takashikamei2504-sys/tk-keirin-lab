@@ -128,7 +128,8 @@ class ObservationExportTests(unittest.TestCase):
         store_once(self.ledger / "review-results", KEY, self.review)
         store_once(self.ledger / "results", KEY, self.result)
         after = lambda: stamp(CONFIRMED)
-        self.assertEqual(reconcile(self.ledger, after)["counts"], {"settled": 1})
-        self.assertEqual(reconcile(self.ledger, after)["counts"], {"already_settled": 1})
+        self.assertIn("fixed V1 model", reconcile(self.ledger, after)["failures"][KEY])
+        self.assertEqual(reconcile(self.ledger, after, {7: pin})["counts"], {"settled": 1})
+        self.assertEqual(reconcile(self.ledger, after, {7: pin})["counts"], {"already_settled": 1})
         settlement = payload(ledger_path(self.ledger / "settlements", identity))["settlement"]
         self.assertEqual((settlement["stake"], settlement["returned"]), (100, 6330))
