@@ -1,0 +1,294 @@
+name: 2T lineup observations
+on:
+  pull_request:
+    paths:
+      - .github/workflows/two-t-observe.yml
+      - two_t/observation-request.txt
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/two-t-observe.yml
+      - two_t/**
+  workflow_dispatch:
+  schedule:
+    - cron: '11,41 0-14,22-23 * * *'
+    - cron: '11 15 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lab-2t-observations
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    # A fork or a change to repository visibility must not start a write-enabled run.
+    if: >-
+      ${{ !github.event.repository.private &&
+          (github.event_name != 'pull_request' ||
+            (github.event.pull_request.head.repo.full_name == github.repository &&
+             github.event.pull_request.head.ref == 'lab-2t-transformer-v1')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: source
+          persist-credentials: false
+          sparse-checkout: two_t
+      - uses: actions/checkout@v4
+        with:
+          ref: lab-2t-observations
+          path: ledger
+      - name: Capture eligible Kdreams T-10 odds
+        working-directory: source
+        shell: bash
+        run: |
+          python3 -m two_t.kdreams_odds --ledger ../ledger --wait-seconds 210 | tee ../odds-report.json
+      - name: Locate the V1 model release
+        id: model_source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MODEL_TAG: ${{ vars.LAB_2T_MODEL_RELEASE || '2t-model-v1' }}
+        shell: bash
+        run: |
+          if count="$(gh release view --repo "$GITHUB_REPOSITORY" --json assets --jq '[.assets[].name | select(. == "transformer-7.pt" or . == "transformer-9.pt")] | length' -- "$MODEL_TAG")"; then
+            if [[ "$count" == 1 || "$count" == 2 ]]; then
+              echo "ready=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "V1 model assets have not been published on the selected release."
+            fi
+          else
+            echo "The selected V1 model release is unavailable. Continuing observation."
+          fi
+      - uses: actions/setup-python@v5
+        if: ${{ steps.model_source.outputs.ready == 'true' }}
+        with:
+          python-version: '3.12'
+      - name: Download the configured V1 release assets
+        id: checkpoints
+        if: ${{ steps.model_source.outputs.ready == 'true' }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MODEL_TAG: ${{ vars.LAB_2T_MODEL_RELEASE || '2t-model-v1' }}
+        working-directory: source
+        shell: bash
+        run: |
+          gh release download --repo "$GITHUB_REPOSITORY" --pattern 'transformer-*.pt' --dir "$RUNNER_TEMP/2t-checkpoints" -- "$MODEL_TAG"
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          from two_t.observed_forward import V1_PINS, get_checkpoint
+
+          root = Path(os.environ["RUNNER_TEMP"]) / "2t-checkpoints"
+          for n, expected in V1_PINS.items():
+              path = root / f"transformer-{n}.pt"
+              try:
+                  verified = get_checkpoint(path, expected)
+              except ValueError as error:
+                  print(f"{path.name}: {error}", flush=True)
+              else:
+                  status = "SHA-256 verified" if verified else "asset missing"
+                  print(f"{path.name}: {status}", flush=True)
+          PY
+          python3 -m pip install -r two_t/requirements.txt
+      - name: Freeze eligible predictions before sales close
+        env:
+          MODEL_LOAD_STATUS: ${{ steps.checkpoints.outcome }}
+        working-directory: source
+        shell: bash
+        run: |
+          model_args=()
+          if [[ "$MODEL_LOAD_STATUS" == success ]]; then
+            model_args+=(--checkpoints "$RUNNER_TEMP/2t-checkpoints")
+          fi
+          python3 -m two_t.observed_forward freeze --ledger ../ledger "${model_args[@]}" | tee ../forecast-report.json
+      - name: Capture lineups and match published results
+        working-directory: source
+        shell: bash
+        run: |
+          python3 -m two_t.observe --ledger ../ledger --reconcile-budget-seconds 360 --verify-review-results | tee ../observation-report.json
+      - name: Settle previously frozen forecasts with verified results
+        working-directory: source
+        shell: bash
+        run: |
+          python3 -m two_t.observed_forward settle --ledger ../ledger | tee ../settlement-report.json
+      - name: Build the public 2T data from the observation ledger
+        id: public_data
+        continue-on-error: true
+        working-directory: source
+        shell: bash
+        run: |
+          python3 -m two_t.publish --ledger ../ledger --out "$RUNNER_TEMP/2t-public.json"
+          mkdir -p ../ledger/public
+          cp "$RUNNER_TEMP/2t-public.json" ../ledger/public/race-records.json
+      - name: Commit new records to the dedicated ledger branch
+        id: persist
+        run: |
+          git -C ledger add --all
+          if git -C ledger diff --cached --quiet; then
+            exit 0
+          fi
+          git -C ledger -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Append 2T race observations'
+          git -C ledger push origin HEAD:refs/heads/lab-2t-observations
+      - name: Write mobile-readable coverage summary
+        if: ${{ !cancelled() && hashFiles('observation-report.json') != '' }}
+        env:
+          LEDGER_WRITE_STATUS: ${{ steps.persist.outcome }}
+          MODEL_LOAD_STATUS: ${{ steps.checkpoints.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          report = json.loads(Path("observation-report.json").read_text())
+          root = Path("ledger")
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              print(f"## 2T 観測結果 / {report['day']} (JST)", file=summary)
+              write_status = os.environ["LEDGER_WRITE_STATUS"]
+              print(f"Gitへの保存ステップの結果: {write_status}", file=summary)
+              print("| 項目 | 件数 |\n| --- | ---: |", file=summary)
+              for label, key in (
+                  ("当日配信の掲載レース", "feed_rows"),
+                  ("今回の出走表保存", "cards_saved"),
+                  ("今回の確定結果保存", "results_saved"),
+                  ("今回の完全な教師ラベル", "complete_labels"),
+                  ("今回の結果候補（選手ID要確認）", "review_results_saved"),
+                  ("今回の未確定結果", "results_pending"),
+                  ("今回の再試行期限超過", "result_retries_expired"),
+              ):
+                  print(f"| {label} | {report.get(key, 0)} |", file=summary)
+              for label, folder in (("台帳の出走表", "cards"), ("台帳の確定結果", "results"),
+                                    ("台帳の結果候補", "review-results")):
+                  print(f"| {label} | {sum(1 for _ in (root / folder).glob('*.json'))} |", file=summary)
+              print(f"| 今回のエラー | {len(report['failures'])} |", file=summary)
+              quote_report = json.loads(Path("odds-report.json").read_text())
+              quote_counts = quote_report["counts"]
+              print("\n## 締切10分前オッズ", file=summary)
+              print("| 状態 | 件数 |\n| --- | ---: |", file=summary)
+              for label, key in (("今回採用", "quotes_saved"), ("保存済み", "already_saved"),
+                                 ("取得窓が開始前", "window_not_open"), ("取得窓を通過", "window_missed")):
+                  print(f"| {label} | {quote_counts.get(key, 0)} |", file=summary)
+              print(f"| 取得・検証失敗 | {len(quote_report['failures'])} |", file=summary)
+              forecasts = json.loads(Path("forecast-report.json").read_text())
+              settlements = json.loads(Path("settlement-report.json").read_text())
+              print("\n## 発売締切前の予測・精算", file=summary)
+              print(f"重み取得ステップ: {os.environ['MODEL_LOAD_STATUS']}", file=summary)
+              for label, info, key in (
+                  ("新規予測", forecasts, "frozen"),
+                  ("重み未配置", forecasts, "checkpoint_unavailable"),
+                  ("予測保存前に締切通過", forecasts, "closed_before_freeze"),
+                  ("確定結果と精算", settlements, "settled"),
+              ):
+                  print(f"- {label} {info['counts'].get(key, 0)}件", file=summary)
+              if forecasts["failures"] or settlements["failures"]:
+                  print("- 予測・精算のエラー明細は実行ログにあります。", file=summary)
+              if "day_feed" in report["failures"]:
+                  print("\n当日出走表を読み込めませんでした。明細は実行ログにあります。", file=summary)
+              if report.get("reconcile_budget_exhausted"):
+                  print("\n照合時間枠を使い切りました。残りは次回候補です。", file=summary)
+          PY
+      - name: Export the day's audited verification inputs
+        if: ${{ steps.persist.outcome == 'success' }}
+        working-directory: source
+        shell: bash
+        run: |
+          day="$(python3 -c 'import json; print(json.load(open("../observation-report.json"))["day"])')"
+          python3 -m two_t.observation_export --ledger ../ledger --day "$day" --output ../observation-export
+          printf 'ledger_commit=%s\nexporter_commit=%s\n' "$(git -C ../ledger rev-parse HEAD)" "$(git rev-parse HEAD)" > ../observation-export/provenance.txt
+          tee -a "$GITHUB_STEP_SUMMARY" < ../observation-export/summary.md
+      - name: Prepare a standalone prospective preview
+        if: ${{ steps.persist.outcome == 'success' && hashFiles('ledger/cards/*.json', 'ledger/forecasts/*.json') != '' }}
+        working-directory: source
+        shell: bash
+        run: |
+          python3 -m two_t.publish --ledger ../ledger --out ../observation-export/forward.json --standalone ../observation-export/forward.html
+      - name: Confirm the public 2T data is ready
+        if: ${{ steps.persist.outcome == 'success' }}
+        env:
+          PUBLIC_DATA: ${{ steps.public_data.outcome }}
+        run: test "$PUBLIC_DATA" = success
+      - name: Upload the verification export
+        if: ${{ github.event_name != 'schedule' && steps.persist.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2t-observation-audit
+          path: observation-export/
+          retention-days: 7
+          if-no-files-found: error
+      - name: Verify the deployed Pages view and published observations
+        if: ${{ github.event_name == 'push' }}
+        shell: bash
+        run: |
+          curl --fail --silent --show-error --retry 12 --retry-delay 10 --retry-all-errors --max-time 10 'https://takashikamei2504-sys.github.io/tk-keirin-lab/two_t/' -o "$RUNNER_TEMP/2t-page.html"
+          grep -Fq 'id="archive-sync"' "$RUNNER_TEMP/2t-page.html"
+          curl --fail --silent --show-error --retry 12 --retry-delay 10 --retry-all-errors --max-time 10 'https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/lab-2t-observations/public/race-records.json' -o "$RUNNER_TEMP/2t-live.json"
+          python3 -c 'import json, sys; r=json.load(open(sys.argv[1])); print("Published cards:", len(r["archive"]), "forecasts:", len(r["forward"]))' "$RUNNER_TEMP/2t-live.json"
+      - name: Validate the parser against a published historical race
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: source
+        run: |
+          python3 - <<'PY'
+          from two_t.kdreams_results import links_for, parse_result, read_page
+          from two_t.netkeirin_results import confirm
+
+          day = "2026-11-06"
+          source_id = "202611062501"
+          url = links_for(day)[source_id]
+          card = {"race_id": day + ":大宮:1", "venue": "大宮", "race_no": 1,
+                  "date": day, "cars": list(range(1, 8)), "start": day + "T11:05:00+09:00",
+                  "roster": list(enumerate(["14788", "14282", "14749", "15924", "13782", "15045", "13349"], 1))}
+          roster = ["上吹越俊一", "石川恭規", "山田哲也", "利川寛太", "原真司", "大関祐也", "三宅旬"]
+          raw = {"race_id": source_id, "entries": [
+              {"car_number": car, "rider_full_name": item} for car, item in enumerate(roster, 1)]}
+          result = parse_result(read_page(url), url, card, raw)
+          assert result["back"] == 6 and result["finish"] == [3, 5, 2], result
+          assert result["payouts"] == {"3-5": 670} and not result["rider_ids_verified"], result
+          checked = confirm(card, result)
+          assert checked["rider_ids_verified"] and checked["labels"] == [6, 3, 5, 2], checked
+          print("Both sources and all seven racer IDs verified: 2026-11-06 Omiya 1R, B=6, finish=3-5-2, exacta=670 JPY")
+          PY
+
+      - name: Verify a real Kdreams exacta page and reject a completed quote
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: source
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from two_t.kdreams_odds import ODDS_QUERY, RESULT_QUERY, snapshot, verify_quote
+          from two_t.kdreams_results import read_page
+          from two_t.ledger import ledger_path
+          from two_t.observe import utc_now
+          from two_t.source import payload
+
+          root = Path("../ledger")
+          result_url = "https://keirin.kdreams.jp/matsuyama/racedetail/7520261117010007/?pageType=showResult"
+          path = ledger_path(root / "cards", "2026-11-17:松山:7")
+          html = read_page(result_url.removesuffix(RESULT_QUERY) + ODDS_QUERY)
+          quote = snapshot(html, result_url, payload(path), utc_now())
+          assert len(quote["odds"]) == 42, quote
+          print("Live-source sample", quote["state"], len(quote["odds"]), quote["pool"],
+                quote["published_at"], quote["captured_at"], quote["sales_close"])
+          result_url = "https://keirin.kdreams.jp/omiya/racedetail/2520261104030001/?pageType=showResult"
+          day = "2026-11-06"
+          card = {"date": day, "venue": "大宮", "race_no": 1, "cars": list(range(1, 8)),
+                  "start": day + "T11:05:00+09:00"}
+          names = ["上吹越俊一", "石川恭規", "山田哲也", "利川寛太", "原真司", "大関祐也", "三宅旬"]
+          raw = {"race_id": "202611062501", "close_time": "11:00", "entries": [
+              {"car_number": i, "rider_full_name": name} for i, name in enumerate(names, 1)]}
+          html = read_page(result_url.removesuffix(RESULT_QUERY) + ODDS_QUERY)
+          quote = snapshot(html, result_url, {"card": card, "raw_card": raw}, utc_now())
+          assert quote["state"] == "final", quote
+          try:
+              verify_quote(quote, card)
+          except ValueError as error:
+              assert str(error) == "final odds", error
+          else:
+              raise AssertionError("a completed quote was accepted")
+          print("Finished race was rejected by the forward quote gate")
+          PY

@@ -1,0 +1,61 @@
+name: Two-car exacta model checks
+on:
+  pull_request:
+    paths:
+      - two_t/**
+      - tests/two_t/**
+      - .github/workflows/two-t-checks.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -r two_t/requirements.txt
+      - run: python -m unittest discover -s tests/two_t -v
+      - run: npm test
+      - if: ${{ hashFiles('two_t/race-records.json') != '' }}
+        run: |
+          mkdir -p /tmp/2t-preview
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          template = Path('two_t/index.html').read_text()
+          data = json.loads(Path('two_t/race-records.json').read_text())
+          def standalone(file, records):
+              encoded = json.dumps(records, ensure_ascii=False).replace('<', r'\u003c')
+              html = template.replace('type="application/json">null<', f'type="application/json">{encoded}<')
+              Path('/tmp/2t-preview', file).write_text(html)
+
+          standalone('index.html', data)
+          race = next(row for row in data['replay'] if len(row['cars']) == 7)
+          quote = {**race['quote'], 'state': 'live', 'captured_at': race['input_as_of'], 'sales_close': race['start']}
+          record = {**race, 'quote': quote, 'quote_mode': 't10', 'frozen_at': race['input_as_of'],
+                    'settlement': {'stake': 1700, 'returned': 0, 'hits': 0, 'tickets': 17},
+                    'cumulative_roi': 0}
+          pending = {**record, 'race_id': race['race_id'] + '-test', 'race_no': race['race_no'] + 1,
+                     'settlement': None, 'result': None, 'cumulative_roi': None}
+          card = {**{key: race[key] for key in ('date', 'venue', 'class', 'cars', 'start')},
+                  'race_id': race['race_id'] + '-card-test', 'venue': '台帳テスト場', 'race_no': 12,
+                  'saved_at': race['input_as_of'], 'riders': [[1, '台帳 選手']],
+                  'result_status': 'result_unavailable'}
+          standalone('forward-test.html', {'replay': [], 'forward': [record, pending], 'archive': [card]})
+          PY
+          npm ci
+          npx playwright install --with-deps webkit
+          TWO_T_WEBKIT=1 node tests/two_t/browser.cjs /tmp/2t-preview/index.html /tmp/2t-preview/forward-test.html
+      - if: ${{ hashFiles('two_t/race-records.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2t-transformer-preview
+          path: /tmp/2t-preview/index.html
