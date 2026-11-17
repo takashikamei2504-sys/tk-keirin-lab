@@ -38,6 +38,11 @@ jobs:
         with:
           ref: lab-2t-observations
           path: ledger
+      - name: Capture eligible Kdreams T-10 odds
+        working-directory: source
+        shell: bash
+        run: |
+          python3 -m two_t.kdreams_odds --ledger ../ledger | tee ../odds-report.json
       - name: Capture lineups and match published results
         working-directory: source
         shell: bash
@@ -83,6 +88,14 @@ jobs:
                                     ("台帳の結果候補", "review-results")):
                   print(f"| {label} | {sum(1 for _ in (root / folder).glob('*.json'))} |", file=summary)
               print(f"| 今回のエラー | {len(report['failures'])} |", file=summary)
+              quote_report = json.loads(Path("odds-report.json").read_text())
+              quote_counts = quote_report["counts"]
+              print("\n## 締切10分前オッズ", file=summary)
+              print("| 状態 | 件数 |\n| --- | ---: |", file=summary)
+              for label, key in (("今回採用", "quotes_saved"), ("保存済み", "already_saved"),
+                                 ("取得窓が開始前", "window_not_open"), ("取得窓を通過", "window_missed")):
+                  print(f"| {label} | {quote_counts.get(key, 0)} |", file=summary)
+              print(f"| 取得・検証失敗 | {len(quote_report['failures'])} |", file=summary)
               if "day_feed" in report["failures"]:
                   print("\n当日出走表を読み込めませんでした。明細は実行ログにあります。", file=summary)
               if report.get("reconcile_budget_exhausted"):
@@ -130,19 +143,41 @@ jobs:
           print("Both sources and all seven racer IDs verified: 2026-11-06 Omiya 1R, B=6, finish=3-5-2, exacta=670 JPY")
           PY
 
-      - name: Inspect the exacta grid and archived roster format
+      - name: Verify a real Kdreams exacta page and reject a completed quote
         if: ${{ github.event_name == 'pull_request' }}
         working-directory: source
         run: |
           python3 - <<'PY'
-          import re
+          from pathlib import Path
+          from two_t.kdreams_odds import ODDS_QUERY, RESULT_QUERY, snapshot, verify_quote
           from two_t.kdreams_results import read_page
+          from two_t.ledger import ledger_path
+          from two_t.observe import utc_now
+          from two_t.source import payload
 
-          url = "https://keirin.kdreams.jp/matsuyama/racedetail/7520261117010007/?kakeshikiType=2shatan&pageType=odds"
-          html = read_page(url)
-          part = html.split('id="JS_ODDSCONTENTS_2shatan"', 1)[1].split('<!-- 2車単 End -->', 1)[0]
-          print("matrix", re.sub(r'\s+', ' ', part)[:9500])
-          for token in ("池田", "kaisai-detail", "morning", "class=\"icon_confirmed\"", "status none"):
-              hits = list(re.finditer(re.escape(token), html, re.I))
-              print(token, [re.sub(r'\s+', ' ', html[max(0,m.start()-120):m.start()+100]) for m in hits[:7]])
+          root = Path("../ledger")
+          result_url = "https://keirin.kdreams.jp/matsuyama/racedetail/7520261117010007/?pageType=showResult"
+          path = ledger_path(root / "cards", "2026-11-17:松山:7")
+          html = read_page(result_url.removesuffix(RESULT_QUERY) + ODDS_QUERY)
+          quote = snapshot(html, result_url, payload(path), utc_now())
+          assert len(quote["odds"]) == 42, quote
+          print("Live-source sample", quote["state"], len(quote["odds"]), quote["pool"],
+                quote["published_at"], quote["captured_at"], quote["sales_close"])
+          result_url = "https://keirin.kdreams.jp/omiya/racedetail/2520261104030001/?pageType=showResult"
+          day = "2026-11-06"
+          card = {"date": day, "venue": "大宮", "race_no": 1, "cars": list(range(1, 8)),
+                  "start": day + "T11:05:00+09:00"}
+          names = ["上吹越俊一", "石川恭規", "山田哲也", "利川寛太", "原真司", "大関祐也", "三宅旬"]
+          raw = {"race_id": "202611062501", "close_time": "11:00", "entries": [
+              {"car_number": i, "rider_full_name": name} for i, name in enumerate(names, 1)]}
+          html = read_page(result_url.removesuffix(RESULT_QUERY) + ODDS_QUERY)
+          quote = snapshot(html, result_url, {"card": card, "raw_card": raw}, utc_now())
+          assert quote["state"] == "final", quote
+          try:
+              verify_quote(quote, card)
+          except ValueError as error:
+              assert str(error) == "final odds", error
+          else:
+              raise AssertionError("a completed quote was accepted")
+          print("Finished race was rejected by the forward quote gate")
           PY
