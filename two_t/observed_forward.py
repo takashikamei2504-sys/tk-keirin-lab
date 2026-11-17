@@ -16,6 +16,11 @@ from .source import pairs, payload, stamp
 
 MODE = "t10"
 THRESHOLD = 1.5
+# Fingerprints of the checkpoints used by the frozen V1 replay records.
+V1_PINS = {
+    7: "e537b2175af1780a007cb59feab4f1854cf651d5b574b34d9b4152f429cff332",
+    9: "be43992f3bb4ac420553fb6e7570c6d58bfc31d1505c7cdcf7d7f6c25e999451",
+}
 
 
 def get_checkpoint(path, pin):
@@ -141,10 +146,8 @@ def main():
     parser.add_argument("phase", choices=("freeze", "settle"))
     parser.add_argument("--ledger", type=Path, required=True)
     parser.add_argument("--checkpoints", type=Path)
-    parser.add_argument("--sha7")
-    parser.add_argument("--sha9")
     args = parser.parse_args()
-    result = (freeze_quotes(args.ledger, args.checkpoints, {7: args.sha7, 9: args.sha9})
+    result = (freeze_quotes(args.ledger, args.checkpoints, V1_PINS)
               if args.phase == "freeze" else reconcile(args.ledger))
     print(json.dumps(result, ensure_ascii=False))
 
