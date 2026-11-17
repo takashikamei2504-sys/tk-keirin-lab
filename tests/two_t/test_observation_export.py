@@ -12,7 +12,7 @@ from two_t.netkeirin_results import RESULT_URL
 from two_t.observed_forward import V1_PINS, freeze_quotes, reconcile
 from two_t.observation_export import audit, summary
 from two_t.observe import observe
-from two_t.publish import forward_data
+from two_t.publish import archive_data, forward_data
 from two_t.source import pairs, payload, stamp, write
 
 
@@ -57,6 +57,19 @@ class ObservationExportTests(unittest.TestCase):
         self.assertEqual(rows[0]["result"]["labels"], [7, 7, 3, 2])
         self.assertEqual(rows[0]["result_observed_at"], CONFIRMED)
         self.assertEqual(self.get_audit(day="2026-09-02")[0], [])
+
+    def test_archive_lists_cards_before_prediction_and_adds_verified_results(self):
+        early, = archive_data(self.ledger, stamp(SAVED))
+        self.assertEqual(early["race_id"], KEY)
+        self.assertEqual(early["result_status"], "before_result_window")
+        self.assertEqual(early["riders"][0], [1, "選手1"])
+        self.assertNotIn("raw_card", early)
+        self.assertNotIn("result", early)
+        store_once(self.ledger / "review-results", KEY, self.review)
+        store_once(self.ledger / "results", KEY, self.result)
+        verified, = archive_data(self.ledger, stamp(CONFIRMED))
+        self.assertEqual(verified["result"]["payouts"], {"7-3": 6330})
+        self.assertEqual(verified["result_observed_at"], CONFIRMED)
 
     def test_timing_and_unconfirmed_rows_do_not_leak(self):
         self.assertEqual(self.get_audit(SAVED)[1]["counts"], {"before_result_window": 1})
