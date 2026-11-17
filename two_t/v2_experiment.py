@@ -1,11 +1,12 @@
 """Research-only exacta comparison for fixed-period V1 and prospective race cards."""
 import argparse
-from collections import Counter
-from datetime import date, datetime
+from collections import Counter, defaultdict
+from datetime import date
 from hashlib import sha256
 import json
 import math
 from pathlib import Path
+from statistics import mean
 from zipfile import ZipFile
 
 import numpy as np
@@ -18,8 +19,9 @@ from .observation_export import audit
 from .source import JST, PERSONAL, payload, stamp, write
 
 FEATURE = {name: i for i, name in enumerate(PERSONAL)}
-VARIANTS = {"shared_inputs": (False, False), "add_recent": (True, False),
-            "add_recent_and_line": (True, True)}
+VARIANTS = {"shared_inputs": (False, None), "add_recent": (True, None),
+            "same_line_only": (False, "same"), "line_without_recent": (False, "position"),
+            "add_recent_and_line": (True, "position")}
 REGULARIZATION = 0.02
 
 
@@ -76,9 +78,9 @@ def conditions(features, groups, cars, first, lineup):
     rows = features[[cars.index(car) for car in candidates]]
     if lineup:
         group, pos, _ = groups[first]
-        links = [(groups[car][0] == group, groups[car][0] == group and groups[car][1] < pos,
-                  groups[car][0] == group and groups[car][1] == pos + 1) for car in candidates]
-        rows = np.column_stack((rows, links))
+        links = [[groups[car][0] == group, groups[car][0] == group and groups[car][1] < pos,
+                  groups[car][0] == group and groups[car][1] == pos + 1] for car in candidates]
+        rows = np.column_stack((rows, np.asarray(links)[:, :1 if lineup == "same" else 3]))
     return candidates, rows
 
 
@@ -203,6 +205,49 @@ def market_comparison(rows, all_predictions, mode):
                for key, predictions in all_predictions.items()}, "market": metrics(paired, paired_market)}
 
 
+def loss_difference(rows, baseline, candidate):
+    paired = []
+    day_blocks = defaultdict(list)
+    for (row, (first, second)), b, c in zip(rows, baseline, candidate, strict=True):
+        pair = f"{first}-{second}"
+        delta = math.log(b[pair] / c[pair])
+        paired.append(delta)
+        day_blocks[row["date"]].append(delta)
+    if not paired:
+        return {}
+    result = {"races": len(paired), "delta_log_loss": mean(paired),
+              "races_improved": sum(delta < 0 for delta in paired)}
+    if len(day_blocks) >= 2:
+        # Four historical days are too few for a reliable significance claim.
+        blocks = [[sum(values), len(values)] for values in day_blocks.values()]
+        sampled = np.asarray(blocks)[np.random.default_rng(11).integers(
+            len(blocks), size=(4000, len(blocks)))].sum(axis=1)
+        result["day_blocks"] = len(day_blocks)
+        result["day_bootstrap_95pct_exploratory"] = np.quantile(sampled[:, 0] / sampled[:, 1], [.025, .975]).tolist()
+    return result
+
+
+def line_diagnostics(rows, predictions):
+    ordered_groups = defaultdict(list)
+    for i, (row, (first, second)) in enumerate(rows):
+        same, = [line for line in row["lineup"] if first in line]
+        ordered_groups["all"].append(i)
+        ordered_groups["date:" + row["date"]].append(i)
+        ordered_groups["class:" + row["class"]].append(i)
+        ordered_groups["actual:same" if second in same else "actual:other"].append(i)
+    comparisons = {"line_added": ("shared_inputs", "line_without_recent"),
+                   "same_line": ("shared_inputs", "same_line_only"),
+                   "relative_position": ("same_line_only", "line_without_recent"),
+                   "recent_with_line": ("line_without_recent", "add_recent_and_line")}
+    return {
+        group: {key: loss_difference([rows[i] for i in indices],
+                                     [predictions[control][i] for i in indices],
+                                     [predictions[treatment][i] for i in indices])
+                for key, (control, treatment) in comparisons.items()}
+        for group, indices in sorted(ordered_groups.items())
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("evidence", type=Path)
@@ -230,7 +275,8 @@ def main():
                            for (row, _), form in zip(rows, recent, strict=True)]
             all_predictions[variant] = predictions
             scores[variant] = metrics(rows, predictions)
-        entry = {"dates": sorted({row["date"] for row, _ in rows}), "metrics": scores}
+        entry = {"dates": sorted({row["date"] for row, _ in rows}), "metrics": scores,
+                 "line_diagnostics": line_diagnostics(rows, all_predictions)}
         if name == "reused_test":
             for row, _ in rows:
                 if row["feature_sha256"] != by_race[row["race_id"]]["feature_sha256"]:
@@ -245,7 +291,8 @@ def main():
             feed = payload(args.ledger / "public" / "race-records.json")
             forecasts = {p["race_id"]: p for p in feed["forward"] if p.get("quote_mode") == "t10"}
             paired = [(row, outcome) for row, outcome in rows if row["race_id"] in forecasts
-                      and row["feature_sha256"] == forecasts[row["race_id"]]["feature_sha256"]]
+                      and row["feature_sha256"] == forecasts[row["race_id"]]["feature_sha256"]
+                      and stamp(forecasts[row["race_id"]]["frozen_at"]) <= args.as_of]
             entry["v1_paired"] = {"metrics": {
                 variant: metrics(paired, [predict(row, variants[variant], *flags, live=live_recent(args.ledger, row))
                                           for row, _ in paired])
