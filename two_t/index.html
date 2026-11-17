@@ -17,6 +17,22 @@ th,td{padding:.56rem .12rem;text-align:right;border-bottom:1px solid #e5ebe6}
 th:first-child,td:first-child{text-align:left}th:last-child,td:last-child{text-align:center}th{font-size:.75rem;color:#3c5850}
 strong{color:#255b43}small{display:block;color:#436358;overflow-wrap:anywhere}.source{color:#255b43}
 [hidden]{display:none!important}
+.archive-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin:.7rem 0}
+.archive-query{grid-column:1/-1}
+.archive-query input{display:block;width:100%;min-height:44px;padding:.5rem .65rem;border:1px solid #9aafa4;border-radius:.5rem;background:#f7faf7;color:inherit;font:inherit}
+.archive-list{list-style:none;margin:.5rem 0;padding:0}
+.archive-list li{border-top:1px solid #e5ebe6;padding:.55rem 0}
+.archive-list summary{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:.45rem;cursor:pointer}
+.archive-list summary .tag{flex-shrink:0}
+.archive-list details[open] summary .archive-title{color:#255b43}
+.archive-list details[open] summary{margin-bottom:.4rem}
+.archive-list details p{overflow-wrap:anywhere;font-size:.88rem}
+.archive-list details small{margin:.25rem 0}
+.archive-actions{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.5rem}
+.archive-actions button,#archive-more{font:inherit;font-size:.88rem;min-height:44px;padding:.35rem .6rem;color:#24533d;background:#f0f6ef;border:1px solid #9aafa4;border-radius:.5rem;cursor:pointer}
+#archive-count{font-size:.82rem;color:#3c5850}
+#detail{scroll-margin-top:.75rem}
+@media(min-width:40rem){.archive-controls{grid-template-columns:repeat(4,minmax(0,1fr))}.archive-query{grid-column:1/-1}}
 </style>
 <header><div class="wrap">
 <a href="../index.html">TK KEIRIN LAB ホーム</a>
@@ -24,14 +40,26 @@ strong{color:#255b43}small{display:block;color:#436358;overflow-wrap:anywhere}.s
 <p>二車単確率・期待値</p>
 </div></header>
 <main class="wrap">
-<section class="panel"><h2>レース選択</h2>
+<section class="panel" aria-labelledby="archive-heading">
+<div class="strip"><h2 id="archive-heading">レース台帳</h2><span id="archive-count" role="status"></span></div>
+<div class="archive-controls">
+<label class="label archive-query">検索<input id="archive-query" type="search" placeholder="競輪場・レース番号・選手名" autocomplete="off"></label>
+<label class="label">開催日<select id="archive-day"></select></label>
+<label class="label">競輪場<select id="archive-venue"></select></label>
+<label class="label">車立て<select id="archive-field"><option value="">すべて</option><option value="7">7車</option><option value="9">9車</option></select></label>
+<label class="label">記録状況<select id="archive-state"><option value="">すべて</option><option value="settled">仮想精算済み</option><option value="pending">予測あり・照合待ち</option><option value="matched">結果照合済み</option><option value="card">出走表保存</option><option value="replay">確定オッズ研究</option></select></label>
+</div>
+<ul class="archive-list" id="archive-list"></ul>
+<p id="archive-empty" hidden></p><button type="button" id="archive-more" hidden>さらに表示</button>
+</section>
+<section class="panel"><h2>予測詳細の選択</h2>
 <form><label class="label">開催日<select id="day"></select></label>
 <label class="label">競輪場<select id="venue"></select></label>
 <label class="label">レース<select id="race"></select></label>
 <label class="label">記録<select id="mode"><option value="replay">確定オッズ研究</option><option value="forward">締切前予測</option></select></label></form>
 <p id="state" role="status"></p></section>
 <section id="detail" hidden>
-<div class="panel"><div class="strip"><h2 id="heading"></h2><span class="tag" id="status"></span></div>
+<div class="panel"><div class="strip"><h2 id="heading" tabindex="-1"></h2><span class="tag" id="status"></span></div>
 <p id="outcome"></p><small id="time"></small><small id="source"></small></div>
 <div class="panel"><h2>EV 1.5以上</h2><p id="candidates"></p></div>
 <div class="panel"><div class="strip"><h2 id="count">二車単</h2>
@@ -59,7 +87,7 @@ if (records === null) {
 }
 const data = records || {replay:[], forward:[]};
 const mode = el('mode'), day = el('day'), venue = el('venue'), race = el('race'), sort = el('sort');
-if (!data.replay?.length && data.forward?.length) mode.value = 'forward';
+if (!data.replay?.length) mode.value = 'forward';
 function options(select, values, label = v => v) {
   const prior = select.value;
   select.replaceChildren(...values.map(v => new Option(label(v), v)));
@@ -67,6 +95,131 @@ function options(select, values, label = v => v) {
   select.disabled = values.length === 0;
 }
 const unique = values => [...new Set(values)];
+const classes = {S:'S級',A:'A級',challenge:'チャレンジ'};
+const labels = {
+  settled:'仮想精算済み', pending:'予測あり・照合待ち', matched:'結果照合済み',
+  card:'出走表保存', replay:'確定オッズ研究'
+};
+const resultLabels = {
+  before_result_window:'結果確認時刻待ち', result_unavailable:'結果未取得',
+  unverified_result:'2サイトの照合待ち', irregular_result:'欠場・失格・同着などの確認が必要',
+  invalid_result:'結果データの検証失敗'
+};
+const quoteLabels = {t10:'締切10分前',t5:'締切5分前',probability:'確率のみ'};
+function openPrediction(record, kind) {
+  mode.value = kind;
+  filter();
+  day.value = record.date;
+  filter();
+  venue.value = record.venue;
+  filter();
+  race.value = record.key || record.race_id;
+  render();
+  el('heading').focus();
+  el('detail').scrollIntoView({block:'start'});
+}
+const cardIndex = new Map((data.archive || []).map(row => [row.race_id, {...row, forecasts:[]}]));
+for (const forecast of data.forward || []) {
+  if (!cardIndex.has(forecast.race_id)) cardIndex.set(forecast.race_id, {...forecast, forecasts:[]});
+  cardIndex.get(forecast.race_id).forecasts.push(forecast);
+}
+const normalize = value => value.toString().normalize('NFKC').toLowerCase()
+  .replace(/[\u3041-\u3096]/g, letter => String.fromCharCode(letter.charCodeAt(0) + 0x60));
+const archive = [...cardIndex.values(), ...(data.replay || []).map(row => ({...row, replay:true, forecasts:[]}))]
+  .map(row => {
+    const settled = row.forecasts.find(r => r.settlement);
+    const kind = row.replay ? 'replay' : settled ? 'settled' :
+      row.forecasts.length ? 'pending' : row.result ? 'matched' : 'card';
+    const digits = row.date.replaceAll('-', '');
+    const search = normalize([row.date, digits, row.venue, row.race_no+'R', row.race_no+'レース',
+      row.cars.length+'車', classes[row.class] || row.class, labels[kind],
+      ...(row.riders || []).map(([,name]) => name.replace(/\s/g,''))].join(' '));
+    return {...row, kind, search, result:settled?.result || row.result};
+  }).sort((a,b) => b.date.localeCompare(a.date) || Number(!!a.replay)-Number(!!b.replay) ||
+    Date.parse(a.start)-Date.parse(b.start) || a.venue.localeCompare(b.venue, 'ja') || a.race_no-b.race_no);
+const archiveDay = el('archive-day'), archiveVenue = el('archive-venue'), archiveField = el('archive-field');
+const archiveState = el('archive-state'), archiveQuery = el('archive-query');
+options(archiveDay, ['', ...unique(archive.map(row => row.date))], day => day || 'すべて');
+options(archiveVenue, ['', ...unique(archive.map(row => row.venue)).sort((a,b) => a.localeCompare(b,'ja'))],
+  venue => venue || 'すべて');
+const archivePageSize = 12;
+let archiveLimit = archivePageSize;
+function appendText(parent, tag, value, className) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  node.textContent = value;
+  parent.append(node);
+  return node;
+}
+function archiveItem(row) {
+  const item = document.createElement('li');
+  const detail = document.createElement('details');
+  const title = document.createElement('summary');
+  item.append(detail);
+  detail.append(title);
+  const name = appendText(title, 'span', row.venue + ' ' + row.race_no + 'R', 'archive-title');
+  appendText(name, 'small', row.date + ' ・ ' + (classes[row.class] || row.class) + ' ・ ' + row.cars.length + '車');
+  appendText(title, 'span', labels[row.kind], 'tag');
+  if (row.riders?.length) {
+    appendText(detail, 'p', row.riders.map(([car, rider]) => car + ' ' + rider).join(' ／ '));
+  }
+  if (row.start) appendText(detail, 'small', '発走 ' + dateTime(row.start));
+  if (row.saved_at) appendText(detail, 'small', '出走表保存 ' + dateTime(row.saved_at));
+  if (!row.replay) {
+    const quotedAt = row.quote_captured_at || row.forecasts.find(r => r.quote_mode === 't10')?.quote?.captured_at;
+    appendText(detail, 'small', quotedAt ? '締切10分前オッズ取得 ' + dateTime(quotedAt) :
+      row.quote_invalid ? '締切10分前オッズの検証失敗' : '締切10分前オッズ未保存');
+  }
+  const payouts = Object.entries(row.result?.payouts || {});
+  appendText(detail, 'p', row.result?.cancelled ? '中止' : payouts.length ?
+    '二車単結果 ' + payouts.map(([pair, yen]) => pair + '（' + fmt(yen) + '円）').join(' ／ ') :
+    resultLabels[row.result_status] || '結果照合待ち');
+  if (row.result_observed_at) appendText(detail, 'small', '結果照合 ' + dateTime(row.result_observed_at));
+  const saved = row.forecasts.find(r => r.settlement)?.settlement;
+  if (saved) appendText(detail, 'small',
+    '仮想投資 ' + fmt(saved.stake) + '円 ・ 仮想払戻 ' + fmt(saved.returned) + '円');
+  if (row.feature_sha256) appendText(detail, 'small', '入力SHA-256 ' + row.feature_sha256);
+  if (row.replay || row.forecasts.length) {
+    const actions = document.createElement('div');
+    actions.className = 'archive-actions';
+    detail.append(actions);
+    for (const record of row.replay ? [row] : row.forecasts) {
+      const button = appendText(actions, 'button', row.replay ? '研究記録を開く' :
+        (quoteLabels[record.quote_mode] || '保存済み') + 'の予測を開く');
+      button.type = 'button';
+      button.addEventListener('click', () => openPrediction(record, row.replay ? 'replay' : 'forward'));
+    }
+  }
+  return item;
+}
+function renderArchive(more = false) {
+  const words = normalize(archiveQuery.value.trim()).split(/\s+/).filter(Boolean);
+  const matches = archive.filter(row =>
+    (!archiveDay.value || row.date === archiveDay.value) &&
+    (!archiveVenue.value || row.venue === archiveVenue.value) &&
+    (!archiveField.value || String(row.cars.length) === archiveField.value) &&
+    (!archiveState.value || row.kind === archiveState.value) &&
+    words.every(word => row.search.includes(word)));
+  const list = el('archive-list');
+  const start = more ? list.children.length : 0;
+  if (!more) list.replaceChildren();
+  list.append(...matches.slice(start, archiveLimit).map(archiveItem));
+  el('archive-count').textContent = fmt(matches.length) + '件該当 / 全' + fmt(archive.length) + '件';
+  el('archive-empty').hidden = matches.length > 0;
+  el('archive-empty').textContent = archive.length ? '条件に合う記録がありません。' : '台帳に保存されたレースはありません。';
+  el('archive-more').hidden = matches.length <= archiveLimit;
+}
+for (const control of [archiveDay, archiveVenue, archiveField, archiveState, archiveQuery]) {
+  control.addEventListener(control === archiveQuery ? 'input' : 'change', () => {
+    archiveLimit = archivePageSize;
+    renderArchive();
+  });
+}
+el('archive-more').addEventListener('click', () => {
+  archiveLimit += archivePageSize;
+  renderArchive(true);
+});
+renderArchive();
 function filter() {
   const all = data[mode.value] || [];
   options(day, unique(all.map(r => r.date)).sort().reverse());
@@ -75,7 +228,7 @@ function filter() {
   const byVenue = byDay.filter(r => r.venue === venue.value).sort((a,b) => a.race_no-b.race_no);
   options(race, byVenue.map(r => r.key || r.race_id), id => {
     const r = byVenue.find(r => (r.key || r.race_id) === id);
-    return r.race_no + 'R ・ ' + ({S:'S級',A:'A級',challenge:'チャレンジ'}[r.class] || r.class)
+    return r.race_no + 'R ・ ' + (classes[r.class] || r.class)
       + ' ・ ' + r.cars.length + '車' + (r.quote_mode === 't5' ? ' ・ 5分前' : r.quote_mode === 'probability' ? ' ・ 確率のみ' : '');
   });
   render();
