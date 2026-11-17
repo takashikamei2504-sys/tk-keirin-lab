@@ -82,13 +82,36 @@ async function test() {
         return route.fulfill({contentType:'application/json', headers:{'access-control-allow-origin':'*'}, body:match(forward)});
       }
       await page.route(feed, showFeed);
+      const now = Date.now();
+      const date = new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo'}).format(now);
+      const clock = Date.parse(date + 'T12:00:00+09:00');
+      await page.clock.setFixedTime(clock);
+      const live = JSON.parse(match(forward));
+      const base = live.archive[0];
+      live.archive.push(
+        {...base, date, venue:'松山', race_no:7, race_id:date+':松山:7',
+          start:date+'T12:55:00+09:00', sales_close:date+'T12:50:00+09:00'},
+        {...base, date, venue:'松山', race_no:6, race_id:date+':松山:6',
+          start:date+'T12:04:00+09:00', sales_close:date+'T11:59:00+09:00'},
+        {...base, date, venue:'高知', race_no:8, race_id:date+':高知:8',
+          start:date+'T13:35:00+09:00', sales_close:date+'T13:30:00+09:00'});
+      await page.unroute(feed, showFeed);
+      const liveFeed = route => route.fulfill({json:live, headers:{'access-control-allow-origin':'*'}});
+      await page.route(feed, liveFeed);
       await page.goto(url);
+      await page.locator('#quick-race').waitFor();
+      assert.equal(await page.locator('#quick-race option').count(), 2);
+      await page.selectOption('#quick-race', date+':高知:8');
+      const request = new URL(await page.locator('#quick-submit').getAttribute('href'));
+      assert.equal(request.pathname, '/takashikamei2504-sys/tk-keirin-lab/issues/new');
+      assert.equal(request.searchParams.get('title'), '2T手動取得 '+date+':高知:8');
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       await page.locator('#archive-sync').waitFor();
       assert.match(await page.locator('#archive-sync').textContent(), /締切前予測 2件/);
       assert.equal(await page.locator('#mode').inputValue(), 'forward');
       await page.selectOption('#archive-state', 'replay');
       assert.ok(await page.locator('#archive-list li').count());
-      await page.unroute(feed, showFeed);
+      await page.unroute(feed, liveFeed);
       await page.route(feed, route => route.abort());
       await page.reload();
       await page.locator('#archive-sync').waitFor();
