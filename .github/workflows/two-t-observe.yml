@@ -129,3 +129,26 @@ jobs:
           assert checked["rider_ids_verified"] and checked["labels"] == [6, 3, 5, 2], checked
           print("Both sources and all seven racer IDs verified: 2026-11-06 Omiya 1R, B=6, finish=3-5-2, exacta=670 JPY")
           PY
+
+      - name: Inspect the public exacta timestamp and matrix format
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: source
+        run: |
+          python3 - <<'PY'
+          import re
+          from urllib.request import Request, urlopen
+
+          for case, path in (("current", "matsuyama/racedetail/7520261117010007/"),
+                             ("finished", "omiya/racedetail/2520261104030001/")):
+              url = "https://keirin.kdreams.jp/" + path + "?kakeshikiType=2shatan&pageType=odds"
+              req = Request(url, headers={"User-Agent": "TK-KEIRIN-LAB/1.0 (public race research)"})
+              with urlopen(req, timeout=15) as response:
+                  html = response.read(2_000_000).decode("utf-8")
+                  print(case, response.status, response.url, len(html))
+              for term in ("現在", "確定オッズ", "発売終了", "2shatan", "モーニング", "発走予定", "全ての票数"):
+                  hits = list(re.finditer(term, html))
+                  print(case, term, len(hits), [re.sub(r'\s+', ' ', html[max(0,m.start()-100):m.start()+100]) for m in hits[-7:]])
+              for table in re.findall(r'<table\b[^>]*>.*?</table>', html, flags=re.S):
+                  if "2shatan" in table[:350]:
+                      print(case, "matrix", re.sub(r'\s+', ' ', table[:5600]))
+          PY
