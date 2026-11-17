@@ -39,7 +39,19 @@ async function test() {
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await page.selectOption('#mode', 'forward');
     assert.match(await page.locator('#state').textContent(), /まだありません/);
-    console.log('PASS iPhone 13 viewport 390px; races 42/72; probability sort; separate forward status');
+    const forward = process.argv[3];
+    if (forward) {
+      await page.goto(pathToFileURL(path.resolve(forward)).href);
+      await page.locator('#tickets tr').first().waitFor();
+      assert.equal(await page.locator('#mode').inputValue(), 'forward');
+      assert.equal(await page.locator('#status').textContent(), '仮想精算済み');
+      assert.match(await page.locator('#outcome').textContent(), /仮想投資 1,700円/);
+      assert.match(await page.locator('#outcome').textContent(), /仮想収支 -1,700円/);
+      await page.locator('#race').selectOption({index: 1});
+      assert.match(await page.locator('#outcome').textContent(), /結果照合待ち/);
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    }
+    console.log('PASS iPhone 13 viewport 390px; replay and standalone forward settlement status');
   } finally {
     await browser.close();
   }
