@@ -65,10 +65,17 @@ def predict_and_freeze(ledger, card, checkpoint, sha, quote, clock):
     return freeze(ledger / "forecasts", card, forecast, quote, clock(), MODE)
 
 
-def freeze_quotes(ledger, checkpoints, pins, clock=utc_now, runner=predict_and_freeze):
+def freeze_quotes(ledger, checkpoints, pins, clock=utc_now, runner=predict_and_freeze, race_id=None):
     known = {}
     counts, failures = Counter(), {}
-    for path in sorted((ledger / "quotes").glob("*.json")):
+    if race_id:
+        path = ledger_path(ledger / "quotes", race_id + ":" + MODE)
+        if not path.is_file():
+            return {"counts": {"quote_unavailable": 1}, "failures": {}}
+        paths = [path]
+    else:
+        paths = sorted((ledger / "quotes").glob("*.json"))
+    for path in paths:
         key = path.stem
         try:
             saved = payload(path)
@@ -147,9 +154,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("phase", choices=("freeze", "settle"))
     parser.add_argument("--ledger", type=Path, required=True)
+    parser.add_argument("--race-id", help="only freeze the selected race prediction")
     parser.add_argument("--checkpoints", type=Path)
     args = parser.parse_args()
-    result = (freeze_quotes(args.ledger, args.checkpoints, V1_PINS)
+    result = (freeze_quotes(args.ledger, args.checkpoints, V1_PINS, race_id=args.race_id)
               if args.phase == "freeze" else reconcile(args.ledger))
     print(json.dumps(result, ensure_ascii=False))
 
