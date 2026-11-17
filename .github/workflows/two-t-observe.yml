@@ -42,7 +42,7 @@ jobs:
         working-directory: source
         shell: bash
         run: |
-          python3 -m two_t.kdreams_odds --ledger ../ledger | tee ../odds-report.json
+          python3 -m two_t.kdreams_odds --ledger ../ledger --wait-seconds 210 | tee ../odds-report.json
       - name: Capture lineups and match published results
         working-directory: source
         shell: bash
