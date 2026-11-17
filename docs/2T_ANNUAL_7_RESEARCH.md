@@ -44,3 +44,5 @@ python -m unittest discover -s tests/two_t -q
 
 学習済み重みは `2T_7car_2025_research_weights.zip`。本番V1には適用していない。
 
+[2026年9〜11月の追加評価](2T_ANNUAL_EXTENSION.md)
+
