@@ -1,5 +1,6 @@
 const assert = require('node:assert/strict');
 const path = require('node:path');
+const fs = require('node:fs');
 const {pathToFileURL} = require('node:url');
 const {chromium, webkit, devices} = require('playwright');
 
@@ -71,6 +72,28 @@ async function test() {
       await page.locator('#race').selectOption({index: 1});
       assert.match(await page.locator('#outcome').textContent(), /結果照合待ち/);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      const url = 'https://takashikamei2504-sys.github.io/tk-keirin-lab/two_t/';
+      const pageSource = fs.readFileSync('two_t/index.html', 'utf8');
+      const match = file => fs.readFileSync(file,'utf8').match(/type="application\/json">([^<]+)</)[1];
+      await page.route(url, route => route.fulfill({contentType:'text/html', body:pageSource}));
+      await page.route(url + 'race-records.json', route => route.fulfill({contentType:'application/json', body:match(input)}));
+      const feed = 'https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/lab-2t-observations/public/race-records.json';
+      async function showFeed(route) {
+        return route.fulfill({contentType:'application/json', headers:{'access-control-allow-origin':'*'}, body:match(forward)});
+      }
+      await page.route(feed, showFeed);
+      await page.goto(url);
+      await page.locator('#archive-sync').waitFor();
+      assert.match(await page.locator('#archive-sync').textContent(), /締切前予測 2件/);
+      assert.equal(await page.locator('#mode').inputValue(), 'forward');
+      await page.selectOption('#archive-state', 'replay');
+      assert.ok(await page.locator('#archive-list li').count());
+      await page.unroute(feed, showFeed);
+      await page.route(feed, route => route.abort());
+      await page.reload();
+      await page.locator('#archive-sync').waitFor();
+      assert.match(await page.locator('#archive-sync').textContent(), /観測記録を取得できません/);
+      assert.equal(await page.locator('#mode').inputValue(), 'replay');
     }
     console.log('PASS iPhone 13 viewport 390px; replay, archive search, and forward settlement');
   } finally {

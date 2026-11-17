@@ -4,6 +4,11 @@ on:
     paths:
       - .github/workflows/two-t-observe.yml
       - two_t/observation-request.txt
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/two-t-observe.yml
+      - two_t/**
   workflow_dispatch:
   schedule:
     - cron: '11,41 0-14,22-23 * * *'
@@ -112,6 +117,15 @@ jobs:
         shell: bash
         run: |
           python3 -m two_t.observed_forward settle --ledger ../ledger | tee ../settlement-report.json
+      - name: Build the public 2T data from the observation ledger
+        id: public_data
+        continue-on-error: true
+        working-directory: source
+        shell: bash
+        run: |
+          python3 -m two_t.publish --ledger ../ledger --out "$RUNNER_TEMP/2t-public.json"
+          mkdir -p ../ledger/public
+          cp "$RUNNER_TEMP/2t-public.json" ../ledger/public/race-records.json
       - name: Commit new records to the dedicated ledger branch
         id: persist
         run: |
@@ -194,6 +208,11 @@ jobs:
         shell: bash
         run: |
           python3 -m two_t.publish --ledger ../ledger --out ../observation-export/forward.json --standalone ../observation-export/forward.html
+      - name: Confirm the public 2T data is ready
+        if: ${{ steps.persist.outcome == 'success' }}
+        env:
+          PUBLIC_DATA: ${{ steps.public_data.outcome }}
+        run: test "$PUBLIC_DATA" = success
       - name: Upload the verification export
         if: ${{ github.event_name != 'schedule' && steps.persist.outcome == 'success' }}
         uses: actions/upload-artifact@v4
@@ -202,6 +221,14 @@ jobs:
           path: observation-export/
           retention-days: 7
           if-no-files-found: error
+      - name: Verify the deployed Pages view and published observations
+        if: ${{ github.event_name == 'push' }}
+        shell: bash
+        run: |
+          curl --fail --silent --show-error --retry 12 --retry-delay 10 --retry-all-errors --max-time 10 'https://takashikamei2504-sys.github.io/tk-keirin-lab/two_t/' -o "$RUNNER_TEMP/2t-page.html"
+          grep -Fq 'id="archive-sync"' "$RUNNER_TEMP/2t-page.html"
+          curl --fail --silent --show-error --retry 12 --retry-delay 10 --retry-all-errors --max-time 10 'https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/lab-2t-observations/public/race-records.json' -o "$RUNNER_TEMP/2t-live.json"
+          python3 -c 'import json, sys; r=json.load(open(sys.argv[1])); print("Published cards:", len(r["archive"]), "forecasts:", len(r["forward"]))' "$RUNNER_TEMP/2t-live.json"
       - name: Validate the parser against a published historical race
         if: ${{ github.event_name == 'pull_request' }}
         working-directory: source

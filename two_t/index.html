@@ -42,6 +42,7 @@ strong{color:#255b43}small{display:block;color:#436358;overflow-wrap:anywhere}.s
 <main class="wrap">
 <section class="panel" aria-labelledby="archive-heading">
 <div class="strip"><h2 id="archive-heading">レース台帳</h2><span id="archive-count" role="status"></span></div>
+<p id="archive-sync" class="label" hidden></p>
 <div class="archive-controls">
 <label class="label archive-query">検索<input id="archive-query" type="search" placeholder="競輪場・レース番号・選手名" autocomplete="off"></label>
 <label class="label">開催日<select id="archive-day"></select></label>
@@ -86,8 +87,24 @@ if (records === null) {
   }
 }
 const data = records || {replay:[], forward:[]};
+if (embedded === null && location.hostname === 'takashikamei2504-sys.github.io') {
+  const status = el('archive-sync');
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/lab-2t-observations/public/race-records.json',
+      {signal:AbortSignal.timeout(5000)});
+    if (!response.ok) throw new Error('Observation feed HTTP ' + response.status);
+    const live = await response.json();
+    if (!Array.isArray(live.archive) || !Array.isArray(live.forward)) throw new Error('Invalid observation feed');
+    data.archive = live.archive;
+    data.forward = live.forward;
+    status.textContent = '観測記録 ' + fmt(live.archive.length) + 'レース ・ 締切前予測 ' + fmt(live.forward.length) + '件';
+  } catch (error) {
+    status.textContent = '観測記録を取得できませんでした。時間をおいて再読み込みしてください。';
+  }
+  status.hidden = false;
+}
 const mode = el('mode'), day = el('day'), venue = el('venue'), race = el('race'), sort = el('sort');
-if (!data.replay?.length) mode.value = 'forward';
+if (data.forward?.length || !data.replay?.length) mode.value = 'forward';
 function options(select, values, label = v => v) {
   const prior = select.value;
   select.replaceChildren(...values.map(v => new Option(label(v), v)));

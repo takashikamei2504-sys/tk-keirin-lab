@@ -21,11 +21,11 @@ python -m unittest discover -s tests/two_t -v
 
 ## 画面
 
-`python -m http.server 8000` をリポジトリ直下で起動し、 `http://localhost:8000/two_t/` を開く。締切前記録への切替、開催日・会場・レース選択、確率・EV順、1点100円の対象額、結果を表示する。確定オッズの研究画面には「確定オッズ利用・実購入再現不可」を表示する。独立ブランチの間は既存公開URLとトップ画面に反映されない。
+`python -m http.server 8000` をリポジトリ直下で起動し、 `http://localhost:8000/two_t/` を開く。締切前記録への切替、開催日・会場・レース選択、確率・EV順、1点100円の対象額、結果を表示する。確定オッズの研究画面には「確定オッズ利用・実購入再現不可」を表示する。公開後は [2T レース台帳](https://takashikamei2504-sys.github.io/tk-keirin-lab/two_t/) で、固定した過去検証と専用台帳の最新の公開記録を確認できる。
 
 ## 発走前取得と結果照合
 
-`python -m two_t.tick --checkpoints /tmp/2t/fit --ledger /tmp/2t/forward --page-output /tmp/2t/race-records.json` は、公開出走表と時刻を確認し、発走前保存された当日カードがある場合にT−10を収集する1サイクル。保管済み予測の結果を確認し、別ファイルへ照合結果を書き出す。利用するスケジューラと永続領域の設定は独立して行う。GitHub Actionsのcronは最短5分・遅延が発生し得るため、1分の取得窓に該当しない回は欠測になる。現在のブランチに定期起動の設定はない。
+`python -m two_t.tick --checkpoints /tmp/2t/fit --ledger /tmp/2t/forward --page-output /tmp/2t/race-records.json` は、公開出走表と時刻を確認し、発走前保存された当日カードがある場合にT−10を収集する1サイクル。保管済み予測の結果を確認し、別ファイルへ照合結果を書き出す。利用するスケジューラと永続領域の設定は独立して行う。GitHub Actionsのcronは最短5分・遅延が発生し得るため、1分の取得窓に該当しない回は欠測になる。GitHub Actionsの定期起動は既定ブランチ上の設定が有効になる。
 
 単一レースの手動確認は `python -m two_t.forward {capture,probability,settle} --card CARD --url RACE_URL --out LEDGER`。予測時は `--checkpoint MODEL` も指定する。 `CARD` には学習入力と同じ正規形式のレース行を使う。T−5の取得は `--mode t5` で独立保管する。結果と投票締切時刻はデータ提供元の時刻を使用する。予測は固定保存後に上書きされず、購入・投票の処理は存在しない。
 
@@ -95,4 +95,4 @@ python -m two_t.observed_forward settle --ledger /path/to/ledger
 
 T−10オッズと発走前出走表が同じレース・同じハッシュで検証できた場合、固定V1と一致する `transformer-7.pt` または `transformer-9.pt` を読み込み、発売締切前に確率とEV条件（1.5以上・1点100円の仮想精算）を `forecasts/` に固定する。最終バック・着順・払戻と全員の登録番号を照合した結果を用い、`settlements/` に一度だけ記録する。締切後の予測の新規保存と、出典や時刻をさかのぼって埋める処理は行わない。
 
-GitHub Actionsで動かす場合、タグ `2t-model-v1` のリリースに該当する学習済み `.pt` を添付する。Actionsはこのタグを自動で探す。別のタグを使う場合だけ、Actionsの変数 `LAB_2T_MODEL_RELEASE` に設定する。ダウンロードしたモデルは固定V1のリプレイに記録されているSHA-256と照合する。設定や重みが足りない場合は予測件数を増やさず、重み未配置・締切通過・精算待ちを実行概要に記録する。実予測が保存された実行の監査ファイルには、iPhone確認用の独立 `forward.html` を添付する。
+GitHub Actionsで動かす場合、タグ `2t-model-v1` のリリースに該当する学習済み `.pt` を添付する。Actionsはこのタグを自動で探す。別のタグを使う場合だけ、Actionsの変数 `LAB_2T_MODEL_RELEASE` に設定する。ダウンロードしたモデルは固定V1のリプレイに記録されているSHA-256と照合する。設定や重みが足りない場合は予測件数を増やさず、重み未配置・締切通過・精算待ちを実行概要に記録する。PR・手動実行の監査ファイルには、保存済み出走表または予測があれば独立 `forward.html` を添付する。定期実行も専用ブランチの `public/race-records.json` を更新する。公開ページはこのJSONを読み込み、取得できない場合は状況を表示して固定の過去検証を利用できる。
