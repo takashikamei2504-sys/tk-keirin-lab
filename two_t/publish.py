@@ -117,6 +117,10 @@ def main():
         examples.extend(rows)
     records = {"replay": examples, "forward": forward_data(args.ledger) if args.ledger else [],
                "archive": archive_data(args.ledger) if args.ledger else []}
+    manual_path = args.ledger / "manual-status.json" if args.ledger else None
+    if manual_path and manual_path.is_file():
+        records["manual"] = sorted(payload(manual_path).values(),
+                                   key=lambda r: (r["finished_at"], r["run_id"]), reverse=True)
     if not args.dataset and args.out.exists():
         records["replay"] = payload(args.out)["replay"]
     write(args.out, records)

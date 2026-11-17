@@ -169,6 +169,45 @@ jobs:
           else
             python3 -m two_t.observed_forward settle --ledger ../ledger | tee ../settlement-report.json
           fi
+      - name: Record the manual request outcome for the ledger
+        if: ${{ env.MANUAL_RACE_ID != '' }}
+        working-directory: source
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os
+          from datetime import datetime
+          from pathlib import Path
+          from two_t.source import JST, payload, write
+
+          key = os.environ["MANUAL_RACE_ID"]
+          now = datetime.now(JST)
+          card, odds, forecast = (payload(Path(f"../{name}-report.json"))
+                                  for name in ("observation", "odds", "forecast"))
+          fc, oc = forecast["counts"], odds["counts"]
+          if fc.get("frozen") or fc.get("already_frozen"):
+              status = "forecast_saved"
+          elif fc.get("closed_before_freeze"):
+              status = "closed"
+          elif fc.get("checkpoint_unavailable"):
+              status = "checkpoint_unavailable"
+          elif forecast["failures"] or odds["failures"]:
+              status = "verification_failed"
+          elif oc.get("no_saved_card"):
+              status = "card_unavailable"
+          elif oc.get("window_missed"):
+              status = "window_missed"
+          elif oc.get("window_not_open"):
+              status = "window_not_open"
+          else:
+              status = "no_forecast"
+          path = Path("../ledger/manual-status.json")
+          rows = payload(path) if path.is_file() else {}
+          rows = {k: v for k, v in rows.items() if k.startswith(card["day"] + ":")}
+          rows[key] = {"race_id": key, "status": status, "finished_at": now.isoformat(),
+                        "run_id": int(os.environ["GITHUB_RUN_ID"])}
+          write(path, rows)
+          PY
       - name: Build the public 2T data from the observation ledger
         id: public_data
         continue-on-error: true

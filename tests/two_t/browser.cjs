@@ -87,6 +87,10 @@ async function test() {
       const clock = Date.parse(date + 'T12:00:00+09:00');
       await page.clock.setFixedTime(clock);
       const live = JSON.parse(match(forward));
+      live.manual = [
+        {race_id:date+':高知:8', status:'window_missed', finished_at:date+'T11:59:00+09:00', run_id:123},
+        {race_id:'2000-01-01:高知:7', status:'forecast_saved', finished_at:'2000-01-01T11:00:00+09:00', run_id:124}
+      ];
       const base = live.archive[0];
       live.archive.push(
         {...base, date, venue:'松山', race_no:7, race_id:date+':松山:7',
@@ -101,6 +105,10 @@ async function test() {
       await page.goto(url);
       await page.locator('#quick-race').waitFor();
       assert.equal(await page.locator('#quick-race option').count(), 2);
+      assert.equal(await page.locator('#quick-results li').count(), 1);
+      assert.match(await page.locator('#quick-results').textContent(), /高知 8R ・ オッズの取得時刻を過ぎました/);
+      assert.equal(await page.locator('#quick-results a').getAttribute('href'),
+                   'https://github.com/takashikamei2504-sys/tk-keirin-lab/actions/runs/123');
       await page.selectOption('#quick-race', date+':高知:8');
       const request = new URL(await page.locator('#quick-submit').getAttribute('href'));
       assert.equal(request.pathname, '/takashikamei2504-sys/tk-keirin-lab/issues/new');

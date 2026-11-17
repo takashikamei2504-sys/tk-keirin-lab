@@ -33,6 +33,11 @@ strong{color:#255b43}small{display:block;color:#436358;overflow-wrap:anywhere}.s
 .quick-controls{display:flex;align-items:end;gap:.6rem;flex-wrap:wrap}
 .quick-controls label{flex:1 1 13rem}
 .quick-submit{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.45rem .85rem;background:#255b43;color:#fff;border-radius:.5rem;text-decoration:none;font-weight:700}
+.quick-results{margin-top:.85rem;border-top:1px solid #d7e2d9;padding-top:.65rem}
+.quick-results h3{font-size:.95rem;margin:0}
+.quick-results ul{margin:.4rem 0;padding:0;list-style:none}
+.quick-results li{padding:.4rem 0}
+.quick-results li a{color:#255b43}
 .quick-fallback{font-size:.82rem;color:#255b43}
 #archive-count{font-size:.82rem;color:#3c5850}
 #detail{scroll-margin-top:.75rem}
@@ -53,6 +58,11 @@ strong{color:#255b43}small{display:block;color:#436358;overflow-wrap:anywhere}.s
 </div>
 <p id="quick-status" class="label" role="status">当日のレースを読み込み中…</p>
 <a class="quick-fallback" href="https://github.com/takashikamei2504-sys/tk-keirin-lab/actions/workflows/two-t-observe.yml">掲載されていないレースを手動指定</a>
+<div class="quick-results">
+<div class="strip"><h3>今日の手動取得結果</h3><div class="archive-actions"><button type="button" id="quick-refresh">結果を更新</button></div></div>
+<p id="quick-results-empty" class="label">当日の処理結果はまだありません。</p>
+<ul id="quick-results"></ul>
+</div>
 </section>
 <section class="panel" aria-labelledby="archive-heading">
 <div class="strip"><h2 id="archive-heading">レース台帳</h2><span id="archive-count" role="status"></span></div>
@@ -111,6 +121,7 @@ if (embedded === null && location.hostname === 'takashikamei2504-sys.github.io')
     if (!Array.isArray(live.archive) || !Array.isArray(live.forward)) throw new Error('Invalid observation feed');
     data.archive = live.archive;
     data.forward = live.forward;
+    data.manual = Array.isArray(live.manual) ? live.manual : [];
     status.textContent = '観測記録 ' + fmt(live.archive.length) + 'レース ・ 締切前予測 ' + fmt(live.forward.length) + '件';
   } catch (error) {
     status.textContent = '観測記録を取得できませんでした。時間をおいて再読み込みしてください。';
@@ -201,6 +212,32 @@ el('quick-controls').hidden = !upcoming.length;
 quickStatus.textContent = upcoming.length ?
   'GitHubで「Create」を押すと受付。依頼は公開Issueに記録されます。' :
   '台帳に依頼できる当日のレースがありません。';
+const manualLabels = {
+  forecast_saved:'予想保存済み', closed:'締切前に保存できませんでした',
+  checkpoint_unavailable:'予想モデルを読み込めませんでした', verification_failed:'データの検証に失敗しました',
+  card_unavailable:'予想に必要な出走表がありません', window_missed:'オッズの取得時刻を過ぎました',
+  window_not_open:'オッズの取得時刻より前です', no_forecast:'予想は保存されませんでした'
+};
+el('quick-refresh').addEventListener('click', () => location.reload());
+const manualList = el('quick-results');
+for (const row of data.manual || []) {
+  const [date, label, number] = row.race_id.split(':');
+  if (date !== today || !Object.hasOwn(manualLabels,row.status)) continue;
+  const forecast = cardIndex.get(row.race_id)?.forecasts.find(r => r.quote_mode === 't10');
+  const item = appendText(manualList, 'li', label+' '+number+'R ・ '+(forecast ? manualLabels.forecast_saved : manualLabels[row.status]));
+  const detail = appendText(item, 'small', closeTime.format(new Date(row.finished_at))+'処理');
+  if (Number.isSafeInteger(row.run_id) && row.run_id > 0) {
+    const link = appendText(detail, 'a', ' ・ 実行詳細');
+    link.href = 'https://github.com/takashikamei2504-sys/tk-keirin-lab/actions/runs/'+row.run_id;
+  }
+  if (forecast) {
+    const actions = appendText(item, 'div', '', 'archive-actions');
+    const button = appendText(actions, 'button', '予想を見る');
+    button.type = 'button';
+    button.addEventListener('click', () => openPrediction(forecast, 'forward'));
+  }
+}
+el('quick-results-empty').hidden = manualList.children.length > 0;
 const archiveDay = el('archive-day'), archiveVenue = el('archive-venue'), archiveField = el('archive-field');
 const archiveState = el('archive-state'), archiveQuery = el('archive-query');
 options(archiveDay, ['', ...unique(archive.map(row => row.date))], day => day || 'すべて');
