@@ -5,6 +5,7 @@ from datetime import date
 from pathlib import Path
 import re
 
+from .kdreams_odds import ODDS_QUERY, RESULT_QUERY, verify_quote
 from .kdreams_results import key_for
 from .ledger import ledger_path
 from .netkeirin_results import RESULT_URL
@@ -89,6 +90,24 @@ def result_for(ledger, record, card, as_of):
                         "result_observed_at": settlement["observed_at"], "result": result}
 
 
+def quote_for(ledger, record, row, as_of):
+    path = ledger_path(ledger / "quotes", row["race_id"] + ":t10")
+    if not path.exists():
+        return None
+    saved = payload(path)
+    quote = saved["quote"]
+    expected = row["result"]["result_source"].removesuffix(RESULT_QUERY) + ODDS_QUERY
+    close = f"{row['date']}T{record['raw_card']['close_time']}:00+09:00"
+    captured = stamp(quote["captured_at"])
+    if (saved["race_id"] != row["race_id"] or saved["mode"] != "t10"
+            or saved["feature_sha256"] != record["feature_sha256"] or quote["source_url"] != expected
+            or stamp(quote["sales_close"]) != stamp(close) or not SHA.fullmatch(quote["page_sha256"])
+            or not stamp(row["saved_at"]) <= captured < stamp(row["start"]) or captured > as_of):
+        raise ValueError("T-10 evidence does not match the pre-race card")
+    verify_quote(quote, row)
+    return quote
+
+
 def audit(ledger, as_of, day=None):
     rows, entries = [], []
     for path in sorted((ledger / "cards").glob("*.json")):
@@ -113,6 +132,13 @@ def audit(ledger, as_of, day=None):
                 status, row = result_for(ledger, record, card, as_of)
                 entry["status"] = status
                 if row is not None:
+                    try:
+                        quote = quote_for(ledger, record, row, as_of)
+                        entry["t10_status"] = "eligible" if quote else "missing"
+                        if quote is not None:
+                            row["t10"] = quote
+                    except (OSError, KeyError, TypeError, ValueError, AttributeError) as error:
+                        entry.update(t10_status="invalid", t10_detail=str(error))
                     rows.append(row)
         except (OSError, KeyError, TypeError, ValueError, AttributeError) as error:
             entry.update(status="invalid_result", detail=str(error))
@@ -120,6 +146,7 @@ def audit(ledger, as_of, day=None):
     return sorted(rows, key=lambda row: (stamp(row["start"]), row["race_id"])), {
         "date": day, "as_of": as_of.isoformat(), "observation_count": len(entries),
         "counts": dict(Counter(entry["status"] for entry in entries)),
+        "t10_counts": dict(Counter(entry["t10_status"] for entry in entries if "t10_status" in entry)),
         "fields": {str(cars): dict(Counter(entry["status"] for entry in entries if entry.get("cars") == cars))
                    for cars in (7, 9)},
         "entries": sorted(entries, key=lambda entry: entry["race_id"])}
@@ -133,6 +160,9 @@ def summary(report):
         if count or key == "eligible":
             a, b = (report["fields"][n].get(key, 0) for n in ("7", "9"))
             lines.append(f"| {label} | {count} | {a} | {b} |")
+    t10 = report["t10_counts"]
+    lines.extend(["", f"抽出行のT−10オッズは、適格 {t10.get('eligible', 0)}件、"
+                  f"未保存 {t10.get('missing', 0)}件、検証失敗 {t10.get('invalid', 0)}件。"])
     return "\n".join(lines) + "\n"
 
 
