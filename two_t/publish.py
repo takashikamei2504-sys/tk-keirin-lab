@@ -2,6 +2,7 @@
 import argparse
 from collections import defaultdict
 from pathlib import Path
+import re
 
 from .evaluate import choices, eligible_quote, settle
 from .ledger import ledger_path
@@ -68,6 +69,9 @@ def archive_data(directory, as_of=None):
             continue
         row = {key: card[key] for key in ("race_id", "date", "venue", "race_no", "class", "cars",
                                           "start", "saved_at", "source_url") if key in card}
+        close = record["raw_card"].get("close_time")
+        if isinstance(close, str) and re.fullmatch(r"(?:[01]\d|2[0-3]):[0-5]\d", close):
+            row["sales_close"] = f"{card['date']}T{close}:00+09:00"
         row["riders"] = [
             [entry["car_number"], entry["rider_full_name"]]
             for entry in record["raw_card"]["entries"] if entry.get("rider_full_name")
@@ -113,6 +117,10 @@ def main():
         examples.extend(rows)
     records = {"replay": examples, "forward": forward_data(args.ledger) if args.ledger else [],
                "archive": archive_data(args.ledger) if args.ledger else []}
+    manual_path = args.ledger / "manual-status.json" if args.ledger else None
+    if manual_path and manual_path.is_file():
+        records["manual"] = sorted(payload(manual_path).values(),
+                                   key=lambda r: (r["finished_at"], r["run_id"]), reverse=True)
     if not args.dataset and args.out.exists():
         records["replay"] = payload(args.out)["replay"]
     write(args.out, records)

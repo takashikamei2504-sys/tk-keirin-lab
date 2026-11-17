@@ -1,5 +1,7 @@
 name: 2T lineup observations
 on:
+  issues:
+    types: [opened]
   pull_request:
     paths:
       - .github/workflows/two-t-observe.yml
@@ -24,18 +26,21 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: lab-2t-observations
-  cancel-in-progress: false
-
 jobs:
   collect:
     # A fork or a change to repository visibility must not start a write-enabled run.
     if: >-
       ${{ !github.event.repository.private &&
+          (github.event_name != 'issues' ||
+            (github.event.issue.user.id == github.event.repository.owner.id &&
+             github.event.sender.id == github.event.repository.owner.id &&
+             startsWith(github.event.issue.title, '2T手動取得 '))) &&
           (github.event_name != 'pull_request' ||
             (github.event.pull_request.head.repo.full_name == github.repository &&
              github.event.pull_request.head.ref == 'lab-2t-transformer-v1')) }}
+    concurrency:
+      group: lab-2t-observations
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -54,20 +59,30 @@ jobs:
         env:
           INPUT_VENUE: ${{ inputs.venue }}
           INPUT_RACE: ${{ inputs.race_number }}
+          MANUAL_ISSUE: ${{ github.event.issue.title }}
         working-directory: source
         shell: bash
         run: |
-          if [[ -z "$INPUT_VENUE" && -z "$INPUT_RACE" ]]; then exit 0; fi
+          if [[ "$GITHUB_EVENT_NAME" != issues && -z "$INPUT_VENUE" && -z "$INPUT_RACE" ]]; then exit 0; fi
           race_id="$(python3 - <<'PY'
           from datetime import datetime
           import os, re, sys, unicodedata
           from two_t.source import JST
 
+          today = datetime.now(JST).date().isoformat()
+          if os.environ["GITHUB_EVENT_NAME"] == "issues":
+              request = re.fullmatch(
+                  r"2T手動取得 (\d{4}-\d{2}-\d{2}):([一-龯ぁ-んァ-ヶ々ー]{1,15}):([1-9]|1[0-2])",
+                  os.environ["MANUAL_ISSUE"])
+              if not request or request[1] != today:
+                  sys.exit("当日の台帳から依頼し直してください")
+              print(f"{today}:{request[2]}:{request[3]}")
+              sys.exit(0)
           venue = unicodedata.normalize("NFKC", os.environ["INPUT_VENUE"]).strip()
           number = unicodedata.normalize("NFKC", os.environ["INPUT_RACE"]).strip()
           if not re.fullmatch(r"[一-龯ぁ-んァ-ヶ々ー]{1,15}", venue) or not re.fullmatch(r"(?:[1-9]|1[0-2])[Rr]?", number):
               sys.exit("競輪場名とレース番号（1〜12）の両方を指定してください")
-          print(f"{datetime.now(JST).date().isoformat()}:{venue}:{int(number.rstrip('Rr'))}")
+          print(f"{today}:{venue}:{int(number.rstrip('Rr'))}")
           PY
           )"
           echo "MANUAL_RACE_ID=$race_id" >> "$GITHUB_ENV"
@@ -154,6 +169,45 @@ jobs:
           else
             python3 -m two_t.observed_forward settle --ledger ../ledger | tee ../settlement-report.json
           fi
+      - name: Record the manual request outcome for the ledger
+        if: ${{ env.MANUAL_RACE_ID != '' }}
+        working-directory: source
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os
+          from datetime import datetime
+          from pathlib import Path
+          from two_t.source import JST, payload, write
+
+          key = os.environ["MANUAL_RACE_ID"]
+          now = datetime.now(JST)
+          card, odds, forecast = (payload(Path(f"../{name}-report.json"))
+                                  for name in ("observation", "odds", "forecast"))
+          fc, oc = forecast["counts"], odds["counts"]
+          if fc.get("frozen") or fc.get("already_frozen"):
+              status = "forecast_saved"
+          elif fc.get("closed_before_freeze"):
+              status = "closed"
+          elif fc.get("checkpoint_unavailable"):
+              status = "checkpoint_unavailable"
+          elif forecast["failures"] or odds["failures"]:
+              status = "verification_failed"
+          elif oc.get("no_saved_card"):
+              status = "card_unavailable"
+          elif oc.get("window_missed"):
+              status = "window_missed"
+          elif oc.get("window_not_open"):
+              status = "window_not_open"
+          else:
+              status = "no_forecast"
+          path = Path("../ledger/manual-status.json")
+          rows = payload(path) if path.is_file() else {}
+          rows = {k: v for k, v in rows.items() if k.startswith(card["day"] + ":")}
+          rows[key] = {"race_id": key, "status": status, "finished_at": now.isoformat(),
+                        "run_id": int(os.environ["GITHUB_RUN_ID"])}
+          write(path, rows)
+          PY
       - name: Build the public 2T data from the observation ledger
         id: public_data
         continue-on-error: true
@@ -338,3 +392,16 @@ jobs:
               raise AssertionError("a completed quote was accepted")
           print("Finished race was rejected by the forward quote gate")
           PY
+
+  close_request:
+    needs: collect
+    if: ${{ github.event_name == 'issues' && needs.collect.result == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Close the completed request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY"
