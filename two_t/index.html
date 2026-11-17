@@ -59,6 +59,7 @@ if (records === null) {
 }
 const data = records || {replay:[], forward:[]};
 const mode = el('mode'), day = el('day'), venue = el('venue'), race = el('race'), sort = el('sort');
+if (!data.replay?.length && data.forward?.length) mode.value = 'forward';
 function options(select, values, label = v => v) {
   const prior = select.value;
   select.replaceChildren(...values.map(v => new Option(label(v), v)));
@@ -87,9 +88,10 @@ function render() {
   if (!r) return;
   const isReplay = mode.value === 'replay';
   const odds = r.quote?.odds;
+  const account = isReplay ? null : r.settlement;
   el('heading').textContent = r.venue + ' ' + r.race_no + 'R ・ ' + r.cars.length + '車';
   const closed = !isReplay && Date.now() >= Date.parse(r.quote?.sales_close || r.start);
-  el('status').textContent = isReplay ? '過去検証' : closed ? '締切済み' : r.frozen_at ? '発走前固定済み' : '保存待ち';
+  el('status').textContent = isReplay ? '過去検証' : account ? '仮想精算済み' : closed ? '締切済み' : r.frozen_at ? '発走前固定済み' : '保存待ち';
   el('time').textContent = (isReplay ? '発走前資料の保存 ' : '予測の保存 ') + dateTime(r.frozen_at ?? r.input_as_of);
   el('source').textContent = isReplay ? '確定オッズ利用・実購入再現不可' : odds ?
     '締切' + (r.quote_mode === 't5' ? '5' : '10') + '分前 ・ 取得 ' + dateTime(r.quote.captured_at) : '締切前オッズなし・確率のみ';
@@ -100,6 +102,11 @@ function render() {
        + (r.settlement?.tickets ? ' ・ ' + (r.settlement.hits ? '的中 ' : '不的中 ') + fmt(r.settlement.returned) + '円' : '')
        + (r.cumulative_roi == null ? '' : ' ・ ' + r.cars.length + '車 累積回収率 ' + pct(r.cumulative_roi)) :
     '結果照合待ち';
+  if (account) {
+    const balance = account.returned - account.stake;
+    el('outcome').textContent += ' ・ 仮想投資 ' + fmt(account.stake) + '円'
+      + ' ・ 仮想収支 ' + (balance > 0 ? '+' : '') + fmt(balance) + '円';
+  }
   const rows = Object.entries(r.probabilities).map(([key,p]) => {
     const o = odds?.[key] ?? null;
     return {key,p,o,ev:o === null ? null : p*o};
