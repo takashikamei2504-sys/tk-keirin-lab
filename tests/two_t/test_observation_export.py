@@ -12,6 +12,7 @@ from two_t.netkeirin_results import RESULT_URL
 from two_t.observed_forward import V1_PINS, freeze_quotes, reconcile
 from two_t.observation_export import audit, summary
 from two_t.observe import observe
+from two_t.publish import forward_data
 from two_t.source import pairs, payload, stamp, write
 
 
@@ -133,3 +134,18 @@ class ObservationExportTests(unittest.TestCase):
         self.assertEqual(reconcile(self.ledger, after, {7: pin})["counts"], {"already_settled": 1})
         settlement = payload(ledger_path(self.ledger / "settlements", identity))["settlement"]
         self.assertEqual((settlement["stake"], settlement["returned"]), (100, 6330))
+
+    def test_cumulative_roi_keeps_field_size_and_odds_mode_separate(self):
+        for index, cars, mode, stake, returned in (
+                (1, 7, "t10", 100, 200),
+                (2, 9, "t10", 200, 100),
+                (3, 7, "t5", 100, 50),
+                (4, 7, "t10", 100, 0)):
+            key = f"{DAY}:いわき平:{index}:{mode}"
+            store_once(self.ledger / "forecasts", key, {"race_id": str(index),
+                       "start": f"{DAY}T21:{index:02d}:00+09:00",
+                       "cars": list(range(1, cars + 1)), "quote_mode": mode})
+            store_once(self.ledger / "settlements", key,
+                       {"settlement": {"stake": stake, "returned": returned}})
+        reports = {row["race_id"]: row["cumulative_roi"] for row in forward_data(self.ledger)}
+        self.assertEqual(reports, {"1": 2.0, "2": 0.5, "3": 0.5, "4": 1.0})
