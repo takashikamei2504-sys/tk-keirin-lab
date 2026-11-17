@@ -10,6 +10,13 @@ on:
       - .github/workflows/two-t-observe.yml
       - two_t/**
   workflow_dispatch:
+    inputs:
+      venue:
+        description: '競輪場の正式表記（例 松山）。空欄は一括観測'
+        type: string
+      race_number:
+        description: 'レース番号（例 7）。当日分のみ'
+        type: string
   schedule:
     - cron: '11,41 0-14,22-23 * * *'
     - cron: '11 15 * * *'
@@ -43,11 +50,35 @@ jobs:
         with:
           ref: lab-2t-observations
           path: ledger
+      - name: Select and capture the requested pre-race card
+        env:
+          INPUT_VENUE: ${{ inputs.venue }}
+          INPUT_RACE: ${{ inputs.race_number }}
+        working-directory: source
+        shell: bash
+        run: |
+          if [[ -z "$INPUT_VENUE" && -z "$INPUT_RACE" ]]; then exit 0; fi
+          race_id="$(python3 - <<'PY'
+          from datetime import datetime
+          import os, re, sys, unicodedata
+          from two_t.source import JST
+
+          venue = unicodedata.normalize("NFKC", os.environ["INPUT_VENUE"]).strip()
+          number = unicodedata.normalize("NFKC", os.environ["INPUT_RACE"]).strip()
+          if not re.fullmatch(r"[一-龯ぁ-んァ-ヶ々ー]{1,15}", venue) or not re.fullmatch(r"(?:[1-9]|1[0-2])[Rr]?", number):
+              sys.exit("競輪場名とレース番号（1〜12）の両方を指定してください")
+          print(f"{datetime.now(JST).date().isoformat()}:{venue}:{int(number.rstrip('Rr'))}")
+          PY
+          )"
+          echo "MANUAL_RACE_ID=$race_id" >> "$GITHUB_ENV"
+          python3 -m two_t.observe --ledger ../ledger --cards-only --race-id "$race_id" | tee ../observation-report.json
       - name: Capture eligible Kdreams T-10 odds
         working-directory: source
         shell: bash
         run: |
-          python3 -m two_t.kdreams_odds --ledger ../ledger --wait-seconds 210 | tee ../odds-report.json
+          race_args=()
+          if [[ -n "${MANUAL_RACE_ID:-}" ]]; then race_args+=(--race-id "$MANUAL_RACE_ID"); fi
+          python3 -m two_t.kdreams_odds --ledger ../ledger --wait-seconds 210 "${race_args[@]}" | tee ../odds-report.json
       - name: Locate the V1 model release
         id: model_source
         env:
@@ -106,8 +137,10 @@ jobs:
           if [[ "$MODEL_LOAD_STATUS" == success ]]; then
             model_args+=(--checkpoints "$RUNNER_TEMP/2t-checkpoints")
           fi
+          if [[ -n "${MANUAL_RACE_ID:-}" ]]; then model_args+=(--race-id "$MANUAL_RACE_ID"); fi
           python3 -m two_t.observed_forward freeze --ledger ../ledger "${model_args[@]}" | tee ../forecast-report.json
       - name: Capture lineups and match published results
+        if: ${{ env.MANUAL_RACE_ID == '' }}
         working-directory: source
         shell: bash
         run: |
@@ -116,7 +149,11 @@ jobs:
         working-directory: source
         shell: bash
         run: |
-          python3 -m two_t.observed_forward settle --ledger ../ledger | tee ../settlement-report.json
+          if [[ -n "${MANUAL_RACE_ID:-}" ]]; then
+            printf '%s\n' '{"counts":{},"failures":{}}' > ../settlement-report.json
+          else
+            python3 -m two_t.observed_forward settle --ledger ../ledger | tee ../settlement-report.json
+          fi
       - name: Build the public 2T data from the observation ledger
         id: public_data
         continue-on-error: true
@@ -150,6 +187,9 @@ jobs:
           root = Path("ledger")
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
               print(f"## 2T 観測結果 / {report['day']} (JST)", file=summary)
+              if target := os.environ.get("MANUAL_RACE_ID"):
+                  print(f"手動対象 {target}", file=summary)
+                  print(f"出走表での一致 {report.get('matched_feed_rows', 0)}件", file=summary)
               write_status = os.environ["LEDGER_WRITE_STATUS"]
               print(f"Gitへの保存ステップの結果: {write_status}", file=summary)
               print("| 項目 | 件数 |\n| --- | ---: |", file=summary)
@@ -175,12 +215,18 @@ jobs:
                                  ("取得窓が開始前", "window_not_open"), ("取得窓を通過", "window_missed")):
                   print(f"| {label} | {quote_counts.get(key, 0)} |", file=summary)
               print(f"| 取得・検証失敗 | {len(quote_report['failures'])} |", file=summary)
+              if os.environ.get("MANUAL_RACE_ID"):
+                  print(f"| 適格な保存済み出走表なし | {quote_counts.get('no_saved_card', 0)} |", file=summary)
+                  for failure in (report["failures"], quote_report["failures"]):
+                      if error := failure.get(target) or failure.get("day_feed"):
+                          print(f"- 取得不可の理由 {error}", file=summary)
               forecasts = json.loads(Path("forecast-report.json").read_text())
               settlements = json.loads(Path("settlement-report.json").read_text())
               print("\n## 発売締切前の予測・精算", file=summary)
               print(f"重み取得ステップ: {os.environ['MODEL_LOAD_STATUS']}", file=summary)
               for label, info, key in (
                   ("新規予測", forecasts, "frozen"),
+                  ("予測保存済み", forecasts, "already_frozen"),
                   ("重み未配置", forecasts, "checkpoint_unavailable"),
                   ("予測保存前に締切通過", forecasts, "closed_before_freeze"),
                   ("確定結果と精算", settlements, "settled"),

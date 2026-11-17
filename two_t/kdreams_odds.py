@@ -88,12 +88,22 @@ def verify_quote(quote, card):
         raise ValueError("outside T-10 capture window or stale odds")
 
 
-def capture(ledger, clock=utc_now):
+def card_paths(ledger, race_id):
+    if race_id:
+        path = ledger_path(ledger / "cards", race_id)
+        return [path] if path.is_file() else []
+    return sorted((ledger / "cards").glob("*.json"))
+
+
+def capture(ledger, clock=utc_now, race_id=None):
     report, outcomes = Counter(), {}
     now = clock()
     day = now.astimezone(JST).date().isoformat()
     urls = None
-    for path in sorted((ledger / "cards").glob("*.json")):
+    paths = card_paths(ledger, race_id)
+    if race_id and not paths:
+        report["no_saved_card"] += 1
+    for path in paths:
         key = path.stem
         try:
             record = payload(path)
@@ -137,13 +147,13 @@ def capture(ledger, clock=utc_now):
     return {"day": day, "counts": dict(report), "failures": outcomes}
 
 
-def wait_for_window(ledger, maximum, clock=utc_now, sleeper=sleep):
+def wait_for_window(ledger, maximum, clock=utc_now, sleeper=sleep, race_id=None):
     if maximum <= 0:
         return
     now = clock()
     day = now.astimezone(JST).date().isoformat()
     starts = []
-    for path in (ledger / "cards").glob("*.json"):
+    for path in card_paths(ledger, race_id):
         try:
             record = payload(path)
             card = record["card"]
@@ -164,9 +174,10 @@ def wait_for_window(ledger, maximum, clock=utc_now, sleeper=sleep):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger", type=Path, required=True)
+    parser.add_argument("--race-id", help="only capture odds for the selected race")
     parser.add_argument("--wait-seconds", type=int, default=0)
     args = parser.parse_args()
     if not 0 <= args.wait_seconds <= 240:
         parser.error("--wait-seconds must be between 0 and 240")
-    wait_for_window(args.ledger, args.wait_seconds)
-    print(json.dumps(capture(args.ledger), ensure_ascii=False))
+    wait_for_window(args.ledger, args.wait_seconds, race_id=args.race_id)
+    print(json.dumps(capture(args.ledger, race_id=args.race_id), ensure_ascii=False))

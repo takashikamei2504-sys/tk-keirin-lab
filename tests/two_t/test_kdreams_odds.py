@@ -8,6 +8,7 @@ from test_archive_join import DAY, KEY, PUBLISHED, RAW, SAVED
 from two_t.kdreams_odds import capture, snapshot, verify_quote
 from two_t.ledger import ledger_path
 from two_t.observe import observe
+from two_t.observed_forward import V1_PINS, freeze_quotes
 from two_t.source import payload, stamp
 
 
@@ -88,3 +89,27 @@ class OddsCaptureTests(unittest.TestCase):
             entry = payload(ledger_path(ledger / "quotes", KEY + ":t10"))
             self.assertEqual(entry["quote"]["captured_at"], DUE)
             self.assertEqual(entry["feature_sha256"], payload(ledger_path(ledger / "cards", KEY))["feature_sha256"])
+
+    def test_manual_cycle_uses_only_the_requested_race(self):
+        with TemporaryDirectory() as directory:
+            ledger = Path(directory)
+            other = {**RAW_CARD, "race_number": 4}
+            other_key = f"{DAY}:いわき平:4"
+            feed = {"date": DAY, "generated_at": PUBLISHED, "races": [other, RAW_CARD]}
+            with patch("two_t.observe.day_feed", return_value=feed), patch("two_t.observe.reconcile") as reconcile:
+                observed = observe(ledger, clock=lambda: stamp(SAVED), race_id=KEY, cards_only=True)
+                reconcile.assert_not_called()
+            self.assertEqual(observed["matched_feed_rows"], 1)
+            self.assertEqual(observed["cards_saved"], 1)
+            self.assertFalse(ledger_path(ledger / "cards", other_key).exists())
+            with patch("two_t.kdreams_odds.links_for", return_value={RAW_CARD["race_id"]: URL}), \
+                    patch("two_t.kdreams_odds.read_page", return_value=page(range(1, 8))) as read:
+                self.assertEqual(capture(ledger, clock=lambda: stamp(DUE), race_id=other_key)["counts"],
+                                 {"no_saved_card": 1})
+                read.assert_not_called()
+                self.assertEqual(capture(ledger, clock=lambda: stamp(DUE), race_id=KEY)["counts"], {"quotes_saved": 1})
+                read.assert_called_once()
+            self.assertEqual(freeze_quotes(ledger, None, V1_PINS, race_id=other_key)["counts"],
+                             {"quote_unavailable": 1})
+            self.assertEqual(freeze_quotes(ledger, None, V1_PINS, clock=lambda: stamp(DUE), race_id=KEY)["counts"],
+                             {"checkpoint_unavailable": 1})

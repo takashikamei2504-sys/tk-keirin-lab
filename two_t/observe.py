@@ -34,7 +34,7 @@ def check_window(card, at):
         raise ValueError("too late for pre-race lineup capture")
 
 
-def capture(ledger, day, feed, fetched_at, clock, report, failures):
+def capture(ledger, day, feed, fetched_at, clock, report, failures, race_id=None):
     if feed["date"] != day or stamp(feed["generated_at"]) > fetched_at:
         raise ValueError("feed date or publication time is inconsistent")
     report["feed_rows"] = len(feed["races"])
@@ -44,6 +44,10 @@ def capture(ledger, day, feed, fetched_at, clock, report, failures):
         key = f"feed entry {index}"
         try:
             key = f"{day}:{raw['venue']}:{int(raw['race_number'])}"
+            if race_id and race_id != key:
+                continue
+            if race_id:
+                report["matched_feed_rows"] += 1
             if raw.get("is_girls") is True or len(raw.get("entries") or []) not in (7, 9):
                 report["outside_scope"] += 1
                 continue
@@ -198,22 +202,26 @@ def reconcile(ledger, day, clock, overrides, report, failures, budget_seconds, r
                 failures[key] = str(error)
 
 
-def observe(ledger, overrides=None, clock=utc_now, budget_seconds=None, review_results=False, verify_review=False):
+def observe(ledger, overrides=None, clock=utc_now, budget_seconds=None, review_results=False,
+            verify_review=False, race_id=None, cards_only=False):
     day = clock().astimezone(JST).date().isoformat()
     report = Counter(cards_saved=0, results_saved=0, complete_labels=0, review_results_saved=0)
     failures = {}
     try:
         feed = day_feed(day)
-        capture(ledger, day, feed, clock(), clock, report, failures)
+        capture(ledger, day, feed, clock(), clock, report, failures, race_id)
     except (OSError, KeyError, TypeError, ValueError) as error:
         failures["day_feed"] = str(error)
-    reconcile(ledger, day, clock, overrides or {}, report, failures, budget_seconds, review_results, verify_review)
+    if not cards_only:
+        reconcile(ledger, day, clock, overrides or {}, report, failures, budget_seconds, review_results, verify_review)
     return {"day": day, **report, "failures": failures}
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger", type=Path, required=True)
+    parser.add_argument("--race-id", help="only capture the selected race card")
+    parser.add_argument("--cards-only", action="store_true")
     parser.add_argument("--result-urls", type=Path, help="optional JSON mapping of race ID to result URL")
     parser.add_argument("--reconcile-budget-seconds", type=int, help="stop between result checks after this duration")
     parser.add_argument("--review-results", action="store_true", help="save Kdreams name matches for identity review")
@@ -226,4 +234,5 @@ if __name__ == "__main__":
                                         for url in urls.values()):
         parser.error("--result-urls must map race IDs to public WINTICKET racecard URLs")
     print(json.dumps(observe(args.ledger, urls, budget_seconds=args.reconcile_budget_seconds,
-                             review_results=args.review_results, verify_review=args.verify_review_results), ensure_ascii=False))
+                             review_results=args.review_results, verify_review=args.verify_review_results,
+                             race_id=args.race_id, cards_only=args.cards_only), ensure_ascii=False))
