@@ -36,9 +36,10 @@ def capture_quote(queries, card, url, captured_at, mode):
     return quote
 
 
-def predict_card(card, path):
+def predict_card(card, path, expected_kind=None):
     checkpoint = torch.load(path, map_location="cpu", weights_only=True)
-    if checkpoint["version"] != 1 or len(card["cars"]) != checkpoint["n"]:
+    if (checkpoint["version"] != 1 or len(card["cars"]) != checkpoint["n"]
+            or expected_kind is not None and checkpoint["kind"] != expected_kind):
         raise ValueError("checkpoint incompatible with card")
     model = make(checkpoint["kind"], checkpoint["n"], checkpoint["common"], checkpoint["personal"])
     model.load_state_dict(checkpoint["state"])
