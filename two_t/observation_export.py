@@ -90,22 +90,29 @@ def result_for(ledger, record, card, as_of):
                         "result_observed_at": settlement["observed_at"], "result": result}
 
 
-def quote_for(ledger, record, row, as_of):
-    path = ledger_path(ledger / "quotes", row["race_id"] + ":t10")
-    if not path.exists():
-        return None
-    saved = payload(path)
+def audited_quote(record, row, saved, as_of):
     quote = saved["quote"]
-    expected = row["result"]["result_source"].removesuffix(RESULT_QUERY) + ODDS_QUERY
+    url = quote["source_url"]
+    if not url.endswith(ODDS_QUERY):
+        raise ValueError("unrecognized T-10 provider URL")
+    result_url = url.removesuffix(ODDS_QUERY) + RESULT_QUERY
+    result = row.get("result")
     close = f"{row['date']}T{record['raw_card']['close_time']}:00+09:00"
     captured = stamp(quote["captured_at"])
     if (saved["race_id"] != row["race_id"] or saved["mode"] != "t10"
-            or saved["feature_sha256"] != record["feature_sha256"] or quote["source_url"] != expected
+            or saved["feature_sha256"] != record["feature_sha256"]
+            or key_for(result_url) != str(record["raw_card"]["race_id"])
+            or (result and result["result_source"] != result_url)
             or stamp(quote["sales_close"]) != stamp(close) or not SHA.fullmatch(quote["page_sha256"])
             or not stamp(row["saved_at"]) <= captured < stamp(row["start"]) or captured > as_of):
         raise ValueError("T-10 evidence does not match the pre-race card")
     verify_quote(quote, row)
     return quote
+
+
+def quote_for(ledger, record, row, as_of):
+    path = ledger_path(ledger / "quotes", row["race_id"] + ":t10")
+    return audited_quote(record, row, payload(path), as_of) if path.exists() else None
 
 
 def audit(ledger, as_of, day=None):
