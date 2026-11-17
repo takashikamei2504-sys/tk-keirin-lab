@@ -85,3 +85,14 @@ python -m two_t.kdreams_odds --ledger /path/to/ledger --wait-seconds 210
 Actionsは取得窓が近ければ最長210秒待つ。30分間隔の起動では全レースを保証できない。収益性の検証には、適格オッズと発走前予測・確定結果がそろった観測の蓄積が必要。
 
 [楽天Kドリームスのオッズ集計条件](https://keirin.kdreams.jp/matsuyama/racedetail/7520261117010007/?pageType=showResult)
+
+### 発売締切前の予測固定と確定結果による精算
+
+```bash
+python -m two_t.observed_forward freeze --ledger /path/to/ledger --checkpoints /path/to/models
+python -m two_t.observed_forward settle --ledger /path/to/ledger
+```
+
+T−10オッズと発走前出走表が同じレース・同じハッシュで検証できた場合、固定V1と一致する `transformer-7.pt` または `transformer-9.pt` を読み込み、発売締切前に確率とEV条件（1.5以上・1点100円の仮想精算）を `forecasts/` に固定する。最終バック・着順・払戻と全員の登録番号を照合した結果を用い、`settlements/` に一度だけ記録する。締切後の予測の新規保存と、出典や時刻をさかのぼって埋める処理は行わない。
+
+GitHub Actionsで動かす場合、このリポジトリの任意のリリースに該当する学習済み `.pt` を添付し、そのタグをActionsの変数 `LAB_2T_MODEL_RELEASE` に設定する。ダウンロードしたモデルは固定V1のリプレイに記録されているSHA-256と照合する。設定や重みが足りない場合は予測件数を増やさず、重み未配置・締切通過・精算待ちを実行概要に記録する。実予測が保存された実行の監査ファイルには、iPhone確認用の独立 `forward.html` を添付する。
