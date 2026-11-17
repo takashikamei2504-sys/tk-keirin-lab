@@ -4,6 +4,9 @@ from collections import defaultdict
 from pathlib import Path
 
 from .evaluate import choices, eligible_quote, settle
+from .ledger import ledger_path
+from .observation_export import quote_for, result_for
+from .observe import audited_card, utc_now
 from .source import encode, payload, write
 
 
@@ -51,6 +54,42 @@ def forward_data(directory):
     return output
 
 
+def archive_data(directory, as_of=None):
+    """Expose a compact card index without publishing raw feed records."""
+    as_of = as_of or utc_now()
+    output = []
+    for path in sorted((directory / "cards").glob("*.json")):
+        try:
+            record = payload(path)
+            card = audited_card(record)
+            if path != ledger_path(directory / "cards", card["race_id"]):
+                continue
+        except (OSError, KeyError, TypeError, ValueError, AttributeError):
+            continue
+        row = {key: card[key] for key in ("race_id", "date", "venue", "race_no", "class", "cars",
+                                          "start", "saved_at", "source_url") if key in card}
+        row["riders"] = [
+            [entry["car_number"], entry["rider_full_name"]]
+            for entry in record["raw_card"]["entries"] if entry.get("rider_full_name")
+        ]
+        row["feature_sha256"] = record["feature_sha256"]
+        try:
+            row["result_status"], verified = result_for(directory, record, card, as_of)
+            if verified:
+                row["result"] = public_result(verified["result"])
+                row["result_observed_at"] = verified["result_observed_at"]
+        except (OSError, KeyError, TypeError, ValueError, AttributeError):
+            row["result_status"] = "invalid_result"
+        try:
+            quote = quote_for(directory, record, card, as_of)
+            if quote:
+                row["quote_captured_at"] = quote["captured_at"]
+        except (OSError, KeyError, TypeError, ValueError, AttributeError):
+            row["quote_invalid"] = True
+        output.append(row)
+    return output
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", type=Path, action="append", default=[])
@@ -72,7 +111,8 @@ def main():
             extras = [row for row in rows if row not in chosen][:args.examples_per_field - len(chosen)]
             rows = chosen + extras
         examples.extend(rows)
-    records = {"replay": examples, "forward": forward_data(args.ledger) if args.ledger else []}
+    records = {"replay": examples, "forward": forward_data(args.ledger) if args.ledger else [],
+               "archive": archive_data(args.ledger) if args.ledger else []}
     if not args.dataset and args.out.exists():
         records["replay"] = payload(args.out)["replay"]
     write(args.out, records)
