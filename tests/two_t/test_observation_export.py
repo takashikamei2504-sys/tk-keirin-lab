@@ -5,11 +5,12 @@ import unittest
 from unittest.mock import patch
 
 from test_archive_join import DAY, KEY, PUBLISHED, RAW, SAVED
+from two_t.kdreams_odds import ODDS_QUERY, RESULT_QUERY
 from two_t.ledger import ledger_path, store_once
 from two_t.netkeirin_results import RESULT_URL
 from two_t.observation_export import audit, summary
 from two_t.observe import observe
-from two_t.source import payload, stamp, write
+from two_t.source import pairs, payload, stamp, write
 
 
 SOURCE_ID = "202609011303"
@@ -23,7 +24,7 @@ class ObservationExportTests(unittest.TestCase):
         directory = TemporaryDirectory()
         self.addCleanup(directory.cleanup)
         self.ledger = Path(directory.name)
-        feed = {"date": DAY, "generated_at": PUBLISHED, "races": [{**RAW, "race_id": SOURCE_ID}]}
+        feed = {"date": DAY, "generated_at": PUBLISHED, "races": [{**RAW, "race_id": SOURCE_ID, "close_time": "21:32"}]}
         with patch("two_t.observe.day_feed", return_value=feed):
             observe(self.ledger, clock=lambda: stamp(SAVED), review_results=True)
         self.card_file = ledger_path(self.ledger / "cards", KEY)
@@ -70,3 +71,22 @@ class ObservationExportTests(unittest.TestCase):
         self.feature["card"]["lineup"] = self.feature["card"]["lineup"][::-1]
         write(self.card_file, self.feature)
         self.assertEqual(self.get_audit()[1]["counts"], {"invalid_card": 1})
+
+    def test_links_eligible_odds_and_holds_mismatches_separately(self):
+        store_once(self.ledger / "review-results", KEY, self.review)
+        store_once(self.ledger / "results", KEY, self.result)
+        self.assertEqual(self.get_audit()[1]["t10_counts"], {"missing": 1})
+        quote = {"state": "live", "pool": "all", "sales_close": DAY + "T21:32:00+09:00",
+                 "published_at": DAY + "T21:20:00+09:00", "captured_at": DAY + "T21:21:30+09:00",
+                 "page_sha256": "d" * 64, "source_url": SOURCE_URL.removesuffix(RESULT_QUERY) + ODDS_QUERY,
+                 "odds": {pair: 30.5 for pair in pairs(self.feature["card"]["cars"])}}
+        saved = {"race_id": KEY, "mode": "t10", "quote": quote, "feature_sha256": self.feature["feature_sha256"]}
+        path = store_once(self.ledger / "quotes", KEY + ":t10", saved)
+        rows, report = self.get_audit()
+        self.assertEqual(report["t10_counts"], {"eligible": 1})
+        self.assertEqual(rows[0]["t10"], quote)
+        saved["feature_sha256"] = "9" * 64
+        write(path, saved)
+        rows, report = self.get_audit()
+        self.assertEqual(report["t10_counts"], {"invalid": 1})
+        self.assertNotIn("t10", rows[0])
