@@ -21,7 +21,10 @@ from .source import JST, PERSONAL, payload, stamp, write
 FEATURE = {name: i for i, name in enumerate(PERSONAL)}
 VARIANTS = {"shared_inputs": (False, None), "add_recent": (True, None),
             "same_line_only": (False, "same"), "line_without_recent": (False, "position"),
-            "add_recent_and_line": (True, "position")}
+            "add_recent_and_line": (True, "position"),
+            "same_line_size": (False, "size"),
+            "winner_lead_strength": (False, "same", True),
+            "winner_lead_and_line_size": (False, "size", True)}
 REGULARIZATION = 0.02
 
 
@@ -80,7 +83,13 @@ def conditions(features, groups, cars, first, lineup):
         group, pos, _ = groups[first]
         links = [[groups[car][0] == group, groups[car][0] == group and groups[car][1] < pos,
                   groups[car][0] == group and groups[car][1] == pos + 1] for car in candidates]
-        rows = np.column_stack((rows, np.asarray(links)[:, :1 if lineup == "same" else 3]))
+        links = np.asarray(links)
+        if lineup == "size":
+            # Candidate normalization already accounts for how many teammates are available.
+            same = links[:, :1]
+            rows = np.column_stack((rows, same, same * (groups[first][2] - 2)))
+        else:
+            rows = np.column_stack((rows, links[:, :1 if lineup == "same" else 3]))
     return candidates, rows
 
 
@@ -105,14 +114,24 @@ def learn(rows, labels):
     return fitted.x / scale
 
 
-def fit(rows, recent, lineup):
+def first_features(features, row, add_lead_strength):
+    if not add_lead_strength:
+        return features
+    cars = row["cars"]
+    relative_score = dict(zip(cars, features[:, 0], strict=True))
+    lead_score = {car: (relative_score[line[0]] if pos else 0.0)
+                  for line in row["lineup"] for pos, car in enumerate(line)}
+    return np.column_stack((features, [lead_score[car] for car in cars]))
+
+
+def fit(rows, recent, lineup, winner_context=False):
     a, b, ay, by = [], [], [], []
     for row, (first, second) in rows:
         cars = row["cars"]
         features, groups = raw_features(row)
         if not recent:
             features = features[:, :5]
-        a.append(features)
+        a.append(first_features(features, row, winner_context))
         ay.append(cars.index(first))
         candidates, conditional = conditions(features, groups, cars, first, lineup)
         b.append(conditional)
@@ -120,12 +139,12 @@ def fit(rows, recent, lineup):
     return learn(a, ay), learn(b, by)
 
 
-def predict(row, weights, recent, lineup, live=None):
+def predict(row, weights, recent, lineup, winner_context=False, *, live=None):
     cars = row["cars"]
     features, groups = raw_features(row, live)
     if not recent:
         features = features[:, :5]
-    p1 = softmax(features @ weights[0])
+    p1 = softmax(first_features(features, row, winner_context) @ weights[0])
     predictions = {}
     for first, value in zip(cars, p1, strict=True):
         ordered, matrix = conditions(features, groups, cars, first, lineup)
@@ -238,7 +257,9 @@ def line_diagnostics(rows, predictions):
     comparisons = {"line_added": ("shared_inputs", "line_without_recent"),
                    "same_line": ("shared_inputs", "same_line_only"),
                    "relative_position": ("same_line_only", "line_without_recent"),
-                   "recent_with_line": ("line_without_recent", "add_recent_and_line")}
+                   "recent_with_line": ("line_without_recent", "add_recent_and_line"),
+                   "line_size_interaction": ("same_line_only", "same_line_size"),
+                   "winner_lead_strength": ("same_line_only", "winner_lead_strength")}
     return {
         group: {key: loss_difference([rows[i] for i in indices],
                                      [predictions[control][i] for i in indices],
