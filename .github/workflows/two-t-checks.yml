@@ -45,7 +45,11 @@ jobs:
                     'cumulative_roi': 0}
           pending = {**record, 'race_id': race['race_id'] + '-test', 'race_no': race['race_no'] + 1,
                      'settlement': None, 'result': None, 'cumulative_roi': None}
-          standalone('forward-test.html', {'replay': [], 'forward': [record, pending]})
+          card = {**{key: race[key] for key in ('date', 'venue', 'class', 'cars', 'start')},
+                  'race_id': race['race_id'] + '-card-test', 'venue': '台帳テスト場', 'race_no': 12,
+                  'saved_at': race['input_as_of'], 'riders': [[1, '台帳 選手']],
+                  'result_status': 'result_unavailable'}
+          standalone('forward-test.html', {'replay': [], 'forward': [record, pending], 'archive': [card]})
           PY
           npm ci
           npx playwright install --with-deps webkit
