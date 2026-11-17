@@ -43,17 +43,33 @@ jobs:
         shell: bash
         run: |
           python3 -m two_t.kdreams_odds --ledger ../ledger --wait-seconds 210 | tee ../odds-report.json
+      - name: Locate the V1 model release
+        id: model_source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MODEL_TAG: ${{ vars.LAB_2T_MODEL_RELEASE || '2t-model-v1' }}
+        shell: bash
+        run: |
+          if count="$(gh release view --repo "$GITHUB_REPOSITORY" --json assets --jq '[.assets[].name | select(. == "transformer-7.pt" or . == "transformer-9.pt")] | length' -- "$MODEL_TAG")"; then
+            if [[ "$count" == 1 || "$count" == 2 ]]; then
+              echo "ready=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "V1 model assets have not been published on the selected release."
+            fi
+          else
+            echo "The selected V1 model release is unavailable. Continuing observation."
+          fi
       - uses: actions/setup-python@v5
-        if: ${{ vars.LAB_2T_MODEL_RELEASE != '' }}
+        if: ${{ steps.model_source.outputs.ready == 'true' }}
         with:
           python-version: '3.12'
       - name: Download the configured V1 release assets
         id: checkpoints
-        if: ${{ vars.LAB_2T_MODEL_RELEASE != '' }}
+        if: ${{ steps.model_source.outputs.ready == 'true' }}
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-          MODEL_TAG: ${{ vars.LAB_2T_MODEL_RELEASE }}
+          MODEL_TAG: ${{ vars.LAB_2T_MODEL_RELEASE || '2t-model-v1' }}
         working-directory: source
         shell: bash
         run: |
