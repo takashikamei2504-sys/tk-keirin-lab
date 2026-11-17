@@ -189,7 +189,7 @@ jobs:
           printf 'ledger_commit=%s\nexporter_commit=%s\n' "$(git -C ../ledger rev-parse HEAD)" "$(git rev-parse HEAD)" > ../observation-export/provenance.txt
           tee -a "$GITHUB_STEP_SUMMARY" < ../observation-export/summary.md
       - name: Prepare a standalone prospective preview
-        if: ${{ steps.persist.outcome == 'success' && hashFiles('ledger/forecasts/*.json') != '' }}
+        if: ${{ steps.persist.outcome == 'success' && hashFiles('ledger/cards/*.json', 'ledger/forecasts/*.json') != '' }}
         working-directory: source
         shell: bash
         run: |
