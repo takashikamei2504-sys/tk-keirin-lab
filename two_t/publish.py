@@ -42,10 +42,11 @@ def forward_data(directory):
     counts = defaultdict(lambda: [0, 0])
     for row in sorted(output, key=lambda r: (r["start"], r["race_id"])):
         if row["settlement"]:
-            stake, paid = counts[row["quote_mode"]]
+            cohort = (len(row["cars"]), row["quote_mode"])
+            stake, paid = counts[cohort]
             stake += row["settlement"]["stake"]
             paid += row["settlement"]["returned"]
-            counts[row["quote_mode"]] = [stake, paid]
+            counts[cohort] = [stake, paid]
             row["cumulative_roi"] = paid / stake if stake else None
     return output
 
