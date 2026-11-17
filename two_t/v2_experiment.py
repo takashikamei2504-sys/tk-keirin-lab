@@ -248,6 +248,35 @@ def line_diagnostics(rows, predictions):
     }
 
 
+def expanding_history(rows):
+    """Backtest the early archive using only information available on prior days."""
+    by_day = defaultdict(list)
+    for row, result in rows:
+        by_day[row["date"]].append((row, result))
+    dates = sorted(by_day)
+    predictions = {name: [] for name in VARIANTS}
+    scored, folds = [], []
+    for day in dates[2:]:
+        midnight = stamp(f"{day}T00:00:00+09:00")
+        training = [(row, result) for row, result in rows
+                    if row["date"] < day
+                    and row["result"].get("decided_at")
+                    and stamp(row["result"]["decided_at"]) < midnight
+                    and stamp(row["saved_at"]) < midnight]
+        test = by_day[day]
+        for name, flags in VARIANTS.items():
+            weights = fit(training, *flags)
+            predictions[name].extend(predict(row, weights, *flags) for row, _ in test)
+        scored.extend(test)
+        folds.append({"date": day, "train_races": len(training), "evaluation_races": len(test)})
+    uniform = [{f"{a}-{b}": 1 / 42 for a in row["cars"] for b in row["cars"] if a != b}
+               for row, _ in scored]
+    return {"folds": folds, "metrics": {**{name: metrics(scored, values) for name, values in predictions.items()},
+                                        "uniform": metrics(scored, uniform)},
+            "final_odds_comparison": market_comparison(scored, predictions, "final"),
+            "line_diagnostics": line_diagnostics(scored, predictions)}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("evidence", type=Path)
@@ -300,6 +329,7 @@ def main():
             entry["v1_paired"]["metrics"]["v1"] = metrics(
                 paired, [forecasts[row["race_id"]]["probabilities"] for row, _ in paired])
         result["sets"][name] = entry
+    result["early_expanding_backtest"] = expanding_history(train)
     write(args.out, result)
 
 
