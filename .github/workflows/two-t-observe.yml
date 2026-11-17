@@ -130,25 +130,19 @@ jobs:
           print("Both sources and all seven racer IDs verified: 2026-11-06 Omiya 1R, B=6, finish=3-5-2, exacta=670 JPY")
           PY
 
-      - name: Inspect the public exacta timestamp and matrix format
+      - name: Inspect the exacta grid and archived roster format
         if: ${{ github.event_name == 'pull_request' }}
         working-directory: source
         run: |
           python3 - <<'PY'
           import re
-          from urllib.request import Request, urlopen
+          from two_t.kdreams_results import read_page
 
-          for case, path in (("current", "matsuyama/racedetail/7520261117010007/"),
-                             ("finished", "omiya/racedetail/2520261104030001/")):
-              url = "https://keirin.kdreams.jp/" + path + "?kakeshikiType=2shatan&pageType=odds"
-              req = Request(url, headers={"User-Agent": "TK-KEIRIN-LAB/1.0 (public race research)"})
-              with urlopen(req, timeout=15) as response:
-                  html = response.read(2_000_000).decode("utf-8")
-                  print(case, response.status, response.url, len(html))
-              for term in ("現在", "確定オッズ", "発売終了", "2shatan", "モーニング", "発走予定", "全ての票数"):
-                  hits = list(re.finditer(term, html))
-                  print(case, term, len(hits), [re.sub(r'\s+', ' ', html[max(0,m.start()-100):m.start()+100]) for m in hits[-7:]])
-              for table in re.findall(r'<table\b[^>]*>.*?</table>', html, flags=re.S):
-                  if "2shatan" in table[:350]:
-                      print(case, "matrix", re.sub(r'\s+', ' ', table[:5600]))
+          url = "https://keirin.kdreams.jp/matsuyama/racedetail/7520261117010007/?kakeshikiType=2shatan&pageType=odds"
+          html = read_page(url)
+          part = html.split('id="JS_ODDSCONTENTS_2shatan"', 1)[1].split('<!-- 2車単 End -->', 1)[0]
+          print("matrix", re.sub(r'\s+', ' ', part)[:9500])
+          for token in ("池田", "kaisai-detail", "morning", "class=\"icon_confirmed\"", "status none"):
+              hits = list(re.finditer(re.escape(token), html, re.I))
+              print(token, [re.sub(r'\s+', ' ', html[max(0,m.start()-120):m.start()+100]) for m in hits[:7]])
           PY
