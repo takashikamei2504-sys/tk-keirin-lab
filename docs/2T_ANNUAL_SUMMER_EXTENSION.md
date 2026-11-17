@@ -28,6 +28,8 @@
 
 [日別出典・級班別と月別の指標・照合結果](2T_ANNUAL_SUMMER_EXTENSION.json)
 
+[2026年2〜4月の追加評価と検証レース数の内訳](2T_ANNUAL_FEB_APR_EXTENSION.md)
+
 ```sh
 python -m two_t.annual_extension build --start 2026-05-01 --end 2026-08-31 --monthly monthly --baseline baseline --cache cache --out backfill
 python -m two_t.annual_extension score backfill/extension-7.json transformer-7-latent-b.pt transformer-7-metrics.json backfill/transformer-7.json

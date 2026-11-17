@@ -1,0 +1,1176 @@
+{
+  "coverage": {
+    "counts": {
+      "2026-02 / 7": {
+        "additional_rosters": 127,
+        "matched": 101,
+        "riders_without_history": 0,
+        "unmatched_payout": 26
+      },
+      "2026-02 / 9": {
+        "additional_rosters": 21,
+        "matched": 21,
+        "riders_without_history": 0
+      },
+      "2026-03 / 7": {
+        "additional_rosters": 168,
+        "matched": 145,
+        "riders_without_history": 0,
+        "unmatched_payout": 23
+      },
+      "2026-03 / 9": {
+        "additional_rosters": 37,
+        "matched": 34,
+        "riders_without_history": 0,
+        "unmatched_payout": 3
+      },
+      "2026-04 / 7": {
+        "additional_rosters": 144,
+        "matched": 128,
+        "riders_without_history": 0,
+        "unmatched_payout": 16
+      },
+      "2026-04 / 9": {
+        "additional_rosters": 25,
+        "matched": 24,
+        "riders_without_history": 0,
+        "unmatched_payout": 1
+      }
+    },
+    "daily_sources": {
+      "2026-02-01": {
+        "matched_payouts": 92,
+        "sha256": "9fd07c4c968d0895aa9d369cf404c7ccd6e29e6a4e832b2096a69a7328cc2765",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/01/"
+      },
+      "2026-02-02": {
+        "matched_payouts": 86,
+        "sha256": "4d619fd7f2a5adf33b67f3060a0b56cc74173b046065757953d29759a4744d0e",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/02/"
+      },
+      "2026-02-03": {
+        "matched_payouts": 85,
+        "sha256": "7f57bc25ec6685198388ffc21f4bea77b38d75a8aca863607bc3d4a30f4f8d13",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/03/"
+      },
+      "2026-02-04": {
+        "matched_payouts": 82,
+        "sha256": "0f80c8a4e8a6e5900d8c395556bd2d891431baa7f07f5e0363be797ecedb19c7",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/04/"
+      },
+      "2026-02-05": {
+        "matched_payouts": 79,
+        "sha256": "d60e4bd17a81d10e61925fe6019e4d13494b8ad26d3f71c578e180ca1499808d",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/05/"
+      },
+      "2026-02-06": {
+        "matched_payouts": 60,
+        "sha256": "6f3225c26254a20769fad7a6e579fd98e304589e1ded613f964f399b2f4c6120",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/06/"
+      },
+      "2026-02-07": {
+        "matched_payouts": 71,
+        "sha256": "72d52fce9b3e1df78cdce69cecb1cdb29f16fad310a6e0c9d149ba9cfaecf328",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/07/"
+      },
+      "2026-02-08": {
+        "matched_payouts": 62,
+        "sha256": "c013e1e79e38f5bbba4d103f1fb1f65ced093d67705b2b03b56d617fbeea7b1c",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/08/"
+      },
+      "2026-02-09": {
+        "matched_payouts": 71,
+        "sha256": "91697c6108634066d529a0413f69b0eee8ee8dd74a645b6b85856fedb622794c",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/09/"
+      },
+      "2026-02-10": {
+        "matched_payouts": 72,
+        "sha256": "59078f2bc87753cfea4785c9b1321980100bb91df79faaa333fba2d2375ff29d",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/10/"
+      },
+      "2026-02-11": {
+        "matched_payouts": 82,
+        "sha256": "408d57db6fb5cbbb70aa918424604547b10081af0558ecbaab9f8f55cbb4878a",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/11/"
+      },
+      "2026-02-12": {
+        "matched_payouts": 71,
+        "sha256": "edaca0a3c86533ea4f7f3ba77cea3f4bb9ad4c00cdd77ef2418078ef8473458c",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/12/"
+      },
+      "2026-02-13": {
+        "matched_payouts": 60,
+        "sha256": "4a4da0d02469e51d616e69c6af3c0707f8a5dc9ae1156196ac1fb4d216ad332d",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/13/"
+      },
+      "2026-02-14": {
+        "matched_payouts": 84,
+        "sha256": "57672a56e8fdbdf37cd15767b71763febdfd1101ec6329cae3348b302ef8291e",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/14/"
+      },
+      "2026-02-15": {
+        "matched_payouts": 82,
+        "sha256": "5e728c9b38f08eac6e5511269a7123b95515196f9e88238e2b9719be057a03f2",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/15/"
+      },
+      "2026-02-16": {
+        "matched_payouts": 82,
+        "sha256": "637186b8efe4234852100f8f010542f418e98b8be2a23a69c93cd47db37f31bb",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/16/"
+      },
+      "2026-02-17": {
+        "matched_payouts": 82,
+        "sha256": "565c917efbead07837966a824c8b53831f503dd7410a87b3f0b113bd706cfa6b",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/17/"
+      },
+      "2026-02-18": {
+        "matched_payouts": 81,
+        "sha256": "9a8edd878a6c4aee1ac96e5dc5ad7df2df330c1297c5128232102aeae5c6faf6",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/18/"
+      },
+      "2026-02-19": {
+        "matched_payouts": 68,
+        "sha256": "a1e63728720b5dc28dfb39bd17efc71bd3fca5160c26e1d708b17c315f0585c1",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/19/"
+      },
+      "2026-02-20": {
+        "matched_payouts": 71,
+        "sha256": "f1d2fc010f68ae7ac09028f84db040cc1a2c41d5b78ccb44d55bf422af8f29eb",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/20/"
+      },
+      "2026-02-21": {
+        "matched_payouts": 72,
+        "sha256": "283f5cb626bd00a396597a43f72b5642c93d5ccca2db93bd51137905e129502b",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/21/"
+      },
+      "2026-02-22": {
+        "matched_payouts": 72,
+        "sha256": "cd83129a66bbd312a85670535ca0b184fc3439abe4f55209c085fe7bc727e147",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/22/"
+      },
+      "2026-02-23": {
+        "matched_payouts": 75,
+        "sha256": "bd56d7a449b9fa621ae3d1f418a9c18546928a18c7d518c976aacaa43c858426",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/23/"
+      },
+      "2026-02-24": {
+        "matched_payouts": 69,
+        "sha256": "d8d928646eb671d9e261fb228a5c8291c04e39fd0d706e6d0a3c9ea807c8a1c0",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/24/"
+      },
+      "2026-02-25": {
+        "matched_payouts": 85,
+        "sha256": "e37018a901d4a0aaa142ce168eba0fc49d51fe5d94ea522c6684d98ea7306058",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/25/"
+      },
+      "2026-02-26": {
+        "matched_payouts": 75,
+        "sha256": "9e016bf21be5cced196fee5f3404caf5accae0a260fa29ac47036cd696b82290",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/26/"
+      },
+      "2026-02-27": {
+        "matched_payouts": 75,
+        "sha256": "1896498fb1e2ab7960ca6958c62c8c32e9a28cdab10a17da5505762ff5798985",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/27/"
+      },
+      "2026-02-28": {
+        "matched_payouts": 71,
+        "sha256": "ea9657df9ed36452456af123f269969d254e2d93267e878c6a697a53166219e9",
+        "url": "https://keirin.kdreams.jp/harailist/2026/02/28/"
+      },
+      "2026-03-01": {
+        "matched_payouts": 93,
+        "sha256": "74fd4ac27e9ec8119417e02cd4e6552d35b6f7cd2c44640e1a50922d73bf7bee",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/01/"
+      },
+      "2026-03-02": {
+        "matched_payouts": 75,
+        "sha256": "d7bf3409cfb42b58d81971ad07c5e377c66b7c471bc1ee6e33ba0bd0be87c948",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/02/"
+      },
+      "2026-03-03": {
+        "matched_payouts": 62,
+        "sha256": "7a98c4cd842f9d8a389952b06be09651e42d2fe18869c78ce0e8d07ec7bc77a9",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/03/"
+      },
+      "2026-03-04": {
+        "matched_payouts": 59,
+        "sha256": "f249ff97df319e0ed41a0c795d5088b74ebd32ff7464352966a533aeb8570597",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/04/"
+      },
+      "2026-03-05": {
+        "matched_payouts": 71,
+        "sha256": "c7c25c1492573f3c704d7eee6b1b81b1e329936dac5b3c71e497c943e468f8fd",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/05/"
+      },
+      "2026-03-06": {
+        "matched_payouts": 75,
+        "sha256": "97e1e1c3a5c581b67aab98e906a1d211ac20b46d0cec6f8f7dcf3fd9156c5380",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/06/"
+      },
+      "2026-03-07": {
+        "matched_payouts": 59,
+        "sha256": "5231f1d637c3a285b8c6c9c603f1143598b396bda22ac9bab6b03639010033e6",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/07/"
+      },
+      "2026-03-08": {
+        "matched_payouts": 71,
+        "sha256": "ab0e5f5fdb44bc25103a0ea87b35d94a7a831a9797ee919c5008f2bdf21dd7a2",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/08/"
+      },
+      "2026-03-09": {
+        "matched_payouts": 78,
+        "sha256": "90337169bcafd0ff9e28806d973611bafcdb101a3dbb37d06046b8ece9091735",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/09/"
+      },
+      "2026-03-10": {
+        "matched_payouts": 71,
+        "sha256": "5f5580939d850d68c885743bd5d42977ea935871cf0827280402864a1b6cbbe5",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/10/"
+      },
+      "2026-03-11": {
+        "matched_payouts": 55,
+        "sha256": "811e5d6e4b07fc1f8ecb2af5de7c824ef9b631b84ad02a5d95693aa3d03bbec2",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/11/"
+      },
+      "2026-03-12": {
+        "matched_payouts": 70,
+        "sha256": "c383fff6326bf939c370a7caa3f75359dee359f63c520b362b5eac0e09e40dbb",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/12/"
+      },
+      "2026-03-13": {
+        "matched_payouts": 58,
+        "sha256": "9efca7c408a33132bc0082d3f1e4ece6bf949f894168a563ffd1f6ee0822a92a",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/13/"
+      },
+      "2026-03-14": {
+        "matched_payouts": 90,
+        "sha256": "ff18f0639ded38f96df02147d07f5fa65d07b76975ddcc2237c9b9c696985fd3",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/14/"
+      },
+      "2026-03-15": {
+        "matched_payouts": 83,
+        "sha256": "4aa8ee9f0e04f6778efcdcdd39847b3dad9e66a415e4c14fbf13e736135bb430",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/15/"
+      },
+      "2026-03-16": {
+        "matched_payouts": 71,
+        "sha256": "2e4b3484bb2a942ac895ec381570868a68645a4de091830f8b37e9bfd10304b0",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/16/"
+      },
+      "2026-03-17": {
+        "matched_payouts": 72,
+        "sha256": "6c58f5b0a041e8a10eb8ff0dc0f2b5abc75b039d80ed4b49649e3fb033ddb696",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/17/"
+      },
+      "2026-03-18": {
+        "matched_payouts": 71,
+        "sha256": "e0647c54457cab243e31e8b1705fac91842877769c4eea7ab9273397bba0898f",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/18/"
+      },
+      "2026-03-19": {
+        "matched_payouts": 77,
+        "sha256": "08f7df531a53ded55138d81cc2521d4c1164d9cd18634eee8fc64cef59a5451a",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/19/"
+      },
+      "2026-03-20": {
+        "matched_payouts": 71,
+        "sha256": "986e48d9374b15cba8837f86392b4d0c94998dbea48d879c438cfc66059bd5e7",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/20/"
+      },
+      "2026-03-21": {
+        "matched_payouts": 71,
+        "sha256": "6077aa5f48d80ac48755a497000c111f4f95fcd57dd9ed52ca562735dc2e148a",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/21/"
+      },
+      "2026-03-22": {
+        "matched_payouts": 72,
+        "sha256": "70f987640defa75489341ed747954c7ec8c893a9af3fe3416885607b7ac2304a",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/22/"
+      },
+      "2026-03-23": {
+        "matched_payouts": 60,
+        "sha256": "b8561273e916a1c78a12190a48c28d06aed195d7ce355a9dd8b1e5b4655f3007",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/23/"
+      },
+      "2026-03-24": {
+        "matched_payouts": 90,
+        "sha256": "f6dcd1ce62502a6a8d21ea81c6e29980ba2487981299ada18f6a91575d7f9d60",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/24/"
+      },
+      "2026-03-25": {
+        "matched_payouts": 81,
+        "sha256": "a5e7588733f6bef6f65a6855cbd0061270f7f479ac0a49283e2d50171c12d94d",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/25/"
+      },
+      "2026-03-26": {
+        "matched_payouts": 88,
+        "sha256": "38f0fede23a55a6bb91b86d9801abe3c1338daeb80fbf8782cf52a5c3d77eb2f",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/26/"
+      },
+      "2026-03-27": {
+        "matched_payouts": 76,
+        "sha256": "f2c68450b3663f453981e0d439b0c9c10d94b6a0b193d2bda37f402a367f491d",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/27/"
+      },
+      "2026-03-28": {
+        "matched_payouts": 73,
+        "sha256": "ee25f8b90907a3f776370eff6e23727194d0a3f0caa07ccd441dda7ba93030af",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/28/"
+      },
+      "2026-03-29": {
+        "matched_payouts": 80,
+        "sha256": "58b5fd7f8f4062becf2e0c87a64ac95b7ccde426c6c82a816fb768ca9bd6dc7f",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/29/"
+      },
+      "2026-03-30": {
+        "matched_payouts": 60,
+        "sha256": "e012dac191e876f32f3835f7bc868de414f391f0e9375b6881e77020b28d1fff",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/30/"
+      },
+      "2026-03-31": {
+        "matched_payouts": 48,
+        "sha256": "750f082da76ceb6aac36776cf902a45d94b4690079d0ba82f982ec59e76eb730",
+        "url": "https://keirin.kdreams.jp/harailist/2026/03/31/"
+      },
+      "2026-04-01": {
+        "matched_payouts": 63,
+        "sha256": "8decee6be178e134b9369216abd85d0e760fee11bf6a07a88324227a94907f16",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/01/"
+      },
+      "2026-04-02": {
+        "matched_payouts": 93,
+        "sha256": "24f5cd667cb54a187695591a9fa1bafaffd29ea0574829b241fb51b4228a1ff0",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/02/"
+      },
+      "2026-04-03": {
+        "matched_payouts": 94,
+        "sha256": "a8702c33181653dd1e1ed16c2fc669cf4f45758ef50d795eb373aba5c254bf6c",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/03/"
+      },
+      "2026-04-04": {
+        "matched_payouts": 63,
+        "sha256": "2d6c487317e75313f6ade9e6b7401f015c92ad5579a8bfb97d207d4b9433e27b",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/04/"
+      },
+      "2026-04-05": {
+        "matched_payouts": 75,
+        "sha256": "e3b52729f64d812e974df6debc2f9a41e5343633ba773f560f1c2ea43b1f25a6",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/05/"
+      },
+      "2026-04-06": {
+        "matched_payouts": 74,
+        "sha256": "3a03f10c2708e6a75c4b7ecf544487457376283b33625bcb4644941c75431ac5",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/06/"
+      },
+      "2026-04-07": {
+        "matched_payouts": 79,
+        "sha256": "93593f2d21ab8041c5ca2978c869f549812a0107fae06d3be38ed88d3f78dd57",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/07/"
+      },
+      "2026-04-08": {
+        "matched_payouts": 61,
+        "sha256": "fade5f2bc72067155b069fd0a59578740b9db0bd40b470f68f7eb6219aa91463",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/08/"
+      },
+      "2026-04-09": {
+        "matched_payouts": 82,
+        "sha256": "d3524b294672cd6aa8d163d2c4c0a9aa8bccd042da9afa460fb2ac7377713b80",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/09/"
+      },
+      "2026-04-10": {
+        "matched_payouts": 83,
+        "sha256": "c364e3ec956a81ebac84a5bafeff7e4f48f9adecc044a368c08342d48aaee5be",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/10/"
+      },
+      "2026-04-11": {
+        "matched_payouts": 78,
+        "sha256": "02e4f2d123618a7c248bb5a5f718f4be1f3bc705f95adcbbed1caf5a45f3e28d",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/11/"
+      },
+      "2026-04-12": {
+        "matched_payouts": 79,
+        "sha256": "e60715e9b402cce65f34e70d1526acbcd530d77049de515b6e2f3814f67e91b8",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/12/"
+      },
+      "2026-04-13": {
+        "matched_payouts": 71,
+        "sha256": "5dd63e61428555c0a17f202ae8d1b224a8458e4739bddf6a6447bc2a38cb24f8",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/13/"
+      },
+      "2026-04-14": {
+        "matched_payouts": 83,
+        "sha256": "5f273ec82b2d0a2614f3438e3e6075cb25cd287c4438f025b8b8e2c51041497f",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/14/"
+      },
+      "2026-04-15": {
+        "matched_payouts": 89,
+        "sha256": "93c257472af5a9766ccc6889577ea03ca1bf7f186505740e7e2b8790a566b0fe",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/15/"
+      },
+      "2026-04-16": {
+        "matched_payouts": 67,
+        "sha256": "970cf83aa101e893b72c918f23903b5c1fa174ba42a25dd352d02d2e7c5d5848",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/16/"
+      },
+      "2026-04-17": {
+        "matched_payouts": 71,
+        "sha256": "99e31f0d375c550ba6417da2b57f404061125c922c36e274bb58693094043938",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/17/"
+      },
+      "2026-04-18": {
+        "matched_payouts": 83,
+        "sha256": "213ff1710b17e20c287a42238e31b81e2bcfab21d6b76efef981ae1ec299f79d",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/18/"
+      },
+      "2026-04-19": {
+        "matched_payouts": 90,
+        "sha256": "f5bdfc929da4c356595e91e7768e7b037a0388b82147b45dd6f87f6f27a8b4f8",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/19/"
+      },
+      "2026-04-20": {
+        "matched_payouts": 88,
+        "sha256": "3b737d4e5a1e648a5c9103c9c54cf3e1d1d39143d0275290fd5048bffe8ebeed",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/20/"
+      },
+      "2026-04-21": {
+        "matched_payouts": 71,
+        "sha256": "83d4d908103826a4dee922723f042bd5a4582a9ef9670aaf7db002d696bc451a",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/21/"
+      },
+      "2026-04-22": {
+        "matched_payouts": 74,
+        "sha256": "092936bbc7e97ecef818a8145c1bdc2b7479d0f976e37a0e780596ed76539d1a",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/22/"
+      },
+      "2026-04-23": {
+        "matched_payouts": 93,
+        "sha256": "8e2b81d137d79a246ea88f87a99e38f7c3233b35980386ba76d647cc64dc4639",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/23/"
+      },
+      "2026-04-24": {
+        "matched_payouts": 92,
+        "sha256": "b01707af11c2d2dd4ebfcdecc552852d54e7f5f6366dd41663f391773bd223a3",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/24/"
+      },
+      "2026-04-25": {
+        "matched_payouts": 69,
+        "sha256": "3709d80e8a65604bd9c061ac22cf1699b23b0e3e24ab71bed5343bb7de29161c",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/25/"
+      },
+      "2026-04-26": {
+        "matched_payouts": 61,
+        "sha256": "5b6b2138df112327e475216cd05db50fa29e168f43e99a9c5d6c13304cea6229",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/26/"
+      },
+      "2026-04-27": {
+        "matched_payouts": 66,
+        "sha256": "c2b438c526c53f6d8164ad190528613e0f4c1227a6722972f64b762d915185a8",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/27/"
+      },
+      "2026-04-28": {
+        "matched_payouts": 90,
+        "sha256": "d0161f5ca0e3e958c512f0d4c76169ad3347088f292808cc78d0db4a04ba6466",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/28/"
+      },
+      "2026-04-29": {
+        "matched_payouts": 72,
+        "sha256": "80572314afc06db813e905a67dbdbcf651fdcc331740cff4b1d43dde0dbfd150",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/29/"
+      },
+      "2026-04-30": {
+        "matched_payouts": 69,
+        "sha256": "57507a92deeaa3ee29d020fa8acddf25ac0ef14c70773590fb9db9db020eef49",
+        "url": "https://keirin.kdreams.jp/harailist/2026/04/30/"
+      }
+    }
+  },
+  "detail_crosscheck": [
+    {
+      "car_count": 7,
+      "error": "netkeirin finish order is irregular",
+      "month": "2026-02",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202602018305",
+      "other_finishes": [
+        {
+          "car": 6,
+          "status": "失"
+        }
+      ],
+      "race_id": "8320260201010005",
+      "sha256": "e3d497904aa797dcf6700bbb432694f5cf221a36bb447754cb6fcce4b1478231",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 7,
+      "error": "netkeirin finish order is irregular",
+      "month": "2026-02",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202602155301",
+      "other_finishes": [
+        {
+          "car": 6,
+          "status": "欠"
+        }
+      ],
+      "race_id": "5320260214020001",
+      "sha256": "016b67ef3c22cf300f83122f24926d2479fa845b3fdbf610ef9ccd0680e051df",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 7,
+      "error": "The read operation timed out",
+      "month": "2026-03",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202603012710",
+      "other_finishes": [
+        {
+          "car": 5,
+          "status": "棄"
+        }
+      ],
+      "race_id": "2720260301010010",
+      "sha256": "eb3d5aff972833f4281b6db486b36002c9460f550453a402f0eb705ca2b1f764",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 7,
+      "error": "rider name and car differ between providers",
+      "month": "2026-03",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202603164307",
+      "other_finishes": [
+        {
+          "car": 2,
+          "status": "棄"
+        },
+        {
+          "car": 4,
+          "status": "棄"
+        },
+        {
+          "car": 5,
+          "status": "棄"
+        },
+        {
+          "car": 7,
+          "status": "棄"
+        }
+      ],
+      "race_id": "4320260314030007",
+      "sha256": "dc044cd207ed5712092f8897d00ed53603ecb4ee3bb146cab553e74c70486c8c",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 7,
+      "error": "The read operation timed out",
+      "month": "2026-04",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202604012407",
+      "other_finishes": [],
+      "race_id": "2420260401010007",
+      "sha256": "330bb75f2e93e902b26c8951b0dfa8234d768a08ec37d2603b6010b41076fb25",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 7,
+      "error": "netkeirin race identity mismatch",
+      "month": "2026-04",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202604183711",
+      "other_finishes": [
+        {
+          "car": 1,
+          "status": "棄"
+        },
+        {
+          "car": 3,
+          "status": "棄"
+        },
+        {
+          "car": 5,
+          "status": "棄"
+        },
+        {
+          "car": 6,
+          "status": "棄"
+        }
+      ],
+      "race_id": "3720260418010011",
+      "sha256": "b2f00a59aa3d4dec3040c1b7ab3d7de28ca29c869c96573716dc79239cf21e8d",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 9,
+      "error": "netkeirin finish order is irregular",
+      "month": "2026-02",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202602055306",
+      "other_finishes": [
+        {
+          "car": 5,
+          "status": "棄"
+        },
+        {
+          "car": 6,
+          "status": "棄"
+        }
+      ],
+      "race_id": "5320260205010006",
+      "sha256": "4d39b9387041430cfca36a90a4f7c159f78c581bd80ae02c93da70b06ef80008",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 9,
+      "error": "netkeirin finish order is irregular",
+      "month": "2026-02",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202602133810",
+      "other_finishes": [
+        {
+          "car": 4,
+          "status": "棄"
+        }
+      ],
+      "race_id": "3820260212020010",
+      "sha256": "da8af81ec7dee4f053c8670369b1398bb160787578448540849eb756130922a7",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 9,
+      "error": "netkeirin finish order is irregular",
+      "month": "2026-03",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202603014404",
+      "other_finishes": [
+        {
+          "car": 1,
+          "status": "棄"
+        },
+        {
+          "car": 4,
+          "status": "棄"
+        },
+        {
+          "car": 5,
+          "status": "棄"
+        }
+      ],
+      "race_id": "4420260228020004",
+      "sha256": "cf92d4e514450844ab2d07d28f373d4f1623a10adbf8529c90ecf92fe04787b5",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 9,
+      "error": "The read operation timed out",
+      "month": "2026-03",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202603132303",
+      "other_finishes": [
+        {
+          "car": 3,
+          "status": "棄"
+        },
+        {
+          "car": 6,
+          "status": "棄"
+        }
+      ],
+      "race_id": "2320260312020003",
+      "sha256": "c7bd294d00fd6722c76bc94996343b6bb93f6bf83f9c5407cf9788f1259f86ff",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 9,
+      "error": "netkeirin race identity mismatch",
+      "month": "2026-04",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202604023709",
+      "other_finishes": [
+        {
+          "car": 1,
+          "status": "棄"
+        },
+        {
+          "car": 9,
+          "status": "棄"
+        }
+      ],
+      "race_id": "3720260402010009",
+      "sha256": "609926f2a608ffc260fa30bbc218f446d35f37fa109a2a80b56179c6e1f9db35",
+      "top3_and_exacta_match": true
+    },
+    {
+      "car_count": 9,
+      "error": "netkeirin finish order is irregular",
+      "month": "2026-04",
+      "netkeirin_result": "https://keirin.netkeiba.com/race/result/?race_id=202604218408",
+      "other_finishes": [],
+      "race_id": "8420260418040008",
+      "sha256": "4a1fec12699017778be4aca0eb8b29cfbfda2f59c74d29b4a799b070bb10dbf5",
+      "top3_and_exacta_match": true
+    }
+  ],
+  "paired_comparison": {
+    "7": {
+      "day_count": 87,
+      "interval_95": [
+        -0.007800977609528123,
+        0.03157403611092908
+      ],
+      "replicates": 2000,
+      "seed": 11,
+      "transformer_minus_mlp_log_loss": 0.013187029582348304
+    },
+    "9": {
+      "day_count": 41,
+      "interval_95": [
+        0.01739524871767429,
+        0.05145420603962231
+      ],
+      "replicates": 2000,
+      "seed": 11,
+      "transformer_minus_mlp_log_loss": 0.034149576066598616
+    }
+  },
+  "metrics": {
+    "transformer-7": {
+      "checkpoint_sha256": "618d05bc16d00014bd90ec786d982fd442d57aaa6b1255842e2f718f3aaa3207",
+      "data_sha256": "41ef4298cb340e298b5dd2820d0cc1e6c8572142924830abd46c982f082f9bc7",
+      "model": "transformer",
+      "monthly": {
+        "2026-02": {
+          "brier": 0.9657422090686931,
+          "first_accuracy": 0.3564356435643564,
+          "log_loss": 3.506824407267661,
+          "races": 101,
+          "top1": 0.0594059405940594,
+          "top3": 0.2079207920792079,
+          "top5": 0.31683168316831684
+        },
+        "2026-03": {
+          "brier": 0.9641693211963465,
+          "first_accuracy": 0.3103448275862069,
+          "log_loss": 3.530816160325586,
+          "races": 145,
+          "top1": 0.06206896551724138,
+          "top3": 0.19310344827586207,
+          "top5": 0.22758620689655173
+        },
+        "2026-04": {
+          "brier": 0.9492164054390742,
+          "first_accuracy": 0.359375,
+          "log_loss": 3.3440910595266744,
+          "races": 128,
+          "top1": 0.0546875,
+          "top3": 0.234375,
+          "top5": 0.3671875
+        }
+      },
+      "overall": {
+        "brier": 0.9594765095871918,
+        "first_accuracy": 0.339572192513369,
+        "log_loss": 3.460431187167534,
+        "top1": 0.058823529411764705,
+        "top3": 0.21122994652406418,
+        "top5": 0.2994652406417112
+      },
+      "races": 374,
+      "size": 7,
+      "temperature": 1.25,
+      "tier": {
+        "A": {
+          "brier": 0.96233825487919,
+          "first_accuracy": 0.3385416666666667,
+          "log_loss": 3.496213511458572,
+          "races": 192,
+          "top1": 0.0625,
+          "top3": 0.19270833333333334,
+          "top5": 0.265625
+        },
+        "S": {
+          "brier": 0.9642872412143082,
+          "first_accuracy": 0.22988505747126436,
+          "log_loss": 3.5073255328657984,
+          "races": 87,
+          "top1": 0.034482758620689655,
+          "top3": 0.1839080459770115,
+          "top5": 0.27586206896551724
+        },
+        "challenge": {
+          "brier": 0.9492871543490573,
+          "first_accuracy": 0.4421052631578947,
+          "log_loss": 3.345167878329343,
+          "races": 95,
+          "top1": 0.07368421052631578,
+          "top3": 0.2736842105263158,
+          "top5": 0.3894736842105263
+        }
+      }
+    },
+    "mlp-7": {
+      "checkpoint_sha256": "c02cbec3f291bba389e06ca46bb981fec8b9829c175131e3130f4f544d11fc3f",
+      "data_sha256": "41ef4298cb340e298b5dd2820d0cc1e6c8572142924830abd46c982f082f9bc7",
+      "model": "mlp",
+      "monthly": {
+        "2026-02": {
+          "brier": 0.9634742947286087,
+          "first_accuracy": 0.36633663366336633,
+          "log_loss": 3.484233070544367,
+          "races": 101,
+          "top1": 0.06930693069306931,
+          "top3": 0.19801980198019803,
+          "top5": 0.33663366336633666
+        },
+        "2026-03": {
+          "brier": 0.9633707443766039,
+          "first_accuracy": 0.3310344827586207,
+          "log_loss": 3.5278240018761426,
+          "races": 145,
+          "top1": 0.0896551724137931,
+          "top3": 0.1724137931034483,
+          "top5": 0.2827586206896552
+        },
+        "2026-04": {
+          "brier": 0.9466668537315854,
+          "first_accuracy": 0.3671875,
+          "log_loss": 3.326775738592487,
+          "races": 128,
+          "top1": 0.0703125,
+          "top3": 0.21875,
+          "top5": 0.3515625
+        }
+      },
+      "overall": {
+        "brier": 0.9576818689300535,
+        "first_accuracy": 0.35294117647058826,
+        "log_loss": 3.4472441575851853,
+        "top1": 0.07754010695187166,
+        "top3": 0.19518716577540107,
+        "top5": 0.32085561497326204
+      },
+      "races": 374,
+      "size": 7,
+      "temperature": 1.0,
+      "tier": {
+        "A": {
+          "brier": 0.9605979575765863,
+          "first_accuracy": 0.3385416666666667,
+          "log_loss": 3.481007772474618,
+          "races": 192,
+          "top1": 0.0625,
+          "top3": 0.171875,
+          "top5": 0.3020833333333333
+        },
+        "S": {
+          "brier": 0.9642762930143154,
+          "first_accuracy": 0.27586206896551724,
+          "log_loss": 3.5146883789702095,
+          "races": 87,
+          "top1": 0.06896551724137931,
+          "top3": 0.14942528735632185,
+          "top5": 0.26436781609195403
+        },
+        "challenge": {
+          "brier": 0.9457491961356841,
+          "first_accuracy": 0.45263157894736844,
+          "log_loss": 3.317241406856054,
+          "races": 95,
+          "top1": 0.11578947368421053,
+          "top3": 0.28421052631578947,
+          "top5": 0.4105263157894737
+        }
+      }
+    },
+    "transformer-9": {
+      "checkpoint_sha256": "bdced8a86d19be5df3eb2abe1b9d5d576abff4ad0a9a03087948d3ccbb78e509",
+      "data_sha256": "d8a998e9afa8dda7a90c0f65a47b1373d02c4f35fc638fc3e04a908c4ce3cd5f",
+      "model": "transformer",
+      "monthly": {
+        "2026-02": {
+          "brier": 0.9861884027098616,
+          "first_accuracy": 0.047619047619047616,
+          "log_loss": 4.279431209767371,
+          "races": 21,
+          "top1": 0.0,
+          "top3": 0.0,
+          "top5": 0.047619047619047616
+        },
+        "2026-03": {
+          "brier": 0.9861154528882574,
+          "first_accuracy": 0.029411764705882353,
+          "log_loss": 4.276792965703059,
+          "races": 34,
+          "top1": 0.0,
+          "top3": 0.029411764705882353,
+          "top5": 0.058823529411764705
+        },
+        "2026-04": {
+          "brier": 0.986142068519257,
+          "first_accuracy": 0.041666666666666664,
+          "log_loss": 4.277748670872248,
+          "races": 24,
+          "top1": 0.041666666666666664,
+          "top3": 0.041666666666666664,
+          "top5": 0.041666666666666664
+        }
+      },
+      "overall": {
+        "brier": 0.986142930374304,
+        "first_accuracy": 0.0379746835443038,
+        "log_loss": 4.277784611898137,
+        "top1": 0.012658227848101266,
+        "top3": 0.02531645569620253,
+        "top5": 0.05063291139240506
+      },
+      "races": 79,
+      "size": 9,
+      "temperature": 4.0,
+      "tier": {
+        "A": {
+          "brier": 0.9856442771852016,
+          "first_accuracy": 1.0,
+          "log_loss": 4.259913003220892,
+          "races": 1,
+          "top1": 0.0,
+          "top3": 0.0,
+          "top5": 0.0
+        },
+        "S": {
+          "brier": 0.9861493233639078,
+          "first_accuracy": 0.02564102564102564,
+          "log_loss": 4.278013735086308,
+          "races": 78,
+          "top1": 0.01282051282051282,
+          "top3": 0.02564102564102564,
+          "top5": 0.05128205128205128
+        }
+      }
+    },
+    "mlp-9": {
+      "checkpoint_sha256": "4f2b165a6dceb864ecc43a5bf41d11286872a65c2d33ba999fec38ff5e3b5e06",
+      "data_sha256": "d8a998e9afa8dda7a90c0f65a47b1373d02c4f35fc638fc3e04a908c4ce3cd5f",
+      "model": "mlp",
+      "monthly": {
+        "2026-02": {
+          "brier": 0.9860480207328995,
+          "first_accuracy": 0.19047619047619047,
+          "log_loss": 4.273551077492837,
+          "races": 21,
+          "top1": 0.047619047619047616,
+          "top3": 0.047619047619047616,
+          "top5": 0.047619047619047616
+        },
+        "2026-03": {
+          "brier": 0.9850558323018691,
+          "first_accuracy": 0.29411764705882354,
+          "log_loss": 4.238822818111541,
+          "races": 34,
+          "top1": 0.029411764705882353,
+          "top3": 0.058823529411764705,
+          "top5": 0.08823529411764706
+        },
+        "2026-04": {
+          "brier": 0.9846090404316783,
+          "first_accuracy": 0.16666666666666666,
+          "log_loss": 4.2242758078145615,
+          "races": 24,
+          "top1": 0.16666666666666666,
+          "top3": 0.25,
+          "top5": 0.25
+        }
+      },
+      "overall": {
+        "brier": 0.9851838443546167,
+        "first_accuracy": 0.22784810126582278,
+        "log_loss": 4.243635035831539,
+        "top1": 0.0759493670886076,
+        "top3": 0.11392405063291139,
+        "top5": 0.12658227848101267
+      },
+      "races": 79,
+      "size": 9,
+      "temperature": 0.5,
+      "tier": {
+        "A": {
+          "brier": 0.9862997066229582,
+          "first_accuracy": 0.0,
+          "log_loss": 4.274025412599671,
+          "races": 1,
+          "top1": 0.0,
+          "top3": 0.0,
+          "top5": 0.0
+        },
+        "S": {
+          "brier": 0.9851695384280995,
+          "first_accuracy": 0.23076923076923078,
+          "log_loss": 4.243245415616563,
+          "races": 78,
+          "top1": 0.07692307692307693,
+          "top3": 0.11538461538461539,
+          "top5": 0.1282051282051282
+        }
+      }
+    }
+  },
+  "all_cohorts": {
+    "transformer-7": [
+      {
+        "cohort": "original_full_results",
+        "races": 7615,
+        "brier": 0.9525931273167555,
+        "first_accuracy": 0.35075508864084043,
+        "log_loss": 3.3625112322840605,
+        "top1": 0.0923177938279711,
+        "top3": 0.25581089954038083,
+        "top5": 0.3703217334208798
+      },
+      {
+        "cohort": "feb_apr_payout_backfill",
+        "races": 374,
+        "brier": 0.9594765095871918,
+        "first_accuracy": 0.339572192513369,
+        "log_loss": 3.460431187167534,
+        "top1": 0.058823529411764705,
+        "top3": 0.21122994652406418,
+        "top5": 0.2994652406417112
+      },
+      {
+        "cohort": "may_aug_payout_backfill",
+        "races": 3387,
+        "brier": 0.953215514303105,
+        "first_accuracy": 0.3525243578387954,
+        "log_loss": 3.3867500174641827,
+        "top1": 0.09625036905816357,
+        "top3": 0.2583407144966047,
+        "top5": 0.36315323294951285
+      },
+      {
+        "cohort": "sep_nov_payout_backfill",
+        "races": 3617,
+        "brier": 0.956508522251127,
+        "first_accuracy": 0.3187724633674316,
+        "log_loss": 3.4180633971227583,
+        "top1": 0.08128283107547692,
+        "top3": 0.22781310478296932,
+        "top5": 0.3378490461708598
+      }
+    ],
+    "mlp-7": [
+      {
+        "cohort": "original_full_results",
+        "races": 7615,
+        "brier": 0.9520045089495668,
+        "first_accuracy": 0.3529875246224557,
+        "log_loss": 3.3599504381241463,
+        "top1": 0.0933683519369665,
+        "top3": 0.25436638214051216,
+        "top5": 0.3701904136572554
+      },
+      {
+        "cohort": "feb_apr_payout_backfill",
+        "races": 374,
+        "brier": 0.9576818689300535,
+        "first_accuracy": 0.35294117647058826,
+        "log_loss": 3.4472441575851853,
+        "top1": 0.07754010695187166,
+        "top3": 0.19518716577540107,
+        "top5": 0.32085561497326204
+      },
+      {
+        "cohort": "may_aug_payout_backfill",
+        "races": 3387,
+        "brier": 0.952494214974115,
+        "first_accuracy": 0.3540005904930617,
+        "log_loss": 3.3807385537719084,
+        "top1": 0.10186005314437556,
+        "top3": 0.2612931798051373,
+        "top5": 0.3690581635665781
+      },
+      {
+        "cohort": "sep_nov_payout_backfill",
+        "races": 3617,
+        "brier": 0.9555895427270373,
+        "first_accuracy": 0.32789604644733206,
+        "log_loss": 3.4056336280339963,
+        "top1": 0.08487696986452861,
+        "top3": 0.23196018800110588,
+        "top5": 0.3384019905999447
+      }
+    ],
+    "transformer-9": [
+      {
+        "cohort": "original_full_results",
+        "races": 850,
+        "brier": 0.9861302258972736,
+        "first_accuracy": 0.03058823529411765,
+        "log_loss": 4.277321321776672,
+        "top1": 0.0058823529411764705,
+        "top3": 0.021176470588235293,
+        "top5": 0.023529411764705882
+      },
+      {
+        "cohort": "feb_apr_payout_backfill",
+        "races": 79,
+        "brier": 0.986142930374304,
+        "first_accuracy": 0.0379746835443038,
+        "log_loss": 4.277784611898137,
+        "top1": 0.012658227848101266,
+        "top3": 0.02531645569620253,
+        "top5": 0.05063291139240506
+      },
+      {
+        "cohort": "may_aug_payout_backfill",
+        "races": 319,
+        "brier": 0.9861454393533657,
+        "first_accuracy": 0.0219435736677116,
+        "log_loss": 4.277873704294207,
+        "top1": 0.009404388714733543,
+        "top3": 0.018808777429467086,
+        "top5": 0.02821316614420063
+      },
+      {
+        "cohort": "sep_nov_payout_backfill",
+        "races": 429,
+        "brier": 0.9861374846952674,
+        "first_accuracy": 0.02097902097902098,
+        "log_loss": 4.2775798507214695,
+        "top1": 0.0,
+        "top3": 0.013986013986013986,
+        "top5": 0.027972027972027972
+      }
+    ],
+    "mlp-9": [
+      {
+        "cohort": "original_full_results",
+        "races": 850,
+        "brier": 0.9853369847137262,
+        "first_accuracy": 0.22941176470588234,
+        "log_loss": 4.249332885282478,
+        "top1": 0.021176470588235293,
+        "top3": 0.07647058823529412,
+        "top5": 0.12470588235294118
+      },
+      {
+        "cohort": "feb_apr_payout_backfill",
+        "races": 79,
+        "brier": 0.9851838443546167,
+        "first_accuracy": 0.22784810126582278,
+        "log_loss": 4.243635035831539,
+        "top1": 0.0759493670886076,
+        "top3": 0.11392405063291139,
+        "top5": 0.12658227848101267
+      },
+      {
+        "cohort": "may_aug_payout_backfill",
+        "races": 319,
+        "brier": 0.9852132742471269,
+        "first_accuracy": 0.22884012539184953,
+        "log_loss": 4.245677857289882,
+        "top1": 0.04075235109717868,
+        "top3": 0.07210031347962383,
+        "top5": 0.13166144200626959
+      },
+      {
+        "cohort": "sep_nov_payout_backfill",
+        "races": 429,
+        "brier": 0.9856327692836975,
+        "first_accuracy": 0.17249417249417248,
+        "log_loss": 4.25978077456358,
+        "top1": 0.016317016317016316,
+        "top3": 0.06060606060606061,
+        "top5": 0.1048951048951049
+      }
+    ]
+  }
+}
