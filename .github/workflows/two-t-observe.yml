@@ -74,6 +74,22 @@ jobs:
         shell: bash
         run: |
           gh release download --repo "$GITHUB_REPOSITORY" --pattern 'transformer-*.pt' --dir "$RUNNER_TEMP/2t-checkpoints" -- "$MODEL_TAG"
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          from two_t.observed_forward import V1_PINS, get_checkpoint
+
+          root = Path(os.environ["RUNNER_TEMP"]) / "2t-checkpoints"
+          for n, expected in V1_PINS.items():
+              path = root / f"transformer-{n}.pt"
+              try:
+                  verified = get_checkpoint(path, expected)
+              except ValueError as error:
+                  print(f"{path.name}: {error}", flush=True)
+              else:
+                  status = "SHA-256 verified" if verified else "asset missing"
+                  print(f"{path.name}: {status}", flush=True)
+          PY
           python3 -m pip install -r two_t/requirements.txt
       - name: Freeze eligible predictions before sales close
         env:
