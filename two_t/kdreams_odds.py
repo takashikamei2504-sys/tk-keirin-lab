@@ -5,6 +5,7 @@ from datetime import datetime, time, timedelta
 from hashlib import sha256
 import json
 from pathlib import Path
+from time import sleep
 import re
 
 from .evaluate import eligible_quote
@@ -136,8 +137,36 @@ def capture(ledger, clock=utc_now):
     return {"day": day, "counts": dict(report), "failures": outcomes}
 
 
+def wait_for_window(ledger, maximum, clock=utc_now, sleeper=sleep):
+    if maximum <= 0:
+        return
+    now = clock()
+    day = now.astimezone(JST).date().isoformat()
+    starts = []
+    for path in (ledger / "cards").glob("*.json"):
+        try:
+            record = payload(path)
+            card = record["card"]
+            if card["date"] != day or ledger_path(ledger / "quotes", card["race_id"] + ":t10").exists():
+                continue
+            close = stamp(f"{day}T{record['raw_card']['close_time']}:00+09:00")
+            target = close - timedelta(minutes=10)
+            if target >= now:
+                starts.append(target - MINUTE)
+        except (OSError, KeyError, TypeError, ValueError):
+            continue
+    if starts:
+        delay = (min(starts) - clock()).total_seconds() + 0.25
+        if 0 < delay <= maximum:
+            sleeper(delay)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger", type=Path, required=True)
+    parser.add_argument("--wait-seconds", type=int, default=0)
     args = parser.parse_args()
+    if not 0 <= args.wait_seconds <= 240:
+        parser.error("--wait-seconds must be between 0 and 240")
+    wait_for_window(args.ledger, args.wait_seconds)
     print(json.dumps(capture(args.ledger), ensure_ascii=False))
