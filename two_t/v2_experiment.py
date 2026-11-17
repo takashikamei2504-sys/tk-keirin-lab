@@ -248,7 +248,7 @@ def line_diagnostics(rows, predictions):
     }
 
 
-def expanding_history(rows):
+def expanding_history(rows, warmup_days=2, stop_day=None):
     """Backtest the early archive using only information available on prior days."""
     by_day = defaultdict(list)
     for row, result in rows:
@@ -256,7 +256,7 @@ def expanding_history(rows):
     dates = sorted(by_day)
     predictions = {name: [] for name in VARIANTS}
     scored, folds = [], []
-    for day in dates[2:]:
+    for day in dates[warmup_days:stop_day]:
         midnight = stamp(f"{day}T00:00:00+09:00")
         training = [(row, result) for row, result in rows
                     if row["date"] < day
@@ -288,12 +288,14 @@ def main():
     by_race = {row["race_id"]: row for row in v1}
     train = list(labels(row for row in dataset if row["split"] == "train"))
     variants = {name: fit(train, *flags) for name, flags in VARIANTS.items()}
-    prospective, _ = audit(args.ledger, args.as_of)
+    prospective, audit_report = audit(args.ledger, args.as_of)
     historic_end = max(row["date"] for row in dataset)
     sets = {"validation": list(labels(row for row in dataset if row["split"] == "validation")),
             "reused_test": list(labels(row for row in dataset if row["split"] == "test")),
             "prospective": list(labels(row for row in prospective if row["date"] > historic_end))}
-    result = {"train_races": len(train), "as_of": args.as_of.astimezone(JST).isoformat(), "sets": {}}
+    result = {"train_races": len(train), "as_of": args.as_of.astimezone(JST).isoformat(), "sets": {},
+              "observation_audit": {key: audit_report[key] for key in
+                                    ("observation_count", "counts", "t10_counts")}}
     for name, rows in sets.items():
         recent = [live_recent(args.ledger, row) if name == "prospective" else None for row, _ in rows]
         scores = {"uniform": metrics(rows, [{f"{a}-{b}": 1 / 42 for a in row["cars"] for b in row["cars"]
@@ -330,6 +332,7 @@ def main():
                 paired, [forecasts[row["race_id"]]["probabilities"] for row, _ in paired])
         result["sets"][name] = entry
     result["early_expanding_backtest"] = expanding_history(train)
+    result["one_day_warmup_sensitivity"] = expanding_history(train, warmup_days=1, stop_day=2)
     write(args.out, result)
 
 
