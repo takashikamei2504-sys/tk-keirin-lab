@@ -20,6 +20,7 @@ function freeze(r,baseline,weights,now=Date.now()){
  const id=[r.date,r.venue,r.race_no].join(':'),baseSaved=Date.parse(baseline.saved_at),baseSource=Date.parse(baseline.source_generated_at);
  if(baseline.race_id!==id||!Number.isFinite(baseSaved)||baseSaved>=start||
   !Number.isFinite(baseSource)||baseSource>baseSaved||baseSaved>now||
+  r.source.generated_at!==baseline.source_generated_at||
   JSON.stringify(baseline.identity)!==JSON.stringify(inputIdentity(r))||
   JSON.stringify(baseline.lineup)!==JSON.stringify(r.lineup))throw Error('Frozen original and current pre-race card disagree');
  const ext=Expanded.predict(r,weights);
