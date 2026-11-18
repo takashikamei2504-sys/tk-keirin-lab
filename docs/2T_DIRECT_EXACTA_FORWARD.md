@@ -31,3 +31,7 @@ python -m unittest discover -s tests/two_t -q
 ```
 
 重みは研究候補の `direct-exacta-{7,9}.pt` と年次参照の `mlp-{7,9}-latent-b.pt` を同じディレクトリに置く。年次モデルの結果および候補の比較JSONをチェックポイントのハッシュ照合に使用する。既存の予測台帳とは独立した台帳。
+
+## 2026年11月19日の更新
+
+[当日の予測一覧](2T_DIRECT_EXACTA_PREDICTIONS_20261119.md) と [前向き比較の更新結果](2T_DIRECT_EXACTA_FORWARD_20261119.md) を追記。11月19日61RはGitHub保存時刻でも締切10分前。11月18日は63Rを確定照合し、5Rは全着順が不規則のため未照合理由を記録した。
