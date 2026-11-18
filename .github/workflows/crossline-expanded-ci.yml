@@ -1,0 +1,46 @@
+name: Independent crossline 4-6-8-10 forward shadow
+on:
+  push:
+    branches: [main, feature/crossline-expanded-shadow-20261119]
+    paths:
+      - 'js/crossline/expanded.js'
+      - 'js/crossline/expanded-view.js'
+      - 'scripts/crossline-expanded-forward.cjs'
+      - 'tests/crossline-expanded.test.cjs'
+      - 'crossline-expanded.html'
+      - 'crossline-selected.html'
+      - '.github/workflows/routed-daily.yml'
+      - '.github/workflows/crossline-expanded-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'js/crossline/**'
+      - 'scripts/crossline-expanded-forward.cjs'
+      - 'tests/crossline-expanded.test.cjs'
+      - 'crossline-expanded.html'
+      - 'crossline-selected.html'
+      - '.github/workflows/routed-daily.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and immutable research verification
+        run: |
+          node --check js/crossline/expanded.js
+          node --check js/crossline/expanded-view.js
+          node --check scripts/crossline-expanded-forward.cjs
+          node --check tests/crossline-expanded.test.cjs
+          node tests/crossline-expanded.test.cjs
+      - name: Original 4-point preservation checks
+        run: |
+          node tests/crossline-selected.test.cjs
+          node tests/crossline-candidate-list.test.cjs
+          node tests/crossline-mobile-layout.test.cjs

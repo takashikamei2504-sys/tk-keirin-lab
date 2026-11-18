@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b151d">
+<title>別線4/6/8/10点 独立検証｜TK KEIRIN LAB</title>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/routing.css?v=3f18375c59d1">
+<style>
+:root{color-scheme:dark}.note{font-size:12px;color:#b3c9bf;line-height:1.8}
+.page-links{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}.page-links a{font-size:13px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.controls label{font-size:12px}
+.controls select,.controls input{min-height:44px;margin:7px 0 0;font-size:15px}
+.control-buttons{display:flex;gap:8px;align-items:center}.control-buttons button{margin:0 0 16px;min-height:44px}
+.tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{border:1px solid #3a5c53;border-radius:12px;padding:12px;background:#1b3535}.tile strong{display:block;font-size:24px;margin-top:5px;font-variant-numeric:tabular-nums}
+.tile small{color:#b9cfc6;font-size:11px}.value-up{color:#b4e4bd}.value-down{color:#f1b7a9}
+.roll{overflow-x:auto;-webkit-overflow-scrolling:touch}.comparison{border-collapse:collapse;white-space:nowrap;width:100%;font-size:13px}
+.comparison th,.comparison td{padding:10px 8px;text-align:right;border-bottom:1px solid #35514a}
+.comparison th:first-child,.comparison td:first-child{text-align:left;position:sticky;left:0;background:#152a30;z-index:1}
+.comparison thead th{font-size:12px;color:#e0dbbc}.comparison tbody tr:first-child{background:#203d35}
+.race-card{border:1px solid #3c6258;border-radius:12px;margin:12px 0;padding:12px;background:#183038}
+.race-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.race-head h3{margin:0;font-size:17px}
+.badge-mini{font-size:11px;font-weight:700;border:1px solid #699a7c;border-radius:7px;color:#b7f0c5;padding:5px 7px;white-space:nowrap}.badge-mini.skip{border-color:#667781;color:#c1cbd0}
+.tickets-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}
+.ticket{border:1px solid #4d7467;border-radius:8px;padding:9px 5px;text-align:center;font-weight:800;font-size:18px;background:#25413f;color:#eaf3e7}
+.ticket.extra{background:#30405a;color:#dbecff;border-color:#527c99}
+.variant{margin:8px 0}.variant summary{font-size:13px;font-weight:750;padding:8px 0}
+.variant h4{font-size:12px;margin:4px 0}.micro{font-size:11px;color:#b4ccc3;margin:6px 0}
+.empty{padding:16px;border:1px dashed #4c7069;border-radius:10px;color:#d0dfd5}
+footer{display:block}.fixed-link{color:#efd58c}
+@media(max-width:390px){main{padding-left:0;padding-right:0}.card{padding:13px}.comparison{font-size:12px}.comparison th,.comparison td{padding:9px 6px}}
+</style></head><body>
+<header><a class="brand" href="index.html">TK KEIRIN LAB</a><a href="crossline-selected.html">別線4点へ戻る</a></header>
+<main>
+<p class="eyebrow">CROSS-LINE / INDEPENDENT FORWARD TEST</p>
+<h1>別線4・6・8・10点<br>独立検証</h1>
+<p class="lead">現行4点を一切変更せず、別線1・2着ペアを追加する6・8・10点方式を同条件で比較。買い目も見送りも、発走前の最初の記録を固定します。</p>
+<div class="page-links"><a href="crossline-selected.html" class="fixed-link">現行4点の購入候補</a><a href="routed-results.html">通常エンジンの結果</a></div>
+<section class="card">
+<h2>発走前固定の比較成績</h2>
+<p id="status" class="note" role="status" aria-live="polite">予想・結果データを読み込み中です。</p>
+<div class="controls"><label>開催日<select id="date"><option value="today">今日</option><option value="all">全期間</option></select></label>
+<label>評価対象<select id="scope"><option value="selected">購入対象のみ</option><option value="skipped">見送りを仮購入</option><option value="all">全レースを仮購入</option></select></label></div>
+<div class="control-buttons"><button id="refresh" type="button">データを更新</button></div>
+<div id="tiles" class="tile-grid" aria-label="検証状況"></div>
+<div class="roll"><table class="comparison"><thead><tr><th>方式</th><th>的中</th><th>投資</th><th>払戻</th><th>収支</th><th>回収率</th></tr></thead><tbody id="table"></tbody></table></div>
+<p class="note">1着・2着が別ラインの上位2/3/4/5組を選び、各組の3着上位2人を組み合わせます。4点が基準です。見送りレースの比較は仮想投票で、実際の購入を意味しません。的中だけでなく最大払戻1/3件除外後も確認できます。</p>
+<div id="trim" class="note"></div>
+</section>
+<section class="card">
+<h2>レース別の発走前買い目</h2>
+<p class="note">追加買い目は青系で表示。結果確定後の修正や事後計算は行いません。</p>
+<div id="races"></div>
+</section>
+<section class="card">
+<h2>検証上のルール</h2>
+<p class="note">現行エンジンの購入・見送り条件、4点の順番、既存予想・購入画面はそのままです。初回記録を発走前に保存できなかったレースは後から埋めず、比較対象から除外します。結果・払戻が未確定なら成績に含めません。研究用の追加点に投票ボタンは設けません。</p>
+<p class="note">推定モデル、買い目数、選別条件はこの研究版の固定仕様です。評価結果から都合よく変更せず、一定期間の前向き成績と高配当依存度で判定します。</p>
+</section>
+<footer><a href="crossline-selected.html">現行別線4点</a> ／ <a href="index.html">トップ</a></footer>
+</main>
+<script src="js/crossline/expanded-view.js?v=1"></script>
+</body></html>
