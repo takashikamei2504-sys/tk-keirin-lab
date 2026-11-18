@@ -1,6 +1,6 @@
 {
   "schema": "tk-keirin-race-material/v1",
-  "generated_at": "2026-11-17T18:40:08.349003+00:00",
+  "generated_at": "2026-11-18T02:58:23.818528+00:00",
   "cards": [
     {
       "date": "2026-11-01",
@@ -53286,7 +53286,7 @@
         }
       ],
       "id": "8e77651f2a229ba3534f",
-      "last_checked_at": "2026-11-17T18:39:49.492287+00:00"
+      "last_checked_at": "2026-11-18T02:58:07.351136+00:00"
     },
     {
       "date": "2026-11-16",
@@ -54110,7 +54110,7 @@
         }
       ],
       "id": "c62ec045c7605ec992fd",
-      "last_checked_at": "2026-11-17T18:39:51.800430+00:00"
+      "last_checked_at": "2026-11-18T02:58:09.798516+00:00"
     },
     {
       "date": "2026-11-17",
@@ -54321,7 +54321,7 @@
         }
       ],
       "id": "9ef94058ebf93faba897",
-      "last_checked_at": "2026-11-17T18:39:54.081084+00:00"
+      "last_checked_at": "2026-11-18T02:58:12.461077+00:00"
     },
     {
       "date": "2026-11-17",
@@ -54534,7 +54534,7 @@
         }
       ],
       "id": "09addec28d6f0158a447",
-      "last_checked_at": "2026-11-17T18:39:56.560699+00:00"
+      "last_checked_at": "2026-11-18T02:58:14.750281+00:00"
     },
     {
       "date": "2026-11-17",
@@ -54767,7 +54767,7 @@
         }
       ],
       "id": "060ce51bf7ae1570ae1f",
-      "last_checked_at": "2026-11-17T18:40:01.195837+00:00"
+      "last_checked_at": "2026-11-18T02:58:19.347004+00:00"
     },
     {
       "date": "2026-11-17",
@@ -54998,7 +54998,7 @@
         }
       ],
       "id": "03ca816da033792685e1",
-      "last_checked_at": "2026-11-17T18:40:03.609057+00:00"
+      "last_checked_at": "2026-11-18T02:58:21.545532+00:00"
     },
     {
       "date": "2026-11-17",
@@ -55232,7 +55232,7 @@
         }
       ],
       "id": "aa2cc0397c233e345b2f",
-      "last_checked_at": "2026-11-17T18:40:05.966422+00:00"
+      "last_checked_at": "2026-11-18T02:58:23.787292+00:00"
     },
     {
       "date": "2026-11-17",
@@ -55690,19 +55690,20 @@
           "race_id": "2026-11-17:別府:12"
         }
       ],
-      "id": "469785d74ac6749c9fbb"
+      "id": "469785d74ac6749c9fbb",
+      "last_checked_at": "2026-11-18T02:57:50.857535+00:00"
     }
   ],
   "status": {
-    "discovered": 15,
+    "discovered": 16,
     "attempted": 24,
     "errors": [
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_31071",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_31061",
         "error": "full identity missing"
       },
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_30979",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_30974",
         "error": "full identity missing"
       },
       {
@@ -55710,11 +55711,7 @@
         "error": "full identity missing"
       },
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_30435",
-        "error": "full identity missing"
-      },
-      {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_32341",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_32326",
         "error": "full identity missing"
       },
       {
@@ -55728,6 +55725,10 @@
       {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_34344",
         "error": "S/B header layout changed"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261118_30541",
+        "error": "full identity missing"
       },
       {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261116_32565",
@@ -55751,6 +55752,10 @@
       },
       {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261116_31706",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261117_30423",
         "error": "full identity missing"
       },
       {

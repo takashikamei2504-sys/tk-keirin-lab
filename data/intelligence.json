@@ -1,10 +1,10 @@
 {
   "schema": "tk-keirin-intelligence/v1.4",
-  "generated_at": "2026-11-17T18:39:08.846350+00:00",
+  "generated_at": "2026-11-18T02:57:25.395702+00:00",
   "roster_dates": [
     "2026-11-18"
   ],
-  "roster_size": 678,
+  "roster_size": 1102,
   "knowledge": [
     {
       "id": "2826572b67a0c12475950955",
@@ -37269,13 +37269,10 @@
     "https://keirin.netkeiba.com/news/news_detail.html?id=49924",
     "https://keirin.netkeiba.com/news/news_detail.html?id=49920",
     "https://keirin.netkeiba.com/news/news_detail.html?id=49919",
-    "https://keirin.netkeiba.com/news/news_detail.html?id=49916"
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49916",
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49937"
   ],
   "pending_discovery_urls": [
-    "https://keirin.kdreams.jp/toyohashi/racedetail/4520261102020012/",
-    "https://keirin.kdreams.jp/kurume/racedetail/8320261101030011/",
-    "https://keirin.kdreams.jp/odawara/racedetail/3620261101030001/",
-    "https://keirin.kdreams.jp/aomori/racedetail/1220261103020001/",
     "https://keirin.kdreams.jp/toride/racedetail/2320261104010001/",
     "https://keirin.kdreams.jp/omiya/racedetail/2520261104010001/",
     "https://keirin.kdreams.jp/beppu/racedetail/8620261104010001/",
@@ -37471,7 +37468,11 @@
     "https://keirin.kdreams.jp/kokura/racedetail/8120261118010001/",
     "https://keirin.kdreams.jp/matsuyama/racedetail/7520261117020001/",
     "https://keirin.kdreams.jp/seibuen/racedetail/2620261118010001/",
-    "https://keirin.kdreams.jp/ogaki/racedetail/4420261118010001/"
+    "https://keirin.kdreams.jp/ogaki/racedetail/4420261118010001/",
+    "https://keirin.kdreams.jp/seibuen/racedetail/2620261118010004/",
+    "https://keirin.kdreams.jp/ogaki/racedetail/4420261118010004/",
+    "https://keirin.kdreams.jp/komatsushima/racedetail/7320261116030004/",
+    "https://keirin.kdreams.jp/shizuoka/racedetail/3820261117020001/"
   ],
   "retry_state": {
     "https://keirinsponichi.jp/chumoku_race/": {
@@ -37608,27 +37609,27 @@
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49559": {
       "failures": 8,
-      "retry_after": "2026-11-18T01:05:30.631585+00:00"
+      "retry_after": "2026-11-21T02:55:50.956260+00:00"
     },
     "https://blog.oddspark.com/interview/2025/11/01.html": {
       "failures": 8,
-      "retry_after": "2026-11-18T01:05:30.631585+00:00"
+      "retry_after": "2026-11-21T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49558": {
       "failures": 8,
-      "retry_after": "2026-11-18T01:05:30.631585+00:00"
+      "retry_after": "2026-11-21T02:55:50.956260+00:00"
     },
     "https://blog.oddspark.com/interview/2025/11/post-376.html": {
       "failures": 8,
-      "retry_after": "2026-11-18T01:05:30.631585+00:00"
+      "retry_after": "2026-11-21T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49555": {
       "failures": 8,
-      "retry_after": "2026-11-18T01:05:30.631585+00:00"
+      "retry_after": "2026-11-21T02:55:50.956260+00:00"
     },
     "https://blog.oddspark.com/interview/2025/10/post-375.html": {
       "failures": 8,
-      "retry_after": "2026-11-18T01:05:30.631585+00:00"
+      "retry_after": "2026-11-21T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49552": {
       "failures": 8,
@@ -38219,164 +38220,220 @@
       "retry_after": "2026-11-19T18:37:32.615079+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49784": {
-      "failures": 4,
-      "retry_after": "2026-11-16T01:05:30.631585+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49791": {
-      "failures": 4,
-      "retry_after": "2026-11-16T01:05:30.631585+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49788": {
-      "failures": 4,
-      "retry_after": "2026-11-16T01:05:30.631585+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49787": {
-      "failures": 4,
-      "retry_after": "2026-11-16T01:05:30.631585+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49786": {
-      "failures": 4,
-      "retry_after": "2026-11-16T01:05:30.631585+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49782": {
-      "failures": 4,
-      "retry_after": "2026-11-16T01:05:30.631585+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49781": {
-      "failures": 4,
-      "retry_after": "2026-11-16T01:05:30.631585+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49778": {
-      "failures": 4,
-      "retry_after": "2026-11-16T01:05:30.631585+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49794": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49826": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49825": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49824": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49801": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49821": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49818": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49817": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49816": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49815": {
-      "failures": 4,
-      "retry_after": "2026-11-17T01:04:57.134523+00:00"
+      "failures": 5,
+      "retry_after": "2026-11-20T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49828": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49849": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49848": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49843": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49842": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49840": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49839": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49838": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49837": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49836": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49829": {
-      "failures": 3,
-      "retry_after": "2026-11-16T13:04:57.134523+00:00"
+      "failures": 4,
+      "retry_after": "2026-11-19T02:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49863": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49866": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49864": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49862": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49859": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49858": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49857": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49856": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49854": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49852": {
-      "failures": 2,
-      "retry_after": "2026-11-16T07:04:57.134523+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-18T14:55:50.956260+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49876": {
+      "failures": 2,
+      "retry_after": "2026-11-18T08:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49888": {
       "failures": 1,
-      "retry_after": "2026-11-16T04:04:57.134523+00:00"
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49891": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49890": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49889": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49878": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49877": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49874": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49896": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49779": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49897": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49881": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49880": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49911": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49934": {
+      "failures": 1,
+      "retry_after": "2026-11-18T05:55:50.956260+00:00"
     }
   },
   "status": {
@@ -38389,9 +38446,9 @@
         "name": "東スポ競輪",
         "index_url": "https://keirin.tokyo-sports.co.jp/",
         "index_ok": true,
-        "discovered": 16,
-        "attempted": 2,
-        "body_succeeded": 2,
+        "discovered": 15,
+        "attempted": 0,
+        "body_succeeded": 0,
         "comments_added": 0,
         "errors": 0,
         "stored_articles": 91,
@@ -38403,10 +38460,10 @@
         "index_url": "https://keirinsponichi.jp/",
         "index_ok": true,
         "discovered": 9,
-        "attempted": 6,
-        "body_succeeded": 5,
+        "attempted": 0,
+        "body_succeeded": 0,
         "comments_added": 0,
-        "errors": 1,
+        "errors": 0,
         "stored_articles": 48,
         "stored_comments": 0,
         "stored_evidence": 3
@@ -38415,11 +38472,11 @@
         "name": "netkeirin",
         "index_url": "https://keirin.netkeiba.com/news/news_list.html",
         "index_ok": true,
-        "discovered": 210,
-        "attempted": 51,
+        "discovered": 211,
+        "attempted": 57,
         "body_succeeded": 0,
         "comments_added": 0,
-        "errors": 51,
+        "errors": 57,
         "stored_articles": 0,
         "stored_comments": 0,
         "stored_evidence": 0
@@ -38429,10 +38486,10 @@
         "index_url": "https://blog.oddspark.com/interview/",
         "index_ok": false,
         "discovered": 33,
-        "attempted": 0,
+        "attempted": 3,
         "body_succeeded": 0,
         "comments_added": 0,
-        "errors": 1,
+        "errors": 4,
         "stored_articles": 14,
         "stored_comments": 22,
         "stored_evidence": 0
@@ -38442,9 +38499,9 @@
         "index_url": "https://keirin.kdreams.jp/",
         "index_ok": true,
         "discovered": 1,
-        "attempted": 1,
-        "body_succeeded": 1,
-        "comments_added": 1,
+        "attempted": 0,
+        "body_succeeded": 0,
+        "comments_added": 0,
         "errors": 0,
         "stored_articles": 4,
         "stored_comments": 8,
@@ -38495,211 +38552,243 @@
         "error": "robots unavailable or disallowed"
       },
       {
-        "url": "https://keirinsponichi.jp/keirin_news/20261116-tachikawa-dekigoto/\"",
-        "error": "article body missing"
-      },
-      {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49608",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49559",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49607",
+        "url": "https://blog.oddspark.com/interview/2025/11/01.html",
+        "error": "robots unavailable or disallowed"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49558",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49604",
+        "url": "https://blog.oddspark.com/interview/2025/11/post-376.html",
+        "error": "robots unavailable or disallowed"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49555",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49603",
+        "url": "https://blog.oddspark.com/interview/2025/10/post-375.html",
+        "error": "robots unavailable or disallowed"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49784",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49628",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49791",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49626",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49788",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49597",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49787",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49625",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49786",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49627",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49782",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49638",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49781",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49633",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49778",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49632",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49794",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49631",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49826",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49484",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49825",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49624",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49824",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49656",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49801",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49655",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49821",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49654",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49818",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49653",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49817",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49652",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49816",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49651",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49815",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49085",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49828",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49640",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49849",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49642",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49848",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49639",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49843",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49663",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49842",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49662",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49840",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49659",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49839",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49658",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49838",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49657",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49837",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49670",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49836",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49669",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49829",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49702",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49863",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49701",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49866",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49700",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49864",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49699",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49862",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49696",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49859",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49715",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49858",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49713",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49857",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49711",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49856",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49712",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49854",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49764",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49852",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49762",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49876",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49760",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49888",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49761",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49891",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49759",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49890",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49776",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49889",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49775",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49878",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49731",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49877",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49774",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49874",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49793",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49896",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49779",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49897",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49881",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49880",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49911",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49934",
         "error": "publication date unknown; not used"
       }
     ]
