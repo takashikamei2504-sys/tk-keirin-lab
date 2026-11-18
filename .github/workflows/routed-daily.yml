@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/routed-*.cjs', 'scripts/crossline-selected-daily.cjs', 'js/crossline/selected.js', 'js/routing/evaluation.js', '.github/workflows/routed-daily.yml']
+    paths: ['scripts/routed-*.cjs', 'scripts/crossline-selected-daily.cjs', 'scripts/crossline-expanded-forward.cjs', 'js/crossline/selected.js', 'js/crossline/expanded.js', 'js/routing/evaluation.js', '.github/workflows/routed-daily.yml']
 permissions:
   contents: write
 concurrency:
@@ -39,12 +39,18 @@ jobs:
         run: |
           node tests/crossline-selected.test.cjs
           node scripts/crossline-selected-daily.cjs
+      - name: Independent 4/6/8/10-point forward research and settlement
+        continue-on-error: true
+        run: |
+          node tests/crossline-expanded.test.cjs
+          node scripts/crossline-expanded-forward.cjs
       - name: Persist forecasts and daily evaluation
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/routed_history
           if [ -d data/crossline_selected ]; then git add data/crossline_selected; fi
+          if [ -d data/crossline_expanded ]; then git add data/crossline_expanded; fi
           if ! git diff --cached --quiet; then
             git commit -m 'Save automatic race forecasts and update daily evaluation'
             for attempt in 1 2 3 4; do
