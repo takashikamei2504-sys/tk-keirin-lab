@@ -35,3 +35,7 @@ python -m unittest discover -s tests/two_t -q
 ## 2026年11月19日の更新
 
 [当日の予測一覧](2T_DIRECT_EXACTA_PREDICTIONS_20261119.md) と [前向き比較の更新結果](2T_DIRECT_EXACTA_FORWARD_20261119.md) を追記。11月19日61RはGitHub保存時刻でも締切10分前。11月18日は63Rを確定照合し、5Rは全着順が不規則のため未照合理由を記録した。
+
+## 2026年11月20日の更新
+
+[本日の予測一覧](2T_DIRECT_EXACTA_PREDICTIONS_20261120.md) と [累積比較結果](2T_DIRECT_EXACTA_FORWARD_20261120.md) を追記。51Rを07:20:56にGitHub保存し、全件が締切10分前条件を満たした。過去2日129Rのうち121Rを確定照合し、8Rは未照合理由を保存した。
