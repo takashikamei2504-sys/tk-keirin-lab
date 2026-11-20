@@ -50,6 +50,26 @@ strong{color:#255b43}small{display:block;color:#436358;overflow-wrap:anywhere}.s
 <p>二車単確率・期待値</p>
 </div></header>
 <main class="wrap">
+<section class="panel" id="candidate">
+<h2>改善候補の二車単予測</h2>
+<p id="candidate-model-note">改善候補を暫定採用中。二車単を直接学習したモデルです。</p>
+<p id="candidate-state" role="status">保存予測を読み込み中…</p>
+<p id="candidate-date-note" role="status"></p>
+<form id="candidate-controls" hidden>
+<label class="label">競輪場<select id="candidate-venue"></select></label>
+<label class="label">レース<select id="candidate-race"></select></label>
+<label class="label">モデル<select id="candidate-model"><option value="direct">改善候補（暫定採用）</option><option value="mlp">年次MLP（比較用）</option></select></label>
+</form>
+<div id="candidate-detail" hidden>
+<h3 id="candidate-heading"></h3><small id="candidate-time"></small>
+<p>締切前オッズ未取得。EV購入候補の選定は未実施です。</p>
+<table><thead><tr><th>二車単</th><th>推定確率</th><th>オッズ</th><th>EV</th></tr></thead><tbody id="candidate-tickets"></tbody></table>
+</div>
+<p><a href="https://github.com/takashikamei2504-sys/tk-keirin-lab/blob/lab-2t-annual-data/docs/2T_DIRECT_EXACTA_FORWARD.md">前向き検証の比較成績</a></p>
+<small>短期間の前向き検証を継続中。収益優位性は判定保留です。</small>
+</section>
+<details id="legacy-records"><summary style="min-height:44px;padding:.7rem">従来の予測・台帳を開く</summary>
+
 <section class="panel" id="quick" aria-labelledby="quick-heading">
 <h2 id="quick-heading">当日レースを手動取得</h2>
 <div id="quick-controls" class="quick-controls" hidden>
@@ -91,7 +111,9 @@ strong{color:#255b43}small{display:block;color:#436358;overflow-wrap:anywhere}.s
 <label class="label" for="sort">並び順<select id="sort"><option value="ev">EV順</option><option value="prob">確率順</option></select></label></div>
 <table><thead><tr><th>買い目</th><th>確率</th><th>オッズ</th><th>EV</th><th>EV 1.5</th></tr></thead><tbody id="tickets"></tbody></table></div>
 </section>
+</details>
 </main>
+<script type="module" src="./candidate-view.js"></script>
 <script id="embedded" type="application/json">null</script>
 <script type="module">
 const el = id => document.getElementById(id);
@@ -101,6 +123,7 @@ const dateTime = value => new Intl.DateTimeFormat('ja-JP', {
   timeZone:'Asia/Tokyo', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit'
 }).format(new Date(value));
 const embedded = JSON.parse(el('embedded').textContent);
+if (embedded !== null) { el('legacy-records').open = true; el('candidate').hidden = true; }
 let records = embedded;
 if (records === null) {
   try {
