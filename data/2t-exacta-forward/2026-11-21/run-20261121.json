@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-21",
+  "feed_races": 57,
+  "counts": {
+    "frozen_7": 43,
+    "frozen_9": 11
+  },
+  "skipped": {
+    "outside men's pre-race scope": 2,
+    "missing card predictor": 1
+  },
+  "source": {
+    "url": "https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/2026-11-21.json",
+    "generated_at": "2026-11-21T05:07:15+09:00",
+    "fetched_at": "2026-11-20T22:55:04.154833+00:00",
+    "feed_sha256": "921b64c12a9c1a98623459479132e9fade6f7655f18e7263a30d9950e08e5a0c",
+    "history_manifest_sha256": "5652b04c5ab3ace7f0896edd85c489e8b4fadfa2b3950267ac628c467c5606b0"
+  },
+  "forecast_commit": "13bbcb7e030df8a9dda5a0d4b8c38bd56b185cf9",
+  "github_saved_at": "2026-11-21T07:55:45+09:00",
+  "github_before_cutoff": 54,
+  "torch_version": "2.7.1+cpu",
+  "monthly_hash_verified": 35
+}
