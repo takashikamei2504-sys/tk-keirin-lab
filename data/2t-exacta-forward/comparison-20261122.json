@@ -1,0 +1,220 @@
+{
+  "as_of": "2026-11-21T22:37:34.490828+00:00",
+  "through": "2026-11-21",
+  "summary": {
+    "7": {
+      "frozen": 203,
+      "settled": 190,
+      "metrics": {
+        "direct": {
+          "top1": 0.1368421052631579,
+          "top3": 0.28421052631578947,
+          "log_loss": 3.112551895455691
+        },
+        "mlp": {
+          "top1": 0.08947368421052632,
+          "top3": 0.22631578947368422,
+          "log_loss": 3.4490895443550795
+        }
+      },
+      "direct_minus_mlp": {
+        "day_count": 4,
+        "replicates": 2000,
+        "seed": 11,
+        "interval_95": [
+          -0.427671291279188,
+          -0.280745529786331
+        ],
+        "log_loss_delta": -0.33653764889938803
+      }
+    },
+    "9": {
+      "frozen": 31,
+      "settled": 23,
+      "metrics": {
+        "direct": {
+          "top1": 0.13043478260869565,
+          "top3": 0.30434782608695654,
+          "log_loss": 3.5712897335946896
+        },
+        "mlp": {
+          "top1": 0.0,
+          "top3": 0.043478260869565216,
+          "log_loss": 4.230587725852391
+        }
+      },
+      "direct_minus_mlp": {
+        "day_count": 4,
+        "replicates": 2000,
+        "seed": 11,
+        "interval_95": [
+          -1.1384811545452562,
+          -0.353904700585856
+        ],
+        "log_loss_delta": -0.6592979922577025
+      }
+    }
+  },
+  "daily": {
+    "2026-11-18": {
+      "7": {
+        "races": 58,
+        "metrics": {
+          "direct": {
+            "top1": 0.06896551724137931,
+            "top3": 0.27586206896551724,
+            "log_loss": 3.2351055058431744
+          },
+          "mlp": {
+            "top1": 0.08620689655172414,
+            "top3": 0.20689655172413793,
+            "log_loss": 3.56362556200556
+          }
+        }
+      },
+      "9": {
+        "races": 5,
+        "metrics": {
+          "direct": {
+            "top1": 0.2,
+            "top3": 0.4,
+            "log_loss": 2.8416601004248525
+          },
+          "mlp": {
+            "top1": 0.0,
+            "top3": 0.0,
+            "log_loss": 4.210093754095529
+          }
+        }
+      }
+    },
+    "2026-11-19": {
+      "7": {
+        "races": 53,
+        "metrics": {
+          "direct": {
+            "top1": 0.1509433962264151,
+            "top3": 0.2641509433962264,
+            "log_loss": 3.1932277528588706
+          },
+          "mlp": {
+            "top1": 0.05660377358490566,
+            "top3": 0.22641509433962265,
+            "log_loss": 3.4565460969231188
+          }
+        }
+      },
+      "9": {
+        "races": 5,
+        "metrics": {
+          "direct": {
+            "top1": 0.0,
+            "top3": 0.2,
+            "log_loss": 3.842707278266733
+          },
+          "mlp": {
+            "top1": 0.0,
+            "top3": 0.0,
+            "log_loss": 4.291330935435729
+          }
+        }
+      }
+    },
+    "2026-11-20": {
+      "7": {
+        "races": 39,
+        "metrics": {
+          "direct": {
+            "top1": 0.15384615384615385,
+            "top3": 0.3333333333333333,
+            "log_loss": 2.967337843197153
+          },
+          "mlp": {
+            "top1": 0.10256410256410256,
+            "top3": 0.20512820512820512,
+            "log_loss": 3.4315977782326956
+          }
+        }
+      },
+      "9": {
+        "races": 4,
+        "metrics": {
+          "direct": {
+            "top1": 0.0,
+            "top3": 0.5,
+            "log_loss": 3.3167108645565726
+          },
+          "mlp": {
+            "top1": 0.0,
+            "top3": 0.25,
+            "log_loss": 4.158465800899521
+          }
+        }
+      }
+    },
+    "2026-11-21": {
+      "7": {
+        "races": 40,
+        "metrics": {
+          "direct": {
+            "top1": 0.2,
+            "top3": 0.275,
+            "log_loss": 2.969537350286704
+          },
+          "mlp": {
+            "top1": 0.125,
+            "top3": 0.275,
+            "log_loss": 3.290186858578555
+          }
+        }
+      },
+      "9": {
+        "races": 9,
+        "metrics": {
+          "direct": {
+            "top1": 0.2222222222222222,
+            "top3": 0.2222222222222222,
+            "log_loss": 3.9389981689992926
+          },
+          "mlp": {
+            "top1": 0.0,
+            "top3": 0.0,
+            "log_loss": 4.24028122703896
+          }
+        }
+      }
+    }
+  },
+  "settle": {
+    "counts": {
+      "already_settled": 164,
+      "settled": 49
+    },
+    "unsettled": {
+      "202611204204": "netkeirin finish order is irregular",
+      "202611202209": "netkeirin finish order is irregular",
+      "202611208108": "netkeirin finish order is irregular",
+      "202611208107": "netkeirin finish order is irregular",
+      "202611182603": "netkeirin finish order is irregular",
+      "202611204209": "netkeirin finish order is irregular",
+      "202611187404": "netkeirin finish order is irregular",
+      "202611215104": "missing netkeirin result rows",
+      "202611188109": "netkeirin finish order is irregular",
+      "202611192402": "netkeirin finish order is irregular",
+      "202611215105": "missing netkeirin result rows",
+      "202611194406": "netkeirin finish order is irregular",
+      "202611208104": "netkeirin finish order is irregular",
+      "202611208110": "netkeirin finish order is irregular",
+      "202611182610": "netkeirin finish order is irregular",
+      "202611192609": "netkeirin finish order is irregular",
+      "202611202605": "netkeirin finish order is irregular",
+      "202611218105": "netkeirin finish order is irregular",
+      "202611188105": "netkeirin finish order is irregular",
+      "202611218106": "netkeirin finish order is irregular",
+      "202611214507": "netkeirin finish order is irregular"
+    }
+  },
+  "period_days": 4,
+  "inference": "insufficient distinct days for adoption",
+  "odds_ev_roi": "not evaluated"
+}
