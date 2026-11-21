@@ -1,6 +1,6 @@
 {
   "schema": "tk-keirin-race-material/v1",
-  "generated_at": "2026-11-21T02:24:30.421802+00:00",
+  "generated_at": "2026-11-21T11:14:13.679353+00:00",
   "cards": [
     {
       "date": "2026-11-01",
@@ -57537,7 +57537,7 @@
         }
       ],
       "id": "8e853d98bd0a4926c311",
-      "last_checked_at": "2026-11-21T02:23:59.867570+00:00"
+      "last_checked_at": "2026-11-21T11:13:53.352821+00:00"
     },
     {
       "date": "2026-11-21",
@@ -57745,7 +57745,8 @@
           "follow_position": "immediate"
         }
       ],
-      "id": "c5f393f847e8cd6ff3ee"
+      "id": "c5f393f847e8cd6ff3ee",
+      "last_checked_at": "2026-11-21T11:13:33.030232+00:00"
     },
     {
       "date": "2026-11-21",
@@ -57949,7 +57950,8 @@
           "race_id": "2026-11-21:名古屋:2"
         }
       ],
-      "id": "1226fb3705c2d67de679"
+      "id": "1226fb3705c2d67de679",
+      "last_checked_at": "2026-11-21T11:13:59.188280+00:00"
     },
     {
       "date": "2026-11-21",
@@ -58152,7 +58154,8 @@
           "race_id": "2026-11-21:名古屋:3"
         }
       ],
-      "id": "3f45467e848fe494ae28"
+      "id": "3f45467e848fe494ae28",
+      "last_checked_at": "2026-11-21T11:14:01.272114+00:00"
     },
     {
       "date": "2026-11-21",
@@ -58356,7 +58359,8 @@
           "race_id": "2026-11-21:名古屋:4"
         }
       ],
-      "id": "ece230756d795b9e7ce5"
+      "id": "ece230756d795b9e7ce5",
+      "last_checked_at": "2026-11-21T11:14:03.421807+00:00"
     },
     {
       "date": "2026-11-21",
@@ -58560,7 +58564,8 @@
           "race_id": "2026-11-21:名古屋:5"
         }
       ],
-      "id": "f71e65fd94329794e330"
+      "id": "f71e65fd94329794e330",
+      "last_checked_at": "2026-11-21T11:14:05.447730+00:00"
     },
     {
       "date": "2026-11-21",
@@ -58767,7 +58772,8 @@
           "follow_position": "immediate"
         }
       ],
-      "id": "63231b0d755887e0ac09"
+      "id": "63231b0d755887e0ac09",
+      "last_checked_at": "2026-11-21T11:14:07.455365+00:00"
     },
     {
       "date": "2026-11-21",
@@ -58972,7 +58978,8 @@
           "race_id": "2026-11-21:名古屋:7"
         }
       ],
-      "id": "3ac57c9fedf3e9eb55ac"
+      "id": "3ac57c9fedf3e9eb55ac",
+      "last_checked_at": "2026-11-21T11:14:09.524819+00:00"
     },
     {
       "date": "2026-11-21",
@@ -59175,7 +59182,8 @@
           "race_id": "2026-11-21:名古屋:8"
         }
       ],
-      "id": "d2ee69c6ab8e465207d5"
+      "id": "d2ee69c6ab8e465207d5",
+      "last_checked_at": "2026-11-21T11:14:11.585047+00:00"
     },
     {
       "date": "2026-11-21",
@@ -59379,27 +59387,233 @@
           "race_id": "2026-11-21:名古屋:9"
         }
       ],
-      "id": "d4b430f9017612738d2e"
+      "id": "d4b430f9017612738d2e",
+      "last_checked_at": "2026-11-21T11:14:13.662218+00:00"
+    },
+    {
+      "date": "2026-11-22",
+      "venue": "広島",
+      "race_no": 1,
+      "start": "08:50",
+      "riders": [
+        {
+          "no": 1,
+          "name": "佐竹和也",
+          "family": "佐竹",
+          "age": 47,
+          "prefecture": "徳島",
+          "term": 83,
+          "rank": "A1",
+          "b": 0,
+          "s": 3
+        },
+        {
+          "no": 2,
+          "name": "松岡孝高",
+          "family": "松岡",
+          "age": 41,
+          "prefecture": "熊本",
+          "term": 98,
+          "rank": "A1",
+          "b": 2,
+          "s": 1
+        },
+        {
+          "no": 3,
+          "name": "江本博明",
+          "family": "江本",
+          "age": 46,
+          "prefecture": "千葉",
+          "term": 90,
+          "rank": "A2",
+          "b": 0,
+          "s": 5
+        },
+        {
+          "no": 4,
+          "name": "田頭寛之",
+          "family": "田頭",
+          "age": 38,
+          "prefecture": "千葉",
+          "term": 109,
+          "rank": "A1",
+          "b": 4,
+          "s": 5
+        },
+        {
+          "no": 5,
+          "name": "原井剣也",
+          "family": "原井",
+          "age": 32,
+          "prefecture": "福岡",
+          "term": 119,
+          "rank": "A1",
+          "b": 3,
+          "s": 1
+        },
+        {
+          "no": 6,
+          "name": "金子兼久",
+          "family": "金子",
+          "age": 49,
+          "prefecture": "宮城",
+          "term": 81,
+          "rank": "A2",
+          "b": 0,
+          "s": 4
+        },
+        {
+          "no": 7,
+          "name": "真砂英作",
+          "family": "真砂",
+          "age": 31,
+          "prefecture": "香川",
+          "term": 121,
+          "rank": "A2",
+          "b": 10,
+          "s": 5
+        }
+      ],
+      "source_url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+      "collected_at": "2026-11-21T11:13:37.108700+00:00",
+      "period": "直近4ヶ月",
+      "source_published_at": null,
+      "parser_version": "race-card-story-v1.2",
+      "publication_basis": "取得時刻を利用可能時刻の上限として使用",
+      "related_urls": [
+        "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261121_31409",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261121_31408",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261121_31407",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261121_31402",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261121_31391",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261121_31390"
+      ],
+      "comments": [
+        {
+          "rider": "佐竹和也",
+          "excerpt": "静岡のあと少し体調を崩してしまって。ちょっと間隔はあったけど、走ってみないと",
+          "declaration": "ちょっと間隔はあったけど、走ってみないとですね",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-21T11:13:37.108700+00:00",
+          "collected_at": "2026-11-21T11:13:37.108700+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-22:広島:1"
+        },
+        {
+          "rider": "松岡孝高",
+          "excerpt": "動けるようにはなってきているけど、前回後に落車してしまったのがどうか。原井君",
+          "declaration": "原井君には世話になっているし任せます",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-21T11:13:37.108700+00:00",
+          "collected_at": "2026-11-21T11:13:37.108700+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-22:広島:1"
+        },
+        {
+          "rider": "江本博明",
+          "excerpt": "状態自体は悪くないけど、前回さ鳥が壊れてしまったのがどう出るかですね。",
+          "declaration": "状態自体は悪くないけど、前回さ鳥が壊れてしまったのがどう出るかですね",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-21T11:13:37.108700+00:00",
+          "collected_at": "2026-11-21T11:13:37.108700+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-22:広島:1"
+        },
+        {
+          "rider": "田頭寛之",
+          "excerpt": "中３日だけど、練習はしっかりやってきました。何でもやる。",
+          "declaration": "何でもやる",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-21T11:13:37.108700+00:00",
+          "collected_at": "2026-11-21T11:13:37.108700+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-22:広島:1"
+        },
+        {
+          "rider": "原井剣也",
+          "excerpt": "右の肋骨を骨折してしまって、その様子を見つつ調整。自力自在に何でも、やれるこ",
+          "declaration": "自力自在に何でも、やれることを",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-21T11:13:37.108700+00:00",
+          "collected_at": "2026-11-21T11:13:37.108700+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-22:広島:1"
+        },
+        {
+          "rider": "金子兼久",
+          "excerpt": "前回は腰痛で欠場。もう大丈夫。いつも通りの感じで決めずにやる。",
+          "declaration": "いつも通りの感じで決めずにやる",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-21T11:13:37.108700+00:00",
+          "collected_at": "2026-11-21T11:13:37.108700+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-22:広島:1"
+        },
+        {
+          "rider": "真砂英作",
+          "excerpt": "前回から空き過ぎたし補充を２走調子はひと息なのかもしれないけど、やれることを",
+          "declaration": "前回から空き過ぎたし補充を２走調子はひと息なのかもしれないけど、やれることを矢ry",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-21T11:13:37.108700+00:00",
+          "collected_at": "2026-11-21T11:13:37.108700+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31414",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-22:広島:1"
+        }
+      ],
+      "id": "a3f04a297451966a83bb"
     }
   ],
   "status": {
-    "discovered": 12,
+    "discovered": 16,
     "attempted": 24,
     "errors": [
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261120_31759",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261120_35184",
         "error": "full identity missing"
       },
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261120_31537",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_33024",
         "error": "full identity missing"
       },
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261120_35213",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_33159",
         "error": "full identity missing"
       },
       {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261120_35558",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31748",
         "error": "full identity missing"
       },
       {
@@ -59412,6 +59626,14 @@
       },
       {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261119_34866",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261120_31737",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261120_31524",
         "error": "full identity missing"
       },
       {
