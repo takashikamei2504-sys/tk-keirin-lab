@@ -24,7 +24,7 @@ const {chromium,webkit}=require('playwright');
     await page.locator('.lab-bottom-nav a').first().waitFor();
     assert.equal(await page.locator('.lab-bottom-nav a').count(),4,path+': four navigation links');
     const href=await page.locator('.lab-bottom-nav a').evaluateAll(xs=>xs.map(x=>x.getAttribute('href')));
-    assert.deepEqual(href,['auto.html','coverage-gate.html','high-payout.html','performance.html']);
+    assert.deepEqual(href,['line.html','coverage-gate.html','high-payout.html','performance.html']);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,path+': horizontal overflow');
   }
   await page.waitForFunction(()=>document.getElementById('state')?.textContent.includes('4方式の保存評価を読み込みました。'));
@@ -39,6 +39,9 @@ const {chromium,webkit}=require('playwright');
   await page.goto(base+'/index.html');
   await page.waitForFunction(()=>document.getElementById('home-roi')?.textContent==='120.0%');
   assert.equal(await page.locator('.lab-tile').count(),4);
+  assert.equal(await page.locator('.lab-primary .lab-button').getAttribute('href'),'line.html');
+  assert.match(await page.locator('.lab-primary').innerText(),/TK STORY ENGINE/);
+  assert.match(await page.locator('.lab-subtitle').innerText(),/統計的なAUTO予想は比較用/);
   assert.deepEqual(errors,[]);
   await browser.close();
   console.log('PASS '+kind+' four-screen mobile shell, data summaries and 4-tab navigation');
