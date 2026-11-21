@@ -1,0 +1,143 @@
+{
+  "as_of": "2026-11-19T22:22:33.957457+00:00",
+  "through": "2026-11-19",
+  "summary": {
+    "7": {
+      "frozen": 117,
+      "settled": 111,
+      "metrics": {
+        "direct": {
+          "top1": 0.10810810810810811,
+          "top3": 0.2702702702702703,
+          "log_loss": 3.215109821985804
+        },
+        "mlp": {
+          "top1": 0.07207207207207207,
+          "top3": 0.21621621621621623,
+          "log_loss": 3.512497529128358
+        }
+      },
+      "direct_minus_mlp": {
+        "day_count": 2,
+        "replicates": 2000,
+        "seed": 11,
+        "interval_95": [
+          -0.32852005616238555,
+          -0.26331834406424814
+        ],
+        "log_loss_delta": -0.29738770714255425
+      }
+    },
+    "9": {
+      "frozen": 12,
+      "settled": 10,
+      "metrics": {
+        "direct": {
+          "top1": 0.1,
+          "top3": 0.3,
+          "log_loss": 3.342183689345793
+        },
+        "mlp": {
+          "top1": 0.0,
+          "top3": 0.0,
+          "log_loss": 4.250712344765629
+        }
+      },
+      "direct_minus_mlp": {
+        "day_count": 2,
+        "replicates": 2000,
+        "seed": 11,
+        "interval_95": [
+          -1.3684336536706763,
+          -0.4486236571689961
+        ],
+        "log_loss_delta": -0.9085286554198362
+      }
+    }
+  },
+  "daily": {
+    "2026-11-18": {
+      "7": {
+        "races": 58,
+        "metrics": {
+          "direct": {
+            "top1": 0.06896551724137931,
+            "top3": 0.27586206896551724,
+            "log_loss": 3.2351055058431744
+          },
+          "mlp": {
+            "top1": 0.08620689655172414,
+            "top3": 0.20689655172413793,
+            "log_loss": 3.56362556200556
+          }
+        }
+      },
+      "9": {
+        "races": 5,
+        "metrics": {
+          "direct": {
+            "top1": 0.2,
+            "top3": 0.4,
+            "log_loss": 2.8416601004248525
+          },
+          "mlp": {
+            "top1": 0.0,
+            "top3": 0.0,
+            "log_loss": 4.210093754095529
+          }
+        }
+      }
+    },
+    "2026-11-19": {
+      "7": {
+        "races": 53,
+        "metrics": {
+          "direct": {
+            "top1": 0.1509433962264151,
+            "top3": 0.2641509433962264,
+            "log_loss": 3.1932277528588706
+          },
+          "mlp": {
+            "top1": 0.05660377358490566,
+            "top3": 0.22641509433962265,
+            "log_loss": 3.4565460969231188
+          }
+        }
+      },
+      "9": {
+        "races": 5,
+        "metrics": {
+          "direct": {
+            "top1": 0.0,
+            "top3": 0.2,
+            "log_loss": 3.842707278266733
+          },
+          "mlp": {
+            "top1": 0.0,
+            "top3": 0.0,
+            "log_loss": 4.291330935435729
+          }
+        }
+      }
+    }
+  },
+  "settle": {
+    "counts": {
+      "settled": 58,
+      "already_settled": 63
+    },
+    "unsettled": {
+      "202611182603": "netkeirin finish order is irregular",
+      "202611187404": "netkeirin finish order is irregular",
+      "202611188109": "netkeirin finish order is irregular",
+      "202611192402": "netkeirin finish order is irregular",
+      "202611194406": "netkeirin finish order is irregular",
+      "202611182610": "netkeirin finish order is irregular",
+      "202611192609": "netkeirin finish order is irregular",
+      "202611188105": "netkeirin finish order is irregular"
+    }
+  },
+  "period_days": 2,
+  "inference": "insufficient distinct days for adoption",
+  "odds_ev_roi": "not evaluated"
+}
