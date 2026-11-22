@@ -1,4 +1,4 @@
-import copy,datetime as dt,gzip,hashlib,json,pathlib,tempfile,unittest
+import copy,datetime as dt,gzip,hashlib,json,pathlib,tempfile,unittest,subprocess
 from unittest.mock import patch
 from mrt import research,shadow
 from mrt import research_data as rd
@@ -95,6 +95,15 @@ class Research(unittest.TestCase):
  def test_quarterly_structure_uses_only_prior_quarter(self):
   r={'date':'20261201','roster':[1,2,3,4,5,6,7],'lines':[[1,2,3],[4,5],[6,7]],'entry':{'race_class':'A'},'labels':{'back':[1],'finish':{'2':1,'1':2},'cancelled':[],'events':[{'actor':1,'action':'先行','negated':False}]}}
   q=research.structural_audit([r,r|{'date':'20270101'},r|{'date':'20260930'}],dt.date(2027,1,1));self.assertEqual(q['B_evaluable_races'],1);g=q['groups']['7車 / A'];self.assertEqual(g['B_line_other_win'],1);self.assertEqual(g['teacher_action_labels']['先行'],1);self.assertFalse(q['automatic_promotion'])
+ def test_workflow_stages_shadow_status_without_candidate_directory(self):
+  workflow=(ROOT/'.github/workflows/mrt-manual-b.yml').read_text();start=workflow.index("          git config user.name");end=workflow.index('          if ! git diff --cached --quiet;',start);stage='\n'.join(line[10:] for line in workflow[start:end].splitlines())
+  for forward_exists in [False,True]:
+   with self.subTest(forward_exists=forward_exists),tempfile.TemporaryDirectory() as tmp:
+    root=pathlib.Path(tmp)
+    def git(*args):return subprocess.check_output(['git',*args],cwd=root,text=True,stderr=subprocess.STDOUT)
+    git('init','-q');git('config','user.name','test');git('config','user.email','test@example.com');rd.dump(root/'data/mrt/day/index.json',{});rd.dump(root/'data/mrt_research/shadow_status.json',{});git('add','.');git('commit','-qm','baseline');rd.dump(root/'data/mrt/day/index.json',{'updated':True});rd.dump(root/'data/mrt_research/shadow_status.json',{'state':'no_candidate'})
+    if forward_exists:rd.dump(root/'data/mrt_research/forward/candidate/race.json',{})
+    subprocess.run(['bash','-e','-c',stage],cwd=root,check=True,capture_output=True);self.assertEqual(git('diff','--name-only').strip(),'');self.assertIn('data/mrt_research/shadow_status.json',git('diff','--cached','--name-only'))
  def test_research_cannot_modify_production_model(self):
   before=rd.digest(rd.MODEL)
   with tempfile.TemporaryDirectory() as tmp,patch.object(research,'load_corpus',return_value=([],{'seed_records':0,'new_records':0})),patch.object(research,'monitor_current',return_value={}):
