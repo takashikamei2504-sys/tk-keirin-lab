@@ -126,7 +126,7 @@ def run(root=None,date=None,lookback=None,fetch=None):
   old=read(path,{})
   if old.get('pending') and START<=dt.date.fromisoformat(path.stem)<=end:dates.add(dt.date.fromisoformat(path.stem))
  fetch=fetch or Fetcher();states=[];paused=False
- for day in sorted(dates):
+ for day in sorted(dates,reverse=True):
   try:states.append(collect_day(fetch,root,day.isoformat()))
   except Pause:paused=True;break
   print(day.isoformat(),states[-1]['state'],len(states[-1]['paired']),flush=True)
