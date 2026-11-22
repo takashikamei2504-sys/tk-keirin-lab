@@ -26,6 +26,7 @@ jobs:
       - run: node tests/line/positioning-evaluation.test.cjs
       - run: node tests/line/interactions.test.cjs
       - run: node tests/line/audit.test.cjs
+      - run: node tests/line/report-memory.test.cjs
       - run: node scripts/line-evaluate.cjs
       - run: node scripts/line-positioning-evaluate.cjs
       - run: node scripts/line-checks.cjs
