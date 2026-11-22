@@ -7,6 +7,7 @@ const browserName=process.env.MRT_BROWSER==='webkit'?'webkit':'chromium';const b
 await page.route('https://raw.githubusercontent.com/**',route=>route.fulfill({status:404,body:'fixture uses local snapshots'}));
 await page.route('**/data/mrt/2026-11-22/index.json',route=>route.fulfill({json:{...index,races:samples.map(x=>x.row),errors:[]}}));
 await page.goto('http://127.0.0.1:'+server.address().port+'/mrt.html');await page.waitForFunction(()=>!document.getElementById('generate').disabled);
+assert.equal(await page.locator('#race').evaluate(e=>getComputedStyle(e).appearance),'none');assert.equal(await page.locator('#mode').evaluate(e=>getComputedStyle(e).color),'rgb(237, 242, 247)');
 await page.locator('#generate').click();await page.locator('#output').waitFor();const before=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tk-mrt-v3-first/v1:')).map(k=>[k,localStorage[k]]));assert.equal(before.length,1);
 await page.locator('#generate').click();assert.deepEqual(await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tk-mrt-v3-first/v1:')).map(k=>[k,localStorage[k]])),before);
 await page.locator('#mode').selectOption('manual');assert(await page.locator('#output').isHidden());await page.locator('#generate').click();assert.match(await page.locator('#commentary').textContent(),/手動Bライン/);assert.equal(await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tk-mrt-v3-first/v1:')).length),2);
