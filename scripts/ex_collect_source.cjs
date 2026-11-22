@@ -34,7 +34,7 @@ function saveAttempt(root,previous,attempt){
  const temp=path.join(dir,'status.json.tmp');fs.writeFileSync(temp,JSON.stringify(status,null,2)+'\n');fs.renameSync(temp,path.join(dir,'status.json'));return status;
 }
 function run({root=ROOT,env=process.env,spawn=spawnSync,at=()=>new Date().toISOString()}={}){
- const dir=path.join(root,'data/ex_approved'),before=read(path.join(dir,'latest.json')),previous=read(path.join(dir,'status.json'));
+ const dir=path.join(root,'data/ex_approved'),latestPath=path.join(dir,'latest.json'),beforeBytes=fs.existsSync(latestPath)?fs.readFileSync(latestPath):null,before=read(latestPath),previous=read(path.join(dir,'status.json'));
  const attempt={checked_at:at(),source:'configuration',error:null,data_updated:false,approved_feed_configured:Boolean(env.EX_FEED_URL&&env.EX_FEED_HOST)};
  try{
   const selected=selectSource(env);attempt.source=selected.source;
@@ -43,7 +43,9 @@ function run({root=ROOT,env=process.env,spawn=spawnSync,at=()=>new Date().toISOS
   for(const line of String(child.stdout||'').split('\n'))if(/^(EX_APPROVED_INGEST|WT_EX_DISCOVERY|EX_FEED_DISABLED|WT_EX_LIVE_DISABLED) /.test(line))console.log(line);
   if(child.error)throw Error(child.error.code==='ETIMEDOUT'?'EX_COLLECTION_TIMEOUT':'EX_COLLECTION_PROCESS_ERROR');
   if(child.status!==0)throw Error(errorCode(child.stderr));
-  attempt.data_updated=fingerprint(before)!==fingerprint(read(path.join(dir,'latest.json')));
+  attempt.data_updated=fingerprint(before)!==fingerprint(read(latestPath));
+  // An old/replayed feed must not make generated_at look fresh to existing readers.
+  if(!attempt.data_updated&&beforeBytes)fs.writeFileSync(latestPath,beforeBytes);
  }catch(e){attempt.error=errorCode(e.message);}
  // The importer alone updates the verified pack/history and last-success metadata.
  const imported=attempt.error||!attempt.data_updated?previous:read(path.join(dir,'status.json'))||previous;

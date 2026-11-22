@@ -28,8 +28,9 @@ setup(({root,dir,latest})=>{
  assert.equal(r.ok,true);assert.equal(r.status.data_updated,true);assert.equal(r.status.last_success_at,'2026-11-22T06:01:00Z');assert.equal(r.status.newest_observation_at,'2026-11-22T06:00:00Z');
 });
 setup(({root,dir})=>{
- const r=C.run({root,env:{},spawn:()=>{fs.writeFileSync(path.join(dir,'status.json'),JSON.stringify({last_success_at:'2026-11-22T06:01:00Z'}));return {status:0};}});
- assert.equal(r.ok,true);assert.equal(r.status.state,'no_new_observations');assert.equal(r.status.last_success_at,'2026-11-14T06:01:00Z');
+ const before=fs.readFileSync(path.join(dir,'latest.json'));
+ const r=C.run({root,env:{},spawn:()=>{const pack=JSON.parse(before);pack.generated_at='2026-11-22T06:01:00Z';fs.writeFileSync(path.join(dir,'latest.json'),JSON.stringify(pack));fs.writeFileSync(path.join(dir,'status.json'),JSON.stringify({last_success_at:'2026-11-22T06:01:00Z'}));return {status:0};}});
+ assert.equal(r.ok,true);assert.equal(r.status.state,'no_new_observations');assert.equal(r.status.last_success_at,'2026-11-14T06:01:00Z');assert.deepEqual(fs.readFileSync(path.join(dir,'latest.json')),before);
 });
 const yaml=fs.readFileSync(path.join(__dirname,'../.github/workflows/ex-approved-ingest.yml'),'utf8');assert(yaml.includes('always() && !cancelled()'));assert(yaml.includes('secrets.EX_FEED_URL'));assert(yaml.includes('vars.EX_FEED_HOST'));assert(yaml.includes('node scripts/ex_collect_source.cjs'));assert(yaml.includes("github.ref == 'refs/heads/main'"));
 console.log('EX_SOURCE_ROUTING_TESTS_OK default HTML, explicit feed, no fallback after denial, preserved observations/history, truthful failure/no-new-data status, secret-safe diagnostics');

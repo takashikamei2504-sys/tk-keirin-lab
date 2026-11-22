@@ -33,7 +33,7 @@ jobs:
           EX_BULK_RIGHTS_APPROVED: 'true'
           EX_PUBLICATION_RIGHTS_APPROVED: 'true'
           EX_MODEL_RIGHTS_APPROVED: 'true'
-          EX_RIGHTS_REFERENCE: 'user-attested-permission-2026-11-08'
+          EX_RIGHTS_REFERENCE: ${{ vars.EX_RIGHTS_REFERENCE || 'user-attested-permission-2026-11-08' }}
           EX_MIN_INTERVAL_MS: '1500'
           EX_MAX_RACE_PAGES: '130'
           EX_MAX_RUNTIME_MS: '420000'
