@@ -30,6 +30,7 @@ jobs:
       - run: pip install -r mrt/requirements.txt
       - run: python -m unittest discover -s tests/mrt -p 'test_*.py'
       - run: node tests/mrt/core.test.cjs
+      - run: node tests/mrt/formation.test.cjs
       - if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
         run: npm install --ignore-scripts && npx playwright install --with-deps chromium webkit
       - if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
