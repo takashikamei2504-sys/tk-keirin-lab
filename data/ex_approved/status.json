@@ -1,6 +1,6 @@
 {
   "schema": "tk-ex-collection-status/v1",
-  "state": "licensed-feed-published",
+  "state": "source_access_blocked",
   "source": "authorized-ex-feed",
   "last_success_at": "2026-11-14T06:29:18.632Z",
   "venues_collected": 19,
@@ -8,5 +8,13 @@
   "valid_metrics": 3965,
   "valid_context_buckets": 27330,
   "model_data_available": true,
-  "public_distribution_approved": true
+  "public_distribution_approved": true,
+  "last_attempt_at": "2026-11-22T07:34:20.920Z",
+  "last_attempt_source": "public_html",
+  "last_attempt_ok": false,
+  "last_attempt_error": "WINTICKET_HTTP_403",
+  "last_http_status": 403,
+  "data_updated": false,
+  "newest_observation_at": "2026-11-14T06:29:18.531Z",
+  "approved_feed_configured": false
 }
