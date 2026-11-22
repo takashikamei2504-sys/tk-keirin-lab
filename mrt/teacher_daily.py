@@ -67,7 +67,7 @@ def listing(fetch,date):
  html=json.loads(raw)
  if not isinstance(html,str) or not re.search(r'goods_list|Yoso|予想|該当',html):raise ValueError('Unrecognized expert listing response')
  # The profile endpoint's response must remain scoped to expert 634.
- ids=set(re.findall(r'\bb\d+_\d+\b',html))
+ ids=set(re.findall(r'(?<![A-Za-z0-9])b\d+_\d+(?![A-Za-z0-9_])',html))
  if any(not re.fullmatch(r'b\d+_634',fid) for fid in ids):raise ValueError('Listing contains a different expert')
  return sorted(ids),{'source_url':BASE+'/yoso/profile/?id=634&kaisai_date='+date.replace('-',''),'response_sha256':hashlib.sha256(raw.encode()).hexdigest(),'checked_at':now().isoformat()}
 
