@@ -24,7 +24,8 @@ def fit_candidate(data):
 
 def split_training(data,current,asof):
  eligible=[r for r in data if r['date']<asof.strftime('%Y%m%d')];latest=max((r['date'] for r in eligible),default=current['history_through'])
- first=(dt.datetime.strptime(latest,'%Y%m%d').date()-dt.timedelta(days=PROTOCOL['validation_days']-1)).strftime('%Y%m%d')
+ dates=sorted({r['date'] for r in eligible if r.get('input_provenance')=='verified_pre_start_snapshot' and r['date']>current['history_through']})
+ first=dates[-PROTOCOL['validation_days']] if len(dates)>=PROTOCOL['validation_days'] else dates[0] if dates else (dt.datetime.strptime(latest,'%Y%m%d').date()-dt.timedelta(days=PROTOCOL['validation_days']-1)).strftime('%Y%m%d')
  train=[r for r in eligible if r['date']<first];validation=[r for r in eligible if r['date']>=first and r.get('input_provenance')=='verified_pre_start_snapshot'];new=[r for r in train if r['date']>current['history_through']]
  reasons=[]
  if first<=current['history_through']:reasons.append('validation_overlaps_current_training')
@@ -113,7 +114,7 @@ def run(root=ROOT,asof=None,force=False):
  old=read(dest/'status.json',{});monthly=old.get('monthly');weekly=old.get('weekly');quarterly=old.get('quarterly')
  if force or asof.weekday()==0 or weekly is None:
   weekly=monitor_current(root,asof);dump(dest/'weekly'/(asof.isoformat()+'.json'),weekly)
- if force or asof.day==1 or monthly is None:
+ if force or asof.day==1 or monthly is None or monthly.get('state')=='error':
   try:monthly=make_monthly(root,asof,data,audit)
   except Exception as e:
    monthly={'schema':'tk-mrt-monthly/v1','period':asof.strftime('%Y-%m'),'state':'error','checked_at':now().isoformat(),'reason':str(e),'automatic_promotion':False};dump(dest/'errors'/(asof.isoformat()+'.json'),monthly)

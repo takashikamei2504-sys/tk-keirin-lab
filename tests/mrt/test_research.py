@@ -45,6 +45,14 @@ class Research(unittest.TestCase):
   train,val,a=research.split_training(records,{'history_through':'20261121'},asof)
   self.assertFalse(a['reasons']);self.assertLess(max(r['date'] for r in train),min(r['date'] for r in val));self.assertEqual(len(val),140)
   _,_,a=research.split_training(records,{'history_through':'20261225'},asof);self.assertIn('validation_overlaps_current_training',a['reasons'])
+ def test_validation_uses_fourteen_available_dates_across_publication_gaps(self):
+  records=[{'date':'202612'+str(day).zfill(2),'input_provenance':'verified_pre_start_snapshot'} for day in range(1,32) if day not in [20,25] for _ in range(10)]
+  train,val,a=research.split_training(records,{'history_through':'20261121'},dt.date(2027,1,1));self.assertFalse(a['reasons']);self.assertEqual(len({r['date'] for r in val}),14);self.assertLess(max(r['date'] for r in train),min(r['date'] for r in val));self.assertEqual(a['validation_first'],'20261216')
+ def test_monthly_failure_is_retried_on_next_daily_run(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);rd.dump(root/'data/mrt_research/status.json',{'monthly':{'state':'error'},'weekly':{}})
+   with patch.object(research,'load_corpus',return_value=([],{})),patch.object(research,'make_monthly',return_value={'state':'insufficient_data'}) as make:
+    research.run(root,dt.date(2026,11,24));make.assert_called_once()
  def test_force_check_does_not_bypass_thresholds_or_train(self):
   with tempfile.TemporaryDirectory() as tmp,patch.object(research,'fit_candidate') as fit:
    state=research.make_monthly(pathlib.Path(tmp),dt.date(2026,11,22),[{'date':'20261121'}],{})
