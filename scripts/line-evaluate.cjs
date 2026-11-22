@@ -27,20 +27,21 @@ function report(lineDir,labDir,now=new Date().toISOString()){
  const rows=[],errors=[];
  if(fs.existsSync(lineDir))for(const date of fs.readdirSync(lineDir).filter(n=>/^\d{4}-\d{2}-\d{2}$/.test(n)).sort()){
   const dir=path.join(lineDir,date);if(!fs.statSync(dir).isDirectory())continue;
-  // Keep only filenames and identifiers in memory, never prediction bodies.
-  const records=[],seen=new Map();
-  for(const filename of fs.readdirSync(dir).filter(n=>/^[a-f0-9]{64}\.json$/.test(n)).sort())try{
-   const file=path.join(dir,filename),record=JSON.parse(fs.readFileSync(file,'utf8')),id=record.race_id+'|'+record.out?.provenance?.model?.model_id;
+  // Evaluate one record at a time. Neither huge prediction bodies nor
+  // unrelated LAB forecasts are retained, and each body is parsed just once.
+  const results=dayResults(labDir,date,errors),seen=new Map();
+  for(const filename of fs.readdirSync(dir).filter(n=>/^[a-f0-9]{64}\\.json$/.test(n)).sort())try{
+   const record=JSON.parse(fs.readFileSync(path.join(dir,filename),'utf8')),id=record.race_id+'|'+record.out?.provenance?.model?.model_id;
    const expected=crypto.createHash('sha256').update(id).digest('hex')+'.json';
    if(expected!==filename||!record.race_id?.startsWith(date+':')){errors.push({date,reason:'保存ファイル名と識別子が一致しない'});continue;}
-   records.push({file,id});seen.set(id,(seen.get(id)||0)+1);
-  }catch(e){errors.push({date,reason:'LINE保存記録を読み取れない'});}
-  // Keep only this date's outcomes; never load unrelated LAB predictions.
-  const results=dayResults(labDir,date,errors);
-  for(const {file,id} of records){let record;try{record=JSON.parse(fs.readFileSync(file,'utf8'));}catch(e){errors.push({date,reason:'LINE保存記録を読み取れない'});continue;}const model=record.out?.provenance?.model?.model_id;
-   const evaluation=seen.get(id)>1?{status:'excluded',category:'同一レース・モデルの保存記録が重複'}:Evaluation.evaluate(record,results.get(record.race_id));
+   const previous=seen.get(id),duplicate={status:'excluded',category:'同一レース・モデルの保存記録が重複'};
+   if(previous!==undefined)rows[previous].evaluation=duplicate;
+   const model=record.out?.provenance?.model?.model_id;
+   const evaluation=previous!==undefined?duplicate:Evaluation.evaluate(record,results.get(record.race_id));
+   if(previous===undefined)seen.set(id,rows.length);
    rows.push({race_id:record.race_id,model_id:model,saved_at:record.saved_at,input_sha256:record.out?.provenance?.input_sha256,evaluation});
-  }
+  }catch(e){errors.push({date,reason:'LINE保存記録を読み取れない'});}
+
  }
  return {schema:'tk-line-evaluation/v1',generated_at:now,summary:Evaluation.summarize(rows),rows,errors,policy:'LINEの最初の発走前保存だけをモデル別に照合。保存予想を再計算・上書きせず、着順だけで展開の的中を認定しない。配信結果は公式原本との独立照合が未完了。保存がない過去レースへ予想を追加しない。'};
 }
