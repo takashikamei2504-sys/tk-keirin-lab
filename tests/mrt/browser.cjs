@@ -1,11 +1,16 @@
 'use strict';const {chromium,webkit}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),http=require('node:http'),path=require('node:path');
 (async()=>{
-const index=JSON.parse(fs.readFileSync('data/mrt/2026-11-22/index.json'));const rows=index.races.filter(r=>r.file);const samples=[7,9].map(n=>rows.map(r=>({row:r,p:JSON.parse(fs.readFileSync('data/mrt/2026-11-22/'+r.file))})).find(x=>x.p.input.roster.length===n));assert(samples.every(Boolean));
-const clock=Math.max(...samples.map(x=>Date.parse(x.row.checked_at)))+1000;assert(samples.every(x=>clock<Date.parse(x.p.sales_close_at)));const base=path.resolve('.');
+// Immutable real snapshots, with their original pre-close replay clock. Daily
+// index rechecks after a race must not move this fixture clock past its cutoff.
+const index=JSON.parse(fs.readFileSync('data/mrt/2026-11-22/index.json'));
+const files=['202611223603-1b50253648ea77ed.json','202611228101-02a5bd05bea09c87.json'];
+const samples=files.map(file=>{const p=JSON.parse(fs.readFileSync('data/mrt/2026-11-22/'+file));return {p,row:{race_id:p.race_id,venue_name:p.venue_name,race_no:p.race_no,start_at:p.start_at,sales_close_at:p.sales_close_at,identity_sha256:p.identity_sha256,file,checked_at:p.generated_at,status:'ready'}}});
+assert.deepEqual(samples.map(x=>x.p.input.roster.length),[7,9]);
+const clock=Math.max(...samples.map(x=>Date.parse(x.p.generated_at)))+1000;assert(samples.every(x=>clock<Date.parse(x.p.sales_close_at)));const base=path.resolve('.');
 const server=http.createServer((req,res)=>{const file=path.resolve(base,'.'+decodeURIComponent(req.url.split('?')[0]));if(!file.startsWith(base+path.sep)){res.writeHead(403);res.end();return}try{res.setHeader('Content-Type',file.endsWith('.js')?'application/javascript':file.endsWith('.css')?'text/css':file.endsWith('.json')?'application/json':'text/html');res.end(fs.readFileSync(file))}catch(e){res.writeHead(404);res.end()}});await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const browserName=process.env.MRT_BROWSER==='webkit'?'webkit':'chromium';const browser=await ({chromium,webkit}[browserName]).launch({headless:true}),page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.clock.install({time:clock});
 await page.route('https://raw.githubusercontent.com/**',route=>route.fulfill({status:404,body:'fixture uses local snapshots'}));
-await page.route('**/data/mrt/2026-11-22/index.json',route=>route.fulfill({json:{...index,races:samples.map(x=>x.row),errors:[]}}));
+await page.route('**/data/mrt/2026-11-22/index.json',route=>route.fulfill({json:{...index,checked_at:new Date(clock).toISOString(),races:samples.map(x=>x.row),errors:[]}}));
 await page.goto('http://127.0.0.1:'+server.address().port+'/mrt.html');await page.waitForFunction(()=>!document.getElementById('generate').disabled);
 assert.equal(await page.locator('#race').evaluate(e=>getComputedStyle(e).appearance),'none');assert.equal(await page.locator('#mode').evaluate(e=>getComputedStyle(e).color),'rgb(237, 242, 247)');
 await page.locator('#generate').click();await page.locator('#output').waitFor();const before=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tk-mrt-v3-first/v1:')).map(k=>[k,localStorage[k]]));assert.equal(before.length,1);
