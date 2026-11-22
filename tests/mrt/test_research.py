@@ -44,7 +44,7 @@ class Research(unittest.TestCase):
    for n in range(10):records.append({'date':'202612'+str(day).zfill(2),'input_provenance':'verified_pre_start_snapshot','forecast_id':str(day)+'-'+str(n)})
   train,val,a=research.split_training(records,{'history_through':'20261121'},asof)
   self.assertFalse(a['reasons']);self.assertLess(max(r['date'] for r in train),min(r['date'] for r in val));self.assertEqual(len(val),140)
-  _,_,a=research.split_training(records,{'history_through':'20261225'},asof);self.assertIn('validation_overlaps_current_training',a['reasons'])
+  _,later_val,a=research.split_training(records,{'history_through':'20261225'},asof);self.assertIn('validation_dates_below_14',a['reasons']);self.assertTrue(all(r['date']>'20261225' for r in later_val))
  def test_validation_uses_fourteen_available_dates_across_publication_gaps(self):
   records=[{'date':'202612'+str(day).zfill(2),'input_provenance':'verified_pre_start_snapshot'} for day in range(1,32) if day not in [20,25] for _ in range(10)]
   train,val,a=research.split_training(records,{'history_through':'20261121'},dt.date(2027,1,1));self.assertFalse(a['reasons']);self.assertEqual(len({r['date'] for r in val}),14);self.assertLess(max(r['date'] for r in train),min(r['date'] for r in val));self.assertEqual(a['validation_first'],'20261216')
