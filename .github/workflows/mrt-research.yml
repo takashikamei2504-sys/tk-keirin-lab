@@ -1,0 +1,59 @@
+name: MrT research monitoring and candidate comparison
+on:
+  schedule:
+    # Daily 08:10 JST: report refresh; Monday monitoring; monthly eligibility/training.
+    - cron: '10 23 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['mrt/research*.py', 'mrt/shadow.py', 'mrt/research_seed*', 'tests/mrt/test_research.py', '.github/workflows/mrt-research.yml']
+  pull_request:
+    paths: ['mrt/research*.py', 'mrt/shadow.py', 'mrt/research_seed*', 'tests/mrt/test_research.py', '.github/workflows/mrt-research.yml']
+permissions:
+  contents: write
+concurrency:
+  group: mrt-research-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: mrt/requirements.txt
+      - run: pip install -r mrt/requirements.txt
+      - run: python -m unittest discover -s tests/mrt -p 'test_*.py'
+      - name: Monitor, train eligible monthly candidate, evaluate frozen pairs
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: python -m mrt.research
+      - name: Save research only; never write or adopt the production model
+        if: always() && !cancelled() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          if [ -d data/mrt_research ]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add data/mrt_research
+            if ! git diff --cached --quiet; then
+              git commit -m 'Update MrT monitoring and candidate comparison for human review'
+              git pull --rebase origin main
+              git push origin HEAD:main
+            fi
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mrt-research-review
+          path: |
+            data/mrt_research/status.json
+            data/mrt_research/monthly/
+            data/mrt_research/weekly/
+            data/mrt_research/candidates/*/manifest.json
+            data/mrt_research/candidates/*/replay.json
+            data/mrt_research/candidates/*/forward_report.json

@@ -1,0 +1,13 @@
+{
+  "schema": "tk-mrt-research-seed/v1",
+  "records": 7126,
+  "first_date": "20250414",
+  "last_date": "20261121",
+  "sha256": "6989dae451f7e21a4b7228c8c6763a4586f25da8282350dcca0df54d50301f12",
+  "production_model_sha256": "2704d1ce9964a3365507595b70174dfc81959e8fc3009dbac4bdb98553454b2b",
+  "asof_start_verified": false,
+  "contains_full_explanation": false,
+  "purpose": "Original structured training corpus for reproducible research; historical entries are not pre-start evidence.",
+  "original_dataset_sha256": "5ae3040a136c81768cca3d43c85e4a534eda6c710c381d43f859cc9753165375",
+  "comment_storage": "Only the eight substring tokens used by V3 features; no feature change."
+}

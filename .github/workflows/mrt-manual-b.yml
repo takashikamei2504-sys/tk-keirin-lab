@@ -16,7 +16,7 @@ concurrency:
 jobs:
   verify-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 22
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -37,11 +37,16 @@ jobs:
         run: node tests/mrt/browser.cjs && MRT_BROWSER=webkit node tests/mrt/browser.cjs
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: python -m mrt.publish && python -m mrt.results
+      - name: Freeze research candidate beside current predictions
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        continue-on-error: true
+        run: python -m mrt.shadow
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/mrt
+          if [ -d data/mrt_research ]; then git add data/mrt_research/forward data/mrt_research/shadow_status.json 2>/dev/null || true; fi
           if ! git diff --cached --quiet; then
             git commit -m 'Freeze MrT V3 automatic and manual B options'
             git pull --rebase origin main
