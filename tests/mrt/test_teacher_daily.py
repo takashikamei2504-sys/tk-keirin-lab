@@ -49,6 +49,10 @@ class TeacherDaily(unittest.TestCase):
   f=FakeFetcher();f.locked=True
   with tempfile.TemporaryDirectory() as tmp,patch.object(daily,'now',return_value=AT):
    root=pathlib.Path(tmp);d=daily.collect_day(f,root,DATE);self.assertEqual(d['pending'][FID]['state'],'waiting_publication');f.locked=False;d=daily.collect_day(f,root,DATE);self.assertEqual(d['paired'],[FID])
+ def test_profile_ids_embedded_after_underscore_are_discovered(self):
+  class ProfileFetcher:
+   def request(self,url,data=None):return json.dumps('<div class="YosoList"><li id="umai_prof_goods_state_b1873640_634"></li><input id="umai_prof_prop_b1873640_634"><li id="umai_prof_goods_state_b1873639_634"></li></div>')
+  ids,_=daily.listing(ProfileFetcher(),DATE);self.assertEqual(ids,['b1873639_634','b1873640_634'])
  def test_empty_listing_is_not_a_false_complete_day(self):
   f=FakeFetcher();f.empty=True
   with tempfile.TemporaryDirectory() as tmp,patch.object(daily,'now',return_value=AT):
