@@ -55,3 +55,18 @@ No promise of 43 simultaneous venues: the collector covers every **currently pub
 - `npm test`
 - Live read-only sample: `node scripts/ex_all11_smoke.cjs` (one source page, field counts only).
 - End-to-end live collection: `node scripts/ex_winticket_live_collect.cjs` (requires the workflow permission variables).
+
+## Source routing review, 2026-11-22
+
+The latest scheduled run `44995601426` and the user-requested second attempt both stopped on `WINTICKET_HTTP_403` at the initial public index. The second-attempt log records the error at `2026-11-22T07:25:01Z`. Extractor/import regression tests passed before the network failure. This does not establish whether the rejection is IP-, client- or policy-specific; no such cause is assumed.
+
+`ex_collect_source.cjs` now selects one source before making a request:
+
+- If `EX_FEED_URL` (repository secret) and `EX_FEED_HOST` (repository variable) are configured together, use the existing `ex_authorized_pull.cjs` JSON-feed route. HTTPS, exact host match, no embedded credentials/redirects/local hosts and the existing feed/permission checks remain enforced. The separate feed route does not accept WINTICKET's HTML pages as a feed.
+- Without feed configuration, retain the original bounded public-HTML collector. A partial or invalid feed configuration is an error; it never silently falls back to another route.
+- A source's 401/403/429 does not trigger a different host, proxy, browser, user-agent or undocumented API. There is one source attempt per workflow occurrence. The workflow remains failed when collection fails.
+- This implements a connection for an explicitly supplied feed; it does **not** establish that a provider has supplied an endpoint, create a feed service, or restore data acquisition by itself. A functioning approved feed URL/host, or restoration of access at the existing source, is still required.
+
+The workflow checkpoints collection status even when retrieval fails. `status.json` preserves last-success/coverage information and reports `state`, `last_attempt_at`, `last_attempt_source`, `last_attempt_ok`, `last_attempt_error`, `last_http_status`, `data_updated`, `newest_observation_at` and whether a feed was configured. A successful empty or unchanged retrieval is `no_new_observations`, not a fresh source update. Failure status writes never replace `latest.json` or the append-only history. Source URLs containing credentials and raw response bodies are not included in diagnostic status/logs.
+
+Validation: `node tests/ex-source-routing.test.cjs`, plus the three existing extraction, permission/import and all-11 tests. New cases cover configured-feed selection, incomplete configuration, 401/403/429, no fallback after denial, unchanged verified data/history, unchanged last-success on an empty run, real observation timestamps, successful feed updates, and redacted failure diagnostics. Changes do not adopt or train any prediction model.

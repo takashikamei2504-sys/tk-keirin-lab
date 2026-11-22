@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/ex_winticket_live_collect.cjs', 'scripts/winticket_ex_extract.cjs', 'scripts/winticket_ex_bridge.cjs', 'scripts/ex_approved_ingest.cjs', 'js/ex-profile.js', 'js/b-axis/ex-data.js', 'tests/ex-winticket-all11.test.cjs', '.github/workflows/ex-approved-ingest.yml']
+    paths: ['scripts/ex_collect_source.cjs', 'scripts/ex_authorized_pull.cjs', 'tests/ex-source-routing.test.cjs', 'scripts/ex_winticket_live_collect.cjs', 'scripts/winticket_ex_extract.cjs', 'scripts/winticket_ex_bridge.cjs', 'scripts/ex_approved_ingest.cjs', 'js/ex-profile.js', 'js/b-axis/ex-data.js', 'tests/ex-winticket-all11.test.cjs', '.github/workflows/ex-approved-ingest.yml']
   pull_request:
-    paths: ['scripts/ex_winticket_live_collect.cjs', 'scripts/winticket_ex_extract.cjs', 'scripts/winticket_ex_bridge.cjs', 'scripts/ex_approved_ingest.cjs', 'js/ex-profile.js', 'tests/ex-winticket-all11.test.cjs', '.github/workflows/ex-approved-ingest.yml']
+    paths: ['scripts/ex_collect_source.cjs', 'scripts/ex_authorized_pull.cjs', 'tests/ex-source-routing.test.cjs', 'scripts/ex_winticket_live_collect.cjs', 'scripts/winticket_ex_extract.cjs', 'scripts/winticket_ex_bridge.cjs', 'scripts/ex_approved_ingest.cjs', 'js/ex-profile.js', 'tests/ex-winticket-all11.test.cjs', '.github/workflows/ex-approved-ingest.yml']
 permissions: {contents: write}
 concurrency: {group: ex-approved-ingest, cancel-in-progress: false}
 jobs:
@@ -23,10 +23,13 @@ jobs:
           node tests/winticket-ex-extract.test.cjs
           node tests/ex-approved.test.cjs
           node tests/ex-winticket-all11.test.cjs
-      - name: Collect active venues from the original WINTICKET public racecard index
-        if: github.event_name != 'pull_request'
-        run: node scripts/ex_winticket_live_collect.cjs
+          node tests/ex-source-routing.test.cjs
+      - name: Collect EX from the configured approved feed or public HTML
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: node scripts/ex_collect_source.cjs
         env:
+          EX_FEED_URL: ${{ secrets.EX_FEED_URL }}
+          EX_FEED_HOST: ${{ vars.EX_FEED_HOST }}
           EX_BULK_RIGHTS_APPROVED: 'true'
           EX_PUBLICATION_RIGHTS_APPROVED: 'true'
           EX_MODEL_RIGHTS_APPROVED: 'true'
@@ -34,8 +37,8 @@ jobs:
           EX_MIN_INTERVAL_MS: '1500'
           EX_MAX_RACE_PAGES: '130'
           EX_MAX_RUNTIME_MS: '420000'
-      - name: Persist verified EX numerical snapshots and append dated history
-        if: github.event_name != 'pull_request'
+      - name: Persist verified observations and attempt status even after source failure
+        if: always() && !cancelled() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
