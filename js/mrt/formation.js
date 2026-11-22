@@ -3,5 +3,7 @@
 const yen=n=>n.toLocaleString('ja-JP')+'円';
 function group(tickets){const groups=new Map(),seen=new Set();for(const t of tickets){if(!Array.isArray(t.cars)||t.cars.length!==3||new Set(t.cars).size!==3||t.cars.some(c=>!Number.isInteger(c)||c<1||c>9)||!Number.isInteger(t.yen)||t.yen<100||t.yen%100)throw Error('フォーメーションに変換できない買い目です');const ticketKey=t.cars.join('-');if(seen.has(ticketKey))throw Error('買い目が重複しています');seen.add(ticketKey);const [first,second,third]=t.cars,key=[first,second,t.yen].join(':');if(!groups.has(key))groups.set(key,{first,second,thirds:[],yenEach:t.yen,tickets:[]});const g=groups.get(key);g.thirds.push(third);g.tickets.push(t)}
 return [...groups.values()].map(g=>({...g,thirds:g.thirds.sort((a,b)=>a-b),tickets:[...g.tickets].sort((a,b)=>a.cars[2]-b.cars[2]),count:g.thirds.length,subtotal:g.thirds.length*g.yenEach})).sort((a,b)=>a.first-b.first||a.second-b.second||a.thirds[0]-b.thirds[0]);}
-function copy(tickets){return group(tickets).map(g=>g.first+'-'+g.second+'-'+g.thirds.join('')+'　各'+yen(g.yenEach)+'（'+g.count+'点・小計'+yen(g.subtotal)+'）').join('\n')}
-return {group,copy};});
+// Pair headers summarize selections; amounts always remain on individual tickets.
+function pairGroups(tickets){const pairs=new Map();for(const g of group(tickets)){const key=g.first+'-'+g.second;if(!pairs.has(key))pairs.set(key,{first:g.first,second:g.second,tickets:[]});pairs.get(key).tickets.push(...g.tickets)}return [...pairs.values()].map(g=>{const tickets=[...g.tickets].sort((a,b)=>a.cars[2]-b.cars[2]),thirds=tickets.map(t=>t.cars[2]);return {...g,tickets,thirds,formation:g.first+'-'+g.second+'-'+thirds.join(''),count:tickets.length,subtotal:tickets.reduce((sum,t)=>sum+t.yen,0)}}).sort((a,b)=>a.first-b.first||a.second-b.second);}
+function copy(tickets){return pairGroups(tickets).map(g=>g.formation+'\n'+g.tickets.map(t=>t.cars.join('-')+'　'+yen(t.yen)).join('\n')).join('\n\n')}
+return {group,pairGroups,copy};});
