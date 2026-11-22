@@ -11,11 +11,12 @@ function report(lineDir,labDir,now=new Date().toISOString()){
    const record=JSON.parse(fs.readFileSync(path.join(dir,file),'utf8')),id=record.race_id+'|'+record.out?.provenance?.model?.model_id;
    const expected=crypto.createHash('sha256').update(id).digest('hex')+'.json';
    if(expected!==file||!record.race_id?.startsWith(date+':')){errors.push({date,reason:'保存ファイル名と識別子が一致しない'});continue;}
-   records.push({record,id});
+   // Keep only paths and duplicate keys, never multi-megabyte prediction bodies.
+   records.push({file:path.join(dir,file),date,id});
   }catch(e){errors.push({date,reason:'LINE保存記録を読み取れない'});}
  }
  const seen=new Map();for(const x of records)seen.set(x.id,(seen.get(x.id)||0)+1);
- for(const {record,id} of records){const model=record.out?.provenance?.model?.model_id;
+ for(const {file,date,id} of records){let record;try{record=JSON.parse(fs.readFileSync(file,'utf8'));}catch(e){errors.push({date,reason:'LINE保存記録を読み取れない'});continue;}const model=record.out?.provenance?.model?.model_id;
   const evaluation=seen.get(id)>1?{status:'excluded',category:'同一レース・モデルの保存記録が重複'}:Evaluation.evaluate(record,results.get(record.race_id));
   rows.push({race_id:record.race_id,model_id:model,saved_at:record.saved_at,input_sha256:record.out?.provenance?.input_sha256,evaluation});
  }
