@@ -31,9 +31,9 @@ jobs:
       - run: python -m unittest discover -s tests/mrt -p 'test_*.py'
       - run: node tests/mrt/core.test.cjs
       - if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
-        run: npm install --ignore-scripts && npx playwright install --with-deps chromium
+        run: npm install --ignore-scripts && npx playwright install --with-deps chromium webkit
       - if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
-        run: node tests/mrt/browser.cjs
+        run: node tests/mrt/browser.cjs && MRT_BROWSER=webkit node tests/mrt/browser.cjs
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: python -m mrt.publish && python -m mrt.results
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
