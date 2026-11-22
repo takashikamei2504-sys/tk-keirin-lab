@@ -30,7 +30,7 @@ function report(lineDir,labDir,now=new Date().toISOString()){
   // Evaluate one record at a time. Neither huge prediction bodies nor
   // unrelated LAB forecasts are retained, and each body is parsed just once.
   const results=dayResults(labDir,date,errors),seen=new Map();
-  for(const filename of fs.readdirSync(dir).filter(n=>/^[a-f0-9]{64}\\.json$/.test(n)).sort())try{
+  for(const filename of fs.readdirSync(dir).filter(n=>/^[a-f0-9]{64}\.json$/.test(n)).sort())try{
    const record=JSON.parse(fs.readFileSync(path.join(dir,filename),'utf8')),id=record.race_id+'|'+record.out?.provenance?.model?.model_id;
    const expected=crypto.createHash('sha256').update(id).digest('hex')+'.json';
    if(expected!==filename||!record.race_id?.startsWith(date+':')){errors.push({date,reason:'保存ファイル名と識別子が一致しない'});continue;}
