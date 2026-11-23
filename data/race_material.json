@@ -1,6 +1,6 @@
 {
   "schema": "tk-keirin-race-material/v1",
-  "generated_at": "2026-11-23T01:49:21.053235+00:00",
+  "generated_at": "2026-11-23T12:56:38.252354+00:00",
   "cards": [
     {
       "date": "2026-11-01",
@@ -61021,7 +61021,7 @@
         }
       ],
       "id": "327c8943f0c4666cae82",
-      "last_checked_at": "2026-11-23T01:48:58.121401+00:00"
+      "last_checked_at": "2026-11-23T12:56:22.849267+00:00"
     },
     {
       "date": "2026-11-22",
@@ -62453,7 +62453,8 @@
           "follow_position": "ahead"
         }
       ],
-      "id": "ff4784f188c9eb3848db"
+      "id": "ff4784f188c9eb3848db",
+      "last_checked_at": "2026-11-23T12:56:30.682055+00:00"
     },
     {
       "date": "2026-11-22",
@@ -62658,7 +62659,8 @@
           "race_id": "2026-11-22:名古屋:9"
         }
       ],
-      "id": "3e0f209c45d0dda03498"
+      "id": "3e0f209c45d0dda03498",
+      "last_checked_at": "2026-11-23T12:56:26.694113+00:00"
     },
     {
       "date": "2026-11-23",
@@ -63677,46 +63679,1056 @@
         }
       ],
       "id": "3068db674d3cd0b6b342"
+    },
+    {
+      "date": "2026-11-24",
+      "venue": "松山",
+      "race_no": 1,
+      "start": "15:45",
+      "riders": [
+        {
+          "no": 1,
+          "name": "矢口大樹",
+          "family": "矢口",
+          "age": 38,
+          "prefecture": "千葉",
+          "term": 95,
+          "rank": "A1",
+          "b": 7,
+          "s": 7
+        },
+        {
+          "no": 2,
+          "name": "原真司",
+          "family": "原",
+          "age": 49,
+          "prefecture": "岐阜",
+          "term": 86,
+          "rank": "A1",
+          "b": 0,
+          "s": 4
+        },
+        {
+          "no": 3,
+          "name": "小西涼太",
+          "family": "小西",
+          "age": 25,
+          "prefecture": "岡山",
+          "term": 127,
+          "rank": "A2",
+          "b": 5,
+          "s": 7
+        },
+        {
+          "no": 4,
+          "name": "榊原洋",
+          "family": "榊原",
+          "age": 48,
+          "prefecture": "岡山",
+          "term": 85,
+          "rank": "A2",
+          "b": 0,
+          "s": 4
+        },
+        {
+          "no": 5,
+          "name": "伊藤彰規",
+          "family": "伊藤",
+          "age": 36,
+          "prefecture": "神奈川",
+          "term": 96,
+          "rank": "A2",
+          "b": 1,
+          "s": 0
+        },
+        {
+          "no": 6,
+          "name": "吉良勝信",
+          "family": "吉良",
+          "age": 52,
+          "prefecture": "福岡",
+          "term": 75,
+          "rank": "A2",
+          "b": 0,
+          "s": 0
+        },
+        {
+          "no": 7,
+          "name": "谷口友真",
+          "family": "谷口",
+          "age": 37,
+          "prefecture": "大阪",
+          "term": 109,
+          "rank": "A1",
+          "b": 5,
+          "s": 4
+        }
+      ],
+      "source_url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+      "collected_at": "2026-11-23T12:55:55.365712+00:00",
+      "period": "直近4ヶ月",
+      "source_published_at": null,
+      "parser_version": "race-card-story-v1.2",
+      "publication_basis": "取得時刻を利用可能時刻の上限として使用",
+      "related_urls": [
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31308",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31307",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31299",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31296",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31295",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31292",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31285",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31284",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31281",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31279"
+      ],
+      "comments": [
+        {
+          "rider": "矢口大樹",
+          "excerpt": "準決が壁になっているけど状態は悪くない。松山は好きなバンクだし、流れを変えた",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:55.365712+00:00",
+          "collected_at": "2026-11-23T12:55:55.365712+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:1"
+        },
+        {
+          "rider": "原真司",
+          "excerpt": "体も脚も良くなってきています。中近で谷口君に。",
+          "declaration": "中近で谷口君に",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:55.365712+00:00",
+          "collected_at": "2026-11-23T12:55:55.365712+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:1",
+          "follow_no": 7,
+          "follow_position": "ahead"
+        },
+        {
+          "rider": "小西涼太",
+          "excerpt": "レース勘も戻ってきて、だいぶ視野が広がってきました。あとは脚ですね。直前は青",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:55.365712+00:00",
+          "collected_at": "2026-11-23T12:55:55.365712+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:1"
+        },
+        {
+          "rider": "榊原洋",
+          "excerpt": "同県の小西君に付けます。連係は初めて。",
+          "declaration": "連係は初めて",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:55.365712+00:00",
+          "collected_at": "2026-11-23T12:55:55.365712+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:1"
+        },
+        {
+          "rider": "伊藤彰規",
+          "excerpt": "矢口さんとも話して、僕が番手で。今回は中３日だし、それなりにという感じですか",
+          "declaration": "今回は中３日だし、それなりにという感じですかね",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:55.365712+00:00",
+          "collected_at": "2026-11-23T12:55:55.365712+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:1"
+        },
+        {
+          "rider": "吉良勝信",
+          "excerpt": "う〜ん、どうしよう…。ここは単騎でやるか。",
+          "declaration": "ここは単騎でやるか",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:55.365712+00:00",
+          "collected_at": "2026-11-23T12:55:55.365712+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:1"
+        },
+        {
+          "rider": "谷口友真",
+          "excerpt": "けっこう練習はしてきたので頑張りたい。自力。",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:55.365712+00:00",
+          "collected_at": "2026-11-23T12:55:55.365712+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:1"
+        }
+      ],
+      "id": "2c3ca16b30e87e2a1208"
+    },
+    {
+      "date": "2026-11-23",
+      "venue": "川崎",
+      "race_no": 4,
+      "start": "22:01",
+      "riders": [
+        {
+          "no": 1,
+          "name": "阿部蒼大",
+          "family": "阿部",
+          "age": 20,
+          "prefecture": "秋田",
+          "term": 129,
+          "rank": "A3",
+          "b": 2,
+          "s": 0
+        },
+        {
+          "no": 2,
+          "name": "大薗宏",
+          "family": "大薗",
+          "age": 52,
+          "prefecture": "茨城",
+          "term": 71,
+          "rank": "A3",
+          "b": 0,
+          "s": 4
+        },
+        {
+          "no": 3,
+          "name": "永田修一",
+          "family": "永田",
+          "age": 45,
+          "prefecture": "熊本",
+          "term": 90,
+          "rank": "A3",
+          "b": 0,
+          "s": 3
+        },
+        {
+          "no": 4,
+          "name": "五反田豊和",
+          "family": "五反田",
+          "age": 49,
+          "prefecture": "宮崎",
+          "term": 80,
+          "rank": "A3",
+          "b": 5,
+          "s": 0
+        },
+        {
+          "no": 5,
+          "name": "浦野慈生",
+          "family": "浦野",
+          "age": 40,
+          "prefecture": "神奈川",
+          "term": 103,
+          "rank": "A3",
+          "b": 0,
+          "s": 3
+        },
+        {
+          "no": 6,
+          "name": "須藤雄太",
+          "family": "須藤",
+          "age": 43,
+          "prefecture": "千葉",
+          "term": 89,
+          "rank": "A3",
+          "b": 0,
+          "s": 0
+        },
+        {
+          "no": 7,
+          "name": "太田良政",
+          "family": "太田",
+          "age": 52,
+          "prefecture": "岡山",
+          "term": 74,
+          "rank": "A3",
+          "b": 0,
+          "s": 2
+        }
+      ],
+      "source_url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+      "collected_at": "2026-11-23T12:55:57.069692+00:00",
+      "period": "直近4ヶ月",
+      "source_published_at": null,
+      "parser_version": "race-card-story-v1.2",
+      "publication_basis": "取得時刻を利用可能時刻の上限として使用",
+      "related_urls": [
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32234",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32231",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32230",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32220",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32219",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32217"
+      ],
+      "comments": [
+        {
+          "rider": "阿部蒼大",
+          "excerpt": "右ひじ骨折と肩鎖関節脱臼からの復帰３場所目。練習は１００パーセントの力でやれ",
+          "declaration": "前回まくりに回って失敗したりしているので、初日は先行でいきたい",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:57.069692+00:00",
+          "collected_at": "2026-11-23T12:55:57.069692+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:川崎:4"
+        },
+        {
+          "rider": "大薗宏",
+          "excerpt": "ふくらはぎを肉離れした影響でここ２場所は良くなかったけど、だいぶマシになった",
+          "declaration": "南関の２人にも話を通して阿部君の番手に行かせてもらう",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:57.069692+00:00",
+          "collected_at": "2026-11-23T12:55:57.069692+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:川崎:4"
+        },
+        {
+          "rider": "永田修一",
+          "excerpt": "最近は流れも含めてあまり良くないですね。厳しい構成だけど自分でやるような脚は",
+          "declaration": "厳しい構成だけど自分でやるような脚はないし、話して五反田さんに任せる",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:57.069692+00:00",
+          "collected_at": "2026-11-23T12:55:57.069692+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:川崎:4",
+          "follow_no": 4,
+          "follow_position": "ahead"
+        },
+        {
+          "rider": "五反田豊和",
+          "excerpt": "前回から日にちがないので調整程度。二分戦で難しいけど自力で頑張ってみる。",
+          "declaration": "二分戦で難しいけど自力で頑張ってみる",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:57.069692+00:00",
+          "collected_at": "2026-11-23T12:55:57.069692+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:川崎:4"
+        },
+        {
+          "rider": "浦野慈生",
+          "excerpt": "東で阿部君の３番手。点数は正直なところ少しどころかだいぶ足りないけど、ちょっ",
+          "declaration": "点数は正直なところ少しどころかだいぶ足りないけど、ちょっとでも上げられるように最後まで頑張ろうと",
+          "declaration_complete": false,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:57.069692+00:00",
+          "collected_at": "2026-11-23T12:55:57.069692+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:川崎:4"
+        },
+        {
+          "rider": "須藤雄太",
+          "excerpt": "東でまとまるなら４番手でいい。浦野君には世話にもなってきたからね。",
+          "declaration": "浦野君には世話にもなってきたからね",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:57.069692+00:00",
+          "collected_at": "2026-11-23T12:55:57.069692+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:川崎:4"
+        },
+        {
+          "rider": "太田良政",
+          "excerpt": "新人相手の二分戦で中国地区１人か…。厳しいな。単騎でやるしかない。",
+          "declaration": "単騎でやるしかない",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:55:57.069692+00:00",
+          "collected_at": "2026-11-23T12:55:57.069692+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32227",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:川崎:4"
+        }
+      ],
+      "id": "0b80273fac09f5036403"
+    },
+    {
+      "date": "2026-11-23",
+      "venue": "四日市",
+      "race_no": 5,
+      "start": "22:18",
+      "riders": [
+        {
+          "no": 1,
+          "name": "久保田智之",
+          "family": "久保田",
+          "age": 21,
+          "prefecture": "福岡",
+          "term": 129,
+          "rank": "A3",
+          "b": 19,
+          "s": 4
+        },
+        {
+          "no": 2,
+          "name": "瀬口匠",
+          "family": "瀬口",
+          "age": 38,
+          "prefecture": "宮崎",
+          "term": 99,
+          "rank": "A3",
+          "b": 2,
+          "s": 1
+        },
+        {
+          "no": 3,
+          "name": "吉田勇気",
+          "family": "吉田",
+          "age": 37,
+          "prefecture": "大阪",
+          "term": 117,
+          "rank": "A3",
+          "b": 3,
+          "s": 3
+        },
+        {
+          "no": 4,
+          "name": "田村光昭",
+          "family": "田村",
+          "age": 55,
+          "prefecture": "広島",
+          "term": 67,
+          "rank": "A3",
+          "b": 0,
+          "s": 5
+        },
+        {
+          "no": 5,
+          "name": "南蓮",
+          "family": "南",
+          "age": 27,
+          "prefecture": "和歌山",
+          "term": 115,
+          "rank": "A3",
+          "b": 0,
+          "s": 0
+        },
+        {
+          "no": 6,
+          "name": "住村実",
+          "family": "住村",
+          "age": 50,
+          "prefecture": "徳島",
+          "term": 82,
+          "rank": "A3",
+          "b": 0,
+          "s": 1
+        },
+        {
+          "no": 7,
+          "name": "中嶋響",
+          "family": "中嶋",
+          "age": 24,
+          "prefecture": "大阪",
+          "term": 125,
+          "rank": "A3",
+          "b": 0,
+          "s": 0
+        }
+      ],
+      "source_url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+      "collected_at": "2026-11-23T12:56:00.871847+00:00",
+      "period": "直近4ヶ月",
+      "source_published_at": null,
+      "parser_version": "race-card-story-v1.2",
+      "publication_basis": "取得時刻を利用可能時刻の上限として使用",
+      "related_urls": [
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32444",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32442",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32441",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32434",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32427",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261122_32426"
+      ],
+      "comments": [
+        {
+          "rider": "久保田智之",
+          "excerpt": "レースに慣れてきました。前回松山のあとは練習できたし、やるべきことをやって体",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:00.871847+00:00",
+          "collected_at": "2026-11-23T12:56:00.871847+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:四日市:5"
+        },
+        {
+          "rider": "瀬口匠",
+          "excerpt": "久保田君とは初連係。僕は下降気味ですね。色々かみ合わなくなってきました。",
+          "declaration": "色々かみ合わなくなってきました",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:00.871847+00:00",
+          "collected_at": "2026-11-23T12:56:00.871847+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:四日市:5"
+        },
+        {
+          "rider": "吉田勇気",
+          "excerpt": "最近はいろいろセッティングとか変えて悪くなかった。練習は室内メインでやってき",
+          "declaration": "久保田君のジカに",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:00.871847+00:00",
+          "collected_at": "2026-11-23T12:56:00.871847+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:四日市:5"
+        },
+        {
+          "rider": "田村光昭",
+          "excerpt": "武雄は腰痛で欠場しました。今は大丈夫だし、練習もできました。九州の後ろ。",
+          "declaration": "九州の後ろ",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:00.871847+00:00",
+          "collected_at": "2026-11-23T12:56:00.871847+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:四日市:5"
+        },
+        {
+          "rider": "南蓮",
+          "excerpt": "レースの成績はあまり良くないが、和歌山で合宿もあって結構練習してきた。周りか",
+          "declaration": "単騎",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:00.871847+00:00",
+          "collected_at": "2026-11-23T12:56:00.871847+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:四日市:5",
+          "lineup_intention": "solo"
+        },
+        {
+          "rider": "住村実",
+          "excerpt": "調子は悪くないけど、前回の最終日がね…。田村さんの後ろ。",
+          "declaration": "田村さんの後ろ",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:00.871847+00:00",
+          "collected_at": "2026-11-23T12:56:00.871847+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:四日市:5",
+          "follow_no": 4,
+          "follow_position": "immediate"
+        },
+        {
+          "rider": "中嶋響",
+          "excerpt": "成績はダメですね。練習の調子は変わらず悪くないんですけど、レースで戻らないと",
+          "declaration": "吉田さんと話して単騎でやります",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:00.871847+00:00",
+          "collected_at": "2026-11-23T12:56:00.871847+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32433",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-23:四日市:5"
+        }
+      ],
+      "id": "ec639fd4f69b337addce"
+    },
+    {
+      "date": "2026-11-24",
+      "venue": "広島",
+      "race_no": 1,
+      "start": "08:50",
+      "riders": [
+        {
+          "no": 1,
+          "name": "小島雅章",
+          "family": "小島",
+          "age": 51,
+          "prefecture": "埼玉",
+          "term": 83,
+          "rank": "A2",
+          "b": 0,
+          "s": 0
+        },
+        {
+          "no": 2,
+          "name": "堀越翔己",
+          "family": "堀越",
+          "age": 28,
+          "prefecture": "福岡",
+          "term": 123,
+          "rank": "A2",
+          "b": 9,
+          "s": 7
+        },
+        {
+          "no": 3,
+          "name": "松本卓也",
+          "family": "松本",
+          "age": 35,
+          "prefecture": "徳島",
+          "term": 98,
+          "rank": "A1",
+          "b": 1,
+          "s": 5
+        },
+        {
+          "no": 4,
+          "name": "米嶋賢二",
+          "family": "米嶋",
+          "age": 52,
+          "prefecture": "長崎",
+          "term": 77,
+          "rank": "A2",
+          "b": 0,
+          "s": 1
+        },
+        {
+          "no": 5,
+          "name": "十文字菊雄",
+          "family": "十文字",
+          "age": 55,
+          "prefecture": "福島",
+          "term": 75,
+          "rank": "A1",
+          "b": 0,
+          "s": 0
+        },
+        {
+          "no": 6,
+          "name": "佐伯辰哉",
+          "family": "佐伯",
+          "age": 30,
+          "prefecture": "広島",
+          "term": 109,
+          "rank": "A1",
+          "b": 0,
+          "s": 1
+        },
+        {
+          "no": 7,
+          "name": "小峰烈",
+          "family": "小峰",
+          "age": 46,
+          "prefecture": "長野",
+          "term": 98,
+          "rank": "A1",
+          "b": 2,
+          "s": 1
+        }
+      ],
+      "source_url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+      "collected_at": "2026-11-23T12:56:02.752545+00:00",
+      "period": "直近4ヶ月",
+      "source_published_at": null,
+      "parser_version": "race-card-story-v1.2",
+      "publication_basis": "取得時刻を利用可能時刻の上限として使用",
+      "related_urls": [
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_30457",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_30455",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_30452",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_30447",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_30446",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_30445"
+      ],
+      "comments": [
+        {
+          "rider": "小島雅章",
+          "excerpt": "途中まではうまく運んでくれていたけど、中曽さんに内をすくわれてしまったのが…",
+          "declaration": "小峰君",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:02.752545+00:00",
+          "collected_at": "2026-11-23T12:56:02.752545+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:広島:1"
+        },
+        {
+          "rider": "堀越翔己",
+          "excerpt": "内に行ったのが全てでしたね。脚の感じもわからなかった。自力。",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:02.752545+00:00",
+          "collected_at": "2026-11-23T12:56:02.752545+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:広島:1"
+        },
+        {
+          "rider": "松本卓也",
+          "excerpt": "あんな押さえ方だったし、突っ張るしかなかったですね。調子はそこまでいいとは言",
+          "declaration": "自力で",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:02.752545+00:00",
+          "collected_at": "2026-11-23T12:56:02.752545+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:広島:1"
+        },
+        {
+          "rider": "米嶋賢二",
+          "excerpt": "夏目君がいい駆け方をしていたし、あれでは長松君も行き切れないですよね。堀越君",
+          "declaration": "堀越君",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:02.752545+00:00",
+          "collected_at": "2026-11-23T12:56:02.752545+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:広島:1"
+        },
+        {
+          "rider": "十文字菊雄",
+          "excerpt": "あんなもんですね。力不足です。中四国勢の後ろに。",
+          "declaration": "中四国勢の後ろに",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:02.752545+00:00",
+          "collected_at": "2026-11-23T12:56:02.752545+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:広島:1"
+        },
+        {
+          "rider": "佐伯辰哉",
+          "excerpt": "かぶってしまうのだけが嫌だったし、踏んで行きました。無理やりいった分だけど、",
+          "declaration": "松本さんに",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:02.752545+00:00",
+          "collected_at": "2026-11-23T12:56:02.752545+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:広島:1",
+          "follow_no": 3,
+          "follow_position": "ahead"
+        },
+        {
+          "rider": "小峰烈",
+          "excerpt": "ちょっと遅れてしまった。いったん突っ張った方が良かったかもしれないですね、誘",
+          "declaration": "自分で",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:02.752545+00:00",
+          "collected_at": "2026-11-23T12:56:02.752545+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30458",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:広島:1"
+        }
+      ],
+      "id": "1cd72eecf9cef209bbf0"
+    },
+    {
+      "date": "2026-11-24",
+      "venue": "松山",
+      "race_no": 2,
+      "start": "16:08",
+      "riders": [
+        {
+          "no": 1,
+          "name": "芳野匠",
+          "family": "芳野",
+          "age": 41,
+          "prefecture": "愛媛",
+          "term": 93,
+          "rank": "A1",
+          "b": 2,
+          "s": 2
+        },
+        {
+          "no": 2,
+          "name": "井上公利",
+          "family": "井上",
+          "age": 45,
+          "prefecture": "宮城",
+          "term": 93,
+          "rank": "A2",
+          "b": 9,
+          "s": 1
+        },
+        {
+          "no": 3,
+          "name": "油谷蒼",
+          "family": "油谷",
+          "age": 31,
+          "prefecture": "兵庫",
+          "term": 125,
+          "rank": "A2",
+          "b": 5,
+          "s": 3
+        },
+        {
+          "no": 4,
+          "name": "佐々木健司",
+          "family": "佐々木",
+          "age": 52,
+          "prefecture": "青森",
+          "term": 76,
+          "rank": "A2",
+          "b": 0,
+          "s": 15
+        },
+        {
+          "no": 5,
+          "name": "森柾斗",
+          "family": "森",
+          "age": 26,
+          "prefecture": "徳島",
+          "term": 125,
+          "rank": "A2",
+          "b": 13,
+          "s": 1
+        },
+        {
+          "no": 6,
+          "name": "鳥生知八",
+          "family": "鳥生",
+          "age": 50,
+          "prefecture": "愛媛",
+          "term": 77,
+          "rank": "A2",
+          "b": 0,
+          "s": 0
+        },
+        {
+          "no": 7,
+          "name": "柴田祐也",
+          "family": "柴田",
+          "age": 43,
+          "prefecture": "岐阜",
+          "term": 94,
+          "rank": "A2",
+          "b": 0,
+          "s": 1
+        }
+      ],
+      "source_url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+      "collected_at": "2026-11-23T12:56:38.220826+00:00",
+      "period": "直近4ヶ月",
+      "source_published_at": null,
+      "parser_version": "race-card-story-v1.2",
+      "publication_basis": "取得時刻を利用可能時刻の上限として使用",
+      "related_urls": [
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31314",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31308",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31307",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31299",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31296",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31295",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31292",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31285",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31284",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31281",
+        "https://keirin.tokyo-sports.co.jp/list/race/20261123_31279"
+      ],
+      "comments": [
+        {
+          "rider": "芳野匠",
+          "excerpt": "前回の川崎は感じも良かったけど自分にミスがあった。中６日だけど状態はキープで",
+          "declaration": "鳥生さんとも話して、自分が森君の番手で",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:38.220826+00:00",
+          "collected_at": "2026-11-23T12:56:38.220826+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:2",
+          "follow_no": 5,
+          "follow_position": "immediate"
+        },
+        {
+          "rider": "井上公利",
+          "excerpt": "前回の西武園は補充だったんですが、松山に自転車を送っていたので、いつもと違う",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:38.220826+00:00",
+          "collected_at": "2026-11-23T12:56:38.220826+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:2"
+        },
+        {
+          "rider": "油谷蒼",
+          "excerpt": "少しずつ良くなっています。柴田さんが僕との連係を喜んでいたんですか？ 初連係",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:38.220826+00:00",
+          "collected_at": "2026-11-23T12:56:38.220826+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:2"
+        },
+        {
+          "rider": "佐々木健司",
+          "excerpt": "青森は雪景色で、雪かきもしてきました。まだ冬本番ではないから、雪が重いんです",
+          "declaration": "中３日が続いているのがどうかだけど、前を任せる井上君はハマれば強いし、展開が向いたら",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:38.220826+00:00",
+          "collected_at": "2026-11-23T12:56:38.220826+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:2"
+        },
+        {
+          "rider": "森柾斗",
+          "excerpt": "前回は地元戦だったので、仕上げていって体調も良かったです。勝ち上がりは逃しま",
+          "declaration": "自力",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:38.220826+00:00",
+          "collected_at": "2026-11-23T12:56:38.220826+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:2"
+        },
+        {
+          "rider": "鳥生知八",
+          "excerpt": "前々回の京王閣最終日に落車したけど、治療はしているし、練習もできているので問",
+          "declaration": "四国３番手で",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:38.220826+00:00",
+          "collected_at": "2026-11-23T12:56:38.220826+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:2"
+        },
+        {
+          "rider": "柴田祐也",
+          "excerpt": "油谷君の番手に行けちゃうんですか？ いいですね。車番は悪いけど、力を合わせて",
+          "declaration": "このところ公務が忙しかったけど、合間に練習はできました",
+          "declaration_complete": true,
+          "body_verified": true,
+          "published_at": "2026-11-23T12:56:38.220826+00:00",
+          "collected_at": "2026-11-23T12:56:38.220826+00:00",
+          "publication_basis": "collection_upper_bound",
+          "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_31309",
+          "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+          "kind": "race_intention",
+          "race_id": "2026-11-24:松山:2"
+        }
+      ],
+      "id": "b4bfdcda73f1161c9404"
     }
   ],
   "status": {
-    "discovered": 17,
+    "discovered": 23,
     "attempted": 24,
     "errors": [
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_31910",
-        "error": "S/B header layout changed"
-      },
-      {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_31978",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30926",
         "error": "full identity missing"
       },
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_34747",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32472",
         "error": "full identity missing"
       },
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_31026",
-        "error": "car or class missing"
-      },
-      {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32739",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_30526",
         "error": "S/B header layout changed"
       },
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_31332",
-        "error": "full identity missing"
-      },
-      {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32444",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_32329",
         "error": "S/B header layout changed"
       },
       {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32234",
-        "error": "car or class missing"
-      },
-      {
-        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32479",
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261123_33492",
         "error": "full identity missing"
       },
       {
@@ -63732,11 +64744,35 @@
         "error": "full identity missing"
       },
       {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_31944",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_31888",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_34719",
+        "error": "full identity missing"
+      },
+      {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_31713",
         "error": "full identity missing"
       },
       {
         "url": "https://keirin.tokyo-sports.co.jp/list/race/20261121_37451",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_31026",
+        "error": "car or class missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_32713",
+        "error": "full identity missing"
+      },
+      {
+        "url": "https://keirin.tokyo-sports.co.jp/list/race/20261122_31300",
         "error": "full identity missing"
       }
     ]
