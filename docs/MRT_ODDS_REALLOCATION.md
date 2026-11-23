@@ -1,42 +1,29 @@
-# MRT V3: on-demand live trifecta odds reallocation (research adapter)
+# MRT V3: button-driven current trifecta odds (read-only)
 
-The MRT forecast is immutable: the published V3 automatic/manual-B ticket list and its original ¥10,000 weights remain unchanged. This feature adds a **separate** research-only quote and allocation pane to `mrt.html`.
+## Architecture
 
-## Flow
+- MRT forecasts and the existing 10,000-yen allocation remain frozen in TK KEIRIN LAB.
+- The screen `mrt.html` calls `/api/mrt/live-odds` on the **already-running SHIBUKI Railway service** at `https://shibuki-mobile-production.up.railway.app`. This adapter is isolated in `shibuki-mobile/mrt_live_odds.py` and adds only read-only web functionality to `trial_program_service_20261011.py`.
+- It fetches the authoritative pre-start MRT snapshot by race ID from GitHub (never recomputes after a race), and then reads WINTICKET's public racecard and embedded live trifecta quotes.
+- The adapter validates exact date, venue, race, start time, rider registration IDs, all 210/504 trifecta outcomes, odds publication timestamp (≤5 min), delayed/final status, and cutoff. CORS only permits the TK KEIRIN LAB page. A global cooldown and 80/day request limit protect existing service resources.
+- The browser independently checks the returned model/input/condition fingerprints and quote validity. No persisted prediction is replaced. No bets are placed.
+- UI displays reference-only simulations for all 100-yen tickets, a 3,000-yen cap, and a 5,000-yen cap. Score+odds weighting is **not** expected-value optimization: MRT relative scores are not calibrated probabilities. The user must not infer guaranteed returns.
 
-1. User selects race and B condition and presses "この条件で買い目を生成".
-2. User presses "今の三連単オッズで再配分". Only that click starts a network request.
-3. A separate Node 22 HTTP service (`node server/mrt-odds.cjs`) fetches the current day's **already-frozen** pre-start MRT snapshot from the existing public repo. No new prediction is calculated.
-4. It reuses `js/roi/odds.cjs` to read the public, login-free WINTICKET racecard. It requires the same date, venue, race, start time and rider IDs, a complete 210-/504-outcome trifecta market, source odds update time, not-delayed and non-final flags, and sales-close safety checks.
-5. The service returns only the quote for the already-selected MRT tickets and source/quote/close timestamps. The browser checks the race/model/condition identity, quote age ≤5 min, and remaining sale time ≥30 seconds.
-6. The client creates side-by-side simulations: all tickets at ¥100, ¥3,000 maximum, and ¥5,000 maximum. Minimum ¥100 per ticket; optional extra units are divided using capped, odds-weighted **relative** model score (not calibrated P(win)). Max per-ticket share approximately 20% where feasible. No external bet submission, orders, access credentials or auto purchase.
-7. The displayed quote and copy action expire at quote age 5 minutes or 30 seconds before provider cutoff. Failure = **no reallocation**, not silently fall back to stale odds.
+## Deployment
 
-**Important:** Relative MRT V3 allocation scores are not calibrated win probabilities. Odds-weighted rank is not mathematical EV optimization. Do not label this output expected return or "buy" readiness. Production 1万円 allocation, model training, and the original on-device first pre-close record are unmodified.
+1. The Railway service repo `takashikamei2504-sys/shibuki-mobile` includes the read-only Python endpoint and tests. No new Railway service, volume, or paid subscription is required.
+2. Once its deployment passes health checks, `js/mrt/odds-config.js` points at the Railway host:
+   ```js
+   window.MRT_ODDS_API_URL = 'https://shibuki-mobile-production.up.railway.app';
+   ```
+3. Button press -> POST JSON `{race_id,mode,line,rule}`; errors (including provider HTML changes, unavailable feed, malformed/stale data, rate limits) display as **見送り** with no stale-data fallback.
+4. The displayed quote expires after 5 minutes from publisher timestamp or 30 seconds before cutoff. Preview and copy output carry reference-only labeling. It does **not** affect any of the previous original device forecast snapshots.
+5. Operating source requires ongoing review of provider terms and public page structure. Any new paid resource or change to SHIBUKI model execution is out of scope.
 
-## Hosting and account constraints
-
-GitHub Pages is static and cannot host on-demand odds fetching or bypass cross-origin restrictions. The browser bundle is intentionally disabled until there is an explicitly approved server endpoint:
-
-`js/mrt/odds-config.js`:
-```js
-window.MRT_ODDS_API_URL = 'https://YOUR-AUTHORIZED-ODDS-SERVER';
-```
-
-Node 22 service:
-```sh
-MRT_ODDS_ALLOWED_ORIGIN=https://takashikamei2504-sys.github.io PORT=8080 node server/mrt-odds.cjs
-```
-
-Do not put API credentials in JS, commit user tokens, or deploy a new paid instance without explicit approval. This PR only creates a **draft interface and server adapter** and does not incur additional Railway costs or touch SHIBUKI. Until hosted and verified against a **live** race the button remains disabled, with an explicit connection status. HTTP fetch failures, site format changes, throttling and upstream access restrictions are expected "unavailable" states and must not be bypassed.
-
-Source terms/robots and operating permissions should be rechecked before enabling. Provider final odds may differ materially from interim odds.
-
-## Verification
+## Tests and status
 
 ```sh
 node tests/mrt/odds-reallocate.test.cjs
-node tests/mrt/odds-server.test.cjs
 ```
 
-Before any public enablement, verify a live 7-vehicle and 9-vehicle race end-to-end including iPhone Safari, new quotes after the button press, no wrong-race quotes, automatic/manual-B conditions, source timestamp, quote expiration, nonexistent odds, invalid roster and 30-second cutoff. Preserve current V3 forecast and freeze ledger. No "higher ROI" claim until a forward evaluation with genuine pre-start inputs, quote timestamps, and payout settlement.
+Backend: `python -m unittest -v test_mrt_live_odds.py` in `shibuki-mobile`. Browser dry run and same-day real provider quote should also be verified from the live deployed service. A passing synthetic parser test is NOT proof that current WINTICKET HTML or odds are accessible. If live odds cannot be authenticated by source and freshness checks, the feature rejects it rather than fabricating values.
