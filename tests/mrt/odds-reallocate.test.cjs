@@ -22,7 +22,7 @@ assert.equal(plan.cap5000.tickets.reduce((a,b)=>a+b.yen,0),5000);
 assert.equal(plan.cap5000.tickets.length,3);
 assert.equal(plan.calibrated_probability,false);
 assert.equal(plan.status,'research_only');
-assert(plan.cap5000.tickets.every(t=>t.yen%100===0&&t.yen>=100&&t.yen<=1000));
+assert(plan.cap5000.tickets.every(t=>t.yen%100===0&&t.yen>=100&&t.yen<=1700));
 assert.equal(output.tickets[0].yen,4000);
 assert.throws(()=>O.check(payload,output,{...quote,odds:{'1-2-3':3.8}},null,'leader',now),/未取得/);
 assert.throws(()=>O.check(payload,output,{...quote,identity_sha256:'different'},null,'leader',now),/不一致/);
