@@ -1,0 +1,29 @@
+name: MRT on-demand odds pilot tests
+on:
+  pull_request:
+    paths:
+      - 'server/mrt-odds.cjs'
+      - 'js/mrt/odds-*.js'
+      - 'js/mrt/app.js'
+      - 'mrt.html'
+      - 'tests/mrt/odds-*.test.cjs'
+      - '.github/workflows/mrt-odds-pilot.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          node --check server/mrt-odds.cjs
+          node --check js/mrt/odds-reallocate.js
+          node --check js/mrt/odds-app.js
+          node --check js/mrt/app.js
+          node tests/mrt/odds-reallocate.test.cjs
+          node tests/mrt/odds-server.test.cjs
