@@ -1,2 +1,2 @@
-/* Configure after deploying the read-only odds API. An empty URL intentionally disables live requests; no API keys are stored in the browser. */
-window.MRT_ODDS_API_URL = '';
+/* Public, read-only odds API on the existing SHIBUKI Railway service. No credentials or orders are sent. */
+window.MRT_ODDS_API_URL = 'https://shibuki-mobile-production.up.railway.app';
