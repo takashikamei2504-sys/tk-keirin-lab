@@ -10,8 +10,9 @@ function check(p,out,quote,line=null,rule='leader',now=Date.now()){
  assert(quote.market==='trifecta'&&quote.state==='live'&&quote.reference_only===true,'購入可能なオッズではありません');
  assert(typeof quote.source_url==='string'&&/^https:\/\/www\.winticket\.jp\/keirin\//.test(quote.source_url),'オッズ出典を確認できません');
  const a=Date.parse(quote.published_at),b=Date.parse(quote.captured_at),c=Date.parse(quote.sales_close_at),limit=Date.parse(p.sales_close_at);
- assert([a,b,c,limit].every(Number.isFinite) && a<=b && b<=now+10000 && now-a<=300000 && now>=b-10000,'オッズが古いか取得時刻が不正です');
+ assert([a,b,c,limit].every(Number.isFinite),'オッズの時刻形式が不正です');
  assert(now<c-30000 && c<=limit,'発売締切直前または締切済みです');
+ assert(a<=b && b<=now+10000 && now-a<=300000 && now>=b-10000,'オッズが古いか取得時刻が不正です');
  assert(Array.isArray(out.tickets)&&out.tickets.length>0&&out.tickets.length<=100,'買い目が確認できません');
  assert(quote.odds && Object.getPrototypeOf(quote.odds)===Object.prototype,'オッズ形式が不正です');
  for(const t of out.tickets){
