@@ -29,6 +29,7 @@ jobs:
       - run: npm test
       - run: node tests/roi-policy.test.cjs
       - run: node tests/roi-operation.test.cjs
+      - run: node tests/mrt/odds-reallocate.test.cjs && node tests/mrt/odds-server.test.cjs
       - run: node tests/coverage-gate.test.cjs
       - run: node tests/s-counts.test.cjs
       - run: node tests/recent-form.test.js
