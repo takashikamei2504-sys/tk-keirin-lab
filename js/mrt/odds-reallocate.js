@@ -35,7 +35,7 @@ function allocate(out,quote,budget=5000){
    return Math.pow(score,0.7)*Math.sqrt(Math.min(odd,30));
  });
  const weights=values.map(x=>x/values.reduce((a,b)=>a+b,0));
- const units=budget/100, cap=Math.max(1,Math.floor(units*0.20)),alloc=weights.map(()=>1);
+ const units=budget/100, cap=Math.max(1,Math.ceil(units*0.20),Math.ceil(units/bets.length)),alloc=weights.map(()=>1);
  let left=units-bets.length;
  while(left>0){
    const candidates=alloc.map((n,i)=>({i,room:n<cap,shortfall:(units*weights[i])-n})).filter(v=>v.room);
