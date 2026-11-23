@@ -15,8 +15,11 @@ def result(p):
 
 class Research(unittest.TestCase):
  def test_seed_checksum_no_prose_and_feature_equivalence(self):
-  data,audit=rd.load_corpus();self.assertEqual(audit['seed_records'],7126);self.assertEqual(len({r['race_id'] for r in data}),len(data));self.assertEqual(data[-1]['date'],'20261121')
-  self.assertTrue(all(r['input_provenance']=='retrospectively_retrieved_historical_entry' for r in data[:7126]));self.assertTrue(all('view' not in r and 'explanation' not in r for r in data))
+  data,audit=rd.load_corpus();self.assertEqual(audit['seed_records'],7126);self.assertEqual(len({r['race_id'] for r in data}),len(data))
+  self.assertGreaterEqual(len(data),7126)
+  self.assertTrue(all(r['date']<='20261121' and r['input_provenance']=='retrospectively_retrieved_historical_entry' for r in data[:7126]))
+  self.assertTrue(all(r['date']>='20261122' and r['input_provenance']=='verified_pre_start_snapshot' for r in data[7126:]))
+  self.assertEqual(len(data)-7126,audit['new_records']);self.assertTrue(all('view' not in r and 'explanation' not in r for r in data))
  def test_real_small_candidate_fits_serving_heads_without_production_write(self):
   from sklearn.ensemble import HistGradientBoostingClassifier,HistGradientBoostingRegressor
   data,_=rd.load_corpus();known=[r for r in data if r['labels']['back']];train=known[:64];target=next(r for r in known[64:] if r['date']>train[-1]['date'])

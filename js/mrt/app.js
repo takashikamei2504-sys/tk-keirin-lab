@@ -1,6 +1,7 @@
 (function(){'use strict';const $=id=>document.getElementById(id),C=MRTManualB;let day=null,payload=null,row=null,shown=null,savedRecord=null,revision=0;const yen=n=>n.toLocaleString('ja-JP')+'円';
 async function getJSON(url){const c=new AbortController(),timer=setTimeout(()=>c.abort(),20000);try{const r=await fetch(url,{cache:'no-store',signal:c.signal});if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}finally{clearTimeout(timer)}}
 async function json(url){if((url.startsWith('data/mrt/')||url.startsWith('data/mrt_teacher/'))){try{return await getJSON('https://raw.githubusercontent.com/takashikamei2504-sys/tk-keirin-lab/main/'+url)}catch(e){}}return getJSON(url)}
+window.mrtCurrentContext=()=>shown&&payload&&row?{payload,shown,row,line:$('mode').value==='manual'?$('line').value:null,rule:$('rule').value}:null;
 function invalidate(){shown=null;savedRecord=null;$('output').hidden=true;$('copy-text').hidden=true}
 function option(select,value,text,disabled=false){const o=new Option(text,value);o.disabled=disabled;select.add(o)}
 function dayPath(date){if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw Error('日付形式不正');return 'data/mrt/'+date+'/'}
