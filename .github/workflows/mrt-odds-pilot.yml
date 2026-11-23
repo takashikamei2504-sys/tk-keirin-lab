@@ -6,6 +6,7 @@ on:
       - 'js/mrt/app.js'
       - 'mrt.html'
       - 'tests/mrt/odds-*.test.cjs'
+      - 'tests/mrt/odds-live-smoke.cjs'
       - '.github/workflows/mrt-odds-pilot.yml'
   workflow_dispatch:
 permissions:
@@ -24,3 +25,5 @@ jobs:
           node --check js/mrt/odds-app.js
           node --check js/mrt/app.js
           node tests/mrt/odds-reallocate.test.cjs
+      - name: Live public quote diagnostic (informational only)
+        run: node tests/mrt/odds-live-smoke.cjs
