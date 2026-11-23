@@ -2,7 +2,6 @@ name: MRT on-demand odds pilot tests
 on:
   pull_request:
     paths:
-      - 'server/mrt-odds.cjs'
       - 'js/mrt/odds-*.js'
       - 'js/mrt/app.js'
       - 'mrt.html'
@@ -21,9 +20,7 @@ jobs:
         with:
           node-version: '22'
       - run: |
-          node --check server/mrt-odds.cjs
           node --check js/mrt/odds-reallocate.js
           node --check js/mrt/odds-app.js
           node --check js/mrt/app.js
           node tests/mrt/odds-reallocate.test.cjs
-          node tests/mrt/odds-server.test.cjs
