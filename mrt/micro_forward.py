@@ -35,8 +35,11 @@ POLICY={
     "original_stake_yen":10000,
     "third_only_additions":8,
     "new_pair_additions":8,
+    "max_additions_per_new_pair":2,
+    "max_additions_per_existing_pair":4,
     "hybrid_third_additions":7,
     "hybrid_pair_additions":8,
+    "max_hybrid_additions_per_existing_pair":3,
     "add_per_ticket_yen":100,
     "capital_ceiling_yen":5000,
     "no_buy_max_pair_signal_lt":0.15,
@@ -212,19 +215,23 @@ def make_variants(original,third_candidates,micro_candidates,signal):
     base={tuple(t["cars"]) for t in orig}
     if len(base)!=len(orig) or sum(t["yen"] for t in orig)!=10000:
         raise ValueError("invalid recorded original auto tickets")
-    def pick(seq,n,seen):
+    def pick(seq,n,seen,pair_limit):
         result=[]
+        chosen_by_pair=collections.Counter()
         for t in seq:
             tup=tuple(t["cars"])
-            if tup not in seen:
-                result.append(dict(t));seen.add(tup)
-            if len(result)==n:break
+            pair=tup[:2]
+            if tup not in seen and chosen_by_pair[pair]<pair_limit:
+                result.append(dict(t))
+                chosen_by_pair[pair]+=1
+                seen.add(tup)
+            if len(result)>=n:break
         return result
-    third=pick(third_candidates,POLICY["third_only_additions"],set(base))
-    micro=pick(micro_candidates,POLICY["new_pair_additions"],set(base))
+    third=pick(third_candidates,POLICY["third_only_additions"],set(base),POLICY["max_additions_per_existing_pair"])
+    micro=pick(micro_candidates,POLICY["new_pair_additions"],set(base),POLICY["max_additions_per_new_pair"])
     seen=set(base)
-    h_third=pick(third_candidates,POLICY["hybrid_third_additions"],seen)
-    h_micro=pick(micro_candidates,POLICY["hybrid_pair_additions"],seen)
+    h_third=pick(third_candidates,POLICY["hybrid_third_additions"],seen,POLICY["max_hybrid_additions_per_existing_pair"])
+    h_micro=pick(micro_candidates,POLICY["hybrid_pair_additions"],seen,POLICY["max_additions_per_new_pair"])
     hybrid=h_third+h_micro
     variants={
         "A_original":orig,
@@ -377,11 +384,19 @@ def _verified_forward_row(path,result):
          "protocol_id":s["protocol_id"],"field_size":s["field_size"],"race_class":s["race_class"],
          "win_pay100_max":max(int(p) for p in result["payouts"].values()),
          "no_buy":s["decision"]["no_buy"]}
+    winning_pairs={tuple(int(c) for c in key.split("-")[:2]) for key in result["payouts"]}
+    original_set={tuple(t["cars"]) for t in methods["A_original"]}
     for method,t in methods.items():
         stake=sum(x["yen"] for x in t)
         paid=accounting(t,result["payouts"])
+        pair_hit=any(tuple(x["cars"][:2]) in winning_pairs for x in t)
+        bought=len(t)>0
+        additions=sum(tuple(x["cars"]) not in original_set for x in t)
         row[method]={"stake":stake,"payout":paid,"net":paid-stake,
-                     "hit":int(paid>0),"points":len(t)}
+                     "hit":int(paid>0),"points":len(t),
+                     "winning_pair_covered":int(pair_hit),
+                     "third_miss":int(pair_hit and paid==0 and bought),
+                     "new_ticket_points":additions}
     return row
 
 def _summary(rows):
@@ -394,6 +409,9 @@ def _summary(rows):
                    "skipped_races":len(rows)-purchased,
                    "stake_yen":stake,"payout_yen":payout,
                    "net_yen":payout-stake,"hit_races":sum(x[name]["hit"] for x in rows),
+                   "winning_pair_covered_races":sum(x[name]["winning_pair_covered"] for x in rows),
+                   "third_miss_races":sum(x[name]["third_miss"] for x in rows),
+                   "new_ticket_points":sum(x[name]["new_ticket_points"] for x in rows),
                    "roi_percent":round(100*payout/stake,3) if stake else None}
     return out
 
@@ -438,6 +456,10 @@ def evaluate(root):
                 "race_id":r["race_id"],"date":r["date"],"payout100":r["win_pay100_max"],
                 "A_hit":bool(r["A_original"]["hit"]),"B_hit":bool(r["B_third"]["hit"]),
                 "C_hit":bool(r["C_pair"]["hit"]),"D_hit":bool(r["D_hybrid"]["hit"]),
+                "A_pair_covered":bool(r["A_original"]["winning_pair_covered"]),
+                "D_pair_covered":bool(r["D_hybrid"]["winning_pair_covered"]),
+                "A_third_miss":bool(r["A_original"]["third_miss"]),
+                "D_third_miss":bool(r["D_hybrid"]["third_miss"]),
             } for r in rs if r["win_pay100_max"]>=10000],
         }
     return {"schema":"tk-mrt-micro-forward-score/v1",
