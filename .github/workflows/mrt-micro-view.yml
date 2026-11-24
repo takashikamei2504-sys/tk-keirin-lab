@@ -1,0 +1,19 @@
+name: MRT MICRO read-only viewer checks
+on:
+  pull_request:
+    paths: ['mrt-micro.html','js/mrt-micro-view.js','tests/mrt-micro-view.test.cjs','scripts/mrt_micro_view_index.py','.github/workflows/mrt-micro-view.yml']
+  push:
+    branches: [main]
+    paths: ['mrt-micro.html','js/mrt-micro-view.js','tests/mrt-micro-view.test.cjs','scripts/mrt_micro_view_index.py','.github/workflows/mrt-micro-view.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python scripts/mrt_micro_view_index.py && node tests/mrt-micro-view.test.cjs
