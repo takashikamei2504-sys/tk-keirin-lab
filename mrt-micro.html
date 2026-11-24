@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101923"><title>MRT MICRO｜前向き検証</title>
+<style>
+:root{color-scheme:dark;--bg:#101923;--panel:#182535;--line:#34465b;--muted:#b4c5d6;--accent:#77d9dc;--red:#ff9096;--green:#9de6ba}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f1f5f9;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif}main{max-width:800px;margin:auto;padding:20px 14px calc(28px + env(safe-area-inset-bottom))}a{color:var(--accent)}h1{font-size:27px;margin:8px 0 0}h2{font-size:18px;margin:0 0 10px}h3{font-size:15px;margin:12px 0 5px}p{margin:6px 0 12px}.tag{font-size:12px;letter-spacing:.08em;color:var(--accent);font-weight:700}.muted,small{color:var(--muted);font-size:12px}.notice{border-left:3px solid var(--accent);padding:8px 10px;background:#203145;color:#e2edf4;font-size:13px}section{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px;margin:14px 0}label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}select,button{font:inherit;color:#f1f5f9;background:#223449;border:1px solid #4c657d;border-radius:8px;min-height:44px;padding:9px 10px}select{width:100%;min-width:0;font-size:16px}button{cursor:pointer}button:disabled,select:disabled{opacity:.5;cursor:default}button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.filters{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px}.wide{grid-column:1/-1}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metric{padding:8px;border:1px solid var(--line);border-radius:8px;min-width:0}.metric b{display:block;font-size:22px;font-variant-numeric:tabular-nums}.metric span{font-size:12px;color:var(--muted)}.status{font-size:13px;color:var(--muted);overflow-wrap:anywhere}.method-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin:12px 0}.method-tabs button{padding:6px 0;font-weight:700}.method-tabs [aria-selected=true]{background:var(--accent);color:#12212a;border-color:var(--accent)}.table-wrap{overflow-x:auto;max-width:100%}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13px}th,td{text-align:right;padding:8px 5px;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}th{color:var(--muted);font-weight:600;font-size:12px}th:first-child,td:first-child{text-align:left}td:first-child{white-space:normal}.added{color:var(--red);font-weight:700}.hit{color:var(--green);font-weight:700}.neg{color:var(--red)}.pos{color:var(--green)}.pill{display:inline-block;border:1px solid var(--line);padding:3px 7px;border-radius:5px;font-size:12px;color:var(--muted)}.head-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}.head-row h2{margin:0}summary{cursor:pointer;padding:8px 0;color:var(--accent)}details{margin-top:10px}hr{border:0;border-top:1px solid var(--line)}[hidden]{display:none!important}.ticket{font-size:17px;font-weight:700;white-space:nowrap}.source{overflow-wrap:anywhere}#refresh{width:100%}#race-result{overflow-wrap:anywhere}@media(min-width:560px){.metrics{grid-template-columns:repeat(4,minmax(0,1fr))}.filters{grid-template-columns:1fr 1fr 2fr}.wide{grid-column:auto}}
+</style>
+<script defer src="js/mrt-micro-view.js?v=1"></script>
+</head>
+<body><main>
+<a href="index.html">TK KEIRIN LAB</a>
+<p class="tag">MRT MICRO / FORWARD RESEARCH</p>
+<h1>前向き検証・閲覧専用</h1>
+<p class="notice">本番MRTとは独立した研究記録です。全金額は仮想購入。発走前に固定したデータを表示するだけで、再予測・投票・採用変更は行いません。</p>
+<section aria-labelledby="filter-title">
+<h2 id="filter-title">開催日・競輪場・レース</h2>
+<div class="filters">
+<div><label for="date">開催日</label><select id="date" disabled></select></div>
+<div><label for="venue">競輪場</label><select id="venue" disabled></select></div>
+<div class="wide"><label for="race">レース（保存済みのみ）</label><select id="race" disabled></select></div>
+<button id="refresh" class="wide">研究記録を更新</button>
+</div>
+<p id="status" class="status" role="status" aria-live="polite">保存済みデータを確認しています。</p>
+</section>
+<section id="race-panel" hidden>
+<div class="head-row"><h2 id="race-title"></h2><span class="pill" id="race-state"></span></div>
+<p class="muted" id="race-meta"></p>
+<p id="identity-warning" class="notice" hidden></p>
+<div id="race-result" class="notice">結果照合待ち</div>
+<h3>5方式の比較</h3><div class="table-wrap"><table><thead><tr><th>方式</th><th>点数</th><th>仮想額</th><th>払戻</th><th>収支</th></tr></thead><tbody id="race-summary"></tbody></table></div>
+<p class="muted" id="gate"></p>
+<div class="method-tabs" role="tablist" aria-label="買い目の表示方式" id="method-tabs"></div>
+<div id="ticket-panel" role="tabpanel"><h3 id="ticket-title"></h3><p id="ticket-info" class="muted"></p>
+<div class="table-wrap"><table id="ticket-table"><thead><tr><th>三連単</th><th>仮想額</th><th>現行差</th><th>区分</th></tr></thead><tbody id="ticket-rows"></tbody></table></div>
+<p id="ticket-empty" hidden class="notice"></p>
+<p class="muted">赤字＝現行Aになかった追加買い目。的中は確定結果と照合できた場合のみ表示。追加候補はモデルの選択傾向を示すもので、的中確率や期待値ではありません。</p></div>
+<details><summary>穴目選択の根拠・モデルスコア</summary><p class="muted">追加候補の保存済みスコアと区分を表示します。本人の思考やレース展開を推測で補いません。</p><div class="table-wrap"><table><thead><tr><th>三連単</th><th>ペア</th><th>3着</th><th>区分</th></tr></thead><tbody id="signal-rows"></tbody></table></div><p id="signal-empty" class="muted"></p></details>
+<details><summary>記録・出典</summary><p id="provenance" class="muted source"></p><a id="snapshot-link">元の固定JSON</a></details>
+</section>
+<section aria-labelledby="report-title"><h2 id="report-title">累積成績・採用判断の進捗</h2>
+<p class="muted" id="report-status" role="status">集計を読み込んでいます。</p>
+<div class="metrics" id="report-metrics"></div>
+<div id="protocol-picker" hidden><label for="protocol">検証プロトコル（混合集計しない）</label><select id="protocol"></select></div>
+<div id="performance" hidden><h3>累積比較</h3><div class="table-wrap"><table><thead><tr><th>方式</th><th>的中/購入</th><th>仮想額</th><th>払戻</th><th>回収率</th></tr></thead><tbody id="cumulative-rows"></tbody></table></div>
+<h3>選択日の比較</h3><div class="table-wrap"><table><thead><tr><th>方式</th><th>的中/購入</th><th>仮想額</th><th>払戻</th><th>回収率</th></tr></thead><tbody id="daily-rows"></tbody></table></div><p id="daily-empty" class="muted"></p>
+<details><summary>高額払戻上位1・3・5件除外の比較</summary><div class="table-wrap"><table><thead><tr><th>除外</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead><tbody id="robust-rows"></tbody></table></div></details>
+<p id="review-gate" class="notice"></p></div>
+<p class="muted">200レース以上かつ28暦日以上で採用検討の対象。条件達成後も自動採用しません。未確定・不整合レースは不的中として集計しません。</p>
+</section>
+<p class="muted"><a href="docs/mrt-micro-forward-protocol.md">研究条件</a> ・ <a href="data/mrt_research/micro_forward/latest.json">公式研究集計JSON</a></p>
+</main></body></html>
