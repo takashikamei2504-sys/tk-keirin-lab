@@ -204,6 +204,8 @@ def run(root):
     historical_micro = micro_metrics(later,micro_model)
     new_rows=[]
     excluded=[]
+    fresh_micro_features=[]
+    fresh_micro_labels=[]
     for path in sorted((root/"data/mrt_teacher/records").glob("*.json")):
         try:
             ref=json.loads(path.read_text())
@@ -238,6 +240,8 @@ def run(root):
             original=first_two_pairs(p["automatic"]["tickets"])
             mrt_top3=set(original[:3])
             micro_truth=micro_pair_set(r["labels"]["tickets"]["3連単"])
+            fresh_micro_features.extend(X)
+            fresh_micro_labels.extend(int(pair in micro_truth) for pair in ps)
             micro_prob=np.asarray(micro_model.predict_proba(np.asarray(X,dtype=np.float32)))[:,1]
             micro_indices=sorted(range(len(ps)),key=lambda i:(-micro_prob[i],ps[i]))
             micro_top6=[ps[i] for i in micro_indices[:6]]
@@ -279,6 +283,20 @@ def run(root):
         except (OSError,ValueError,KeyError,TypeError,StopIteration) as e:
             excluded.append({"id":path.stem,"reason":str(e)})
     eligible_rows=len(new_rows)
+    fresh_importance=[]
+    fresh_micro_ap=None
+    if eligible_rows and len(set(fresh_micro_labels))==2:
+        from sklearn.inspection import permutation_importance
+        from sklearn.metrics import average_precision_score
+        XX=np.asarray(fresh_micro_features,dtype=np.float32)
+        yy=np.asarray(fresh_micro_labels,dtype=np.int8)
+        fresh_micro_ap=round(float(average_precision_score(yy, micro_model.predict_proba(XX)[:,1])),4)
+        observed=permutation_importance(micro_model, XX, yy,
+                      scoring="average_precision", n_repeats=2, random_state=634, n_jobs=1)
+        ranked=sorted(zip(FEATURE_NAMES,observed.importances_mean),
+                      key=lambda z:(-z[1],z[0]))
+        fresh_importance=[{"feature":k,"importance_ap_drop":round(float(v),5)}
+                          for k,v in ranked[:12]]
     return {
       "schema":"tk-mrt-teacher-ordered-pair-research/v1",
       "research_only":True,"not_forward_test":True,"historical_source_pre_start_unverified":True,
@@ -290,6 +308,8 @@ def run(root):
       "historical_late_replay":historical_late,
       "historical_late_micro_replay":historical_micro,
       "fresh_teacher_races":eligible_rows,
+      "fresh_micro_avg_precision":fresh_micro_ap,
+      "micro_model_fresh_feature_permutation_importance":fresh_importance,
       "fresh_micro_teacher_pairs":sum(len(r["teacher_micro_pairs"]) for r in new_rows),
       "fresh_micro_model_top6_pair_matches":sum(r["micro_learned_pair_hits_top6"] for r in new_rows),
       "fresh_micro_model_top10_pair_matches":sum(r["micro_learned_pair_hits_top10"] for r in new_rows),
