@@ -1,6 +1,9 @@
 name: MRT MICRO third-leg and capital forward-only research
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/mrt-micro-forward.yml','mrt/micro_forward.py']
   schedule:
     # 10:42, 13:42, 16:42, 19:42, 22:42 JST (GitHub may delay).
     # Also 08:16 JST for overnight reconciliation.
