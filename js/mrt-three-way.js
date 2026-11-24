@@ -8,12 +8,15 @@ function tr(id,v){const r=document.createElement("tr");for(const q of v){const d
 async function get(p){const r=await fetch(base+p,{cache:"no-store"});if(!r.ok)throw Error("研究データ未取得（"+r.status+"）");return r.json()}
 function showRace(){const r=rows.find(x=>x.race_id===$("race").value);$("detail").hidden=!r;if(!r)return;text("title",r.venue+" "+r.race_no+"R");text("result",r.status==="final"?"確定："+Object.entries(r.payouts).map(([k,v])=>k+" "+yen(v)).join(" / "):r.status==="pending"?"締切前固定済・確定結果待ち":(r.reason||"三方式未揃い")+" ｜ "+M.map(m=>m+":"+(r.available?.[m]?"保存済":"未取得")).join(" "));
 $("raceMetrics").replaceChildren();$("tickets").replaceChildren();text("timestamps","");
-if(!r.tickets){text("ticketTitle","共通比較対象外");return}
-for(const m of M){const pay=r.metrics?.[m]?.pay;tr("raceMetrics",[m,r.tickets[m].length,yen(10000),yen(pay),yen(Number.isFinite(pay)?pay-10000:null)])}
-text("timestamps",M.map(m=>m+" 固定 "+new Date(r.generated[m]).toLocaleString("ja-JP",{timeZone:"Asia/Tokyo"})).join(" ｜ "));
+const tickets=r.tickets||r.preview_tickets||{},generated=r.generated||r.preview_generated||{};
+if(!Object.keys(tickets).length){text("ticketTitle","検証済み固定予測なし");for(const b of $("tabs").children)b.disabled=true;return}
+if(!tickets[method])method=M.find(m=>tickets[m]);
+for(const m of M){const pay=r.status==="final"?r.metrics?.[m]?.pay:null;tr("raceMetrics",[m,tickets[m]?.length??"未取得",tickets[m]?yen(10000):"—",r.status==="unpaired"?"対象外":yen(pay),r.status==="unpaired"?"対象外":yen(Number.isFinite(pay)?pay-10000:null)])}
+text("timestamps",M.filter(m=>generated[m]).map(m=>m+" 固定 "+new Date(generated[m]).toLocaleString("ja-JP",{timeZone:"Asia/Tokyo"})).join(" ｜ "));
+for(const b of $("tabs").children)b.disabled=!tickets[b.dataset.method];
 for(const b of $("tabs").children)b.setAttribute("aria-pressed",String(b.dataset.method===method));text("ticketTitle",method+" 固定買い目");
-const a=new Map(r.tickets.MRT.map(t=>[key(t),t.yen]));
-for(const t of r.tickets[method]){const k=key(t),hit=r.status==="final"&&Object.hasOwn(r.payouts,k);tr("tickets",[[k,hit?"hit":!a.has(k)?"add":""],yen(t.yen),String(t.yen-(a.get(k)||0)),({main:"主力",counter:"対抗",micro:"穴目"}[t.tier]||(!a.has(k)?"追加":"現行"))+(hit?"・的中":"")])}
+const a=new Map((tickets.MRT||[]).map(t=>[key(t),t.yen]));
+for(const t of tickets[method]){const k=key(t),hit=r.status==="final"&&Object.hasOwn(r.payouts,k);tr("tickets",[[k,hit?"hit":!a.has(k)?"add":""],yen(t.yen),String(t.yen-(a.get(k)||0)),({main:"主力",counter:"対抗",micro:"穴目"}[t.tier]||(!a.has(k)?"追加":"現行"))+(hit?"・的中":"")])}
 }
 function render(){const g=report?.groups?.[$("group").value];for(const id of ["summary","daily","teacher","robust"])$(id).replaceChildren();
 if(!g){text("coverage","3方式の共通評価はまだありません。");return}
