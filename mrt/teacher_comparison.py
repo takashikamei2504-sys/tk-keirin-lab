@@ -58,9 +58,9 @@ def compare(teacher, mrt, result):
     teacher_pair_hit = any(c[:2] in [key(t).split("-")[:2] for t in tt] for c in first_two)
     mrt_pair_hit = any(c[:2] in [key(t).split("-")[:2] for t in original] for c in first_two)
     leader = int(winner.split("-")[0])
-    top_first_teacher = sorted(Counter({str(c): sum(t["yen"] for t in tt if t["cars"][0] == c)
+    top_first_teacher = sorted(Counter({str(c): sum(t["yen"] for t in tt if t["cars"][0] == int(c))
                                         for c in result["roster"]}).items(), key=lambda x: (-x[1], x[0]))[0]
-    top_first_mrt = sorted(Counter({str(c): sum(t["yen"] for t in original if t["cars"][0] == c)
+    top_first_mrt = sorted(Counter({str(c): sum(t["yen"] for t in original if t["cars"][0] == int(c))
                                     for c in result["roster"]}).items(), key=lambda x: (-x[1], x[0]))[0]
     b_scenarios = mrt.get("automatic", {}).get("scenarios") or []
     most_likely_b = max(b_scenarios, key=lambda x: x.get("scenario_weight", 0)) if b_scenarios else {}
