@@ -100,7 +100,7 @@ def record_summary(record, origin):
             "high_hit": bool(payout.get(key, 0) >= 10000),
         })
     return {"origin": origin, "date": record["date"], "race_id": record["race_id"],
-            "field_size": len(valid), "race_class": (record.get("entry") or {}).get("race_class", "unknown"),
+            "field_size": len(valid), "race_class": ((record.get("entry") or {}).get("race_class") or "unknown"),
             "stake": stake, "budget_3rentan": stake,
             "n": len(tickets), "distinct_pairs": len(pair_yen),
             "top_pair_stake_share": pair_yen[main_pair] / stake,
