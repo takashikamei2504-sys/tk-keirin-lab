@@ -8,6 +8,8 @@ on:
     paths:
       - 'mrt/allocation_audit.py'
       - 'tests/mrt/test_allocation_audit.py'
+      - 'mrt/teacher_comparison.py'
+      - 'tests/mrt/test_teacher_comparison.py'
       - '.github/workflows/mrt-allocation-audit.yml'
 permissions:
   contents: read
@@ -21,9 +23,16 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test snapshot integrity, 100-yen budgeting, and payout accounting
-        run: python -m unittest discover -s tests/mrt -p 'test_allocation_audit.py'
+        run: |
+          python -m unittest discover -s tests/mrt -p 'test_allocation_audit.py'
+          python -m unittest discover -s tests/mrt -p 'test_teacher_comparison.py'
       - name: Produce read-only research comparison
         run: python -m mrt.allocation_audit --output data/mrt_research/allocation_audit/latest.json
+      - name: Compare saved original Mr.T public tickets versus frozen MRT V3 on the same races
+        run: python -m mrt.teacher_comparison --output data/mrt_research/teacher_comparison/latest.json
+      - name: Log paired teacher-vs-MRT results
+        run: |
+          python -c "import json; r=json.load(open('data/mrt_research/teacher_comparison/latest.json')); print(json.dumps({'total':r['total'],'teacher_high_payout_hits':r['teacher_high_payout_hits'],'mrt_high_payout_hits':r['mrt_high_payout_hits'],'high_payout_count':r['high_payout_count'],'excluded':r['excluded']},ensure_ascii=False))"
       - name: Log daily and total ROI summaries
         run: |
           python -c "import json; r=json.load(open('data/mrt_research/allocation_audit/latest.json')); print(json.dumps({'total':r['total'],'daily':r['daily'],'excluded':len(r['excluded'])},ensure_ascii=False))"
@@ -31,4 +40,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mrt-allocation-audit
-          path: data/mrt_research/allocation_audit/latest.json
+          path: |
+            data/mrt_research/allocation_audit/latest.json
+            data/mrt_research/teacher_comparison/latest.json
