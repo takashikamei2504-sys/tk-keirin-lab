@@ -1,7 +1,7 @@
 """Tests for teacher-ordered-pair research feature safety and ticket labels."""
 import copy
 import unittest
-from mrt.teacher_pair_research import (FEATURE_NAMES, eligible, first_two_pairs,
+from mrt.teacher_pair_research import (FEATURE_NAMES, eligible, first_two_pairs, micro_pair_set,
                                        line_index, pair_features, race_training_rows)
 
 
@@ -43,6 +43,9 @@ class TeacherPairResearchTest(unittest.TestCase):
         self.assertEqual(len(X),42)
         self.assertEqual(sum(y),3)
         self.assertEqual(truth,set(ranks[:3]))
+        self.assertEqual(micro_pair_set(r["labels"]["tickets"]["3連単"]), set())
+        r["labels"]["tickets"]["3連単"][2]["yen"] = 100
+        self.assertEqual(micro_pair_set(r["labels"]["tickets"]["3連単"]), {(2, 1)})
 
     def test_eligibility_and_refund_guard(self):
         r=self.fixture()
