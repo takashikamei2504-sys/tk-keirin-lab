@@ -1,4 +1,4 @@
-name: Diagnose Pages comparison 404
+name: Inspect MRT three-engine runtime and Pages
 on:
   pull_request:
     paths: ['.github/workflows/pages-compare-diagnose.yml']
@@ -21,6 +21,18 @@ jobs:
           gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq '{status,commit,error,updated_at}' || true
           gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&per_page=3" --jq '.[]|{id,sha,ref,created_at}' || true
           gh api "repos/$GITHUB_REPOSITORY/actions/runs?per_page=70" --jq '.workflow_runs[]|select(.name|test("pages";"i"))|{id,name,status,conclusion,head_sha,html_url}' || true
+      - name: Inspect latest main workflow executions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for w in mrt-manual-b.yml mrt-micro-forward.yml mrt-mirror-compare.yml; do
+            echo "WORKFLOW $w"
+            gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$w/runs?branch=main&per_page=8" --jq '.workflow_runs[]|{id,event,status,conclusion,created_at,run_started_at,updated_at,head_sha,html_url}'
+            latest=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$w/runs?branch=main&per_page=1" --jq '.workflow_runs[0].id')
+            if [ -n "$latest" ] && [ "$latest" != "null" ]; then
+              gh api "repos/$GITHUB_REPOSITORY/actions/runs/$latest/jobs" --jq '.jobs[]|{id,name,status,conclusion,started_at,completed_at,steps:[.steps[]|{name,status,conclusion}]}'
+            fi
+          done
       - name: Inspect actual HTTP responses
         run: |
           base="https://takashikamei2504-sys.github.io/tk-keirin-lab/"
