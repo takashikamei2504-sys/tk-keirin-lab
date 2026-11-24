@@ -35,6 +35,10 @@ def first_two_pairs(tickets):
     return sorted(weights, key=lambda pair: (-weights[pair], pair))
 
 
+def micro_pair_set(tickets):
+    return set(first_two_pairs([t for t in tickets if 100 <= int(t["yen"]) <= 300]))
+
+
 def line_index(input_race):
     loc = {}
     for line in input_race.get("lines") or []:
@@ -128,6 +132,38 @@ def metrics(records, model):
             "random_pair_recall_reference":round(sum(min(v["teacher_pairs"],3)/v["n"] for v in vals)/n,4) if n else None}
 
 
+def micro_metrics(records, model):
+    import numpy as np
+    n=0
+    true=0
+    caught={6:0,10:0}
+    by_car=collections.defaultdict(lambda: {"races":0,"micro_pairs":0,"match6":0,"match10":0})
+    for r in records:
+        item=race_training_rows(r)
+        if item is None:
+            continue
+        ps,X,_,_=item
+        low=micro_pair_set(r["labels"]["tickets"]["3連単"])
+        if not low:
+            continue
+        p=np.asarray(model.predict_proba(np.asarray(X,dtype=np.float32)))[:,1]
+        ordered=sorted(range(len(ps)),key=lambda i:(-p[i],ps[i]))
+        n+=1
+        true+=len(low)
+        size=str(len(r["roster"]))
+        by_car[size]["races"]+=1
+        by_car[size]["micro_pairs"]+=len(low)
+        for k in (6,10):
+            got=len(low & {ps[i] for i in ordered[:k]})
+            caught[k]+=got
+            by_car[size]["match"+str(k)]+=got
+    return {"races_with_micro":n,"teacher_micro_pair_opportunities":true,
+            "top6_recall":round(caught[6]/true,4) if true else None,
+            "top10_recall":round(caught[10]/true,4) if true else None,
+            "top6_matched":caught[6],"top10_matched":caught[10],
+            "by_field_size":dict(by_car)}
+
+
 def run(root):
     import numpy as np
     from sklearn.ensemble import HistGradientBoostingClassifier
@@ -139,7 +175,7 @@ def run(root):
     records=json.loads(gzip.decompress(blob))
     earlier=[r for r in records if r["date"]<="20260630"]
     later=[r for r in records if "20260701"<=r["date"]<="20261121"]
-    trainX,trainY=[],[]
+    trainX,trainY,trainMicroY=[],[],[]
     nraces=0
     for r in earlier:
         item=race_training_rows(r)
@@ -148,6 +184,9 @@ def run(root):
         _,X,y,_=item
         trainX.extend(X)
         trainY.extend(y)
+        ps = item[0]
+        micro_set = micro_pair_set(r["labels"]["tickets"]["3連単"])
+        trainMicroY.extend(int(pair in micro_set) for pair in ps)
         nraces+=1
     if nraces<100 or len(set(trainY))!=2:
         raise ValueError("not enough historical pair labels")
@@ -155,7 +194,14 @@ def run(root):
                  learning_rate=0.07, l2_regularization=1.5, min_samples_leaf=150,
                  random_state=634).fit(np.asarray(trainX,dtype=np.float32),
                                       np.asarray(trainY,dtype=np.int8))
+    if len(set(trainMicroY)) != 2 or len(trainMicroY) != len(trainY):
+        raise ValueError("missing micro-pair class")
+    micro_model=HistGradientBoostingClassifier(max_iter=75, max_leaf_nodes=15,
+                 learning_rate=0.07, l2_regularization=1.5, min_samples_leaf=150,
+                 random_state=634).fit(np.asarray(trainX,dtype=np.float32),
+                                      np.asarray(trainMicroY,dtype=np.int8))
     historical_late=metrics(later,model)
+    historical_micro = micro_metrics(later,micro_model)
     new_rows=[]
     excluded=[]
     for path in sorted((root/"data/mrt_teacher/records").glob("*.json")):
@@ -191,12 +237,35 @@ def run(root):
             model_set=set(selected)
             original=first_two_pairs(p["automatic"]["tickets"])
             mrt_top3=set(original[:3])
+            micro_truth=micro_pair_set(r["labels"]["tickets"]["3連単"])
+            micro_prob=np.asarray(micro_model.predict_proba(np.asarray(X,dtype=np.float32)))[:,1]
+            micro_indices=sorted(range(len(ps)),key=lambda i:(-micro_prob[i],ps[i]))
+            micro_top6=[ps[i] for i in micro_indices[:6]]
+            micro_top10=[ps[i] for i in micro_indices[:10]]
+            mrt_top6=set(original[:6])
+            mrt_top10=set(original[:10])
             win_pairs={tuple(map(int,q.split("-")[:2])) for q in res["payouts"]}
             winning_teacher_purchased=set(first_two_pairs(r["labels"]["tickets"]["3連単"])) & win_pairs
+            win_triples=set(res["payouts"])
+            micro_winning=[t for t in r["labels"]["tickets"]["3連単"]
+                           if 100<=int(t["yen"])<=300 and
+                           "-".join(map(str,t["cars"])) in win_triples]
             row={"race_id":rid,"date":r["date"],"venue":p.get("venue_name"),"race_no":p.get("race_no"),
                  "field_size":len(r["roster"]),"teacher_top3":[list(x) for x in sorted(truth)],
                  "learned_top3":[list(x) for x in selected],
                  "mrt_top3":[list(x) for x in sorted(mrt_top3)],
+                 "teacher_micro_pairs":[list(x) for x in sorted(micro_truth)],
+                 "micro_learned_top6":[list(x) for x in micro_top6],
+                 "micro_learned_top10":[list(x) for x in micro_top10],
+                 "micro_learned_pair_hits_top6":len(micro_truth & set(micro_top6)),
+                 "micro_learned_pair_hits_top10":len(micro_truth & set(micro_top10)),
+                 "mrt_micro_pair_hits_top6":len(micro_truth & mrt_top6),
+                 "mrt_micro_pair_hits_top10":len(micro_truth & mrt_top10),
+                 "teacher_micro_winning_ticket":bool(micro_winning),
+                 "micro_top10_has_winning_pair":bool(win_pairs & set(micro_top10)),
+                 "mrt_top10_has_winning_pair":bool(win_pairs & mrt_top10),
+                 "micro_winning_pair_rank":next((i+1 for i in range(len(ps))
+                    if ps[micro_indices[i]] in win_pairs),None),
                  "learned_top3_overlap":len(model_set & truth),
                  "mrt_top3_overlap":len(mrt_top3 & truth),
                  "win_pair": [list(x) for x in sorted(win_pairs)],
@@ -219,7 +288,16 @@ def run(root):
       "trained_pair_rows":len(trainY),"feature_names":FEATURE_NAMES,
       "no_market_odds":True,"no_automatic_adoption":True,
       "historical_late_replay":historical_late,
+      "historical_late_micro_replay":historical_micro,
       "fresh_teacher_races":eligible_rows,
+      "fresh_micro_teacher_pairs":sum(len(r["teacher_micro_pairs"]) for r in new_rows),
+      "fresh_micro_model_top6_pair_matches":sum(r["micro_learned_pair_hits_top6"] for r in new_rows),
+      "fresh_micro_model_top10_pair_matches":sum(r["micro_learned_pair_hits_top10"] for r in new_rows),
+      "fresh_micro_mrt_top6_pair_matches":sum(r["mrt_micro_pair_hits_top6"] for r in new_rows),
+      "fresh_micro_mrt_top10_pair_matches":sum(r["mrt_micro_pair_hits_top10"] for r in new_rows),
+      "teacher_micro_winning_races":sum(r["teacher_micro_winning_ticket"] for r in new_rows),
+      "micro_model_top10_contains_winning_pair":sum(r["micro_top10_has_winning_pair"] for r in new_rows),
+      "mrt_top10_contains_winning_pair":sum(r["mrt_top10_has_winning_pair"] for r in new_rows),
       "fresh_teacher_top3_pair_matches":sum(r["learned_top3_overlap"] for r in new_rows),
       "fresh_teacher_top3_pair_opportunities":sum(len(r["teacher_top3"]) for r in new_rows),
       "mrt_baseline_top3_pair_matches":sum(r["mrt_top3_overlap"] for r in new_rows),
