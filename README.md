@@ -1,5 +1,12 @@
 ## TK STORY ENGINE：展開を主役にした予想入口（試行切替）
 
+### MRT 比較研究（閲覧専用）
+
+[3系統比較画面：MRT V3 / MICRO / MIRROR FUSION](https://takashikamei2504-sys.github.io/tk-keirin-lab/mrt-compare.html) · [MICRO詳細](https://takashikamei2504-sys.github.io/tk-keirin-lab/mrt-micro.html)
+
+仮想予算による共通レース比較です。予測・評価データは別系統で保存され、実投票・自動採用は行いません。
+
+
 [ストーリー予想を開く](https://takashikamei2504-sys.github.io/tk-keirin-lab/line.html) · [ホーム](https://takashikamei2504-sys.github.io/tk-keirin-lab/) · [従来AUTO（比較用）](https://takashikamei2504-sys.github.io/tk-keirin-lab/auto.html)
 
 ホームの「予想」とモバイル下部ナビの先頭をLAB LINEに切り替えます。**予想ロジック本体と保存履歴は変更しません。** 現行LAB LINEは各ラインの戦術仮説、相互反応、6局面、最終着順の順に解釈し、合理性・成立可能性・出典を持つ根拠・反証を表示します。競走得点、B・Sなどの統計は戦術成立の補助資料として使用し、本人コメント未取得時に心理・発言を創作しません。比較用のGATE、AUTO、Transformer、他研究エンジンは従来どおり独立です。
