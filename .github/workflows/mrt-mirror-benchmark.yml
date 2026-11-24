@@ -1,7 +1,7 @@
 name: MRT MIRROR fixed chronological benchmark
 on:
   pull_request:
-    paths: ['mrt/mirror_benchmark.py','.github/workflows/mrt-mirror-benchmark.yml']
+    paths: ['mrt/mirror_benchmark.py','mrt/mirror_hierarchy_benchmark.py','.github/workflows/mrt-mirror-benchmark.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,7 +20,10 @@ jobs:
           python-version: '3.12'
       - run: pip install -r mrt/requirements.txt
       - run: python -m mrt.mirror_benchmark
+      - run: python -m mrt.mirror_hierarchy_benchmark
       - uses: actions/upload-artifact@v4
         with:
           name: mirror-fixed-benchmark
-          path: mirror-benchmark.json
+          path: |
+            mirror-benchmark.json
+            mirror-hierarchy-report.json
