@@ -128,7 +128,7 @@ class MicroForwardTest(unittest.TestCase):
             self.assertEqual(result["evaluated_races"],0)
             self.assertEqual(len(result["excluded"]),1)
             results.write_text(json.dumps({"results":[dict(res,roster=dict(roster,**{"1":"bad"}))]}))
-            with self.assertRaisesRegex(ValueError,"roster mismatch"):
+            with self.assertRaisesRegex(ValueError,"result identity or payouts mismatch"):
                 _verified_forward_row(dest,dict(res,roster=dict(roster,**{"1":"bad"})))
 
     def test_budget_50_ticket_edge_case_skips(self):
