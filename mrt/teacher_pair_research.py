@@ -61,7 +61,7 @@ def pair_features(input_race, a, b):
         len(roster), len(input_race.get("lines") or []),
         int(pa == 0), int(pa == 1), int(pa >= 2), int(pa < 0),
         int(pb == 0), int(pb == 1), int(pb >= 2), int(pb < 0),
-        na, nb, same, int(same and pa > pb), int(la != lb),
+        na, nb, same, int(same and pa > pb), int(la != lb and pa >= 0 and pb >= 0),
         a_score-avg, b_score-avg, a_score-b_score, top-a_score, top-b_score,
         int(one.get("score") is None), int(two.get("score") is None),
         finite(one.get("B")), finite(two.get("B")),
@@ -201,6 +201,8 @@ def run(root):
                  "mrt_top3_overlap":len(mrt_top3 & truth),
                  "win_pair": [list(x) for x in sorted(win_pairs)],
                  "learned_has_winning_pair":bool(win_pairs & model_set),
+                 "teacher_top3_has_winning_pair":bool(win_pairs & truth),
+                 "mrt_top3_has_winning_pair":bool(win_pairs & mrt_top3),
                  "mrt_has_winning_pair":bool(win_pairs & set(original)),
                  "teacher_has_winning_pair":bool(winning_teacher_purchased),
                  "teacher_hit":any("-".join(map(str,t["cars"])) in res["payouts"] for t in ref["labels"]["tickets"]["3連単"])}
@@ -223,6 +225,8 @@ def run(root):
       "mrt_baseline_top3_pair_matches":sum(r["mrt_top3_overlap"] for r in new_rows),
       "fresh_teacher_win_pairs":sum(r["teacher_has_winning_pair"] for r in new_rows),
       "fresh_learned_top3_has_win_pair":sum(r["learned_has_winning_pair"] for r in new_rows),
+      "fresh_teacher_top3_has_win_pair":sum(r["teacher_top3_has_winning_pair"] for r in new_rows),
+      "fresh_mrt_top3_has_win_pair":sum(r["mrt_top3_has_winning_pair"] for r in new_rows),
       "fresh_mrt_any_pair_has_win_pair":sum(r["mrt_has_winning_pair"] for r in new_rows),
       "excluded":excluded,"rows":new_rows,
     }
