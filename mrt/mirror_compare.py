@@ -130,9 +130,23 @@ def build(root=ROOT):
                 b=read(mp) if mp.exists() else None
                 r["available"]["MICRO"]=bool(b)
                 fs=records.get(rid,[]);r["available"]["FUSION"]=bool(fs)
-                if not b or not fs:raise ValueError("三方式未揃い")
-                # Compare only the currently pinned model; never mix versions.
+                # Independently display only validated same-source records, even
+                # while waiting for the other research engine. No unpaired ROI.
                 f=next((x for x in fs if pin and x["model_sha256"]==pin["model_sha256"]),None)
+                rs=roster({c:v["rider_id"] for c,v in p["input"]["entry"]["players"].items()})
+                a=p["automatic"]["tickets"];valid_tickets(a,rs)
+                r["preview_tickets"]={"MRT":a};r["preview_generated"]={"MRT":p["generated_at"]}
+                for method,x,k,t in (
+                    ("MICRO",b,"original_generated_at",b["methods"]["D_hybrid"] if b else None),
+                    ("FUSION",f,"source_generated_at",f["tickets"] if f else None)):
+                    if not x:continue
+                    try:
+                        if not x.get("pre_race") or not x.get("frozen") or x["race_id"]!=rid or x["identity_sha256"]!=p["identity_sha256"] or roster(x["roster"])!=rs or x["source_sha256"]!=sha(p):raise ValueError("source mismatch")
+                        if not ts(x[k])==ts(p["generated_at"])<=ts(x["generated_at"])<ts(p["sales_close_at"]):raise ValueError("late or mismatched source")
+                        valid_tickets(t,rs)
+                        r["preview_tickets"][method]=t;r["preview_generated"][method]=x["generated_at"]
+                    except (ValueError,KeyError,TypeError):continue
+                if not b or not fs:raise ValueError("三方式未揃い")
                 if not f:raise ValueError("固定モデル不一致")
                 rs,maps=match(p,b,f)
                 g=":".join((p["model_sha256"],p["engine_sha256"],b["protocol_id"],f["model_sha256"]))
@@ -146,6 +160,7 @@ def build(root=ROOT):
                         tm=teacher_map(refs[0],rs,rid)
                         if tm is not None:
                             r["teacher_metrics"]={m:{"matched":len(set(t)&set(tm)),"teacher_points":len(tm),"overlap":sum(min(t[k],tm[k]) for k in set(t)&set(tm))} for m,t in maps.items()}
+                r.pop("preview_tickets",None);r.pop("preview_generated",None)
                 groups[g].append(r)
             except (ValueError,KeyError,TypeError,OSError) as e:
                 r.update(status="excluded" if r.get("group") else "unpaired",reason=str(e))
