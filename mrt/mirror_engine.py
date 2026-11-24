@@ -170,7 +170,8 @@ def freeze(model,snapshot,model_path,target,clock=None):
     if generated>=close:raise ValueError("completed after close")
     if generated<dt.datetime.fromisoformat(snapshot["generated_at"]):raise ValueError("source from future")
     result.update(pre_race=True,frozen=True,generated_at=generated.isoformat(),
-                  source_generated_at=snapshot["generated_at"],sales_close_at=snapshot["sales_close_at"],
+                  source_generated_at=snapshot["generated_at"],source_sha256=hashlib.sha256(json.dumps(snapshot,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),
+                  source_model_sha256=snapshot["model_sha256"],source_engine_sha256=snapshot["engine_sha256"],sales_close_at=snapshot["sales_close_at"],
                   start_at=snapshot["start_at"],identity_sha256=snapshot["identity_sha256"],
                   roster={c:v["rider_id"] for c,v in snapshot["input"]["entry"]["players"].items()},
                   model_sha256=digest(model_path))
