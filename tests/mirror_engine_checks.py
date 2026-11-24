@@ -15,8 +15,15 @@ def run(model_path):
         for r in raw:
             if r["date"]<=CUT or len(r["roster"])!=n:continue
             q=normalize(r)
-            if q is None or not INPUT_KEYS<=r.keys():continue
-            x={k:r[k] for k in INPUT_KEYS}
+            if q is None:continue
+            # Archived seed metadata is not the same schema as the live card.
+            # Reconstruct only metadata for parity tests, not for live inference.
+            x={k:copy.deepcopy(r.get(k)) for k in INPUT_KEYS}
+            x["names"]=x["names"] or {}
+            x["unknown_cars"]=sorted(set(map(int,r["roster"]))-{int(c) for l in r["lines"] for c in l})
+            for c in r["roster"]:
+                player=x["entry"]["players"][str(c)]
+                player["rider_id"]=str(player.get("rider_id") or "parity-"+str(c))
             try:f=features(x)
             except (KeyError,TypeError,ValueError):continue
             for k in ("race","riders","tri","paths"):
@@ -60,7 +67,7 @@ def run(model_path):
             else:raise AssertionError("accepted after cutoff")
             if len(live)==2:break
         except (KeyError,ValueError,TypeError):continue
-    assert live,"no eligible saved snapshot"
+    assert {x["field_size"] for x in live}=={7,9},"missing eligible 7/9 saved snapshots"
     return {"historical_parity_cases":len(cases),"snapshot_replay_cases":len(live),"quota_edge_cases":500,
             "model_train_races":model["train_races"],"paper_only":True,
             "sample_replays":[dict(x,pre_race=False,historical_replay=True) for x in live]}
