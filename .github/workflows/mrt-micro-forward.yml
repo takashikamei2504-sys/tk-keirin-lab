@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/mrt-micro-forward.yml','mrt/micro_forward.py']
+    paths: ['.github/workflows/mrt-micro-forward.yml','mrt/micro_forward.py','scripts/mrt_micro_view_index.py']
   schedule:
     # 10:42, 13:42, 16:42, 19:42, 22:42 JST (GitHub may delay).
     # Also 08:16 JST for overnight reconciliation.
@@ -48,6 +48,9 @@ jobs:
       - name: Compare immutable freeze with verified final results only
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: python -m mrt.micro_forward --mode evaluate --output data/mrt_research/micro_forward/latest.json
+      - name: Update read-only viewer catalog from existing frozen files
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: python scripts/mrt_micro_view_index.py
       - name: Persist exclusively research snapshots and reports
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
