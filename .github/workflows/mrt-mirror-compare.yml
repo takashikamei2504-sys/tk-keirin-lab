@@ -4,15 +4,13 @@ on:
   push:
     branches: [main]
     paths: ['.github/workflows/mrt-mirror-compare.yml','mrt/mirror_compare.py']
-  schedule:
-    - cron: '52 0,3,6,9,12 * * *'
-    - cron: '36 23 * * *'
+  # Regular runs are coordinated by mrt-manual-b.yml. Manual recovery remains.
   pull_request:
     paths: ['.github/workflows/mrt-mirror-compare.yml','mrt/mirror_compare.py','mrt/mirror_engine.py','tests/mrt/test_mirror_compare.py','mrt-compare.html','js/mrt-three-way.js']
 permissions:
   contents: read
 concurrency:
-  group: mrt-mirror-compare-${{ github.ref }}
+  group: mrt-runtime-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   verify:
@@ -24,6 +22,8 @@ jobs:
       MKL_NUM_THREADS: '2'
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.ref || 'main' }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -43,6 +43,8 @@ jobs:
       MKL_NUM_THREADS: '2'
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.ref || 'main' }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
