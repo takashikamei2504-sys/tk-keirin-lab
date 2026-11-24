@@ -1,0 +1,31 @@
+name: MRT allocation A/B/C research audit
+on:
+  workflow_dispatch:
+  schedule:
+    # 08:55 JST, after routine MRT result verification; may run later.
+    - cron: '55 23 * * *'
+  pull_request:
+    paths:
+      - 'mrt/allocation_audit.py'
+      - 'tests/mrt/test_allocation_audit.py'
+      - '.github/workflows/mrt-allocation-audit.yml'
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test snapshot integrity, 100-yen budgeting, and payout accounting
+        run: python -m unittest discover -s tests/mrt -p 'test_allocation_audit.py'
+      - name: Produce read-only research comparison
+        run: python -m mrt.allocation_audit --output data/mrt_research/allocation_audit/latest.json
+      - name: Upload human-review report, without changing production
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrt-allocation-audit
+          path: data/mrt_research/allocation_audit/latest.json
