@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: mrt-runtime-${{ github.ref }}
+  group: ${{ github.ref == 'refs/heads/main' && 'mrt-runtime-main' || format('mrt-runtime-{0}-{1}', github.workflow, github.ref) }}
   cancel-in-progress: false
 jobs:
   verify:
