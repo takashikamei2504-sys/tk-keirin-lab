@@ -57,6 +57,10 @@ class TeacherComparisonTest(unittest.TestCase):
         self.assertFalse(row["mrt_has_winning_pair"])
         self.assertTrue(row["teacher_has_winning_pair"])
         self.assertEqual(row["shared_ticket_stake_min_yen"], 7000)
+        self.assertEqual(row["teacher_top_first_car"], "1")
+        self.assertEqual(row["teacher_top_first_stake"], 9700)
+        self.assertEqual(row["mrt_top_first_car"], "1")
+        self.assertEqual(row["mrt_top_first_stake"], 10000)
 
     def test_pre_start_and_rider_identity_guards(self):
         teacher, mrt, result = fixture()
