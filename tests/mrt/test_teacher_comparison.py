@@ -53,7 +53,7 @@ class TeacherComparisonTest(unittest.TestCase):
         self.assertTrue(row["teacher_hit"])
         self.assertFalse(row["mrt_hit"])
         self.assertEqual(row["teacher_win_ticket_yen"], {"5-1-2": 300})
-        self.assertEqual(row["mrt_miss_class"], "two_present")
+        self.assertEqual(row["mrt_miss_class"], "reverse_top2")
         self.assertFalse(row["mrt_has_winning_pair"])
         self.assertTrue(row["teacher_has_winning_pair"])
         self.assertEqual(row["shared_ticket_stake_min_yen"], 7000)
