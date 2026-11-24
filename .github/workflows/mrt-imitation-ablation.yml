@@ -1,0 +1,32 @@
+name: MRT imitation architecture ablation
+on:
+  pull_request:
+    paths: ['mrt/imitation_ablation.py','mrt/teacher_result_census.py','.github/workflows/mrt-imitation-ablation.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r mrt/requirements.txt
+      - run: python -m mrt.imitation_ablation > imitation-report.json
+      - run: |
+          python -c "import json; r=json.load(open('imitation-report.json')); print(json.dumps({k:v for k,v in r.items() if k!='rows'},ensure_ascii=False))"
+      - run: python -m mrt.teacher_result_census > teacher-census.json
+      - run: |
+          python -c "import json; r=json.load(open('teacher-census.json')); print('CENSUS='+json.dumps(r,ensure_ascii=False,separators=(',',':')))"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mrt-imitation-ablation
+          path: |
+            imitation-report.json
+            teacher-census.json

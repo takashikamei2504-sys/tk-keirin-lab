@@ -1,0 +1,31 @@
+name: MRT MIRROR fixed chronological benchmark
+on:
+  pull_request:
+    paths: ['mrt/mirror_benchmark.py','mrt/mirror_hierarchy_benchmark.py','mrt/mirror_tier_quota_benchmark.py','.github/workflows/mrt-mirror-benchmark.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r mrt/requirements.txt
+      - run: python -m mrt.mirror_benchmark
+      - run: python -m mrt.mirror_hierarchy_benchmark
+      - run: python -m mrt.mirror_tier_quota_benchmark
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mirror-fixed-benchmark
+          path: |
+            mirror-benchmark.json
+            mirror-hierarchy-report.json
+            mirror-tier-quota-report.json
