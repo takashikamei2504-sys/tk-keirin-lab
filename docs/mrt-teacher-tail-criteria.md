@@ -71,3 +71,48 @@ Historical micro allocations represent a small fraction of stake (11.7% in 7,126
 6. No automatic production switch. Promotion requires a distinct human decision.
 
 The original data never reveal Mr.T's private thought process. These rules identify *observable selection regularities*; causality or a profitable strategy requires forward testing.
+
+
+## 6. Result of independent micro-pair propensity prototype (research only)
+
+Trained a separate HistGradientBoosting pair classifier using 5,086 dated historical teacher races (271,962 ordered-pair examples), ending 2026-06-30. Target: whether the teacher included an ordered first/second pair in a JPY100-300 trifecta ticket. No teacher mark, current teacher ticket, result, payout or actual B is an inference feature. **The older entry data are retrospectively obtained**, so the July-November split is chronological but not an independently certified pre-start test.
+
+Across 1,517 chronologically later teacher races containing micro pairs (6,824 teacher micro pairs), candidate recall was **34.11% at top six pairs** and **48.14% at top ten**.
+
+On the 31 new, verified MRT-frozen races dated 2026-11-22/23, the teacher had 179 distinct micro-funded ordered pairs. Comparison at identical top-k depth:
+
+| Pairs | Micro-tail model matching teacher | Frozen MRT allocated-pair matching teacher |
+|---|---:|---:|
+| Top six | 64/179 (35.75%) | 36/179 (20.11%) |
+| Top ten | 86/179 (48.04%) | 50/179 (27.93%) |
+
+The model does a better job recovering **teacher micro-pair choices**, not necessarily winning pairs or ROI. Fresh micro-ticket label average precision was 0.275, and the associated paired report includes all 31 races with explicit selection rankings and exclusions.
+
+Independent feature permutation importance (average precision decrease on 31 newer cases) ranked:
+1. Whether the possible first-place rider is positioned second within their own line (番手): +0.08141 loss upon shuffling.
+2. Second-place candidate's race-score deviation from the field mean: +0.06023.
+3. First-place candidate's B count: +0.04568.
+4. Length of the first-place candidate's line: +0.03989.
+5. First-place candidate's historical makuri count: +0.02600.
+6. First-place candidate's score relative to field: +0.02241.
+
+Permutation importance is a predictive sensitivity with interdependent features. It does not prove Mr.T consciously used the same reasoning.
+
+In the six **teacher-hit / frozen-MRT-miss** races, merging the original MRT's existing ordered pairs with the model's top-ten alternative pairs would include the winning first/second pair in five races (MRT alone: three). Crucially, it would still **not** identify the third-place car or validate the expenditure needed to buy those extra combinations. It does not mean a profitable trifecta bet was recovered.
+
+Example research rankings:
+- 11/22 Kokura 1R: winning 1-2 pair ranked **6th** by the micro selector, missing from MRT's selected ordered pairs.
+- 11/23 Tamano 7R: winning 4-6 pair ranked **3rd** by the micro selector, previously present in MRT but third-place choice was missing.
+- 11/22 Kokura 9R: 8-1 was only **38th**, so the micro selector still failed to cover this high-payout outcome.
+- 11/23 Kokura 12R: 4-3 was **18th**, also outside top ten.
+
+### Research-only candidate architecture
+
+- **PAIR MAIN:** Original MRT V3 ordered-pair path remains unchanged.
+- **PAIR MICRO SHADOW:** Independent teacher micro-pair propensity from pre-close rider/line information, with cross-line and first/follower role features; top six/ten reviewed independently, never inserted directly into the current purchase list.
+- **THIRD MICRO (not yet validated):** Independently predict which third-place rider belongs to a shortlisted pair. Never take all thirds blindly. Full trifecta ROI cannot be calculated from pair-only matches.
+- **FUNDS:** Analyze the low-stake component separately and compare it against the cost of displaced original selections, including zero-purchase gates; no live-odds integration or unproven expected-value threshold.
+- **EVALUATION:** Future frozen forward results, same baseline and budget, at least 200 eligible races and 28 calendar days, with high-payout top-one/three/five sensitivity.
+- **ADOPTION:** Human decision required; this branch is draft, and no production V3 weights/ticket paths have been changed.
+
+The original teacher's private thinking is not observable; what this research establishes is the **observable selection pattern** and an early, independently evaluated imitation signal.
