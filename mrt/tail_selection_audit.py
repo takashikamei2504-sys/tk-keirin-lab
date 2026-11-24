@@ -90,8 +90,13 @@ def record_summary(record, origin):
                 "alternative_first")
         key = "-".join(map(str, cars))
         paid = payout.get(key, 0) * yen // 100
+        favourite = labels.get("honmei")
+        favourite_role = ("first" if cars[0] == favourite else
+                          "second" if cars[1] == favourite else
+                          "third" if cars[2] == favourite else "absent")
         rows.append({
             "yen": yen, "bucket": ticket_bucket(yen), "pair_role": kind,
+            "honmei_role": favourite_role,
             "pair_rank": pair_rank[pair],
             "line_relation": line_relation(cars, record.get("lines", [])),
             "paid_yen": paid,
@@ -169,6 +174,11 @@ def statistics(records):
                  t["line_relation"] == "cross_line_first_two" and
                  ((t["pair_rank"] <= 3) == (role == "top3"))]) for role in
                  ("top3", "outside_top3")}
+    honmei_roi = {role: cohort_stats([t for t in small if t["honmei_role"] == role]) for role in
+                  ("first", "second", "third", "absent")}
+    honmei_crossline = {role: cohort_stats([t for t in small if
+                        t["line_relation"] == "cross_line_first_two" and t["honmei_role"] == role]) for role in
+                        ("first", "second", "third", "absent")}
     crossline_top3_by_field_size = {
         str(ncars): cohort_stats([t for r in records if r["field_size"] == ncars for t in r["rows"]
                                  if t["bucket"] == "100-300" and
@@ -209,6 +219,8 @@ def statistics(records):
         "small_roi_by_line_relation": line_roi,
         "small_roi_by_pair_rank": rank_roi,
         "small_crossline_roi_by_pair_rank": mixed_roi,
+        "small_roi_by_honmei_position": honmei_roi,
+        "small_crossline_roi_by_honmei_position": honmei_crossline,
         "small_crossline_top3_by_field_size": crossline_top3_by_field_size,
         "small_crossline_top3_outlier_sensitivity": sensitivity,
         "overall_top_race_payout_removed_roi_percent": sensitivities,
