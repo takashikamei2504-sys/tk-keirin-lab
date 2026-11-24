@@ -40,7 +40,7 @@ class AllocationAuditTest(unittest.TestCase):
         self.assertEqual(accounting(tickets, {"1-2-3": 1000, "2-1-3": 2000}), 130000)
         self.assertEqual(classification(tickets, {"1-2-7": 3000}), "third_miss")
         self.assertEqual(classification(tickets[:1], {"2-1-7": 3000}), "reverse_top2")
-        self.assertEqual(classification(tickets[:1], {"1-4-2": 3000}), "two_present")
+        self.assertEqual(classification(tickets[:1], {"2-3-1": 3000}), "two_present")
         self.assertEqual(classification(tickets[:1], {"4-5-6": 3000}), "not_top2")
 
     def test_read_only_report_and_exclusion(self):
