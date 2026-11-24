@@ -1,0 +1,67 @@
+name: MRT MIRROR FUSION daily paper comparison
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/mrt-mirror-compare.yml','mrt/mirror_compare.py']
+  schedule:
+    - cron: '52 0,3,6,9,12 * * *'
+    - cron: '36 23 * * *'
+  pull_request:
+    paths: ['.github/workflows/mrt-mirror-compare.yml','mrt/mirror_compare.py','mrt/mirror_engine.py','tests/mrt/test_mirror_compare.py','mrt-compare.html','js/mrt-three-way.js']
+permissions:
+  contents: read
+concurrency:
+  group: mrt-mirror-compare-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r mrt/requirements.txt
+      - run: python -m unittest discover -s tests/mrt -p test_mirror_compare.py
+      - run: node --check js/mrt-three-way.js
+  daily:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: verify
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r mrt/requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: research-build
+          key: mirror-fusion-fixed-v1-${{ hashFiles('mrt/mirror_engine.py','mrt/mirror_benchmark.py','mrt/mirror_hierarchy_benchmark.py','mrt/mirror_tier_quota_benchmark.py','mrt/research_seed_manifest.json','mrt/requirements.txt') }}
+      - run: |
+          if [ ! -f research-build/mirror-fusion-v1.joblib ]; then
+            python -m mrt.mirror_engine train --model research-build/mirror-fusion-v1.joblib
+          fi
+          python -m mrt.mirror_compare --model research-build/mirror-fusion-v1.joblib
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- data/mrt_research/mirror_fusion
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update independent MIRROR paper comparison only'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
