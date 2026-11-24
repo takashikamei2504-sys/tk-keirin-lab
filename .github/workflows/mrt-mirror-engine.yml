@@ -1,0 +1,31 @@
+name: MRT MIRROR FUSION standalone engine
+on:
+  pull_request:
+    paths: ['mrt/mirror_engine.py','tests/mirror_engine_checks.py','.github/workflows/mrt-mirror-engine.yml','mrt/mirror_benchmark.py','mrt/mirror_hierarchy_benchmark.py','mrt/mirror_tier_quota_benchmark.py']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+      PYTHONPATH: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r mrt/requirements.txt
+      - run: python -m mrt.mirror_engine train --model research-build/mirror-fusion-v1.joblib
+      - run: python tests/mirror_engine_checks.py --model research-build/mirror-fusion-v1.joblib
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mirror-fusion-v1-research-engine
+          path: |
+            research-build/mirror-fusion-v1.joblib
+            research-build/mirror-fusion-v1.manifest.json
+            mirror-engine-checks.json
