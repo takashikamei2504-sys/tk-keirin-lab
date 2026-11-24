@@ -1,6 +1,6 @@
 {
   "schema": "tk-mrt-micro-forward-score/v1",
-  "created_at": "2026-11-24T03:17:44.325637+00:00",
+  "created_at": "2026-11-24T04:01:35.433616+00:00",
   "no_backfill": true,
   "historical_replay": false,
   "first_valid_date": "2026-11-24",
@@ -83,6 +83,18 @@
       "status": "result_not_final"
     },
     {
+      "race_id": "202611244805",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611244806",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611244807",
+      "status": "result_not_final"
+    },
+    {
       "race_id": "202611245304",
       "status": "result_not_final"
     },
@@ -104,6 +116,26 @@
     },
     {
       "race_id": "202611245311",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611246103",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611246104",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611246105",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611246106",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611246107",
       "status": "result_not_final"
     },
     {
@@ -155,7 +187,7 @@
       "status": "result_not_final"
     }
   ],
-  "generated_frozen_count": 37,
+  "generated_frozen_count": 45,
   "evaluated_races": 0,
   "adoption": "human_decision_required",
   "automatic_promotion": false,
