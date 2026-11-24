@@ -100,6 +100,7 @@ def record_summary(record, origin):
             "high_hit": bool(payout.get(key, 0) >= 10000),
         })
     return {"origin": origin, "date": record["date"], "race_id": record["race_id"],
+            "field_size": len(valid), "race_class": (record.get("entry") or {}).get("race_class", "unknown"),
             "stake": stake, "budget_3rentan": stake,
             "n": len(tickets), "distinct_pairs": len(pair_yen),
             "top_pair_stake_share": pair_yen[main_pair] / stake,
@@ -168,6 +169,32 @@ def statistics(records):
                  t["line_relation"] == "cross_line_first_two" and
                  ((t["pair_rank"] <= 3) == (role == "top3"))]) for role in
                  ("top3", "outside_top3")}
+    crossline_top3_by_field_size = {
+        str(ncars): cohort_stats([t for r in records if r["field_size"] == ncars for t in r["rows"]
+                                 if t["bucket"] == "100-300" and
+                                 t["line_relation"] == "cross_line_first_two" and t["pair_rank"] <= 3])
+        for ncars in (5, 6, 7, 8, 9)
+    }
+    crossline_top3_races = []
+    for r in records:
+        selected = [t for t in r["rows"] if t["bucket"] == "100-300" and
+                    t["line_relation"] == "cross_line_first_two" and t["pair_rank"] <= 3]
+        if selected:
+            crossline_top3_races.append((r["race_id"], sum(t["yen"] for t in selected),
+                                         sum(t["paid_yen"] for t in selected)))
+    positive = sorted((x for x in crossline_top3_races if x[2] > 0),
+                      key=lambda x: (-x[2], x[0]))
+    sensitivity = {}
+    for n_remove in (0, 1, 3, 5, 10):
+        excluded_races = {x[0] for x in positive[:n_remove]}
+        kept = [x for x in crossline_top3_races if x[0] not in excluded_races]
+        cash = sum(x[1] for x in kept)
+        payout = sum(x[2] for x in kept)
+        sensitivity[str(n_remove)] = {
+            "removed_winning_races": len(excluded_races), "remaining_stake_yen": cash,
+            "remaining_payout_yen": payout,
+            "roi_percent": round(100 * payout / cash, 2) if cash else None,
+        }
     return {
         "races": races, "tickets_3rentan": n, "stake_yen": stake, "return_yen": total_paid,
         "roi_percent": round(100 * total_paid / stake, 2) if stake else None,
@@ -182,6 +209,8 @@ def statistics(records):
         "small_roi_by_line_relation": line_roi,
         "small_roi_by_pair_rank": rank_roi,
         "small_crossline_roi_by_pair_rank": mixed_roi,
+        "small_crossline_top3_by_field_size": crossline_top3_by_field_size,
+        "small_crossline_top3_outlier_sensitivity": sensitivity,
         "overall_top_race_payout_removed_roi_percent": sensitivities,
     }
 
@@ -240,6 +269,9 @@ def run(root):
         "historical_all": statistics(records),
         "historical_early": statistics(earlier),
         "historical_late": statistics(later),
+        "historical_mrt_eligible_7_9": statistics([r for r in records if r["field_size"] in (7, 9) and "ガールズ" not in r["race_class"]]),
+        "historical_mrt_eligible_7_9_early": statistics([r for r in earlier if r["field_size"] in (7, 9) and "ガールズ" not in r["race_class"]]),
+        "historical_mrt_eligible_7_9_late": statistics([r for r in later if r["field_size"] in (7, 9) and "ガールズ" not in r["race_class"]]),
         "new_teacher": statistics(new),
         "excluded_count_by_reason": dict(exclusions),
         "sample_teacher_small_high_hits": [{
