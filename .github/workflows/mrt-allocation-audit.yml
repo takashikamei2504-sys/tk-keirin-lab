@@ -24,6 +24,9 @@ jobs:
         run: python -m unittest discover -s tests/mrt -p 'test_allocation_audit.py'
       - name: Produce read-only research comparison
         run: python -m mrt.allocation_audit --output data/mrt_research/allocation_audit/latest.json
+      - name: Log daily and total ROI summaries
+        run: |
+          python -c "import json; r=json.load(open('data/mrt_research/allocation_audit/latest.json')); print(json.dumps({'total':r['total'],'daily':r['daily'],'excluded':len(r['excluded'])},ensure_ascii=False))"
       - name: Upload human-review report, without changing production
         uses: actions/upload-artifact@v4
         with:
