@@ -1,0 +1,31 @@
+name: Diagnose Pages comparison 404
+on:
+  pull_request:
+    paths: ['.github/workflows/pages-compare-diagnose.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: read
+  deployments: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read Pages configuration and latest deployments
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/pages" --jq '{status,html_url,build_type,source,cname}' || true
+          gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq '{status,commit,error,updated_at}' || true
+          gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&per_page=3" --jq '.[]|{id,sha,ref,created_at}' || true
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs?per_page=70" --jq '.workflow_runs[]|select(.name|test("pages";"i"))|{id,name,status,conclusion,head_sha,html_url}' || true
+      - name: Inspect actual HTTP responses
+        run: |
+          base="https://takashikamei2504-sys.github.io/tk-keirin-lab/"
+          for file in "" mrt.html mrt-micro.html mrt-compare.html js/mrt-three-way.js data/mrt_research/mirror_fusion/comparison.json; do
+            printf '%s ' "$file"
+            curl -L -sS --max-time 15 -o /tmp/pages-body -w '%{http_code} %{url_effective}\n' "$base$file" || true
+            if [ -f /tmp/pages-body ]; then head -c 150 /tmp/pages-body; echo; fi
+          done
