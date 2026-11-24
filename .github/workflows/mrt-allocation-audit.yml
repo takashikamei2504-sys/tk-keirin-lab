@@ -10,6 +10,8 @@ on:
       - 'tests/mrt/test_allocation_audit.py'
       - 'mrt/teacher_comparison.py'
       - 'mrt/tail_selection_audit.py'
+      - 'mrt/teacher_pair_research.py'
+      - 'tests/mrt/test_teacher_pair_research.py'
       - 'tests/mrt/test_tail_selection_audit.py'
       - 'tests/mrt/test_teacher_comparison.py'
       - '.github/workflows/mrt-allocation-audit.yml'
@@ -29,6 +31,7 @@ jobs:
           python -m unittest discover -s tests/mrt -p 'test_allocation_audit.py'
           python -m unittest discover -s tests/mrt -p 'test_teacher_comparison.py'
           python -m unittest discover -s tests/mrt -p 'test_tail_selection_audit.py'
+          python -m unittest discover -s tests/mrt -p 'test_teacher_pair_research.py'
       - name: Produce read-only research comparison
         run: python -m mrt.allocation_audit --output data/mrt_research/allocation_audit/latest.json
       - name: Compare saved original Mr.T public tickets versus frozen MRT V3 on the same races
@@ -38,6 +41,16 @@ jobs:
       - name: Log low-stake ticket structure and temporal descriptions
         run: |
           python -c "import json; r=json.load(open('data/mrt_research/tail_selection/latest.json')); print(json.dumps({'historical_all':r['historical_all'],'historical_early':r['historical_early'],'historical_late':r['historical_late'],'new_teacher':r['new_teacher'],'excluded':r['excluded_count_by_reason']},ensure_ascii=False))"
+      - name: Prepare isolated research dependencies for the ordered-pair model
+        if: github.event_name != 'schedule'
+        run: pip install -r mrt/requirements.txt
+      - name: Train historical pair-propensity prototype and evaluate on untouched newer collected dates
+        if: github.event_name != 'schedule'
+        run: python -m mrt.teacher_pair_research --output data/mrt_research/teacher_pair/latest.json
+      - name: Log teacher ordered-pair recall against frozen MRT baseline
+        if: github.event_name != 'schedule'
+        run: |
+          python -c "import json; r=json.load(open('data/mrt_research/teacher_pair/latest.json')); print(json.dumps({k:v for k,v in r.items() if k in ('trained_races','trained_pair_rows','historical_late_replay','fresh_teacher_races','fresh_teacher_top3_pair_matches','fresh_teacher_top3_pair_opportunities','mrt_baseline_top3_pair_matches','fresh_teacher_win_pairs','fresh_learned_top3_has_win_pair','fresh_mrt_any_pair_has_win_pair','excluded')},ensure_ascii=False))"
       - name: Log paired teacher-vs-MRT results
         run: |
           python -c "import json; r=json.load(open('data/mrt_research/teacher_comparison/latest.json')); print(json.dumps({'total':r['total'],'teacher_high_payout_hits':r['teacher_high_payout_hits'],'mrt_high_payout_hits':r['mrt_high_payout_hits'],'high_payout_count':r['high_payout_count'],'excluded':r['excluded']},ensure_ascii=False))"
@@ -52,3 +65,4 @@ jobs:
             data/mrt_research/allocation_audit/latest.json
             data/mrt_research/teacher_comparison/latest.json
             data/mrt_research/tail_selection/latest.json
+            data/mrt_research/teacher_pair/latest.json
