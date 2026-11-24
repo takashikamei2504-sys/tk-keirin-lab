@@ -231,16 +231,17 @@ def make_variants(original,third_candidates,micro_candidates,signal):
         "B_third":_fund(orig,third,10000),
         "C_pair":_fund(orig,micro,10000),
         "D_hybrid":_fund(orig,hybrid,10000)}
-    no_buy=signal<POLICY["no_buy_max_pair_signal_lt"] or not hybrid
-    variants["E_capped_skip"]=[] if no_buy else _fund(orig,hybrid,5000)
+    no_buy=(signal<POLICY["no_buy_max_pair_signal_lt"] or not hybrid or
+            len(orig)>POLICY["capital_ceiling_yen"]//100)
+    variants["E_capped_skip"]=[] if no_buy else _fund(orig,hybrid,POLICY["capital_ceiling_yen"])
     for name,t in variants.items():
         st=sum(x["yen"] for x in t)
-        required=0 if name=="E_capped_skip" and no_buy else 5000 if name=="E_capped_skip" else 10000
+        required=(0 if no_buy else POLICY["capital_ceiling_yen"]) if name=="E_capped_skip" else POLICY["original_stake_yen"]
         if st!=required or any(x["yen"]<100 or x["yen"]%100 for x in t):
             raise AssertionError("invalid paper allocation "+name)
         if len({tuple(x["cars"]) for x in t})!=len(t):
             raise AssertionError("duplicated paper ticket "+name)
-    return variants,{"no_buy":no_buy,"gate":POLICY["no_buy_max_pair_signal_lt"],
+    return variants,{"no_buy":no_buy,"no_buy_reason":("insufficient_pair_signal" if signal<POLICY["no_buy_max_pair_signal_lt"] else "no_new_candidates" if not hybrid else "existing_ticket_count_exceeds_cap" if len(orig)>POLICY["capital_ceiling_yen"]//100 else None),"gate":POLICY["no_buy_max_pair_signal_lt"],
                      "third_candidates":len(third_candidates),
                      "new_pair_candidates":len(micro_candidates),
                      "selected_additions":len(hybrid)}
@@ -253,8 +254,8 @@ def validate_preclose(p,model,at):
         raise ValueError("cannot create after sales close")
     if at<iso(p["generated_at"]) or at<iso(p["entry_observed_at"]):
         raise ValueError("snapshot not yet observed")
-    if p["date"] if "date" in p else False:
-        raise ValueError("unexpected top-level date")
+    if p.get("date") is not None and p["date"] != p["race_id"][:8]:
+        raise ValueError("top-level date mismatch")
     d=p["race_id"][:8]
     if d < START_DATE.replace("-",""):
         raise ValueError("pre-registration historical freeze forbidden")
