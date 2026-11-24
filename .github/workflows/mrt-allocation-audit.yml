@@ -9,6 +9,8 @@ on:
       - 'mrt/allocation_audit.py'
       - 'tests/mrt/test_allocation_audit.py'
       - 'mrt/teacher_comparison.py'
+      - 'mrt/tail_selection_audit.py'
+      - 'tests/mrt/test_tail_selection_audit.py'
       - 'tests/mrt/test_teacher_comparison.py'
       - '.github/workflows/mrt-allocation-audit.yml'
 permissions:
@@ -26,10 +28,16 @@ jobs:
         run: |
           python -m unittest discover -s tests/mrt -p 'test_allocation_audit.py'
           python -m unittest discover -s tests/mrt -p 'test_teacher_comparison.py'
+          python -m unittest discover -s tests/mrt -p 'test_tail_selection_audit.py'
       - name: Produce read-only research comparison
         run: python -m mrt.allocation_audit --output data/mrt_research/allocation_audit/latest.json
       - name: Compare saved original Mr.T public tickets versus frozen MRT V3 on the same races
         run: python -m mrt.teacher_comparison --output data/mrt_research/teacher_comparison/latest.json
+      - name: Analyze historical Mr.T low-stake tail ticket structure (descriptive only)
+        run: python -m mrt.tail_selection_audit --output data/mrt_research/tail_selection/latest.json
+      - name: Log low-stake ticket structure and temporal descriptions
+        run: |
+          python -c "import json; r=json.load(open('data/mrt_research/tail_selection/latest.json')); print(json.dumps({'historical_all':r['historical_all'],'historical_early':r['historical_early'],'historical_late':r['historical_late'],'new_teacher':r['new_teacher'],'excluded':r['excluded_count_by_reason']},ensure_ascii=False))"
       - name: Log paired teacher-vs-MRT results
         run: |
           python -c "import json; r=json.load(open('data/mrt_research/teacher_comparison/latest.json')); print(json.dumps({'total':r['total'],'teacher_high_payout_hits':r['teacher_high_payout_hits'],'mrt_high_payout_hits':r['mrt_high_payout_hits'],'high_payout_count':r['high_payout_count'],'excluded':r['excluded']},ensure_ascii=False))"
@@ -43,3 +51,4 @@ jobs:
           path: |
             data/mrt_research/allocation_audit/latest.json
             data/mrt_research/teacher_comparison/latest.json
+            data/mrt_research/tail_selection/latest.json
