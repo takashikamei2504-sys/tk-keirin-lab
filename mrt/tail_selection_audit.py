@@ -107,6 +107,19 @@ def record_summary(record, origin):
             "rows": rows}, None
 
 
+
+def cohort_stats(tickets):
+    n = len(tickets)
+    stake = sum(t["yen"] for t in tickets)
+    paid = sum(t["paid_yen"] for t in tickets)
+    return {
+        "tickets": n, "stake_yen": stake, "paid_yen": paid,
+        "roi_percent": round(100 * paid / stake, 2) if stake else None,
+        "hits": sum(t["hit"] for t in tickets),
+        "high_payout_hits": sum(t["high_hit"] for t in tickets),
+    }
+
+
 def statistics(records):
     races = len(records)
     rows = [t for r in records for t in r["rows"]]
@@ -144,6 +157,17 @@ def statistics(records):
             "winning_tickets": sum(t["hit"] for t in tail),
             "high_payout_hits": sum(t["high_hit"] for t in tail),
         }
+    small = [t for t in rows if t["bucket"] == "100-300"]
+    pair_role_roi = {role: cohort_stats([t for t in small if t["pair_role"] == role]) for role in
+                     ("primary_pair_other_third", "alternative_pair_same_first", "alternative_first")}
+    line_roi = {role: cohort_stats([t for t in small if t["line_relation"] == role]) for role in
+                ("cross_line_first_two", "follower_before_leader", "same_line_first_two_other_line_third", "same_line_all_three", "unknown")}
+    rank_roi = {role: cohort_stats([t for t in small if (t["pair_rank"] <= 3) == (role == "top3")]) for role in
+                ("top3", "outside_top3")}
+    mixed_roi = {role: cohort_stats([t for t in small if
+                 t["line_relation"] == "cross_line_first_two" and
+                 ((t["pair_rank"] <= 3) == (role == "top3"))]) for role in
+                 ("top3", "outside_top3")}
     return {
         "races": races, "tickets_3rentan": n, "stake_yen": stake, "return_yen": total_paid,
         "roi_percent": round(100 * total_paid / stake, 2) if stake else None,
@@ -154,6 +178,10 @@ def statistics(records):
         "high_payout_hit_races": len(high_races),
         "high_payout_win_tickets": sum(t["high_hit"] for t in rows),
         "groups": groups, "small_ticket_roles": roles,
+        "small_roi_by_pair_role": pair_role_roi,
+        "small_roi_by_line_relation": line_roi,
+        "small_roi_by_pair_rank": rank_roi,
+        "small_crossline_roi_by_pair_rank": mixed_roi,
         "overall_top_race_payout_removed_roi_percent": sensitivities,
     }
 
