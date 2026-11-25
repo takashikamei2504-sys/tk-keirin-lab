@@ -21,7 +21,7 @@ async function recentFormLoad(){
  let error;
  for(const url of urls){
   const c=new AbortController(),timer=setTimeout(()=>c.abort(),90000);
-  try{const p=await RecentForm.load(url,async u=>{const response=await fetch(u,{cache:'no-cache',signal:c.signal});if(!response.ok)throw Error('HTTP '+response.status);return response.json()});if(p.schema!==RecentForm.schema||!Array.isArray(p.snapshots)||p.snapshots.length>100000)throw Error('近況データ形式が不正');recentFormPack=p;causalRun();return;}catch(e){error=e;}finally{clearTimeout(timer)}
+  try{const p=await RecentFormStore.load(url,async u=>{const response=await fetch(u,{cache:'no-cache',signal:c.signal});if(!response.ok)throw Error('HTTP '+response.status);return response.json()});if(p.schema!==RecentForm.schema||!Array.isArray(p.snapshots)||p.snapshots.length>100000)throw Error('近況データ形式が不正');recentFormPack=p;causalRun();return;}catch(e){error=e;}finally{clearTimeout(timer)}
  }
  if(status)status.textContent='近況成績を取得できませんでした。未取得として予想を継続します。再読込で再取得します。'+(error?.message||'');
 }

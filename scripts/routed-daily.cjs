@@ -29,7 +29,7 @@ function shouldSettle(now,status){
   Number.isFinite(attempted)&&now-attempted>=0&&now-attempted<RESULT_RETRY_MS);
 }
 function packs(){const out={};for(const [key,file] of Object.entries({intelligence:'intelligence.json',recent:'recent_form.json',material:'race_material.json',s:'s_counts.json',conditions:'line_conditions.json',ex:'ex_approved/latest.json'})){
- const p=key==='recent'?require('../js/recent-form.js').readFile(path.join(root,'data',file)):read(path.join(root,'data',file),{});if(key!=='ex'||p.license_status==='approved-for-model-and-publication'&&p.redistribution_approved===true)out[key]=p;
+ const p=key==='recent'?require('../js/recent-form-store.js').readFile(path.join(root,'data',file)):read(path.join(root,'data',file),{});if(key!=='ex'||p.license_status==='approved-for-model-and-publication'&&p.redistribution_approved===true)out[key]=p;
  }return out;}
 function predict(race,packs){
  const p=spawnSync(process.execPath,[path.join(__dirname,'routed-predict.cjs')],{input:JSON.stringify({race,packs}),encoding:'utf8',timeout:60000,maxBuffer:16*1024*1024});

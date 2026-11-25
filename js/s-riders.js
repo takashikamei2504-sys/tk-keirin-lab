@@ -55,7 +55,7 @@ function render(){
 }
 async function load(){
  try{
-  const [manifest,pack]=await Promise.all([feed('data/s_riders.json'),RecentForm.load('data/recent_form.json',feed)]);
+  const [manifest,pack]=await Promise.all([feed('data/s_riders.json'),RecentFormStore.load('data/recent_form.json',feed)]);
   if(manifest.schema!=='tk-keirin-s-roster/v1'||manifest.complete!==true||!Array.isArray(manifest.riders)||manifest.total!==manifest.riders.length||new Set(manifest.riders.map(r=>r.rider_id)).size!==manifest.total||!manifest.riders.every(r=>grade[r.class_rank]))throw Error('公式名簿の整合性を確認できません');
   if(pack.schema!==RecentForm.schema||!Array.isArray(pack.snapshots))throw Error('近況データ形式が不正です');
   roster=manifest.riders.slice().sort((a,b)=>Object.keys(grade).indexOf(a.class_rank)-Object.keys(grade).indexOf(b.class_rank)||a.rider_id.localeCompare(b.rider_id));

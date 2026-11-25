@@ -72,7 +72,7 @@ async function run({dir=path.join(repo,'data/b_upset'),parentRoot=path.join(repo
     if(!response.ok)throw Error('日別出走表 HTTP '+response.status);
     const feed=await response.json();
     if(feed.date!==day||!Array.isArray(feed.races)||feed.races.length>250)throw Error('日別出走表の形式が不正');
-    const packs={intelligence:read(path.join(repo,'data/intelligence.json'),{}),recent:require('../js/recent-form.js').readFile(path.join(repo,'data/recent_form.json')),material:read(path.join(repo,'data/race_material.json'),{})};
+    const packs={intelligence:read(path.join(repo,'data/intelligence.json'),{}),recent:require('../js/recent-form-store.js').readFile(path.join(repo,'data/recent_form.json')),material:read(path.join(repo,'data/race_material.json'),{})};
     const counts=read(path.join(repo,'data/s_counts.json'),{});
     for(const source of feed.races){
       if(source.is_girls||![7,9].includes(source.entries?.length))continue;

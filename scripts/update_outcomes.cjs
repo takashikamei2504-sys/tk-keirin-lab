@@ -10,7 +10,7 @@ function save(file,value){const text=JSON.stringify(value)+'\n';if(fs.existsSync
 function update(feedDir,outputDir=path.join(root,'data'),now){
  const liveClock=now===undefined;now=now||new Date().toISOString();
  const epoch=Date.parse(now);if(!Number.isFinite(epoch))throw Error('Invalid collection clock');
- const form=require('../js/recent-form.js').readFile(path.join(root,'data/recent_form.json')),intel=read(path.join(root,'data/intelligence.json'),{}),materials=read(path.join(root,'data/race_material.json'),{});
+ const form=require('../js/recent-form-store.js').readFile(path.join(root,'data/recent_form.json')),intel=read(path.join(root,'data/intelligence.json'),{}),materials=read(path.join(root,'data/race_material.json'),{});
  const sCounts=read(path.join(root,'data/s_counts.json'),{});
  const historyDir=path.join(outputDir,'lab_history');fs.mkdirSync(historyDir,{recursive:true});
  const collection=read(path.join(feedDir,'collection.json'),{errors:[]});
