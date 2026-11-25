@@ -61,7 +61,17 @@ const feed={
    public_redistribution_approved:true,model_use_approved:true},
  snapshots:[row]
 };
-const ingested=Ingest.ingest(feed,{},permit);
+// Keep the dated fixture inside the importer's real 14-day retention window.
+const realNow=Date.now;
+let ingested;
+try{
+ Date.now=()=>Date.parse(at);
+ ingested=Ingest.ingest(feed,{},permit);
+ Date.now=()=>Date.parse('2026-11-23T01:00:00Z');
+ const expired=Ingest.ingest(feed,{},permit);
+ assert.equal(expired.latest.race_contexts['2026-11-08:四日市:12'],undefined);
+ assert.equal(expired.latest.summary.valid_metrics,6);
+}finally{Date.now=realNow;}
 assert.equal(ingested.latest.summary.valid_metrics,6);
 assert(ingested.latest.summary.valid_context_buckets>=6);
 assert.equal(ingested.latest.summary.covered_venues,1);

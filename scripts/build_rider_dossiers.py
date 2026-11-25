@@ -6,6 +6,7 @@ import datetime as dt
 import json
 from pathlib import Path
 from rider_knowledge import TOPICS, norm, topics
+from recent_form_store import load as load_recent_form
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -93,7 +94,7 @@ def main():
   return json.loads(p.read_text()) if p.exists() else {}
  manifest=read('s_riders.json')
  if not manifest.get('complete'):raise SystemExit('complete official roster required')
- result=build(manifest,read('recent_form.json'),read('intelligence.json'),read('race_material.json'),read('rider_dossiers.json'))
+ result=build(manifest,load_recent_form(ROOT/'data/recent_form.json'),read('intelligence.json'),read('race_material.json'),read('rider_dossiers.json'))
  out=ROOT/'data/rider_dossiers.json';tmp=out.with_suffix('.tmp')
  tmp.write_text(json.dumps(result,ensure_ascii=False,separators=(',',':'))+'\n');tmp.replace(out)
  print(json.dumps(result['coverage'],ensure_ascii=False))

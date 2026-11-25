@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/collect_recent.py', 'scripts/s_roster.py', '.github/workflows/collect-recent-form.yml']
+    paths: ['scripts/collect_recent.py', 'scripts/recent_form_store.py', 'scripts/s_roster.py', '.github/workflows/collect-recent-form.yml']
 permissions:
   contents: write
 concurrency:
@@ -21,15 +21,19 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s tests -p 'test_*.py'
+      - run: node tests/recent-form-shards.test.cjs
+      - name: Migrate and verify legacy history without dropping observations
+        run: python scripts/recent_form_store.py --migrate data/recent_form.json
       - name: Collect official recent form
         id: collect
         continue-on-error: true
         run: python -u scripts/collect_recent.py --all-s --max-riders 1000 --workers 3 --budget-seconds 1080
       - name: Save snapshots and collection status
         run: |
+          python scripts/recent_form_store.py --migrate data/recent_form.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/recent_form.json data/s_riders.json
+          git add data/recent_form.json data/recent_form_parts data/s_riders.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update measured recent-form snapshots'
             git pull --rebase origin main
