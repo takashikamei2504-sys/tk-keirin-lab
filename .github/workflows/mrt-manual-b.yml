@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.ref }}
+          ref: ${{ github.ref == 'refs/heads/main' && 'main' || github.ref }}
       - name: Fallback freshness gate
         id: gate
         env:
@@ -128,7 +128,10 @@ jobs:
           python scripts/mrt_runtime_health.py --report
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A -- data/mrt data/mrt_research/micro_forward data/mrt_research/mirror_fusion data/mrt_research/runtime_status.json
+          git add -A -- data/mrt
+          if [ -d data/mrt_research/micro_forward ]; then git add -A -- data/mrt_research/micro_forward; fi
+          if [ -d data/mrt_research/mirror_fusion ]; then git add -A -- data/mrt_research/mirror_fusion; fi
+          if [ -f data/mrt_research/runtime_status.json ]; then git add -- data/mrt_research/runtime_status.json; fi
           if [ -d data/mrt_research/forward ]; then git add -A -- data/mrt_research/forward; fi
           if [ -f data/mrt_research/shadow_status.json ]; then git add -- data/mrt_research/shadow_status.json; fi
           if ! git diff --cached --quiet; then
