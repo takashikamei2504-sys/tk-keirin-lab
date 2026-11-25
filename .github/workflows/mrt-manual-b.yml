@@ -38,7 +38,8 @@ jobs:
         id: gate
         env:
           MRT_TRIGGER: ${{ github.event_name }}
-          MRT_WATCHDOG_PUSH: ${{ github.event_name == 'push' && startsWith(github.event.head_commit.message, 'MRT-WATCHDOG: ') }}
+          MRT_WATCHDOG_PUSH: >-
+            ${{ github.event_name == 'push' && startsWith(github.event.head_commit.message, 'MRT-WATCHDOG: ') }}
         run: python3 scripts/mrt_runtime_health.py --gate
       - uses: actions/setup-python@v5
         if: ${{ steps.gate.outputs.run == 'true' }}
@@ -117,7 +118,8 @@ jobs:
       - name: 7. Record runtime health, then save completed data together
         if: ${{ !cancelled() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && steps.gate.outputs.run == 'true' && steps.publish.outcome != '' }}
         env:
-          MRT_TRIGGER: ${{ github.event_name == 'push' && startsWith(github.event.head_commit.message, 'MRT-WATCHDOG: ') && 'external_watchdog' || github.event_name }}
+          MRT_TRIGGER: >-
+            ${{ github.event_name == 'push' && startsWith(github.event.head_commit.message, 'MRT-WATCHDOG: ') && 'external_watchdog' || github.event_name }}
           MRT_PUBLISH: ${{ steps.publish.outcome }}
           MRT_MICRO: ${{ steps.micro.outcome }}
           MRT_FUSION: ${{ steps.fusion.outcome }}
