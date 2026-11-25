@@ -1,0 +1,28 @@
+name: Inspect alternative public lineup feed
+on:
+  pull_request:
+    paths: ['.github/workflows/pages-compare-diagnose.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - run: |
+          python3 -u - <<'PY'
+          import urllib.request,json
+          url='https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/2026-11-25.json'
+          with urllib.request.urlopen(url,timeout=20) as r: d=json.load(r)
+          print('ROOT',list(d),d.get('date'),d.get('generated_at'))
+          def visit(x):
+              if isinstance(x,dict):
+                  if isinstance(x.get('entries'),list) and 'race_number' in x:
+                      if x.get('venue') in ('川崎','四日市','玉野','静岡'):
+                          print('FEED '+json.dumps({k:x.get(k) for k in ('venue','race_number','start_time','is_girls','round_name') }|{'entries':[{k:e.get(k) for k in ('car_number','rider_id','rider_full_name','rider_name','line_position')} for e in x['entries']]},ensure_ascii=False))
+                  else:
+                      for v in x.values(): visit(v)
+              elif isinstance(x,list):
+                  for v in x: visit(v)
+          visit(d)
+          PY
