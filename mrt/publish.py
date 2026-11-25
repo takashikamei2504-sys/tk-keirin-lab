@@ -4,7 +4,7 @@ Current entries are rechecked every run; lineup/schedule/roster changes invalida
 """
 import argparse,datetime as dt,hashlib,json,pathlib,re,sys,time
 import httpx,joblib
-from .entry import serving_card
+from .entry import serving_card,PendingLineup
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'mrt/engine'))
 import mrt_manual_B_tool as tool
@@ -45,9 +45,23 @@ def run(date,root=None):
   all_html=[html]+[fetch.get(url.replace('&jyocd=','&jyocd='+code)) for code in codes]
   ids=sorted(set(re.findall(r'race_id=('+date.replace('-','')+r'\d{4})',''.join(all_html))))
   if not ids:raise ValueError('No publicly listed race links')
+  fallback_loaded=False;fallback=None;fallback_error=None
   for rid in ids:
    try:
-    r,meta=serving_card(fetch.get('https://keirin.netkeiba.com/race/entry/?race_id='+rid),rid);observed=now();fp=identity(r,meta);row={'race_id':rid,**meta,'identity_sha256':fp,'checked_at':observed.isoformat()}
+    raw=fetch.get('https://keirin.netkeiba.com/race/entry/?race_id='+rid)
+    try:r,meta=serving_card(raw,rid)
+    except PendingLineup as pending:
+     if now()>=dt.datetime.fromisoformat(pending.meta['sales_close_at']):raise
+     if not fallback_loaded:
+      fallback_loaded=True
+      try:
+       body=fetch.get('https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/'+date+'.json')
+       if len(body.encode('utf-8'))>8_000_000:raise ValueError('Fallback feed too large')
+       fallback=json.loads(body)
+      except Exception as exc:fallback_error=str(exc)
+     if fallback is None:raise PendingLineup(pending.meta,'Lineup not yet published; fallback unavailable'+(': '+fallback_error if fallback_error else ''))
+     r,meta=serving_card(raw,rid,lineup_feed=fallback,observed_at=now())
+    observed=now();fp=identity(r,meta);row={'race_id':rid,**meta,'identity_sha256':fp,'checked_at':observed.isoformat()}
     prior=old.get(rid,{});cutoff=dt.datetime.fromisoformat(meta['sales_close_at'])
     # Reuse only an identical, fully computed pre-race snapshot with matching engine.
     file=prior.get('file');previous_path=folder/pathlib.Path(file).name if file else None
@@ -59,6 +73,10 @@ def run(date,root=None):
      dump(folder/name,payload);row.update(file=name,status='ready')
     elif not row.get('file'):row['status']='closed_without_prediction'
     manifest['races'].append(row);print(rid,row['status'],flush=True)
+   except PendingLineup as e:
+    observed=now();retry=observed<dt.datetime.fromisoformat(e.meta['sales_close_at'])
+    manifest['errors'].append({'race_id':rid,'reason':str(e)})
+    manifest['races'].append({'race_id':rid,**e.meta,'status':'unavailable','availability_reason':'lineup_pending' if retry else 'lineup_missing_at_close','retryable':retry,'reason':str(e),'checked_at':observed.isoformat()});print(rid,str(e),flush=True)
    except PermissionError:raise
    except Exception as e:
     manifest['errors'].append({'race_id':rid,'reason':str(e)});manifest['races'].append({'race_id':rid,'status':'unavailable','reason':str(e),'checked_at':now().isoformat()});print(rid,str(e),flush=True)
