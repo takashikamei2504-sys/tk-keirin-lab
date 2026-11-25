@@ -9,14 +9,16 @@ const LAB = require('../js/model-build.js');
 const ROOT = path.join(__dirname, '..');
 const holdout = '2026-11-06';
 
-function pairs(history, minimumCutoff = -Infinity) {
+function* pairIterator(history, minimumCutoff = -Infinity) {
   const index = new Map(Audit.latest(history.lab.filter(p=>p.model_id===LAB.model_id)).map(p=>[p.race_id,p]));
-  return Audit.latest(history.line).flatMap(line=>{
-    const lab = index.get(line.race_id);
-    if (!Engine.sameRace(lab,line) || Date.parse(lab.cutoff)<=minimumCutoff) return [];
-    const out = Engine.build(lab,line);
-    return [{lab,line,out}];
-  });
+  for(const line of Audit.latest(history.line)){
+    const lab=index.get(line.race_id);
+    if(!Engine.sameRace(lab,line) || Date.parse(lab.cutoff)<=minimumCutoff)continue;
+    yield {lab,line,out:Engine.build(lab,line)};
+  }
+}
+function pairs(history, minimumCutoff = -Infinity) {
+  return [...pairIterator(history,minimumCutoff)];
 }
 
 function research(data) {
@@ -64,4 +66,4 @@ if (require.main === module) {
     console.log(period,Object.fromEntries(Object.entries(report[period]).map(([k,v])=>[k,[v.evaluated,v.roi,v.first_capture,v.pair_capture,v.avg_points,v.trimmed[1],v.net,v.max_drawdown]])));
   }
 }
-module.exports = {pairs,research,holdout};
+module.exports = {pairs,pairIterator,research,holdout};

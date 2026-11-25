@@ -6,16 +6,17 @@ const path = require('node:path');
 const Audit = require('../js/roi/audit.cjs');
 const Engine = require('../js/roi/engine.cjs');
 const Calibration = require('../js/roi/calibration.cjs');
-const {readHistory,save} = require('./roi-audit.cjs');
-const {pairs,holdout} = require('./roi-research.cjs');
+const {historyDays,save} = require('./roi-audit.cjs');
+const {pairIterator,holdout} = require('./roi-research.cjs');
 
 function calibrate(data, asOf = Date.now()) {
-  const history = readHistory(data);
   const day = new Date(asOf+9*3600000).toISOString().slice(0,10);
   const end = Date.parse(day+'T00:00:00+09:00');
   const boundary = Math.max(Date.parse(holdout+'T00:00:00+09:00'),end-7*86400000);
   const rows = [];
-  for (const {lab,out} of pairs(history)) {
+  const validationRows=[];
+  for(const history of historyDays(data)) {
+  for (const {lab,out} of pairIterator(history)) {
     const result = history.results.get(lab.race_id);
     const settled = Audit.settle(lab,result);
     if (settled.status!=='evaluated' || settled.void || result.withdrawn_cars?.length || result.refund_keys?.length) continue;
@@ -24,9 +25,8 @@ function calibrate(data, asOf = Date.now()) {
     rows.push({start,result_at:Date.parse(result.collected_at),winners:result.combos.map(x=>x.key),
       branches:Calibration.design(lab.input.riders.map(r=>r.no),out.scores)});
   }
-  const validationRows=[];
   const dir=path.join(data,'roi','forecasts');
-  for(const date of fs.existsSync(dir)?fs.readdirSync(dir).filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)):[]) {
+  for(const date of [...new Set(history.lab.map(p=>p.input.date))].filter(d=>fs.existsSync(path.join(dir,d)))) {
     for(const file of fs.readdirSync(path.join(dir,date)).filter(f=>/^[a-f0-9]{64}\.json$/.test(f))) {
       const r=JSON.parse(fs.readFileSync(path.join(dir,date,file),'utf8'));
       const v=r.probability_validation,result=history.results.get(r.race_id);
@@ -37,6 +37,7 @@ function calibrate(data, asOf = Date.now()) {
       if(settled.status!=='evaluated'||settled.void||result.withdrawn_cars?.length||result.refund_keys?.length)continue;
       validationRows.push({...v,race_id:r.race_id,saved_at:r.saved_at,cutoff:r.cutoff,winners:result.combos.map(c=>c.key)});
     }
+  }
   }
   const fit=Calibration.train(rows,boundary),readiness=Readiness.review(validationRows);
   const eligible=fit.research_qualified&&readiness.eligible;

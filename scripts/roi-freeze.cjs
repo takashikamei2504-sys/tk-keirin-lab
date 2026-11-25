@@ -8,7 +8,7 @@ const Policy = require('../js/roi/policy.cjs');
 const Shadow = require('../js/roi/shadow.cjs');
 const Provenance = require('../js/model-provenance.js');
 const {readHistory, save} = require('./roi-audit.cjs');
-const {pairs} = require('./roi-research.cjs');
+const {pairIterator} = require('./roi-research.cjs');
 
 const root = path.join(__dirname,'..');
 const jst = epoch=>new Date(epoch+9*3600000).toISOString().slice(0,10);
@@ -21,7 +21,7 @@ function freeze(data, clock = Date.now) {
   const calibration = fs.existsSync(calibrationFile) ? JSON.parse(fs.readFileSync(calibrationFile,'utf8')) : null;
   const model = Policy.model(calibration);
   let frozen = 0;
-  for (const {lab,line,out} of pairs(history,start)) {
+  for (const {lab,line,out} of pairIterator(history,start)) {
     const now = clock();
     const cutoff = Audit.startAt(lab.input);
     if (!(Date.parse(out.evidence.lab.saved_at)<=now && Date.parse(out.evidence.line.saved_at)<=now && now<cutoff)) continue;
