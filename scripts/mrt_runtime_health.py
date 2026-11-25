@@ -50,6 +50,8 @@ def fallback_needed(root=ROOT,now=None):
     # Give a failed/partial attempt a short cooldown rather than triggering a storm.
     if age>=15 and (report.get("status")!="ok" or h["micro_open_missing"] or h["fusion_open_missing"]):return True
     return False
+def should_run(trigger,watchdog_push=False,root=ROOT,now=None):
+    return (trigger!="workflow_run" and not watchdog_push) or fallback_needed(root,now)
 def report(root=ROOT,now=None):
     h=inspect(root,now)
     outcomes={k:os.environ.get("MRT_"+k.upper(),"missing") for k in STAGES}
@@ -66,7 +68,7 @@ if __name__=="__main__":
     for mode in ("gate","report","check"):g.add_argument("--"+mode,action="store_true")
     a=ap.parse_args()
     if a.gate:
-        run=os.environ.get("MRT_TRIGGER")!="workflow_run" or fallback_needed()
+        run=should_run(os.environ.get("MRT_TRIGGER"),os.environ.get("MRT_WATCHDOG_PUSH","false").lower()=="true")
         print("Fallback gate: "+str(run).lower())
         with open(os.environ["GITHUB_OUTPUT"],"a") as f:f.write("run="+str(run).lower()+"\n")
     elif a.report:print(json.dumps(report(),ensure_ascii=False))

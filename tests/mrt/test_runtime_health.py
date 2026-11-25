@@ -1,7 +1,7 @@
 import datetime as dt,json,tempfile,unittest,os
 from pathlib import Path
 from unittest.mock import patch
-from scripts.mrt_runtime_health import inspect,fallback_needed,report,STAGES
+from scripts.mrt_runtime_health import inspect,fallback_needed,report,STAGES,should_run
 class RuntimeHealthTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
@@ -31,6 +31,19 @@ class RuntimeHealthTests(unittest.TestCase):
         self.assertEqual(h["status"],"degraded")
         self.assertFalse(fallback_needed(self.root,self.now+dt.timedelta(minutes=5)))
         self.assertTrue(fallback_needed(self.root,self.now+dt.timedelta(minutes=16)))
+    def test_external_watchdog_freshness_gate(self):
+        self.put(self.base/"micro_forward/snapshots"/(self.rid+".json"),{})
+        self.put(self.base/"mirror_fusion"/self.hash/(self.rid+".json"),{})
+        with patch.dict(os.environ,{"MRT_"+k.upper():"success" for k in STAGES}):
+            report(self.root,self.now)
+        fresh=self.now+dt.timedelta(minutes=20)
+        stale=self.now+dt.timedelta(minutes=46)
+        self.assertFalse(should_run("push",True,self.root,fresh))
+        self.assertTrue(should_run("push",True,self.root,stale))
+        self.assertFalse(should_run("workflow_run",False,self.root,fresh))
+        self.assertTrue(should_run("workflow_run",False,self.root,stale))
+        self.assertTrue(should_run("push",False,self.root,fresh))
+        self.assertTrue(should_run("workflow_dispatch",False,self.root,fresh))
     def test_closed_not_missing(self):
         h=inspect(self.root,self.now+dt.timedelta(hours=2))
         self.assertEqual(h["mrt_open"],0)
