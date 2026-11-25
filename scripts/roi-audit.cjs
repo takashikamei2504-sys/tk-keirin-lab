@@ -14,20 +14,20 @@ const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const dateName = /^\d{4}-\d{2}-\d{2}$/;
 const fields = ['date', 'grade', 'cars', 'venue', 'day', 'topology', 'length', 'settlement'];
 
-function readHistory(data, {withResults = true, withLineDetails = true, from = ''} = {}) {
+function readHistory(data, {withResults = true, withLineDetails = true, withLabDetails = true, from = '', dateOnly = null} = {}) {
   const labDir = path.join(data, 'lab_history');
   const lineDir = path.join(data, 'line_history');
   const results = new Map();
   const lab = [], line = [], exclusions = {lab: 0, line: 0};
-  for (const date of History.dates(labDir).filter(d => d >= from)) {
+  for (const date of History.dates(labDir).filter(d => d >= from && (!dateOnly || d === dateOnly))) {
     const history = History.load(labDir, date, {withResults});
     for (const result of history.results) results.set(result.race_id, result);
     for (const p of history.predictions) {
-      if (Audit.validForecast(p)) lab.push({...p, model_id: Legacy.modelId(p)});
+      if (Audit.validForecast(p)) lab.push(withLabDetails ? {...p, model_id: Legacy.modelId(p)} : Object.fromEntries(['race_id','input','identity','chosen','cutoff','pre_race','saved_at','mainLine','input_sha256'].map(k=>[k,p[k]]).concat([['model_id',Legacy.modelId(p)]])));
       else exclusions.lab++;
     }
   }
-  for (const date of fs.readdirSync(lineDir).filter(n => dateName.test(n) && n >= from).sort()) {
+  for (const date of (fs.existsSync(lineDir)?fs.readdirSync(lineDir):[]).filter(n => dateName.test(n) && n >= from && (!dateOnly || n === dateOnly)).sort()) {
     const directory = path.join(lineDir, date);
     for (const file of fs.readdirSync(directory).filter(n => /^[a-f0-9]{64}\.json$/.test(n)).sort()) {
       const record = read(path.join(directory, file));
@@ -46,6 +46,13 @@ function readHistory(data, {withResults = true, withLineDetails = true, from = '
     }
   }
   return {lab, line, results, exclusions};
+}
+
+function* historyDays(data, options = {}) {
+  const labDir=path.join(data,'lab_history'),lineDir=path.join(data,'line_history');
+  const dates=[...new Set([...(fs.existsSync(labDir)?History.dates(labDir):[]),
+    ...(fs.existsSync(lineDir)?fs.readdirSync(lineDir).filter(n=>dateName.test(n)):[])])].sort();
+  for(const date of dates.filter(d=>d >= (options.from || ''))) yield readHistory(data,{...options,dateOnly:date});
 }
 
 function report({lab, line, results, exclusions}, metadata = {}) {
@@ -119,11 +126,11 @@ function saveMeetingDays(feedDir, data) {
 if (require.main === module) {
   const data = process.argv[2] || path.join(root, 'data');
   const metadata = path.join(data, 'roi', 'meeting-days.json');
-  const result = report(readHistory(data, {withLineDetails:false}), fs.existsSync(metadata) ? read(metadata) : {});
+  const result = report(readHistory(data, {withLineDetails:false,withLabDetails:false}), fs.existsSync(metadata) ? read(metadata) : {});
   save(process.argv[3] || path.join(data, 'roi', 'audit.json'), publicReport(result));
   for (const row of [result.lab.by_model[LAB.model_id], result.line.latest]) {
     console.log(JSON.stringify(Object.fromEntries(['evaluated','hits','stake','payout','roi','first_misses','trimmed'].map(k=>[k,row?.[k]]))));
   }
 }
 
-module.exports = {readHistory, report, publicReport, save, saveMeetingDays};
+module.exports = {readHistory,historyDays, report, publicReport, save, saveMeetingDays};
