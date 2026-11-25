@@ -4,6 +4,7 @@ No paid service, login, browser or predictions. Snapshots preserve acquisition t
 """
 import argparse, concurrent.futures, datetime as dt, hashlib, html, json, re, threading, time, urllib.request, urllib.error, urllib.parse
 from pathlib import Path
+from recent_form_store import load as load_recent_form, save as save_recent_form
 ROOT=Path(__file__).resolve().parents[1]
 JST=dt.timezone(dt.timedelta(hours=9)); UTC=dt.timezone.utc
 ORIGIN='https://www.keirin.jp'
@@ -158,7 +159,7 @@ def load_roster(now,venue=None,race_number=None):
 
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--max-riders',type=int,default=1000);ap.add_argument('--all-s',action='store_true',help='Include complete current S-class membership');ap.add_argument('--roster-only',action='store_true');ap.add_argument('--refresh-roster',action='store_true');ap.add_argument('--venue');ap.add_argument('--race-number',type=int);ap.add_argument('--workers',type=int,default=3);ap.add_argument('--budget-seconds',type=int,default=1080);args=ap.parse_args()
- start=time.monotonic();now=dt.datetime.now(UTC);path=ROOT/'data/recent_form.json';old=json.loads(path.read_text()) if path.exists() else {};snapshots=old.get('snapshots',[])
+ start=time.monotonic();now=dt.datetime.now(UTC);path=ROOT/'data/recent_form.json';old=load_recent_form(path);snapshots=old.get('snapshots',[])
  # Retain old snapshots, so a later collection cannot silently overwrite a pre-race observation.
  snapshots=[s for s in snapshots if (now-stamp(s['collected_at'])).days<=45]
  roster,dates,errors=load_roster(now,args.venue,args.race_number);known={};manifest=None;f=Fetcher()
@@ -205,7 +206,7 @@ def main():
  except Exception as exc:errors.append({'stage':'collector','error':str(exc)[:180]})
  covered={s['rider_id'] for s in snapshots};missing=[r['rider_id'] for r in roster if r['rider_id'] not in covered]
  out={'schema':'tk-keirin-recent-form/v1','generated_at':dt.datetime.now(UTC).isoformat(),'roster_dates':dates,'s_class_coverage':coverage(manifest,snapshots,dt.datetime.now(UTC)) if manifest else old.get('s_class_coverage'),'snapshots':snapshots,'status':{'roster':len(roster),'covered':sum(r['rider_id'] in covered for r in roster),'attempted':attempted,'succeeded':success,'missing_rider_ids':missing,'errors':errors[-100:]},'notice':'KEIRIN.JPの直近4ヶ月集計と最近20開催。開催日は初日。S回数は取得対象外。発走前取得のスナップショットのみ予想へ反映。'}
- path.parent.mkdir(exist_ok=True);tmp=path.with_suffix('.tmp');tmp.write_text(json.dumps(out,ensure_ascii=False,separators=(',',':'))+'\n');tmp.replace(path)
+ save_recent_form(path,out)
  print(json.dumps(out['status'],ensure_ascii=False),flush=True)
  if not snapshots:raise SystemExit('No recent-form snapshots collected')
 if __name__=='__main__':main()

@@ -13,7 +13,7 @@ async function json(url){const c=new AbortController(),timer=setTimeout(()=>c.ab
 async function fetchDay(date){let err;for(const base of ['https://raw.githubusercontent.com/kurinaka12-afk/keirin-app-data/main/','https://kurinaka12-afk.github.io/keirin-app-data/'])try{const p=await json(base+date+'.json');if(p.date!==date||!Array.isArray(p.races)||p.races.length>250)throw Error('日付かデータ形式が不正');return p;}catch(e){err=e;}throw err||Error('日別データ未取得');}
 async function fetchPacks(){
  const sources={intelligence:'data/intelligence.json',recent:'data/recent_form.json',material:'data/race_material.json',s:'data/s_counts.json',bAxisHistory:'data/b_axis_role_history.json',bAxisEx:'data/ex_approved/latest.json',bAxisExContext:'data/b_axis_ex_context.json'};
- const result=await Promise.allSettled(Object.entries(sources).map(async ([name,url])=>[name,await json(url)]));
+ const result=await Promise.allSettled(Object.entries(sources).map(async ([name,url])=>[name,await (name==='recent'?RecentForm.load(url,json):json(url))]));
  for(const r of result)if(r.status==='fulfilled')packs[r.value[0]]=r.value[1];
  return result.filter(r=>r.status!=='fulfilled').length;
 }
