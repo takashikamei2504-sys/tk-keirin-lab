@@ -1,10 +1,10 @@
 {
   "schema": "tk-keirin-intelligence/v1.4",
-  "generated_at": "2026-11-25T19:22:52.991604+00:00",
+  "generated_at": "2026-11-25T21:39:09.071392+00:00",
   "roster_dates": [
     "2026-11-26"
   ],
-  "roster_size": 679,
+  "roster_size": 1069,
   "knowledge": [
     {
       "id": "2826572b67a0c12475950955",
@@ -46353,6 +46353,514 @@
       "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
       "race_id": "2026-11-26:松山:9",
       "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "225b07ad4c1abcd68b3b7fb6",
+      "rider": "内藤秀久",
+      "topics": [
+        "condition"
+      ],
+      "excerpt": "余裕はあったんですけどね",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36938",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:45.179192+00:00",
+      "collected_at": "2026-11-25T21:39:45.179192+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:10",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "089c426179149239ad563307",
+      "rider": "内藤秀久",
+      "topics": [
+        "return"
+      ],
+      "excerpt": "入ったら落車でしょうし",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36938",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:45.179192+00:00",
+      "collected_at": "2026-11-25T21:39:45.179192+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:10",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "388cfa698995a8ea5bf864e6",
+      "rider": "兼本将太",
+      "topics": [
+        "support"
+      ],
+      "excerpt": "平原さんが前と車間が空いていて、詰める勢いで乗り越えられて良かったです",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36938",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:45.179192+00:00",
+      "collected_at": "2026-11-25T21:39:45.179192+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:10",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "09151262eb4b578cd3bc6f3e",
+      "rider": "兼本将太",
+      "topics": [
+        "schedule"
+      ],
+      "excerpt": "初日は感じが悪くて脚も重かったんですけど、しっかりケアした成果かな",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36938",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:45.179192+00:00",
+      "collected_at": "2026-11-25T21:39:45.179192+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:10",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "2545c80184f5ca8bbfc8eba9",
+      "rider": "兼本将太",
+      "topics": [
+        "motivation"
+      ],
+      "excerpt": "甲斐君に任せる",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36938",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:45.179192+00:00",
+      "collected_at": "2026-11-25T21:39:45.179192+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:10",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "dd170d5bf1c508c21ca71a00",
+      "rider": "鈴木浩太",
+      "topics": [
+        "position"
+      ],
+      "excerpt": "カマされるのが嫌だったし、後ろが競りになって踏んだほうが内側が有利だと思って考えながら駆けました",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36938",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:45.179192+00:00",
+      "collected_at": "2026-11-25T21:39:45.179192+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:10",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "377a53c5c82112f6de9f3a54",
+      "rider": "畝木努",
+      "topics": [
+        "condition"
+      ],
+      "excerpt": "体調的には腰が少し痛いぐらい",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "aacc655eb55ecc7dab1a3d8b",
+      "rider": "畝木努",
+      "topics": [
+        "motivation"
+      ],
+      "excerpt": "小西君に任せる",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "0346e9ecae939156e6004de0",
+      "rider": "上原龍",
+      "topics": [
+        "equipment"
+      ],
+      "excerpt": "フレームを戻した形ですが、課題が山積みで尾崎君が決勝に連れていってくれただけですね",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "27983427c115eb4441ccbd14",
+      "rider": "谷口友真",
+      "topics": [
+        "makuri"
+      ],
+      "excerpt": "野口君がうまくリードしてくれたおかげです",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "01239e97be1eb207a91aa364",
+      "rider": "谷口友真",
+      "topics": [
+        "solo"
+      ],
+      "excerpt": "出口君が単騎がいいとのことで、自力でやります",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "75787dde5c13a275137bd465",
+      "rider": "高橋優斗",
+      "topics": [
+        "condition"
+      ],
+      "excerpt": "最後の出口君の動きは対応できなかったけど、余裕を持って走ることはできた",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "58dbaef74c2263fb6b984b57",
+      "rider": "出口謙一郎",
+      "topics": [
+        "training"
+      ],
+      "excerpt": "帰ってから練習するしかない",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "66d29dab95e2c101c389bac5",
+      "rider": "出口謙一郎",
+      "topics": [
+        "motivation"
+      ],
+      "excerpt": "任されても迷惑をかけるし",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "03834043fba0d1aca113040d",
+      "rider": "小西涼太",
+      "topics": [
+        "training"
+      ],
+      "excerpt": "練習でも感じは良かったんです",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "78014e49628edb09636cf522",
+      "rider": "尾崎悠生",
+      "topics": [
+        "resist"
+      ],
+      "excerpt": "いい形で先行できたと思います",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36923",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:47.364948+00:00",
+      "collected_at": "2026-11-25T21:39:47.364948+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:11",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "73e74683ac1f1dd760d5c438",
+      "rider": "藤井栄二",
+      "topics": [
+        "schedule"
+      ],
+      "excerpt": "初日は体が重かったが、ケアをして２日目は軽くなっていた",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36920",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:49.643153+00:00",
+      "collected_at": "2026-11-25T21:39:49.643153+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:12",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "a2974b599fbd51972364cc21",
+      "rider": "池田良",
+      "topics": [
+        "equipment"
+      ],
+      "excerpt": "セッティングに当たりが出ていて自転車の感じはいい",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36920",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:49.643153+00:00",
+      "collected_at": "2026-11-25T21:39:49.643153+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:12",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "686988e327a40b673c9cce80",
+      "rider": "坂本亮馬",
+      "topics": [
+        "relationship"
+      ],
+      "excerpt": "前２人のおかげですね",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36920",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:49.643153+00:00",
+      "collected_at": "2026-11-25T21:39:49.643153+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:12",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "f2524004ae9a89ea71dc426d",
+      "rider": "坂本亮馬",
+      "topics": [
+        "relationship"
+      ],
+      "excerpt": "連日、ラインのおかげ",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36920",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:49.643153+00:00",
+      "collected_at": "2026-11-25T21:39:49.643153+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:12",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "acd89b4c293525409eb3ae0f",
+      "rider": "坂本亮馬",
+      "topics": [
+        "tracking"
+      ],
+      "excerpt": "しっかり追走できて、最後も自分で踏めているし悪くないと思う",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36920",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:49.643153+00:00",
+      "collected_at": "2026-11-25T21:39:49.643153+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:12",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "123841d6d6b18ffb1ca23ff8",
+      "rider": "小原丈一郎",
+      "topics": [
+        "tracking"
+      ],
+      "excerpt": "自分は追走しただけで、恵まれ一本です",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36920",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:49.643153+00:00",
+      "collected_at": "2026-11-25T21:39:49.643153+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:12",
+      "publication_basis": "collection_upper_bound"
+    },
+    {
+      "id": "043a5edb4580e2087c2a9c0b",
+      "rider": "小原丈一郎",
+      "topics": [
+        "tracking",
+        "finish",
+        "condition"
+      ],
+      "excerpt": "追走している分には余裕もあるし、しっかり内を空けないように締めていました",
+      "kind": "self_statement",
+      "attribution": "同一出走表の選手名見出しとコメント欄を照合",
+      "url": "https://keirin.tokyo-sports.co.jp/list/race/20261125_36920",
+      "source": "tospo",
+      "published_at": "2026-11-25T21:39:49.643153+00:00",
+      "collected_at": "2026-11-25T21:39:49.643153+00:00",
+      "body_verified": true,
+      "numeric": false,
+      "extractor": "rider-knowledge/v1",
+      "scope": "statement_at_publication",
+      "truncated": false,
+      "caution": "否定・条件・意向・他者への言及を含み得る。恒常的な能力や実行済み行動と断定しない",
+      "race_id": "2026-11-26:松山:12",
+      "publication_basis": "collection_upper_bound"
     }
   ],
   "knowledge_topics": {
@@ -50118,6 +50626,42 @@
       "comment_count": 0,
       "roster_hash": "a553e55df7f1a599",
       "parser_version": "public-sources-v1.8-knowledge"
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1309",
+      "source": "tospo",
+      "published_at": "2026-11-15T09:11:00+00:00",
+      "collected_at": "2026-11-25T21:37:45.883654+00:00",
+      "last_checked_at": "2026-11-25T21:37:45.883654+00:00",
+      "body_verified": true,
+      "evidence_count": 0,
+      "comment_count": 0,
+      "roster_hash": "e150df591837b03d",
+      "parser_version": "public-sources-v1.8-knowledge"
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1532",
+      "source": "tospo",
+      "published_at": "2026-11-23T13:40:00+00:00",
+      "collected_at": "2026-11-25T21:37:48.434997+00:00",
+      "last_checked_at": "2026-11-25T21:37:48.434997+00:00",
+      "body_verified": true,
+      "evidence_count": 0,
+      "comment_count": 0,
+      "roster_hash": "e150df591837b03d",
+      "parser_version": "public-sources-v1.8-knowledge"
+    },
+    {
+      "url": "https://keirin.tokyo-sports.co.jp/articles/-/1919",
+      "source": "tospo",
+      "published_at": "2026-11-23T13:40:00+00:00",
+      "collected_at": "2026-11-25T21:37:50.536854+00:00",
+      "last_checked_at": "2026-11-25T21:37:50.536854+00:00",
+      "body_verified": true,
+      "evidence_count": 0,
+      "comment_count": 0,
+      "roster_hash": "e150df591837b03d",
+      "parser_version": "public-sources-v1.8-knowledge"
     }
   ],
   "pending_urls": [
@@ -50495,10 +51039,6 @@
     "https://keirin.netkeiba.com/news/news_detail.html?id=50204"
   ],
   "pending_discovery_urls": [
-    "https://keirin.kdreams.jp/nara/racedetail/5320261102030001/",
-    "https://keirin.kdreams.jp/takeo/racedetail/8420261102030001/",
-    "https://keirin.kdreams.jp/aomori/racedetail/1220261103010002/",
-    "https://keirin.kdreams.jp/aomori/racedetail/1220261103010003/",
     "https://keirin.kdreams.jp/aomori/racedetail/1220261103010005/",
     "https://keirin.kdreams.jp/aomori/racedetail/1220261103010006/",
     "https://keirin.kdreams.jp/aomori/racedetail/1220261103010007/",
@@ -50694,7 +51234,11 @@
     "https://keirin.kdreams.jp/komatsushima/racedetail/7320261126010001/",
     "https://keirin.kdreams.jp/shizuoka/racedetail/3820261124030001/",
     "https://keirin.kdreams.jp/fukui/racedetail/5120261125020001/",
-    "https://keirin.kdreams.jp/toyama/racedetail/4620261126010001/"
+    "https://keirin.kdreams.jp/toyama/racedetail/4620261126010001/",
+    "https://keirin.kdreams.jp/matsusaka/racedetail/4720261126010001/",
+    "https://keirin.kdreams.jp/matsuyama/racedetail/7520261124030001/",
+    "https://keirin.kdreams.jp/matsudo/racedetail/3120261126010001/",
+    "https://keirin.kdreams.jp/kurume/racedetail/8320261126010001/"
   ],
   "retry_state": {
     "https://keirinsponichi.jp/chumoku_race/": {
@@ -51862,61 +52406,237 @@
       "retry_after": "2026-11-26T07:21:15.687064+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50034": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50032": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50029": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50021": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50028": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50017": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50062": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50042": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50059": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50020": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50039": {
-      "failures": 2,
-      "retry_after": "2026-11-25T10:15:40.068843+00:00"
+      "failures": 3,
+      "retry_after": "2026-11-26T09:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=50023": {
-      "failures": 1,
-      "retry_after": "2026-11-25T07:15:40.068843+00:00"
+      "failures": 2,
+      "retry_after": "2026-11-26T03:37:29.771901+00:00"
     },
     "https://keirin.netkeiba.com/news/news_detail.html?id=49572": {
+      "failures": 2,
+      "retry_after": "2026-11-26T03:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49953": {
       "failures": 1,
-      "retry_after": "2026-11-25T07:15:40.068843+00:00"
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50050": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50048": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50080": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50078": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50075": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50074": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50064": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50030": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50104": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50103": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50102": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50061": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50084": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50025": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=49573": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50092": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50096": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50123": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50120": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50119": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50116": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50115": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50114": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50067": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50145": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50066": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50122": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50140": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50124": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50118": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50026": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50108": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50136": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50158": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50157": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50154": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50152": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50151": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50121": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50180": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50179": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50181": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
+    },
+    "https://keirin.netkeiba.com/news/news_detail.html?id=50178": {
+      "failures": 1,
+      "retry_after": "2026-11-26T00:37:29.771901+00:00"
     }
   },
   "status": {
     "attempted": 60,
-    "body_articles": 229,
+    "body_articles": 232,
     "evidence": 15,
     "comments": 33,
     "sources": {
@@ -51924,12 +52644,12 @@
         "name": "東スポ競輪",
         "index_url": "https://keirin.tokyo-sports.co.jp/",
         "index_ok": true,
-        "discovered": 18,
-        "attempted": 5,
-        "body_succeeded": 5,
+        "discovered": 17,
+        "attempted": 3,
+        "body_succeeded": 3,
         "comments_added": 0,
         "errors": 0,
-        "stored_articles": 125,
+        "stored_articles": 128,
         "stored_comments": 0,
         "stored_evidence": 9
       },
@@ -51938,8 +52658,8 @@
         "index_url": "https://keirinsponichi.jp/",
         "index_ok": true,
         "discovered": 9,
-        "attempted": 3,
-        "body_succeeded": 3,
+        "attempted": 0,
+        "body_succeeded": 0,
         "comments_added": 0,
         "errors": 0,
         "stored_articles": 81,
@@ -51951,10 +52671,10 @@
         "index_url": "https://keirin.netkeiba.com/news/news_list.html",
         "index_ok": true,
         "discovered": 334,
-        "attempted": 51,
+        "attempted": 57,
         "body_succeeded": 0,
         "comments_added": 0,
-        "errors": 51,
+        "errors": 57,
         "stored_articles": 0,
         "stored_comments": 0,
         "stored_evidence": 0
@@ -51990,8 +52710,8 @@
         "index_url": "https://keirin-marche.jp/column/",
         "index_ok": true,
         "discovered": 3,
-        "attempted": 1,
-        "body_succeeded": 1,
+        "attempted": 0,
+        "body_succeeded": 0,
         "comments_added": 0,
         "errors": 0,
         "stored_articles": 5,
@@ -52030,207 +52750,231 @@
         "error": "robots unavailable or disallowed"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49668",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50034",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49665",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50032",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49650",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50029",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49710",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50021",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49707",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50028",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49730",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50017",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49729",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50062",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49714",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50042",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49725",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50059",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49716",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50020",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49736",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50039",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49737",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50023",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49735",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49572",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49734",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49953",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49733",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50050",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49732",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50048",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49849",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50080",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49848",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50078",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49843",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50075",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49842",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50074",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49840",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50064",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49839",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50030",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49838",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50104",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49837",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50103",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49836",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50102",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49829",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50061",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49575",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50084",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49570",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50025",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49954",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49573",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49998",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50092",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49989",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50096",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49997",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50123",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49996",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50120",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49994",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50119",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49991",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50116",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49990",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50115",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49987",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50114",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49988",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50067",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49986",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50145",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49985",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50066",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49995",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50122",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50005",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50140",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50011",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50124",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=49571",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50118",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50010",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50026",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50009",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50108",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50008",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50136",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50000",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50158",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50038",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50157",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50018",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50154",
         "error": "publication date unknown; not used"
       },
       {
-        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50035",
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50152",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50151",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50121",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50180",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50179",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50181",
+        "error": "publication date unknown; not used"
+      },
+      {
+        "url": "https://keirin.netkeiba.com/news/news_detail.html?id=50178",
         "error": "publication date unknown; not used"
       }
     ]
