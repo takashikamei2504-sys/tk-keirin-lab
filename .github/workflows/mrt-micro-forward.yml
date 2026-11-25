@@ -4,11 +4,7 @@ on:
   push:
     branches: [main]
     paths: ['.github/workflows/mrt-micro-forward.yml','mrt/micro_forward.py','scripts/mrt_micro_view_index.py']
-  schedule:
-    # 10:42, 13:42, 16:42, 19:42, 22:42 JST (GitHub may delay).
-    # Also 08:16 JST for overnight reconciliation.
-    - cron: '42 1,4,7,10,13 * * *'
-    - cron: '16 23 * * *'
+  # Regular runs are coordinated by mrt-manual-b.yml. Manual recovery remains.
   pull_request:
     paths:
       - 'mrt/micro_forward.py'
@@ -19,7 +15,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: mrt-micro-shadow-${{ github.ref }}
+  group: ${{ github.ref == 'refs/heads/main' && 'mrt-runtime-main' || format('mrt-runtime-{0}-{1}', github.workflow, github.ref) }}
   cancel-in-progress: false
 jobs:
   forward:
@@ -31,6 +27,8 @@ jobs:
       MKL_NUM_THREADS: '2'
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.ref || 'main' }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
