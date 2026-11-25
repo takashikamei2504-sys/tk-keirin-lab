@@ -1,8 +1,7 @@
-name: Inspect MRT missing entry cards
+name: Inspect MRT lineup source markup
 on:
   pull_request:
     paths: ['.github/workflows/pages-compare-diagnose.yml']
-  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -13,29 +12,22 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Inspect public cards without generating predictions
-        run: |
+      - run: |
           python3 -u - <<'PY'
-          import json,re,time,urllib.request,urllib.error
-          from mrt.entry import parse_entry,serving_card
-          for venue in ('34','48','61'):
-              for n in range(1,8):
-                  rid='20261125'+venue+f'{n:02d}'
-                  url='https://keirin.netkeiba.com/race/entry/?race_id='+rid
-                  try:
-                      req=urllib.request.Request(url,headers={'User-Agent':'TK-KEIRIN-LAB/1.0 (public entry research)'})
-                      with urllib.request.urlopen(req,timeout=15) as resp:
-                          html=resp.read().decode('utf-8',errors='replace')
-                      c=parse_entry(html,rid)
-                      try:
-                          serving_card(html,rid);reason='accepted'
-                      except ValueError as e:
-                          reason=str(e)
-                      print('CARD '+json.dumps({'rid':rid,'class':c['race_class'],'title':c['title'],'cars':sorted(map(int,c['players'])),'lines':c['lines'],'row_count':len(re.findall(r'<tr class="PlayerList"[^>]*>',html)),'has_deploy':bool(re.search(r'<section class="[^"]*DeployYoso',html)),'reason':reason},ensure_ascii=False))
-                  except urllib.error.HTTPError as e:
-                      print('HTTP',rid,e.code)
-                      if e.code in (401,403,429):raise SystemExit('Source access paused')
-                  except Exception as e:
-                      print('ERROR',rid,str(e))
+          import re,time,urllib.request,urllib.error
+          from mrt.entry import parse_entry
+          for rid in ('202611253402','202611254804','202611256102','202611253801'):
+              url='https://keirin.netkeiba.com/race/entry/?race_id='+rid
+              try:
+                  req=urllib.request.Request(url,headers={'User-Agent':'TK-KEIRIN-LAB/1.0 (public entry research)'})
+                  with urllib.request.urlopen(req,timeout=15) as resp: html=resp.read().decode('utf-8')
+                  print('CARD',rid,parse_entry(html,rid)['lines'])
+                  section=re.search(r'<section class="[^"]*DeployYoso[^"]*"[^>]*>(.*?)</section>',html,re.S)
+                  print('DEPLOY',section[0][:10000] if section else 'missing')
+                  for pat in ('DeployYoso','Shaban_Num','WakuSeparat','並び予想','ライン予想'):
+                      print('MATCH',pat,len(list(re.finditer(pat,html))))
                   time.sleep(1.1)
+              except urllib.error.HTTPError as e:
+                  print('HTTP',e.code)
+                  if e.code in (401,403,429):raise SystemExit('Source access paused')
           PY
