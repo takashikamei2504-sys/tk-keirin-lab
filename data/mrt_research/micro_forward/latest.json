@@ -1,149 +1,149 @@
 {
   "schema": "tk-mrt-micro-forward-score/v1",
-  "created_at": "2026-11-24T15:17:09.166115+00:00",
+  "created_at": "2026-11-25T00:34:53.212761+00:00",
   "no_backfill": true,
   "historical_replay": false,
   "first_valid_date": "2026-11-24",
   "protocols": {
     "17f4988db4aec17bb7": {
-      "evaluated_races": 40,
+      "evaluated_races": 41,
       "elapsed_calendar_days": 1,
       "eligible_for_human_review": false,
       "human_approval_still_required": true,
       "summary": {
         "A_original": {
-          "eligible_races": 40,
-          "purchased_races": 40,
+          "eligible_races": 41,
+          "purchased_races": 41,
           "skipped_races": 0,
-          "stake_yen": 400000,
-          "payout_yen": 375560,
-          "net_yen": -24440,
-          "hit_races": 21,
-          "winning_pair_covered_races": 25,
+          "stake_yen": 410000,
+          "payout_yen": 389980,
+          "net_yen": -20020,
+          "hit_races": 22,
+          "winning_pair_covered_races": 26,
           "third_miss_races": 4,
           "new_ticket_points": 0,
-          "roi_percent": 93.89
+          "roi_percent": 95.117
         },
         "B_third": {
-          "eligible_races": 40,
-          "purchased_races": 40,
+          "eligible_races": 41,
+          "purchased_races": 41,
           "skipped_races": 0,
-          "stake_yen": 400000,
-          "payout_yen": 370030,
-          "net_yen": -29970,
-          "hit_races": 22,
-          "winning_pair_covered_races": 25,
+          "stake_yen": 410000,
+          "payout_yen": 384450,
+          "net_yen": -25550,
+          "hit_races": 23,
+          "winning_pair_covered_races": 26,
           "third_miss_races": 3,
-          "new_ticket_points": 196,
-          "roi_percent": 92.507
+          "new_ticket_points": 200,
+          "roi_percent": 93.768
         },
         "C_pair": {
-          "eligible_races": 40,
-          "purchased_races": 40,
+          "eligible_races": 41,
+          "purchased_races": 41,
           "skipped_races": 0,
-          "stake_yen": 400000,
-          "payout_yen": 373200,
-          "net_yen": -26800,
-          "hit_races": 22,
-          "winning_pair_covered_races": 31,
+          "stake_yen": 410000,
+          "payout_yen": 387620,
+          "net_yen": -22380,
+          "hit_races": 23,
+          "winning_pair_covered_races": 32,
           "third_miss_races": 9,
-          "new_ticket_points": 320,
-          "roi_percent": 93.3
+          "new_ticket_points": 328,
+          "roi_percent": 94.541
         },
         "D_hybrid": {
-          "eligible_races": 40,
-          "purchased_races": 40,
+          "eligible_races": 41,
+          "purchased_races": 41,
           "skipped_races": 0,
-          "stake_yen": 400000,
-          "payout_yen": 356690,
-          "net_yen": -43310,
-          "hit_races": 23,
-          "winning_pair_covered_races": 31,
+          "stake_yen": 410000,
+          "payout_yen": 369050,
+          "net_yen": -40950,
+          "hit_races": 24,
+          "winning_pair_covered_races": 32,
           "third_miss_races": 8,
-          "new_ticket_points": 512,
-          "roi_percent": 89.172
+          "new_ticket_points": 523,
+          "roi_percent": 90.012
         },
         "E_capped_skip": {
-          "eligible_races": 40,
-          "purchased_races": 22,
+          "eligible_races": 41,
+          "purchased_races": 23,
           "skipped_races": 18,
-          "stake_yen": 110000,
-          "payout_yen": 70090,
-          "net_yen": -39910,
-          "hit_races": 12,
-          "winning_pair_covered_races": 16,
+          "stake_yen": 115000,
+          "payout_yen": 76270,
+          "net_yen": -38730,
+          "hit_races": 13,
+          "winning_pair_covered_races": 17,
           "third_miss_races": 4,
-          "new_ticket_points": 280,
-          "roi_percent": 63.718
+          "new_ticket_points": 291,
+          "roi_percent": 66.322
         }
       },
       "breakdown": {
         "field_size": {
           "7": {
             "A_original": {
-              "eligible_races": 40,
-              "purchased_races": 40,
+              "eligible_races": 41,
+              "purchased_races": 41,
               "skipped_races": 0,
-              "stake_yen": 400000,
-              "payout_yen": 375560,
-              "net_yen": -24440,
-              "hit_races": 21,
-              "winning_pair_covered_races": 25,
+              "stake_yen": 410000,
+              "payout_yen": 389980,
+              "net_yen": -20020,
+              "hit_races": 22,
+              "winning_pair_covered_races": 26,
               "third_miss_races": 4,
               "new_ticket_points": 0,
-              "roi_percent": 93.89
+              "roi_percent": 95.117
             },
             "B_third": {
-              "eligible_races": 40,
-              "purchased_races": 40,
+              "eligible_races": 41,
+              "purchased_races": 41,
               "skipped_races": 0,
-              "stake_yen": 400000,
-              "payout_yen": 370030,
-              "net_yen": -29970,
-              "hit_races": 22,
-              "winning_pair_covered_races": 25,
+              "stake_yen": 410000,
+              "payout_yen": 384450,
+              "net_yen": -25550,
+              "hit_races": 23,
+              "winning_pair_covered_races": 26,
               "third_miss_races": 3,
-              "new_ticket_points": 196,
-              "roi_percent": 92.507
+              "new_ticket_points": 200,
+              "roi_percent": 93.768
             },
             "C_pair": {
-              "eligible_races": 40,
-              "purchased_races": 40,
+              "eligible_races": 41,
+              "purchased_races": 41,
               "skipped_races": 0,
-              "stake_yen": 400000,
-              "payout_yen": 373200,
-              "net_yen": -26800,
-              "hit_races": 22,
-              "winning_pair_covered_races": 31,
+              "stake_yen": 410000,
+              "payout_yen": 387620,
+              "net_yen": -22380,
+              "hit_races": 23,
+              "winning_pair_covered_races": 32,
               "third_miss_races": 9,
-              "new_ticket_points": 320,
-              "roi_percent": 93.3
+              "new_ticket_points": 328,
+              "roi_percent": 94.541
             },
             "D_hybrid": {
-              "eligible_races": 40,
-              "purchased_races": 40,
+              "eligible_races": 41,
+              "purchased_races": 41,
               "skipped_races": 0,
-              "stake_yen": 400000,
-              "payout_yen": 356690,
-              "net_yen": -43310,
-              "hit_races": 23,
-              "winning_pair_covered_races": 31,
+              "stake_yen": 410000,
+              "payout_yen": 369050,
+              "net_yen": -40950,
+              "hit_races": 24,
+              "winning_pair_covered_races": 32,
               "third_miss_races": 8,
-              "new_ticket_points": 512,
-              "roi_percent": 89.172
+              "new_ticket_points": 523,
+              "roi_percent": 90.012
             },
             "E_capped_skip": {
-              "eligible_races": 40,
-              "purchased_races": 22,
+              "eligible_races": 41,
+              "purchased_races": 23,
               "skipped_races": 18,
-              "stake_yen": 110000,
-              "payout_yen": 70090,
-              "net_yen": -39910,
-              "hit_races": 12,
-              "winning_pair_covered_races": 16,
+              "stake_yen": 115000,
+              "payout_yen": 76270,
+              "net_yen": -38730,
+              "hit_races": 13,
+              "winning_pair_covered_races": 17,
               "third_miss_races": 4,
-              "new_ticket_points": 280,
-              "roi_percent": 63.718
+              "new_ticket_points": 291,
+              "roi_percent": 66.322
             }
           }
         },
@@ -552,69 +552,69 @@
           },
           "Ａ級 準決勝": {
             "A_original": {
-              "eligible_races": 4,
-              "purchased_races": 4,
+              "eligible_races": 5,
+              "purchased_races": 5,
               "skipped_races": 0,
-              "stake_yen": 40000,
-              "payout_yen": 40450,
-              "net_yen": 450,
-              "hit_races": 2,
-              "winning_pair_covered_races": 2,
+              "stake_yen": 50000,
+              "payout_yen": 54870,
+              "net_yen": 4870,
+              "hit_races": 3,
+              "winning_pair_covered_races": 3,
               "third_miss_races": 0,
               "new_ticket_points": 0,
-              "roi_percent": 101.125
+              "roi_percent": 109.74
             },
             "B_third": {
-              "eligible_races": 4,
-              "purchased_races": 4,
+              "eligible_races": 5,
+              "purchased_races": 5,
               "skipped_races": 0,
-              "stake_yen": 40000,
-              "payout_yen": 40450,
-              "net_yen": 450,
-              "hit_races": 2,
-              "winning_pair_covered_races": 2,
+              "stake_yen": 50000,
+              "payout_yen": 54870,
+              "net_yen": 4870,
+              "hit_races": 3,
+              "winning_pair_covered_races": 3,
               "third_miss_races": 0,
-              "new_ticket_points": 21,
-              "roi_percent": 101.125
+              "new_ticket_points": 25,
+              "roi_percent": 109.74
             },
             "C_pair": {
-              "eligible_races": 4,
-              "purchased_races": 4,
+              "eligible_races": 5,
+              "purchased_races": 5,
               "skipped_races": 0,
-              "stake_yen": 40000,
-              "payout_yen": 36180,
-              "net_yen": -3820,
-              "hit_races": 2,
-              "winning_pair_covered_races": 4,
+              "stake_yen": 50000,
+              "payout_yen": 50600,
+              "net_yen": 600,
+              "hit_races": 3,
+              "winning_pair_covered_races": 5,
               "third_miss_races": 2,
-              "new_ticket_points": 32,
-              "roi_percent": 90.45
+              "new_ticket_points": 40,
+              "roi_percent": 101.2
             },
             "D_hybrid": {
-              "eligible_races": 4,
-              "purchased_races": 4,
+              "eligible_races": 5,
+              "purchased_races": 5,
               "skipped_races": 0,
-              "stake_yen": 40000,
-              "payout_yen": 36180,
-              "net_yen": -3820,
-              "hit_races": 2,
-              "winning_pair_covered_races": 4,
+              "stake_yen": 50000,
+              "payout_yen": 48540,
+              "net_yen": -1460,
+              "hit_races": 3,
+              "winning_pair_covered_races": 5,
               "third_miss_races": 2,
-              "new_ticket_points": 53,
-              "roi_percent": 90.45
+              "new_ticket_points": 64,
+              "roi_percent": 97.08
             },
             "E_capped_skip": {
-              "eligible_races": 4,
-              "purchased_races": 2,
+              "eligible_races": 5,
+              "purchased_races": 3,
               "skipped_races": 2,
-              "stake_yen": 10000,
-              "payout_yen": 5280,
-              "net_yen": -4720,
-              "hit_races": 1,
-              "winning_pair_covered_races": 2,
+              "stake_yen": 15000,
+              "payout_yen": 11460,
+              "net_yen": -3540,
+              "hit_races": 2,
+              "winning_pair_covered_races": 3,
               "third_miss_races": 1,
-              "new_ticket_points": 26,
-              "roi_percent": 52.8
+              "new_ticket_points": 37,
+              "roi_percent": 76.4
             }
           },
           "Ａ級 特一般": {
@@ -889,69 +889,69 @@
         "date": {
           "20261124": {
             "A_original": {
-              "eligible_races": 40,
-              "purchased_races": 40,
+              "eligible_races": 41,
+              "purchased_races": 41,
               "skipped_races": 0,
-              "stake_yen": 400000,
-              "payout_yen": 375560,
-              "net_yen": -24440,
-              "hit_races": 21,
-              "winning_pair_covered_races": 25,
+              "stake_yen": 410000,
+              "payout_yen": 389980,
+              "net_yen": -20020,
+              "hit_races": 22,
+              "winning_pair_covered_races": 26,
               "third_miss_races": 4,
               "new_ticket_points": 0,
-              "roi_percent": 93.89
+              "roi_percent": 95.117
             },
             "B_third": {
-              "eligible_races": 40,
-              "purchased_races": 40,
+              "eligible_races": 41,
+              "purchased_races": 41,
               "skipped_races": 0,
-              "stake_yen": 400000,
-              "payout_yen": 370030,
-              "net_yen": -29970,
-              "hit_races": 22,
-              "winning_pair_covered_races": 25,
+              "stake_yen": 410000,
+              "payout_yen": 384450,
+              "net_yen": -25550,
+              "hit_races": 23,
+              "winning_pair_covered_races": 26,
               "third_miss_races": 3,
-              "new_ticket_points": 196,
-              "roi_percent": 92.507
+              "new_ticket_points": 200,
+              "roi_percent": 93.768
             },
             "C_pair": {
-              "eligible_races": 40,
-              "purchased_races": 40,
+              "eligible_races": 41,
+              "purchased_races": 41,
               "skipped_races": 0,
-              "stake_yen": 400000,
-              "payout_yen": 373200,
-              "net_yen": -26800,
-              "hit_races": 22,
-              "winning_pair_covered_races": 31,
+              "stake_yen": 410000,
+              "payout_yen": 387620,
+              "net_yen": -22380,
+              "hit_races": 23,
+              "winning_pair_covered_races": 32,
               "third_miss_races": 9,
-              "new_ticket_points": 320,
-              "roi_percent": 93.3
+              "new_ticket_points": 328,
+              "roi_percent": 94.541
             },
             "D_hybrid": {
-              "eligible_races": 40,
-              "purchased_races": 40,
+              "eligible_races": 41,
+              "purchased_races": 41,
               "skipped_races": 0,
-              "stake_yen": 400000,
-              "payout_yen": 356690,
-              "net_yen": -43310,
-              "hit_races": 23,
-              "winning_pair_covered_races": 31,
+              "stake_yen": 410000,
+              "payout_yen": 369050,
+              "net_yen": -40950,
+              "hit_races": 24,
+              "winning_pair_covered_races": 32,
               "third_miss_races": 8,
-              "new_ticket_points": 512,
-              "roi_percent": 89.172
+              "new_ticket_points": 523,
+              "roi_percent": 90.012
             },
             "E_capped_skip": {
-              "eligible_races": 40,
-              "purchased_races": 22,
+              "eligible_races": 41,
+              "purchased_races": 23,
               "skipped_races": 18,
-              "stake_yen": 110000,
-              "payout_yen": 70090,
-              "net_yen": -39910,
-              "hit_races": 12,
-              "winning_pair_covered_races": 16,
+              "stake_yen": 115000,
+              "payout_yen": 76270,
+              "net_yen": -38730,
+              "hit_races": 13,
+              "winning_pair_covered_races": 17,
               "third_miss_races": 4,
-              "new_ticket_points": 280,
-              "roi_percent": 63.718
+              "new_ticket_points": 291,
+              "roi_percent": 66.322
             }
           }
         }
@@ -959,203 +959,203 @@
       "high_payout_exclusions": {
         "1": {
           "A_original": {
-            "eligible_races": 39,
-            "purchased_races": 39,
+            "eligible_races": 40,
+            "purchased_races": 40,
             "skipped_races": 0,
-            "stake_yen": 390000,
-            "payout_yen": 375560,
-            "net_yen": -14440,
-            "hit_races": 21,
-            "winning_pair_covered_races": 25,
+            "stake_yen": 400000,
+            "payout_yen": 389980,
+            "net_yen": -10020,
+            "hit_races": 22,
+            "winning_pair_covered_races": 26,
             "third_miss_races": 4,
             "new_ticket_points": 0,
-            "roi_percent": 96.297
+            "roi_percent": 97.495
           },
           "B_third": {
-            "eligible_races": 39,
-            "purchased_races": 39,
+            "eligible_races": 40,
+            "purchased_races": 40,
             "skipped_races": 0,
-            "stake_yen": 390000,
-            "payout_yen": 370030,
-            "net_yen": -19970,
-            "hit_races": 22,
-            "winning_pair_covered_races": 25,
+            "stake_yen": 400000,
+            "payout_yen": 384450,
+            "net_yen": -15550,
+            "hit_races": 23,
+            "winning_pair_covered_races": 26,
             "third_miss_races": 3,
-            "new_ticket_points": 192,
-            "roi_percent": 94.879
+            "new_ticket_points": 196,
+            "roi_percent": 96.112
           },
           "C_pair": {
-            "eligible_races": 39,
-            "purchased_races": 39,
+            "eligible_races": 40,
+            "purchased_races": 40,
             "skipped_races": 0,
-            "stake_yen": 390000,
-            "payout_yen": 373200,
-            "net_yen": -16800,
-            "hit_races": 22,
-            "winning_pair_covered_races": 31,
+            "stake_yen": 400000,
+            "payout_yen": 387620,
+            "net_yen": -12380,
+            "hit_races": 23,
+            "winning_pair_covered_races": 32,
             "third_miss_races": 9,
-            "new_ticket_points": 312,
-            "roi_percent": 95.692
+            "new_ticket_points": 320,
+            "roi_percent": 96.905
           },
           "D_hybrid": {
-            "eligible_races": 39,
-            "purchased_races": 39,
+            "eligible_races": 40,
+            "purchased_races": 40,
             "skipped_races": 0,
-            "stake_yen": 390000,
-            "payout_yen": 356690,
-            "net_yen": -33310,
-            "hit_races": 23,
-            "winning_pair_covered_races": 31,
+            "stake_yen": 400000,
+            "payout_yen": 369050,
+            "net_yen": -30950,
+            "hit_races": 24,
+            "winning_pair_covered_races": 32,
             "third_miss_races": 8,
-            "new_ticket_points": 500,
-            "roi_percent": 91.459
+            "new_ticket_points": 511,
+            "roi_percent": 92.263
           },
           "E_capped_skip": {
-            "eligible_races": 39,
-            "purchased_races": 21,
+            "eligible_races": 40,
+            "purchased_races": 22,
             "skipped_races": 18,
-            "stake_yen": 105000,
-            "payout_yen": 70090,
-            "net_yen": -34910,
-            "hit_races": 12,
-            "winning_pair_covered_races": 16,
+            "stake_yen": 110000,
+            "payout_yen": 76270,
+            "net_yen": -33730,
+            "hit_races": 13,
+            "winning_pair_covered_races": 17,
             "third_miss_races": 4,
-            "new_ticket_points": 268,
-            "roi_percent": 66.752
+            "new_ticket_points": 279,
+            "roi_percent": 69.336
           }
         },
         "3": {
           "A_original": {
-            "eligible_races": 37,
-            "purchased_races": 37,
+            "eligible_races": 38,
+            "purchased_races": 38,
             "skipped_races": 0,
-            "stake_yen": 370000,
-            "payout_yen": 375560,
-            "net_yen": 5560,
-            "hit_races": 21,
-            "winning_pair_covered_races": 25,
+            "stake_yen": 380000,
+            "payout_yen": 389980,
+            "net_yen": 9980,
+            "hit_races": 22,
+            "winning_pair_covered_races": 26,
             "third_miss_races": 4,
             "new_ticket_points": 0,
-            "roi_percent": 101.503
+            "roi_percent": 102.626
           },
           "B_third": {
-            "eligible_races": 37,
-            "purchased_races": 37,
+            "eligible_races": 38,
+            "purchased_races": 38,
             "skipped_races": 0,
-            "stake_yen": 370000,
-            "payout_yen": 370030,
-            "net_yen": 30,
-            "hit_races": 22,
-            "winning_pair_covered_races": 25,
+            "stake_yen": 380000,
+            "payout_yen": 384450,
+            "net_yen": 4450,
+            "hit_races": 23,
+            "winning_pair_covered_races": 26,
             "third_miss_races": 3,
-            "new_ticket_points": 184,
-            "roi_percent": 100.008
+            "new_ticket_points": 188,
+            "roi_percent": 101.171
           },
           "C_pair": {
-            "eligible_races": 37,
-            "purchased_races": 37,
+            "eligible_races": 38,
+            "purchased_races": 38,
             "skipped_races": 0,
-            "stake_yen": 370000,
-            "payout_yen": 373200,
-            "net_yen": 3200,
-            "hit_races": 22,
-            "winning_pair_covered_races": 31,
+            "stake_yen": 380000,
+            "payout_yen": 387620,
+            "net_yen": 7620,
+            "hit_races": 23,
+            "winning_pair_covered_races": 32,
             "third_miss_races": 9,
-            "new_ticket_points": 296,
-            "roi_percent": 100.865
+            "new_ticket_points": 304,
+            "roi_percent": 102.005
           },
           "D_hybrid": {
-            "eligible_races": 37,
-            "purchased_races": 37,
+            "eligible_races": 38,
+            "purchased_races": 38,
             "skipped_races": 0,
-            "stake_yen": 370000,
-            "payout_yen": 356690,
-            "net_yen": -13310,
-            "hit_races": 23,
-            "winning_pair_covered_races": 31,
+            "stake_yen": 380000,
+            "payout_yen": 369050,
+            "net_yen": -10950,
+            "hit_races": 24,
+            "winning_pair_covered_races": 32,
             "third_miss_races": 8,
-            "new_ticket_points": 476,
-            "roi_percent": 96.403
+            "new_ticket_points": 487,
+            "roi_percent": 97.118
           },
           "E_capped_skip": {
-            "eligible_races": 37,
-            "purchased_races": 20,
+            "eligible_races": 38,
+            "purchased_races": 21,
             "skipped_races": 17,
-            "stake_yen": 100000,
-            "payout_yen": 70090,
-            "net_yen": -29910,
-            "hit_races": 12,
-            "winning_pair_covered_races": 16,
+            "stake_yen": 105000,
+            "payout_yen": 76270,
+            "net_yen": -28730,
+            "hit_races": 13,
+            "winning_pair_covered_races": 17,
             "third_miss_races": 4,
-            "new_ticket_points": 257,
-            "roi_percent": 70.09
+            "new_ticket_points": 268,
+            "roi_percent": 72.638
           }
         },
         "5": {
           "A_original": {
-            "eligible_races": 35,
-            "purchased_races": 35,
+            "eligible_races": 36,
+            "purchased_races": 36,
             "skipped_races": 0,
-            "stake_yen": 350000,
-            "payout_yen": 375560,
-            "net_yen": 25560,
-            "hit_races": 21,
-            "winning_pair_covered_races": 25,
+            "stake_yen": 360000,
+            "payout_yen": 389980,
+            "net_yen": 29980,
+            "hit_races": 22,
+            "winning_pair_covered_races": 26,
             "third_miss_races": 4,
             "new_ticket_points": 0,
-            "roi_percent": 107.303
+            "roi_percent": 108.328
           },
           "B_third": {
-            "eligible_races": 35,
-            "purchased_races": 35,
+            "eligible_races": 36,
+            "purchased_races": 36,
             "skipped_races": 0,
-            "stake_yen": 350000,
-            "payout_yen": 370030,
-            "net_yen": 20030,
-            "hit_races": 22,
-            "winning_pair_covered_races": 25,
+            "stake_yen": 360000,
+            "payout_yen": 384450,
+            "net_yen": 24450,
+            "hit_races": 23,
+            "winning_pair_covered_races": 26,
             "third_miss_races": 3,
-            "new_ticket_points": 172,
-            "roi_percent": 105.723
+            "new_ticket_points": 176,
+            "roi_percent": 106.792
           },
           "C_pair": {
-            "eligible_races": 35,
-            "purchased_races": 35,
+            "eligible_races": 36,
+            "purchased_races": 36,
             "skipped_races": 0,
-            "stake_yen": 350000,
-            "payout_yen": 351830,
-            "net_yen": 1830,
-            "hit_races": 21,
-            "winning_pair_covered_races": 30,
+            "stake_yen": 360000,
+            "payout_yen": 366250,
+            "net_yen": 6250,
+            "hit_races": 22,
+            "winning_pair_covered_races": 31,
             "third_miss_races": 9,
-            "new_ticket_points": 280,
-            "roi_percent": 100.523
+            "new_ticket_points": 288,
+            "roi_percent": 101.736
           },
           "D_hybrid": {
-            "eligible_races": 35,
-            "purchased_races": 35,
+            "eligible_races": 36,
+            "purchased_races": 36,
             "skipped_races": 0,
-            "stake_yen": 350000,
-            "payout_yen": 335320,
-            "net_yen": -14680,
-            "hit_races": 22,
-            "winning_pair_covered_races": 30,
+            "stake_yen": 360000,
+            "payout_yen": 347680,
+            "net_yen": -12320,
+            "hit_races": 23,
+            "winning_pair_covered_races": 31,
             "third_miss_races": 8,
-            "new_ticket_points": 448,
-            "roi_percent": 95.806
+            "new_ticket_points": 459,
+            "roi_percent": 96.578
           },
           "E_capped_skip": {
-            "eligible_races": 35,
-            "purchased_races": 19,
+            "eligible_races": 36,
+            "purchased_races": 20,
             "skipped_races": 16,
-            "stake_yen": 95000,
-            "payout_yen": 48720,
-            "net_yen": -46280,
-            "hit_races": 11,
-            "winning_pair_covered_races": 15,
+            "stake_yen": 100000,
+            "payout_yen": 54900,
+            "net_yen": -45100,
+            "hit_races": 12,
+            "winning_pair_covered_races": 16,
             "third_miss_races": 4,
-            "new_ticket_points": 243,
-            "roi_percent": 51.284
+            "new_ticket_points": 254,
+            "roi_percent": 54.9
           }
         }
       },
@@ -1320,16 +1320,200 @@
       "status": "result_not_final"
     },
     {
-      "race_id": "202611246107",
+      "race_id": "202611247508",
       "status": "result_not_final"
     },
     {
-      "race_id": "202611247508",
+      "race_id": "202611252601",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252602",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252603",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252604",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252605",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252606",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252607",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252608",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252609",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252610",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611252611",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253801",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253802",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253803",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253804",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253805",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253806",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253807",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253808",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253809",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253810",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253811",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611253812",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255101",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255102",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255103",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255104",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255105",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255106",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255107",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255108",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255109",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255110",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255111",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611255112",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257501",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257502",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257503",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257504",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257505",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257508",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257509",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257510",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257511",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611257512",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611258404",
+      "status": "result_not_final"
+    },
+    {
+      "race_id": "202611258406",
       "status": "result_not_final"
     }
   ],
-  "generated_frozen_count": 45,
-  "evaluated_races": 40,
+  "generated_frozen_count": 92,
+  "evaluated_races": 41,
   "adoption": "human_decision_required",
   "automatic_promotion": false,
   "no_real_time_odds": true
