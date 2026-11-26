@@ -1,0 +1,291 @@
+{
+  "schema": "tk-mrt-mirror-fusion/v1",
+  "race_id": "202611273505",
+  "date": "20261127",
+  "field_size": 7,
+  "model_training_through": "20260630",
+  "model_source_sha256": "a82d84fbc0d5fd70d258d34312b1ec9275bd60a4bb6f5ef70a40c3ce8b293b08",
+  "raw_predicted_tier_counts": {
+    "micro": 3.8909287455925865,
+    "counter": 8.04835019381302,
+    "main": 2.9476703232408434
+  },
+  "tier_counts": {
+    "micro": 4,
+    "counter": 9,
+    "main": 3
+  },
+  "points": 16,
+  "budget_yen": 10000,
+  "first_allocations": [
+    {
+      "car": 4,
+      "yen": 8400
+    },
+    {
+      "car": 1,
+      "yen": 1600
+    }
+  ],
+  "pair_allocations": [
+    {
+      "cars": [
+        4,
+        2
+      ],
+      "yen": 2200
+    },
+    {
+      "cars": [
+        4,
+        1
+      ],
+      "yen": 1900
+    },
+    {
+      "cars": [
+        1,
+        4
+      ],
+      "yen": 1600
+    },
+    {
+      "cars": [
+        4,
+        6
+      ],
+      "yen": 1500
+    },
+    {
+      "cars": [
+        4,
+        7
+      ],
+      "yen": 1500
+    },
+    {
+      "cars": [
+        4,
+        5
+      ],
+      "yen": 1300
+    }
+  ],
+  "tickets": [
+    {
+      "cars": [
+        4,
+        6,
+        7
+      ],
+      "yen": 1500,
+      "tier": "main",
+      "hierarchy_score": 0.01741399251336494,
+      "tier_score": 0.05335986630142832,
+      "joint_selection_score": 0.09184164596604487
+    },
+    {
+      "cars": [
+        4,
+        7,
+        6
+      ],
+      "yen": 1500,
+      "tier": "main",
+      "hierarchy_score": 0.011780414492065423,
+      "tier_score": 0.042783301066539804,
+      "joint_selection_score": 0.049815149080049956
+    },
+    {
+      "cars": [
+        4,
+        2,
+        7
+      ],
+      "yen": 1000,
+      "tier": "main",
+      "hierarchy_score": 0.016648207161242667,
+      "tier_score": 0.04154625082752945,
+      "joint_selection_score": 0.06836375079988644
+    },
+    {
+      "cars": [
+        4,
+        5,
+        7
+      ],
+      "yen": 700,
+      "tier": "counter",
+      "hierarchy_score": 0.014167130973849458,
+      "tier_score": 0.016992664500666766,
+      "joint_selection_score": 0.030620970737892654
+    },
+    {
+      "cars": [
+        4,
+        1,
+        7
+      ],
+      "yen": 600,
+      "tier": "counter",
+      "hierarchy_score": 0.022294497361245214,
+      "tier_score": 0.01129054161251665,
+      "joint_selection_score": 0.03201754464901575
+    },
+    {
+      "cars": [
+        4,
+        5,
+        2
+      ],
+      "yen": 600,
+      "tier": "counter",
+      "hierarchy_score": 0.013469143089066105,
+      "tier_score": 0.018147096526713362,
+      "joint_selection_score": 0.03109014006552684
+    },
+    {
+      "cars": [
+        4,
+        2,
+        5
+      ],
+      "yen": 600,
+      "tier": "counter",
+      "hierarchy_score": 0.013178032911268536,
+      "tier_score": 0.01785911731195911,
+      "joint_selection_score": 0.029935474093338094
+    },
+    {
+      "cars": [
+        1,
+        4,
+        7
+      ],
+      "yen": 500,
+      "tier": "counter",
+      "hierarchy_score": 0.018238260487640687,
+      "tier_score": 0.014368497103695754,
+      "joint_selection_score": 0.03333268680148254
+    },
+    {
+      "cars": [
+        4,
+        1,
+        2
+      ],
+      "yen": 500,
+      "tier": "counter",
+      "hierarchy_score": 0.018417243675560583,
+      "tier_score": 0.012885212487286244,
+      "joint_selection_score": 0.030185041805086167
+    },
+    {
+      "cars": [
+        4,
+        1,
+        5
+      ],
+      "yen": 500,
+      "tier": "counter",
+      "hierarchy_score": 0.015993435537107484,
+      "tier_score": 0.012743956776247439,
+      "joint_selection_score": 0.02592517022561423
+    },
+    {
+      "cars": [
+        1,
+        4,
+        2
+      ],
+      "yen": 400,
+      "tier": "counter",
+      "hierarchy_score": 0.01937237248550388,
+      "tier_score": 0.01619082388175477,
+      "joint_selection_score": 0.03989581324718108
+    },
+    {
+      "cars": [
+        1,
+        4,
+        5
+      ],
+      "yen": 400,
+      "tier": "counter",
+      "hierarchy_score": 0.017598791569324118,
+      "tier_score": 0.016019548033776237,
+      "joint_selection_score": 0.03585986658094672
+    },
+    {
+      "cars": [
+        4,
+        1,
+        6
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.019692163039834596,
+      "tier_score": 0.01053046187238466,
+      "joint_selection_score": 0.03144446851727998
+    },
+    {
+      "cars": [
+        4,
+        2,
+        1
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.01349814085475466,
+      "tier_score": 0.011250087101631438,
+      "joint_selection_score": 0.02302678236866393
+    },
+    {
+      "cars": [
+        4,
+        2,
+        6
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.01480863624979859,
+      "tier_score": 0.009922905935367278,
+      "joint_selection_score": 0.022282163451923066
+    },
+    {
+      "cars": [
+        1,
+        4,
+        3
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.011092199330096112,
+      "tier_score": 0.01214468205445267,
+      "joint_selection_score": 0.020427124254331155
+    }
+  ],
+  "paper_only": true,
+  "calibrated_probability": false,
+  "automatic_promotion": false,
+  "pre_race": true,
+  "frozen": true,
+  "generated_at": "2026-11-26T19:11:28.941056+00:00",
+  "source_generated_at": "2026-11-26T19:10:08.846563+00:00",
+  "source_sha256": "d3a58fcd304ae0900d2d04ef6a7a7ff17c2313f0cbff05fe2765d45b24a0aaae",
+  "source_model_sha256": "2704d1ce9964a3365507595b70174dfc81959e8fc3009dbac4bdb98553454b2b",
+  "source_engine_sha256": "982945e8ad00a9670132db1851cf991b2d04e898aa9638566e81d683b5f92090",
+  "sales_close_at": "2026-11-27T12:52:00+09:00",
+  "start_at": "2026-11-27T12:57:00+09:00",
+  "identity_sha256": "c99b9fe97eaa95e4be328aa43fe9c403356c6997dfaa753be4108d22c5c6cf18",
+  "roster": {
+    "1": "14590",
+    "2": "14263",
+    "3": "15267",
+    "4": "14807",
+    "5": "13959",
+    "6": "15348",
+    "7": "15602"
+  },
+  "model_sha256": "de3893e135636f52048d7b0d70da08c7a677c78c14adea5d967cdbd496b786fa"
+}

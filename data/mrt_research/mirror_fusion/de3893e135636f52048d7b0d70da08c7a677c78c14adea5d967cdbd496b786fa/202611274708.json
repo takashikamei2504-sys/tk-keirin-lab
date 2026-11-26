@@ -1,0 +1,321 @@
+{
+  "schema": "tk-mrt-mirror-fusion/v1",
+  "race_id": "202611274708",
+  "date": "20261127",
+  "field_size": 7,
+  "model_training_through": "20260630",
+  "model_source_sha256": "a82d84fbc0d5fd70d258d34312b1ec9275bd60a4bb6f5ef70a40c3ce8b293b08",
+  "raw_predicted_tier_counts": {
+    "micro": 4.125950840879469,
+    "counter": 8.018509137399604,
+    "main": 2.5324225083142804
+  },
+  "tier_counts": {
+    "micro": 5,
+    "counter": 9,
+    "main": 3
+  },
+  "points": 17,
+  "budget_yen": 10000,
+  "first_allocations": [
+    {
+      "car": 7,
+      "yen": 4700
+    },
+    {
+      "car": 1,
+      "yen": 3700
+    },
+    {
+      "car": 3,
+      "yen": 1600
+    }
+  ],
+  "pair_allocations": [
+    {
+      "cars": [
+        7,
+        1
+      ],
+      "yen": 2300
+    },
+    {
+      "cars": [
+        1,
+        7
+      ],
+      "yen": 1700
+    },
+    {
+      "cars": [
+        1,
+        5
+      ],
+      "yen": 1600
+    },
+    {
+      "cars": [
+        7,
+        5
+      ],
+      "yen": 1500
+    },
+    {
+      "cars": [
+        3,
+        7
+      ],
+      "yen": 1300
+    },
+    {
+      "cars": [
+        7,
+        2
+      ],
+      "yen": 900
+    },
+    {
+      "cars": [
+        1,
+        2
+      ],
+      "yen": 400
+    },
+    {
+      "cars": [
+        3,
+        1
+      ],
+      "yen": 300
+    }
+  ],
+  "tickets": [
+    {
+      "cars": [
+        7,
+        1,
+        5
+      ],
+      "yen": 1000,
+      "tier": "main",
+      "hierarchy_score": 0.014744612643786442,
+      "tier_score": 0.0459804302219768,
+      "joint_selection_score": 0.07849186833819735
+    },
+    {
+      "cars": [
+        1,
+        5,
+        7
+      ],
+      "yen": 1000,
+      "tier": "main",
+      "hierarchy_score": 0.01512900443623181,
+      "tier_score": 0.03725480183849607,
+      "joint_selection_score": 0.0652545616241427
+    },
+    {
+      "cars": [
+        7,
+        1,
+        2
+      ],
+      "yen": 1000,
+      "tier": "main",
+      "hierarchy_score": 0.01576561886826847,
+      "tier_score": 0.034385215785322915,
+      "joint_selection_score": 0.06276261729096921
+    },
+    {
+      "cars": [
+        7,
+        2,
+        1
+      ],
+      "yen": 900,
+      "tier": "counter",
+      "hierarchy_score": 0.013356222357265423,
+      "tier_score": 0.009981931274404793,
+      "joint_selection_score": 0.020618930487341043
+    },
+    {
+      "cars": [
+        7,
+        5,
+        1
+      ],
+      "yen": 800,
+      "tier": "counter",
+      "hierarchy_score": 0.011820398880797453,
+      "tier_score": 0.013109794173787262,
+      "joint_selection_score": 0.02396602035013486
+    },
+    {
+      "cars": [
+        7,
+        5,
+        2
+      ],
+      "yen": 700,
+      "tier": "counter",
+      "hierarchy_score": 0.0124055677621316,
+      "tier_score": 0.012429548523480065,
+      "joint_selection_score": 0.02384733858200305
+    },
+    {
+      "cars": [
+        3,
+        7,
+        2
+      ],
+      "yen": 600,
+      "tier": "counter",
+      "hierarchy_score": 0.012839552556779628,
+      "tier_score": 0.01270972267803315,
+      "joint_selection_score": 0.025237938762423577
+    },
+    {
+      "cars": [
+        1,
+        7,
+        2
+      ],
+      "yen": 600,
+      "tier": "counter",
+      "hierarchy_score": 0.012806166736224986,
+      "tier_score": 0.011305374698208356,
+      "joint_selection_score": 0.02239092479814635
+    },
+    {
+      "cars": [
+        1,
+        5,
+        2
+      ],
+      "yen": 600,
+      "tier": "counter",
+      "hierarchy_score": 0.012692571596594353,
+      "tier_score": 0.011090310253983342,
+      "joint_selection_score": 0.02177014070917563
+    },
+    {
+      "cars": [
+        1,
+        7,
+        5
+      ],
+      "yen": 500,
+      "tier": "counter",
+      "hierarchy_score": 0.016141218911724122,
+      "tier_score": 0.01363212358120105,
+      "joint_selection_score": 0.03403045536603121
+    },
+    {
+      "cars": [
+        1,
+        2,
+        5
+      ],
+      "yen": 400,
+      "tier": "counter",
+      "hierarchy_score": 0.011247029006041532,
+      "tier_score": 0.012098893722715788,
+      "joint_selection_score": 0.02104511946755527
+    },
+    {
+      "cars": [
+        3,
+        7,
+        6
+      ],
+      "yen": 400,
+      "tier": "counter",
+      "hierarchy_score": 0.012812020632481904,
+      "tier_score": 0.009911667532724615,
+      "joint_selection_score": 0.01963958352042424
+    },
+    {
+      "cars": [
+        1,
+        7,
+        4
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.00818150325367197,
+      "tier_score": 0.009734772649598213,
+      "joint_selection_score": 0.01519493358999688
+    },
+    {
+      "cars": [
+        3,
+        1,
+        7
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.00959010946953644,
+      "tier_score": 0.0077932140063687715,
+      "joint_selection_score": 0.014258703971651422
+    },
+    {
+      "cars": [
+        3,
+        7,
+        5
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.009813951842479086,
+      "tier_score": 0.007371308516836455,
+      "joint_selection_score": 0.01380156695379514
+    },
+    {
+      "cars": [
+        7,
+        1,
+        4
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.008871202991868034,
+      "tier_score": 0.007889459082228786,
+      "joint_selection_score": 0.013352716571831945
+    },
+    {
+      "cars": [
+        1,
+        7,
+        3
+      ],
+      "yen": 300,
+      "tier": "micro",
+      "hierarchy_score": 0.007931102459475722,
+      "tier_score": 0.008713530717861968,
+      "joint_selection_score": 0.013184619857400926
+    }
+  ],
+  "paper_only": true,
+  "calibrated_probability": false,
+  "automatic_promotion": false,
+  "pre_race": true,
+  "frozen": true,
+  "generated_at": "2026-11-26T19:11:29.102169+00:00",
+  "source_generated_at": "2026-11-26T19:10:39.996915+00:00",
+  "source_sha256": "076069891f1dbcc568d6afe203ecc7508899803272acbb6eac5a93f0e29d3012",
+  "source_model_sha256": "2704d1ce9964a3365507595b70174dfc81959e8fc3009dbac4bdb98553454b2b",
+  "source_engine_sha256": "982945e8ad00a9670132db1851cf991b2d04e898aa9638566e81d683b5f92090",
+  "sales_close_at": "2026-11-27T18:43:00+09:00",
+  "start_at": "2026-11-27T18:48:00+09:00",
+  "identity_sha256": "3dab1747cbc2d78d695ad41d1d224d00d66a41e9739ad1c283b36743efe2f8e2",
+  "roster": {
+    "1": "14752",
+    "2": "14631",
+    "3": "15782",
+    "4": "14448",
+    "5": "14683",
+    "6": "12786",
+    "7": "14955"
+  },
+  "model_sha256": "de3893e135636f52048d7b0d70da08c7a677c78c14adea5d967cdbd496b786fa"
+}
