@@ -95,8 +95,10 @@ function renderRace(s,entry,r){
  txt("gate","E方式："+(s.decision?.no_buy?"見送り（"+(reason[s.decision.no_buy_reason]||"固定記録の見送り条件") +"）":"仮想購入対象")+" ／ ペア選択スコア "+(Number.isFinite(s.signals?.max_pair_signal)?s.signals.max_pair_signal.toFixed(4):"—")+" ／ 閾値 "+(s.decision?.gate??"—"));
  txt("provenance","レースID "+s.race_id+" ／ 固定 "+stamp(s.generated_at)+" ／ 締切 "+stamp(s.sales_close_at)+" ／ 検証ID "+s.protocol_id+" ／ モデル "+s.model_id+" ／ 学習期限 "+(s.training?.training_through||"—"));
  $("snapshot-link").href=base+"snapshots/"+s.race_id+".json";show("race-panel",true);renderTickets();
+ root.MrtOddsView?.render(s,entry);
 }
 async function loadRace(){
+ root.MrtOddsView?.clear();
  const token=++version,id=$("race").value;selected=null;state=null;show("race-panel",false);
  if(!ids.includes(id)){txt("status","該当する固定予想はありません。");return;}
  txt("status","固定予想を読み込んでいます。");
