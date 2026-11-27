@@ -3,7 +3,10 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
 const {chromium}=require('playwright');
 (async()=>{
  const id='202611263109',root=path.resolve('.');
- const item=JSON.parse(fs.readFileSync('data/mrt_odds/latest/'+id+'.json'));
+ const snapshot='135903766960-9c2260925601.json';
+ const quote=JSON.parse(fs.readFileSync('data/mrt_odds/snapshots/2026-11-26/'+id+'/'+snapshot));
+ const plan=JSON.parse(fs.readFileSync('data/mrt_odds/plans/2026-11-26/'+id+'/'+snapshot));
+ const item={schema:'tk-mrt-odds-latest/v1',race_id:id,identity_sha256:quote.identity_sha256,quote,plan};
  const clock=Date.parse(item.plan.generated_at)+1000;
  const server=http.createServer((req,res)=>{const p=path.resolve(root,'.'+decodeURIComponent(req.url.split('?')[0]));if(!p.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}try{res.setHeader('Content-Type',p.endsWith('.js')?'application/javascript':p.endsWith('.json')?'application/json':'text/html');res.end(fs.readFileSync(p));}catch(e){res.writeHead(404);res.end();}});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
