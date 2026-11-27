@@ -80,3 +80,8 @@ the GitHub Pages origin. No public collection or mutation endpoint exists.
 Health indicates process liveness; `/api/status` records collection health.
 The twenty-minute price validity guard remains in the browser. A successful
 healthcheck alone does not establish successful source collection.
+
+The primary scheduler is Railway. The previous Actions collector is manual
+recovery only; `micro-odds-backup.yml` pulls the last three JST days nightly
+into separate original JSON files. The UI tries the Railway API first, then
+the static archive, with the same identity and twenty-minute freshness checks.
