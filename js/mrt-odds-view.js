@@ -32,7 +32,10 @@ async function render(s,entry){
  clearTimeout(timer);active={s,entry};
  const current=++token;const panel=$('odds-panel');panel.hidden=false;$('odds-rows').replaceChildren();$('odds-summary').textContent='';$('odds-time').textContent='';$('odds-source').hidden=true;$('odds-state').textContent='定期オッズを確認しています。';
  try{
-  const response=await fetch('data/mrt_odds/latest/'+s.race_id+'.json',{cache:'no-store'});
+  let response;
+  try{response=await fetch('https://micro-odds-production.up.railway.app/api/latest/'+s.race_id+'.json',{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error('HTTP '+response.status);}
+  catch(e){response=await fetch('data/mrt_odds/latest/'+s.race_id+'.json',{cache:'no-store'});}
+
   const item=response.status===404?null:response.ok?await response.json():(()=>{throw Error('HTTP '+response.status)})();
   if(current!==token)return;
   const result=assess(item,s,entry);$('odds-state').textContent=result.reason;

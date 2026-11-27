@@ -2,6 +2,8 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import io
+import tarfile
 import threading
 import unittest
 from urllib.request import urlopen
@@ -28,6 +30,9 @@ class RuntimeTest(unittest.TestCase):
                     self.assertEqual(json.load(r),{'saved':True})
                     self.assertEqual(r.headers['Cache-Control'],'no-store')
                     self.assertEqual(r.headers['Access-Control-Allow-Origin'],m.ORIGIN)
+                with urlopen(base+'/api/archive/2026-11-27') as r:
+                    with tarfile.open(fileobj=io.BytesIO(r.read()),mode='r:gz') as archive:
+                        self.assertIn('data/mrt_odds/latest/202611271234.json',archive.getnames())
                 for path in ['/api/latest/../../runtime-status.json','/runtime-status.json','/api/trigger']:
                     with self.assertRaises(HTTPError) as ex:urlopen(base+path)
                     self.assertEqual(ex.exception.code,404)

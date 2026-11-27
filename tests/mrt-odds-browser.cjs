@@ -11,6 +11,7 @@ const {chromium}=require('playwright');
  try{
   browser=await chromium.launch({headless:true,...(process.env.ODDS_BROWSER_PATH?{executablePath:process.env.ODDS_BROWSER_PATH}:{})});
   const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.route('https://micro-odds-production.up.railway.app/api/latest/**',route=>route.fulfill({json:item}));
   await page.clock.install({time:clock});
   await page.goto('http://127.0.0.1:'+server.address().port+'/mrt-micro.html?race='+id);
   await page.waitForFunction(()=>document.getElementById('odds-state').textContent.includes('取得時点'));
