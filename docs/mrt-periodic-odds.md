@@ -63,3 +63,20 @@ rounding, pre-close identity changes, collection cadence and access denial.
 
 Run `python -m mrt.odds` for the current day. The collector writes only
 `data/mrt_odds`; it never rewrites the source MRT or MICRO snapshots.
+
+## Railway runtime
+
+`ops/micro_odds/Dockerfile` builds a Python standard-library service. Run one
+replica with `/data` on a persistent volume, sleeping disabled, port 8080 and
+healthcheck `/health`. It fetches the current public GitHub manifest, validates
+original identity, refreshes MICRO snapshots and reuses `mrt.odds` every 600
+seconds. A transient error gets one retry after 60 seconds; access denials wait
+for the next regular cycle. No GitHub credentials or betting credentials are
+required. Existing collection timestamps survive a restart.
+
+Read-only endpoints: `/api/status`, `/api/latest/RACEID.json`, and daily split
+file exports `/api/archive/YYYY-MM-DD` (tar.gz). The API sends no-store and permits
+the GitHub Pages origin. No public collection or mutation endpoint exists.
+Health indicates process liveness; `/api/status` records collection health.
+The twenty-minute price validity guard remains in the browser. A successful
+healthcheck alone does not establish successful source collection.

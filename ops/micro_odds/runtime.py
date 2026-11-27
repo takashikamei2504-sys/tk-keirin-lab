@@ -3,6 +3,8 @@ from datetime import timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
+import tempfile
+import tarfile
 from pathlib import Path
 import re
 import threading
@@ -97,6 +99,23 @@ def handler(runtime):
             if path=='/health':
                 alive=time.monotonic()-runtime.heartbeat<480
                 return self.send(200 if alive else 503,{'ok':alive})
+            if re.fullmatch(r'/api/archive/\d{4}-\d{2}-\d{2}',path):
+                day=path.rsplit('/',1)[1];root=runtime.root/'data/mrt_odds'
+                buffer=tempfile.TemporaryFile()
+                with tarfile.open(fileobj=buffer,mode='w:gz') as archive:
+                    for kind in ('snapshots','plans'):
+                        folder=root/kind/day
+                        for file in sorted(folder.glob('*/*.json')):
+                            archive.add(file,arcname=str(file.relative_to(runtime.root)),recursive=False)
+                    for file in sorted((root/'latest').glob(day.replace('-','')+'*.json')):
+                        archive.add(file,arcname=str(file.relative_to(runtime.root)),recursive=False)
+                size=buffer.tell();buffer.seek(0)
+                self.send_response(200);self.send_header('Content-Type','application/gzip')
+                self.send_header('Content-Length',str(size));self.send_header('Cache-Control','no-store');self.end_headers()
+                try:
+                    while chunk:=buffer.read(65536):self.wfile.write(chunk)
+                finally:buffer.close()
+                return
             if path=='/api/status':
                 p=runtime.status_path
             elif re.fullmatch(r'/api/latest/\d{12}\.json',path):
