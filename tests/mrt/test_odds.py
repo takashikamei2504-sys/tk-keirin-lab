@@ -109,6 +109,56 @@ class OddsTests(unittest.TestCase):
             self.assertEqual(len(list((root/'data/mrt_odds/snapshots').rglob('*.json'))),2)
             self.assertEqual(before,(root/'data/mrt_research/micro_forward/snapshots'/(p['race_id']+'.json')).read_bytes())
 
+    def test_cycle_cadence_survives_capture_phase_changes_and_retry(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory);p=self.seed(root);calls=[]
+            opts={'get':lambda url:(calls.append(url) or page()),'discover':lambda:{p['race_id']:URL}}
+            first=run(root,clock=lambda:AT+timedelta(seconds=20),cycle_started_at=AT,**opts)
+            # Next cycle reaches this race 18s earlier: capture age is only 582s.
+            second=run(root,clock=lambda:AT+timedelta(seconds=602),cycle_started_at=AT+timedelta(seconds=600),**opts)
+            self.assertEqual(second['counts']['quotes_saved'],1)
+            self.assertEqual(second['cadence']['observations'][0]['interval_seconds'],582)
+            # A retry/restart a minute later must reuse the persisted successful cycle.
+            retry=run(root,clock=lambda:AT+timedelta(seconds=662),cycle_started_at=AT+timedelta(seconds=660),**opts)
+            self.assertEqual(retry['counts']['recently_captured'],1)
+            # Sub-second scheduler jitter must not cost another entire cycle.
+            opts['get']=lambda url:(calls.append(url) or page().replace('11:59現在','12:19現在'))
+            third=run(root,clock=lambda:AT+timedelta(seconds=1232),cycle_started_at=AT+timedelta(seconds=1199.9),**opts)
+            self.assertEqual(third['counts']['quotes_saved'],1)
+            self.assertEqual(third['cadence']['observations'][0]['interval_seconds'],630)
+            self.assertEqual(len(calls),3)
+            self.assertEqual(len(list((root/'data/mrt_odds/snapshots').rglob('*.json'))),3)
+
+    def test_failed_race_retry_keeps_regular_cycle_anchor(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory);p=self.seed(root)
+            options={'discover':lambda:{p['race_id']:URL}}
+            run(root,clock=lambda:AT,get=lambda url:page(),cycle_started_at=AT,**options)
+            def failed(url):raise OSError('temporary network failure')
+            anchor=AT+timedelta(minutes=10)
+            failed_status=run(root,clock=lambda:anchor,get=failed,cycle_started_at=anchor,**options)
+            self.assertEqual(failed_status['counts']['failed'],1)
+            retried=run(root,clock=lambda:anchor+timedelta(minutes=1),get=lambda url:page(),cycle_started_at=anchor,**options)
+            self.assertEqual(retried['counts']['quotes_saved'],1)
+            # Next regular tick is 9 minutes after the retry capture, but a full cycle later.
+            next_tick=AT+timedelta(minutes=20)
+            saved=run(root,clock=lambda:next_tick,get=lambda url:page().replace('11:59現在','12:19現在'),cycle_started_at=next_tick,**options)
+            self.assertEqual(saved['counts']['quotes_saved'],1)
+            self.assertEqual(saved['cadence']['observations'][0]['interval_seconds'],540)
+
+    def test_legacy_capture_guard_and_cadence_overdue_monitor(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory);p=self.seed(root)
+            opts={'get':lambda url:page(),'discover':lambda:{p['race_id']:URL}}
+            run(root,clock=lambda:AT,**opts)
+            latest=root/'data/mrt_odds/latest'/(p['race_id']+'.json')
+            legacy=json.loads(latest.read_text());legacy.pop('collection_cycle_started_at');write(latest,legacy)
+            skipped=run(root,clock=lambda:AT+timedelta(seconds=60),**opts)
+            self.assertEqual(skipped['counts']['recently_captured'],1)
+            late=run(root,clock=lambda:AT+timedelta(seconds=780),**opts)
+            self.assertEqual(late['cadence']['overdue_races'],[p['race_id']])
+            self.assertEqual(late['cadence']['observations'][0]['interval_seconds'],780)
+
     def test_source_denial_stops_without_alternate_routes(self):
         with TemporaryDirectory() as directory:
             root=Path(directory);p=self.seed(root);calls=[]
