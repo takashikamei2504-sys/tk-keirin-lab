@@ -85,3 +85,26 @@ The primary scheduler is Railway. The previous Actions collector is manual
 recovery only; `micro-odds-backup.yml` pulls the last three JST days nightly
 into separate original JSON files. The UI tries the Railway API first, then
 the static archive, with the same identity and twenty-minute freshness checks.
+
+
+## Per-race cadence correction
+
+The runtime passes its cycle start captured before input synchronization to
+`mrt.odds.run`. Each successfully stored latest observation persists
+`collection_cycle_started_at`. Deduplication uses these cycle starts, with a
+one-second scheduler jitter tolerance. A faster input sync or shorter source
+request sequence therefore cannot turn the next 600-second cycle into a skip.
+Legacy records without the new field retain their capture-time dedup guard
+until their next successful observation. Retries and restarts reuse this
+persisted successful-cycle marker; a failed request does not advance it.
+
+Source `published_at` / `captured_at`, the 20-minute price expiry, close buffer,
+identity validation and price-aware plan policy are unchanged. `/api/status`
+now includes `cadence.observations`: each acquired race's previous and current
+capture times and actual `interval_seconds`. Gaps over 720 seconds are listed
+in `cadence.overdue_races`; failures remain visible in the collection errors.
+
+A transient retry reuses the original scheduled cycle start. Otherwise a
+one-minute retry would shift the successful-race marker and cause the next
+regular cycle (nine minutes later) to be skipped again. Status records both
+`cycle_started_at` and `attempt_started_at`.

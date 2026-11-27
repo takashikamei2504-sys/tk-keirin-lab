@@ -58,19 +58,19 @@ class Runtime:
             active.append(e)
         odds.write(self.root/base/'index.json',{**manifest,'races':active})
 
-    def cycle(self):
+    def cycle(self, cycle_started_at=None):
         if not self.lock.acquire(blocking=False):return None
-        started=odds.now()
+        started=odds.now();anchor=cycle_started_at or started
         try:
             self.sync(started)
-            status=self.collect(root=self.root,max_races=80,budget_seconds=360)
+            status=self.collect(root=self.root,max_races=80,budget_seconds=360,cycle_started_at=anchor)
         except HTTPError as ex:
             status={'state':'source_access_blocked' if ex.code in (401,403,429) else 'error','stop_reason':'upstream_http_'+str(ex.code)}
         except Exception as ex:
             status={'state':'error','stop_reason':type(ex).__name__+': '+str(ex)[:240]}
         finally:
             self.lock.release()
-        status={**status,'runtime':'railway','cycle_started_at':started.isoformat(),
+        status={**status,'runtime':'railway','cycle_started_at':anchor.isoformat(),'attempt_started_at':started.isoformat(),
                 'cycle_finished_at':odds.now().isoformat(),'interval_seconds':600}
         odds.write(self.status_path,status)
         print(json.dumps(status,ensure_ascii=False),flush=True)
@@ -83,7 +83,7 @@ class Runtime:
             result=self.cycle();self.heartbeat=time.monotonic()
             # One retry for transient failures. Never retry access denials early.
             if result and result['state'] in ('error','partial'):
-                if not self.stop.wait(60):self.cycle()
+                if not self.stop.wait(60):self.cycle(cycle_started_at=odds.stamp(result['cycle_started_at']))
             delay=max(1,600-(time.monotonic()-begin))
             # Heartbeat also advances while waiting, distinguishing idle from stuck.
             end=time.monotonic()+delay

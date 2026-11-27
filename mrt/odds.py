@@ -202,9 +202,13 @@ class Fetcher:
             if e.code in (401,403,429):raise PermissionError('source_access_blocked_'+str(e.code)) from e
             raise
 
-def run(root=ROOT,clock=now,get=None,discover=None,max_races=40,budget_seconds=240,name_feed=None):
+def run(root=ROOT,clock=now,get=None,discover=None,max_races=40,budget_seconds=240,name_feed=None,cycle_started_at=None):
     root=Path(root);started=clock();day=started.astimezone(JST).date().isoformat();dest=root/'data/mrt_odds'
     counts=Counter();errors=[];links=None;feed=None;fetcher=Fetcher();getter=get or fetcher.get
+    # Use the scheduler's stable cycle start, not variable per-race capture time.
+    cadence_at=cycle_started_at or started
+    if cadence_at.utcoffset() is None or cadence_at>started:raise ValueError('collection_cycle_time')
+    observations=[]
     # Discovery reuses the existing reviewed Kdreams date-to-race mapping.
     def default_discovery():
         from two_t import kdreams_results as k
@@ -214,12 +218,18 @@ def run(root=ROOT,clock=now,get=None,discover=None,max_races=40,budget_seconds=2
     stop=None;monotone=monotonic()
     try:
         for p in active_originals(root,started):
-            rid=p['race_id'];latest=dest/'latest'/(rid+'.json');current=clock()
+            rid=p['race_id'];latest=dest/'latest'/(rid+'.json');current=clock();prior=None
             if counts['requested']>=max_races or monotonic()-monotone>budget_seconds:counts['bounded_remaining']+=1;break
             if current>=stamp(p['sales_close_at'])-timedelta(seconds=POLICY['close_buffer_seconds']):counts['closed']+=1;continue
             if latest.exists():
                 prior=read(latest)
-                if prior.get('identity_sha256')==p['identity_sha256'] and current-stamp(prior['quote']['captured_at'])<timedelta(minutes=POLICY['interval_minutes']):counts['recently_captured']+=1;continue
+                if prior.get('identity_sha256')==p['identity_sha256']:
+                    previous_cycle=prior.get('collection_cycle_started_at')
+                    reference=stamp(previous_cycle or prior['quote']['captured_at'])
+                    # A one-second tolerance covers clock jitter, not source freshness.
+                    elapsed=(cadence_at-reference).total_seconds()
+                    if elapsed<POLICY['interval_minutes']*60-(1 if previous_cycle else 0):
+                        counts['recently_captured']+=1;continue
             try:
                 names=p['input'].get('names',{})
                 if set(names)!=set(p['input']['entry']['players']) or len(set(map(name,names.values())))!=len(names):
@@ -240,9 +250,14 @@ def run(root=ROOT,clock=now,get=None,discover=None,max_races=40,budget_seconds=2
                     except (ValueError,KeyError,TypeError) as e:reason=str(e)
                 else:reason='micro_not_yet_frozen'
                 item={'schema':'tk-mrt-odds-latest/v1','race_id':rid,'identity_sha256':p['identity_sha256'],
-                    'quote_path':str(path.relative_to(root)),'quote':q,'plan':decision,'unavailable_reason':reason}
+                    'quote_path':str(path.relative_to(root)),'quote':q,'plan':decision,'unavailable_reason':reason,
+                    'collection_cycle_started_at':cadence_at.isoformat()}
                 if decision:write(dest/'plans'/day/rid/(token+'.json'),decision,True);counts['plans_saved']+=1
                 write(latest,item);counts['quotes_saved']+=1
+                previous=prior['quote']['captured_at'] if prior and prior.get('identity_sha256')==p['identity_sha256'] else None
+                gap=(stamp(q['captured_at'])-stamp(previous)).total_seconds() if previous else None
+                observations.append({'race_id':rid,'previous_captured_at':previous,'captured_at':q['captured_at'],
+                                     'interval_seconds':round(gap,3) if gap is not None else None})
             except PermissionError as e:stop=str(e);break
             except (OSError,ValueError,KeyError,TypeError) as e:
                 counts['failed']+=1
@@ -251,7 +266,11 @@ def run(root=ROOT,clock=now,get=None,discover=None,max_races=40,budget_seconds=2
     except (OSError,ValueError,KeyError,TypeError) as e:stop=str(e)
     status={'schema':'tk-mrt-odds-status/v1','checked_at':clock().isoformat(),'date':day,'policy':POLICY,
         'state':'source_access_blocked' if stop and 'source_access_blocked' in stop else 'error' if stop else 'partial' if errors else 'ok',
-        'counts':dict(counts),'errors':errors,'stop_reason':stop}
+        'counts':dict(counts),'errors':errors,'stop_reason':stop,
+        'cadence':{'mode':'cycle-start-v1','cycle_started_at':cadence_at.isoformat(),
+            'target_seconds':POLICY['interval_minutes']*60,'overdue_after_seconds':720,
+            'observations':observations,'overdue_races':[r['race_id'] for r in observations
+                if r['interval_seconds'] is not None and r['interval_seconds']>720]}}
     write(dest/'status.json',status);return status
 
 def main():
